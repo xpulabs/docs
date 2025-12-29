@@ -38,4 +38,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           # 如果你想用自定义域名，取消下一行注释
-          cname: docs.xpulabs.com
+          # cname: docs.xpulabs.com
