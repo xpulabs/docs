@@ -4,6 +4,7 @@ set -e
 
 echo "开始构建文档..."
 
+mkdir -p docs
 cd polos-wch 
 mdbook build 
 cd ..
