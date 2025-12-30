@@ -7,3 +7,6 @@ title = "Polos WCH MCU开发板使用指南"
 
 [output.html]
 destination = "../docs/polos-wch"
+
+[output.html.fold]
+enable = false  # 是否允许折叠章节（默认 false）
