@@ -3,7 +3,7 @@ authors = ["peter"]
 language = "cn"
 multilingual = false
 src = "src"
-title = "Polos WCH MCU开发板使用指南"
+title = "Polos MCU开发板使用指南"
 
 [output.html]
 destination = "../docs/polos"
