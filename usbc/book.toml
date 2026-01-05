@@ -1,0 +1,13 @@
+[book]
+authors = ["peter"]
+language = "zh"
+multilingual = false
+src = "src"
+title = "USB-C"
+
+[build]
+build-dir = "../docs/usbc/"
+
+
+[output.html]
+sidebar = true  # 关键配置：强制显示侧边栏（禁用自动隐藏）

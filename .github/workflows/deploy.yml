@@ -28,6 +28,9 @@ jobs:
       - name: Build polos mdbook
         run: cd polos && mdbook build
 
+      - name: Build usbc mdbook
+        run: cd usbc && mdbook build
+
       - name: 复制文件index.html到docs目录
         run: |
           cp index.html docs/index.html
