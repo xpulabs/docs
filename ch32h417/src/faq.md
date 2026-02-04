@@ -56,7 +56,9 @@
 ## FAQ003 - GPIO的电平为什么不对
 
 CH32H417内部集成了可调输出电压的LDO，用于给VIO_18的网络供电，在XO脚上接下拉100K，会输出1.2V, 浮空会输出1.8V，接下拉330K，会输出2.5V.
-可以通过软件来配置LDO的输出电压，具体方法如下：
+
+
+![](static/images/2026-02-04-19-33-43-image.png)可以通过软件来配置LDO的输出电压，具体方法如下：
 
 ```C
     RCC_HB1PeriphClockCmd(RCC_HB1Periph_PWR, ENABLE);
