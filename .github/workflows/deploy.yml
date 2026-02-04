@@ -28,8 +28,8 @@ jobs:
       - name: Build polos mdbook
         run: cd polos && mdbook build
 
-      - name: Build usbc mdbook
-        run: cd usbc && mdbook build
+      - name: Build ch32h417 mdbook
+        run: cd ch32h417 && mdbook build
 
       - name: 复制文件index.html到docs目录
         run: |

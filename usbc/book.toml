@@ -3,10 +3,10 @@ authors = ["peter"]
 language = "zh"
 multilingual = false
 src = "src"
-title = "USB-C"
+title = "CH32H417系列开发板使用手册"
 
 [build]
-build-dir = "../docs/usbc/"
+build-dir = "../docs/ch32h417/"
 
 
 [output.html]
