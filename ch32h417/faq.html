@@ -173,21 +173,34 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="faq001---到哪里下载开发板的sdk"><a class="header" href="#faq001---到哪里下载开发板的sdk">FAQ001 - 到哪里下载开发板的SDK</a></h1>
+                        <h2 id="faq001---到哪里下载开发板的sdk"><a class="header" href="#faq001---到哪里下载开发板的sdk">FAQ001 - 到哪里下载开发板的SDK</a></h2>
 <p>您可以在WCH官方网站下载CH32H417Q开发板的SDK。</p>
-<p>访问以下链接获取最新的SDK版本与技术手册：
-<a href="https://www.wch.cn/downloads/CH32H417EVT_ZIP.html">WCH CH32H417Q SDK</a>
-<a href="https://www.wch.cn/downloads/CH32H417RM_PDF.html">WCH CH32H417Q 技术手册</a></p>
-<p>推荐使用MounRiver Studio II作为开发环境，它提供了对CH32H417Q开发板的完整支持。
-<a href="https://www.mounriver.com/download.html">MounRiver Studio II IDE</a></p>
-<h1 id="faq002---开发板第一次下载固件总是失败"><a class="header" href="#faq002---开发板第一次下载固件总是失败">FAQ002 - 开发板第一次下载固件总是失败</a></h1>
-<p>当你收到板子后，想烧录一个点灯的程序，发现无论如何都烧录不了，这是为什么？
-原因是已经烧录了USB3.0的测试程序，程序中会禁用SWD接口，因为这个PB8，PB9是与USB3.0接口上HS的D+/D-是复用的。</p>
+<p>访问以下链接获取最新的SDK版本与技术手册：</p>
+<ul>
+<li><a href="https://www.wch.cn/downloads/CH32H417EVT_ZIP.html">WCH CH32H417Q SDK</a></li>
+<li><a href="https://www.wch.cn/downloads/CH32H417RM_PDF.html">WCH CH32H417Q 技术手册</a></li>
+</ul>
+<p>推荐使用MounRiver Studio II作为开发环境，它提供了对CH32H417Q开发板的完整支持。</p>
+<ul>
+<li><a href="https://www.mounriver.com/download.html">MounRiver Studio II IDE</a></li>
+</ul>
+<h2 id="faq002---开发板第一次下载固件总是失败"><a class="header" href="#faq002---开发板第一次下载固件总是失败">FAQ002 - 开发板第一次下载固件总是失败</a></h2>
+<p>当你收到板子后，想烧录一个点灯的程序，发现无论如何都烧录不了，这是为什么？</p>
+<p>原因是已经烧录了USB3.0的测试程序，程序中会禁用SWD接口，因为这个PB8，PB9(SWDIO，SWCLK)是与USB3.0接口上HS的D+/D-是复用的。
+所以在USB3.0程序初始化时使用下面的代码禁用了SWD接口。</p>
 <pre><code class="language-c">    /* Disable SWD */
     RCC_HB2PeriphClockCmd(RCC_HB2Periph_AFIO | RCC_HB2Periph_GPIOB, ENABLE);
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
 </code></pre>
-<p>解决办法：</p>
+<p>解决办法：使用WCH LINK-E调试器将Code Flash擦除。
+具体步骤如下：</p>
+<ol>
+<li>连接WCH LINK-E调试器到开发板的SWD接口，并通过调试器供电。</li>
+<li>打开MounRiver Studio II IDE，选择“下载”-&gt;“下载配置”</li>
+<li>在“Erase Code Flash”选项中，选择“By Power off”, 点击“应用”。下面对话框中会显示成功。</li>
+<li>拔掉WCH LINK-E调试器给开发板断电，然后重新连接调试器给开发板上电。</li>
+<li>再使用MounRiver Studio II IDE烧录固件，应该就可以成功了。</li>
+</ol>
 
                     </main>
 
