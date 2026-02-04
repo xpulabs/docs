@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Chapter 1 - CH32H417系列开发板使用手册</title>
+        <title>FAQ - 常见问题 - CH32H417系列开发板使用手册</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="faq.html" class="active">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,7 +173,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <h1 id="faq001---到哪里下载开发板的sdk"><a class="header" href="#faq001---到哪里下载开发板的sdk">FAQ001 - 到哪里下载开发板的SDK</a></h1>
+<p>您可以在WCH官方网站下载CH32H417Q开发板的SDK。</p>
+<p>访问以下链接获取最新的SDK版本与技术手册：
+<a href="https://www.wch.cn/downloads/CH32H417EVT_ZIP.html">WCH CH32H417Q SDK</a>
+<a href="https://www.wch.cn/downloads/CH32H417RM_PDF.html">WCH CH32H417Q 技术手册</a></p>
+<p>推荐使用MounRiver Studio II作为开发环境，它提供了对CH32H417Q开发板的完整支持。
+<a href="https://www.mounriver.com/download.html">MounRiver Studio II IDE</a></p>
+<h1 id="faq002---开发板第一次下载固件总是失败"><a class="header" href="#faq002---开发板第一次下载固件总是失败">FAQ002 - 开发板第一次下载固件总是失败</a></h1>
+<p>当你收到板子后，想烧录一个点灯的程序，发现无论如何都烧录不了，这是为什么？
+原因是已经烧录了USB3.0的测试程序，程序中会禁用SWD接口，因为这个PB8，PB9是与USB3.0接口上HS的D+/D-是复用的。</p>
+<pre><code class="language-c">    /* Disable SWD */
+    RCC_HB2PeriphClockCmd(RCC_HB2Periph_AFIO | RCC_HB2Periph_GPIOB, ENABLE);
+    GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
+</code></pre>
+<p>解决办法：</p>
 
                     </main>
 
