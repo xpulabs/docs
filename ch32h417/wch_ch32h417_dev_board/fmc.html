@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>FMC - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html" class="active"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417-灵活存储控制器fmc教程"><a class="header" href="#ch32h417-灵活存储控制器fmc教程">CH32H417 灵活存储控制器（FMC）教程</a></h1>
+<p>本教程专为 CH32H417 微控制器的灵活存储控制器（FMC）设计，适用于嵌入式开发工程师快速掌握 FMC 的工作原理、模块功能、配置方法及实操注意事项，助力快速实现外部存储器（SDRAM、NAND Flash、NOR/PSRAM 等）的扩展与应用开发。</p>
+<p>FMC 是 CH32H417 微控制器中用于管理外部存储器的核心模块，核心作用是匹配外部存储器的访问时序，将 HB 总线事务转换为外部设备可识别的通信协议，支持多种类型存储器的扩展，且各存储器共享地址、数据和控制信号，通过独立片选信号实现分时访问。</p>
+<h1 id="第一章fmc-基础认知"><a class="header" href="#第一章fmc-基础认知">第一章：FMC 基础认知</a></h1>
+<h2 id="11-核心定位与适用范围"><a class="header" href="#11-核心定位与适用范围">1.1 核心定位与适用范围</a></h2>
+<p>FMC（Flexible Memory Controller，灵活存储控制器）仅适用于 CH32H417 系列微控制器，主要用于扩展外部存储器，解决 CPU 与外部存储设备之间的时序匹配、数据传输等问题，支持的外部存储器类型包括：</p>
+<ul>
+<li>
+<p>同步 DRAM：SDRAM、Mobile LPSDR SDRAM</p>
+</li>
+<li>
+<p>静态存储器：SRAM、PSRAM、NOR Flash、OneNAND Flash</p>
+</li>
+<li>
+<p>NAND Flash：支持带硬件 ECC 校验的 NAND Flash（可检查多达 8KB 数据）</p>
+</li>
+</ul>
+<h2 id="12-主要特征"><a class="header" href="#12-主要特征">1.2 主要特征</a></h2>
+<p>FMC 的核心特征决定了其灵活的存储扩展能力，关键特征如下：</p>
+<ul>
+<li>
+<p>总线宽度灵活：支持 8 位、16 位或 32 位宽的存储器数据总线，适配不同规格的外部存储设备。</p>
+</li>
+<li>
+<p>独立配置能力：每个存储区域可独立配置时序、模式，且拥有独立片选控制，支持多设备同时连接。</p>
+</li>
+<li>
+<p>FIFO 缓存支持：内置 16×32 位深度写 FIFO；SDRAM 控制器额外支持 6×32 位深度读 FIFO（带 6×14 位地址标记），提升数据传输效率。</p>
+</li>
+<li>
+<p>时序可编程：支持外部异步等待控制，可编程连续时钟输出，适配不同速度的外部存储器。</p>
+</li>
+<li>
+<p>突发模式支持：可快速访问同步设备（NOR Flash、PSRAM、SDRAM），提升数据读写速度。</p>
+</li>
+<li>
+<p>错误检测与处理：支持 HB 总线错误检测，针对 DMA 访问、地址越界、写保护等场景触发相应错误处理。</p>
+</li>
+</ul>
+<h2 id="13-整体结构"><a class="header" href="#13-整体结构">1.3 整体结构</a></h2>
+<p>FMC 由 4 个核心模块组成，各模块协同工作实现外部存储器的管理，结构如下：</p>
+<ol>
+<li>
+<p>HB 接口：作为 FMC 与 CPU、其他 HB 总线主设备的通信桥梁，将 HB 事务转换为外部设备协议，处理数据宽度匹配、地址映射等。</p>
+</li>
+<li>
+<p>SDRAM 控制器：专门管理 SDRAM/Mobile LPSDR SDRAM，负责 SDRAM 的初始化、时序控制、刷新、低功耗模式等。</p>
+</li>
+<li>
+<p>NAND 控制器：管理 NAND Flash，支持 ECC 纠错、预等待功能，处理 NAND Flash 的命令、地址和数据传输。</p>
+</li>
+<li>
+<p>NOR/PSRAM/SRAM 控制器：管理 NOR Flash、PSRAM、SRAM 等静态存储器，负责时序配置、读写控制等。</p>
+</li>
+</ol>
+<p>各模块通过共享信号（地址线、数据线）和独立控制信号（片选、时钟等），实现对不同类型外部存储器的分时访问，FMC 一次仅能访问一个外部设备。</p>
+<h1 id="第二章hb-接口详解"><a class="header" href="#第二章hb-接口详解">第二章：HB 接口详解</a></h1>
+<p>HB 从设备接口是 FMC 与微控制器内部总线的核心连接部分，负责数据传输的转换与适配，是 FMC 正常工作的基础。</p>
+<h2 id="21-核心功能"><a class="header" href="#21-核心功能">2.1 核心功能</a></h2>
+<ul>
+<li>
+<p>事务转换：将 CPU 或其他 HB 主设备的访问事务（读/写）转换为外部存储器可识别的协议。</p>
+</li>
+<li>
+<p>数据宽度适配：当 HB 事务数据宽度与外部存储器宽度不匹配时，自动拆分或调整事务，确保数据传输正确。</p>
+</li>
+<li>
+<p>错误检测：在特定场景下生成 HB 错误，触发相应的错误处理（如 DMA 传输错误、地址越界错误等）。</p>
+</li>
+</ul>
+<h2 id="22-事务规则重点"><a class="header" href="#22-事务规则重点">2.2 事务规则（重点）</a></h2>
+<p>HB 事务数据宽度（8/16/32/256 位）与外部存储器宽度可能存在差异，需遵循以下规则避免数据传输异常：</p>
+<ol>
+<li>
+<p>宽度相等：HB 事务宽度与存储器宽度一致时，正常传输，无额外操作。</p>
+</li>
+<li>
+<p>HB 宽度大于存储器宽度：FMC 将 HB 事务拆分为多个连续的、与存储器宽度匹配的访问，拆分期间片选信号（FMC_NEx）不翻转（扩展模式 D 除外）。</p>
+</li>
+<li>
+<p>HB 宽度小于存储器宽度：根据外部设备类型处理：</p>
+<ul>
+<li>
+<p>支持字节选择的设备（SRAM、PSRAM、SDRAM）：通过 NBL[1:0] 字节选择通道访问正确数据，读取时会读取全部字节并丢弃无效部分。</p>
+</li>
+<li>
+<p>不支持字节选择的设备（NOR、NAND Flash）：仅允许读事务（读取全部字并提取所需字节），禁止写事务（因无法单独写入单个字节）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="23-hb-错误场景"><a class="header" href="#23-hb-错误场景">2.3 HB 错误场景</a></h2>
+<p>以下情况会触发 FMC 产生 HB 错误，错误影响取决于发起访问的 HB 主设备：</p>
+<ul>
+<li>
+<p>访问未使能的 FMC 存储区域。</p>
+</li>
+<li>
+<p>访问 SDRAM 保留地址范围（地址越界）。</p>
+</li>
+<li>
+<p>向写保护的 SDRAM 区域（R32_FMC_SDCRx 寄存器 WP 位置 1）写入数据。</p>
+</li>
+<li>
+<p>R32_FMC_BCRx 寄存器 FACCEN 位复位时，读写 NOR Flash 区域。</p>
+</li>
+</ul>
+<p>补充：若 HB 主设备为 DMA，触发错误后会生成 DMA 传输错误，并自动禁用对应 DMA 通道。</p>
+<h1 id="第三章外部器件地址映射"><a class="header" href="#第三章外部器件地址映射">第三章：外部器件地址映射</a></h1>
+<p>FMC 将外部存储器划分为多个固定大小的存储区域，每个区域对应特定类型的存储器，地址范围固定，可通过寄存器配置调整映射关系，是外部存储器访问的核心前提。</p>
+<h2 id="31-默认地址映射重点"><a class="header" href="#31-默认地址映射重点">3.1 默认地址映射（重点）</a></h2>
+<p>FMC 外部存储区域按 256MB 固定大小划分，默认映射关系如下（地址范围均为十六进制）：</p>
+<div class="table-wrapper"><table><thead><tr><th>存储区域</th><th>地址范围</th><th>支持的存储器类型</th><th>备注</th></tr></thead><tbody>
+<tr><td>Bank 1</td><td>0X6000 0000 - 0X6FFF FFFF</td><td>NOR/PSRAM</td><td>分为 4 个子区域，各有独立片选</td></tr>
+<tr><td>Bank 2</td><td>0X7000 0000 - 0X7FFF FFFF</td><td>FMC 未使用</td><td>预留区域，不可用于外部存储</td></tr>
+<tr><td>Bank 3</td><td>0X8000 0000 - 0X8FFF FFFF</td><td>NAND Flash</td><td>需软件配置 MPU 存储器特性</td></tr>
+<tr><td>Bank 4</td><td>0X9000 0000 - 0X9FFF FFFF</td><td>FMC 未使用</td><td>预留区域，不可用于外部存储</td></tr>
+<tr><td>SDRAM Bank 1</td><td>0XC000 0000 - 0XCFFF FFFF</td><td>SDRAM</td><td>独立配置，支持单独初始化</td></tr>
+<tr><td>SDRAM Bank 2</td><td>0XD000 0000 - 0XDFFF FFFF</td><td>SDRAM</td><td>独立配置，支持单独初始化</td></tr>
+</tbody></table>
+</div>
+<h2 id="32-地址映射调整"><a class="header" href="#32-地址映射调整">3.2 地址映射调整</a></h2>
+<p>可通过 R32_FMC_BCR1 寄存器中的 BMP[1:0] 位，修改 NOR/PSRAM 与 SDRAM 存储区域的映射关系，支持两种映射模式（默认 BMP[1:0]=00）：</p>
+<div class="table-wrapper"><table><thead><tr><th>地址范围（十六进制）</th><th>BMP[1:0]=00（默认）</th><th>BMP[1:0]=01（交换映射）</th></tr></thead><tbody>
+<tr><td>0x60000000 - 0x6FFFFFFF</td><td>NOR/PSRAM 存储区域</td><td>SDRAM 存储区域 1</td></tr>
+<tr><td>0x80000000 - 0x8FFFFFFF</td><td>NAND 存储区域</td><td>NAND 存储区域（不变）</td></tr>
+<tr><td>0xC0000000 - 0xCFFFFFFF</td><td>SDRAM 存储区域 1</td><td>NOR/PSRAM 存储区域</td></tr>
+<tr><td>0xD0000000 - 0xDFFFFFFF</td><td>SDRAM 存储区域 2</td><td>SDRAM 存储区域 2（不变）</td></tr>
+</tbody></table>
+</div>
+<h2 id="33-细分地址映射"><a class="header" href="#33-细分地址映射">3.3 细分地址映射</a></h2>
+<h3 id="331-norpsram-地址映射"><a class="header" href="#331-norpsram-地址映射">3.3.1 NOR/PSRAM 地址映射</a></h3>
+<p>Bank 1（NOR/PSRAM 区域）分为 4 个子区域，由 HADDR[27:26] 位选择，HADDR[25:0] 为外部存储器地址，实际发送的地址会根据存储器宽度调整：</p>
+<div class="table-wrapper"><table><thead><tr><th>HADDR[27:26]</th><th>选择的子区域</th><th>存储器宽度</th><th>发送到存储器的地址</th><th>最大容量</th></tr></thead><tbody>
+<tr><td>00</td><td>Bank 1 NOR/PSRAM1</td><td>8 位</td><td>HADDR[25:0]</td><td>512Mb（64MB×8）</td></tr>
+<tr><td>01</td><td>Bank 1 NOR/PSRAM2</td><td>16 位</td><td>HADDR[25:1] &gt;&gt; 1</td><td>512Mb（32MB×16）</td></tr>
+<tr><td>10</td><td>Bank 1 NOR/PSRAM3</td><td>32 位</td><td>HADDR[25:2] &gt;&gt; 2</td><td>512Mb（16MB×32）</td></tr>
+<tr><td>11</td><td>Bank 1 NOR/PSRAM4</td><td>-</td><td>同对应宽度规则</td><td>-</td></tr>
+</tbody></table>
+</div>
+<h3 id="332-nand-flash-地址映射"><a class="header" href="#332-nand-flash-地址映射">3.3.2 NAND Flash 地址映射</a></h3>
+<p>NAND Flash 映射在 Bank 3 区域，访问时需通过特定地址区分命令、地址和数据传输，核心分为两个空间：</p>
+<ul>
+<li>
+<p>通用存储器空间：用于发送 NAND Flash 命令、地址和读取数据，时序由 R32_FMC_PMEM 寄存器配置。</p>
+</li>
+<li>
+<p>特性存储器空间：用于实现 NAND Flash 预等待功能，时序由 R32_FMC_PATT 寄存器配置，仅在写入最后一个地址字节时使用。</p>
+</li>
+</ul>
+<h1 id="第四章nand-flash-控制器实操"><a class="header" href="#第四章nand-flash-控制器实操">第四章：NAND Flash 控制器实操</a></h1>
+<p>NAND Flash 控制器负责 NAND Flash 的命令、地址、数据传输及 ECC 纠错，是 FMC 中最常用的模块之一，以下重点讲解实操流程、关键功能及寄存器配置。</p>
+<h2 id="41-核心功能"><a class="header" href="#41-核心功能">4.1 核心功能</a></h2>
+<ul>
+<li>
+<p>命令与地址传输：支持 NAND Flash 命令（如读页、写页）和地址（起始地址）的发送，适配不同容量 NAND Flash 的地址长度。</p>
+</li>
+<li>
+<p>预等待功能：支持非“CE 无关”NAND Flash 的时序适配，确保地址写入后满足 tWB 时序要求。</p>
+</li>
+<li>
+<p>ECC 纠错：内置两个 ECC 计算模块（对应 Bank 2、Bank 3），可修正 1 位错误、检测 2 位错误，减少 CPU 负担。</p>
+</li>
+<li>
+<p>FIFO 管理：通过 FIFO 状态寄存器监控 FIFO 空满状态，支持中断触发（下降沿、高电平、上升沿）。</p>
+</li>
+</ul>
+<h2 id="42-典型操作流程读页为例"><a class="header" href="#42-典型操作流程读页为例">4.2 典型操作流程（读页为例）</a></h2>
+<p>以 NAND Flash 读页操作为例，完整流程如下（需提前配置相关寄存器）：</p>
+<ol>
+<li>
+<p>配置 R32_FMC_PCR、R32_FMC_PMEM（通用时序）、R32_FMC_PATT（特性时序）寄存器，使能 NAND Flash 存储区域（PBKEN 位置 1）。</p>
+</li>
+<li>
+<p>CPU 向通用存储器空间写入 NAND Flash 命令字节（如 Samsung NAND Flash 读命令 0x00），此时 LE 输入有效，锁存命令。</p>
+</li>
+<li>
+<p>向通用/特性存储器空间写入读操作起始地址（STARTAD[7:0]、STARTAD[16:9]、STARTAD[24:17]、STARTAD[25]，根据容量写入 3~4 字节），ALE 输入有效，锁存地址。</p>
+</li>
+<li>
+<p>等待 NAND Flash 准备就绪（R/NB 信号为高电平），等待期间 NCE 信号保持有效（低电平）。</p>
+</li>
+<li>
+<p>CPU 从通用存储器空间执行字节读操作，读取 NAND Flash 页数据（数据字段 + 备用字段）。</p>
+</li>
+<li>
+<p>如需读取下一页，可重复步骤 5（连续读）、重新发送地址（随机读）或重新发送命令（新操作）。</p>
+</li>
+</ol>
+<h2 id="43-ecc-纠错操作流程"><a class="header" href="#43-ecc-纠错操作流程">4.3 ECC 纠错操作流程</a></h2>
+<p>ECC 纠错用于确保 NAND Flash 读写数据的准确性，操作流程如下：</p>
+<ol>
+<li>
+<p>使能 ECC 计算：将 R32_FMC_PCR 寄存器中的 ECCEN 位置 1，配置 ECCPS[2:0] 位（对应 NAND Flash 页大小）。</p>
+</li>
+<li>
+<p>写入数据：将数据写入 NAND Flash 页，ECC 模块自动计算 ECC 值。</p>
+</li>
+<li>
+<p>读取并存储 ECC 值：读取 R32_FMC_ECCR 寄存器，将计算出的 ECC 值存入变量。</p>
+</li>
+<li>
+<p>回读数据：将 ECCEN 位清零后重新使能，从 NAND Flash 页回读数据，ECC 模块重新计算 ECC 值。</p>
+</li>
+<li>
+<p>校验 ECC 值：对比两次读取的 ECC 值，若一致则数据无误；若不一致则存在错误，通过软件校正例程判断是否可修正。</p>
+</li>
+</ol>
+<h2 id="44-关键寄存器配置重点"><a class="header" href="#44-关键寄存器配置重点">4.4 关键寄存器配置（重点）</a></h2>
+<p>NAND Flash 相关寄存器共 5 个，核心配置如下：</p>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址</th><th>核心配置要点</th><th>复位值</th></tr></thead><tbody>
+<tr><td>R32_FMC_PCR</td><td>0x40025480</td><td>1. ECCEN：ECC 计算使能（1=使能）；2. PWID[1:0]：配置数据总线宽度（00=8 位，01=16 位）；3. PTYP：存储器类型（1=NAND Flash）；4. PBKEN：存储区域使能（1=使能）；5. ECCPS[2:0]：配置 ECC 页大小。</td><td>0x00000018</td></tr>
+<tr><td>R32_FMC_SR</td><td>0x40025484</td><td>1. FEMPT：FIFO 空状态（1=空）；2. IFEN/ILEN/IREN：中断检测使能；3. IFS/ILS/IRS：中断状态（写 0 清除）。</td><td>0x00000040</td></tr>
+<tr><td>R32_FMC_PMEM</td><td>0x40025488</td><td>配置通用存储器空间时序：MEMSET（建立时间）、MEMWAIT（等待时间）、MEMHOLD（保持时间）、MEMHIZ（高阻态时间）。</td><td>0xFCFCFCFC</td></tr>
+<tr><td>R32_FMC_PATT</td><td>0x4002548C</td><td>配置特性存储器空间时序：ATTSET、ATTWAIT、ATTHOLD、ATTHIZ，用于预等待功能。</td><td>0xFCFCFCFC</td></tr>
+<tr><td>R32_FMC_ECCR</td><td>0x40025494</td><td>存储 ECC 计算结果，根据 ECCPS[2:0] 位输出不同位数的 ECC 值（只读）。</td><td>0x00000000</td></tr>
+</tbody></table>
+</div>
+<h1 id="第五章sdram-控制器实操"><a class="header" href="#第五章sdram-控制器实操">第五章：SDRAM 控制器实操</a></h1>
+<p>SDRAM 控制器负责 SDRAM 的初始化、时序控制、刷新、低功耗管理等，支持两个独立的 SDRAM 存储区域，实操核心是初始化序列和时序配置。</p>
+<h2 id="51-主要特征"><a class="header" href="#51-主要特征">5.1 主要特征</a></h2>
+<p>SDRAM 控制器的核心特征的决定了其高速、灵活的访问能力，重点关注：</p>
+<ul>
+<li>
+<p>支持 8/16/32 位数据总线，13 位行地址、11 位列地址，4 个内部存储区域，最大支持 256MB 容量。</p>
+</li>
+<li>
+<p>时序可编程：支持 CAS 延迟（1/2/3 个周期），可编程 TRCD、TRP、TRC 等关键时序参数。</p>
+</li>
+<li>
+<p>低功耗模式：支持自刷新模式和掉电模式，降低系统功耗。</p>
+</li>
+<li>
+<p>读 FIFO 缓存：6×32 位深度，支持突发读和多存储区域乒乓访问，提升读取效率。</p>
+</li>
+<li>
+<p>自动刷新：可编程刷新速率，支持刷新错误检测和中断。</p>
+</li>
+</ul>
+<h2 id="52-sdram-初始化序列重点"><a class="header" href="#52-sdram-初始化序列重点">5.2 SDRAM 初始化序列（重点）</a></h2>
+<p>SDRAM 上电后必须通过软件完成初始化，才能正常接受访问，初始化序列如下（以两个 SDRAM 存储区域为例）：</p>
+<ol>
+<li>
+<p>配置控制寄存器：将 SDRAM 设备特性（总线宽度、行/列地址位数、CAS 延迟等）编程到 R32_FMC_SDCR1/2 寄存器；将 SDRAM 时钟（SDCLK）、RBURST、RPIPE 配置到 R32_FMC_SDCR1 寄存器。</p>
+</li>
+<li>
+<p>配置时序寄存器：将 SDRAM 时序参数（TRCD、TRP、TRC、TWR 等）编程到 R32_FMC_SDTR1/2 寄存器；TRP、TRC 仅在 R32_FMC_SDTR1 中配置（取两个设备中最慢的时序）。</p>
+</li>
+<li>
+<p>时钟使能：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 001，配置 CTB1、CTB2 位（目标存储区域），开始为 SDRAM 提供时钟（SDCKE 置高）。</p>
+</li>
+<li>
+<p>等待延迟：等待至少 100us（典型值），确保 SDRAM 稳定。</p>
+</li>
+<li>
+<p>全部预充电：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 010，配置 CTB1、CTB2 位，发送“全部预充电”命令。</p>
+</li>
+<li>
+<p>自动刷新：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 011，配置 CTB1、CTB2 位和 NRFS[3:0]（自动刷新次数），发送自动刷新命令。</p>
+</li>
+<li>
+<p>加载模式寄存器：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 100，配置 CTB1、CTB2 位和 MRD 字段（模式寄存器内容），发送“加载模式寄存器”命令；若两个 SDRAM 模式不同，需分别配置。</p>
+</li>
+<li>
+<p>配置刷新速率：编程 R32_FMC_SDRTR 寄存器中的 COUNT 值，设置 SDRAM 刷新周期。</p>
+</li>
+</ol>
+<p>补充：系统复位后，需重新初始化 SDRAM，避免数据总线异常。</p>
+<h2 id="53-低功耗模式配置"><a class="header" href="#53-低功耗模式配置">5.3 低功耗模式配置</a></h2>
+<p>SDRAM 控制器支持两种低功耗模式，可根据系统需求配置：</p>
+<h3 id="531-自刷新模式"><a class="header" href="#531-自刷新模式">5.3.1 自刷新模式</a></h3>
+<ul>
+<li>
+<p>进入：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 101，配置 CTB1、CTB2 位；控制器自动发送 PALL 命令，TRAS 延迟后停止 SDCLK，SDRAM 自身执行刷新。</p>
+</li>
+<li>
+<p>退出：将 MODE[2:0] 置为 000，配置 CTB1、CTB2 位；控制器生成命令序列，退出后 SDRAM 恢复正常模式。</p>
+</li>
+<li>
+<p>特点：SDRAM 自身维持刷新，无需外部时钟，功耗低，适用于系统低功耗场景。</p>
+</li>
+</ul>
+<h3 id="532-掉电模式"><a class="header" href="#532-掉电模式">5.3.2 掉电模式</a></h3>
+<ul>
+<li>
+<p>进入：将 R32_FMC_SDCMR 寄存器 MODE[2:0] 置为 110，配置 CTB1、CTB2 位；控制器先发送 FIFO 中未完成的数据，再进入掉电模式。</p>
+</li>
+<li>
+<p>退出：将 MODE[2:0] 置为 000，配置 CTB1、CTB2 位；控制器立即退出掉电模式，恢复正常访问。</p>
+</li>
+<li>
+<p>特点：SDRAM 输入/输出缓冲区禁用，控制器定期退出掉电模式执行刷新，功耗略高于自刷新模式。</p>
+</li>
+</ul>
+<h2 id="54-关键寄存器配置重点"><a class="header" href="#54-关键寄存器配置重点">5.4 关键寄存器配置（重点）</a></h2>
+<p>SDRAM 相关寄存器共 8 个，核心配置如下（重点关注常用寄存器）：</p>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址</th><th>核心配置要点</th><th>复位值</th></tr></thead><tbody>
+<tr><td>R32_FMC_SDCR1/2</td><td>0x40025540/0x40025544</td><td>1. SDCLK[1:0]：SDRAM 时钟配置（01=HCLK，10=2×HCLK，11=3×HCLK）；2. CAS[1:0]：CAS 延迟（01=1，10=2，11=3）；3. MWID[1:0]：数据总线宽度；4. NR/NC[1:0]：行/列地址位数；5. WP：写保护（0=允许写）；6. RBURST：突发读使能。</td><td>0x000002D0</td></tr>
+<tr><td>R32_FMC_SDTR1/2</td><td>0x40025548/0x4002554C</td><td>配置时序参数：TRCD（行到列延迟）、TRP（预充电延迟）、TRC（行循环延迟）、TWR（恢复延迟）、TMRD（加载模式寄存器延迟）等。</td><td>0x0FFFFFFF</td></tr>
+<tr><td>R32_FMC_SDCMR</td><td>0x40025550</td><td>1. MODE[2:0]：命令模式（正常、时钟使能、预充电、自动刷新等）；2. CTB1/CTB2：目标存储区域；3. NRFS[3:0]：自动刷新次数；4. MRD[12:0]：模式寄存器内容。</td><td>0x00000000</td></tr>
+<tr><td>R32_FMC_SDRTR</td><td>0x40025554</td><td>1. COUNT[12:0]：刷新速率（COUNT+1 为 SDRAM 时钟周期数）；2. REIE：刷新错误中断使能（1=使能）。</td><td>0x00000000</td></tr>
+<tr><td>R32_FMC_SDSR</td><td>0x40025558</td><td>1. BUSY：SDRAM 控制器繁忙状态（0=就绪）；2. MODES1/2[1:0]：存储区域状态（正常/自刷新/掉电）；3. RE：刷新错误标志（1=错误）。</td><td>0x00000000</td></tr>
+</tbody></table>
+</div>
+<h1 id="第六章实操注意事项"><a class="header" href="#第六章实操注意事项">第六章：实操注意事项</a></h1>
+<p>FMC 配置涉及时序、地址、寄存器等多个方面，实操中需重点注意以下事项，避免出现访问异常、数据错误等问题：</p>
+<ol>
+<li>
+<p>时序匹配：所有外部存储器的时序参数（建立时间、保持时间、等待时间等）必须与 FMC 寄存器配置一致，尤其是 SDRAM 和 NAND Flash，时序不匹配会导致数据传输错误。</p>
+</li>
+<li>
+<p>地址映射：确保外部存储器连接的存储区域与软件配置的地址映射一致，避免地址越界（触发 HB 错误）；NAND Flash 的命令、地址、数据空间需正确区分。</p>
+</li>
+<li>
+<p>初始化顺序：SDRAM 必须严格按照初始化序列配置，尤其是等待延迟（100us）和命令发送顺序，否则 SDRAM 无法正常工作；系统复位后需重新初始化。</p>
+</li>
+<li>
+<p>ECC 配置：使用 NAND Flash 时，需根据页大小配置 ECCPS[2:0] 位，ECC 计算完成后需及时读取 ECCR 寄存器，并清零 ECCEN 位准备下次计算。</p>
+</li>
+<li>
+<p>低功耗模式：进入/退出低功耗模式时，需确保 FIFO 为空（避免数据丢失）；自刷新模式下，SDRAM 需保持至少 TRAS 时间的自刷新状态。</p>
+</li>
+<li>
+<p>中断处理：开启 FMC 中断（如 NAND Flash FIFO 中断、SDRAM 刷新错误中断）后，需及时清除中断标志，避免中断反复触发。</p>
+</li>
+<li>
+<p>引脚配置：启动时需配置 FMC 相关 I/O 引脚（地址线、数据线、控制信号），未使用的 SDRAM 引脚可复用为其他功能。</p>
+</li>
+</ol>
+<h1 id="第七章常见问题排查"><a class="header" href="#第七章常见问题排查">第七章：常见问题排查</a></h1>
+<p>针对 FMC 实操中常见的问题，提供排查思路，快速定位并解决问题：</p>
+<ul>
+<li>
+<p>问题 1：SDRAM 无法初始化，访问无响应。
+排查：检查 SDCLK 时钟配置是否正确；确认初始化序列步骤是否完整（尤其是 100us 延迟）；检查 R32_FMC_SDCRx 寄存器中 SDRAM 特性配置是否与硬件一致。</p>
+</li>
+<li>
+<p>问题 2：NAND Flash 读数据错误，ECC 校验失败。
+排查：检查 ECCEN 位是否使能，ECCPS[2:0] 位是否与 NAND Flash 页大小匹配；检查 PEMEM/PATT 寄存器时序配置是否正确；确认 NAND Flash 命令、地址发送顺序是否正确。</p>
+</li>
+<li>
+<p>问题 3：触发 HB 错误，DMA 传输失败。
+排查：检查访问的存储区域是否已使能（PBKEN 位、SDRAM 存储区域使能）；确认访问地址是否在存储器有效范围内；检查 SDRAM 写保护位（WP）是否置 1。</p>
+</li>
+<li>
+<p>问题 4：SDRAM 刷新错误，RE 标志置 1。
+排查：检查 R32_FMC_SDRTR 寄存器 COUNT 值是否合理（不小于 41 个 SDRAM 时钟周期）；确认自动刷新请求是否被延迟过多，导致刷新超时。</p>
+</li>
+</ul>
+<p>总结：FMC 的核心是“时序匹配”和“地址映射”，掌握各模块的功能逻辑、初始化流程和寄存器配置，结合实操注意事项，即可快速实现外部存储器的扩展与稳定运行。本教程聚焦 CH32H417 微控制器，可结合官方数据手册进一步深入学习具体寄存器细节和高级应用场景。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/sdio_sdcard.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/fmc_lcd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/sdio_sdcard.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/fmc_lcd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

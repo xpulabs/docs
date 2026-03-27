@@ -1,0 +1,716 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>LSM6DS3R - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html" class="active"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="lsm6ds3r"><a class="header" href="#lsm6ds3r">LSM6DS3R</a></h1>
+<p>hardware.c 文件解析（mio_i3c_lsm6d）</p>
+<h2 id="1-文件概述"><a class="header" href="#1-文件概述">1. 文件概述</a></h2>
+<p><code>hardware.c</code> 是一个用于 <strong>I3C 接口与 LSM6DS 传感器通信</strong> 的硬件测试程序，通过 CH32H417 的 I3C 外设实现与 LSM6DS 传感器的通信，并读取传感器的 ID。</p>
+<ul>
+<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>版本</strong>: V1.0.0</li>
+<li><strong>日期</strong>: 2025/03/01</li>
+<li><strong>功能</strong>: 实现 I3C 初始化、动态地址分配和传感器 ID 读取功能</li>
+</ul>
+<h2 id="2-核心功能模块"><a class="header" href="#2-核心功能模块">2. 核心功能模块</a></h2>
+<h3 id="21-全局变量与定义"><a class="header" href="#21-全局变量与定义">2.1 全局变量与定义</a></h3>
+<pre><code class="language-c">// LSM6DSX 相关定义
+#define LSM6DSX_I3C_ADDRESS     0x6A  // LSM6DSX I3C地址
+#define LSM6DSX_WHO_AM_I_REG    0x0F  // WHO_AM_I寄存器地址
+#define LSM6DSX_EXPECTED_ID     0x6B  // 预期的ID
+
+#define target_daa1 (0x6A)  // LSM6DS sensor I3C address
+
+#define I3C_TX_mux  (83)
+#define I3X_RX_mux  (84)
+
+uint8_t trasmit_buf[10] = {};
+uint8_t recive_buf[10]  = {};
+</code></pre>
+<ul>
+<li><strong>LSM6DS 相关定义</strong>:
+<ul>
+<li><code>LSM6DSX_I3C_ADDRESS</code>: 传感器的静态 I3C 地址</li>
+<li><code>LSM6DSX_WHO_AM_I_REG</code>: 传感器 ID 寄存器地址</li>
+<li><code>LSM6DSX_EXPECTED_ID</code>: 预期的传感器 ID 值</li>
+</ul>
+</li>
+<li><strong>I3C 配置</strong>:
+<ul>
+<li><code>target_daa1</code>: 目标动态地址分配值</li>
+<li><code>I3C_TX_mux</code>/<code>I3X_RX_mux</code>: DMA 多路复用通道配置</li>
+</ul>
+</li>
+<li><strong>数据缓冲区</strong>:
+<ul>
+<li><code>trasmit_buf</code>: 发送数据缓冲区</li>
+<li><code>recive_buf</code>: 接收数据缓冲区</li>
+</ul>
+</li>
+</ul>
+<h3 id="22-gpio-配置函数-gpio_config"><a class="header" href="#22-gpio-配置函数-gpio_config">2.2 GPIO 配置函数 (GPIO_Config)</a></h3>
+<p><strong>功能</strong>: 配置 I3C 接口的 GPIO 引脚</p>
+<pre><code class="language-c">static void GPIO_Config(void)
+{
+    GPIO_InitTypeDef GPIO_InitStructure = {0};
+
+    RCC_HB2PeriphClockCmd(RCC_HB2Periph_AFIO, ENABLE);
+    RCC_HB2PeriphClockCmd(RCC_HB2Periph_GPIOC, ENABLE);
+
+    // SCL PC4(AF7)
+    GPIO_PinAFConfig(GPIOC, GPIO_PinSource4, GPIO_AF7);
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_4;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+
+    // SDA PC5(AF7)
+    GPIO_PinAFConfig(GPIOC, GPIO_PinSource5, GPIO_AF7);
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_5;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+}
+</code></pre>
+<ul>
+<li><strong>引脚配置</strong>:
+<ul>
+<li>SCL (PC4): I3C 时钟线，AF7 功能，推挽输出</li>
+<li>SDA (PC5): I3C 数据线，AF7 功能，推挽输出</li>
+</ul>
+</li>
+<li><strong>时钟配置</strong>: 启用 AFIO 和 GPIOC 时钟</li>
+</ul>
+<h3 id="23-i3c-配置函数-i3c_config"><a class="header" href="#23-i3c-配置函数-i3c_config">2.3 I3C 配置函数 (I3C_Config)</a></h3>
+<p><strong>功能</strong>: 配置 I3C 外设为控制器模式</p>
+<pre><code class="language-c">void I3C_Config()
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>时钟配置</strong>:</p>
+<pre><code class="language-c">RCC_HB2PeriphClockCmd(RCC_HB2Periph_I3C, ENABLE);
+</code></pre>
+<ul>
+<li>启用 I3C 外设时钟</li>
+</ul>
+</li>
+<li>
+<p><strong>总线参数配置</strong>:</p>
+<pre><code class="language-c">I3C_Ctrl_BusInit.SDAHoldTime        = I3C_SDAHoldTime_1_5;
+I3C_Ctrl_BusInit.WaitTime           = I3C_WaitTime_State_2;
+I3C_Ctrl_BusInit.SCLPPLowDuration   = 0x89;
+I3C_Ctrl_BusInit.SCLI3CHighDuration = 0x88;
+I3C_Ctrl_BusInit.SCLODLowDuration   = 0x88;
+I3C_Ctrl_BusInit.SCLI2CHighDuration = 0x88;
+I3C_Ctrl_BusInit.BusFreeDuration    = 0x77;
+I3C_Ctrl_BusInit.BusIdleDuration    = 0x8e;
+I3C_Ctrl_Init(&amp;I3C_Ctrl_BusInit);
+</code></pre>
+<ul>
+<li>配置 SDA 保持时间、等待时间和各种时钟周期参数</li>
+</ul>
+</li>
+<li>
+<p><strong>控制器配置</strong>:</p>
+<pre><code class="language-c">I3C_CtrlConfInit.DynamicAddr       = 0x22;
+I3C_CtrlConfInit.StallTime         = 0x10;
+I3C_CtrlConfInit.HotJoinAllowed_EN = DISABLE;
+I3C_CtrlConfInit.ACKStallState     = DISABLE;
+I3C_CtrlConfInit.CCCStallState     = DISABLE;
+I3C_CtrlConfInit.TxStallState      = DISABLE;
+I3C_CtrlConfInit.RxStallState      = DISABLE;
+I3C_Ctrl_Config(&amp;I3C_CtrlConfInit);
+</code></pre>
+<ul>
+<li>配置动态地址、延迟时间和各种暂停状态</li>
+</ul>
+</li>
+<li>
+<p><strong>FIFO 配置</strong>:</p>
+<pre><code class="language-c">I3C_FifoConfInit.RxFifoThreshold = I3C_RXFIFO_THRESHOLD_1_4;
+I3C_FifoConfInit.TxFifoThreshold = I3C_TXFIFO_THRESHOLD_1_4;
+I3C_FifoConfInit.ControlFifo     = I3C_CONTROLFIFO_DISABLE;
+I3C_FifoConfInit.StatusFifo      = I3C_STATUSFIFO_DISABLE;
+I3C_SetConfigFifo(&amp;I3C_FifoConfInit);
+</code></pre>
+<ul>
+<li>配置接收和发送 FIFO 阈值，禁用控制和状态 FIFO</li>
+</ul>
+</li>
+<li>
+<p><strong>启用 I3C</strong>:</p>
+<pre><code class="language-c">I3C_Cmd(ENABLE);
+</code></pre>
+<ul>
+<li>启用 I3C 外设</li>
+</ul>
+</li>
+</ol>
+<h3 id="24-i3c-ccc-命令处理函数"><a class="header" href="#24-i3c-ccc-命令处理函数">2.4 I3C CCC 命令处理函数</a></h3>
+<h4 id="241-重置动态地址分配-i3c_rstdaa"><a class="header" href="#241-重置动态地址分配-i3c_rstdaa">2.4.1 重置动态地址分配 (I3C_RSTDAA)</a></h4>
+<p><strong>功能</strong>: 发送 RSTDAA (Reset Dynamic Address Assignment) CCC 命令，重置总线上所有设备的动态地址</p>
+<pre><code class="language-c">uint32_t I3C_RSTDAA()
+{
+    uint32_t res = 0;
+    I3C_ControllerHandleCCC(0x06, 0, I3C_GENERATE_STOP);
+
+    // 等待完成或错误标志
+    while ((I3C_GetFlagStatus(I3C_EVR_FCF) == RESET) &amp;&amp; (I3C_GetFlagStatus(I3C_EVR_ERRF) == RESET)) {}
+
+    // 处理完成和错误标志
+    if (I3C_GetFlagStatus(I3C_EVR_FCF)) I3C_ClearFlag(I3C_FLAG_FCF);
+    if (I3C_GetFlagStatus(I3C_EVR_ERRF)) { I3C_ClearFlag(I3C_CEVR_CERRF); res = 1; }
+
+    return res;
+}
+</code></pre>
+<ul>
+<li><strong>CCC 命令</strong>: 0x06 (RSTDAA)</li>
+<li><strong>处理流程</strong>:
+<ul>
+<li>发送 CCC 命令并生成停止条件</li>
+<li>等待命令完成或错误标志</li>
+<li>清除标志并返回结果</li>
+</ul>
+</li>
+</ul>
+<h4 id="242-进入动态地址分配-i3c_entdaa"><a class="header" href="#242-进入动态地址分配-i3c_entdaa">2.4.2 进入动态地址分配 (I3C_ENTDAA)</a></h4>
+<p><strong>功能</strong>: 发送 ENTDAA (Enter Dynamic Address Assignment) CCC 命令，为总线上的设备分配动态地址</p>
+<pre><code class="language-c">uint32_t I3C_ENTDAA(uint8_t tgt_daa)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>发送 ENTDAA 命令</strong>:</p>
+<pre><code class="language-c">I3C_ControllerHandleCCC(0x07, 0, I3C_GENERATE_STOP);
+</code></pre>
+<ul>
+<li>CCC 命令: 0x07 (ENTDAA)</li>
+</ul>
+</li>
+<li>
+<p><strong>处理设备响应</strong>:</p>
+<pre><code class="language-c">do {
+    if (I3C_GetFlagStatus(I3C_EVR_TXFNFF)) {
+        // 读取设备的静态地址
+        for (uint32_t index = 0; index &lt; 8; index++) {
+            while (I3C_GetFlagStatus((I3C_EVR_RXFNEF)) == RESET) {}
+            payload |= (uint64_t)((uint64_t)I3C_ReadByte() &lt;&lt; (index * 8));
+        }
+
+        // 发送动态地址
+        I3C_WriteByte(tgt_daa++);
+        target_payload[tgt_cnt] = payload;
+        tgt_cnt++;
+    }
+} while ((I3C_GetFlagStatus(I3C_EVR_FCF) == RESET) &amp;&amp; (I3C_GetFlagStatus(I3C_EVR_ERRF) == RESET));
+</code></pre>
+<ul>
+<li>读取设备的静态地址（8 个字节）</li>
+<li>为每个设备分配动态地址</li>
+<li>存储设备的静态地址信息</li>
+</ul>
+</li>
+<li>
+<p><strong>处理完成和错误</strong>:</p>
+<pre><code class="language-c">if (I3C_GetFlagStatus(I3C_EVR_FCF)) I3C_ClearFlag(I3C_FLAG_FCF);
+if (I3C_GetFlagStatus(I3C_EVR_ERRF)) { I3C_ClearFlag(I3C_CEVR_CERRF); res = 1; }
+</code></pre>
+</li>
+</ol>
+<h3 id="25-dma-配置函数"><a class="header" href="#25-dma-配置函数">2.5 DMA 配置函数</a></h3>
+<h4 id="251-发送-dma-初始化-dma_tx_init"><a class="header" href="#251-发送-dma-初始化-dma_tx_init">2.5.1 发送 DMA 初始化 (DMA_Tx_Init)</a></h4>
+<p><strong>功能</strong>: 初始化 DMA 用于 I3C 数据发送</p>
+<pre><code class="language-c">void DMA_Tx_Init(DMA_Channel_TypeDef *DMA_CHx, u32 ppadr, u32 memadr, u16 bufsize)
+</code></pre>
+<ul>
+<li><strong>配置参数</strong>:
+<ul>
+<li>外设地址: I3C-&gt;TDBR (发送数据缓冲区寄存器)</li>
+<li>内存地址: 发送缓冲区地址</li>
+<li>传输方向: 从内存到外设</li>
+<li>数据大小: 字节 (8位)</li>
+<li>模式: 普通模式</li>
+<li>优先级: 极高</li>
+</ul>
+</li>
+</ul>
+<h4 id="252-接收-dma-初始化-dma_rx_init"><a class="header" href="#252-接收-dma-初始化-dma_rx_init">2.5.2 接收 DMA 初始化 (DMA_Rx_Init)</a></h4>
+<p><strong>功能</strong>: 初始化 DMA 用于 I3C 数据接收</p>
+<pre><code class="language-c">void DMA_Rx_Init(DMA_Channel_TypeDef *DMA_CHx, u32 ppadr, u32 memadr, u16 bufsize)
+</code></pre>
+<ul>
+<li><strong>配置参数</strong>:
+<ul>
+<li>外设地址: I3C-&gt;RDBR (接收数据缓冲区寄存器)</li>
+<li>内存地址: 接收缓冲区地址</li>
+<li>传输方向: 从外设到内存</li>
+<li>数据大小: 字节 (8位)</li>
+<li>模式: 普通模式</li>
+<li>优先级: 高</li>
+</ul>
+</li>
+</ul>
+<h3 id="26-i3c-dma-数据传输函数"><a class="header" href="#26-i3c-dma-数据传输函数">2.6 I3C DMA 数据传输函数</a></h3>
+<h4 id="261-i3c-dma-发送-i3c_dma_transmit"><a class="header" href="#261-i3c-dma-发送-i3c_dma_transmit">2.6.1 I3C DMA 发送 (I3C_DMA_Transmit)</a></h4>
+<p><strong>功能</strong>: 使用 DMA 向 I3C 设备发送数据</p>
+<pre><code class="language-c">uint32_t I3C_DMA_Transmit(uint8_t addr, uint8_t *send_buf, uint16_t send_len)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>初始化 DMA</strong>:</p>
+<pre><code class="language-c">DMA_Tx_Init(DMA1_Channel4, (uint32_t)(&amp;(I3C-&gt;TDBR)), (uint32_t)send_buf, send_len);
+DMA_MuxChannelConfig(DMA_MuxChannel4, I3C_TX_mux);
+</code></pre>
+</li>
+<li>
+<p><strong>配置 I3C 和 DMA</strong>:</p>
+<pre><code class="language-c">I3C_DMAReq_TXCmd(ENABLE);
+I3C_ControllerHandleMessage(addr, send_len, I3C_Direction_WR, I3C_CONTROLLER_MTYPE_PRIVATE, I3C_GENERATE_STOP);
+DMA_Cmd(DMA1_Channel4, ENABLE);
+</code></pre>
+</li>
+<li>
+<p><strong>等待传输完成</strong>:</p>
+<pre><code class="language-c">while (DMA_GetFlagStatus(DMA1, DMA1_FLAG_TC4) == RESET) {}
+</code></pre>
+</li>
+<li>
+<p><strong>等待 I3C 操作完成</strong>:</p>
+<pre><code class="language-c">while ((I3C_GetFlagStatus(I3C_EVR_FCF) == RESET) &amp;&amp; (I3C_GetFlagStatus(I3C_EVR_ERRF) == RESET)) {
+    // 超时检查
+}
+</code></pre>
+</li>
+</ol>
+<h4 id="262-i3c-dma-接收-i3c_dma_recive"><a class="header" href="#262-i3c-dma-接收-i3c_dma_recive">2.6.2 I3C DMA 接收 (I3C_DMA_Recive)</a></h4>
+<p><strong>功能</strong>: 使用 DMA 从 I3C 设备接收数据</p>
+<pre><code class="language-c">uint32_t I3C_DMA_Recive(uint8_t addr, uint8_t *recv_buf, uint16_t recv_len)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>初始化 DMA</strong>:</p>
+<pre><code class="language-c">DMA_Rx_Init(DMA1_Channel5, (uint32_t)(&amp;(I3C-&gt;RDBR)), (uint32_t)recv_buf, recv_len);
+DMA_MuxChannelConfig(DMA_MuxChannel5, I3X_RX_mux);
+</code></pre>
+</li>
+<li>
+<p><strong>配置 I3C 和 DMA</strong>:</p>
+<pre><code class="language-c">I3C_DMAReq_RXCmd(ENABLE);
+I3C_ControllerHandleMessage(addr, recv_len, I3C_Direction_RD, I3C_CONTROLLER_MTYPE_PRIVATE, I3C_GENERATE_STOP);
+DMA_Cmd(DMA1_Channel5, ENABLE);
+</code></pre>
+</li>
+<li>
+<p><strong>等待接收完成</strong>:</p>
+<pre><code class="language-c">while (DMA_GetFlagStatus(DMA1, DMA1_FLAG_TC5) == RESET) {}
+</code></pre>
+</li>
+<li>
+<p><strong>等待 I3C 操作完成</strong>:</p>
+<pre><code class="language-c">while ((I3C_GetFlagStatus(I3C_EVR_FCF) == RESET) &amp;&amp; (I3C_GetFlagStatus(I3C_EVR_ERRF) == RESET)) {
+    // 超时检查
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="27-主函数-hardware"><a class="header" href="#27-主函数-hardware">2.7 主函数 (Hardware)</a></h3>
+<p><strong>功能</strong>: 初始化系统并实现 I3C 与 LSM6DS 传感器的通信</p>
+<pre><code class="language-c">void Hardware(void)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>系统初始化</strong>:</p>
+<pre><code class="language-c">printf(&quot;I3C TEST - Read LSM6DS ID\r\n&quot;);
+GPIO_Config();
+I3C_Config();
+Delay_Ms(50);
+</code></pre>
+</li>
+<li>
+<p><strong>动态地址分配</strong>:</p>
+<pre><code class="language-c">res = I3C_RSTDAA();  // 重置动态地址
+res = I3C_ENTDAA(target_daa1);  // 进入动态地址分配
+</code></pre>
+</li>
+<li>
+<p><strong>读取 LSM6DS ID</strong>:</p>
+<pre><code class="language-c">// 发送 WHO_AM_I 寄存器地址
+trasmit_buf[0] = 0x0F;
+res = I3C_DMA_Transmit(target_daa1, trasmit_buf, 1);
+
+// 接收传感器 ID
+res = I3C_DMA_Recive(target_daa1, recive_buf, 1);
+printf(&quot;LSM6DS ID: 0x%x\r\n&quot;, recive_buf[0]);
+</code></pre>
+</li>
+<li>
+<p><strong>无限循环</strong>:</p>
+<pre><code class="language-c">while (1) ;
+</code></pre>
+</li>
+</ol>
+<h2 id="3-i3c-通信原理与时序"><a class="header" href="#3-i3c-通信原理与时序">3. I3C 通信原理与时序</a></h2>
+<h3 id="31-i3c-协议概述"><a class="header" href="#31-i3c-协议概述">3.1 I3C 协议概述</a></h3>
+<p>I3C (Improved Inter-Integrated Circuit) 是一种高性能、双向、两线串行总线协议，是 I2C 协议的演进版本，具有以下特点：</p>
+<ul>
+<li><strong>更高的数据速率</strong>: 支持高达 12.5 Mbps 的数据传输</li>
+<li><strong>动态地址分配</strong>: 自动为设备分配唯一地址，避免地址冲突</li>
+<li><strong>向后兼容</strong>: 支持与 I2C 设备的通信</li>
+<li><strong>热插拔支持</strong>: 允许设备在总线运行时加入</li>
+<li><strong>CCC 命令</strong>: 支持广播命令控制所有设备</li>
+</ul>
+<h3 id="32-动态地址分配流程"><a class="header" href="#32-动态地址分配流程">3.2 动态地址分配流程</a></h3>
+<ol>
+<li><strong>RSTDAA (0x06)</strong>: 重置所有设备的动态地址</li>
+<li><strong>ENTDAA (0x07)</strong>: 进入动态地址分配模式
+<ul>
+<li>控制器发送 ENTDAA 命令</li>
+<li>每个设备广播其静态地址</li>
+<li>控制器为每个设备分配动态地址</li>
+</ul>
+</li>
+<li><strong>设备使用动态地址进行后续通信</strong></li>
+</ol>
+<h3 id="33-i3c-通信时序"><a class="header" href="#33-i3c-通信时序">3.3 I3C 通信时序</a></h3>
+<p><strong>关键信号</strong>:</p>
+<ul>
+<li><strong>SCL</strong>: 串行时钟线</li>
+<li><strong>SDA</strong>: 串行数据线</li>
+</ul>
+<p><strong>基本通信流程</strong>:</p>
+<ol>
+<li><strong>起始条件</strong>: SDA 在 SCL 高电平期间从高到低跳变</li>
+<li><strong>地址阶段</strong>: 发送 7 位设备地址 + 1 位读写位</li>
+<li><strong>数据阶段</strong>: 发送/接收数据字节</li>
+<li><strong>确认位</strong>: 每个字节后接收确认位</li>
+<li><strong>停止条件</strong>: SDA 在 SCL 高电平期间从低到高跳变</li>
+</ol>
+<h2 id="4-lsm6ds-传感器介绍"><a class="header" href="#4-lsm6ds-传感器介绍">4. LSM6DS 传感器介绍</a></h2>
+<p>LSM6DS 是 STMicroelectronics 生产的一款高性能惯性测量单元 (IMU)，集成了:</p>
+<ul>
+<li><strong>3 轴加速度计</strong></li>
+<li><strong>3 轴陀螺仪</strong></li>
+<li><strong>数字温度传感器</strong></li>
+<li><strong>I3C/I2C/SPI 接口</strong></li>
+<li><strong>可编程中断</strong></li>
+</ul>
+<p><strong>关键特性</strong>:</p>
+<ul>
+<li>加速度范围: ±2g/±4g/±8g/±16g</li>
+<li>陀螺仪范围: ±125dps/±250dps/±500dps/±1000dps/±2000dps</li>
+<li>工作温度: -40°C 至 +85°C</li>
+<li>电源电压: 1.71V 至 3.6V</li>
+</ul>
+<h2 id="5-代码优化建议"><a class="header" href="#5-代码优化建议">5. 代码优化建议</a></h2>
+<h3 id="51-增加错误处理和超时机制"><a class="header" href="#51-增加错误处理和超时机制">5.1 增加错误处理和超时机制</a></h3>
+<pre><code class="language-c">// 改进的超时检查
+uint32_t timeout = 0;
+while ((I3C_GetFlagStatus(I3C_EVR_FCF) == RESET) &amp;&amp; (I3C_GetFlagStatus(I3C_EVR_ERRF) == RESET)) {
+    timeout++;
+    if (timeout &gt; 10000) {  // 更长的超时时间
+        res = 2;  // 超时错误码
+        break;
+    }
+    __NOP();
+}
+</code></pre>
+<h3 id="52-增加传感器-id-验证"><a class="header" href="#52-增加传感器-id-验证">5.2 增加传感器 ID 验证</a></h3>
+<pre><code class="language-c">// 验证传感器 ID
+if (res == 0) {
+    printf(&quot;I3C DMA Recive (WHO_AM_I value) Success\r\n&quot;);
+    printf(&quot;LSM6DS ID: 0x%x\r\n&quot;, recive_buf[0]);
+    
+    // 验证 ID 是否匹配预期值
+    if (recive_buf[0] == LSM6DSX_EXPECTED_ID) {
+        printf(&quot;Sensor ID matches expected value (0x%x)\r\n&quot;, LSM6DSX_EXPECTED_ID);
+    } else {
+        printf(&quot;Warning: Sensor ID (0x%x) does not match expected value (0x%x)\r\n&quot;, 
+               recive_buf[0], LSM6DSX_EXPECTED_ID);
+    }
+} else {
+    printf(&quot;I3C DMA Recive (WHO_AM_I value) Fail\r\n&quot;);
+}
+</code></pre>
+<h3 id="53-增加重复传输机制"><a class="header" href="#53-增加重复传输机制">5.3 增加重复传输机制</a></h3>
+<pre><code class="language-c">// 带有重试机制的 I3C 传输函数
+uint32_t I3C_DMA_Transmit_WithRetry(uint8_t addr, uint8_t *send_buf, uint16_t send_len, uint8_t retry_count)
+{
+    uint32_t res;
+    for (uint8_t i = 0; i &lt; retry_count; i++) {
+        res = I3C_DMA_Transmit(addr, send_buf, send_len);
+        if (res == 0) {
+            return 0;  // 成功
+        }
+        Delay_Ms(5);  // 等待后重试
+    }
+    return 1;  // 多次尝试后失败
+}
+</code></pre>
+<h3 id="54-增加数据结构优化"><a class="header" href="#54-增加数据结构优化">5.4 增加数据结构优化</a></h3>
+<pre><code class="language-c">// 使用结构体管理 I3C 配置和状态
+typedef struct {
+    uint8_t target_daa;
+    uint8_t tx_mux;
+    uint8_t rx_mux;
+    uint8_t tx_buf[10];
+    uint8_t rx_buf[10];
+    uint32_t last_error;
+} I3C_Device_Handle;
+
+I3C_Device_Handle lsm6ds_handle = {
+    .target_daa = 0x6A,
+    .tx_mux = 83,
+    .rx_mux = 84,
+    .last_error = 0
+};
+</code></pre>
+<h3 id="55-增加函数参数验证"><a class="header" href="#55-增加函数参数验证">5.5 增加函数参数验证</a></h3>
+<pre><code class="language-c">// 增加参数验证
+uint32_t I3C_DMA_Transmit(uint8_t addr, uint8_t *send_buf, uint16_t send_len)
+{
+    // 参数验证
+    if (send_buf == NULL || send_len == 0 || send_len &gt; sizeof(trasmit_buf)) {
+        return 1;  // 参数错误
+    }
+    
+    // 原有函数代码...
+}
+</code></pre>
+<h2 id="6-总结"><a class="header" href="#6-总结">6. 总结</a></h2>
+<p>这个程序实现了基于 CH32H417 I3C 外设的传感器通信功能，主要特点：</p>
+<ol>
+<li><strong>完整的 I3C 协议实现</strong>: 支持动态地址分配和基本数据传输</li>
+<li><strong>DMA 加速</strong>: 使用 DMA 实现高效的数据传输，减少 CPU 占用</li>
+<li><strong>模块化设计</strong>: 代码结构清晰，功能模块划分合理</li>
+<li><strong>错误处理</strong>: 包含基本的错误检测和处理机制</li>
+<li><strong>易于扩展</strong>: 可以方便地扩展支持更多传感器和功能</li>
+</ol>
+<p>该程序展示了如何利用 CH32H417 的高级 I3C 外设功能实现与现代传感器的通信，具有较高的学习和参考价值。适合用于 I3C 协议学习和传感器应用开发。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/i3c.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/qspi.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/i3c.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/qspi.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

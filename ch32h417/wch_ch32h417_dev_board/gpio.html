@@ -1,0 +1,474 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GPIO - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html" class="active"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417-gpio及复用功能gpioafio教程"><a class="header" href="#ch32h417-gpio及复用功能gpioafio教程">CH32H417 GPIO及复用功能（GPIO/AFIO）教程</a></h1>
+<p>本教程基于CH32H417系列芯片应用手册，详细讲解GPIO的基本特性、功能配置、复用机制及寄存器操作，帮助开发者快速掌握GPIO的使用方法，适用于嵌入式开发入门及芯片实操参考。</p>
+<h1 id="一gpio基础认知"><a class="header" href="#一gpio基础认知">一、GPIO基础认知</a></h1>
+<h2 id="11-gpio概述"><a class="header" href="#11-gpio概述">1.1 GPIO概述</a></h2>
+<p>CH32H417芯片内置6组GPIO端口，分别为PA0~PA15、PB0~PB15、PC0~PC15、PD0~PD15、PE0~PE15、PF0~PF14，共95个GPIO引脚。多数引脚可通过软件配置为输入、输出或复用外设功能，是芯片与外部设备通信的核心接口。</p>
+<h2 id="12-引脚供电分类"><a class="header" href="#12-引脚供电分类">1.2 引脚供电分类</a></h2>
+<p>不同GPIO引脚的供电电压不同，需根据实际应用选择合适的电源配置，具体分类如下：</p>
+<ul>
+<li>
+<p><strong>VDD33供电</strong>：PA9~PA12、PC13~PC15、PE3~PE6，额定3.3V；其中PC13~PC15在VDD33掉电时，自动切换为VBAT供电（适合低功耗场景）。</p>
+</li>
+<li>
+<p><strong>VDDIO供电</strong>：PA0~PA8、PB2~PB7、PB15、PC4~PC5、PD8、PE2、PF6~PF10，额定3.3V，支持1.8V、2.5V、3.3V自适应电源。</p>
+</li>
+<li>
+<p><strong>VIO18供电（高速引脚）</strong>：PA13~PA15、PB0~PB1、PB10~PB14等，内置I/O电压调节器，支持1.2V、1.8V、2.5V、3.3V动态切换，需通过PWR_CTLR寄存器[12:9]字段配置默认电压。</p>
+</li>
+</ul>
+<h1 id="二gpio主要特征"><a class="header" href="#二gpio主要特征">二、GPIO主要特征</a></h1>
+<p>每个GPIO引脚可配置为以下7种模式，覆盖绝大多数应用场景：</p>
+<ol>
+<li>
+<p>浮空输入：引脚悬空，不接上下拉电阻，适用于外部信号输入（如按键、传感器）。</p>
+</li>
+<li>
+<p>开漏输出：仅N-MOS管工作，输出低电平有效，高电平需外部上拉电阻，适用于总线通信（如I2C）。</p>
+</li>
+<li>
+<p>上拉输入：引脚通过内部上拉电阻接VDD，默认电平为高，适用于稳定的输入信号检测。</p>
+</li>
+<li>
+<p>推挽输出：P-MOS和N-MOS管交替工作，可直接输出高/低电平，驱动能力强（如LED驱动）。</p>
+</li>
+<li>
+<p>下拉输入：引脚通过内部下拉电阻接VSS，默认电平为低，适用于低电平触发的信号输入。</p>
+</li>
+<li>
+<p>复用功能输入/输出：引脚作为芯片外设（如USART、SPI）的专用接口，由外设控制其输入/输出。</p>
+</li>
+<li>
+<p>模拟输入：禁用数字电路，引脚直接接入模拟外设（如ADC），用于采集模拟信号。</p>
+</li>
+</ol>
+<p>注：多数引脚支持复用功能，具体复用分配需参考芯片手册中“引脚复用表”，复用配置需配合AFIO寄存器操作。</p>
+<h1 id="三gpio功能详解"><a class="header" href="#三gpio功能详解">三、GPIO功能详解</a></h1>
+<h2 id="31-gpio模块结构"><a class="header" href="#31-gpio模块结构">3.1 GPIO模块结构</a></h2>
+<p>GPIO内部结构主要分为3部分，核心逻辑如下：</p>
+<ul>
+<li>
+<p><strong>保护二极管</strong>：每个引脚内置两只保护二极管，防止静电或过压损坏芯片。</p>
+</li>
+<li>
+<p><strong>输入驱动模块</strong>：包含弱上下拉电阻（可选）、TTL施密特触发器；模拟输入时禁用施密特触发器，数字输入时启用，将外部信号转换为芯片可识别的数字信号，存入输入数据寄存器。</p>
+</li>
+<li>
+<p><strong>输出驱动模块</strong>：由一对P-MOS/N-MOS管组成，通过配置可实现推挽/开漏输出；输出信号由输出数据寄存器控制，或由复用外设直接控制。</p>
+</li>
+</ul>
+<h2 id="32-初始化状态"><a class="header" href="#32-初始化状态">3.2 初始化状态</a></h2>
+<p>芯片复位后，多数GPIO引脚默认配置为<strong>浮空输入模式</strong>；少数与HSE等外设相关的引脚，默认配置为外设复用模式（无需手动初始化）。具体初始化状态需参考芯片“引脚描述”章节。</p>
+<h2 id="33-外部中断功能"><a class="header" href="#33-外部中断功能">3.3 外部中断功能</a></h2>
+<p>所有GPIO引脚均可配置为外部中断输入通道，核心规则如下：</p>
+<ul>
+<li>
+<p>外部中断通道序号与GPIO引脚位号必须一致（如PA1、PB1均对应EXTI1通道）。</p>
+</li>
+<li>
+<p>一个外部中断通道最多只能映射一个GPIO引脚（一对一映射），需通过AFIO_EXTICR寄存器配置引脚与通道的映射关系。</p>
+</li>
+</ul>
+<h2 id="34-复用功能与重映射"><a class="header" href="#34-复用功能与重映射">3.4 复用功能与重映射</a></h2>
+<h3 id="341-复用功能原理"><a class="header" href="#341-复用功能原理">3.4.1 复用功能原理</a></h3>
+<p>GPIO引脚通过复用器连接到芯片内部外设，复用器一次仅允许一个外设的复用功能（AF0~AF15）连接到引脚，避免外设冲突。复位后，复用器默认选择AF0，可通过GPIOx_AFLR（低位）、GPIOx_AFHR（高位）寄存器配置复用功能序号。</p>
+<h3 id="342-复用配置规则"><a class="header" href="#342-复用配置规则">3.4.2 复用配置规则</a></h3>
+<ul>
+<li>
+<p>输入方向复用：端口配置为“复用输入模式”，上下拉电阻根据实际需求配置。</p>
+</li>
+<li>
+<p>输出方向复用：端口配置为“复用输出模式”，推挽/开漏模式根据外设需求配置。</p>
+</li>
+<li>
+<p>双向复用：端口配置为“复用输出模式”，驱动器自动切换为浮空输入模式。</p>
+</li>
+</ul>
+<h3 id="343-功能重映射"><a class="header" href="#343-功能重映射">3.4.3 功能重映射</a></h3>
+<p>当默认复用引脚被占用时，可通过重映射功能将外设复用引脚切换到其他空闲引脚，核心重映射场景如下：</p>
+<ul>
+<li>
+<p>OSC32_IN/OSC32_OUT（LSE引脚）：LSEON=0时，可重映射为PC14/PC15（GPIO模式）；LSEON=1时，为LSE振荡器引脚。</p>
+</li>
+<li>
+<p>XI/XO（晶振引脚）：通过AFIO_PCFR1寄存器配置，可重映射为PD0/PD1（GPIO模式）。</p>
+</li>
+<li>
+<p>ADC、TIM2、SDMMC、UHSIF等外设：通过对应重映射位配置，具体参考手册“复用功能重映射”章节。</p>
+</li>
+</ul>
+<h2 id="35-锁定机制"><a class="header" href="#35-锁定机制">3.5 锁定机制</a></h2>
+<p>通过锁定机制可固定GPIO引脚的配置，防止误操作修改，操作流程如下：</p>
+<ol>
+<li>
+<p>配置GPIOx_LCKR寄存器，设置需要锁定的引脚（LCK0~LCK15）。</p>
+</li>
+<li>
+<p>执行特定写序列：写1 → 写0 → 写1 → 读0 → 读1（最后一步可选，用于确认锁定生效）。</p>
+</li>
+<li>
+<p>锁定生效后，直至下次芯片复位，该引脚的配置（GPIOx_CFGLR/GPIOx_CFGHR）无法修改。</p>
+</li>
+</ol>
+<h2 id="36-输入输出模拟模式配置详解"><a class="header" href="#36-输入输出模拟模式配置详解">3.6 输入/输出/模拟模式配置详解</a></h2>
+<h3 id="361-输入模式"><a class="header" href="#361-输入模式">3.6.1 输入模式</a></h3>
+<p>配置为输入模式时，输出驱动断开，上下拉电阻可选，禁用复用功能和模拟输入；每个HB时钟周期会将引脚电平采样到输入数据寄存器（GPIOx_INDR），读取该寄存器可获取引脚实时电平。</p>
+<h3 id="362-输出模式"><a class="header" href="#362-输出模式">3.6.2 输出模式</a></h3>
+<p>配置为输出模式时，输出驱动器启用（推挽/开漏），禁用上下拉电阻，启用TTL施密特触发器；引脚电平会被采样到输入数据寄存器，推挽模式下读取输出数据寄存器（GPIOx_OUTDR）可获取最后一次写入的值。</p>
+<h3 id="363-模拟输入模式"><a class="header" href="#363-模拟输入模式">3.6.3 模拟输入模式</a></h3>
+<p>配置为模拟输入模式时，输出缓冲器断开，施密特触发器禁用，上下拉电阻禁用；输入数据寄存器读取值恒为0，引脚直接接入模拟外设（如ADC）。</p>
+<h2 id="37-常用外设gpio配置推荐"><a class="header" href="#37-常用外设gpio配置推荐">3.7 常用外设GPIO配置推荐</a></h2>
+<p>不同外设的GPIO配置不同，以下为核心外设的推荐配置（完整配置参考手册表9-1至表9-26）：</p>
+<div class="table-wrapper"><table><thead><tr><th>外设类型</th><th>引脚功能</th><th>推荐GPIO配置</th></tr></thead><tbody>
+<tr><td>USART（全双工）</td><td>TX、RX</td><td>TX：推挽复用输出；RX：浮空输入/上拉输入</td></tr>
+<tr><td>SPI（主模式）</td><td>SCK、MOSI、MISO、NSS</td><td>SCK/MOSI：推挽复用输出；MISO：浮空输入；NSS：推挽复用输出</td></tr>
+<tr><td>I2C</td><td>SCL、SDA</td><td>开漏复用输出</td></tr>
+<tr><td>TIM（输出比较）</td><td>CHx</td><td>推挽复用输出</td></tr>
+<tr><td>ADC/DAC</td><td>模拟输入/输出</td><td>模拟输入模式</td></tr>
+</tbody></table>
+</div>
+<h1 id="四gpio与afio寄存器操作"><a class="header" href="#四gpio与afio寄存器操作">四、GPIO与AFIO寄存器操作</a></h1>
+<p>GPIO和AFIO的寄存器均需以32位（字）方式操作，核心寄存器分为GPIO寄存器和AFIO寄存器两类，以下讲解常用寄存器的功能与操作方法。</p>
+<h2 id="41-gpio核心寄存器"><a class="header" href="#41-gpio核心寄存器">4.1 GPIO核心寄存器</a></h2>
+<h3 id="411-配置寄存器gpiox_cfglrgpiox_cfghr"><a class="header" href="#411-配置寄存器gpiox_cfglrgpiox_cfghr">4.1.1 配置寄存器（GPIOx_CFGLR/GPIOx_CFGHR）</a></h3>
+<p>用于配置GPIO引脚的模式（输入/输出/复用/模拟）和输出类型（推挽/开漏），分为低位（CFGLR，控制引脚0~7）和高位（CFGHR，控制引脚8~15）。</p>
+<ul>
+<li>
+<p><strong>CNFy[1:0]（配置位）</strong>：输入模式下控制输入类型，输出模式下控制输出类型和复用模式。</p>
+</li>
+<li>
+<p><strong>MODEy[1:0]（模式位）</strong>：控制引脚模式，00=输入，01/10/11=输出（不同输出速度，需配合SPEED寄存器）。</p>
+</li>
+</ul>
+<p>复位值：0x44444444（默认浮空输入模式）。</p>
+<h3 id="412-输入输出数据寄存器gpiox_indrgpiox_outdr"><a class="header" href="#412-输入输出数据寄存器gpiox_indrgpiox_outdr">4.1.2 输入/输出数据寄存器（GPIOx_INDR/GPIOx_OUTDR）</a></h3>
+<ul>
+<li>
+<p>GPIOx_INDR（只读）：位0~15对应引脚0~15的实时输入电平，读取该寄存器可获取引脚状态。</p>
+</li>
+<li>
+<p>GPIOx_OUTDR（读写）：位0~15对应引脚0~15的输出电平，写入该寄存器可控制引脚输出高/低。</p>
+</li>
+</ul>
+<p>复位值：INDR为0x0000XXXX（不确定值），OUTDR为0x00000000（默认低电平）。</p>
+<h3 id="413-置位复位寄存器gpiox_bshrgpiox_bcr"><a class="header" href="#413-置位复位寄存器gpiox_bshrgpiox_bcr">4.1.3 置位/复位寄存器（GPIOx_BSHR/GPIOx_BCR）</a></h3>
+<ul>
+<li>
+<p>GPIOx_BSHR（只写）：位0~15（BSy）置1时，对应OUTDR位置1；位16~31（BRy）置1时，对应OUTDR位清0（BSy优先级高于BRy）。</p>
+</li>
+<li>
+<p>GPIOx_BCR（只写）：位0~15置1时，对应OUTDR位清0（与BSHR的BRy功能一致）。</p>
+</li>
+</ul>
+<p>复位值：均为0x00000000。</p>
+<h3 id="414-锁定寄存器gpiox_lckr"><a class="header" href="#414-锁定寄存器gpiox_lckr">4.1.4 锁定寄存器（GPIOx_LCKR）</a></h3>
+<p>用于锁定GPIO配置，核心位为LCKK（锁定键）和LCKy（引脚锁定位），具体操作见3.5节“锁定机制”。</p>
+<h3 id="415-速度寄存器gpiox_speed"><a class="header" href="#415-速度寄存器gpiox_speed">4.1.5 速度寄存器（GPIOx_SPEED）</a></h3>
+<p>控制GPIO输出速度，位0~31分为16组（SPEEDy[1:0]），对应引脚0~15，配置如下：</p>
+<ul>
+<li>00：10MHz；01：50MHz；10：100MHz；11：180MHz</li>
+</ul>
+<p>复位值：0x00000000（默认10MHz）。</p>
+<h2 id="42-afio核心寄存器"><a class="header" href="#42-afio核心寄存器">4.2 AFIO核心寄存器</a></h2>
+<h3 id="421-重映射寄存器1afio_pcfr1"><a class="header" href="#421-重映射寄存器1afio_pcfr1">4.2.1 重映射寄存器1（AFIO_PCFR1）</a></h3>
+<p>核心用于配置外设功能重映射，关键位包括：</p>
+<ul>
+<li>
+<p>PD0PD1_RM：控制PD0/PD1是否重映射为GPIO（1=GPIO，0=晶振引脚）。</p>
+</li>
+<li>
+<p>SDMMC_RM[1:0]：SDMMC外设引脚重映射配置。</p>
+</li>
+<li>
+<p>UHSIF_PORT_RM[1:0]、UHSIF_CLK_RM[1:0]：UHSIF外设引脚重映射配置。</p>
+</li>
+<li>
+<p>ADC1_ETRGINJ_RM/ADC1_ETRGREG_RM：ADC1外部触发重映射配置。</p>
+</li>
+</ul>
+<p>复位值：0x00000000。</p>
+<h3 id="422-复用功能寄存器gpiox_aflrgpiox_afhr"><a class="header" href="#422-复用功能寄存器gpiox_aflrgpiox_afhr">4.2.2 复用功能寄存器（GPIOx_AFLR/GPIOx_AFHR）</a></h3>
+<p>用于配置GPIO引脚的复用功能序号（AF0~AF15），分为低位（AFLR，控制引脚0~7）和高位（AFHR，控制引脚8~15），每4位控制一个引脚（AFRy[3:0]）。</p>
+<p>复位值：均为0x00000000（默认AF0）。</p>
+<h3 id="423-外部中断配置寄存器afio_exticr1afio_exticr2"><a class="header" href="#423-外部中断配置寄存器afio_exticr1afio_exticr2">4.2.3 外部中断配置寄存器（AFIO_EXTICR1/AFIO_EXTICR2）</a></h3>
+<ul>
+<li>
+<p>AFIO_EXTICR1：控制EXTI0~EXTI7通道与GPIO引脚的映射。</p>
+</li>
+<li>
+<p>AFIO_EXTICR2：控制EXTI8~EXTI15通道与GPIO引脚的映射。</p>
+</li>
+</ul>
+<p>每4位控制一个中断通道（EXTIx[3:0]），配置值对应GPIO端口（0000=PA，0001=PB，以此类推）。</p>
+<h1 id="五实操示例以pa0配置为推挽输出为例"><a class="header" href="#五实操示例以pa0配置为推挽输出为例">五、实操示例（以PA0配置为推挽输出为例）</a></h1>
+<p>以下为寄存器操作示例（基于C语言，寄存器地址参考手册），实现PA0引脚推挽输出高电平：</p>
+<pre><code class="language-c">#include &quot;ch32h417.h&quot;
+
+void GPIO_PA0_Init(void)
+{
+    // 1. 使能GPIOA时钟（需先使能外设时钟，此处省略时钟配置）
+    // 2. 配置PA0为推挽输出模式，速度50MHz
+    R32_GPIOA_CFGLR &amp;= ~(0x0F &lt;&lt; 0);  // 清除PA0的配置位（CNF0[1:0]和MODE0[1:0]）
+    R32_GPIOA_CFGLR |= (0x03 &lt;&lt; 0);   // MODE0=11（输出模式），CNF0=00（推挽输出）
+    R32_GPIOA_SPEED |= (0x01 &lt;&lt; 0);   // SPEED0=01（50MHz）
+    
+    // 3. 控制PA0输出高电平
+    R32_GPIOA_OUTDR |= (0x01 &lt;&lt; 0);   // PA0置1
+    // 或使用BSHR寄存器：R32_GPIOA_BSHR |= (0x01 &lt;&lt; 0);
+}
+
+int main(void)
+{
+    GPIO_PA0_Init();
+    while(1)
+    {
+        // 循环保持高电平，可添加延时实现高低电平切换
+    }
+}
+
+</code></pre>
+<h1 id="六注意事项"><a class="header" href="#六注意事项">六、注意事项</a></h1>
+<ul>
+<li>
+<p>GPIO引脚供电电压需与配置匹配，避免过压损坏芯片（如VDD33引脚不可接5V）。</p>
+</li>
+<li>
+<p>复用功能配置时，需先配置GPIO模式为“复用输入/输出”，再配置AF寄存器选择复用功能序号。</p>
+</li>
+<li>
+<p>外部中断配置时，需确保中断通道与引脚位号一致，且仅能映射一个GPIO引脚。</p>
+</li>
+<li>
+<p>锁定机制生效后，需复位芯片才能重新配置GPIO，实操时需谨慎使用。</p>
+</li>
+<li>
+<p>高速引脚（VIO18供电）的速度配置需结合PWR_CTLR寄存器，确保电压与速度匹配。</p>
+</li>
+</ul>
+<p>本教程仅涵盖GPIO核心功能与操作，详细的引脚复用分配、寄存器位定义及外设配合使用，需参考CH32H417系列应用手册。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/hello_world.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/gpio_led_blink.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/hello_world.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/gpio_led_blink.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

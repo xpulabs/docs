@@ -1,0 +1,610 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MAX98357 - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html" class="active"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="max98357"><a class="header" href="#max98357">MAX98357</a></h1>
+<h2 id="1-文件概述"><a class="header" href="#1-文件概述">1. 文件概述</a></h2>
+<p><code>hardware.c</code> 是一个用于 <strong>SAI (Serial Audio Interface) 驱动 MAX98357A 音频放大器</strong> 的硬件测试程序，通过 CH32H417 的 SAI 外设实现音频输出功能。</p>
+<ul>
+<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>版本</strong>: V1.0.0</li>
+<li><strong>日期</strong>: 2025/03/01</li>
+<li><strong>功能</strong>: 实现 SAI 音频输出，驱动 MAX98357A 放大器播放正弦波音频</li>
+</ul>
+<h2 id="2-核心功能模块"><a class="header" href="#2-核心功能模块">2. 核心功能模块</a></h2>
+<h3 id="21-音频配置与数据定义"><a class="header" href="#21-音频配置与数据定义">2.1 音频配置与数据定义</a></h3>
+<pre><code class="language-c">#include &quot;hardware.h&quot;
+#include &quot;math.h&quot;
+
+#define PI          3.1415926535f
+#define TAU         (2.0f * PI)
+#define SAMPLE_RATE (8000)
+#define DATA_SIZE   SAMPLE_RATE
+
+s16 SAI_Data[DATA_SIZE];
+</code></pre>
+<ul>
+<li>包含数学库用于生成音频波形</li>
+<li>定义了 π 和 2π (TAU) 常量用于正弦波计算</li>
+<li>设置采样率为 8000Hz (SAMPLE_RATE)</li>
+<li>数据大小等于采样率，即 8000 个采样点</li>
+<li>定义了一个 16 位有符号整数数组用于存储音频采样数据</li>
+</ul>
+<h3 id="22-gpio-配置函数-gpio_config"><a class="header" href="#22-gpio-配置函数-gpio_config">2.2 GPIO 配置函数 (GPIO_Config)</a></h3>
+<p><strong>功能</strong>: 配置 SAI 和音频放大器控制的 GPIO 引脚</p>
+<pre><code class="language-c">static void GPIO_Config(void)
+{
+    GPIO_InitTypeDef GPIO_InitStructure = {0};
+    RCC_HB2PeriphClockCmd(RCC_HB2Periph_AFIO, ENABLE);
+    RCC_HB2PeriphClockCmd(RCC_HB2Periph_GPIOB | RCC_HB2Periph_GPIOC, ENABLE);
+	
+    // FS_A PC3(AF7) - 帧同步信号
+    GPIO_PinAFConfig(GPIOC, GPIO_PinSource3, GPIO_AF7);
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+
+    // SCK_A PC2(AF7) - 串行时钟信号
+    GPIO_PinAFConfig(GPIOC, GPIO_PinSource2, GPIO_AF7);
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_2;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+
+    // SD_A PC1(AF6) - 串行数据信号
+    GPIO_PinAFConfig(GPIOC, GPIO_PinSource1, GPIO_AF6);
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_1;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+
+    // // MCLK_A PC0(AF7) - 主时钟信号 (当前被注释)
+    // GPIO_PinAFConfig(GPIOC, GPIO_PinSource0, GPIO_AF7);
+    // GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_0;
+    // GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    // GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    // GPIO_Init(GPIOC, &amp;GPIO_InitStructure);
+
+    // MAX98357A 使能引脚 PB15
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Very_High;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOB, &amp;GPIO_InitStructure);
+
+    // 设置音频放大器使能引脚为高电平 (启用放大器)
+    GPIO_WriteBit(GPIOB, GPIO_Pin_15, Bit_SET);
+}
+</code></pre>
+<ul>
+<li><strong>SAI 引脚配置</strong>:
+<ul>
+<li>FS_A (PC3): 帧同步信号，AF7 功能</li>
+<li>SCK_A (PC2): 串行时钟信号，AF7 功能</li>
+<li>SD_A (PC1): 串行数据信号，AF6 功能</li>
+<li>MCLK_A (PC0): 主时钟信号，当前被注释</li>
+</ul>
+</li>
+<li><strong>音频放大器控制</strong>:
+<ul>
+<li>PB15: 推挽输出，控制 MAX98357A 的使能端</li>
+<li>默认设置为高电平，启用音频放大器</li>
+</ul>
+</li>
+</ul>
+<h3 id="23-sai-配置函数-sai_config"><a class="header" href="#23-sai-配置函数-sai_config">2.3 SAI 配置函数 (SAI_Config)</a></h3>
+<p><strong>功能</strong>: 配置 SAI 外设为音频输出模式</p>
+<pre><code class="language-c">void SAI_Config(uint32_t SampleRate)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>时钟配置</strong>:</p>
+<pre><code class="language-c">/* SAI 时钟配置计算公式:
+SAI_CK_x  = SysClk / 6
+MCLK_x = SAI_CK_x / MCKDIV[5:0] with MCLK_x = 256 * FS
+FS = SAI_CK_x / (MCKDIV[5:0] * 256)
+MCKDIV[5:0] = (SysClk / 6) / (FS * 256) */
+
+RCC_ClocksTypeDef RCC_ClocksStatus = {0};
+RCC_GetClocksFreq(&amp;RCC_ClocksStatus);
+const uint32_t tmpdiv = (RCC_ClocksStatus.SYSCLK_Frequency / 6) / (SampleRate * 256);
+</code></pre>
+<ul>
+<li>计算 SAI 主时钟分频值，确保 MCLK = 256 * FS (采样率)</li>
+<li>获取系统时钟频率并计算相应的分频系数</li>
+</ul>
+</li>
+<li>
+<p><strong>SAI 基本配置</strong>:</p>
+<pre><code class="language-c">SAI_InitStructure.SAI_NoDivider     = SAI_MasterDivider_Enabled;
+SAI_InitStructure.SAI_MasterDivider = tmpdiv;
+SAI_InitStructure.SAI_AudioMode     = SAI_Mode_MasterTx;
+SAI_InitStructure.SAI_Protocol      = SAI_Free_Protocol;
+SAI_InitStructure.SAI_DataSize      = SAI_DataSize_16b;
+SAI_InitStructure.SAI_FirstBit      = SAI_FirstBit_MSB;
+SAI_InitStructure.SAI_ClockStrobing = SAI_ClockStrobing_RisingEdge;
+SAI_InitStructure.SAI_Synchro       = SAI_Asynchronous;
+SAI_InitStructure.SAI_FIFOThreshold = SAI_Threshold_FIFOEmpty;
+SAI_Init(SAI_Block_A, &amp;SAI_InitStructure);
+</code></pre>
+<ul>
+<li>启用主分频器并设置计算得到的分频值</li>
+<li>配置为主动发送模式，16位数据，MSB 优先</li>
+<li>时钟上升沿采样，异步模式</li>
+</ul>
+</li>
+<li>
+<p><strong>帧配置</strong>:</p>
+<pre><code class="language-c">SAI_FrameInitStructure.SAI_FrameLength       = 32;
+SAI_FrameInitStructure.SAI_ActiveFrameLength = 16;
+SAI_FrameInitStructure.SAI_FSDefinition      = SAI_FS_StartFrame;
+SAI_FrameInitStructure.SAI_FSPolarity        = SAI_FS_ActiveHigh;
+SAI_FrameInitStructure.SAI_FSOffset          = SAI_FS_BeforeFirstBit;
+SAI_FrameInit(SAI_Block_A, &amp;SAI_FrameInitStructure);
+</code></pre>
+<ul>
+<li>帧长度 32 位，有效长度 16 位</li>
+<li>帧同步信号在帧开始时有效，高电平有效</li>
+</ul>
+</li>
+<li>
+<p><strong>插槽配置</strong>:</p>
+<pre><code class="language-c">SAI_SlotInitStructure.SAI_FirstBitOffset = 0;
+SAI_SlotInitStructure.SAI_SlotSize       = SAI_SlotSize_16b;
+SAI_SlotInitStructure.SAI_SlotNumber     = 2;
+SAI_SlotInitStructure.SAI_SlotActive     = SAI_SlotActive_ALL;
+SAI_SlotInit(SAI_Block_A, &amp;SAI_SlotInitStructure);
+</code></pre>
+<ul>
+<li>插槽大小 16 位，共 2 个插槽</li>
+<li>两个插槽都处于激活状态（立体声配置）</li>
+</ul>
+</li>
+</ol>
+<h3 id="24-dma-初始化函数-tx_dma_init"><a class="header" href="#24-dma-初始化函数-tx_dma_init">2.4 DMA 初始化函数 (Tx_DMA_Init)</a></h3>
+<p><strong>功能</strong>: 初始化 DMA 用于音频数据传输</p>
+<pre><code class="language-c">void Tx_DMA_Init(DMA_Channel_TypeDef *DMAy_Channelx, uint32_t pAddr, uint32_t mAddr, uint16_t Length)
+</code></pre>
+<ul>
+<li><code>DMAy_Channelx</code>: DMA 通道</li>
+<li><code>pAddr</code>: 外设地址</li>
+<li><code>mAddr</code>: 内存地址</li>
+<li><code>Length</code>: 数据长度</li>
+</ul>
+<p><strong>执行流程</strong>:</p>
+<pre><code class="language-c">DMA_InitStructure.DMA_PeripheralBaseAddr = pAddr;
+DMA_InitStructure.DMA_Memory0BaseAddr    = mAddr;
+DMA_InitStructure.DMA_DIR                = DMA_DIR_PeripheralDST;
+DMA_InitStructure.DMA_BufferSize         = Length;
+DMA_InitStructure.DMA_PeripheralInc      = DMA_PeripheralInc_Disable;
+DMA_InitStructure.DMA_MemoryInc          = DMA_MemoryInc_Enable;
+DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
+DMA_InitStructure.DMA_MemoryDataSize     = DMA_MemoryDataSize_HalfWord;
+DMA_InitStructure.DMA_Mode               = DMA_Mode_Circular;
+DMA_InitStructure.DMA_Priority           = DMA_Priority_VeryHigh;
+DMA_InitStructure.DMA_M2M                = DMA_M2M_Disable;
+DMA_Init(DMAy_Channelx, &amp;DMA_InitStructure);
+</code></pre>
+<ul>
+<li>配置 DMA 从内存到外设的数据传输</li>
+<li>外设地址固定，内存地址自增</li>
+<li>半字 (16位) 数据大小</li>
+<li>循环模式，极高优先级</li>
+<li>禁用内存到内存传输</li>
+</ul>
+<h3 id="25-主函数-hardware"><a class="header" href="#25-主函数-hardware">2.5 主函数 (Hardware)</a></h3>
+<p><strong>功能</strong>: 初始化系统并生成音频输出</p>
+<pre><code class="language-c">void Hardware(void)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>系统初始化</strong>:</p>
+<pre><code class="language-c">printf(&quot;MIO SAI MAX98357A TEST\r\n&quot;);
+
+RCC_HB1PeriphClockCmd(RCC_HB1Periph_PWR, ENABLE);
+PWR_VIO18ModeCfg(PWR_VIO18CFGMODE_SW);
+PWR_VIO18LevelCfg(PWR_VIO18Level_MODE3);    // PWR_VIO18Level_MODE3 = 3.3V
+Delay_Ms(100);
+</code></pre>
+<ul>
+<li>打印测试信息</li>
+<li>配置电源管理：启用 PWR 时钟，设置 VIO18 电压为 3.3V</li>
+</ul>
+</li>
+<li>
+<p><strong>生成正弦波数据</strong>:</p>
+<pre><code class="language-c">// 生成正弦波数据，频率 440Hz(A4)，采样率 8000Hz
+for (int i = 0; i &lt; DATA_SIZE; i += 2)
+{
+    float t         = ((float)i) / ((float)SAMPLE_RATE);
+    SAI_Data[i]     = 1000.0f * sinf(440.0f * TAU * t);
+    SAI_Data[i + 1] = SAI_Data[i];
+}
+</code></pre>
+<ul>
+<li>生成 440Hz (A4 音符) 的正弦波数据</li>
+<li>振幅为 1000 (16位有符号整数)</li>
+<li>左右声道数据相同 (立体声)</li>
+</ul>
+</li>
+<li>
+<p><strong>硬件初始化</strong>:</p>
+<pre><code class="language-c">SAI_Config(SAMPLE_RATE);
+GPIO_Config();
+</code></pre>
+<ul>
+<li>配置 SAI 和 GPIO 外设</li>
+</ul>
+</li>
+<li>
+<p><strong>DMA 配置与启动</strong>:</p>
+<pre><code class="language-c">Tx_DMA_Init(DMA1_Channel1, (uint32_t)(&amp;SAI_Block_A-&gt;DATAR), (uint32_t)SAI_Data, DATA_SIZE);
+DMA_MuxChannelConfig(DMA_MuxChannel1, 112);
+
+DMA_Cmd(DMA1_Channel1, ENABLE);
+SAI_DMACmd(SAI_Block_A, ENABLE);
+</code></pre>
+<ul>
+<li>初始化 DMA 通道 1，连接 SAI Block A 的数据寄存器</li>
+<li>配置 DMA 多路复用通道</li>
+<li>启用 DMA 和 SAI 的 DMA 功能</li>
+</ul>
+</li>
+<li>
+<p><strong>启动音频输出</strong>:</p>
+<pre><code class="language-c">SAI_Cmd(SAI_Block_A, ENABLE);
+</code></pre>
+<ul>
+<li>启用 SAI Block A，开始音频输出</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-工作原理与时序分析"><a class="header" href="#3-工作原理与时序分析">3. 工作原理与时序分析</a></h2>
+<h3 id="31-sai-音频输出原理"><a class="header" href="#31-sai-音频输出原理">3.1 SAI 音频输出原理</a></h3>
+<p>SAI (Serial Audio Interface) 是一种用于音频数据传输的串行接口，采用时分复用技术传输多个音频通道的数据。</p>
+<p><strong>关键信号时序</strong>:</p>
+<ol>
+<li><strong>SCK (Serial Clock)</strong>: 串行时钟，用于同步数据传输</li>
+<li><strong>FS (Frame Sync)</strong>: 帧同步信号，指示一个音频帧的开始</li>
+<li><strong>SD (Serial Data)</strong>: 串行数据信号，传输音频数据</li>
+</ol>
+<p><strong>音频帧结构</strong>:</p>
+<ul>
+<li>帧长度: 32 位</li>
+<li>有效帧长度: 16 位</li>
+<li>每帧包含两个插槽 (Slot 0 和 Slot 1)，分别对应左右声道</li>
+<li>每个插槽包含 16 位音频数据</li>
+</ul>
+<h3 id="32-max98357a-工作原理"><a class="header" href="#32-max98357a-工作原理">3.2 MAX98357A 工作原理</a></h3>
+<p>MAX98357A 是一款单声道 D 类音频放大器，支持 I2S/PCM 接口：</p>
+<ul>
+<li>内置 DAC 和放大器</li>
+<li>3.2W 输出功率</li>
+<li>支持 16-24 位音频数据</li>
+<li>3.0-5.5V 电源电压</li>
+<li>仅需极少的外部组件</li>
+</ul>
+<h3 id="33-音频数据流程"><a class="header" href="#33-音频数据流程">3.3 音频数据流程</a></h3>
+<ol>
+<li><strong>数据生成</strong>: CPU 在 <code>Hardware</code> 函数中生成正弦波数据并存入 <code>SAI_Data</code> 数组</li>
+<li><strong>DMA 传输</strong>: DMA1_Channel1 将 <code>SAI_Data</code> 数组中的数据自动传输到 SAI Block A 的数据寄存器</li>
+<li><strong>SAI 输出</strong>: SAI 将数据转换为串行音频信号 (SCK, FS, SD)</li>
+<li><strong>音频放大</strong>: MAX98357A 接收串行音频信号，进行数模转换和功率放大</li>
+<li><strong>音频输出</strong>: 驱动扬声器产生声音</li>
+</ol>
+<h2 id="4-与其他音频应用的对比"><a class="header" href="#4-与其他音频应用的对比">4. 与其他音频应用的对比</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>特性</th><th>mio_sai_max98357</th><th>普通 I2S 音频</th></tr></thead><tbody>
+<tr><td>接口类型</td><td>SAI</td><td>I2S</td></tr>
+<tr><td>数据传输</td><td>DMA 自动传输</td><td>CPU 或 DMA</td></tr>
+<tr><td>采样率</td><td>8000Hz</td><td>可变 (通常 44.1kHz/48kHz)</td></tr>
+<tr><td>音频格式</td><td>16位立体声</td><td>16-32位单/立体声</td></tr>
+<tr><td>放大器</td><td>MAX98357A D类</td><td>外接放大器或无</td></tr>
+<tr><td>音频质量</td><td>基础音频输出</td><td>高质量音频输出</td></tr>
+</tbody></table>
+</div>
+<h2 id="5-代码优化建议"><a class="header" href="#5-代码优化建议">5. 代码优化建议</a></h2>
+<h3 id="51-增加采样率灵活性"><a class="header" href="#51-增加采样率灵活性">5.1 增加采样率灵活性</a></h3>
+<pre><code class="language-c">// 允许动态调整采样率和音频频率
+#define DEFAULT_SAMPLE_RATE 8000
+#define DEFAULT_FREQUENCY   440.0f
+
+void generate_sine_wave(s16* buffer, uint32_t size, float frequency, uint32_t sample_rate)
+{
+    for (int i = 0; i &lt; size; i += 2)
+    {
+        float t = ((float)i) / ((float)sample_rate);
+        buffer[i] = 1000.0f * sinf(frequency * TAU * t);
+        buffer[i + 1] = buffer[i]; // 立体声复制左声道
+    }
+}
+</code></pre>
+<h3 id="52-增加音频效果"><a class="header" href="#52-增加音频效果">5.2 增加音频效果</a></h3>
+<pre><code class="language-c">// 增加音量控制和不同波形生成
+void generate_square_wave(s16* buffer, uint32_t size, float frequency, uint32_t sample_rate, float amplitude)
+{
+    for (int i = 0; i &lt; size; i += 2)
+    {
+        float t = ((float)i) / ((float)sample_rate);
+        float sine_val = sinf(frequency * TAU * t);
+        buffer[i] = (sine_val &gt;= 0) ? amplitude : -amplitude;
+        buffer[i + 1] = buffer[i];
+    }
+}
+
+// 音量控制函数
+void adjust_volume(s16* buffer, uint32_t size, float volume_gain)
+{
+    for (int i = 0; i &lt; size; i++)
+    {
+        buffer[i] = (s16)((float)buffer[i] * volume_gain);
+    }
+}
+</code></pre>
+<h3 id="53-改进错误处理"><a class="header" href="#53-改进错误处理">5.3 改进错误处理</a></h3>
+<pre><code class="language-c">// 增加 SAI 初始化状态检查
+uint8_t SAI_Config(uint32_t SampleRate)
+{
+    // 现有配置代码...
+    
+    // 初始化后检查状态
+    if(SAI_GetFlagStatus(SAI_Block_A, SAI_FLAG_OVRUN) != RESET)
+    {
+        printf(&quot;SAI Overrun Error!\r\n&quot;);
+        return 1;
+    }
+    return 0;
+}
+</code></pre>
+<h3 id="54-增加音频播放控制"><a class="header" href="#54-增加音频播放控制">5.4 增加音频播放控制</a></h3>
+<pre><code class="language-c">// 暂停/恢复音频播放
+void SAI_PlayControl(uint8_t enable)
+{
+    if(enable)
+    {
+        GPIO_WriteBit(GPIOB, GPIO_Pin_15, Bit_SET); // 启用放大器
+        SAI_Cmd(SAI_Block_A, ENABLE);
+        DMA_Cmd(DMA1_Channel1, ENABLE);
+    }
+    else
+    {
+        SAI_Cmd(SAI_Block_A, DISABLE);
+        DMA_Cmd(DMA1_Channel1, DISABLE);
+        GPIO_WriteBit(GPIOB, GPIO_Pin_15, Bit_RESET); // 禁用放大器
+    }
+}
+</code></pre>
+<h2 id="6-总结"><a class="header" href="#6-总结">6. 总结</a></h2>
+<p>这个程序实现了基于 CH32H417 SAI 外设的音频输出功能，主要特点：</p>
+<ol>
+<li><strong>硬件加速</strong>: 利用 SAI 外设和 DMA 传输，实现高效的音频数据输出</li>
+<li><strong>简洁设计</strong>: 代码结构清晰，易于理解和扩展</li>
+<li><strong>可配置性</strong>: 支持不同的采样率和音频频率</li>
+<li><strong>低功耗</strong>: 使用 DMA 传输减少 CPU 占用，支持低功耗运行</li>
+<li><strong>集成度高</strong>: 与 MAX98357A 音频放大器完美配合，只需极少的外部组件</li>
+</ol>
+<p>该程序展示了如何利用 CH32H417 的高级外设功能实现音频输出，具有较高的学习和参考价值。适合用于音频应用的原型开发和学习。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/sai.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/i3c.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/sai.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/i3c.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,737 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>PIOC - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html" class="active"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417-pioc可编程协议io微控制器实操教程"><a class="header" href="#ch32h417-pioc可编程协议io微控制器实操教程">CH32H417 PIOC（可编程协议I/O微控制器）实操教程</a></h1>
+<p>本教程基于CH32H417系列微控制器应用手册，详细讲解芯片内嵌的PIOC（可编程协议I/O微控制器，文档中简称eMCU）的核心功能、指令系统、寄存器配置及实操流程，旨在帮助开发者快速掌握PIOC的使用方法，实现I/O协议控制、精确定时、数据传输等功能。教程严格贴合手册34章内容，规避冗余理论，聚焦实操重点，适用于有一定单片机基础、需开发PIOC相关功能的开发者。</p>
+<h1 id="第一章pioc基础认知"><a class="header" href="#第一章pioc基础认知">第一章：PIOC基础认知</a></h1>
+<h2 id="11-什么是pioc"><a class="header" href="#11-什么是pioc">1.1 什么是PIOC</a></h2>
+<p>PIOC（可编程协议I/O微控制器）是CH32H417芯片内嵌的一款专用微控制器，基于单时钟周期的精简指令集（RISC8B）内核，运行于系统主频，具备独立的程序空间、寄存器组和I/O控制能力。其核心作用是实现2个通用I/O引脚的协议控制，支持多种中低速通讯协议的I/O实现，以及精确定时控制，可通过动态加载程序适配不同协议需求。</p>
+<h2 id="12-核心特征重点"><a class="header" href="#12-核心特征重点">1.2 核心特征（重点）</a></h2>
+<ul>
+<li>
+<p>内核与指令：采用RISC8B 8位内核，66条指令，除跳转、程序空间读写指令为双周期外，其余均为单周期，优化了位操作指令，执行效率高；</p>
+</li>
+<li>
+<p>程序空间：复用4K字节系统SRAM作为程序ROM（2K指令容量），支持程序暂停和动态加载，程序空间地址范围0x0000-0x07FF；</p>
+</li>
+<li>
+<p>数据存储：具备6级深度11位堆栈（用于子程序返回地址和数据保存），49个专用功能寄存器（SFR），33字节双向/单向寄存器；</p>
+</li>
+<li>
+<p>I/O控制：支持2个通用双向I/O引脚，具备输入电平变化检测、位传送、编解码等功能；</p>
+</li>
+<li>
+<p>协议适配：可通过动态加载不同程序，支持多种单线、两线协议，兼容单线ARGB芯片1024级串联；</p>
+</li>
+<li>
+<p>定时功能：内置1个8位定时器（定时器0），支持定时器模式和脉宽调制器（PWM）模式，可实现精确定时和信号输出；</p>
+</li>
+<li>
+<p>低功耗：支持睡眠模式，可通过引脚电平变化或时钟控制唤醒，全静态设计，程序暂停与睡眠效果等同。</p>
+</li>
+</ul>
+<h2 id="13-核心结构框架"><a class="header" href="#13-核心结构框架">1.3 核心结构框架</a></h2>
+<p>PIOC的核心结构围绕“内核-程序空间-数据空间-I/O控制-定时/编解码”展开，各模块协同工作：</p>
+<ul>
+<li>
+<p>RISC8B内核：执行指令集，控制整个PIOC的运行，处理算术、逻辑和位操作；</p>
+</li>
+<li>
+<p>程序空间：复用系统SRAM，用于存储PIOC运行的程序，支持程序读取（不支持写入）；</p>
+</li>
+<li>
+<p>数据空间：包含49个SFR寄存器，用于存储运行状态、配置参数和数据，支持多种寻址方式；</p>
+</li>
+<li>
+<p>I/O控制模块：管理2个双向I/O引脚，实现输入检测、输出控制和位传送；</p>
+</li>
+<li>
+<p>定时模块：定时器0，用于精确定时、超时复位和PWM信号输出；</p>
+</li>
+<li>
+<p>编解码模块：支持PWM占空比调制和Manchester曼彻斯特调制，实现数据的发送与接收编解码。</p>
+</li>
+</ul>
+<h1 id="第二章pioc核心功能详解"><a class="header" href="#第二章pioc核心功能详解">第二章：PIOC核心功能详解</a></h1>
+<h2 id="21-指令系统关键实操基础"><a class="header" href="#21-指令系统关键实操基础">2.1 指令系统（关键实操基础）</a></h2>
+<p>PIOC采用RISC8B内核，共66条指令，数据宽度8位，指令宽度16位，核心指令分类及重点指令如下（贴合手册，聚焦常用指令）：</p>
+<h3 id="211-指令分类与周期"><a class="header" href="#211-指令分类与周期">2.1.1 指令分类与周期</a></h3>
+<ul>
+<li>
+<p>单周期指令（核心）：除跳转、程序空间读写外，其余均为单周期，包括位操作、寄存器读写、算术逻辑运算等，执行效率高；</p>
+</li>
+<li>
+<p>双周期指令：跳转指令、程序空间读指令（RDCODE），执行时需两个时钟周期。</p>
+</li>
+</ul>
+<h3 id="212-重点指令详解实操常用"><a class="header" href="#212-重点指令详解实操常用">2.1.2 重点指令详解（实操常用）</a></h3>
+<h4 id="1事件等待指令waitb"><a class="header" href="#1事件等待指令waitb">（1）事件等待指令（WAITB）</a></h4>
+<p>核心功能：等待指定事件发生后退出等待，执行下一条指令；事件无效时持续等待，PC计数器保持不变，可可选开启定时器超时复位。支持8种事件等待，实操中常用参数如下：</p>
+<ul>
+<li>
+<p>WB_PORT_I0_FALL：等待IO0引脚检测到下降沿，退出时清除检测记录；</p>
+</li>
+<li>
+<p>WB_PORT_I0_RISE：等待IO0引脚检测到上升沿，退出时清除检测记录；</p>
+</li>
+<li>
+<p>WB_PORT_XOR0_1：等待IO0引脚输入电平与输出电平异或为1（即电平变化）；</p>
+</li>
+<li>
+<p>WB_BIT_CYC_TAIL_1：等待编码位周期进入后25%（编解码完成）。</p>
+</li>
+</ul>
+<h4 id="2位传送指令核心位操作指令"><a class="header" href="#2位传送指令核心位操作指令">（2）位传送指令（核心位操作指令）</a></h4>
+<p>支持2个位操作寄存器，实现I/O引脚、标志位与寄存器之间的快速位传送，单周期完成，分为输出型、输入型和异或更新型：</p>
+<ul>
+<li>
+<p>输出型（BP1F、BP2F）：对应SFR_INDIR_ADDR、SFR_DATA_EXCH寄存器，控制4个独立位输出（SB_FLAG_C、SB_BIT_TX_O0、SB_PORT_OUT0、SB_PORT_OUT1）；</p>
+</li>
+<li>
+<p>输入型（BG1F、BG2F）：对应上述两个寄存器，读取4个独立位输入（SB_FLAG_C、SB_BIT_RX_I0、SB_PORT_IN0、SB_PORT_IN1）；</p>
+</li>
+<li>
+<p>异或更新型（BCTC）：读取4个输入位，其中SB_FLAG_C更新为自身与SB_PORT_IN0的异或结果。</p>
+</li>
+</ul>
+<h4 id="3程序空间读指令rdcode"><a class="header" href="#3程序空间读指令rdcode">（3）程序空间读指令（RDCODE）</a></h4>
+<p>用于读取PIOC程序空间的16位数据（双字节查表），操作步骤：</p>
+<ol>
+<li>
+<p>将目标程序地址低8位写入SFR_INDIR_ADDR寄存器；</p>
+</li>
+<li>
+<p>将目标程序地址高3位写入A寄存器；</p>
+</li>
+<li>
+<p>执行RDCODE指令，低字节返回至A寄存器，高字节返回至SFR_INDIR_ADDR寄存器。</p>
+</li>
+</ol>
+<h4 id="4睡眠与唤醒指令"><a class="header" href="#4睡眠与唤醒指令">（4）睡眠与唤醒指令</a></h4>
+<ul>
+<li>
+<p>SLEEP/SLEEPX：执行后PIOC进入睡眠状态，程序暂停运行；</p>
+</li>
+<li>
+<p>唤醒方式：开启电平变化检测的引脚发生电平变化、SB_MST_CLK_GATE从0变为1（开启PIOC时钟）。</p>
+</li>
+</ul>
+<h2 id="22-程序空间与堆栈"><a class="header" href="#22-程序空间与堆栈">2.2 程序空间与堆栈</a></h2>
+<h3 id="221-程序空间"><a class="header" href="#221-程序空间">2.2.1 程序空间</a></h3>
+<ul>
+<li>
+<p>容量与地址：2048字（对应4K字节SRAM），地址范围0x0000-0x07FF；</p>
+</li>
+<li>
+<p>复用机制：由SB_MST_CLK_GATE位控制（SFR_SYS_CFG寄存器），0=专用于主机SRAM，1=专用于PIOC程序ROM；</p>
+</li>
+<li>
+<p>操作限制：仅支持读操作，不支持写操作，0地址指令不执行（特殊用途）。</p>
+</li>
+</ul>
+<h3 id="222-堆栈"><a class="header" href="#222-堆栈">2.2.2 堆栈</a></h3>
+<p>6级深度、11位宽度的堆栈存储器，核心用途：</p>
+<ul>
+<li>
+<p>子程序调用时，自动保存程序返回地址；</p>
+</li>
+<li>
+<p>通过PUSHAS指令，保存程序运行中的变量、状态等数据。</p>
+</li>
+</ul>
+<h2 id="23-定时功能定时器0"><a class="header" href="#23-定时功能定时器0">2.3 定时功能（定时器0）</a></h2>
+<p>PIOC内置1个8位定时器（定时器0），支持两种工作模式，可实现精确定时和PWM输出，核心配置由SFR_TIMER_CTRL、SFR_TMR0_INIT等寄存器控制。</p>
+<h3 id="231-工作模式"><a class="header" href="#231-工作模式">2.3.1 工作模式</a></h3>
+<ul>
+<li>
+<p>定时器模式（默认）：</p>
+<ul>
+<li>
+<p>计数范围：从SFR_TMR0_INIT（初值寄存器）计数到0xFF，溢出后自动重新加载初值；</p>
+</li>
+<li>
+<p>周期信号：计数值从0xFE到0xFF时，SB_TMR0_CYCLE置1；溢出后清零；</p>
+</li>
+<li>
+<p>频率计算：SB_TMR0_CYCLE频率 = 定时器时钟频率 / (256 - SFR_TMR0_INIT)，占空比1/(256 - SFR_TMR0_INIT)。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>脉宽调制器（PWM）模式：</p>
+<ul>
+<li>
+<p>计数范围：从0x00计数到0xFF，溢出后重新从0x00开始；</p>
+</li>
+<li>
+<p>周期信号：计数值大于SFR_TMR0_INIT时，SB_TMR0_CYCLE置1；溢出后清零；</p>
+</li>
+<li>
+<p>占空比：(255 - SFR_TMR0_INIT)/256，可通过调整初值改变占空比。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="232-时钟选择"><a class="header" href="#232-时钟选择">2.3.2 时钟选择</a></h3>
+<p>由SFR_TIMER_CTRL寄存器的SB_TMR0_FREQ位（3位）选择，以系统主频为基准，分频数可选：1024X、256X、64X、16X、8X、4X、2X、1X（1X即系统主频）。</p>
+<h2 id="24-编解码功能"><a class="header" href="#24-编解码功能">2.4 编解码功能</a></h2>
+<p>PIOC支持两种位调制方式，用于数据的发送与接收编解码，由SFR_BIT_CYCLE（编码位周期）和SFR_BIT_CONFIG（编码位配置）寄存器控制。</p>
+<ul>
+<li>
+<p>开启条件：SFR_BIT_CYCLE寄存器的[6:0]位（编码位宽度）大于3；</p>
+</li>
+<li>
+<p>调制方式：</p>
+<ul>
+<li>
+<p>PWM占空比调制（默认）：0对应25%占空比，1对应75%占空比；</p>
+</li>
+<li>
+<p>Manchester曼彻斯特调制：0在周期内不翻转，1在周期内翻转。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>发送与接收：</p>
+<ul>
+<li>
+<p>发送（SB_BIT_TX_EN=1）：将原始数据写入SB_BIT_TX_O0，编码后自动输出到IO0引脚；</p>
+</li>
+<li>
+<p>接收（SB_BIT_TX_EN=0）：从IO0引脚接收信号，解码后的数据存入SB_BIT_RX_I0。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第三章数据空间寻址方式与寄存器配置重点实操"><a class="header" href="#第三章数据空间寻址方式与寄存器配置重点实操">第三章：数据空间、寻址方式与寄存器配置（重点实操）</a></h1>
+<h2 id="31-数据空间与寻址方式"><a class="header" href="#31-数据空间与寻址方式">3.1 数据空间与寻址方式</a></h2>
+<h3 id="311-数据空间"><a class="header" href="#311-数据空间">3.1.1 数据空间</a></h3>
+<p>PIOC的数据空间由49个专用功能寄存器（SFR）组成，地址范围0x00-0x3F，所有寄存器均为8位宽度，部分寄存器支持主机侧读写（主机侧写操作优先）。</p>
+<h3 id="312-寻址方式6种重点掌握4种寄存器寻址"><a class="header" href="#312-寻址方式6种重点掌握4种寄存器寻址">3.1.2 寻址方式（6种，重点掌握4种寄存器寻址）</a></h3>
+<ul>
+<li>
+<p>立即数寻址：直接使用指令码中的操作数，无需寄存器中转；</p>
+</li>
+<li>
+<p>立即数快速寻址：无需通过A寄存器中转，快速将操作数写入目标寄存器（如MOVA1F快速设置SFR_PORT_DIR）；</p>
+</li>
+<li>
+<p>普通直接寻址：指令提供8位寄存器地址，寻址范围0x000-0x0FF，适用于大部分直接地址指令（如CLR、ADD）；</p>
+</li>
+<li>
+<p>扩展直接寻址：指令提供9位寄存器地址，寻址范围0x000-0x1FF，仅适用于MOV register,A/F、MOVA register指令；</p>
+</li>
+<li>
+<p>间接寻址（常用）：寻址范围0x000-0x0FF，通过两组间接寻址寄存器（地址寄存器+数据读写端口）实现，步骤：</p>
+<ol>
+<li>
+<p>向地址寄存器（SFR_INDIR_ADDR/SFR_INDIR_ADDR2）写入目标寄存器地址；</p>
+</li>
+<li>
+<p>通过数据读写端口（SFR_INDIR_PORT/SFR_INDIR_PORT2）读写目标寄存器；</p>
+</li>
+<li>
+<p>补充：SFR_INDIR_ADDR2具备自动增量特性，读写后自动加1。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>位寻址：指令提供3位位地址，结合普通直接/间接寻址，可寻址任意寄存器的任意一位。</p>
+</li>
+</ul>
+<h2 id="32-核心寄存器配置详解实操必用"><a class="header" href="#32-核心寄存器配置详解实操必用">3.2 核心寄存器配置详解（实操必用）</a></h2>
+<p>PIOC的49个SFR寄存器中，以下为实操中最常用的核心寄存器，重点掌握配置位、复位值和核心功能，其余寄存器可参考手册补充。</p>
+<h3 id="321-系统配置寄存器sfr_sys_cfg地址0x40025c1c"><a class="header" href="#321-系统配置寄存器sfr_sys_cfg地址0x40025c1c">3.2.1 系统配置寄存器（SFR_SYS_CFG，地址0x40025C1C）</a></h3>
+<p>核心配置PIOC的全局状态、时钟和I/O控制权限，复位值0x00000000，重点位如下：</p>
+<ul>
+<li>
+<p>SB_MST_CLK_GATE（位0）：PIOC全局时钟控制，1=开启时钟（程序运行），0=关闭时钟（程序暂停）；</p>
+</li>
+<li>
+<p>SB_MST_RESET（位1）：强制PIOC复位，1=强制复位，0=不强制；</p>
+</li>
+<li>
+<p>SB_MST_IO_EN0/EN1（位2/3）：IO0/IO1引脚控制权限，1=PIOC控制，0=主机控制；</p>
+</li>
+<li>
+<p>SB_INT_REQ（位7）：PIOC向主机请求中断，1=请求中断，0=取消请求。</p>
+</li>
+</ul>
+<h3 id="322-端口控制相关寄存器"><a class="header" href="#322-端口控制相关寄存器">3.2.2 端口控制相关寄存器</a></h3>
+<h4 id="1端口方向设置寄存器sfr_port_dir地址0x40025c0a"><a class="header" href="#1端口方向设置寄存器sfr_port_dir地址0x40025c0a">（1）端口方向设置寄存器（SFR_PORT_DIR，地址0x40025C0A）</a></h4>
+<p>配置IO0/IO1引脚的方向和上拉使能，复位值0x00000000：</p>
+<ul>
+<li>
+<p>SB_PORT_DIR0（位0）：IO0方向，1=输出，0=输入；</p>
+</li>
+<li>
+<p>SB_PORT_DIR1（位1）：IO1方向，1=输出，0=输入；</p>
+</li>
+<li>
+<p>SB_PORT_PU0（位2）：IO0上拉使能，1=允许，0=禁用；</p>
+</li>
+<li>
+<p>SB_PORT_PU1（位3）：IO1上拉使能，1=允许，0=禁用。</p>
+</li>
+</ul>
+<h4 id="2端口输入输出寄存器sfr_port_io地址0x40025c0b"><a class="header" href="#2端口输入输出寄存器sfr_port_io地址0x40025c0b">（2）端口输入输出寄存器（SFR_PORT_IO，地址0x40025C0B）</a></h4>
+<p>读取引脚输入状态、控制引脚输出电平，复位值0xXXXXXX00，重点位如下：</p>
+<ul>
+<li>
+<p>SB_PORT_OUT0（位0）：IO0输出电平，1=高电平，0=低电平（定时器输出优先）；</p>
+</li>
+<li>
+<p>SB_PORT_OUT1（位1）：IO1输出电平，1=高电平，0=低电平；</p>
+</li>
+<li>
+<p>SB_PORT_IN0（位4）：IO0输入状态（参考SB_PORT_IN_EDGE采样时点）；</p>
+</li>
+<li>
+<p>SB_PORT_IN1（位5）：IO1输入状态；</p>
+</li>
+<li>
+<p>SB_PORT_XOR0（位2）：IO0输入与输出异或结果（1=电平变化）；</p>
+</li>
+<li>
+<p>SB_PORT_XOR1（位3）：IO1输入与输出异或结果（1=电平变化）。</p>
+</li>
+</ul>
+<h3 id="323-定时器相关寄存器"><a class="header" href="#323-定时器相关寄存器">3.2.3 定时器相关寄存器</a></h3>
+<h4 id="1定时器控制寄存器sfr_timer_ctrl地址0x40025c06"><a class="header" href="#1定时器控制寄存器sfr_timer_ctrl地址0x40025c06">（1）定时器控制寄存器（SFR_TIMER_CTRL，地址0x40025C06）</a></h4>
+<p>配置定时器0的工作模式、时钟频率和输出使能，复位值0x00000000：</p>
+<ul>
+<li>
+<p>SB_TMR0_MODE（位3）：工作模式，1=PWM模式，0=定时器模式；</p>
+</li>
+<li>
+<p>SB_TMR0_OUT_EN（位4）：定时器信号输出使能，1=允许输出到IO0；</p>
+</li>
+<li>
+<p>SB_TMR0_ENABLE（位5）：定时器计数使能，1=允许计数，0=禁止；</p>
+</li>
+<li>
+<p>SB_TMR0_FREQ（位0-2）：定时器时钟分频数（000=1024X，111=1X）。</p>
+</li>
+</ul>
+<h4 id="2定时器初值计数寄存器"><a class="header" href="#2定时器初值计数寄存器">（2）定时器初值/计数寄存器</a></h4>
+<ul>
+<li>
+<p>SFR_TMR0_INIT（地址0x40025C07）：定时器0初值寄存器，复位值0x00，用于设定计数起始值；</p>
+</li>
+<li>
+<p>SFR_TMR0_COUNT（地址0x40025C05）：定时器0计数寄存器，复位值0x00，实时存储当前计数值，支持直接写入更新。</p>
+</li>
+</ul>
+<h3 id="324-编解码相关寄存器"><a class="header" href="#324-编解码相关寄存器">3.2.4 编解码相关寄存器</a></h3>
+<h4 id="1编码位周期寄存器sfr_bit_cycle地址0x40025c08"><a class="header" href="#1编码位周期寄存器sfr_bit_cycle地址0x40025c08">（1）编码位周期寄存器（SFR_BIT_CYCLE，地址0x40025C08）</a></h4>
+<p>配置编解码的位宽度和发送数据，复位值0x00000000：</p>
+<ul>
+<li>
+<p>SB_BIT_CYCLE（位0-6）：编码位宽度（时钟周期数-1），&gt;3开启编解码，=0强制编解码完成；</p>
+</li>
+<li>
+<p>SB_BIT_TX_O0（位7）：发送编码的原始数据，双缓冲结构，可提前加载下一位数据。</p>
+</li>
+</ul>
+<h4 id="2编码位配置寄存器sfr_bit_config地址0x40025c0c"><a class="header" href="#2编码位配置寄存器sfr_bit_config地址0x40025c0c">（2）编码位配置寄存器（SFR_BIT_CONFIG，地址0x40025C0C）</a></h4>
+<p>配置编解码方式和采样时点，复位值0x00010000：</p>
+<ul>
+<li>
+<p>SB_BIT_TX_EN（位7）：编解码发送使能，1=发送，0=接收；</p>
+</li>
+<li>
+<p>SB_BIT_CODE_MOD（位6）：调制方式，1=Manchester，0=PWM占空比；</p>
+</li>
+<li>
+<p>SB_PORT_IN_EDGE（位5）：采样时点，1=前一周期边沿，0=本周期中间。</p>
+</li>
+</ul>
+<h3 id="325-间接寻址相关寄存器"><a class="header" href="#325-间接寻址相关寄存器">3.2.5 间接寻址相关寄存器</a></h3>
+<ul>
+<li>
+<p>SFR_INDIR_ADDR（地址0x40025C04）：间接寻址1地址寄存器，用于存储目标寄存器地址；</p>
+</li>
+<li>
+<p>SFR_INDIR_PORT（地址0x40025C00）：间接寻址1数据读写端口，读写目标寄存器数据；</p>
+</li>
+<li>
+<p>SFR_INDIR_ADDR2（地址0x40025C09）：间接寻址2地址寄存器，具备自动增量特性；</p>
+</li>
+<li>
+<p>SFR_INDIR_PORT2（地址0x40025C01）：间接寻址2数据读写端口。</p>
+</li>
+</ul>
+<h1 id="第四章pioc实操流程核心步骤"><a class="header" href="#第四章pioc实操流程核心步骤">第四章：PIOC实操流程（核心步骤）</a></h1>
+<p>PIOC的实操核心是“初始化-功能配置-执行操作-睡眠/唤醒”，以下流程严格贴合手册，可直接用于代码开发参考，以最常用的“I/O输出控制+定时器定时”为例。</p>
+<h2 id="41-实操准备"><a class="header" href="#41-实操准备">4.1 实操准备</a></h2>
+<ul>
+<li>
+<p>确认PIOC时钟开启：配置SFR_SYS_CFG寄存器的SB_MST_CLK_GATE=1，开启PIOC时钟；</p>
+</li>
+<li>
+<p>取消强制复位：确保SFR_SYS_CFG的SB_MST_RESET=0，避免PIOC被强制复位；</p>
+</li>
+<li>
+<p>配置I/O控制权限：设置SB_MST_IO_EN0=1，让PIOC控制IO0引脚。</p>
+</li>
+</ul>
+<h2 id="42-初始化步骤以io0输出定时器定时为例"><a class="header" href="#42-初始化步骤以io0输出定时器定时为例">4.2 初始化步骤（以IO0输出+定时器定时为例）</a></h2>
+<ol>
+<li>
+<p>配置端口方向：写入SFR_PORT_DIR，设置SB_PORT_DIR0=1（IO0为输出），SB_PORT_PU0=1（开启上拉）；</p>
+</li>
+<li>
+<p>配置定时器：</p>
+<ul>
+<li>
+<p>写入SFR_TMR0_INIT，设置定时器初值（如0x80，调整定时周期）；</p>
+</li>
+<li>
+<p>写入SFR_TIMER_CTRL，设置SB_TMR0_MODE=0（定时器模式）、SB_TMR0_FREQ=011（16分频）、SB_TMR0_ENABLE=1（允许计数）；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>配置事件等待（可选）：如需等待定时器周期信号，可使用WAITB WB_BIT_CYC_TAIL_1指令；</p>
+</li>
+<li>
+<p>使能相关中断（可选）：如需中断触发，配置状态寄存器和中断使能寄存器（参考手册）。</p>
+</li>
+</ol>
+<h2 id="43-执行操作io0输出翻转"><a class="header" href="#43-执行操作io0输出翻转">4.3 执行操作（IO0输出翻转）</a></h2>
+<ol>
+<li>
+<p>读取当前IO0输出状态：通过SFR_PORT_IO的SB_PORT_OUT0位读取；</p>
+</li>
+<li>
+<p>翻转输出状态：使用位传送指令或直接写入SFR_PORT_IO，将SB_PORT_OUT0置为相反电平；</p>
+</li>
+<li>
+<p>等待定时周期：执行WAITB WB_BIT_CYC_TAIL_1，等待定时器周期完成；</p>
+</li>
+<li>
+<p>循环执行：重复步骤1-3，实现IO0引脚周期性翻转（如LED闪烁）。</p>
+</li>
+</ol>
+<h2 id="44-睡眠与唤醒操作"><a class="header" href="#44-睡眠与唤醒操作">4.4 睡眠与唤醒操作</a></h2>
+<ol>
+<li>
+<p>进入睡眠：执行SLEEP指令，PIOC进入睡眠状态，程序暂停；</p>
+</li>
+<li>
+<p>唤醒：</p>
+<ul>
+<li>
+<p>引脚唤醒：确保IO0/IO1开启电平变化检测（SFR_TIMER_CTRL的SB_EN_LEVEL0/1=1），引脚发生电平变化时唤醒；</p>
+</li>
+<li>
+<p>时钟唤醒：将SFR_SYS_CFG的SB_MST_CLK_GATE从0置为1，开启时钟唤醒。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="45-编解码实操示例以pwm调制发送为例"><a class="header" href="#45-编解码实操示例以pwm调制发送为例">4.5 编解码实操示例（以PWM调制发送为例）</a></h2>
+<ol>
+<li>
+<p>配置编解码参数：</p>
+<ul>
+<li>
+<p>写入SFR_BIT_CYCLE，设置SB_BIT_CYCLE=0x0F（位宽度16个时钟周期）；</p>
+</li>
+<li>
+<p>写入SFR_BIT_CONFIG，设置SB_BIT_TX_EN=1（发送使能）、SB_BIT_CODE_MOD=0（PWM调制）；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>发送数据：将需要发送的原始数据写入SFR_BIT_CYCLE的SB_BIT_TX_O0位；</p>
+</li>
+<li>
+<p>等待发送完成：执行WAITB WB_BIT_CYC_TAIL_1，等待编解码完成；</p>
+</li>
+<li>
+<p>循环发送：重复步骤2-3，发送下一位数据。</p>
+</li>
+</ol>
+<h1 id="第五章实操注意事项与常见问题排查"><a class="header" href="#第五章实操注意事项与常见问题排查">第五章：实操注意事项与常见问题排查</a></h1>
+<h2 id="51-实操注意事项"><a class="header" href="#51-实操注意事项">5.1 实操注意事项</a></h2>
+<ol>
+<li>
+<p>寄存器读写优先级：主机侧写操作优先于PIOC，当两者同时写入同一寄存器时，PIOC的写操作会被丢弃；</p>
+</li>
+<li>
+<p>保留位操作：部分SFR的保留位读出为0，写入时必须保持原值或写0，否则可能导致PIOC工作异常；</p>
+</li>
+<li>
+<p>时序匹配：编解码、定时器的时钟频率需与实际需求匹配，避免时序错误导致数据传输或定时异常；</p>
+</li>
+<li>
+<p>堆栈使用：子程序调用次数不超过6次（堆栈深度6级），避免堆栈溢出；</p>
+</li>
+<li>
+<p>程序空间操作：仅支持读操作，不支持写操作，读取程序空间需严格遵循RDCODE指令步骤；</p>
+</li>
+<li>
+<p>超时复位：使用WAITB指令时，若开启定时器超时复位（SB_EN_TOUT_RST=1），需合理设置定时器初值，避免误复位。</p>
+</li>
+</ol>
+<h2 id="52-常见问题排查"><a class="header" href="#52-常见问题排查">5.2 常见问题排查</a></h2>
+<ul>
+<li>
+<p>问题1：PIOC程序无法运行，IO无输出？</p>
+<ul>
+<li>排查：检查SFR_SYS_CFG的SB_MST_CLK_GATE是否为1（时钟开启）；确认SB_MST_RESET=0（未强制复位）；检查I/O控制权限（SB_MST_IO_EN0/1=1）。</li>
+</ul>
+</li>
+<li>
+<p>问题2：定时器定时周期异常？</p>
+<ul>
+<li>排查：检查SFR_TMR0_INIT的初值设置是否正确；确认SFR_TIMER_CTRL的SB_TMR0_FREQ分频系数是否正确；检查SB_TMR0_ENABLE是否为1（计数使能）。</li>
+</ul>
+</li>
+<li>
+<p>问题3：编解码无数据发送/接收？</p>
+<ul>
+<li>排查：检查SFR_BIT_CYCLE的SB_BIT_CYCLE是否大于3（开启编解码）；确认SB_BIT_TX_EN的状态（发送/接收模式）；检查调制方式（SB_BIT_CODE_MOD）是否与接收端匹配。</li>
+</ul>
+</li>
+<li>
+<p>问题4：WAITB指令无法退出等待？</p>
+<ul>
+<li>排查：检查等待的事件参数是否正确（如引脚电平变化、编解码完成）；确认相关引脚的检测功能是否开启（如SB_EN_LEVEL0/1=1）；检查定时器超时复位是否误触发。</li>
+</ul>
+</li>
+<li>
+<p>问题5：间接寻址操作失败？</p>
+<ul>
+<li>排查：确认地址寄存器（SFR_INDIR_ADDR/ADDR2）已写入正确的目标寄存器地址；检查数据读写端口（SFR_INDIR_PORT/PORT2）的操作方向是否正确（读/写）。</li>
+</ul>
+</li>
+</ul>
+<h1 id="第六章总结"><a class="header" href="#第六章总结">第六章：总结</a></h1>
+<p>CH32H417的PIOC（eMCU）是一款功能强大的可编程协议I/O微控制器，核心优势在于单周期位操作、灵活的I/O控制、精确定时和编解码能力，可通过动态加载程序适配多种中低速协议。掌握PIOC的关键在于：理解指令系统的核心用法、熟悉常用寄存器的配置、遵循实操流程、注意寄存器读写和时序匹配。</p>
+<p>本教程聚焦实操，省略冗余理论，重点讲解了开发中常用的功能、寄存器和流程，可作为PIOC开发的参考手册。实际开发中，需结合具体协议需求（如ARGB串联、自定义单线协议），调整寄存器配置和程序逻辑，同时参考CH32H417官方应用手册和RISC8B指令集文档，提升开发效率。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/exti_key_led.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/pioc_ws2812b.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/exti_key_led.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/pioc_ws2812b.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>SDIO - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html" class="active"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417ch32h415-sdio接口新手教程"><a class="header" href="#ch32h417ch32h415-sdio接口新手教程">CH32H417/CH32H415 SDIO接口新手教程</a></h1>
+<p>本教程专门针对CH32H417、CH32H415微控制器的SDIO接口，从基础认知、核心特性、协议原理、实操流程到寄存器配置、常见问题，全面讲解SDIO的使用方法，适用于新手快速入门，可直接用于SD卡、TF卡、eMMC卡读写及SDIO接口设备（如WiFi/4G模块）控制开发。</p>
+<p>注：本教程所述“SDIO”均指CH32H417/CH32H415微控制器内置的SDIO外设，该外设仅适用于这两款型号，且仅作为SDIO主机使用，被控制的设备（SD卡、SDIO模块等）统称SDIO设备。</p>
+<h1 id="第一章sdio接口基础认知"><a class="header" href="#第一章sdio接口基础认知">第一章：SDIO接口基础认知</a></h1>
+<h2 id="11-什么是sdio接口"><a class="header" href="#11-什么是sdio接口">1.1 什么是SDIO接口</a></h2>
+<p>SDIO（Secure Digital Input/Output）是微控制器上专门用于操作外部存储卡（SD卡、TF卡、eMMC卡）或SDIO接口设备（WiFi/4G模块）的通信接口，属于微控制器的核心外设之一。</p>
+<p>CH32H417/CH32H415的SDIO接口核心特点：</p>
+<ul>
+<li>
+<p>总线挂载：直接挂载在HB总线上，由HCLK直接提供时钟，通信速度高；</p>
+</li>
+<li>
+<p>主机角色：仅作为SDIO主机，所有传输均由微控制器主动发起；</p>
+</li>
+<li>
+<p>核心用途：读写SD/TF/eMMC卡、控制SDIO接口的WiFi/4G等非存储设备；</p>
+</li>
+<li>
+<p>与QSPI区别：无片选引脚，新增CMD引脚（专门传输命令/响应），支持1/4/8位总线宽度。</p>
+</li>
+</ul>
+<h2 id="12-核心特征"><a class="header" href="#12-核心特征">1.2 核心特征</a></h2>
+<h3 id="121-关键特性"><a class="header" href="#121-关键特性">1.2.1 关键特性</a></h3>
+<ul>
+<li>
+<p>设备兼容：支持SD卡、SDIO卡和MMC卡，兼容MMC规范4.5（向前兼容）、SD卡规范2.0、SDIO卡规范2.0；</p>
+</li>
+<li>
+<p>总线宽度：支持1位、4位和8位总线，可根据传输速度需求切换；</p>
+</li>
+<li>
+<p>时钟速度：最高通讯时钟可达100MHz，实际使用中建议限制在50MHz以内（匹配IO输出能力）；</p>
+</li>
+<li>
+<p>模式限制：不兼容SPI或QSPI模式，需与SPI接口区分使用；</p>
+</li>
+<li>
+<p>FIFO配置：内置32个32位FIFO，支持CPU或DMA读写，提升数据传输效率。</p>
+</li>
+</ul>
+<h3 id="122-核心概述"><a class="header" href="#122-核心概述">1.2.2 核心概述</a></h3>
+<p>SDIO接口仅提供SD/MMC规范所需的时钟、数据和命令控制时序，各命令间的先后组合需通过程序自行定义；仅实现存储卡的底层读写功能，文件系统（如FAT32）需用户自行通过程序构建。</p>
+<p>时钟使用原则：初始化阶段时钟需低于400kHz，正式数据传输时可提升至设备支持的最大时钟（最大为HCLK的一半）；时钟超过阈值时，需降低时钟线、数据线、命令线的波形峰值，减少上升/下降耗时。</p>
+<p>设备优先级：本教程叙述优先针对SD卡，其次为SDIO卡（非存储设备），最后为MMC卡；未特殊说明时，内容均适用于SD卡。</p>
+<h2 id="13-接口结构与引脚配置"><a class="header" href="#13-接口结构与引脚配置">1.3 接口结构与引脚配置</a></h2>
+<h3 id="131-外设结构"><a class="header" href="#131-外设结构">1.3.1 外设结构</a></h3>
+<p>SDIO外设由5个核心模块组成，半双工通信，数据流通过通用DMA完成RAM与SDIO FIFO的搬移：</p>
+<ul>
+<li>
+<p>HB接口：接收CPU对SDIO的控制；</p>
+</li>
+<li>
+<p>时钟控制部分：生成SDIO_CK时钟信号，由HCLK分频得到；</p>
+</li>
+<li>
+<p>CMD线控制部分：处理CMD引脚的命令发送和响应接收，附加CRC校验；</p>
+</li>
+<li>
+<p>数据线控制部分：处理SDIO_D[7:0]引脚的数据传输，附加CRC校验；</p>
+</li>
+<li>
+<p>控制寄存器部分：存储配置参数、状态信息，实现中断、DMA等功能控制。</p>
+</li>
+</ul>
+<h3 id="132-引脚配置"><a class="header" href="#132-引脚配置">1.3.2 引脚配置</a></h3>
+<p>SDIO需配置的引脚及模式如下，共10个引脚（SDIO_CK、SDIO_CMD、SDIO_D[7:0]）：</p>
+<div class="table-wrapper"><table><thead><tr><th>SDIO复用功能</th><th>引脚模式</th></tr></thead><tbody>
+<tr><td>SDIO_D[0:3]</td><td>推挽复用输出</td></tr>
+<tr><td>SDIO_CK</td><td>推挽复用输出</td></tr>
+<tr><td>SDIO_CMD</td><td>推挽复用输出</td></tr>
+<tr><td>SDIO_D4~SDIO_D7</td><td>推挽复用输出</td></tr>
+<tr><td>注：若工作在从模式（极少用），SDIO_CK引脚需配置为浮空输入。</td><td></td></tr>
+</tbody></table>
+</div>
+<h2 id="14-时钟配置"><a class="header" href="#14-时钟配置">1.4 时钟配置</a></h2>
+<p>SDIO的时钟（SDIO_CK）由HCLK分频得到，分频系数可配置为2~261之间的任意整数，计算公式为：SDIO_CK = HCLK /（CLKDIV + 2），其中CLKDIV为时钟寄存器（R32_SDIO_CLKCR）的分频域。</p>
+<p>时钟配置注意事项：</p>
+<ul>
+<li>
+<p>初始化阶段：SDIO设备仅支持最高400kHz时钟，需配置合适的分频系数；</p>
+</li>
+<li>
+<p>传输阶段：电压切换完成后，可将时钟提升至设备支持的最大速度（如SDHC卡UHS-I模式可到80MHz，CH32建议不超过50MHz）；</p>
+</li>
+<li>
+<p>时钟修改：读写数据期间及之后7个HCLK周期内，不可修改时钟寄存器配置；</p>
+</li>
+<li>
+<p>节能配置：可通过PWRSAV位配置，总线空闲时关闭SDIO_CK输出，节省电能。</p>
+</li>
+</ul>
+<h1 id="第二章sdio协议核心原理"><a class="header" href="#第二章sdio协议核心原理">第二章：SDIO协议核心原理</a></h1>
+<p>SDIO通信以“传输”为最小单位，每个传输均以主机在CMD线上发送命令为起始，部分命令会伴随设备的响应（CMD线传输）和数据传输（D线传输）；命令、响应、数据均有固定格式，超时会产生错误。</p>
+<p>注：CH32H417/CH32H417仅实现SD 2.0、SDIO 2.0、MMC 4.5规范的硬件基础，不支持双边沿采样等更高版本规范功能，开发时需以对应规范为依据。</p>
+<h2 id="21-命令cmd"><a class="header" href="#21-命令cmd">2.1 命令（CMD）</a></h2>
+<h3 id="211-命令格式"><a class="header" href="#211-命令格式">2.1.1 命令格式</a></h3>
+<p>命令总长48位，固定格式如下（高位在前，低位在后）：</p>
+<div class="table-wrapper"><table><thead><tr><th>位/域名称</th><th>位次/宽度</th><th>固定值</th><th>说明</th></tr></thead><tbody>
+<tr><td>起始位</td><td>47（1位）</td><td>0b</td><td>命令起始标志</td></tr>
+<tr><td>传输位</td><td>46（1位）</td><td>1b</td><td>表示主机向设备传输</td></tr>
+<tr><td>命令索引</td><td>45:40（6位）</td><td>X</td><td>区分不同命令（如CMD0、CMD17）</td></tr>
+<tr><td>命令参数</td><td>39:8（32位）</td><td>X</td><td>命令对应的具体参数（如地址、长度）</td></tr>
+<tr><td>CRC7校验</td><td>7:1（7位）</td><td>X</td><td>对命令索引和参数的CRC校验</td></tr>
+<tr><td>结束位</td><td>0（1位）</td><td>1b</td><td>命令结束标志</td></tr>
+</tbody></table>
+</div>
+<h3 id="212-命令类型"><a class="header" href="#212-命令类型">2.1.2 命令类型</a></h3>
+<p>命令分为4类，核心用途如下：</p>
+<ul>
+<li>
+<p>广播命令（bc）：发给总线上所有设备，无响应返回（如CMD0，复位所有卡到IDLE状态）；</p>
+</li>
+<li>
+<p>带响应的广播命令（bcr）：发给所有设备，有响应返回（如CMD2，所有卡回复CID）；</p>
+</li>
+<li>
+<p>点对点命令（ac）：发给特定设备，无数据传输（如CMD7，选中/取消选中某张卡）；</p>
+</li>
+<li>
+<p>带数据传输的点对点命令（adtc）：发给特定设备，伴随数据传输（如CMD17，单块读）。</p>
+</li>
+</ul>
+<h3 id="213-常用命令sd卡重点"><a class="header" href="#213-常用命令sd卡重点">2.1.3 常用命令（SD卡重点）</a></h3>
+<p>开发中最常用的命令分类整理，参数和响应类型需严格匹配：</p>
+<h4 id="1-基础命令初始化必用"><a class="header" href="#1-基础命令初始化必用">1. 基础命令（初始化必用）</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>命令索引</th><th>类型</th><th>响应类型</th><th>核心功能</th></tr></thead><tbody>
+<tr><td>CMD0</td><td>bc</td><td>无</td><td>复位所有卡到IDLE状态（初始化第一步）</td></tr>
+<tr><td>CMD2</td><td>bcr</td><td>R2</td><td>所有卡回复CID（卡身份识别寄存器）</td></tr>
+<tr><td>CMD3</td><td>bcr</td><td>R6</td><td>卡回复新的RCA（相对卡地址，用于选中特定卡）</td></tr>
+<tr><td>CMD7</td><td>ac</td><td>R1b</td><td>选中或取消选中特定卡（需传入RCA）</td></tr>
+<tr><td>CMD8</td><td>bcr</td><td>R7</td><td>发送SD卡接口条件，检测卡支持的电压</td></tr>
+<tr><td>CMD11</td><td>ac</td><td>R1</td><td>切换SD卡接口电平到1.8V（提升时钟前提）</td></tr>
+</tbody></table>
+</div>
+<h4 id="2-块传输命令读写必用"><a class="header" href="#2-块传输命令读写必用">2. 块传输命令（读写必用）</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>命令索引</th><th>类型</th><th>响应类型</th><th>核心功能</th></tr></thead><tbody>
+<tr><td>CMD16</td><td>ac</td><td>R1</td><td>设置块长度（常用512字节，SDHC/SDXC必设）</td></tr>
+<tr><td>CMD17</td><td>adtc</td><td>R1</td><td>单块读（传入块地址，读取1个数据块）</td></tr>
+<tr><td>CMD18</td><td>adtc</td><td>R1</td><td>多块读（传入起始地址，连续读取多个块）</td></tr>
+<tr><td>CMD24</td><td>adtc</td><td>R1</td><td>单块写（传入块地址，写入1个数据块）</td></tr>
+<tr><td>CMD25</td><td>adtc</td><td>R1</td><td>多块写（传入起始地址，连续写入多个块）</td></tr>
+<tr><td>CMD12</td><td>ac</td><td>R1b</td><td>强制停止数据传输（多块读写后必用）</td></tr>
+</tbody></table>
+</div>
+<h4 id="3-擦除命令大批量写前优化"><a class="header" href="#3-擦除命令大批量写前优化">3. 擦除命令（大批量写前优化）</a></h4>
+<p>SD卡为FLASH结构，写入前会自动擦除，但主动擦除可提升大批量写入效率，仅适用于SD卡：</p>
+<ul>
+<li>
+<p>CMD32：设定擦除首地址（响应R1）；</p>
+</li>
+<li>
+<p>CMD33：设定擦除尾地址（响应R1）；</p>
+</li>
+<li>
+<p>CMD38：执行擦除操作（响应R1b，参数为0时为普通擦除）。</p>
+</li>
+</ul>
+<p>注：SDHC/SDXC卡（2GB~2TB）的擦除地址必须是512字节对齐的块地址。</p>
+<h2 id="22-响应response"><a class="header" href="#22-响应response">2.2 响应（Response）</a></h2>
+<p>响应是SDIO设备对主机命令的回复，仅在CMD线上传输，需在命令结束后规定时间内发出，否则触发超时错误；所有响应均以0b为起始位、0b为传输位（设备向主机传输）、1b为结束位，高位在前。</p>
+<p>SD卡支持R1/R1b/R2/R3/R6/R7共6种响应，SDIO卡额外支持R4/R5，核心响应类型详解如下（实操重点）：</p>
+<h3 id="221-r1响应最常用"><a class="header" href="#221-r1响应最常用">2.2.1 R1响应（最常用）</a></h3>
+<p>普通响应，总长48位，带CRC7校验，卡状态域32位，对应大部分基础命令和块传输命令（如CMD16、CMD17）：</p>
+<div class="table-wrapper"><table><thead><tr><th>位/域名称</th><th>位次/宽度</th><th>说明</th></tr></thead><tbody>
+<tr><td>起始位</td><td>47（1位）</td><td>固定0b</td></tr>
+<tr><td>传输位</td><td>46（1位）</td><td>固定0b（设备→主机）</td></tr>
+<tr><td>响应索引</td><td>45:40（6位）</td><td>跟随对应命令的索引（如CMD17的响应索引为17）</td></tr>
+<tr><td>卡状态</td><td>39:8（32位）</td><td>SD卡当前状态（如空闲、忙、错误）</td></tr>
+<tr><td>CRC7校验</td><td>7:1（7位）</td><td>对响应索引和卡状态的校验</td></tr>
+<tr><td>结束位</td><td>0（1位）</td><td>固定1b</td></tr>
+</tbody></table>
+</div>
+<h3 id="222-其他常用响应"><a class="header" href="#222-其他常用响应">2.2.2 其他常用响应</a></h3>
+<ul>
+<li>
+<p>R1b响应：与R1格式一致，区别是响应后会添加繁忙信号（D2引脚低电平），主机需等待繁忙结束（如CMD7、CMD38）；</p>
+</li>
+<li>
+<p>R2响应：总长136位，无独立CRC7校验（包含在卡状态域），用于回复CID/CSD寄存器（如CMD2回复CID、CMD9回复CSD）；</p>
+</li>
+<li>
+<p>R3响应：总长48位，无CRC7校验，专门回复OCR寄存器（如ACMD41，用于检测卡上电状态和支持电压）；</p>
+</li>
+<li>
+<p>R6响应：总长48位，带CRC7校验，专门回复RCA（如CMD3，返回卡的相对地址）；</p>
+</li>
+<li>
+<p>R7响应：总长48位，带CRC7校验，专门回复CMD8，表明卡支持的电压范围。</p>
+</li>
+</ul>
+<h2 id="23-数据传输"><a class="header" href="#23-数据传输">2.3 数据传输</a></h2>
+<p>数据传输在SDIO_D[7:0]数据线上进行，支持1/4/8位总线宽度，SD卡仅支持块传输模式（带CRC校验），MMC卡额外支持数据流传输模式（无CRC）。</p>
+<h3 id="231-传输规则"><a class="header" href="#231-传输规则">2.3.1 传输规则</a></h3>
+<ul>
+<li>
+<p>数据顺序：每个时钟周期先传输起始位，每个字节高位在前、低位在后；</p>
+</li>
+<li>
+<p>CRC校验：SD卡块传输结束后，会附加CRC校验位，主机需验证CRC正确性；</p>
+</li>
+<li>
+<p>任意长度传输：开启RANDOM_LEN_EN位，可配置任意字节长度（0~2048字节）的块传输，长度由DBLOCKSIZE2定义；</p>
+</li>
+<li>
+<p>传输配置：需设置传输总长度（R32_SDIO_DLEN）、块大小，使能DTEN位，向FIFO写入/读取数据。</p>
+</li>
+</ul>
+<h3 id="232-传输时序核心"><a class="header" href="#232-传输时序核心">2.3.2 传输时序（核心）</a></h3>
+<p>实操中重点关注以下3种时序，确保命令、响应、数据的时序匹配：</p>
+<ul>
+<li>
+<p>单块读：主机发CMD17（带块地址）→ 卡回复R1 → 卡发送数据块 → 卡发送CRC → 传输结束；</p>
+</li>
+<li>
+<p>单块写：主机发CMD24（带块地址）→ 卡回复R1 → 主机发送数据块 → 主机发送CRC → 卡回复确认；</p>
+</li>
+<li>
+<p>多块读写：主机发CMD18/CMD25 → 卡回复R1 → 连续传输多个数据块（每个块带CRC）→ 主机发CMD12停止传输 → 卡回复R1b。</p>
+</li>
+</ul>
+<h2 id="24-状态机了解即可"><a class="header" href="#24-状态机了解即可">2.4 状态机（了解即可）</a></h2>
+<p>SDIO的命令和数据传输遵循固定状态机，无需手动控制状态切换，只需配置正确的寄存器，硬件会自动完成状态流转：</p>
+<ul>
+<li>
+<p>命令状态机（CPSM）：控制命令发送、响应接收，核心状态包括Idle（空闲）、Send（发送命令）、Wait response（等待响应）等；</p>
+</li>
+<li>
+<p>数据状态机（DPSM）：控制数据传输，核心状态包括Idle（空闲）、Read wait（读等待）、Send（发送数据）、Receive（接收数据）等。</p>
+</li>
+</ul>
+<h2 id="25-从模式极少用"><a class="header" href="#25-从模式极少用">2.5 从模式（极少用）</a></h2>
+<p>开启SLV_MODE位（数据控制寄存器2），SDIO外设进入从模式，等待外部主机命令：</p>
+<ul>
+<li>
+<p>接收命令：接收到的命令参数存入RESP1，命令索引存入RESP2；</p>
+</li>
+<li>
+<p>响应方式：自动向外部主机回复R1类型响应，响应参数为CMDARG的值；</p>
+</li>
+<li>
+<p>错误控制：可通过SLV_FORCE_ERR位强制数据块CRC错误，拒绝不期望的读写操作。</p>
+</li>
+</ul>
+<p>注：从模式仅支持R1响应，主从通信的命令索引和参数含义需软件自行定义。</p>
+<h1 id="第三章sdio设备初始化与核心寄存器配置"><a class="header" href="#第三章sdio设备初始化与核心寄存器配置">第三章：SDIO设备初始化与核心寄存器配置</a></h1>
+<p>SDIO开发的核心是“寄存器配置+命令交互”，先熟悉核心寄存器的功能，再掌握初始化流程，即可完成基础的读写操作。CH32H417/CH32H415的SDIO每个模块包含16个核心寄存器，前缀为R32_SDIO_，重点讲解实操必用寄存器。</p>
+<h2 id="31-核心寄存器详解实操必用"><a class="header" href="#31-核心寄存器详解实操必用">3.1 核心寄存器详解（实操必用）</a></h2>
+<h3 id="311-电源寄存器r32_sdio_power"><a class="header" href="#311-电源寄存器r32_sdio_power">3.1.1 电源寄存器（R32_SDIO_POWER）</a></h3>
+<p>地址：0x40018000，复位值：0x00000000，核心配置位（仅列实操常用）：</p>
+<div class="table-wrapper"><table><thead><tr><th>位字段</th><th>功能描述</th><th>实操配置要点</th></tr></thead><tbody>
+<tr><td>PWRCTRL[1:0]（bit1~0）</td><td>电源检测与时钟控制：00=电源关闭；11=上电，卡时钟开启</td><td>初始化时置11b，开启SDIO电源和时钟；禁用时置00b</td></tr>
+</tbody></table>
+</div>
+<h3 id="312-时钟寄存器r32_sdio_clkcr"><a class="header" href="#312-时钟寄存器r32_sdio_clkcr">3.1.2 时钟寄存器（R32_SDIO_CLKCR）</a></h3>
+<p>地址：0x40018004，复位值：0x00000000，核心配置位（时钟控制核心）：</p>
+<div class="table-wrapper"><table><thead><tr><th>位字段</th><th>功能描述</th><th>实操配置要点</th></tr></thead><tbody>
+<tr><td>CLKDIV[7:0]（bit7~0）</td><td>时钟分频系数，SDIO_CK = HCLK/(CLKDIV+2)</td><td>初始化时设为0x9F（HCLK=144MHz时，400kHz）；传输时设为0x0E（50MHz）</td></tr>
+<tr><td>CLKEN（bit8）</td><td>时钟使能：1=允许SDIO_CK输出；0=禁止</td><td>配置完分频后置1，禁用时置0</td></tr>
+<tr><td>WIDBUS[1:0]（bit11~10）</td><td>总线宽度：00=1位；01=4位；10=8位</td><td>初始化用1位（00b），传输时可切换为4位/8位提升速度</td></tr>
+<tr><td>PWRSAV（bit9）</td><td>空闲时钟节能：1=空闲时关闭SDIO_CK；0=始终输出</td><td>低功耗场景置1，追求稳定性置0</td></tr>
+</tbody></table>
+</div>
+<h3 id="313-命令参数寄存器r32_sdio_arg"><a class="header" href="#313-命令参数寄存器r32_sdio_arg">3.1.3 命令参数寄存器（R32_SDIO_ARG）</a></h3>
+<p>地址：0x40018008，复位值：0x00000000，核心功能：</p>
+<ul>
+<li>
+<p>主机模式：存储命令的32位参数（如块地址、RCA、块长度），发送命令时自动随命令一起传输；</p>
+</li>
+<li>
+<p>从机模式：存储从机回复应答的32位响应参数。</p>
+</li>
+</ul>
+<p>实操要点：发送命令前，需先将对应参数写入该寄存器（如发送CMD17时，写入块地址）。</p>
+<h3 id="314-命令寄存器r32_sdio_cmd"><a class="header" href="#314-命令寄存器r32_sdio_cmd">3.1.4 命令寄存器（R32_SDIO_CMD）</a></h3>
+<p>地址：0x4001800C，复位值：0x00000000，核心配置位（命令发送控制）：</p>
+<div class="table-wrapper"><table><thead><tr><th>位字段</th><th>功能描述</th><th>实操配置要点</th></tr></thead><tbody>
+<tr><td>CMDINDEX[5:0]（bit5~0）</td><td>命令索引，填写要发送的命令编号（如CMD0=0x00）</td><td>发送命令前，按需求填写对应命令索引</td></tr>
+<tr><td>WAITRESP[1:0]（bit7~6）</td><td>响应类型：00=无响应；01=短响应；11=长响应</td><td></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/qspi_qflash_dma.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/sdio_sdcard.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/qspi_qflash_dma.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/sdio_sdcard.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

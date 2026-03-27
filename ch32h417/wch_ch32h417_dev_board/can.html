@@ -1,0 +1,542 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CAN - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html" class="active"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417-can控制器实操教程"><a class="header" href="#ch32h417-can控制器实操教程">CH32H417 CAN控制器实操教程</a></h1>
+<p>本教程基于CH32H417系列MCU，详细讲解CAN控制器的核心原理、工作模式、实操配置及常见问题排查，适用于工业、汽车等领域的CAN通信开发，帮助开发者快速掌握CAN控制器的使用方法，实现稳定的串行数据通信。</p>
+<h1 id="第一章can控制器基础认知"><a class="header" href="#第一章can控制器基础认知">第一章：CAN控制器基础认知</a></h1>
+<h2 id="11-什么是can控制器"><a class="header" href="#11-什么是can控制器">1.1 什么是CAN控制器</a></h2>
+<p>控制器局域网（CAN）是一种高性能、高可靠性的串行数据通信协议，CH32H417内置3组CAN控制器，完整实现CAN协议2.0A（标准帧）和2.0B（扩展帧，主动模式），可构建强大的分布式实时控制局域网，以较低的CPU负荷处理大量数据报文，广泛应用于工业控制、汽车电子等场景。</p>
+<h2 id="12-核心特性必记"><a class="header" href="#12-核心特性必记">1.2 核心特性（必记）</a></h2>
+<ul>
+<li>
+<p>硬件资源：3组独立CAN控制器，支持CAN 2.0A/B协议，最高传输速率可达1Mbit/s。</p>
+</li>
+<li>
+<p>发送能力：每组CAN支持3个发送邮箱，可设置发送优先级，记录发送报文SOF时刻时间戳。</p>
+</li>
+<li>
+<p>接收能力：每组CAN支持2个3级邮箱深度的接收FIFO，共42组过滤器，支持32/16位过滤模式，减少软件筛选压力。</p>
+</li>
+<li>
+<p>中断支持：4个独立中断向量（发送、FIFO0、FIFO1、错误及状态变化），各中断源可独立配置。</p>
+</li>
+<li>
+<p>特殊功能：支持时间触发通信（避免低优先级消息阻塞）、低功耗睡眠模式、多种测试模式，适配不同应用场景。</p>
+</li>
+</ul>
+<h1 id="第二章can控制器工作模式详解"><a class="header" href="#第二章can控制器工作模式详解">第二章：CAN控制器工作模式详解</a></h1>
+<p>CH32H417的CAN控制器通过操作CANx_CTLR寄存器的SLEEP和INRQ位，可在<em>初始化模式、睡眠模式、正常模式</em>三者间切换，模式切换是CAN配置的基础，需严格遵循操作流程。</p>
+<h2 id="21-初始化模式配置核心"><a class="header" href="#21-初始化模式配置核心">2.1 初始化模式（配置核心）</a></h2>
+<p>初始化模式用于配置CAN的核心参数（如位时序、过滤器、邮箱等），此模式下禁止报文收发。</p>
+<ul>
+<li>
+<p>进入方式：对CANx_CTLR寄存器的INRQ位置1，查询CANx_STATR寄存器的INAK位，当INAK自动置1时，成功进入初始化模式。</p>
+</li>
+<li>
+<p>退出方式：对CANx_CTLR寄存器的INRQ位清0，查询CANx_STATR的INAK位，当INAK自动清0时，退出初始化模式，进入正常模式。</p>
+</li>
+<li>
+<p>注意事项：过滤器组初始化可在非初始化模式下进行，但需将CANx_FCTLR寄存器的FINIT位置1，此时禁止接收报文。</p>
+</li>
+</ul>
+<h2 id="22-睡眠模式低功耗"><a class="header" href="#22-睡眠模式低功耗">2.2 睡眠模式（低功耗）</a></h2>
+<p>睡眠模式用于降低功耗，此时CAN控制器时钟停止，但邮箱寄存器仍可访问，TX引脚输出隐性位。</p>
+<ul>
+<li>
+<p>进入方式：对CANx_CTLR寄存器的SLEEP位置1，查询CANx_STATR的SNAK位，SNAK自动置1则进入睡眠模式。</p>
+</li>
+<li>
+<p>退出方式：</p>
+<ul>
+<li>
+<p>进入初始化模式：SLEEP位清0，INRQ位置1，查询INAK位置1即可。</p>
+</li>
+<li>
+<p>进入正常模式：SLEEP位清0，查询SNAK位清0即可。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="23-正常模式通信核心"><a class="header" href="#23-正常模式通信核心">2.3 正常模式（通信核心）</a></h2>
+<p>正常模式下，CAN控制器可正常收发报文，完成数据通信。进入正常模式的前提是：退出初始化模式且未进入睡眠模式（SLEEP=0、INRQ=0，SNAK=0、INAK=0）。</p>
+<h1 id="第三章测试模式调试必备"><a class="header" href="#第三章测试模式调试必备">第三章：测试模式（调试必备）</a></h1>
+<p>测试模式用于CAN控制器的调试和总线状态分析，需在初始化模式下配置，配置完成后退出初始化模式即可进入测试模式，共3种测试模式。</p>
+<h2 id="31-静默模式总线状态分析"><a class="header" href="#31-静默模式总线状态分析">3.1 静默模式（总线状态分析）</a></h2>
+<ul>
+<li>
+<p>配置方式：初始化模式下，将CANx_BTIMR寄存器的SILM位置1，退出初始化模式即进入。</p>
+</li>
+<li>
+<p>核心特点：可接收报文，不能对外发送报文（TX引脚始终输出隐性位），不影响总线，适合分析总线状态。</p>
+</li>
+</ul>
+<h2 id="32-环回模式收发测试"><a class="header" href="#32-环回模式收发测试">3.2 环回模式（收发测试）</a></h2>
+<ul>
+<li>
+<p>配置方式：初始化模式下，将CANx_BTIMR寄存器的LBKM位置1，退出初始化模式即进入。</p>
+</li>
+<li>
+<p>核心特点：可对外发送报文，不能接收外部报文，但自身发送的报文可被本节点接收，接收过滤机制有效，适合测试CAN收发功能。</p>
+</li>
+</ul>
+<h2 id="33-静默环回模式封闭自测试"><a class="header" href="#33-静默环回模式封闭自测试">3.3 静默环回模式（封闭自测试）</a></h2>
+<ul>
+<li>
+<p>配置方式：初始化模式下，将CANx_BTIMR寄存器的SILM和LBKM位同时置1，退出初始化模式即进入。</p>
+</li>
+<li>
+<p>核心特点：对CAN总线无影响，RX引脚与总线断开，TX引脚置隐性位，适合CAN控制器的封闭自测试，无需外部总线。</p>
+</li>
+</ul>
+<h1 id="第四章核心功能实操配置重点"><a class="header" href="#第四章核心功能实操配置重点">第四章：核心功能实操配置（重点）</a></h1>
+<p>CAN通信的核心流程为：<strong>初始化配置→发送报文→接收报文</strong>，以下结合寄存器配置，讲解关键步骤（以CAN1为例）。</p>
+<h2 id="41-初始化配置必做步骤"><a class="header" href="#41-初始化配置必做步骤">4.1 初始化配置（必做步骤）</a></h2>
+<p>初始化配置需在初始化模式下完成，核心步骤包括：时钟使能→进入初始化模式→位时序配置→过滤器配置→退出初始化模式。</p>
+<h3 id="411-步骤1使能can时钟"><a class="header" href="#411-步骤1使能can时钟">4.1.1 步骤1：使能CAN时钟</a></h3>
+<p>CAN控制器的时钟由APB1提供，需先使能APB1时钟和对应CAN控制器时钟（如CAN1），同时若使用过滤器，需使能CAN1时钟（过滤器时钟由CAN1提供）。</p>
+<p>示例配置（寄存器操作）：</p>
+<ul>
+<li>
+<p>使能APB1时钟：RCC-&gt;APB1ENR |= (1&lt;&lt;25); // CAN1时钟使能</p>
+</li>
+<li>
+<p>使能GPIO时钟（CAN引脚复用）：根据CAN引脚（如PA11=CAN1_RX，PA12=CAN1_TX），使能对应GPIO端口时钟，并配置为复用功能。</p>
+</li>
+</ul>
+<h3 id="412-步骤2进入初始化模式"><a class="header" href="#412-步骤2进入初始化模式">4.1.2 步骤2：进入初始化模式</a></h3>
+<p>操作CAN1_CTLR寄存器，请求进入初始化模式，并等待确认：</p>
+<pre><code class="language-c">CAN1-&gt;CTLR |= (1&lt;&lt;0); // INRQ位置1，请求进入初始化模式
+while( (CAN1-&gt;STATR &amp; (1&lt;&lt;0)) == 0 ); // 等待INAK位置1，确认进入初始化模式
+</code></pre>
+<h3 id="413-步骤3位时序配置关键决定通信速率"><a class="header" href="#413-步骤3位时序配置关键决定通信速率">4.1.3 步骤3：位时序配置（关键，决定通信速率）</a></h3>
+<p>CAN总线每一位时间分为3段：同步段（SS，固定1Tq）、时间段1（BS1）、时间段2（BS2），Tq为最小时间单元（Tq=(BRP+1)×tHCLK），需通过CANx_BTIMR寄存器配置。</p>
+<ul>
+<li>
+<p>BRP[9:0]：配置Tq，BRP值=（APB1时钟频率/(波特率×(1+BS1+BS2))）-1。</p>
+</li>
+<li>
+<p>TS1[3:0]：BS1长度=TS1+1（范围1~16Tq）。</p>
+</li>
+<li>
+<p>TS2[3:0]：BS2长度=TS2+1（范围1~8Tq）。</p>
+</li>
+<li>
+<p>SJW[3:0]：重新同步跳转宽度=SJW+1（范围1~4Tq）。</p>
+</li>
+</ul>
+<p>示例：APB1时钟为42MHz，波特率为500Kbit/s，配置BS1=13Tq，BS2=2Tq，SJW=1Tq：</p>
+<pre><code class="language-c">CAN1-&gt;BTIMR = 0;
+CAN1-&gt;BTIMR |= (0&lt;&lt;24); // SJW=1Tq（SJW[3:0]=0）
+CAN1-&gt;BTIMR |= (12&lt;&lt;16); // BS1=13Tq（TS1[3:0]=12）
+CAN1-&gt;BTIMR |= (1&lt;&lt;20); // BS2=2Tq（TS2[3:0]=1）
+CAN1-&gt;BTIMR |= (41&lt;&lt;0); // BRP=41，Tq=(41+1)×(1/42MHz)=1us
+</code></pre>
+<h3 id="414-步骤4过滤器配置接收报文筛选"><a class="header" href="#414-步骤4过滤器配置接收报文筛选">4.1.4 步骤4：过滤器配置（接收报文筛选）</a></h3>
+<p>CH32H417共42组过滤器，每组可配置为32/16位模式、屏蔽位/标识符列表模式，需通过CAN1_FCTLR、CAN1_FMCFGR、CAN1_FSCFGR等寄存器配置（过滤器仅CAN1可配置，分配给3组CAN使用）。</p>
+<p>示例：配置过滤器组0为32位屏蔽位模式，关联到FIFO0，过滤标准标识符0x123：</p>
+<pre><code class="language-c">// 1. 进入过滤器初始化模式
+CAN1-&gt;FCTLR |= (1&lt;&lt;0); // FINIT位置1
+// 2. 配置过滤器0为32位屏蔽位模式
+CAN1-&gt;FMCFGR &amp;= ~(1&lt;&lt;0); // FBM0=0，屏蔽位模式
+CAN1-&gt;FSCFGR |= (1&lt;&lt;0); // FSC0=1，32位模式
+// 3. 关联到FIFO0
+CAN1-&gt;FAFIFOR &amp;= ~(1&lt;&lt;0); // FFA0=0，关联FIFO0
+// 4. 配置标识符和屏蔽字（标准帧，IDE=0）
+CAN1-&gt;F0R1 = 0x123&lt;&lt;21; // 标识符寄存器：标准帧0x123
+CAN1-&gt;F0R2 = 0x1FFFFFFF; // 屏蔽字：全1，严格匹配标识符
+// 5. 激活过滤器0
+CAN1-&gt;FWR |= (1&lt;&lt;0); // FACT0=1，激活过滤器
+// 6. 退出过滤器初始化模式
+CAN1-&gt;FCTLR &amp;= ~(1&lt;&lt;0); // FINIT位清0
+</code></pre>
+<h3 id="415-步骤5退出初始化模式进入正常模式"><a class="header" href="#415-步骤5退出初始化模式进入正常模式">4.1.5 步骤5：退出初始化模式，进入正常模式</a></h3>
+<pre><code class="language-c">CAN1-&gt;CTLR &amp;= ~(1&lt;&lt;0); // INRQ位清0，请求退出初始化模式
+while( (CAN1-&gt;STATR &amp; (1&lt;&lt;0)) != 0 ); // 等待INAK位清0，确认进入正常模式
+</code></pre>
+<h2 id="42-发送报文配置"><a class="header" href="#42-发送报文配置">4.2 发送报文配置</a></h2>
+<p>每组CAN有3个发送邮箱（y=0/1/2），发送流程：选择空邮箱→配置报文参数→请求发送→等待发送完成。</p>
+<pre><code class="language-c">// 1. 等待发送邮箱为空（以邮箱0为例）
+while( (CAN1-&gt;TSTATR &amp; (1&lt;&lt;26)) == 0 ); // 等待TME0位为1，邮箱0为空
+// 2. 配置报文标识符（标准帧，IDE=0，RTR=0（数据帧））
+CAN1-&gt;TXMI0R = 0x123&lt;&lt;21; // 标识符0x123，TXRQ=0（暂不请求发送）
+// 3. 配置数据长度（DLC=4，发送4字节数据）
+CAN1-&gt;TXMDT0R = 4&lt;&lt;0; // DLC[3:0]=4
+// 4. 写入发送数据（低4字节：DATA0~DATA3）
+CAN1-&gt;TXMDL0R = 0x12345678; // DATA0=0x78，DATA1=0x56，DATA2=0x34，DATA3=0x12
+// 5. 请求发送（TXRQ位置1）
+CAN1-&gt;TXMI0R |= (1&lt;&lt;0);
+// 6. 等待发送完成（可选）
+while( (CAN1-&gt;TSTATR &amp; (1&lt;&lt;16)) == 0 ); // 等待RQCP0位为1，发送完成
+CAN1-&gt;TSTATR |= (1&lt;&lt;16); // 清除发送完成标志
+</code></pre>
+<h2 id="43-接收报文配置"><a class="header" href="#43-接收报文配置">4.3 接收报文配置</a></h2>
+<p>接收报文由硬件自动完成，存储在接收FIFO中，软件通过读取FIFO邮箱获取报文，流程：等待FIFO有报文→读取报文参数→释放邮箱。</p>
+<pre><code class="language-c">// 1. 等待FIFO0有报文（FMP0[1:0] != 0）
+while( (CAN1-&gt;RFIFO0 &amp; (3&lt;&lt;0)) == 0 ); // 等待FMP0不为0，FIFO0有报文
+// 2. 读取报文标识符
+uint32_t id = CAN1-&gt;RXMI0R &gt;&gt; 21; // 标准帧标识符（IDE=0）
+// 3. 读取数据长度
+uint8_t dlc = CAN1-&gt;RXMDT0R &amp; 0x0F;
+// 4. 读取接收数据
+uint32_t data_low = CAN1-&gt;RXMDL0R; // DATA0~DATA3
+uint32_t data_high = CAN1-&gt;RXMDH0R; // DATA4~DATA7
+// 5. 释放接收邮箱
+CAN1-&gt;RFIFO0 |= (1&lt;&lt;5); // RFOM0位置1，释放FIFO0当前邮箱
+</code></pre>
+<h2 id="44-中断配置可选高效处理"><a class="header" href="#44-中断配置可选高效处理">4.4 中断配置（可选，高效处理）</a></h2>
+<p>CAN支持4个中断向量，可配置发送中断、FIFO接收中断、错误中断等，以FIFO0接收中断为例：</p>
+<pre><code class="language-c">// 1. 使能FIFO0接收中断（FMPIE0位）
+CAN1-&gt;INTENR |= (1&lt;&lt;1); // FMPIE0=1，FIFO0有报文时产生中断
+// 2. 配置NVIC中断优先级（CAN1_RX0_IRQn）
+NVIC_InitTypeDef NVIC_InitStruct;
+NVIC_InitStruct.NVIC_IRQChannel = CAN1_RX0_IRQn;
+NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 1;
+NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0;
+NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+NVIC_Init(&amp;NVIC_InitStruct);
+// 3. 中断服务函数
+void CAN1_RX0_IRQHandler(void)
+{
+    // 读取报文（同接收配置步骤）
+    uint32_t id = CAN1-&gt;RXMI0R &gt;&gt; 21;
+    uint8_t dlc = CAN1-&gt;RXMDT0R &amp; 0x0F;
+    uint32_t data = CAN1-&gt;RXMDL0R;
+    // 释放邮箱
+    CAN1-&gt;RFIFO0 |= (1&lt;&lt;5);
+}
+</code></pre>
+<h1 id="第五章进阶功能解析"><a class="header" href="#第五章进阶功能解析">第五章：进阶功能解析</a></h1>
+<h2 id="51-发送优先级配置"><a class="header" href="#51-发送优先级配置">5.1 发送优先级配置</a></h2>
+<p>发送优先级由CANx_CTLR寄存器的TXFP位决定：</p>
+<ul>
+<li>
+<p>TXFP=1：按发送请求先后次序发送，适合分段发送。</p>
+</li>
+<li>
+<p>TXFP=0：按报文标识符优先级发送（标识符越小，优先级越高），同标识符时，邮箱编号越小优先级越高。</p>
+</li>
+</ul>
+<h2 id="52-时间触发模式避免阻塞"><a class="header" href="#52-时间触发模式避免阻塞">5.2 时间触发模式（避免阻塞）</a></h2>
+<p>时间触发模式用于解决总线繁忙时低优先级消息阻塞问题，需配合TTCAN协议使用，配置步骤：</p>
+<ol>
+<li>
+<p>使能时间触发模式：CANx_CTLR寄存器的TTCM位置1，NART位置1（禁止自动重传）。</p>
+</li>
+<li>
+<p>选择模式：CANx_TTCTLR寄存器的MODE位，0=默认模式，1=增强模式。</p>
+</li>
+<li>
+<p>配置参数：默认模式下，内部定时器自动产生时间戳；增强模式下，需配置时间基准节点，同步各节点计数器，设置触发计数值（CANx_TTCNT）和计数终值（CANx_TTCTLR）。</p>
+</li>
+</ol>
+<h2 id="53-错误处理机制"><a class="header" href="#53-错误处理机制">5.3 错误处理机制</a></h2>
+<p>CAN控制器通过CANx_ERRSR寄存器（TEC发送错误计数器、REC接收错误计数器）管理总线错误，错误状态分为3种：</p>
+<ul>
+<li>
+<p>错误主动状态（TEC/REC &lt; 128）：正常通信，检测到错误时发送主动错误标志。</p>
+</li>
+<li>
+<p>错误被动状态（TEC/REC &gt; 127）：可通信，检测到错误时发送被动错误标志。</p>
+</li>
+<li>
+<p>离线状态（TEC &gt; 255）：无法通信，需手动或自动退出（ABOM位控制）。</p>
+</li>
+</ul>
+<p>注：当总线检测到128次连续11个隐性位时，可恢复为错误主动状态。</p>
+<h1 id="第六章常见问题排查快速定位"><a class="header" href="#第六章常见问题排查快速定位">第六章：常见问题排查（快速定位）</a></h1>
+<ol>
+<li>
+<p><strong>无法发送报文</strong></p>
+<ul>
+<li>
+<p>排查：未退出初始化模式（INAK=1）；发送邮箱未空（TMEy=0）；TXRQ位未置1；位时序配置错误（波特率不匹配）。</p>
+</li>
+<li>
+<p>解决：确认退出初始化模式；等待邮箱为空再发送；检查TXRQ位配置；重新计算位时序参数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>无法接收报文</strong></p>
+<ul>
+<li>
+<p>排查：过滤器未配置或未激活；过滤器模式/位宽配置错误；FIFO未释放（RFOM位未置1）；CAN引脚复用配置错误。</p>
+</li>
+<li>
+<p>解决：重新配置过滤器并激活；检查过滤器关联FIFO是否正确；读取报文后释放邮箱；确认GPIO复用为CAN引脚。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>报文丢失/溢出</strong></p>
+<ul>
+<li>
+<p>排查：接收FIFO满未及时释放（FULLx=1）；FIFO溢出（FOVRx=1）；RFLM位配置错误（锁定模式未启用）。</p>
+</li>
+<li>
+<p>解决：及时读取并释放FIFO邮箱；启用FIFO锁定模式（RFLM=1），避免报文覆盖；优化中断响应速度。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>总线错误（TEC/REC异常）</strong></p>
+<ul>
+<li>
+<p>排查：总线终端电阻未接（需120Ω）；位时序不匹配；总线存在干扰；CAN引脚接线错误（RX/TX接反）。</p>
+</li>
+<li>
+<p>解决：添加终端电阻；重新配置位时序；优化布线，远离干扰源；检查RX/TX接线。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="第七章核心寄存器速查实操常用"><a class="header" href="#第七章核心寄存器速查实操常用">第七章：核心寄存器速查（实操常用）</a></h1>
+<h2 id="71-控制类寄存器"><a class="header" href="#71-控制类寄存器">7.1 控制类寄存器</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址（CAN1）</th><th>核心功能</th></tr></thead><tbody>
+<tr><td>CANx_CTLR</td><td>0x40006400</td><td>主控制寄存器：模式切换（INRQ/SLEEP）、时间触发（TTCM）、自动重传（NART）等。</td></tr>
+<tr><td>CANx_STATR</td><td>0x40006404</td><td>主状态寄存器：模式状态（INAK/SNAK）、引脚电平（RX/SAMP）、中断标志（SLAKI/WKUI）等。</td></tr>
+<tr><td>CANx_BTIMR</td><td>0x4000641C</td><td>位时序寄存器：配置波特率（BRP）、BS1、BS2、SJW，测试模式（SILM/LBKM）。</td></tr>
+</tbody></table>
+</div>
+<h2 id="72-收发类寄存器"><a class="header" href="#72-收发类寄存器">7.2 收发类寄存器</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址（CAN1）</th><th>核心功能</th></tr></thead><tbody>
+<tr><td>CANx_TSTATR</td><td>0x40006408</td><td>发送状态寄存器：邮箱空（TMEy）、发送完成（RQCPy）、错误标志（TERRy/ALSTy）等。</td></tr>
+<tr><td>CANx_RFIFO0/1</td><td>0x4000640C/0x40006410</td><td>接收FIFO状态寄存器：FIFO报文数（FMPx）、满标志（FULLx）、溢出标志（FOVRx）、释放邮箱（RFOMx）。</td></tr>
+<tr><td>CANx_TXMIyR</td><td>0x40006580（y=0）</td><td>发送邮箱标识符寄存器：配置标识符、IDE、RTR、发送请求（TXRQ）。</td></tr>
+<tr><td>CANx_RXMIyR</td><td>0x400065B0（y=0）</td><td>接收邮箱标识符寄存器：读取标识符、IDE、RTR。</td></tr>
+</tbody></table>
+</div>
+<h2 id="73-过滤器类寄存器can1独有"><a class="header" href="#73-过滤器类寄存器can1独有">7.3 过滤器类寄存器（CAN1独有）</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址</th><th>核心功能</th></tr></thead><tbody>
+<tr><td>CAN1_FCTLR</td><td>0x40006600</td><td>过滤器主控制寄存器：过滤器初始化（FINIT）、过滤器组分配（CAN2SB/CAN3SB）。</td></tr>
+<tr><td>CAN1_FMCFGR</td><td>0x40006604</td><td>过滤器模式寄存器：配置过滤器组的模式（屏蔽位/标识符列表）。</td></tr>
+<tr><td>CAN1_FWR</td><td>0x4000661C</td><td>过滤器激活寄存器：激活/禁用各过滤器组（FACTx）。</td></tr>
+</tbody></table>
+</div>
+<h1 id="总结"><a class="header" href="#总结">总结</a></h1>
+<p>CH32H417 CAN控制器的核心是“硬件实现CAN协议，软件配置参数”，实操关键在于：掌握模式切换流程、正确配置位时序（保证通信速率匹配）、合理设置过滤器（减少软件负担）、及时处理收发中断和错误。</p>
+<p>本教程覆盖了CAN通信的基础配置、核心功能和常见问题，开发者可根据实际需求（如时间触发、低功耗、多节点通信），结合芯片手册扩展配置，实现稳定、高效的CAN通信。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/can_loopback.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/can_loopback.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

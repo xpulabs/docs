@@ -1,0 +1,484 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DVP - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html" class="active"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ch32h417-数字图像接口dvp实操教程"><a class="header" href="#ch32h417-数字图像接口dvp实操教程">CH32H417 数字图像接口（DVP）实操教程</a></h1>
+<p>本教程基于CH32H417系列MCU，详细讲解数字图像接口（DVP）的核心原理、主要特性、功能描述、实操配置及寄存器使用方法，结合传感器连接、工作时序、捕获模式等关键知识点，帮助开发者快速掌握DVP接口的使用，实现与摄像头模块的稳定连接及图像数据的高效采集。</p>
+<h1 id="第一章dvp接口基础认知"><a class="header" href="#第一章dvp接口基础认知">第一章：DVP接口基础认知</a></h1>
+<h2 id="11-什么是dvp接口"><a class="header" href="#11-什么是dvp接口">1.1 什么是DVP接口</a></h2>
+<p>数字图像接口DVP（Digital Video Port）是CH32H417 MCU用于连接摄像头模块、获取图像数据流的核心接口，采用8/10/12位并行接口方式通信，支持最高150MHz像素时钟输入频率，可接收原始格式（YUV、RGB等）和压缩格式（JPEG）的图像数据，依靠VSYNC（帧同步）和HSYNC（行同步）信号实现数据同步，同时支持图像裁剪功能，适配各类高速摄像头模块的图像采集需求。</p>
+<h2 id="12-核心特性必记"><a class="header" href="#12-核心特性必记">1.2 核心特性（必记）</a></h2>
+<ul>
+<li>
+<p>数据宽度可配置：支持8位、10位、12位三种并行接口模式，适配不同规格的摄像头模块。</p>
+</li>
+<li>
+<p>数据格式支持：兼容YUV、RGB等原始图像格式，同时支持JPEG压缩格式数据，灵活适配不同采集需求。</p>
+</li>
+<li>
+<p>高速传输能力：内置FIFO缓冲区，支持DMA传输，可接收最高150MHz像素时钟的高速并行数据流。</p>
+</li>
+<li>
+<p>双缓冲接收：采用BUF0和BUF1双缓冲交替存储数据，提升数据接收的稳定性和效率。</p>
+</li>
+<li>
+<p>灵活捕获模式：支持连续模式（持续采集帧数据）和快照模式（仅采集单帧数据）。</p>
+</li>
+<li>
+<p>图像裁剪功能：可通过配置寄存器，截取图像中的指定矩形窗口，满足个性化采集需求。</p>
+</li>
+</ul>
+<h1 id="第二章dvp接口功能详解"><a class="header" href="#第二章dvp接口功能详解">第二章：DVP接口功能详解</a></h1>
+<h2 id="21-与摄像头传感器的连接"><a class="header" href="#21-与摄像头传感器的连接">2.1 与摄像头传感器的连接</a></h2>
+<p>DVP接口通过多组信号与摄像头传感器（Sensor）建立连接，实现时钟、同步信号和数据的传输，同时通过I2C接口配置传感器参数，连接示意及各信号说明如下：</p>
+<h3 id="211-连接信号说明"><a class="header" href="#211-连接信号说明">2.1.1 连接信号说明</a></h3>
+<ul>
+<li>
+<p>PCLK（Pixel clk）：像素时钟，每个时钟周期对应一个非压缩像素数据，外部传感器输出的PCLK时钟最大支持150MHz。</p>
+</li>
+<li>
+<p>HSYNC（Horizontal Synchronization）：行同步信号，用于同步图像的每一行数据传输，标识一行数据的起始和结束。</p>
+</li>
+<li>
+<p>VSYNC（Vertical Synchronization）：帧同步信号，用于同步一帧完整图像的数据传输，标识一帧图像的起始和结束。</p>
+</li>
+<li>
+<p>DATA[11:0]：像素数据总线，用于传输像素数据（原始格式或压缩格式），位宽可配置为8/10/12位，对应D0~D11引脚。</p>
+</li>
+<li>
+<p>XCLK：传感器参考时钟，可由MCU提供或外部晶振提供，为摄像头传感器的正常工作提供时钟基准。</p>
+</li>
+<li>
+<p>I2C接口（SCL、SDA）：用于配置传感器的寄存器，可通过MCU的普通GPIO口模拟I2C时序，也可使用硬件I2C接口操作。</p>
+</li>
+</ul>
+<h3 id="212-dvp引脚汇总"><a class="header" href="#212-dvp引脚汇总">2.1.2 DVP引脚汇总</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>引脚名称</th><th>信号类型及描述</th></tr></thead><tbody>
+<tr><td>PCLK</td><td>像素时钟输入，最大支持150MHz</td></tr>
+<tr><td>DATA[11:0]</td><td>像素数据输入，位宽可配置为8/10/12位</td></tr>
+<tr><td>VSYNC</td><td>帧同步信号输入，标识一帧图像的起始/结束</td></tr>
+<tr><td>HSYNC</td><td>行同步信号输入，标识一行数据的起始/结束</td></tr>
+</tbody></table>
+</div>
+<h2 id="22-工作时序解析"><a class="header" href="#22-工作时序解析">2.2 工作时序解析</a></h2>
+<p>DVP接口的工作时序与摄像头传感器输出的图像大小、刷新率密切相关，核心是通过PCLK、HSYNC、VSYNC三个信号的配合，实现有效图像数据的采集，以下结合实际示例详细说明：</p>
+<h3 id="221-时序核心逻辑"><a class="header" href="#221-时序核心逻辑">2.2.1 时序核心逻辑</a></h3>
+<p>以某传感器为例，传感器内部完整图像尺寸为3576×1145，经内部缩放后，输出图像尺寸为1920×1080，刷新率为25帧/秒（即每秒采集25帧图像），时序关系如下：</p>
+<ul>
+<li>
+<p>帧时序：1帧（1 frame cycle）包含1145行（1145 row cycles），25帧对应1秒（25 frame cycles = 1 second）。</p>
+</li>
+<li>
+<p>行时序：1行（1 row cycle）包含3576个PCLK时钟周期（1 row cycle = 3576 PCLKs），其中仅1920个PCLK周期传输有效像素数据，剩余1656个PCLK周期传感器不传输数据。</p>
+</li>
+<li>
+<p>同步信号关系：HSYNC信号周期是PCLK的3576倍（对应1行数据），VSYNC信号周期是PCLK的3576×1145倍（对应1帧数据）。</p>
+</li>
+</ul>
+<h3 id="222-特殊说明"><a class="header" href="#222-特殊说明">2.2.2 特殊说明</a></h3>
+<p>若传感器传输的是JPEG压缩格式数据，由于数据为压缩后的连续数据流，无需依赖HSYNC行同步信号，仅需通过VSYNC帧同步信号和PCLK时钟即可完成数据接收，具体时序需以所选用传感器的数据手册为准。</p>
+<h2 id="23-图像数据格式说明"><a class="header" href="#23-图像数据格式说明">2.3 图像数据格式说明</a></h2>
+<p>DVP接口支持原始图像格式和压缩图像格式，三种常用格式的核心特点如下：</p>
+<ul>
+<li>
+<p>RGB格式：基于三原色（红色、绿色、蓝色）组成，每个像素由RGB三个分量构成，属于原始未压缩格式，色彩还原度高，适用于对图像质量要求较高的场景。</p>
+</li>
+<li>
+<p>YUV格式：包含亮度信号（Y）和色度信号（U、V，或Pb、Pr，或Cb、Cr），亮度与色度分离，兼顾图像质量和传输效率，是常用的原始图像格式之一。</p>
+</li>
+<li>
+<p>JPEG格式：一种有损失压缩格式，利用人眼对图像高频信息不敏感的特性，去除视觉冗余和结构冗余，压缩后数据量小，适用于对数据传输速率要求较高、对图像细节要求不极致的场景。</p>
+</li>
+</ul>
+<h1 id="第三章dvp接口实操配置重点"><a class="header" href="#第三章dvp接口实操配置重点">第三章：DVP接口实操配置（重点）</a></h1>
+<p>DVP接口的核心应用是接收摄像头传感器输出的图像数据，实操配置需严格遵循“寄存器配置→模式选择→数据接收”的流程，确保配置参数与传感器输出匹配，以下是详细步骤及说明（以CH32H417为例）。</p>
+<h2 id="31-配置核心说明"><a class="header" href="#31-配置核心说明">3.1 配置核心说明</a></h2>
+<ul>
+<li>
+<p>双缓冲存储：DVP接收的每帧数据由BUF0和BUF1交替存储，默认从BUF0开始；RGB/YUV格式下，帧同步信号（VSYNC）有效时复位选择BUF0，存满一行切换至BUF1；JPEG格式下，按DMA接收长度设置切换阈值。</p>
+</li>
+<li>
+<p>数据扩展：当数据总线宽度为10位或12位时，系统会自动将接收的数据无符号扩展至16位后存储，无需手动配置。</p>
+</li>
+<li>
+<p>寄存器匹配：R16_DVP_ROW_NUM（行数配置）和R16_DVP_COL_NUM（列数配置）必须与传感器实际输出的图像大小匹配，否则会导致数据接收异常。</p>
+</li>
+<li>
+<p>模式差异：RGB模式下，R16_DVP_COL_NUM表示一行有效PCLK周期数，R16_DVP_ROW_NUM表示一帧有效行数；JPEG模式下，仅R16_DVP_COL_NUM用于配置DMA接收长度，R16_DVP_ROW_NUM无效。</p>
+</li>
+</ul>
+<h2 id="32-完整配置步骤实操必做"><a class="header" href="#32-完整配置步骤实操必做">3.2 完整配置步骤（实操必做）</a></h2>
+<p>使用DVP接口接收图像数据时，需按以下步骤配置相关寄存器，确保与摄像头传感器模式匹配：</p>
+<ol>
+<li>
+<p>复位接收逻辑：通过R8_DVP_CR1寄存器，清除RB_DVP_ALL_CLR（标志与FIFO清除）和RB_DVP_RCV_CLR（接收逻辑复位）字段，复位接收相关逻辑和FIFO缓冲区，避免残留数据影响采集。</p>
+</li>
+<li>
+<p>配置基础参数：通过R8_DVP_CR0寄存器，配置图像模式（原始/RPEG）、数据位宽（8/10/12位）、PCLK极性、HSYNC极性和VSYNC极性，确保与传感器输出的信号极性、数据格式一致。</p>
+</li>
+<li>
+<p>配置图像尺寸：根据传感器实际输出的有效图像像素，配置R16_DVP_ROW_NUM（行数）和R16_DVP_COL_NUM（列数）；若为JPEG模式，仅配置R16_DVP_COL_NUM即可。</p>
+</li>
+<li>
+<p>配置DMA接收地址：通过R32_DVP_DMA_BUF0和R32_DVP_DMA_BUF1寄存器，分别配置双缓冲的DMA接收地址，要求地址为32字节对齐，确保DMA传输正常。</p>
+</li>
+<li>
+<p>选择捕获模式（可选）：</p>
+<ul>
+<li>
+<p>快照模式：通过R8_DVP_CR1寄存器的RB_DVP_CM位置1，开启单帧捕获模式，捕获一帧数据后自动关闭DVP接口。</p>
+</li>
+<li>
+<p>连续模式：默认模式（RB_DVP_CM位清0），开启DVP接口后持续采集每帧数据，直至手动关闭DVP接口。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>开启裁剪功能（可选）：通过R8_DVP_CR1寄存器的RB_DVP_CROP（裁剪使能）和RB_DVP_FCRC（帧捕获率控制）字段，开启裁剪功能并设置帧捕获率；同时配置R16_DVP_HOFFCNT（水平偏移）、R16_DVP_VST（起始行数）、R16_DVP_CAPCNT（水平捕获数）、R16_DVP_VLINE（垂直捕获数），设置裁剪窗口的坐标和大小。</p>
+</li>
+<li>
+<p>配置中断（可选）：根据需求，通过R8_DVP_IER寄存器使能对应中断（帧开始、行结束、帧完成、FIFO溢出、帧结束），并通过中断控制器PFIC配置中断优先级，开启DVP中断，实现数据接收的中断触发处理。</p>
+</li>
+<li>
+<p>使能DVP和DMA：通过R8_DVP_CR1寄存器的RB_DVP_DMA_ENABLE位置1，使能DMA传输；通过R8_DVP_CR0寄存器的RB_DVP_ENABLE位置1，使能DVP接口，开始接收图像数据。</p>
+</li>
+<li>
+<p>数据处理：等待相关接收中断产生，在中断服务函数中处理接收的数据（如存储、解析、显示等），确保数据及时读取，避免FIFO溢出。</p>
+</li>
+</ol>
+<h2 id="33-捕获模式详解"><a class="header" href="#33-捕获模式详解">3.3 捕获模式详解</a></h2>
+<h3 id="331-快照模式单帧捕获"><a class="header" href="#331-快照模式单帧捕获">3.3.1 快照模式（单帧捕获）</a></h3>
+<ul>
+<li>
+<p>配置方式：R8_DVP_CR1寄存器中RB_DVP_CM位置1，开启快照模式。</p>
+</li>
+<li>
+<p>工作逻辑：使能DVP接口后，系统等待VSYNC帧同步信号（帧起始），开始采集单帧图像数据；接收完一帧完整数据后，系统自动将R8_DVP_CR0寄存器的RB_DVP_ENABLE位清0，关闭DVP接口，完成单帧捕获。</p>
+</li>
+</ul>
+<h3 id="332-连续模式持续捕获"><a class="header" href="#332-连续模式持续捕获">3.3.2 连续模式（持续捕获）</a></h3>
+<ul>
+<li>
+<p>配置方式：R8_DVP_CR1寄存器中RB_DVP_CM位清0，默认开启连续模式。</p>
+</li>
+<li>
+<p>工作逻辑：使能DVP接口后，系统持续采集每帧图像数据，直至手动将R8_DVP_CR0寄存器的RB_DVP_ENABLE位清0，关闭DVP接口；期间每帧数据通过双缓冲交替存储，配合DMA传输，确保数据不丢失。</p>
+</li>
+</ul>
+<h2 id="34-裁剪功能详解"><a class="header" href="#34-裁剪功能详解">3.4 裁剪功能详解</a></h2>
+<p>DVP接口的裁剪功能可从接收的完整图像中，截取指定大小的矩形窗口数据，适配不同的图像显示或处理需求，核心配置如下：</p>
+<ul>
+<li>
+<p>裁剪窗口参数：</p>
+<ul>
+<li>
+<p>起始坐标：由R16_DVP_HOFFCNT（水平偏移，矩形左上角X坐标）和R16_DVP_VST（起始行数，矩形左上角Y坐标）配置。</p>
+</li>
+<li>
+<p>窗口大小：由R16_DVP_CAPCNT（水平捕获数，矩形宽度）和R16_DVP_VLINE（垂直捕获数，矩形高度）配置。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>开启方法：通过R8_DVP_CR1寄存器的RB_DVP_CROP位置1，开启裁剪功能；同时配置RB_DVP_FCRC字段，控制帧捕获率（00=捕获所有帧，01=每隔一帧捕获，10=每隔三帧捕获，11=保留）。</p>
+</li>
+<li>
+<p>时序特点：裁剪时，HSYNC行同步信号周期不变，仅在每行的有效PCLK周期内，截取指定长度的像素数据；VSYNC帧同步信号周期不变，仅截取指定行数的有效数据。</p>
+</li>
+</ul>
+<h1 id="第四章dvp相关寄存器详解速查必备"><a class="header" href="#第四章dvp相关寄存器详解速查必备">第四章：DVP相关寄存器详解（速查必备）</a></h1>
+<p>DVP接口的所有功能均通过配置相关寄存器实现，以下汇总核心寄存器的地址、功能及关键位说明，方便实操时快速查询和配置。</p>
+<h2 id="41-核心寄存器列表"><a class="header" href="#41-核心寄存器列表">4.1 核心寄存器列表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>寄存器名称</th><th>访问地址</th><th>核心功能描述</th><th>复位值</th></tr></thead><tbody>
+<tr><td>R8_DVP_CR0</td><td>0x40025800</td><td>DVP控制寄存器0，配置数据位宽、图像模式、信号极性、DVP使能</td><td>0x00</td></tr>
+<tr><td>R8_DVP_CR1</td><td>0x40025801</td><td>DVP控制寄存器1，配置捕获模式、裁剪功能、DMA使能、复位控制</td><td>0x06</td></tr>
+<tr><td>R8_DVP_IER</td><td>0x40025802</td><td>DVP中断使能寄存器，配置各类接收中断的使能状态</td><td>0x00</td></tr>
+<tr><td>R16_DVP_ROW_NUM</td><td>0x40025804</td><td>图像行数配置寄存器，RGB模式有效，JPEG模式无效</td><td>0x0000</td></tr>
+<tr><td>R16_DVP_COL_NUM</td><td>0x40025806</td><td>图像列数配置寄存器，RGB模式为有效PCLK周期数，JPEG模式为DMA接收长度</td><td>0x0000</td></tr>
+<tr><td>R32_DVP_DMA_BUF0</td><td>0x40025808</td><td>DMA接收地址0寄存器，32字节对齐</td><td>0x00000000</td></tr>
+<tr><td>R32_DVP_DMA_BUF1</td><td>0x4002580C</td><td>DMA接收地址1寄存器，32字节对齐</td><td>0x00000000</td></tr>
+<tr><td>R8_DVP_IFR</td><td>0x40025810</td><td>DVP中断标志寄存器，标识各类中断的触发状态，写1清除</td><td>0x00</td></tr>
+<tr><td>R8_DVP_STATUS</td><td>0x40025811</td><td>DVP接收FIFO状态寄存器，标识FIFO的溢出、满、就绪状态及数据计数</td><td>0x00</td></tr>
+<tr><td>R16_DVP_HOFFCNT</td><td>0x40025818</td><td>水平偏移寄存器，配置裁剪窗口的X起始坐标，低14位有效</td><td>0x0000</td></tr>
+<tr><td>R16_DVP_VST</td><td>0x4002581A</td><td>起始行数寄存器，配置裁剪窗口的Y起始坐标，低13位有效</td><td>0x0000</td></tr>
+<tr><td>R16_DVP_CAPCNT</td><td>0x4002581C</td><td>捕获计数寄存器，配置裁剪窗口的水平宽度，低14位有效</td><td>0x0000</td></tr>
+<tr><td>R16_DVP_VLINE</td><td>0x4002581E</td><td>垂直行计数寄存器，配置裁剪窗口的垂直高度，低14位有效</td><td>0x0000</td></tr>
+<tr><td>R32_DVP_DR</td><td>0x40025820</td><td>数据寄存器，接收4字节数据后触发DMA请求，防止DMA溢出</td><td>0x00000000</td></tr>
+</tbody></table>
+</div>
+<h2 id="42-关键寄存器详细说明"><a class="header" href="#42-关键寄存器详细说明">4.2 关键寄存器详细说明</a></h2>
+<h3 id="421-dvp控制寄存器0r8_dvp_cr0地址0x40025800"><a class="header" href="#421-dvp控制寄存器0r8_dvp_cr0地址0x40025800">4.2.1 DVP控制寄存器0（R8_DVP_CR0，地址0x40025800）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位</th><th>寄存器位名称</th><th>访问方式</th><th>功能描述</th><th>复位值</th></tr></thead><tbody>
+<tr><td>6</td><td>RB_DVP_JPEG</td><td>RW</td><td>JPEG模式使能：1=JPEG压缩格式，0=原始数据格式（YUV/RGB）</td><td>0</td></tr>
+<tr><td>[5:4]</td><td>RB_DVP_MSK_DAT_MOD[1:0]</td><td>RW</td><td>数据位宽配置：00=8位，01=10位，1x=12位</td><td>00b</td></tr>
+<tr><td>3</td><td>RB_DVP_P_POLAR</td><td>RW</td><td>PCLK极性配置：1=下降沿采样，0=上升沿采样</td><td>0</td></tr>
+<tr><td>2</td><td>RB_DVP_H_POLAR</td><td>RW</td><td>HSYNC极性配置：1=低电平有效，0=高电平有效</td><td>0</td></tr>
+<tr><td>1</td><td>RB_DVP_V_POLAR</td><td>RW</td><td>VSYNC极性配置：1=高电平有效，0=低电平有效</td><td>0</td></tr>
+<tr><td>0</td><td>RB_DVP_ENABLE</td><td>RW</td><td>DVP功能使能：1=使能，0=禁用</td><td>0</td></tr>
+</tbody></table>
+</div>
+<h3 id="422-dvp控制寄存器1r8_dvp_cr1地址0x40025801"><a class="header" href="#422-dvp控制寄存器1r8_dvp_cr1地址0x40025801">4.2.2 DVP控制寄存器1（R8_DVP_CR1，地址0x40025801）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位</th><th>寄存器位名称</th><th>访问方式</th><th>功能描述</th><th>复位值</th></tr></thead><tbody>
+<tr><td>[7:6]</td><td>RB_DVP_FCRC[1:0]</td><td>RW</td><td>帧捕获率控制：00=捕获所有帧，01=每隔一帧，10=每隔三帧，11=保留</td><td>00b</td></tr>
+<tr><td>5</td><td>RB_DVP_CROP</td><td>RW</td><td>裁剪功能控制：1=仅捕获裁剪窗口数据，0=捕获完整图像</td><td>0</td></tr>
+<tr><td>4</td><td>RB_DVP_CM</td><td>RW</td><td>捕获模式：1=快照模式（单帧），0=连续模式</td><td>0</td></tr>
+<tr><td>3</td><td>RB_DVP_BUF_TOG</td><td>RWT</td><td>缓冲地址标志位，硬件翻转，软件置1翻转，0=BUF0，1=BUF1</td><td>0</td></tr>
+<tr><td>2</td><td>RB_DVP_RCV_CLR</td><td>RW</td><td>接收逻辑复位：1=复位，0=取消复位</td><td>1</td></tr>
+<tr><td>1</td><td>RB_DVP_ALL_CLR</td><td>RW</td><td>标志与FIFO清除：1=复位，0=取消复位</td><td>0</td></tr>
+<tr><td>0</td><td>RB_DVP_DMA_ENABLE</td><td>RW</td><td>DMA使能：1=使能，0=禁用</td><td>0</td></tr>
+</tbody></table>
+</div>
+<h3 id="423-中断使能寄存器r8_dvp_ier地址0x40025802"><a class="header" href="#423-中断使能寄存器r8_dvp_ier地址0x40025802">4.2.3 中断使能寄存器（R8_DVP_IER，地址0x40025802）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位</th><th>寄存器位名称</th><th>访问方式</th><th>功能描述</th><th>复位值</th></tr></thead><tbody>
+<tr><td>[7:5]</td><td>Reserved</td><td>RO</td><td>保留，无实际功能</td><td>0</td></tr>
+<tr><td>4</td><td>RB_DVP_IE_STP_FRM</td><td>RW</td><td>帧结束中断使能（VSYNC从有效变无效时触发）：1=使能，0=禁止</td><td>0</td></tr>
+<tr><td>3</td><td>RB_DVP_IE_FIFO_OV</td><td>RW</td><td>FIFO溢出中断使能：1=使能，0=禁止</td><td>0</td></tr>
+<tr><td>2</td><td>RB_DVP_IE_FRM_DONE</td><td>RW</td><td>帧接收完成中断使能（计数器达配置值）：1=使能，0=禁止</td><td>0</td></tr>
+<tr><td>1</td><td>RB_DVP_IE_ROW_DONE</td><td>RW</td><td>行结束中断使能（计数器达COL_NUM）：1=使能，0=禁止</td><td>0</td></tr>
+<tr><td>0</td><td>RB_DVP_IE_STR_FRM</td><td>RW</td><td>帧开始中断使能（VSYNC从无效变有效时触发）：1=使能，0=禁止</td><td>0</td></tr>
+</tbody></table>
+</div>
+<h1 id="第五章实操注意事项"><a class="header" href="#第五章实操注意事项">第五章：实操注意事项</a></h1>
+<ul>
+<li>
+<p>参数匹配：DVP接口的位宽、信号极性、图像尺寸等配置，必须与摄像头传感器的输出参数完全一致，否则会导致数据接收异常、图像失真或无法接收数据。</p>
+</li>
+<li>
+<p>时钟控制：PCLK时钟最大支持150MHz，配置时需结合传感器的时钟要求，避免时钟频率过高导致数据传输错误；XCLK参考时钟需与传感器的工作时钟匹配，优先使用晶振提供。</p>
+</li>
+<li>
+<p>DMA配置：DMA接收地址需满足32字节对齐要求，否则会导致DMA传输失败；双缓冲BUF0和BUF1的地址需独立配置，避免地址重叠。</p>
+</li>
+<li>
+<p>中断处理：开启中断后，需及时处理中断标志（通过R8_DVP_IFR寄存器写1清除），避免中断反复触发；FIFO溢出中断需重点关注，及时读取数据防止溢出。</p>
+</li>
+<li>
+<p>裁剪配置：裁剪窗口的坐标和大小需在传感器输出图像尺寸范围内，否则会截取到无效数据；低14位/13位有效位需注意，避免配置超出有效范围。</p>
+</li>
+<li>
+<p>传感器配置：通过I2C接口配置传感器寄存器时，需确保I2C时序正确，可优先使用硬件I2C接口，提升配置稳定性。</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/fmc_lcd.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/fmc_lcd.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

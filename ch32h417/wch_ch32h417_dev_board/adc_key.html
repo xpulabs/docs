@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ADC按键 - CH32H417系列开发板使用手册</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../faq.html">FAQ - 常见问题</a></li><li class="chapter-item expanded affix "><li class="part-title">WCH CH32H417Q开发板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/usage_manual.html"><strong aria-hidden="true">1.</strong> 使用手册</a></li><li class="chapter-item expanded affix "><li class="part-title">Amnos CH32H417 MIO外设板</li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/hello_world.html"><strong aria-hidden="true">2.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio.html"><strong aria-hidden="true">3.</strong> GPIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_led_blink.html"><strong aria-hidden="true">3.1.</strong> LED 闪烁</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/gpio_key_led.html"><strong aria-hidden="true">3.2.</strong> 按键控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti.html"><strong aria-hidden="true">4.</strong> EXTI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/exti_key_led.html"><strong aria-hidden="true">4.1.</strong> 按键中断控制LED</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc.html"><strong aria-hidden="true">5.</strong> PIOC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/pioc_ws2812b.html"><strong aria-hidden="true">5.1.</strong> WS2812B</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc.html"><strong aria-hidden="true">6.</strong> ADC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/adc_key.html" class="active"><strong aria-hidden="true">6.1.</strong> ADC按键</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai.html"><strong aria-hidden="true">7.</strong> SAI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sai_max98357.html"><strong aria-hidden="true">7.1.</strong> MAX98357</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c.html"><strong aria-hidden="true">8.</strong> I3C</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/i3c_lsm6ds3r.html"><strong aria-hidden="true">8.1.</strong> LSM6DS3R</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi.html"><strong aria-hidden="true">9.</strong> QSPI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash.html"><strong aria-hidden="true">9.1.</strong> QFlash</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/qspi_qflash_dma.html"><strong aria-hidden="true">9.2.</strong> QFlash DMA</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio.html"><strong aria-hidden="true">10.</strong> SDIO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/sdio_sdcard.html"><strong aria-hidden="true">10.1.</strong> SD卡</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc.html"><strong aria-hidden="true">11.</strong> FMC</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/fmc_lcd.html"><strong aria-hidden="true">11.1.</strong> FMC驱动LCD</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp.html"><strong aria-hidden="true">12.</strong> DVP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_uart_ov2640.html"><strong aria-hidden="true">12.1.</strong> 串口输出OV2640图像</a></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/dvp_lcd_ov2640.html"><strong aria-hidden="true">12.2.</strong> LCD显示OV2640图像</a></li></ol></li><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can.html"><strong aria-hidden="true">13.</strong> CAN</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../wch_ch32h417_dev_board/can_loopback.html"><strong aria-hidden="true">13.1.</strong> CAN回环</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CH32H417系列开发板使用手册</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="adc按键"><a class="header" href="#adc按键">ADC按键</a></h1>
+<h2 id="1-文件概述"><a class="header" href="#1-文件概述">1. 文件概述</a></h2>
+<p><code>hardware.c</code> 是一个用于 <strong>ADC 定时器触发采样</strong> 的硬件测试程序，通过 CH32H417 的定时器和 ADC 外设实现定时触发的模拟信号采样功能。</p>
+<ul>
+<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>版本</strong>: V1.0.0</li>
+<li><strong>日期</strong>: 2025/03/01</li>
+<li><strong>功能</strong>: 实现定时器触发的 ADC 采样功能，包括定时器 PWM 配置、ADC 初始化和中断处理</li>
+</ul>
+<h2 id="2-核心功能模块"><a class="header" href="#2-核心功能模块">2. 核心功能模块</a></h2>
+<h3 id="21-全局变量定义"><a class="header" href="#21-全局变量定义">2.1 全局变量定义</a></h3>
+<pre><code class="language-c">u16 ADC_val;
+</code></pre>
+<ul>
+<li>定义了一个 16 位无符号整数，用于存储 ADC 采样的结果值</li>
+</ul>
+<h3 id="22-adc-初始化函数-adc_function_init"><a class="header" href="#22-adc-初始化函数-adc_function_init">2.2 ADC 初始化函数 (ADC_Function_Init)</a></h3>
+<p><strong>功能</strong>: 初始化 ADC1 为定时器触发的注入通道采样模式</p>
+<pre><code class="language-c">void ADC_Function_Init(void)
+</code></pre>
+<p><strong>执行流程</strong>:</p>
+<ol>
+<li>
+<p><strong>时钟配置</strong>:</p>
+<pre><code class="language-c">RCC_HB2PeriphClockCmd(RCC_HB2Periph_ADC1|RCC_HB2Periph_GPIOA, ENABLE );
+RCC_ADCCLKConfig(RCC_ADCCLKSource_HCLK);
+RCC_ADCHCLKCLKAsSourceConfig(RCC_PPRE2_DIV4,RCC_HCLK_ADCPRE_DIV8);
+</code></pre>
+<ul>
+<li>启用 ADC1 和 GPIOA 时钟</li>
+<li>配置 ADC 时钟源为 HCLK</li>
+<li>设置 ADC 时钟预分频：APB2 预分频为 4，HCLK ADC 预分频为 8</li>
+</ul>
+</li>
+<li>
+<p><strong>GPIO 配置</strong>:</p>
+<pre><code class="language-c">GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
+GPIO_Init(GPIOA, &amp;GPIO_InitStructure);
+</code></pre>
+<ul>
+<li>配置 PA0 为模拟输入模式 (AIN)，作为 ADC 通道 0 的采样引脚</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC 基本配置</strong>:</p>
+<pre><code class="language-c">ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
+ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
+ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigInjecConv_None;
+ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+ADC_InitStructure.ADC_NbrOfChannel = 1;
+ADC_Init(ADC1, &amp;ADC_InitStructure);
+ADC_LowPowerModeCmd(ADC1, ENABLE);
+</code></pre>
+<ul>
+<li>配置为独立模式，单通道采样</li>
+<li>禁用扫描模式和连续转换模式</li>
+<li>右对齐数据</li>
+<li>启用低功耗模式</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC 注入通道配置</strong>:</p>
+<pre><code class="language-c">ADC_ExternalTrigInjectedConvConfig(ADC1, ADC_ExternalTrigInjecConv_T2_CC1);  
+ADC_InjectedSequencerLengthConfig(ADC1, 1);
+ADC_InjectedChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_CyclesMode5);
+ADC_ExternalTrigInjectedConvCmd(ADC1, ENABLE);
+</code></pre>
+<ul>
+<li>配置注入通道外部触发源为 TIM2_CC1</li>
+<li>注入通道序列长度为 1</li>
+<li>配置通道 0 为注入通道 1，采样时间为模式 5（最长采样时间）</li>
+<li>启用注入通道外部触发转换</li>
+</ul>
+</li>
+<li>
+<p><strong>中断配置</strong>:</p>
+<pre><code class="language-c">NVIC_EnableIRQ(ADC1_2_IRQn);
+NVIC_SetPriority(ADC1_2_IRQn, 0);
+ADC_ITConfig(ADC1, ADC_IT_JEOC, ENABLE);
+</code></pre>
+<ul>
+<li>启用 ADC1_2 中断</li>
+<li>设置最高中断优先级 (0)</li>
+<li>启用注入通道转换结束中断</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC 校准</strong>:</p>
+<pre><code class="language-c">ADC_ResetCalibration(ADC1);
+while(ADC_GetResetCalibrationStatus(ADC1));
+ADC_StartCalibration(ADC1);
+while(ADC_GetCalibrationStatus(ADC1));
+ADC_BufferCmd(ADC1, DISABLE);
+</code></pre>
+<ul>
+<li>执行 ADC 校准</li>
+<li>禁用 ADC 缓冲模式</li>
+</ul>
+</li>
+</ol>
+<h3 id="23-定时器-pwm-初始化函数-tim1_pwm_in"><a class="header" href="#23-定时器-pwm-初始化函数-tim1_pwm_in">2.3 定时器 PWM 初始化函数 (TIM1_PWM_In)</a></h3>
+<p><strong>功能</strong>: 初始化 TIM2 为 PWM 模式，用于触发 ADC 采样</p>
+<pre><code class="language-c">void TIM1_PWM_In(u16 arr, u16 psc, u16 ccp)
+</code></pre>
+<ul>
+<li><code>arr</code>: 自动重载值</li>
+<li><code>psc</code>: 预分频器值</li>
+<li><code>ccp</code>: 捕获比较值 (PWM 占空比)</li>
+</ul>
+<p><strong>执行流程</strong>:</p>
+<pre><code class="language-c">RCC_HB1PeriphClockCmd(RCC_HB1Periph_TIM2, ENABLE);
+
+TIM_TimeBaseInitStructure.TIM_Period = arr;
+TIM_TimeBaseInitStructure.TIM_Prescaler = psc;
+TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
+TIM_TimeBaseInit(TIM2, &amp;TIM_TimeBaseInitStructure);
+
+TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+TIM_OCInitStructure.TIM_Pulse = ccp;
+TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
+TIM_OC1Init(TIM2, &amp;TIM_OCInitStructure);
+
+TIM_CtrlPWMOutputs(TIM2, ENABLE);
+TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Disable);
+TIM_ARRPreloadConfig(TIM2, ENABLE);
+TIM_SelectOutputTrigger(TIM2, TIM_TRGOSource_Update);
+TIM_Cmd(TIM2, ENABLE);
+</code></pre>
+<ul>
+<li>启用 TIM2 时钟</li>
+<li>配置定时器基本参数：向上计数模式，预分频值和自动重载值</li>
+<li>配置 PWM 模式：PWM1 模式，低极性</li>
+<li>启用 TIM2 PWM 输出</li>
+<li>配置更新事件作为触发源</li>
+<li>启用 TIM2</li>
+</ul>
+<h3 id="24-主函数-hardware"><a class="header" href="#24-主函数-hardware">2.4 主函数 (Hardware)</a></h3>
+<p><strong>功能</strong>: 初始化定时器和 ADC，启动整个系统</p>
+<pre><code class="language-c">void Hardware(void)
+{
+    TIM1_PWM_In(7200, 1000-1, 3600);
+    ADC_Function_Init();  
+}
+</code></pre>
+<ul>
+<li>调用 <code>TIM1_PWM_In</code> 函数初始化 TIM2，参数配置：
+<ul>
+<li>自动重载值: 7200</li>
+<li>预分频值: 999 (1000-1)</li>
+<li>PWM 占空比: 50% (3600/7200)</li>
+</ul>
+</li>
+<li>调用 <code>ADC_Function_Init</code> 函数初始化 ADC1</li>
+</ul>
+<h3 id="25-adc-中断处理函数-adc1_2_irqhandler"><a class="header" href="#25-adc-中断处理函数-adc1_2_irqhandler">2.5 ADC 中断处理函数 (ADC1_2_IRQHandler)</a></h3>
+<p><strong>功能</strong>: 处理 ADC1 注入通道转换结束中断</p>
+<pre><code class="language-c">void ADC1_2_IRQHandler()
+{
+    if(ADC_GetITStatus( ADC1, ADC_IT_JEOC)){
+        printf(&quot;ADC Extline trigger conversion...\r\n&quot;);
+        ADC_val = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1);
+        printf(&quot;JADC %04d\r\n&quot;, ADC_val);
+    }
+
+    ADC_ClearITPendingBit( ADC1, ADC_IT_JEOC);
+}
+</code></pre>
+<ul>
+<li>检查注入通道转换结束中断标志</li>
+<li>如果中断发生，打印采样信息</li>
+<li>获取注入通道 1 的采样值并存储到 <code>ADC_val</code></li>
+<li>打印采样结果</li>
+<li>清除中断标志位</li>
+</ul>
+<h2 id="3-工作原理与时序分析"><a class="header" href="#3-工作原理与时序分析">3. 工作原理与时序分析</a></h2>
+<h3 id="31-系统工作流程"><a class="header" href="#31-系统工作流程">3.1 系统工作流程</a></h3>
+<ol>
+<li>
+<p><strong>初始化阶段</strong>:</p>
+<ul>
+<li><code>Hardware</code> 函数首先调用 <code>TIM1_PWM_In</code> 初始化 TIM2 为 PWM 模式</li>
+<li>然后调用 <code>ADC_Function_Init</code> 初始化 ADC1 为定时器触发的注入通道采样模式</li>
+</ul>
+</li>
+<li>
+<p><strong>运行阶段</strong>:</p>
+<ul>
+<li>TIM2 以 PWM 模式运行，产生周期性的触发信号</li>
+<li>当 TIM2_CC1 事件发生时，触发 ADC1 注入通道采样</li>
+<li>ADC 完成采样后，产生注入通道转换结束中断</li>
+<li>中断处理函数读取采样值并打印结果</li>
+</ul>
+</li>
+</ol>
+<h3 id="32-关键时序参数计算"><a class="header" href="#32-关键时序参数计算">3.2 关键时序参数计算</a></h3>
+<p>假设系统时钟 HCLK 为 72MHz：</p>
+<ol>
+<li>
+<p><strong>TIM2 时钟频率</strong>:</p>
+<ul>
+<li>HCLK = 72MHz</li>
+<li>预分频值 psc = 1000-1 = 999</li>
+<li>TIM2 时钟 = HCLK / (psc + 1) = 72MHz / 1000 = 72kHz</li>
+</ul>
+</li>
+<li>
+<p><strong>PWM 周期</strong>:</p>
+<ul>
+<li>自动重载值 arr = 7200</li>
+<li>PWM 周期 = arr / TIM2 时钟 = 7200 / 72kHz = 100ms</li>
+<li>PWM 频率 = 1 / 100ms = 10Hz</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC 采样频率</strong>:</p>
+<ul>
+<li>ADC 采样由 TIM2_CC1 事件触发</li>
+<li>采样频率等于 PWM 频率，即 10Hz (每 100ms 采样一次)</li>
+</ul>
+</li>
+<li>
+<p><strong>ADC 采样时间</strong>:</p>
+<ul>
+<li>配置为 ADC_SampleTime_CyclesMode5，这是最长的采样时间模式</li>
+<li>确保了更高的采样精度</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-与其他-adc-应用的对比"><a class="header" href="#4-与其他-adc-应用的对比">4. 与其他 ADC 应用的对比</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>特性</th><th>mio_adc_timer</th><th>普通 ADC 应用</th></tr></thead><tbody>
+<tr><td>触发方式</td><td>定时器触发</td><td>软件触发或连续转换</td></tr>
+<tr><td>采样频率</td><td>固定频率 (10Hz)</td><td>灵活配置或连续</td></tr>
+<tr><td>功耗特性</td><td>低功耗模式</td><td>正常模式</td></tr>
+<tr><td>精度优先级</td><td>高 (长采样时间)</td><td>根据需求调整</td></tr>
+<tr><td>中断处理</td><td>注入通道中断</td><td>规则通道中断</td></tr>
+</tbody></table>
+</div>
+<h2 id="5-代码优化建议"><a class="header" href="#5-代码优化建议">5. 代码优化建议</a></h2>
+<h3 id="51-增加采样频率配置"><a class="header" href="#51-增加采样频率配置">5.1 增加采样频率配置</a></h3>
+<pre><code class="language-c">// 增加采样频率配置参数
+void TIM1_PWM_In(u16 sample_rate)
+{
+    u32 timer_clock = 72000000 / 1000;  // 72kHz
+    u16 arr = timer_clock / sample_rate;
+    u16 ccp = arr / 2;  // 50% duty cycle
+    
+    // 保留原有初始化代码...
+}
+</code></pre>
+<h3 id="52-使用宏定义简化配置"><a class="header" href="#52-使用宏定义简化配置">5.2 使用宏定义简化配置</a></h3>
+<pre><code class="language-c">// 采样参数宏定义
+#define SAMPLE_FREQUENCY   10      // Hz
+#define TIMER_PRESCALER    999     // 72MHz / (999+1) = 72kHz
+#define PWM_PERIOD         (72000 / SAMPLE_FREQUENCY)  // 72kHz / 10Hz = 7200
+#define PWM_DUTY_CYCLE     (PWM_PERIOD / 2)  // 50% duty cycle
+</code></pre>
+<h3 id="53-增加采样结果处理"><a class="header" href="#53-增加采样结果处理">5.3 增加采样结果处理</a></h3>
+<pre><code class="language-c">// 在中断处理函数中增加数据处理
+void ADC1_2_IRQHandler()
+{
+    if(ADC_GetITStatus(ADC1, ADC_IT_JEOC)){
+        ADC_val = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1);
+        
+        // 增加数据处理，如平均值计算、阈值判断等
+        static u16 adc_sum = 0;
+        static u8 sample_count = 0;
+        adc_sum += ADC_val;
+        sample_count++;
+        
+        if(sample_count &gt;= 10) {  // 每10个样本计算一次平均值
+            u16 avg_val = adc_sum / sample_count;
+            printf(&quot;Avg ADC: %04d\r\n&quot;, avg_val);
+            adc_sum = 0;
+            sample_count = 0;
+        }
+    }
+    ADC_ClearITPendingBit(ADC1, ADC_IT_JEOC);
+}
+</code></pre>
+<h3 id="54-增加错误处理"><a class="header" href="#54-增加错误处理">5.4 增加错误处理</a></h3>
+<pre><code class="language-c">// 在初始化函数中增加错误检查
+if(ADC_GetCalibrationStatus(ADC1) != 0) {
+    // 校准失败处理
+    printf(&quot;ADC Calibration Failed!\r\n&quot;);
+}
+</code></pre>
+<h2 id="6-总结"><a class="header" href="#6-总结">6. 总结</a></h2>
+<p>这个程序实现了基于 CH32H417 的定时器触发 ADC 采样功能，主要特点：</p>
+<ol>
+<li>
+<p><strong>定时器触发</strong>: 使用 TIM2 PWM 信号触发 ADC 采样，确保采样频率精确可控</p>
+</li>
+<li>
+<p><strong>注入通道模式</strong>: 利用 ADC 注入通道功能，实现外部事件触发的高精度采样</p>
+</li>
+<li>
+<p><strong>低功耗设计</strong>: 启用 ADC 低功耗模式，降低系统功耗</p>
+</li>
+<li>
+<p><strong>中断处理</strong>: 通过中断方式处理采样结果，提高系统响应性</p>
+</li>
+<li>
+<p><strong>高精度采样</strong>: 使用最长的采样时间模式，确保采样精度</p>
+</li>
+</ol>
+<p>该程序展示了如何结合定时器和 ADC 外设实现定时触发的模拟信号采样功能，适用于需要精确控制采样频率的应用场景，如数据采集系统、传感器信号处理等。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../wch_ch32h417_dev_board/adc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../wch_ch32h417_dev_board/sai.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../wch_ch32h417_dev_board/adc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../wch_ch32h417_dev_board/sai.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
