@@ -11,3 +11,4 @@ build-dir = "../docs/ch32h417/"
 
 [output.html]
 sidebar = true  # 关键配置：强制显示侧边栏（禁用自动隐藏）
+
