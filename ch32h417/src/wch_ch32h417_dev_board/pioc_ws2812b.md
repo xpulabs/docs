@@ -4,8 +4,8 @@
 
 `hardware.c` 是一个用于 **WS2812B RGB LED 控制** 的硬件测试程序，通过 CH32H417 的 PIOC（可编程 I/O 控制器）接口实现 WS2812B LED 灯带的控制。
 
-- **作者**: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
-- **版本**: V1.0.0
+- **作者**: XPU Labs - xpulabs.taobao.com
+- **版本**: V1.0.0  
 - **日期**: 2025/03/01
 - **功能**: 初始化 PIOC 接口并实现 WS2812B LED 灯带的颜色显示与切换
 
