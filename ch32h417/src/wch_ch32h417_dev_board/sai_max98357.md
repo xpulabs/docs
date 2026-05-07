@@ -4,7 +4,7 @@
 
 `hardware.c` 是一个用于 **SAI (Serial Audio Interface) 驱动 MAX98357A 音频放大器** 的硬件测试程序，通过 CH32H417 的 SAI 外设实现音频输出功能。
 
-- **作者**: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
+- **作者**: XPU Labs - xpulabs.taobao.com
 - **版本**: V1.0.0
 - **日期**: 2025/03/01
 - **功能**: 实现 SAI 音频输出，驱动 MAX98357A 放大器播放正弦波音频

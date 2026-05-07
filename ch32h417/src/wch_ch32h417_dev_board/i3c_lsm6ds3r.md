@@ -6,7 +6,7 @@ hardware.c 文件解析（mio_i3c_lsm6d）
 
 `hardware.c` 是一个用于 **I3C 接口与 LSM6DS 传感器通信** 的硬件测试程序，通过 CH32H417 的 I3C 外设实现与 LSM6DS 传感器的通信，并读取传感器的 ID。
 
-- **作者**: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
+- **作者**: XPU Labs - xpulabs.taobao.com
 - **版本**: V1.0.0
 - **日期**: 2025/03/01
 - **功能**: 实现 I3C 初始化、动态地址分配和传感器 ID 读取功能

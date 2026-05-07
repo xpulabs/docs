@@ -4,7 +4,7 @@
 
 `hardware.c` 是一个用于 **ADC 定时器触发采样** 的硬件测试程序，通过 CH32H417 的定时器和 ADC 外设实现定时触发的模拟信号采样功能。
 
-- **作者**: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
+- **作者**: XPU Labs - xpulabs.taobao.com
 - **版本**: V1.0.0
 - **日期**: 2025/03/01
 - **功能**: 实现定时器触发的 ADC 采样功能，包括定时器 PWM 配置、ADC 初始化和中断处理

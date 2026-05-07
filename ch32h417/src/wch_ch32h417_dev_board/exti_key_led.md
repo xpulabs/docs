@@ -4,7 +4,7 @@
 
 `hardware.c` 是一个用于 **GPIO 外部中断（EXTI）测试** 的硬件控制程序，实现了通过按键触发外部中断来控制 LED 灯状态翻转的功能。
 
-- **作者**: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
+- **作者**: XPU Labs - xpulabs.taobao.com
 - **版本**: V1.0.0
 - **日期**: 2025/03/01
 - **功能**: 利用外部中断检测按键按下事件，并控制对应 LED 灯的亮灭状态翻转

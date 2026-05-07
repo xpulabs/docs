@@ -1,11 +1,3 @@
-```yaml
----
-header: xpulabs
-footer: Written in Typora
----
-```
-
-
 
 # QFlash DMA      
 
