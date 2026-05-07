@@ -239,7 +239,9 @@
 <h2 id="faq004---usb20-hs-接口为什么不能正常工作"><a class="header" href="#faq004---usb20-hs-接口为什么不能正常工作">FAQ004 - USB2.0 HS 接口为什么不能正常工作</a></h2>
 <p>原因是SWD接口的PB8，PB9是与USB2.0 HS接口的D+/D-是复用的，需要将LINK-E调试器拔下来，然后会进行正常初始化。如果插着LINK-E调试器，会在主机显示一个未知的USB设备。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="使用手册"><a class="header" href="#使用手册">使用手册</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="chapter-1---gpio-按键和-led-控制"><a class="header" href="#chapter-1---gpio-按键和-led-控制">Chapter 1 - GPIO 按键和 LED 控制</a></h1>
+<p>TBD</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
+<p>TBD</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ch32h417-gpio及复用功能gpioafio教程"><a class="header" href="#ch32h417-gpio及复用功能gpioafio教程">CH32H417 GPIO及复用功能（GPIO/AFIO）教程</a></h1>
 <p>本教程基于CH32H417系列芯片应用手册，详细讲解GPIO的基本特性、功能配置、复用机制及寄存器操作，帮助开发者快速掌握GPIO的使用方法，适用于嵌入式开发入门及芯片实操参考。</p>
 <h1 id="一gpio基础认知"><a class="header" href="#一gpio基础认知">一、GPIO基础认知</a></h1>
@@ -491,7 +493,7 @@ int main(void)
 <h2 id="1-文件概述"><a class="header" href="#1-文件概述">1. 文件概述</a></h2>
 <p><code>hardware.c</code> 是一个用于 <strong>LED 交替闪烁控制</strong> 的硬件测试程序，实现了 4 个 LED 以固定间隔交替亮灭的功能。</p>
 <ul>
-<li><strong>作者</strong>: XPU Labs</li>
+<li><strong>作者</strong>: XPU Labs - xpulabs.taobao.com</li>
 <li><strong>版本</strong>: V1.0.0</li>
 <li><strong>日期</strong>: 2026/03/11</li>
 <li><strong>功能</strong>: 初始化 LED 引脚并实现 LED 交替闪烁效果</li>
@@ -1107,7 +1109,7 @@ void EXTI0_IRQHandler(void)
 <h2 id="1-文件概述-2"><a class="header" href="#1-文件概述-2">1. 文件概述</a></h2>
 <p><code>hardware.c</code> 是一个用于 <strong>GPIO 外部中断（EXTI）测试</strong> 的硬件控制程序，实现了通过按键触发外部中断来控制 LED 灯状态翻转的功能。</p>
 <ul>
-<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>作者</strong>: XPU Labs - xpulabs.taobao.com</li>
 <li><strong>版本</strong>: V1.0.0</li>
 <li><strong>日期</strong>: 2025/03/01</li>
 <li><strong>功能</strong>: 利用外部中断检测按键按下事件，并控制对应 LED 灯的亮灭状态翻转</li>
@@ -2553,7 +2555,7 @@ uint16_t adc_val = ADC_GetConversionValue(ADC1); // 读取转换值
 <h2 id="1-文件概述-4"><a class="header" href="#1-文件概述-4">1. 文件概述</a></h2>
 <p><code>hardware.c</code> 是一个用于 <strong>ADC 定时器触发采样</strong> 的硬件测试程序，通过 CH32H417 的定时器和 ADC 外设实现定时触发的模拟信号采样功能。</p>
 <ul>
-<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>作者</strong>: XPU Labs - xpulabs.taobao.com</li>
 <li><strong>版本</strong>: V1.0.0</li>
 <li><strong>日期</strong>: 2025/03/01</li>
 <li><strong>功能</strong>: 实现定时器触发的 ADC 采样功能，包括定时器 PWM 配置、ADC 初始化和中断处理</li>
@@ -3270,7 +3272,7 @@ if(ADC_GetCalibrationStatus(ADC1) != 0) {
 <h2 id="1-文件概述-5"><a class="header" href="#1-文件概述-5">1. 文件概述</a></h2>
 <p><code>hardware.c</code> 是一个用于 <strong>SAI (Serial Audio Interface) 驱动 MAX98357A 音频放大器</strong> 的硬件测试程序，通过 CH32H417 的 SAI 外设实现音频输出功能。</p>
 <ul>
-<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>作者</strong>: XPU Labs - xpulabs.taobao.com</li>
 <li><strong>版本</strong>: V1.0.0</li>
 <li><strong>日期</strong>: 2025/03/01</li>
 <li><strong>功能</strong>: 实现 SAI 音频输出，驱动 MAX98357A 放大器播放正弦波音频</li>
@@ -4065,7 +4067,7 @@ void SAI_PlayControl(uint8_t enable)
 <h2 id="1-文件概述-6"><a class="header" href="#1-文件概述-6">1. 文件概述</a></h2>
 <p><code>hardware.c</code> 是一个用于 <strong>I3C 接口与 LSM6DS 传感器通信</strong> 的硬件测试程序，通过 CH32H417 的 I3C 外设实现与 LSM6DS 传感器的通信，并读取传感器的 ID。</p>
 <ul>
-<li><strong>作者</strong>: WCH (Nanjing Qinheng Microelectronics Co., Ltd.)</li>
+<li><strong>作者</strong>: XPU Labs - xpulabs.taobao.com</li>
 <li><strong>版本</strong>: V1.0.0</li>
 <li><strong>日期</strong>: 2025/03/01</li>
 <li><strong>功能</strong>: 实现 I3C 初始化、动态地址分配和传感器 ID 读取功能</li>
