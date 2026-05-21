@@ -204,7 +204,7 @@
 <p>当你收到板子后，想烧录一个点灯的程序，发现无论如何都烧录不了，这是为什么？</p>
 <p>原因是已经烧录了USB3.0的测试程序，程序中会禁用SWD接口，因为这个PB8，PB9(SWDIO，SWCLK)是与USB3.0接口上HS的D+/D-是复用的。
 所以在USB3.0程序初始化时使用下面的代码禁用了SWD接口。</p>
-<p><img src="vx_images/272882773976709.png" alt="" /></p>
+<p><img src="static/images/272882773976709.png" alt="" /></p>
 <pre><code class="language-C">    /* Disable SWD */
     RCC_HB2PeriphClockCmd(RCC_HB2Periph_AFIO | RCC_HB2Periph_GPIOB, ENABLE);
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);
