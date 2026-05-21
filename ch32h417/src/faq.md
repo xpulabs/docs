@@ -34,7 +34,7 @@
 原因是已经烧录了USB3.0的测试程序，程序中会禁用SWD接口，因为这个PB8，PB9(SWDIO，SWCLK)是与USB3.0接口上HS的D+/D-是复用的。
 所以在USB3.0程序初始化时使用下面的代码禁用了SWD接口。
 
-![](vx_images/272882773976709.png)
+![](static/images/272882773976709.png)
 
 ```C
     /* Disable SWD */
