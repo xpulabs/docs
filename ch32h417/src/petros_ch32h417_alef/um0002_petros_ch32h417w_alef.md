@@ -1,14 +1,16 @@
-# Petros CH32H417M Alef开发板使用手册
+# Petros CH32H417W Alef开发板使用手册
 
-本手册介绍Petros CH32H417M Alef开发板的使用方法。
+本手册介绍Petros CH32H417W Alef开发板的使用方法。
 
 ## 1. 产品介绍 - Overview
 
-CH32H417是由南京沁恒公司开发的32位微控制器，用于开发嵌入式产品。其最大的特点在于支持USB3.0高速接口与RISC-V双核架构。正是因为这两个特点，[**XPU实验室**](https://xpulabs.taobao.com)开发了**Petros CH32H417M Alef**开发板。
+CH32H417是由南京沁恒公司开发的32位微控制器，用于开发嵌入式产品。其最大的特点在于支持USB3.0高速接口与RISC-V双核架构。正是因为这两个特点，[**XPU实验室**](https://xpulabs.taobao.com)开发了**Petros CH32H417W Alef**开发板。
 
-Petros CH32H417M Alef开发板使用的是CH32H417MEU6微控制器。它是QFN88的封装，板形外观兼容树莓派RP2040 Pico的直插的板形，其大小为52mm x 21mm，非常小巧。带有一个USB3.0 Type-A母座高速接口，用于开发USB3.0高速设备。实际测试USB3.0接口下行速度为430MB/s, 对于高速数据采集十分实用。板上的板对板连接器主要引出DVP，I2C、SPI、ADC接口，方便适配各种传感器模块。
+Petros CH32H417W Alef开发板使用的是CH32H417WEU6微控制器。它是QFN68的封装，板形外观兼容树莓派RP2040 Pico的直插的板形，其大小为52mm x 21mm，非常小巧。带有一个USB3.0 Type-A母座高速接口，用于开发USB3.0高速设备。实际测试USB3.0接口下行速度为430MB/s, 对于高速数据采集十分实用。板上的板对板连接器主要引出DVP，I2C、SPI、ADC接口，方便适配各种传感器模块。
 
-![](static/images/2026-05-21-14-03-46-image.png)
+![](static/images/2026-05-29-19-10-26-image.png)
+
+![](static/images/2026-05-29-19-10-50-image.png)
 
 ## 2. 芯片特点 - Features
 
@@ -64,32 +66,46 @@ Petros CH32H417M Alef开发板使用的是CH32H417MEU6微控制器。它是QFN88
 
 ## 3. 产品规格 - Specifications
 
-- 主芯片：CH32H417MEU6 QFN88 双核USB3.0 RISC-V
+- 主芯片：CH32H417WEU6 QFN68 双核USB3.0 RISC-V
 - 100%兼容树莓派Pico板的外形
 - 板对板连接器扩展相机模块，如OV2640模块
 - 所有GPIO都已经引出，方便开发
 - 板对板连接器引出DVP、SPI、I2C，ADC接口
 - 板载复位按键
 - 可通过USB3.0 A口下载固件
-- 板载SWD与UART6调试接口
+- 调试接口引到2.54排针上
 - 配套多接口Link-E调试器，即插即用
 - 尺寸：52mm x 21mm
 
+![](static/images/2026-05-29-19-11-37-image.png)
+
 ## 4. 硬件 - Hardware
+
+**CH32H417WEQ6的管脚定义**
+
+![](static/images/2026-05-29-19-21-48-image.png)
+
+![](static/images/2026-05-29-19-22-21-image.png)
+
+![](static/images/2026-05-29-19-22-46-image.png)
 
 **资源接口**
 
-![](static/images/2026-05-21-18-53-03-image.png)
+![](static/images/2026-05-29-19-09-57-image.png)
 
 **引脚**
 
-![](static/images/2026-05-21-18-51-54-image.png)
+![](static/images/2026-05-29-19-06-36-image.png)
+
+![](static/images/2026-05-29-18-52-32-image.png)
 
 40P板对板连接器管脚定义如下，使用的连接器为HRS的**DF12NB(3.0)-40DP-0.5V(51)**
 
-![](static/images/2026-05-21-18-55-27-image.png)
+![](static/images/2026-05-29-18-50-15-image.png)
 
-![](static/images/2026-05-21-14-33-34-image.png)
+![](static/images/2026-05-29-19-27-09-image.png)
+
+
 
 这个接口目前可以连接
 
@@ -101,11 +117,9 @@ Petros CH32H417M Alef开发板使用的是CH32H417MEU6微控制器。它是QFN88
 
 CH32H417使用MounRiver II IDE集成开发环境，支持Windows & Linux. 
 
-调试器需要使用Link-E 1V3, XPU实验室开发相应的调试器，可以直接插到板上的1.27mm SWD调试接口上。
+调试器需要使用Link-E 1V3, XPU实验室开发相应的调试器，可以直接通过杜邦线连接到的B8、B9脚上（2.54mm排针）SWD调试接口上。
 
-![](static/images/2026-05-29-19-18-55-img_v3_02123_07370436-bea0-436b-985f-68108a4894bg.jpg)
-
-另一种方式是通过普通的USB2.0 Type-A口外接排针，连接到Link-E上。
+更推荐通过普通的USB2.0 Type-A口外接排针，连接到Link-E上。
 
 ![](static/images/2026-05-29-19-15-20-image.png)
 
