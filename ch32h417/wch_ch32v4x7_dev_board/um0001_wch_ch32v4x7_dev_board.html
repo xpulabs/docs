@@ -338,8 +338,8 @@
 <li>5.单步跳过：跳出该函数，准备下一条语句。</li>
 <li>6.单步返回：返回所跳入的函数</li>
 <li>7.指令集单步模式：点击进入指令集调试（需与 4、5、6 功能配合使用）。</li>
-<li><strong>2）设置断点</strong></li>
 </ul>
+<p><strong>2）设置断点</strong></p>
 <p>双击代码左侧可设置断点，再次双击取消断点，设置断点如下图所示;</p>
 <p><img src="static/images/2026-08-10-17-37-33-image.png" alt="" /></p>
 <p><strong>3）界面显示</strong></p>
@@ -350,8 +350,8 @@
 可与指令集单步调试配合使用，仍以单步跳入为例，每点击一次，可运行一次，运行光标会发生
 移动，以查看程序运行，程序运行界面如下图所示：</p>
 <p><img src="static/images/2026-08-10-17-38-28-image.png" alt="" /></p>
-<p>4）变量：
-鼠标悬停在源码中变量之上会显示详细信息，或者选中变量，然后右键单击 add to watch</p>
+<p><strong>4）变量</strong></p>
+<p>鼠标悬停在源码中变量之上会显示详细信息，或者选中变量，然后右键单击 add to watch</p>
 <p><img src="static/images/2026-08-10-17-38-48-image.png" alt="" /></p>
 <p><img src="static/images/2026-08-10-17-38-59-image.png" alt="" /></p>
 <p>填写变量名 ，将刚才选中的变量加入到窗口：</p>
@@ -372,11 +372,14 @@
 </ul>
 <p><img src="static/images/2026-08-10-17-40-29-image.png" alt="" /></p>
 <h2 id="5-wchisptoolexe-下载"><a class="header" href="#5-wchisptoolexe-下载">5. WCHISPTool.exe 下载</a></h2>
-<p>使用 WCHISPTool 工具对芯片进行下载，支持 USB 和串口两种下载方式。USB 管脚为 PA11（USB1DM） 、PA1（USB1DP） ，PB6（USB2DM） 、PB7（USB2DP）;串口管脚为 PA9(TX)、PA10（RX） 。<strong>LQFP64封装不支持 BOOT 功能，具体芯片型号 CH32V407RET6、CH32V467RET6。</strong> 下载流程如下：
-(1) BOOT0 接 VCC，BOOT1 接地，通过串口或者 USB 连接 PC；
-(2) 打开 WCHISPTool 工具，选择相应下载方式，选择下载固件，勾选芯片配置，点击下载；
-(3) BOOT0 接地，重新上电，运行 APP 程序。
-WCHISPTool 工具界面如图所示：</p>
+<p>使用 WCHISPTool 工具对芯片进行下载，支持 USB 和串口两种下载方式。USB 管脚为 PA11（USB1DM） 、PA1（USB1DP） ，PB6（USB2DM） 、PB7（USB2DP）;串口管脚为 PA9(TX)、PA10（RX） 。<strong>LQFP64封装不支持 BOOT 功能，具体芯片型号 CH32V407RET6、CH32V467RET6。</strong> </p>
+<p>下载流程如下：</p>
+<ul>
+<li>(1) BOOT0 接 VCC，BOOT1 接地，通过串口或者 USB 连接 PC；</li>
+<li>(2) 打开 WCHISPTool 工具，选择相应下载方式，选择下载固件，勾选芯片配置，点击下载；</li>
+<li>(3) BOOT0 接地，重新上电，运行 APP 程序。</li>
+</ul>
+<p>WCHISPTool 工具界面如图所示：</p>
 <p><img src="static/images/2026-08-10-17-41-05-image.png" alt="" /></p>
 <ul>
 <li>
