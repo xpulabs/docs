@@ -13,7 +13,7 @@
 
 # WCH CH32V407/467开发板
 
-- [使用手册](./wch_ch32v407_dev_board/um0001_wch_ch32v4x7_dev_board.md)
+- [使用手册](./wch_ch32v4x7_dev_board/um0001_wch_ch32v4x7_dev_board.md)
 
 # Amnos CH32H417 MIO外设板
 
