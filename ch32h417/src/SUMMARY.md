@@ -4,16 +4,15 @@
 
 # Petros CH32H417 Alef开发板
 
+- [Petros CH32H417Q Alef板使用手册](./petros_ch32h417_alef/um0003_petros_ch32h417q_alef.md)   
 - [Petros CH32H417M Alef板使用手册](./petros_ch32h417_alef/um0001_petros_ch32h417m_alef.md)
 - [Petros CH32H417W Alef板使用手册](./petros_ch32h417_alef/um0002_petros_ch32h417w_alef.md)
 
-# WCH CH32H417Q开发板
 
-- [使用手册](./wch_ch32h417_dev_board/usage_manual.md)
+# WCH CH32H417&CH32V407开发板
 
-# WCH CH32V407/467开发板
-
-- [使用手册](./wch_ch32v4x7_dev_board/um0001_wch_ch32v4x7_dev_board.md)
+- [WCH CH32H417评估板使用手册](./wch_ch32h417_dev_board/usage_manual.md)    
+- [WCH CH32V4x7评估板使用手册](./wch_ch32v4x7_dev_board/um0001_wch_ch32v4x7_dev_board.md)   
 
 # Amnos CH32H417 MIO外设板
 
