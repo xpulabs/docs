@@ -31,6 +31,9 @@ jobs:
       - name: Build ch32h417 mdbook
         run: cd ch32h417 && mdbook build
 
+      - name: Build maple_esp32 mdbook
+        run: cd maple_esp32 && mdbook build
+
       - name: 复制文件index.html到docs目录
         run: |
           cp index.html docs/index.html
