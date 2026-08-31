@@ -207,7 +207,7 @@ PSRAM 启用后，代码中可用 `MALLOC_CAP_SPIRAM` 标记的大块内存都�
 
 参考 ESP32-S31-Korvo-1 这类官方板卡的 bring-up 经验 ，建议按以下顺序叠加功能：
 
-**1. 基础：Hello World + GPIO + RGB LED**
+**基础：Hello World + GPIO + RGB LED**
 
 单线全彩 RGB LED 通常用 RMT 外设驱动 WS2812 协议：
 
@@ -218,7 +218,7 @@ idf.py --preview set-target esp32s31
 
 具体 GPIO 以**你这块板子的原理图/排针丝印为准**——搜索结果里没有你这款 exact 板子的 pinout，不要盲目套用 Korvo-1 的 GPIO37。
 
-**2. SPI LCD（你板子的重点）**
+**SPI LCD（你板子的重点）**
 
 ESP-IDF master 对 **SPI LCD driver**​ 已提供完整支持 。240x240 ST7789 屏的例子上一轮已经聊过，套路是：
 
@@ -227,11 +227,11 @@ ESP-IDF master 对 **SPI LCD driver**​ 已提供完整支持 。240x240 ST7789
 - 在代码里指定 SCLK/MOSI/DC/RST/CS 引脚（**查你板子原理图**）
 - RGB565 帧缓冲建议放 PSRAM
 
-**3. SDIO SD 卡**
+**SDIO SD 卡**
 
 ESP32-S31 的 **SDMMC Host driver 支持 UHS-I**，SDSPI 也支持 。1-bit 模式最小接 CLK/CMD/D0 三根线 + 上拉电阻。参考我上一轮给你的 `sdmmc_host_init_slot()` 调用顺序，那个 null pointer assert 就是没按 master 的正确顺序初始化导致的。
 
-**4. USB 2.0 Host**
+**USB 2.0 Host**
 
 ESP32-S31 的 **USB Host driver 支持 USB 2.0 Host**​ 。你板子上的 USB Host 接口可以接鼠标键盘、U 盘、USB 音频等。开发时用 TinyUSB 的 host 例程：
 
@@ -239,7 +239,7 @@ ESP32-S31 的 **USB Host driver 支持 USB 2.0 Host**​ 。你板子上的 USB 
 # 在 esp-idf/examples 里找 peripheral/usb 相关例子
 ```
 
-**5. 无线协议栈**
+**无线协议栈**
 
 这是 ESP32-S31 的强项，**Wi-Fi 6、Bluetooth 5.4 (LE + Classic)、802.15.4 (Zigbee/Thread/Matter)**​ 在 master 上都已支持 ：
 
@@ -248,7 +248,7 @@ ESP32-S31 的 **USB Host driver 支持 USB 2.0 Host**​ 。你板子上的 USB 
 - **Classic BT A2DP**：参考 Korvo-1 的 A2DP Sink 示例
 - **Zigbee/Thread/Matter**：用 ESP-Matter SDK（基于 ESP-IDF master）
 
-**6. I2C/I2S/DVP**
+**I2C/I2S/DVP**
 
 - I2C：master/slave driver 都支持
 - I2S：STD/TDM/PDM 模式齐全，做音频编解码
