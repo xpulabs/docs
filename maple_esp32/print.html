@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Maple ESP32S31系列开发板</li><li class="chapter-item expanded "><a href="maple_esp32s31/ug0001_maple_esp32s31_alef_user_guide.html"><strong aria-hidden="true">1.</strong> Maple ESP32S31 Alef</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -174,7 +174,253 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+                        <h1 id="maple-esp32s31-alef开发板使用手册"><a class="header" href="#maple-esp32s31-alef开发板使用手册">Maple ESP32S31 Alef开发板使用手册</a></h1>
+<h2 id="1-产品介绍---overview"><a class="header" href="#1-产品介绍---overview">1. 产品介绍 - Overview</a></h2>
+<p><img src="maple_esp32s31/static/images/2026-08-14-18-57-40-image.png" alt="" /></p>
+<p>Maple ESP32-S31 Alef开发板是由XPU实验室设计，面向物联网爱好者、创客及嵌入式初学者的高性能入门开发板，集成最新 ESP32-S31 芯片与丰富外设，零门槛开启无线通信与智能硬件开发。</p>
+<hr />
+<p><strong>🔥 核心亮点</strong></p>
+<ul>
+<li>
+<p><strong>RISC-V 双核 320MHz</strong>：搭载乐鑫 ESP32-S31 芯片，RISC-V 32 位双核处理器，主频高达 320 MHz，性能强劲，轻松应对复杂任务。</p>
+</li>
+<li>
+<p><strong>超大存储</strong>：512KB SRAM + <strong>16MB PSRAM</strong>​ + <strong>16MB Flash</strong>，运行大型程序、缓存图像、处理音频游刃有余。</p>
+</li>
+<li>
+<p><strong>Wi-Fi 6 + Bluetooth 5.4 + Zigbee/Thread</strong>：支持最新 2.4GHz Wi-Fi 6（802.11ax）、Bluetooth 5.4 LE/Classic、Zigbee 及 Thread 多协议并发，覆盖智能家居、工业互联全场景。</p>
+</li>
+<li>
+<p><strong>ULP-RISC-V 协处理器</strong>：超低功耗待机模式下仍可处理传感器数据，适合电池供电项目。</p>
+</li>
+</ul>
+<p>📦<strong>丰富外设，即插即用</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>接口/功能</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>USB 2.0 Host</strong>​ ×1</td><td>直接接入鼠标、键盘、U盘，拓展无限可能</td></tr>
+<tr><td><strong>SPI LCD 接口</strong>​</td><td>轻松驱动 TFT 彩屏，显示仪表盘、游戏界面</td></tr>
+<tr><td><strong>I2C / I2S / DVP</strong>​</td><td>接传感器、音频模块、摄像头（OV2640等）</td></tr>
+<tr><td><strong>SD 卡槽</strong>（SDIO 总线）</td><td>大容量存储日志、媒体文件</td></tr>
+<tr><td><strong>CH343P USB-UART</strong>​</td><td>自动下载电路，Type-C 一线烧录，告别手动复位</td></tr>
+<tr><td><strong>单线 RGB LED</strong>​</td><td>状态指示、氛围灯效，编程友好</td></tr>
+<tr><td><strong>EN + BOOT 按键</strong>​</td><td>调试/固件升级一键操作</td></tr>
+<tr><td><strong>1×20P 排针 ×2</strong>​</td><td>引出所有 GPIO，兼容面包板与扩展板</td></tr>
+</tbody></table>
+</div>
+<p><strong>📐 紧凑设计</strong></p>
+<ul>
+<li>
+<p><strong>尺寸 67×28mm</strong>，比信用卡还小巧，可直接嵌入原型机或外壳。</p>
+</li>
+<li>
+<p>板载天线，无需外接天线即可获得稳定无线信号。</p>
+</li>
+</ul>
+<p><strong>🚀 上手即用</strong></p>
+<ul>
+<li>
+<p>支持 <strong>Arduino IDE</strong>、<strong>ESP-IDF</strong>、<strong>MicroPython</strong>​ 等主流开发环境。</p>
+</li>
+<li>
+<p>提供完整入门教程、示例代码、原理图。</p>
+</li>
+<li>
+<p>社区支持：飞书群、论坛、B站视频教程，遇到问题随时求助。</p>
+</li>
+</ul>
+<p><strong>🎯 适合谁用？</strong></p>
+<ul>
+<li>
+<p><strong>电子爱好者</strong>：学习 RISC-V 架构、Wi-Fi 6、多协议通信。</p>
+</li>
+<li>
+<p><strong>创客/极客</strong>：搭建智能家居网关、便携式仪表、桌面机器人。</p>
+</li>
+<li>
+<p><strong>嵌入式初学者</strong>：从点灯到物联网项目，一本教材 + 一块板子搞定。</p>
+</li>
+</ul>
+<hr />
+<p><strong>XPU Labs 出品</strong>​ — 专注为开发者打造高性价比、易上手的学习与原型平台。</p>
+<p>👉 <strong>淘宝搜索“Maple ESP32-S31 开发板”即刻拥有</strong></p>
+<h2 id="2-芯片特点---features"><a class="header" href="#2-芯片特点---features">2. 芯片特点 - Features</a></h2>
+<p>ESP32-S31 是一款高性能双核 32 位 RISC-V 微控制器，主频高达 320 MHz，面向全面多协议连接，专为需要全面连接能力与丰富人机界面的先进物联网 (IoT) 应用而设计。芯片提供 60 个 GPIO，在同时支持多种无线协议、各类显示接口及多样化外设的复杂设计中，展现出卓越的灵活性。ESP32-S31 尤其适用于边缘侧 AI 与机器学习负载，包括神经网络推理、高级信号处理、计算机视觉与智能音频应用，同时保持嵌入式平台的高效特性。</p>
+<p>芯片的功能框图如下图所示。</p>
+<p><img src="maple_esp32s31/static/images/2026-08-13-19-30-16-image.png" alt="" /></p>
+<h2 id="3-产品规格---specifications"><a class="header" href="#3-产品规格---specifications">3. 产品规格 - Specifications</a></h2>
+<ul>
+<li>
+<p><strong>使用ESP32-S31-WROOM3模组</strong>: 内置 ESP32-S31 芯片，RISC-V 32 位双核微处理器，支持高达 320 MHz 的时钟频率</p>
+</li>
+<li>
+<p>支持ULP-RISC-V 协处理器，320 KB ROM，512 KB 共享 SRAM， <strong>16MB PSRAM 和16MB Flash</strong></p>
+</li>
+<li>
+<p>支持2.4 GHz Wi-Fi 6、Bluetooth® 5.4 (LE)、Bluetooth® Classic、Zigbee 及 Thread (802.15.4)等多种无线协议</p>
+</li>
+<li>
+<p>USB转UART芯片CH343P，支持自动下载电路</p>
+</li>
+<li>
+<p>USB2.0 Host接口 x1</p>
+</li>
+<li>
+<p>支持I2C, I2S &amp; DVP接口，可扩展音频与相机模块</p>
+</li>
+<li>
+<p>SPI LCD接口，可接TFT LCD显示屏</p>
+</li>
+<li>
+<p>单线全彩RGB LEDx1</p>
+</li>
+<li>
+<p>SD卡接口，使用SDIO总线</p>
+</li>
+<li>
+<p>EN &amp; BOOT按键，调试方便</p>
+</li>
+<li>
+<p>两侧1X20P的排针，扩展性好</p>
+</li>
+<li>
+<p>板子尺寸：67 x 28mm</p>
+</li>
+</ul>
+<h2 id="4-硬件开发---hardware"><a class="header" href="#4-硬件开发---hardware">4. 硬件开发 - Hardware</a></h2>
+<h3 id="esp32-s31-wroom3"><a class="header" href="#esp32-s31-wroom3">ESP32-S31-WROOM3</a></h3>
+<p>ESP32-S31-WROOM-3 是通用型 Wi-Fi、Bluetooth® 5.4 (LE) Bluetooth® Classic 及 IEEE 802.15.4 MCU 模组，功能强大，具有丰富的外设接口，可用于嵌入式系统、智能家居、可穿戴电子设备等物联网场景。ESP32-S31-WROOM-3 采用板载 PCB 天线。</p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-18-58-50-image.png" alt="" /></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-18-59-13-image.png" alt="" /></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-00-02-image.png" alt="" /></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-00-31-image.png" alt="" /></p>
+<h3 id="接口"><a class="header" href="#接口">接口</a></h3>
+<p><strong>开发板框图</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-06-08-image.png" alt="" /></p>
+<p><strong>主要接口</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-03-11-image.png" alt="" /></p>
+<h3 id="管脚定义"><a class="header" href="#管脚定义">管脚定义</a></h3>
+<p><strong>音频与视频接口</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-07-39-image.png" alt="" /></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-08-15-image.png" alt="" /></p>
+<p><strong>SD卡接口</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-09-29-image.png" alt="" /></p>
+<p><strong>USB Host</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-09-47-image.png" alt="" /></p>
+<p><strong>SPI LCD接口</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-11-22-image.png" alt="" /></p>
+<p><strong>RGB LED</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-16-49-image.png" alt="" /></p>
+<p><strong>两侧1X20P排针</strong></p>
+<p><img src="maple_esp32s31/static/images/2026-08-14-19-03-49-image.png" alt="" /></p>
+<h2 id="5-软件开发---software"><a class="header" href="#5-软件开发---software">5. 软件开发 - Software</a></h2>
+<p>这块板子的核心是 <strong>ESP32-S31-WROOM-3 模组</strong>（16MB Quad SPI Flash + 16MB Octal SPI PSRAM，板载 PCB 天线），ESP32-S31 芯片本身双核 RISC-V @320MHz，带 USB 2.0 HS OTG、SDMMC、LCD_CAM、I2S、TWAI 等丰富外设，ESP-IDF master 分支对这些模块都已经提供支持 。</p>
+<p>软件开发的整体思路是：<strong>先搭对 ESP-IDF 环境（必须 master + preview）→ 跑通 hello world → 按外设分模块叠加功能</strong>。下面按这条路线展开。</p>
+<h3 id="51-开发环境必须用-esp-idf-master"><a class="header" href="#51-开发环境必须用-esp-idf-master">5.1 开发环境：必须用 ESP-IDF master</a></h3>
+<p>ESP32-S31 目前<strong>只在 ESP-IDF master 分支上提供 preview 支持</strong>，v6.1-beta1 才开始预发布，稳定版预期 v6.1.1 。用 release/v5.x 会直接报 <code>unknown target esp32s31</code>。</p>
+<p><strong>安装（推荐用 EIM 命令行）</strong></p>
+<pre><code class="language-bash"># 1. 克隆 master
+git clone -b master --recursive https://github.com/espressif/esp-idf.git ~/esp/esp-idf-master
+cd ~/esp/esp-idf-master
+
+# 2. 安装工具链（只装 esp32s31 的）
+./install.sh esp32s31
+
+# 3. 激活环境
+. ./export.sh
+</code></pre>
+<p>Windows 用户可以用 EIM GUI 或在 PowerShell 里 <code>eim wizard</code> 交互安装，选择 ESP32-S31 芯片即可 。</p>
+<p><strong>创建工程</strong></p>
+<pre><code class="language-bash">idf.py create-project my_s31_app &amp;&amp; cd my_s31_app
+
+# ⚠️ 必须加 --preview，否则按 ESP32 生成代码会出错
+idf.py --preview set-target esp32s31
+
+idf.py build
+idf.py --preview -p /dev/ttyUSB0 flash monitor   # Linux
+idf.py --preview -p COM3 flash monitor           # Windows
+</code></pre>
+<p>你这块板子带 <strong>CH343P + 自动下载电路</strong>，正常情况下直接 <code>idf.py flash</code> 就能下，不用手动按 BOOT。如果识别不到端口，按一下 EN 复位，必要时按住 BOOT 再上电，进 download 模式 。</p>
+<h3 id="52-menuconfig-关键配置"><a class="header" href="#52-menuconfig-关键配置">5.2 menuconfig 关键配置</a></h3>
+<pre><code class="language-bash">idf.py menuconfig
+</code></pre>
+<p>针对你这块 16MB Flash + 16MB PSRAM 的板子，必须改这几项：</p>
+<div class="table-wrapper"><table><thead><tr><th>配置路径</th><th>推荐值</th><th>说明</th></tr></thead><tbody>
+<tr><td><strong>Component config → ESP32-S31 Specific → PSRAM</strong>​</td><td>Enable Octal PSRAM</td><td>16MB Octal SPI PSRAM</td></tr>
+<tr><td><strong>Serial flasher config → Flash size</strong>​</td><td>16 MB</td><td>匹配模组</td></tr>
+<tr><td><strong>Partition Table</strong>​</td><td>Custom 或 Factory 12MB+</td><td>16MB Flash 需要合理分区</td></tr>
+<tr><td><strong>Component config → FreeRTOS</strong>​</td><td>双核调度</td><td>双核 RISC-V</td></tr>
+</tbody></table>
+</div>
+<p>PSRAM 启用后，代码中可用 <code>MALLOC_CAP_SPIRAM</code> 标记的大块内存都会自动分配到 PSRAM，对 LCD 帧缓冲、音频缓冲、AI 模型推理非常关键。</p>
+<h3 id="53-按外设分模块开发"><a class="header" href="#53-按外设分模块开发">5.3 按外设分模块开发</a></h3>
+<p>参考 ESP32-S31-Korvo-1 这类官方板卡的 bring-up 经验 ，建议按以下顺序叠加功能：</p>
+<p><strong>1. 基础：Hello World + GPIO + RGB LED</strong></p>
+<p>单线全彩 RGB LED 通常用 RMT 外设驱动 WS2812 协议：</p>
+<pre><code class="language-bash"># 参考 Korvo-1 的 WS2812 示例（GPIO37）
+idf.py --preview set-target esp32s31
+</code></pre>
+<p>具体 GPIO 以<strong>你这块板子的原理图/排针丝印为准</strong>——搜索结果里没有你这款 exact 板子的 pinout，不要盲目套用 Korvo-1 的 GPIO37。</p>
+<p><strong>2. SPI LCD（你板子的重点）</strong></p>
+<p>ESP-IDF master 对 <strong>SPI LCD driver</strong>​ 已提供完整支持 。240x240 ST7789 屏的例子上一轮已经聊过，套路是：</p>
+<ul>
+<li>用 <code>esp_lcd</code> 组件 + <code>esp_lcd_st7789</code> 组件</li>
+<li>通过 <code>menuconfig</code> 选控制器为 ST7789</li>
+<li>在代码里指定 SCLK/MOSI/DC/RST/CS 引脚（<strong>查你板子原理图</strong>）</li>
+<li>RGB565 帧缓冲建议放 PSRAM</li>
+</ul>
+<p><strong>3. SDIO SD 卡</strong></p>
+<p>ESP32-S31 的 <strong>SDMMC Host driver 支持 UHS-I</strong>，SDSPI 也支持 。1-bit 模式最小接 CLK/CMD/D0 三根线 + 上拉电阻。参考我上一轮给你的 <code>sdmmc_host_init_slot()</code> 调用顺序，那个 null pointer assert 就是没按 master 的正确顺序初始化导致的。</p>
+<p><strong>4. USB 2.0 Host</strong></p>
+<p>ESP32-S31 的 <strong>USB Host driver 支持 USB 2.0 Host</strong>​ 。你板子上的 USB Host 接口可以接鼠标键盘、U 盘、USB 音频等。开发时用 TinyUSB 的 host 例程：</p>
+<pre><code class="language-bash"># 在 esp-idf/examples 里找 peripheral/usb 相关例子
+</code></pre>
+<p><strong>5. 无线协议栈</strong></p>
+<p>这是 ESP32-S31 的强项，**Wi-Fi 6、Bluetooth 5.4 (LE + Classic)、802.15.4 (Zigbee/Thread/Matter)**​ 在 master 上都已支持 ：</p>
+<ul>
+<li><strong>Wi-Fi</strong>：<code>examples/wifi</code> 下 getting_started、scan、sta 等</li>
+<li><strong>BLE</strong>：<code>examples/bluetooth/nimble</code> 或 bluedroid</li>
+<li><strong>Classic BT A2DP</strong>：参考 Korvo-1 的 A2DP Sink 示例</li>
+<li><strong>Zigbee/Thread/Matter</strong>：用 ESP-Matter SDK（基于 ESP-IDF master）</li>
+</ul>
+<p><strong>6. I2C/I2S/DVP</strong></p>
+<ul>
+<li>I2C：master/slave driver 都支持</li>
+<li>I2S：STD/TDM/PDM 模式齐全，做音频编解码</li>
+<li>DVP 摄像头：LCD_CAM DVP 已支持</li>
+</ul>
+<h3 id="54-推荐的开发路线"><a class="header" href="#54-推荐的开发路线">5.4 推荐的开发路线</a></h3>
+<pre><code>Week 1: 环境搭建 + hello world + GPIO 点灯
+Week 2: SPI LCD 点亮（最直观的反馈）
+Week 3: Wi-Fi/BLE 基础通信
+Week 4: SD 卡读写 + PSRAM 大缓冲
+Week 5: USB Host 外设
+Week 6: 综合应用（比如：USB 摄像头 → PSRAM → LCD 显示）
+</code></pre>
+<h2 id="6-教程---tutorials"><a class="header" href="#6-教程---tutorials">6. 教程 - Tutorials</a></h2>
+<h2 id="7-资源---resources"><a class="header" href="#7-资源---resources">7. 资源 - Resources</a></h2>
+<ul>
+<li>
+<p><a href="https://documentation.espressif.com/esp32-s31-wroom-3_datasheet_cn.pdf">ESP32-S31-WROOM-3规格书</a></p>
+</li>
+<li>
+<p><a href="https://documentation.espressif.com/esp32-s31_datasheet_cn.pdf">ESP32-S31芯片规格书</a></p>
+</li>
+<li>
+<p><a href="https://esp32-s31.espressif.com/en/docs">ESP32-S31文档</a></p>
+</li>
+</ul>
+<h2 id="8-例程---examples"><a class="header" href="#8-例程---examples">8. 例程 - Examples</a></h2>
+<ul>
+<li>
+<p>LED Blink</p>
+</li>
+<li>
+<p>SPI LCD Display</p>
+</li>
+<li>
+<p>SD Card Test</p>
+</li>
+</ul>
+<h2 id="9-常见问题---faq"><a class="header" href="#9-常见问题---faq">9. 常见问题 - FAQ</a></h2>
 
                     </main>
 
