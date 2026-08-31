@@ -353,13 +353,13 @@ idf.py --preview -p COM3 flash monitor           # Windows
 <p>PSRAM 启用后，代码中可用 <code>MALLOC_CAP_SPIRAM</code> 标记的大块内存都会自动分配到 PSRAM，对 LCD 帧缓冲、音频缓冲、AI 模型推理非常关键。</p>
 <h3 id="53-按外设分模块开发"><a class="header" href="#53-按外设分模块开发">5.3 按外设分模块开发</a></h3>
 <p>参考 ESP32-S31-Korvo-1 这类官方板卡的 bring-up 经验 ，建议按以下顺序叠加功能：</p>
-<p><strong>1. 基础：Hello World + GPIO + RGB LED</strong></p>
+<p><strong>基础：Hello World + GPIO + RGB LED</strong></p>
 <p>单线全彩 RGB LED 通常用 RMT 外设驱动 WS2812 协议：</p>
 <pre><code class="language-bash"># 参考 Korvo-1 的 WS2812 示例（GPIO37）
 idf.py --preview set-target esp32s31
 </code></pre>
 <p>具体 GPIO 以<strong>你这块板子的原理图/排针丝印为准</strong>——搜索结果里没有你这款 exact 板子的 pinout，不要盲目套用 Korvo-1 的 GPIO37。</p>
-<p><strong>2. SPI LCD（你板子的重点）</strong></p>
+<p><strong>SPI LCD（你板子的重点）</strong></p>
 <p>ESP-IDF master 对 <strong>SPI LCD driver</strong>​ 已提供完整支持 。240x240 ST7789 屏的例子上一轮已经聊过，套路是：</p>
 <ul>
 <li>用 <code>esp_lcd</code> 组件 + <code>esp_lcd_st7789</code> 组件</li>
@@ -367,13 +367,13 @@ idf.py --preview set-target esp32s31
 <li>在代码里指定 SCLK/MOSI/DC/RST/CS 引脚（<strong>查你板子原理图</strong>）</li>
 <li>RGB565 帧缓冲建议放 PSRAM</li>
 </ul>
-<p><strong>3. SDIO SD 卡</strong></p>
+<p><strong>SDIO SD 卡</strong></p>
 <p>ESP32-S31 的 <strong>SDMMC Host driver 支持 UHS-I</strong>，SDSPI 也支持 。1-bit 模式最小接 CLK/CMD/D0 三根线 + 上拉电阻。参考我上一轮给你的 <code>sdmmc_host_init_slot()</code> 调用顺序，那个 null pointer assert 就是没按 master 的正确顺序初始化导致的。</p>
-<p><strong>4. USB 2.0 Host</strong></p>
+<p><strong>USB 2.0 Host</strong></p>
 <p>ESP32-S31 的 <strong>USB Host driver 支持 USB 2.0 Host</strong>​ 。你板子上的 USB Host 接口可以接鼠标键盘、U 盘、USB 音频等。开发时用 TinyUSB 的 host 例程：</p>
 <pre><code class="language-bash"># 在 esp-idf/examples 里找 peripheral/usb 相关例子
 </code></pre>
-<p><strong>5. 无线协议栈</strong></p>
+<p><strong>无线协议栈</strong></p>
 <p>这是 ESP32-S31 的强项，**Wi-Fi 6、Bluetooth 5.4 (LE + Classic)、802.15.4 (Zigbee/Thread/Matter)**​ 在 master 上都已支持 ：</p>
 <ul>
 <li><strong>Wi-Fi</strong>：<code>examples/wifi</code> 下 getting_started、scan、sta 等</li>
@@ -381,7 +381,7 @@ idf.py --preview set-target esp32s31
 <li><strong>Classic BT A2DP</strong>：参考 Korvo-1 的 A2DP Sink 示例</li>
 <li><strong>Zigbee/Thread/Matter</strong>：用 ESP-Matter SDK（基于 ESP-IDF master）</li>
 </ul>
-<p><strong>6. I2C/I2S/DVP</strong></p>
+<p><strong>I2C/I2S/DVP</strong></p>
 <ul>
 <li>I2C：master/slave driver 都支持</li>
 <li>I2S：STD/TDM/PDM 模式齐全，做音频编解码</li>
