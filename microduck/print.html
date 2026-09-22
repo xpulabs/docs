@@ -6218,9 +6218,11 @@ Apple Silicon Mac上容器目标架构与宿主机一致，不做交叉编译；
 </ol>
 <pre><code class="language-bash">grep -c 'DEV BOARD' /var/lib/robot/provision.log
 </code></pre>
-<p>返回0代表缺失开发板密钥，<code>install-dev.md</code>文档有完整修复方案。
-8. <strong>could not reach <name> over Bluetooth</strong>
-机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。</p>
+<p>返回0代表缺失开发板密钥，<code>install-dev.md</code>文档有完整修复方案。</p>
+<ol start="8">
+<li><strong>could not reach <name> over Bluetooth</strong>
+机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。</li>
+</ol>
 <pre><code class="language-bash">duckctl scan
 </code></pre>
 <p>扫描无结果：机器人关机、超出距离，或已连接手机。直接填写IP地址，绕过蓝牙：</p>
@@ -6675,7 +6677,6 @@ robotctl version
 然后配置游戏手柄，参考 <code>pair-a-gamepad.md</code>：</p>
 <pre><code class="language-bash">sudo robotctl pad pair
 </code></pre>
-<p>如果你需要，我可以把这段手动步骤提取成<strong>纯命令清单</strong>（删除所有说明文字，只保留代码块），方便直接复制执行。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在开发板上安装"><a class="header" href="#在开发板上安装">在开发板上安装</a></h1>
 <p>从零配置一块开发板，直到你可以向这个机器人推送代码分支。
 开发板信任团队开发密钥，因此它会安装团队任意成员编译出的程序。客户机器人的配置完全不同，会主动拒绝这类开发构建产物——本文所有操作均针对<strong>开发板</strong>，<strong>绝对不能用于客户机器人</strong>。

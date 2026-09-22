@@ -311,9 +311,11 @@ Apple Silicon Mac上容器目标架构与宿主机一致，不做交叉编译；
 </ol>
 <pre><code class="language-bash">grep -c 'DEV BOARD' /var/lib/robot/provision.log
 </code></pre>
-<p>返回0代表缺失开发板密钥，<code>install-dev.md</code>文档有完整修复方案。
-8. <strong>could not reach <name> over Bluetooth</strong>
-机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。</p>
+<p>返回0代表缺失开发板密钥，<code>install-dev.md</code>文档有完整修复方案。</p>
+<ol start="8">
+<li><strong>could not reach <name> over Bluetooth</strong>
+机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。</li>
+</ol>
 <pre><code class="language-bash">duckctl scan
 </code></pre>
 <p>扫描无结果：机器人关机、超出距离，或已连接手机。直接填写IP地址，绕过蓝牙：</p>
