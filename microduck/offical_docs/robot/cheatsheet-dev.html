@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>cheatsheet-dev.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html" class="active"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="速查手册--开发板"><a class="header" href="#速查手册--开发板">速查手册 — 开发板</a></h1>
+<p>本页命令仅适用于按照 <code>install-dev.md</code> 配置完成的开发板。机器人日常运维相关命令见 <code>cheatsheet.md</code>。</p>
+<h2 id="开发更新通道"><a class="header" href="#开发更新通道">开发更新通道</a></h2>
+<p>安装CI上对应分支最近一次编译产物：</p>
+<pre><code class="language-bash">sudo robotctl update apply --ref &lt;branch&gt; daemon
+sudo robotctl update apply --ref main daemon
+</code></pre>
+<p><code>--version</code> 用于锁定指定版本。除非你确实要切到稳定版，否则请带上上述其中一个参数。</p>
+<p>不带 <code>--ref</code> 执行 <code>apply daemon</code> 会安装最新稳定版，<strong>在开发板上通常是版本降级</strong>。它不是“安装最新版本”，而是“安装稳定通道提供的版本”。
+分支代码合并之后，稳定版依然会比你正在测试的版本旧。如果稳定版内的守护进程对应的systemd单元文件已经在板上存在，但旧版本程序包不含该二进制文件，则<code>ExecStart</code>指向的程序不存在，重启失败，更新会自动回滚。这正是健康校验门限在生效，但触发该问题的命令看起来却很像正常命令。</p>
+<p>标签 <code>daemon-dev-&lt;branch&gt;</code> 会跟随分支动态更新，因此没有固定版本号可供复制。内部版本号每次构建唯一，例如 <code>0.1.0-dev.42.c719ec8</code>，同一分支的两次构建不会混淆。
+<code>--ref main</code> 可以让开发板切回主分支，同时保留在开发通道；直接执行不带参数的 <code>apply daemon</code> 会退出开发通道。原因是预发布版本在版本排序上低于正式发布版，且没有单独的退出开关。</p>
+<p>代码合并不会立刻发布：CI需要先完成main分支编译，<code>--ref main</code> 才能获取到新版本。</p>
+<pre><code class="language-bash">gh run list --branch main
+</code></pre>
+<h2 id="发布候选版本"><a class="header" href="#发布候选版本">发布候选版本</a></h2>
+<p>由 <code>release.yml</code> 发布到staging预发布环境、尚未正式推广的版本。金丝雀测试机器人在版本正式上线前运行该版本：</p>
+<pre><code class="language-bash">sudo robotctl update apply --staging daemon
+sudo robotctl update apply --staging --version 0.3.0 daemon
+</code></pre>
+<p>候选版本和正式版本一样使用发布密钥签名，并且携带未来正式发布时使用的版本号。
+不加<code>--staging</code>无法访问它，因为候选版本标记为预发布；普通<code>apply</code>命令会跳过预发布包，避免机器人意外升级到未验证构建。
+<code>--staging</code>仅对当前这一条命令生效，执行完毕不会保留任何开关状态。</p>
+<h2 id="更新后--容易踩坑的部分"><a class="header" href="#更新后--容易踩坑的部分">更新后 — 容易踩坑的部分</a></h2>
+<p><code>robotd</code>、<code>configd</code>、<code>padd</code> 在更新过程中重启。
+<code>updaterd</code> 和 <code>btd</code> 在更新应答完成5秒后重启：前者无法在更新过程中自重启，后者可能正在处理应答报文。
+所以btd相关修复会在几秒后自动生效，无需手动操作，重连即可使用。</p>
+<p>如果这两个服务的自动重启没有触发，下一次<code>updaterd</code>启动时会自动修复。唯独<code>updaterd</code>自身不会自动重启，只会上报版本不一致。
+此时再次执行<code>apply</code>：命令返回<code>already_current</code>，列出未匹配的守护进程，并调度重启。手动执行<code>sudo systemctl restart updaterd</code>效果相同。</p>
+<p>如果开发板上<code>updaterd</code>版本低于0.4.0，则没有这套自动逻辑，两个服务会一直运行旧二进制，需要手动重启。执行一次更新即可修复，之后的更新才会具备该能力。</p>
+<p>当你指定的版本和板上现有版本一致时，<code>robotctl update apply</code> 会返回<code>already_current</code>，不安装任何文件，但命令并非无动作。它会检查各守护进程实际运行版本，重启版本不匹配的进程，并在<code>stale</code>字段列出。
+<strong>当你确认修复代码已经打包，但功能不生效时，就用这条命令</strong>：要么自动修复，要么<code>stale</code>为空，说明该版本根本没有包含这个修复。</p>
+<p>典型现象：修复代码已经安装，但功能无效。查看每个守护进程正在运行的版本：</p>
+<pre><code class="language-bash">robotctl health
+</code></pre>
+<p>units模块下每行输出一个守护进程，显示进程启动时对应的版本；如果运行版本和安装版本不一致，会输出警告并提示需要重启。
+<code>build unknown</code>：守护进程正在运行，但没有上报版本标识，大概率是旧构建；重启后即可正常上报。
+<code>restarting</code>：进程退出，systemd正在尝试拉起。更新后几秒内属于正常现象；长时间停留在该状态代表服务启动失败。</p>
+<p>如果某个守护进程确实版本陈旧，手动重启（正常情况本不需要手动操作，建议查看系统日志定位根因）：</p>
+<pre><code class="language-bash">sudo systemctl restart configd
+</code></pre>
+<p><code>updaterd</code>不会自行修复，需要手动重启：</p>
+<pre><code class="language-bash">sudo systemctl restart updaterd
+</code></pre>
+<p>无需手动修改板上<code>updater.toml</code>，重启列表由发布包自带的systemd单元定义。完整重启顺序见 <code>../design/restart-order.md</code>。</p>
+<h2 id="在笔记本操作本地编译远程安装到开发板"><a class="header" href="#在笔记本操作本地编译远程安装到开发板">在笔记本操作：本地编译，远程安装到开发板</a></h2>
+<p>完全跳过CI流程：本机编译，通过SSH安装到开发板，耗时约一分钟。</p>
+<pre><code class="language-bash">scripts/dev-push.sh radxa@&lt;board&gt;
+</code></pre>
+<p>该方式同样会触发健康校验更新，前面提到的服务重启机制依然生效。
+<code>dev-push.md</code>文档包含环境准备、容器编译、<code>--dry-run</code>预演、向低于0.5.0版本的板子首次推送，以及失败排查方案。</p>
+<h2 id="在笔记本操作手柄遥控机器人"><a class="header" href="#在笔记本操作手柄遥控机器人">在笔记本操作：手柄遥控机器人</a></h2>
+<p>手柄在电脑端，机器人放置在测试台，两边都不用安装padd服务：<code>padd</code>只是普通客户端，可以在本地仓库中运行，通过套接字转发控制机器人。</p>
+<p><strong>先停止机器人板上的padd，否则两个进程争夺摇杆</strong>：</p>
+<pre><code class="language-bash">sudo systemctl stop padd
+</code></pre>
+<p>转发套接字并保持连接：</p>
+<pre><code class="language-bash">ssh -L /tmp/robotd.sock:/run/robotd.sock radxa@192.168.1.42
+</code></pre>
+<p>新开终端，在本地仓库执行：</p>
+<pre><code class="language-bash">cargo run -p padd -- --socket /tmp/robotd.sock
+</code></pre>
+<p>执行下面命令恢复机器人板上自带的padd服务：</p>
+<pre><code class="language-bash">systemctl start padd
+</code></pre>
+<p>padd的常用参数：<code>--max-linear</code>（m/s 最大线速度）、<code>--max-angular</code>（rad/s 最大角速度）、<code>--max-head</code>（rad 头部最大转角）以及<code>--deadzone</code>死区。模拟摇杆很难完全归零，不设置死区机器人会自行缓慢漂移。
+systemd单元默认使用内置参数；想要修改参数，需要手动运行二进制（本地或板上都可以）：</p>
+<pre><code class="language-bash">sudo -u padd /opt/robot/daemon/current/bin/padd --max-linear 0.25
+</code></pre>
+<h2 id="在笔记本操作duckctl"><a class="header" href="#在笔记本操作duckctl">在笔记本操作：duckctl</a></h2>
+<p>通过低功耗蓝牙BLE访问机器人，无需网络、无需SSH。全部命令参考<code>duckctl.md</code>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/robot/cheatsheet.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/robot/dev-push.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/robot/cheatsheet.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/robot/dev-push.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

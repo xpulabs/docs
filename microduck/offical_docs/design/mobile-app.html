@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>mobile-app.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html" class="active"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="手机端应用--构建原理"><a class="header" href="#手机端应用--构建原理">手机端应用 —— 构建原理</a></h1>
+<p>状态：已构建 · 日期：2026-09-17 · 负责人：pierre</p>
+<p>用户端应用能力：将机器人直立、接入WiFi网络、固件升级、账号登录、遥控移动、查看设备健康状态，并下发指令执行内置任务。本文说明应用的开发技术栈、复用现有另一款机器人应用的部分能力，以及机器人侧尚待补齐的配套能力。</p>
+<p>代码仓库位于 <code>pollen-robotics/microduck-app</code>，存放应用代码与工程化相关内容：编译、签名、打包安装到手机。本文为设计思路文档：说明应用架构设计的原因，以及各项设计取舍带来的代价。</p>
+<p>本文配套 <code>app-path-design.md</code>，后者定义机器人侧能力：GATT接口、路由表、通道、配对、身份标识以及所有相关待解决问题。两处文档存在交集时，以机器人侧文档为准，本文仅做引用。<code>remote-webrtc.md</code> 定义另一套传输通道，§1.2 为两份文档的边界。</p>
+<h2 id="1-api-即规范应用作为客户端"><a class="header" href="#1-api-即规范应用作为客户端">1. API 即规范，应用作为客户端</a></h2>
+<p><code>btd/src/route.rs</code> 定义手机端可调用的全部接口；<code>duckctl.md</code> 是本应用最接近功能规格书的文档：文档内每条命令，都可以由应用通过同一蓝牙链路发起，并收到相同格式应答。</p>
+<div class="table-wrapper"><table><thead><tr><th>页面</th><th>可调用接口</th></tr></thead><tbody>
+<tr><td>选择机器人</td><td>广播包（设备名称、IPv4地址），随后执行 hello 握手与 <code>system.authenticate</code> 身份认证</td></tr>
+<tr><td>机器人信息页</td><td><code>system.info</code>、<code>robot.health</code>、<code>system.services</code>、<code>system.setName</code>、<code>system.reboot</code>、<code>robot.init</code>、<code>robot.enable</code></td></tr>
+<tr><td>遥控驾驶</td><td>WebRTC：视频流、<code>robot.move</code>、<code>robot.subscribe</code></td></tr>
+<tr><td>任务控制</td><td><code>robot.skills</code>、<code>robot.do</code>、<code>robot.policies</code>、<code>robot.loadPolicy</code>、<code>policy.check</code>、<code>policy.search</code>、<code>policy.fetch</code>、<code>policy.install</code></td></tr>
+<tr><td>WiFi配置</td><td><code>net.status</code>、<code>net.scan</code>、<code>net.connect</code>、<code>net.forget</code></td></tr>
+<tr><td>固件更新</td><td><code>update.check</code>、<code>update.apply</code>、<code>update.subscribe</code>、<code>update.status</code>、<code>update.listInstalled</code>、<code>update.log</code>、<code>update.rollback</code>、<code>update.select</code></td></tr>
+<tr><td>日志查看</td><td><code>system.logs</code></td></tr>
+<tr><td>账号</td><td><code>account.login</code>、<code>account.status</code>、<code>account.logout</code></td></tr>
+</tbody></table>
+</div>
+<p>后续如果需要新增未路由的接口，只需修改一行 <code>route.rs</code>，再判断该接口是否适合走蓝牙链路。这正是§3.2设计要实现的能力。应用已经四次验证该机制：<code>update.rollback</code>、<code>update.select</code>，之后是 <code>robot.init</code>、<code>robot.enable</code>。这几个接口原本被禁止，实际使用中发现禁止策略带来的负面影响超出当初的预判，因此开放。</p>
+<h3 id="11-它是机器人交互界面而非简易设置工具"><a class="header" href="#11-它是机器人交互界面而非简易设置工具">1.1 它是机器人交互界面，而非简易设置工具</a></h3>
+<p>最初路由接口仅包含WiFi、升级、健康状态与设备名称。现在已覆盖用户操作Duck机器人的绝大多数场景。<code>route.rs</code> 的设计逻辑：蓝牙通信距离约10米，操作手机的人就在机器人旁边；并且蓝牙绑定需要PIN码校验。因此BLE最适合确认<strong>谁正在操作机器人</strong>，也是该文件中大多数接口访问限制的判断依据。</p>
+<p>因此下文整套机制并非过度设计。简易设置工具只需要单次调用+加载转圈动画；而完整交互界面不能这么做。</p>
+<p><strong>不通过蓝牙传输的内容</strong>：持续控制指令、所有流式数据（<code>robot.move</code>、<code>robot.subscribe</code>、<code>tof.stream</code>、<code>pad.input</code>）、配对PIN码、<code>update.pin</code>、<code>update.resetToGolden</code>，以及两类故障会造成机器人倾倒的接口：<code>robot.relax</code>、<code>robot.rebootMotors</code>。
+第一组交给另一套传输通道处理；其余仅允许机器人本地终端操作。</p>
+<h3 id="12-两套传输通道不存在竞争关系"><a class="header" href="#12-两套传输通道不存在竞争关系">1.2 两套传输通道，不存在竞争关系</a></h3>
+<p>除驾驶之外，上面所有功能均走BLE。选用BLE作为应用主通道的原因见机器人侧文档§2.2：<strong>无网络环境也能修改配置</strong>。开发板在新环境上电，找不到已知WiFi，局域网完全无法访问。如果应用必须依赖局域网修改配置，就无法修复“机器人连不上局域网”这个根源问题。</p>
+<p>驾驶功能本身依赖网络，通过蓝牙调用 <code>net.status</code> 获取可使用的网络地址。两套通道协同工作：可靠的BLE通道，告知客户端如何接入高速的WebRTC通道。机器人本地控制台也不是竞品，控制台同样需要网络地址，而配置网络恰恰是手机应用的作用。</p>
+<h2 id="2-reachy_mini_mobile_app-是参考范例不是基础工程"><a class="header" href="#2-reachy_mini_mobile_app-是参考范例不是基础工程">2. reachy_mini_mobile_app 是参考范例，不是基础工程</a></h2>
+<p>Pollen 为 Reachy Mini 发布了基于 Tauri 2 的应用：React19、MUI、tauri-plugin-blec，支持 TestFlight 与谷歌内部测试渠道。该应用通过BLE完成机器人配网，其余操作走局域网与Hugging Face。</p>
+<p>它的BLE协议是一套独立方言：4个特征值，命令以字符串形式下发，依靠子串匹配解析应答（<code>ERROR:</code>、<code>OK:</code>，<code>ECHO:</code>代表固件版本过低不支持该指令）。其源码自述为一次性测试接口。并且它的蓝牙仅用于一次性初始化，这也是§4说明我们无法直接复用的根本原因。后者决定了本应用整体架构，而不只是传输层。</p>
+<p>可以复用的是底层基础设施，这部分沉淀了大量工程经验：</p>
+<div class="table-wrapper"><table><thead><tr><th>直接复用代码</th><th>复用设计规则</th><th>不采用</th></tr></thead><tbody>
+<tr><td>tauri-plugin-blec 调用逻辑；但不使用其自带btleplug补丁，不使用npm绑定。该补丁用于修复CoreBluetooth连接崩溃问题（deviceplug/btleplug#397），该问题在btleplug 0.13上游版本已修复，blec 0.14基于此版本构建；而他们的0.8版本早于该修复。并且他们维护的 crate与npm同步绑定机制不适用于Rust驱动客户端，因为webview不调用BLE</td><td>不做过滤扫描，自行筛选目标设备；其扫描核心逻辑和本文§3.3独立得出相同结论，证明方案可行</td><td>TanStack Query：它用于HTTP服务端状态缓存，本应用无HTTP服务端</td></tr>
+<tr><td>Android BLE运行时权限处理逻辑；这是选用blec而非裸用btleplug的理由</td><td>轮询探测设备，而非休眠后仅做一次快照（§3.4）</td><td>初始化向导状态机（§4）</td></tr>
+<tr><td>全屏布局、<code>viewport-fit=cover</code>、安全边距、竖屏锁定</td><td>每个错误都记录可回退步骤，点击重试不会重置整个流程</td><td>字符串匹配式错误分类：configd以类型返回BadKey、NotFound；不存在的方法返回METHOD_NOT_FOUND</td></tr>
+<tr><td>App Store上架合规与审核笔记，踩坑经验一次性沉淀</td><td>应用后台时BLE断开属于预期行为，不是故障：iOS会主动断开GATT链路</td><td></td></tr>
+<tr><td>x25519-hkdf-sha256-aesgcm 密码加密方案（前提：机器人文档§8.1最终采用上层加密而非链路层加密）；其报文格式已有文档，并有可用客户端可用于验证实现</td><td>连接失败可能表面显示成功，但订阅时卡死；需断开重连强制重新发现设备</td><td></td></tr>
+</tbody></table>
+</div>
+<h2 id="3-协议由rust实现"><a class="header" href="#3-协议由rust实现">3. 协议由Rust实现</a></h2>
+<p>tauri-plugin-blec同时暴露Rust与JS处理器，二者是同一个处理器：任意一端建立的连接，两端都可控制。因此应用依赖 <code>duck-ipc-proto</code> 定义有线协议类型，<code>duck-ble</code> 负责分片与GATT UUID管理；蓝牙链路由Rust驱动，向webview传递强类型命令。React不解析机器人返回报文，直接调用接口拿到例如NetStatus这类结构化对象。</p>
+<p>这是最重要的复用能力，也是Reachy Mini无法实现的：<strong>应用与守护进程协议不会发生版本漂移</strong>。协议变更会直接导致应用编译失败，和btd路由表校验逻辑一致。历史上已经出现两次这类问题，提前捕获了字段不匹配问题，避免运行时从机器人收到异常数据。</p>
+<p>这也是选用Tauri而非其他跨平台框架的核心理由（非常规理由）：所有跨平台框架都能提供一套代码；只有Tauri能让客户端直接复用服务端的原生类型定义。</p>
+<p><code>duck-ble</code> 正是为这个手机应用而抽离。GATT、帧封装、广播包原本属于btd，并且在源码中已经标记为有线契约。广播包文档明确说明：客户端单独编写的解码器很容易和服务端不一致，本项目在创建该crate前手写过一套解码器，验证了该风险。抽离独立包之后，手机端二进制不再为了一个模块打包clap、tracing-subscriber；同时 <code>duckctl</code> 编译Linux守护进程时，也不再引入bluer、定制libdbus，只依赖三份跨平台文件。</p>
+<h3 id="31-媒体流位置以及该设计不存在安全漏洞"><a class="header" href="#31-媒体流位置以及该设计不存在安全漏洞">3.1 媒体流位置，以及该设计不存在安全漏洞</a></h3>
+<p>协议唯一不完全由Rust处理的地方是WebRTC数据通道。对等连接与<code>&lt;video&gt;</code>标签本身属于webview能力；不存在Rust方案可以直接把视频帧渲染到手机屏幕。但数据通道使用同一套JSON-RPC协议；如果在TypeScript手写报文封装，会再次引入本节要规避的协议漂移问题。</p>
+<p>因此webview负责字节传输，Rust负责解析报文内容：每条请求都由<code>proto::Call</code>生成<code>proto::Request</code>构建，应用信令模块中完全不硬编码方法名。如果在ts文件直接写<code>{vx, vy, vyaw}</code>字面量，代码依然可以编译，但会出现错误的运动控制。</p>
+<h3 id="32-该设计消除的历史缺陷"><a class="header" href="#32-该设计消除的历史缺陷">3.2 该设计消除的历史缺陷</a></h3>
+<p>Reachy Mini传输层实现逻辑：写入命令，同步读取响应特征值；如果应答是<code>OK:</code>确认，再等待通知事件获取真实负载。快速应答可能在读取操作前到达，负载留在积压队列，被下一条命令读取。该缺陷曾导致WiFi扫描返回空数据，拿到的却是上一条密钥交换的对象。修复方案是每次命令执行前清理过期积压报文。</p>
+<p>本方案不会遇到这类问题。JSON-RPC依靠ID将请求与应答一一绑定；仅使用单个特征值，不存在写操作与通知事件的映射猜测；机器人文档§3.2规定机器人会销毁不属于当前对等端的会话。记录在此，避免移植传输层时顺带把这套临时修复方案照搬过来。</p>
+<h2 id="4-蓝牙是永久通信通道不是一次性配网步骤"><a class="header" href="#4-蓝牙是永久通信通道不是一次性配网步骤">4. 蓝牙是永久通信通道，不是一次性配网步骤</a></h2>
+<p>这是最核心的架构差异，决定整个应用形态。</p>
+<p>Reachy Mini的BLE代码只运行一次：向导流程到达终态后，切换局域网，蓝牙不再使用。Duck机器人的BLE在机器人整个生命周期内，都是交互主接口。</p>
+<p>因此本应用不是“配网向导+附加设置页”。应用内置会话层，自动重连与重新认证。原因见§3.2：当中心设备断开，btd会销毁会话；手机重连后处于未认证状态。所有页面都需要支持底层链路断开后自动恢复，包括升级过程（应答发出5秒后btd会重启，见restart-order.md §1）；以及用户在浏览器完成设备码授权的场景，这也是<code>account.login</code>返回授权码而非token的原因。</p>
+<p>机器人侧配套适配：<code>updaterd</code>记录每个组件最新进度，新订阅者接入时回放进度；升级过程中<code>update.status</code>从缓存快照返回数据。手机在升级中途断开重连后，会重新认证、重新订阅，并获取当前升级进度。</p>
+<p>会话层是应用真正的核心，并且可测试。机器人文档§8.2提到：多机器人场景无法脱离硬件板测试；但链路断开场景可以。tauri-plugin-blec内置进程内模拟对象，可按需模拟断连、操作卡死。重连、重认证、重订阅都可以作为普通单元测试。已经发现3个真实缺陷：建立连接时订阅重复发送；重连时发现缓存清空，找不到目标机器人；从未建立成功的链路抛出下线事件。</p>
+<h2 id="5-独立代码仓库"><a class="header" href="#5-独立代码仓库">5. 独立代码仓库</a></h2>
+<p>守护进程工作区统一版本，所有组件打包为单个制品发布。应用上架应用商店的发布周期不同，不属于同一版本主线，因此单独仓库。</p>
+<p>microduck仓库开源，<code>duck-ipc-proto</code>、<code>duck-ble</code>以普通git依赖引入，无需密钥。依赖项刻意跟踪main分支，不锁定固定版本：协议变更导致应用编译失败，正是这套机制设计的告警信号。</p>
+<h2 id="6-最低api版本门槛与守护进程策略相反"><a class="header" href="#6-最低api版本门槛与守护进程策略相反">6. 最低API版本门槛，与守护进程策略相反</a></h2>
+<p>握手阶段，应用拒绝连接API版本低于31的机器人（robot 0.14版本）。</p>
+<p>该策略与守护进程完全不同。<code>app-path-design.md</code> §3明确：版本差异只上报，不拒绝连接。该策略适合守护进程：它是无网络场景下的传输通道，<code>net.connect</code>正是用来解决版本不兼容问题。</p>
+<p>手机应用做了不同取舍，该取舍简化所有页面逻辑。一次握手校验最低版本后，页面可以直接认定字段存在、接口已路由、应答符合守护进程定义结构，不用各自猜测旧机器人可能返回的数据。在握手阶段发现版本不兼容，远好于操作到第四个页面才发现接口不存在。</p>
+<p>代价明确：低于最低版本的机器人<strong>无法通过手机APP升级</strong>，因为APP拒绝通信。但<code>duckctl update apply</code>仍可以通过同一蓝牙链路连接，提示信息会说明这点。</p>
+<p><strong>版本高于应用的机器人可以正常使用</strong>。协议只新增字段；如果客户端拒绝识别未知字段，则机器人每一次升级，APP都必须同步更新。</p>
+<h2 id="7-机器人侧尚需补齐的配套能力"><a class="header" href="#7-机器人侧尚需补齐的配套能力">7. 机器人侧尚需补齐的配套能力</a></h2>
+<p>全部由<code>app-path-design.md</code>负责定义；下面列表全部是面向应用侧的能力缺口：</p>
+<ul>
+<li><strong>加密（§5.5、§8.1）</strong>：机器人交付前必须完成。应用需要下发WiFi密码，不能以明文在链路传输。该能力不阻塞应用开发；§8.1的三个候选方案中有两个不需要蓝牙绑定，因此应用基于未加密链路开发。</li>
+<li><strong>设备识别 identify（§8.2）</strong>：让目标机器人做出动作，从列表多个同名设备中识别手上这台。已完成三分之二：<code>robot.do</code>已路由；§8.2中“没有驱动扬声器的通路”描述已过时，存在sounds crate，<code>robot.sound</code>是被禁止调用而非不存在。剩余需求：识别动作<strong>认证前可用</strong>。如果先要输入PIN码，而用户的目标就是把PIN发给正确机器人，会形成逻辑死循环。参考Reachy Mini的<code>PLAY_SOUND</code>：公开调用、无需PIN、扫描列表直接触发。</li>
+<li><strong>单机器人独立PIN码（§5.3、§8.2）</strong>：没有生成、打印、记录PIN码的机制；PIN无法从设备身份推导，因为身份信息会在广播包对外广播。依赖硬件落地。</li>
+<li><strong>蓝牙绑定撤销（§5.6）</strong>：“忘记此手机”是设置类应用标配功能，但暂无对应API。</li>
+<li><strong>恢复出厂设置（§8.2）</strong>：没有接口清空configd配置；出厂预设名称和用户修改后的名称无法区分。</li>
+<li><strong>手柄在手机连接时重连（pad-minimal-pairing.md 故障3）</strong>：当btd维持外设链路时，手柄控制器无法作为中心设备发起连接。会话期间打开已绑定手柄，手柄会保持闲置。守护进程层面无法修复，最直接的修复方案调用会失败。应用可按需让出链路20秒；临时解决办法为先打开手柄。</li>
+</ul>
+<p>下面几项已通过应用验证，当初接口被禁止，实际使用后发现原限制理由不成立：</p>
+<ul>
+<li><strong>机器人直立（#301、#303）</strong>：<code>robot.init</code>当初被拒绝，理由是“操作者应当看机器人，而不是看屏幕”，该逻辑同样用于<code>robot.do</code>、<code>policy.install</code>。<code>robot.enable</code>被误判为遥操作（实际不是：单次请求，非每秒50次高频指令）。缺少这两个接口，APP只能查看机器人信息，无法控制动作；最终通过游戏手柄场景推动开放。</li>
+<li><strong>通知报文上限512字节（§3.6、#292）</strong>：由本应用发现，duckctl可复现。btd按MTU-3计算应答长度；CoreBluetooth MTU=517，超出特征值最大承载限制2字节。中心端静默保留前512字节，丢弃剩余内容。<code>{&quot;security&quot;:…}</code>会被截断成<code>{&quot;serity&quot;:…}</code>；如果截断位置恰好是换行，则请求直接无应答。</li>
+<li><strong>区分多台机器人（§8.2）</strong>：设备名称来源于SoC序列号，广播包携带IPv4。首页列出名称与地址，无需预先连接。APP以序列号作为主键，蓝牙地址仅作为缓存，完全遵循§8.2规则：如果另一块板子复用旧的缓存地址，会按设备名称拒绝，而不是静默认错设备。</li>
+</ul>
+<h2 id="8-待解决事项"><a class="header" href="#8-待解决事项">8. 待解决事项</a></h2>
+<ul>
+<li><strong>PIN码页面</strong>：出厂PIN固定为000000并在代码库公开。当前PIN页面要求输入的密钥没有保护作用，在最需要流畅的流程里增加交互卡点。应用目前静默发送PIN。当硬件支持打印每台机器人独立PIN码后，再启用PIN输入页面，同时展示“PIN错误，剩余2次尝试”提示。</li>
+<li><strong>手机端游戏手柄配对</strong>：<code>pad.pair</code>、<code>pad.forget</code>、<code>pad.bind</code>以及技能表编辑接口已经路由，但尚未接入。<code>route.rs</code>说明<code>pad.bind</code>设计基于BLE：手持机器人的人同时拿着手柄。上面故障3说明，手机端配对手柄的难度高于路由定义预期。</li>
+<li><strong>是否单APP支持两款机器人</strong>：暂不支持。会在正式版本引入第二套协议方言，两个场景仅共享传输层。未来如果定为目标，前提是协议统一，而非UI统一。</li>
+<li><strong>UI组件库</strong>：暂未引入。应用CSS仅约300行。MUI是首选候选，但目前没有使用需求。后续如果页面需要单纯CSS无法实现的组件，再评估，无需提前引入。</li>
+</ul>
+<blockquote>
+<p>术语注释</p>
+<ul>
+<li>Tauri：跨平台桌面/移动端应用框架</li>
+<li>GATT：BLE通用属性配置文件</li>
+<li>characteristic：蓝牙特征值</li>
+<li>MTU：最大传输单元</li>
+<li>WebRTC：网页实时音视频通信</li>
+<li>JSON-RPC：基于JSON的远程调用协议</li>
+<li>SoC：片上系统</li>
+<li>bond：蓝牙安全绑定</li>
+<li>wire types：有线协议类型</li>
+</ul>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/app-path-design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/remote-access-design.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/app-path-design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/remote-access-design.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

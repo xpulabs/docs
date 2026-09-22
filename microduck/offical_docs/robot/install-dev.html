@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>intall-dev.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html" class="active"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="在开发板上安装"><a class="header" href="#在开发板上安装">在开发板上安装</a></h1>
+<p>从零配置一块开发板，直到你可以向这个机器人推送代码分支。
+开发板信任团队开发密钥，因此它会安装团队任意成员编译出的程序。客户机器人的配置完全不同，会主动拒绝这类开发构建产物——本文所有操作均针对<strong>开发板</strong>，<strong>绝对不能用于客户机器人</strong>。
+开发构建并不会放宽安全校验：签名与哈希校验、健康检查门限、自动回滚机制全部保留。唯一区别是用于签名的密钥，这也是客户机器人会拒绝开发构建的原因：客户机器人双重拦截开发密钥。配置项 <code>allow_dev_keys = false</code>；并且只有文件名以 <code>.dev.pub</code> 结尾的可信密钥，才会被识别为开发密钥。下文整套配置的目的，就是修改这两项规则。</p>
+<h2 id="烧录开发板镜像"><a class="header" href="#烧录开发板镜像">烧录开发板镜像</a></h2>
+<p>使用 Armbian 镜像烧录工具。选择 Radxa Zero 3，镜像版本选择 Armbian 26.2.1 Minimal。
+写入镜像前，在烧录工具的配置文件中填写：WiFi 名称与密码，以及你想要使用的用户名和密码。提前在这里配置，后续就不用串口控制台：开发板首次启动后会自动接入网络，可以直接通过 SSH 访问。
+然后添加你的 SSH 密钥，这样配置脚本在重启开发板后可以自动重连：</p>
+<pre><code class="language-bash">ssh-copy-id radxa@192.168.1.42
+</code></pre>
+<h2 id="所需准备"><a class="header" href="#所需准备">所需准备</a></h2>
+<ol>
+<li>
+<p>开发板IP地址。该镜像上的 mDNS 不稳定，<code>.local</code> 域名解析时好时坏。<code>duckctl ip</code> 通过蓝牙向机器人查询IP，不需要你本地网络，也不需要DHCP租约；如果开发板还未广播自身信息，可以查看路由器的DHCP租约表作为备选方案。</p>
+</li>
+<li>
+<p>SSH密钥登录权限，即上一步配置。配置流程会重启开发板并自动重连，密码登录无法满足该场景。</p>
+</li>
+<li>
+<p>GitHub令牌：当前仓库为私有仓库，没有令牌无法获取发布资产。仓库公开后令牌变为可选，仅用于提升API访问速率限制（文档 docs/design/updater-design.md 6.1节）。</p>
+</li>
+<li>
+<p>克隆一份本仓库。所需开发密钥已提交在 <code>deploy/dev-key/team.dev.pub</code>，无需向他人索要。</p>
+<h2 id="安装"><a class="header" href="#安装">安装</a></h2>
+<p>在你本地电脑的仓库克隆目录中，执行两条命令：</p>
+<pre><code class="language-bash">export DUCK_TOKEN=github_pat_replace_with_your_token
+./scripts/provision-board.sh --pause-btd-on-pair --name &lt;MY_COOL_ROBOT_NAME&gt; radxa@192.168.1.42
+</code></pre>
+<p>该命令会上传开发密钥、启动配置流程、等待设备重启、实时输出日志，最终执行 <code>robotctl health</code> 检查。</p>
+<h3 id="命令中---pause-btd-on-pair-参数的作用"><a class="header" href="#命令中---pause-btd-on-pair-参数的作用">命令中 <code>--pause-btd-on-pair</code> 参数的作用</a></h3>
+<p>在 aic8800 蓝牙芯片上，当 btd（蓝牙守护进程）处于广播状态时，手柄无法建立新配对。该参数会写入标记，<code>robotctl pad pair</code> 会暂停btd、重启适配器，留出配对窗口期，之后重新启动蓝牙服务。
+已建立的配对连接不受影响：已配对的手柄可以正常连接、驱动，完整协议栈正常运行；代价仅为配对期间该守护进程短暂停止。
+这里默认带上该参数，是因为：如果开发板需要该参数但配置时未添加，现象就是手柄无法配对；而你排查时最先想到的各类原因都不是真正根源。</p>
+<h2 id="三种配置模式以及判断当前属于哪一种"><a class="header" href="#三种配置模式以及判断当前属于哪一种">三种配置模式，以及判断当前属于哪一种</a></h2>
+<p>存在两类独立问题，因此对应两个参数。配对手柄，观察报错现象，选择对应配置：</p>
+<div class="table-wrapper"><table><thead><tr><th>现象</th><th>开发板所需配置</th></tr></thead><tbody>
+<tr><td>手柄成功配对并正常工作</td><td>无需参数，直接执行配置</td></tr>
+<tr><td>手柄无法配对，SMP最后步骤一直无法完成</td><td><code>--pause-btd-on-pair</code></td></tr>
+<tr><td>即使暂停btd，手柄依旧无法配对</td><td><code>--weird-ble</code>（自动包含暂停逻辑，并开启 <code>Privacy = device</code>）</td></tr>
+<tr><td>手柄配对成功后频繁断连：提示PIN或密钥缺失(0x06)，无输入设备</td><td><strong>该板不要使用 <code>--weird-ble</code></strong>，移除该参数，保留暂停参数</td></tr>
+<tr><td>需要重点留意最后一行。仅需要暂停蓝牙的开发板，如果开启 <code>Privacy = device</code>，配对会立刻失效，比直接无法配对更难定位。实测MAC地址<code>50:37:CD:16:1D:90</code>设备：关闭隐私+暂停蓝牙可以稳定保持配对；开启device隐私模式45秒内断连46次。因此 <code>--weird-ble</code> 不再作为默认参数。</td><td></td></tr>
+<tr><td>将开发板从 <code>--weird-ble</code> 切换为仅暂停蓝牙（保留标记）：</td><td></td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-bash">sudo sed -i 's/^Privacy = device/Privacy = off/' /etc/bluetooth/main.conf &amp;&amp; sudo reboot
+</code></pre>
+<p>反向切换（使用配置脚本在板上留下的副本）：</p>
+<pre><code class="language-bash">sudo DUCK_WEIRD_BLE=1 /usr/local/sbin/robot-setup-board &amp;&amp; sudo reboot
+</code></pre>
+<p>检查开发板两个参数都不需要，清空配置并配对手柄：</p>
+<pre><code class="language-bash">sudo rm /var/lib/robot/weird-ble
+sudo sed -i '/^Privacy = /d' /etc/bluetooth/main.conf &amp;&amp; sudo reboot
+</code></pre>
+<p><strong>修改Privacy配置后必须重新配对</strong>：该设置会改变密钥派生对应的蓝牙地址，旧配对信息不再匹配，会持续报PIN/密钥缺失，需要重建配对。
+以上全部是 aic8800 蓝牙芯片的临时兼容方案，并非系统原生设计；更换芯片后该方案即可移除。详细信息见 <code>pair-a-gamepad.md</code>。
+你可以随时退出日志查看：配置流程会安装 systemd 服务单元，开机自动继续执行，无论你是否保持终端连接。按 <code>Ctrl-C</code> 不会中断板上任务，后续可以重新查看日志：</p>
+<pre><code class="language-bash">ssh -t radxa@192.168.1.42 'sudo tail -f /var/lib/robot/provision.log'
+</code></pre>
+<p><code>--ref BRANCH</code> 从指定分支进行配置：脚本执行系统初始化，并在之上安装该分支版本的守护程序。
+<code>golden</code> 保持为稳定发布版本，作为启动恢复网络的兜底版本；如果把分支构建设为golden，分支一旦损坏，兜底恢复也会失效；<code>current</code> 指向当前分支。
+如果构建包无法安装，或者安装后被健康检查回滚，则配置失败。<strong>最难以排查的故障</strong>：你指定分支，但开发板悄悄继续运行稳定版。看起来一切安装正常，但被测代码根本没有运行。配置前等待CI执行1~2分钟；如果卡住，可以用 <code>gh run list --branch BRANCH</code> 查看CI状态。
+其他实用参数：</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><code>--name Ducky</code>：给机器人命名，而不是使用基于序列号自动生成的 <code>duck-7f3a</code>（后续 <code>robotctl system set-name</code> 也可以改名，该参数仅省一条命令）</p>
+</li>
+<li>
+<p><code>--local</code>：使用本地仓库内的 <code>provision.sh</code>，而不是远程拉取，适合在合并代码前测试配置脚本改动</p>
+</li>
+<li>
+<p><code>--no-dev-key</code>：配置后的开发板仅能安装正式发布包，不接受开发构建</p>
+<h2 id="验证是否配置成功"><a class="header" href="#验证是否配置成功">验证是否配置成功</a></h2>
+<pre><code class="language-bash">robotctl health
+</code></pre>
+<p>只有密钥成功安装，这块板子才会被识别为开发板，可以通过命令校验，而不是靠记忆：</p>
+<pre><code class="language-bash">grep -c 'DEV BOARD' /var/lib/robot/provision.log
+</code></pre>
+<p>返回<code>1</code>代表成功；返回<code>0</code>代表密钥未写入。后续使用<code>--ref</code>会报错，报错信息类似发布包损坏。这个检查就是为了提前捕获该故障。
+然后做真实测试，部署分支版本：</p>
+<pre><code class="language-bash">sudo robotctl update apply --ref main daemon
+</code></pre>
+<h2 id="重烧镜像后ssh无法连接"><a class="header" href="#重烧镜像后ssh无法连接">重烧镜像后SSH无法连接</a></h2>
+<p>重烧镜像会重新生成开发板主机密钥，你上次使用的IP现在对应新密钥。<code>StrictHostKeyChecking=accept-new</code> 无法处理这种场景：主机IP没变，但密钥更新。SSH原始报错会输出一大段文字，提示可能存在中间人攻击。
+使用脚本自动清除旧主机密钥：</p>
+<pre><code class="language-bash">./scripts/provision-board.sh radxa@192.168.1.42 --forget-host-key
+</code></pre>
+<p>这点很重要，因为DHCP租约会复用：上周分配给A开发板的IP，本周可能分配给另一块新板子，密钥完全不同。</p>
+<h2 id="开发板重启后ip发生变化"><a class="header" href="#开发板重启后ip发生变化">开发板重启后IP发生变化</a></h2>
+<p>配置流程中途WiFi切换，开发板可能获取到和你指定地址不同的DHCP租约。<code>provision-board.sh</code>会自动查找：等待SSH连接的同时，通过蓝牙查询机器人当前IP，并自动切换目标地址。</p>
+<pre><code>bluetooth: the robot reports 192.168.1.57, and 192.168.1.42 was its old lease.
+</code></pre>
+<p>无需手动操作，后续流程自动使用新IP。
+有三种情况会导致蓝牙查询IP失效，脚本会给出提示：</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>需要cargo和本地仓库，<code>duckctl</code>是示例程序，不是预装二进制。</p>
+</li>
+<li>
+<p>必须等btd蓝牙服务启动后才能查询；首次配置的开发板，要等到第二阶段运行几分钟后。</p>
+</li>
+<li>
+<p>查询返回的是WiFi地址，通过网线连接的开发板不支持该查询。
+<code>--no-ble</code> 关闭蓝牙查询功能。如果机器人设置了配对PIN，需要在环境变量<code>DUCK_PIN</code>中填入。</p>
+<h2 id="将已有开发板改为支持开发构建"><a class="header" href="#将已有开发板改为支持开发构建">将已有开发板改为支持开发构建</a></h2>
+<p>适用于其他方式初始化的板子，或是在获取开发密钥前已经配置好的板子。<strong>两项配置缺一不可</strong>，只改其中一项，板子依旧拒绝分支构建。
+简便方式：重新运行安装脚本并带上密钥，一次性完成密钥校验与配置开关：</p>
+<pre><code class="language-bash">sudo DUCK_TOKEN=&quot;$DUCK_TOKEN&quot; DUCK_DEV_KEY=/tmp/team.dev.pub sh /tmp/install.sh
+</code></pre>
+<p>无论源文件叫什么，脚本都会将密钥安装为 <code>team.dev.pub</code>。文件名至关重要：<code>.dev.</code> 标识这是开发密钥；其他名称的密钥会被当作正式发布密钥信任。
+如果你希望手动分步执行：</p>
+<pre><code class="language-bash">sudo cp team.dev.pub /etc/robot/trusted_keys/team.dev.pub
+sudo sed -i 's/^allow_dev_keys.*/allow_dev_keys = true/' /etc/robot/updater.toml
+sudo systemctl restart updaterd
+</code></pre>
+<h3 id="手动配置github令牌"><a class="header" href="#手动配置github令牌">手动配置GitHub令牌</a></h3>
+<p>传入<code>DUCK_TOKEN</code>时，<code>scripts/install.sh</code>会自动完成这部分配置。手动配置场景：板子是其他方式初始化；仅在仓库私有，或者板子频繁拉取更新、需要更高API速率限制时才需要。
+<code>updaterd</code>从自身环境读取<code>GITHUB_TOKEN</code>，你在shell里export的环境变量无法传递给守护进程，需要systemd覆盖配置文件：</p>
+<pre><code class="language-bash">sudo mkdir -p /etc/systemd/system/updaterd.service.d
+</code></pre>
+<p>将下面代码块内的令牌替换为你自己的（唯一占位符）：</p>
+<pre><code class="language-bash">sudo tee /etc/systemd/system/updaterd.service.d/token.conf &gt; /dev/null &lt;&lt;'EOF'
+[Service]
+Environment=GITHUB_TOKEN=ghp_replace_with_your_token
+EOF
+</code></pre>
+<p>覆盖配置文件默认全局可读，该文件存放凭证，需要修改权限：</p>
+<pre><code class="language-bash">sudo chmod 600 /etc/systemd/system/updaterd.service.d/token.conf
+sudo systemctl daemon-reload
+sudo systemctl restart updaterd
+</code></pre>
+<p>开发板存放令牌没问题，但客户机器人不能存放。镜像内全集群凭证一旦写入，不重烧镜像就无法轮换，因此方案是使用公开仓库，而不是预装令牌（docs/design/updater-design.md §6.1）。没有令牌的板子依旧可以从本地目录或者开发推送安装程序。</p>
+<h2 id="无网络环境安装"><a class="header" href="#无网络环境安装">无网络环境安装</a></h2>
+<p>已经装有正式版本的板子，可以常规方式从本地目录安装：通过守护进程，保留健康检查门限与自动回滚：</p>
+<pre><code class="language-bash">sudo robotctl update apply daemon --from /media/usb/release
+</code></pre>
+<p><code>scripts/dev-push.sh</code>脚本最终执行的就是这条命令；<code>dev-push.md</code>描述从笔记本推送至板子的流程。
+本节余下内容适用于裸板场景：工厂或离线安装，此时守护进程还未部署。因此使用<code>updaterd</code>而非<code>robotctl</code>，并且<code>updaterd</code>默认不在系统PATH路径中：</p>
+<pre><code class="language-bash">sudo /opt/robot/daemon/current/bin/updaterd install --from /media/usb/release
+</code></pre>
+<p>目录内包含完整发布包：<code>&lt;version&gt;.manifest.json</code>、对应的<code>.minisig</code>签名文件、程序制品以及制品的<code>.minisig</code>。签名、哈希、兼容性校验逻辑和在线下载完全一致；<code>--from</code>仅修改文件来源，不改变信任校验规则。
+该命令<strong>不允许在系统已有可用版本时直接运行</strong>，因为它强制开启<code>on_apply</code>并关闭健康检查；对正常运行的机器人执行会静默关闭自动回滚。只有一种场景需要，且<code>robotctl update apply</code>无法解决：板子内置的<code>updaterd</code>版本太旧，无法安装修复该旧版本问题的新版本。每次安装新版本都会被回滚，而负责校验的程序本身就是待替换对象。需要停止机器人服务并强制安装：</p>
+<pre><code class="language-bash">sudo systemctl stop robotd
+sudo /opt/robot/daemon/current/bin/updaterd install --from /media/usb/release --force
+</code></pre>
+<p>只要<code>robotd</code>还在运行，<code>--force</code>参数会被拒绝，因为正常运行的机器人不能失去安全兜底机制。
+<code>--force</code>仅在本次安装关闭自动回滚；签名、哈希、兼容性校验依旧保留。如果新版本运行异常，可执行 <code>sudo robotctl update rollback daemon</code> 回滚恢复。</p>
+<h2 id="深入了解"><a class="header" href="#深入了解">深入了解</a></h2>
+<p><code>deploy/README.md</code>是完整参考文档，描述整套机制：信任链、文件部署位置、其他部署方式（不带仓库克隆，在板上手动一步步操作）、日志存放位置、重启后哪些配置会保留。</p>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/robot/install-by-hand.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/robot/pair-a-gamepad.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/robot/install-by-hand.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/robot/pair-a-gamepad.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

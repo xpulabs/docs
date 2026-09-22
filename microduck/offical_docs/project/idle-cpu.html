@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>idle-cpu.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html" class="active"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="无人交互时机器人的运行行为"><a class="header" href="#无人交互时机器人的运行行为">无人交互时机器人的运行行为</a></h1>
+<p>一台放置在桌面上、未连接手柄、无查看器接入、没有任何驱动指令的Duck机器人，依然会运行5个守护进程。本文描述该状态下各进程原本的工作方式、已做的优化变更；对于两个未改动模块，也给出保留现状的量化依据。</p>
+<p>文中所有数据，要么基于代码做数值推算，要么在开发主机上实测。只有测试图案相关指标在硬件板卡上完成实测；最后一节说明其余指标还需要哪些板上验证。</p>
+<h2 id="资源开销项优化前后对比"><a class="header" href="#资源开销项优化前后对比">资源开销项（优化前后对比）</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>模块</th><th>优化前空闲开销</th><th>优化后空闲开销</th></tr></thead><tbody>
+<tr><td>mediad 原始分支</td><td>每秒拷贝1.84MB，30次/秒</td><td>有读取方请求时才拷贝，约2次/秒</td></tr>
+<tr><td>mediad 测试图案</td><td>CPU渲染720p30画面，占用单核29.4%</td><td>256×144@5fps，像素处理负载仅原0.7%</td></tr>
+<tr><td>tofd 帧轮询</td><td>约100次I²C读取/秒</td><td>约45次/秒</td></tr>
+<tr><td>padd（已接手柄、摇杆居中）</td><td>50–100条消息/秒</td><td>10条消息/秒</td></tr>
+<tr><td>抚摸检测（启用时）</td><td>约400次FFT/秒 + 4次前向推理/秒</td><td>环境有声响时才执行，静默时不运行</td></tr>
+</tbody></table>
+</div>
+<h3 id="mediad每一帧都执行拷贝"><a class="header" href="#mediad每一帧都执行拷贝">mediad：每一帧都执行拷贝</a></h3>
+<p>appsink回调会把tee分流出来的每一个缓冲区复制到缓存槽，读取方从中获取最新帧。
+720p30是正式发布画质，<code>media.source</code>默认使用摄像头。一帧UYVY图像大小：1280 × 720 × 2 = 1.84 MB。
+读取方为自动曝光（2Hz）与Duck检测（启用时2Hz）。30次拷贝里有28次完全没有使用者：开机后持续产生55MB/s内存拷贝，每秒30次分配1.8MB内存。</p>
+<p><strong>优化逻辑</strong>：改为由读取方主动发起请求，回调在下一帧就绪时返回数据。
+如果直接返回上一帧会更省资源，但会把读取方自身轮询周期引入测量；曝光控制回路会基于半秒前的亮度值进行调节，无法稳定收敛。</p>
+<h3 id="测试图案原本按摄像头分辨率渲染"><a class="header" href="#测试图案原本按摄像头分辨率渲染">测试图案原本按摄像头分辨率渲染</a></h3>
+<p>当板卡配置 <code>[media] source = &quot;test&quot;</code>，会使用<code>videotestsrc</code>视频测试源。这样不带摄像头的机器人仍可维持完整会话：信令、协商、数据通道、控制API全部复用视频流。测试图案原本使用<code>[media]</code>画质档位，和摄像头输出分辨率一致。</p>
+<p>两者的核心差异在于像素来源：
+摄像头帧由硬件ISP输出，<code>v4l2src</code>转发几乎无开销；测试图案则由软件进程逐帧绘制UYVY打包图像。
+两块同型号板卡，无外设接入、处于空闲状态：</p>
+<div class="table-wrapper"><table><thead><tr><th>数据源</th><th>mediad空闲CPU占用</th></tr></thead><tbody>
+<tr><td>摄像头，rkisp</td><td>6.1%</td></tr>
+<tr><td>测试源，720p30</td><td>29.4%</td></tr>
+</tbody></table>
+</div>
+<p>测试图案的CPU开销是摄像头方案的5倍。即便所有读取方都未订阅，依然每秒合成30帧、每帧1.84MB图像。该板卡的<code>camera.json</code>显示：<code>&quot;frames&quot;:23142</code>，<code>&quot;consumers&quot;:0</code>（消费者数量为0）。</p>
+<p><strong>优化后</strong>：测试图案使用<code>TEST_PATTERN_GEOMETRY</code>：256×144，5fps，16:9，和所有画质档位一样按8字节对齐，单帧73KB。像素处理负载仅原来的0.7%。
+这不是画质妥协：测试图案本身不需要高分辨率。<code>media.video</code>上报该小尺寸分辨率，因为这就是机器人实际输出的画面。</p>
+<h3 id="tofd15hz传感器原本每秒轮询100次"><a class="header" href="#tofd15hz传感器原本每秒轮询100次">tofd：15Hz传感器原本每秒轮询100次</a></h3>
+<p>帧间隔66ms，程序每10ms执行一次<code>data_ready</code>查询。获取1帧数据大约需要7次I²C通信，其中6次查询无新帧。
+优化后，循环会跳过传感器不可能产出新帧的时间段，仅在其余时间轮询。<strong>帧的时效不变</strong>：依然受10ms轮询粒度限制，两种方案检测到帧的时间精度一致。</p>
+<p>只要搭载ToF传感器，无论是否启用特雷门琴功能，该进程都会运行：tofd持续测距并推送数据给订阅者，<strong>无订阅者是常态</strong>，轮询逻辑不依赖订阅者。
+<code>[theremin] enabled</code>默认关闭，且该开关不影响此项开销；它节省的是robotd的挂起读取操作，并非本次优化对应的开销。</p>
+<h3 id="padd每秒重复发送三组零值共50次"><a class="header" href="#padd每秒重复发送三组零值共50次">padd：每秒重复发送三组零值共50次</a></h3>
+<p>摇杆采用轮询读取，手柄静置时每周期输出完全相同的帧：编码、写入、刷新，robotd侧还要解析。在同时发送归零<code>robot.move</code>的两种模式下，开销翻倍。
+优化后，<strong>内容完全相同的帧会暂缓发送</strong>，两类指令复用一次写入。</p>
+<p>仅当指令要求无运动时，才暂缓发送帧。该设计规避<code>[safety] deadman_ms</code>（安全看门狗超时，padd无法读取该参数）：看门狗仅将扭转量置零，不修改其他数据。如果帧本身就是零运动指令，暂缓发送不会产生影响；如果是运动指令，该机制会在摇杆保持按下时停止机器人。</p>
+<h3 id="抚摸分类器静默环境下仍持续推理"><a class="header" href="#抚摸分类器静默环境下仍持续推理">抚摸分类器：静默环境下仍持续推理</a></h3>
+<p>1秒窗口内包含40个log-mel梅尔频带，每秒执行4次推理，每次包含100次512点FFT + 一次神经网络前向传播。
+配套的环境收音模块一直在监测环境底噪，因此分类器改为<strong>仅在声音明显高于底噪时才运行</strong>；抚摸场景除外，抚摸结束的边界需要和起始边界一样，依靠推理识别。</p>
+<p>该功能默认关闭，属于可选开销，不是所有机器人常驻的负载。</p>
+<h2 id="保留不变的模块及原因"><a class="header" href="#保留不变的模块及原因">保留不变的模块及原因</a></h2>
+<h3 id="50hz总线写操作不做条件化执行"><a class="header" href="#50hz总线写操作不做条件化执行">50Hz总线写操作，不做条件化执行</a></h3>
+<p><code>safety.apply</code>每个周期写入16个目标位置，包括机器人停泊、目标位置无变化的周期。如果改为条件写入，收益如下：</p>
+<p>总线层面：Protocol 2.0同步写16个舵机，报文94字节（4字节头部 + 1广播ID + 2长度 + 1指令 +4地址/长度 +16×5字节负载 +2 CRC）。1M波特率下耗时940µs。
+同周期同步读取17个设备约422字节，耗时4.2ms。20ms周期内总线负载约25%，本次写操作占总线时间的1/5，<strong>不是性能瓶颈</strong>。</p>
+<p>CPU层面：一次<code>write(2)</code>写入94字节，包含底层tty层，连同中断处理约15µs；50Hz频率下仅占用单核0.075%。</p>
+<p>权衡：这条写指令是循环中保证舵机收到目标位置的关键语句。如果增加条件判断，就需要枚举所有会让舵机目标位置失效的场景：扭矩开关、电压跌落、舵机清除锁存故障后自重启、init插值指令等。一旦逻辑遗漏，会出现机器人在未知场景下无法维持姿态的故障。仅仅节省0.075%单核资源，不足以承担该风险。</p>
+<p>robotd空闲周期其余部分已经高度精简：ONNX推理仅在驱动机器人时启用；状态帧仅在存在订阅者时组装；电压、温度寄存器每秒读取一次，而非每个周期；串口读取采用休眠等待而非忙轮询。</p>
+<h3 id="多线程tokio运行时保持现状无需改动"><a class="header" href="#多线程tokio运行时保持现状无需改动">多线程Tokio运行时：保持现状无需改动</a></h3>
+<p>robotd、configd、updaterd直接使用<code>#[tokio::main]</code>，RK3566平台每个进程默认按核心数启动4个工作线程。空闲工作线程会挂起，不会持续轮询。
+测试：4个工作线程、4个挂起任务的多线程运行时，对比单线程current_thread运行时：</p>
+<pre><code>multi:   5线程  初始CPU 0.01s → 20s后 0.01s
+current: 1线程  初始CPU 0.00s → 20s后 0.00s
+</code></pre>
+<p>差异仅来自4个挂起线程的栈内存，<strong>不产生发热</strong>。切换运行时类型无法降低本文讨论的CPU开销，还会引入真实风险：<code>current_thread</code>模式下，异步链路中的同步调用会阻塞整个运行时（包含IPC套接字）。updaterd多处存在这类调用：<code>engine.rs</code>读取签名、写入嵌入式清单、遍历单元目录；只有重型校验任务放到<code>spawn_blocking</code>。</p>
+<h2 id="仍需要硬件板卡验证的项目"><a class="header" href="#仍需要硬件板卡验证的项目">仍需要硬件板卡验证的项目</a></h2>
+<p>以上所有数值，要么基于帧大小、报文结构、轮询间隔做理论估算，要么在开发机上测得。四项优化都需要在真实硬件上验证发热情况：</p>
+<ol>
+<li>mediad、tofd、padd优化前后CPU占用，使用<code>dev-push.sh</code>和<code>top -H</code>采集。摄像头相关指标变化应该最明显。目前仅获取0.12.0版本mediad空闲数据：摄像头6.1%，720p测试图案29.4%。这是优化后数据，缺少优化前基线；tofd、padd暂无任何板上实测数据。</li>
+<li>在那块测得720p30占用29.4%的板卡上，实测256×144@5fps测试图案。理论计算像素负载为原0.7%；实际剩余开销来自<code>videotestsrc</code>每帧固定开销，该开销不再随图像分辨率线性增长。</li>
+<li>10分钟空闲状态SoC温度，这是本次优化的核心指标。之前视频翻转问题导致板卡温度达到97℃，降频至408MHz。空闲时的温度余量，决定机器人一边识别画面一边行走的稳定性。<code>robotctl health</code>现在可以同时打印温度与降频阈值，查看降频状态不再需要SSH登录（参考 <code>../design/robotd-design.md</code> §2.1）。</li>
+<li>tofd针对传感器时钟偏差的保护逻辑。轮询以帧到达事件为基准，允许传感器提前20ms（周期误差30%），但尚未在VL53L8传感器上实测该场景。</li>
+<li>在普通室内环境验证：抚摸检测触发速度和之前保持一致（而非静音环境）。</li>
+</ol>
+<h2 id="后续发现"><a class="header" href="#后续发现">后续发现</a></h2>
+<p>头部传感器是遗留问题。在板卡执行<code>ps -L</code>查看线程后定位：tofd空闲约5%CPU中，4.5%来自头部IMU，0.5%来自深度传感器；而IMU在整个系统中<strong>没有任何数据消费方</strong>。
+也就是说，本文优化的轮询逻辑并不是真正的开销来源；真正应该关闭的是这个无人使用的传感器。详见 <code>tof-on-demand.md</code>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/project/ci-setup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/project/install-path-gap.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/project/ci-setup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/project/install-path-gap.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

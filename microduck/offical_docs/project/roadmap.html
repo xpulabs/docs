@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>roadmap.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html" class="active"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="路线图"><a class="header" href="#路线图">路线图</a></h1>
+<p>状态：已重写 · 日期：2026-08-26（初稿2026-08-05） · 负责人：pierre</p>
+<p>本文配套 <code>architecture.md</code>（项目构建目标）与 <code>updater-design.md</code>（发布交付方案）。本文描述<strong>工作次序与排期</strong>，内容会变动；但架构设计文档保持稳定。</p>
+<h2 id="当前项目状态"><a class="header" href="#当前项目状态">当前项目状态</a></h2>
+<ul>
+<li><code>updater/</code>：更新引擎、校验、存储、日志、钩子脚本、前置检查、GitHub/HuggingFace/本地多源、IPC服务、systemd单元 —— <strong>已完成</strong></li>
+<li><code>duck-control/</code>：机器人模型、总线、IMU、RobotIo、观测数据、ONNX策略、安全层。纯库：无tokio、无socket、无systemd</li>
+<li><code>duck-ipc-proto/</code>：全部<code>*.</code>命名空间的线上通信协议，API版本v14。仅依赖serde/serde_json/semver；保证恢复环境不会引入更新引擎的依赖树</li>
+<li><code>robotd/</code>：50Hz主循环，经由安全层驱动行走/站立/翻滚；根据截止时间达标情况与策略状态输出意图、健康状态。M3之后新增：运动学、接触里程计、视线逆运动学、语音、ToF特雷门琴、合唱模块，全部挂载在同一时钟节拍下（robotd-design.md §4.4–4.5）</li>
+<li><code>padd/</code>：游戏手柄转为控制意图，作为普通socket客户端；随版本包发布，开机独立运行。配对手柄即为唯一操作步骤</li>
+<li><code>robotctl/</code>：运维命令行工具 — 更新、健康状态、版本、监控、网络、系统、机器人、手柄、配置、鸭鸣、合唱、特雷门琴、命令补全。依赖duck-ipc-proto，不依赖updater，因此可在故障恢复环境运行</li>
+<li><code>configd/</code>：基于NetworkManager管理WiFi、机器人名称、从SoC序列号生成设备身份、配对PIN码、重启、服务状态上报。<code>--fake-net</code>参数可在板外模拟整套服务接口</li>
+<li><code>btd/</code>：BLE传输适配器 — 帧封装、路由子集、BlueZ后端、配对代理。硬件可运行，默认不加密（app-path-design.md §5.5）</li>
+<li><code>duckctl/</code>：笔记本远程控制机器人。当前使用BLE；命名面向机器人本身，而非通信链路</li>
+<li><code>mediad/</code>：摄像头、麦克风、编码、WebRTC网关，附带内置控制台。Radxa Zero 3W局域网内推流至浏览器；硬件H.264编码（mpph264enc），附带控制数据通道</li>
+<li><code>tof/</code>：tofd：头部8×8 ToF矩阵，独立socket，15Hz。无传感器的板子也会启动该服务并上报缺失状态</li>
+<li><code>xtask/</code>：打包、签名、发布升级 — 验证升级前后字节完全一致</li>
+<li><code>.github/</code>：CI、发布、推广、开发流水线；四条流水线全部真实运行。0.2.0之后所有版本均通过这套流程部署到开发板</li>
+<li>bootstrap：updaterd安装 + scripts/install.sh。机器人通过标准更新引擎完成首次部署，不存在单独的bootstrap分支导致代码漂移</li>
+<li>recovery：<code>robot-boot-check.timer</code> + robot-rescue + 黄金版本软链接，已打包并默认启用。尚未在实体板上实际触发（boot-recovery-net.md）</li>
+<li>tests：Mac平台942个用例全部通过，Linux上更多；包含健康门限、电池与温度读取、对接真实robotd进程的策略/安全链路，board-test.sh中基于真实socket的configd鉴权测试</li>
+<li>进行中：maploc (#127)、NPU鸭子检测器、合唱模块选举修复 (#151)；两项仅完成设计PR，尚未编码：手机APP (#107)、IPC监控器 (#52)</li>
+<li>待实现：手机APP、SDK、策略通道、自主决策大脑、局域网外访问机器人</li>
+</ul>
+<h2 id="第一版路线图目标已达成"><a class="header" href="#第一版路线图目标已达成">第一版路线图目标已达成</a></h2>
+<p>M1～M4是一条连续目标：打造一台可以行走、支持空中升级、且升级过程不会变砖的机器人。目标已实现。0.2.0之后所有版本都基于M1、M2搭建的流水线部署；0.9.x版本的Duck机器人已实现行走、翻滚、视觉、语音、合唱。</p>
+<p>后续工作不再是顺序排队。剩余任务为多条独立分支，风险各不相同，互相之间无强制先后顺序。下面的M编号仅为标识，<strong>不代表执行顺序</strong>；工作优先级单独在下文列出。</p>
+<p>项目最初判断半对半错：难点是<strong>产品化</strong>而非基础能力，这点判断正确。更新链路、健康校验门限、恢复网络、BLE接口均已落地并稳定。但工作量预估偏差较大。0.5版本之后大部分开发都是能力扩充：运动学、里程计、ToF、视线控制、语音、合唱、摄像头；而最大模块——自主决策大脑，至今尚未开发。</p>
+<h2 id="里程碑"><a class="header" href="#里程碑">里程碑</a></h2>
+<p>每个里程碑都有判定“完成”的测试标准，没有验收标准的里程碑容易失控。</p>
+<h3 id="m1--闭环控制--已完成"><a class="header" href="#m1--闭环控制--已完成">M1 — 闭环控制 · 已完成</a></h3>
+<p>更新器拥有真实的校验阻断逻辑；团队确定共享crate边界：robotd核心状态使用原子变量而非互斥锁（即使主循环卡死，机器人仍能上报自身不健康）；拆分出duck-ipc-proto，保证恢复环境不会链接更新引擎的HTTP/压缩/密码库；健康门限基于真实socket探测；robotd socket唯一数据源；所有守护进程异常前输出warn级身份日志；通过标准引擎完成首次安装引导。</p>
+<p>验收：<code>robotd/tests/updater_gate.rs</code> 通过真实socket对接真实robotd进程，完成更新阻断与提交；<code>robotd --unhealthy</code> 会回滚当前版本。</p>
+<h3 id="m2--开发版本通道--已完成"><a class="header" href="#m2--开发版本通道--已完成">M2 — 开发版本通道 · 已完成</a></h3>
+<p><code>sudo robotctl update apply daemon --ref my-branch</code> 可安装分支构建包；<code>scripts/dev-push.sh</code> 通过SSH把笔记本本地构建包刷入设备，无需CI。两条安全约束，独立于工作流强制生效：</p>
+<ol>
+<li>开发版不能标记为latest（版本为semver预发布版本，version_under不会将开发标签识别为正式发布版）</li>
+<li>不能安装到客户设备（客户机allow_dev_keys关闭；仅文件名以<code>.dev.pub</code>结尾的可信密钥才视为开发密钥）</li>
+</ol>
+<p>验收：在真实仓库验证；dev.yml发布，<code>--ref main</code>可网络安装；客户机配置拒绝同一开发包。</p>
+<p>遗留问题现已决策：私有仓库的发布资产需要token访问，客户设备无token，因此仓库私有状态下量产机器人无法下载版本。<strong>决定将仓库公开</strong>，解决该问题，无需修改代码；更新引擎使用的API路径同样兼容公开仓库（updater-design.md §6.1）。</p>
+<h3 id="m3--正式robotd--已完成分两阶段"><a class="header" href="#m3--正式robotd--已完成分两阶段">M3 — 正式robotd · 已完成，分两阶段</a></h3>
+<p>robotd不再使用microduck_runtime，而是提取其控制核心至duck-control，而非重新实现；功能对齐来自代码提取，而非追赶持续变动的目标。
+阶段1：真实50Hz Dynamixel伺服循环维持姿态，<code>robot.health</code>指标代表主循环按时执行。
+阶段2：61维观测值构建器、基础站立策略、意图接口、手柄客户端接入。</p>
+<p>安全权限在本阶段落地，而非M6：独占总线写入权限，任何策略/客户端都不能绕过安全层直接控制电机：关节限位、摔倒自动松弛、意图安全死锁。</p>
+<p><strong>硬件优先，仿真在后</strong>。硬件上暴露出单元测试无法捕获的bug：ORT在运行时低于最低要求时直接panic而非返回错误，导致控制线程崩溃，健康模块误报故障。</p>
+<p>验收：Radxa Zero 3W硬件全部可用；可通过意图API驱动行走；robotctl执行更新后干净重启，健康校验通过；启动不健康的版本会自动回滚。</p>
+<h3 id="m4--硬件整机调试--收尾阶段"><a class="header" href="#m4--硬件整机调试--收尾阶段">M4 — 硬件整机调试 · 收尾阶段</a></h3>
+<p>属于<strong>指标测量里程碑</strong>，不是功能里程碑：把预估参数变成Radxa实体板上实测数值。大部分指标随发布顺带完成：非实时内核稳定维持50.0Hz循环（15022次tick仅3次丢失）；总线与imu_to_dxl板在<code>/dev/ttyS2</code>正常响应；各区域温度可读取；on_apply阶段的systemctl restart可正常调用systemd；版本提交与回滚校验生效。</p>
+<p>日志留存问题通过方案决策而非实测确定：镜像中<code>/var/log</code>为zram内存盘；journald开启Storage=persistent，目录本身位于内存：正常重启日志保留，断电丢失近期日志。这是预期设计：持久化记录放在<code>/var/lib</code>下的更新历史，每条记录执行fsync（deploy/README.md）。因此原需求“断电日志不丢失”作废，项目不再追求该特性。</p>
+<p>验收标准：硬件可行走；robotctl升级后robotd干净重启，健康校验通过；重启后journalctl --list-boots能列出上一次启动记录。前两项已完成；最后一项仅需在板上执行一条命令，是唯一剩余项。</p>
+<p>两个指标暂不测量，无依赖等待：eMMC写入耗时、带载电池性能。归入M7（设备状态诊断里程碑）。</p>
+<h3 id="m5--mediadwebrtcsdk--进行中"><a class="header" href="#m5--mediadwebrtcsdk--进行中">M5 — mediad、WebRTC、SDK · 进行中</a></h3>
+<p>代码已在硬件部署。mediad随版本包发布，独立单元运行。摄像头通过VPU编码在局域网浏览器预览：mpph264enc → webrtcsink，约束基线H.264；控制数据通道复用和其他传输相同的JSON-RPC；控制台由机器人自身提供，直接访问URL无需安装客户端（remote-webrtc.md §0，webrtc-console.md）。需要从源码编译两个GStreamer插件（media-bringup.md）；摄像头已通过rkaiq实现3A自动曝光/对焦/白平衡。</p>
+<p>三项待完成内容：</p>
+<ol>
+<li>
+<p><strong>局域网外远程访问</strong>：采用带中转服务+TURN的相同架构，后置开发。remote-access-design.md负责该模块：OAuth设备授权流程接入Hugging Face账号；桥接mini机器人群已在用的Rendezvous Space与机器人内置信令服务器。
+账号模块已完成（第一部分）：<code>robotctl account login</code>输出验证码，用户在hf.co/oauth/device确认；机器人持有可自动续期的凭证。同一三组接口支持BLE（无WiFi机器人唯一链路）和数据通道。凭证消费逻辑尚未实现：下一步开发桥接模块；Rendezvous Space协议为HTTP，而非局域网客户端使用的WebSocket。
+Duck正式发货前需要修复：设备码客户端默认获取该账号全部权限范围，没有scope参数。需要在组织内创建公开OAuth应用，限定scope为openid profile read-repos，配置一个常量。</p>
+</li>
+<li>
+<p><strong>SDK与轻量Python客户端</strong>。§5.3设计方案：WebSocket+快照，复用JSON-RPC，无媒体栈，get_frame返回JPEG，仅几十行代码；mediad会话层原生支持这套接口（mediad/src/session.rs）。
+另一种方案：Python客户端基于WebRTC，单连接同时获取实时视频+控制通道，但需要aiortc、ICE协商与信令交互，代价更高（用户仅下发意图、读取画面时太重）。需要评估：一套客户端同时支持两种模式（WebSocket用于控制/截图；用户请求流时启用WebRTC），还是脚本只使用WebSocket，实时视频留在网页控制台。评估结论决定SDK是几十行的轻量库，还是大型项目。</p>
+</li>
+<li>
+<p><strong>隐私</strong>，拆成两点。会话授权：视频流启动前需要每会话显式同意，mediad会话层修改，无依赖阻塞。硬件状态指示灯：需要软件可控LED，但当前硬件没有（remote-webrtc.md §11）；属于硬件问题，不应卡在软件里程碑。architecture.md §7结论：现在实现成本低，后期改代价极高，<strong>会话授权不必等待LED硬件</strong>。</p>
+</li>
+</ol>
+<p>验收：局域网外远程可视化可用；服务端脚本几十行代码即可获取图像帧并下发控制意图。</p>
+<h3 id="m6--产品发布就绪"><a class="header" href="#m6--产品发布就绪">M6 — 产品发布就绪</a></h3>
+<p>面向普通用户的能力。预售已开启，优先级按<strong>交付周期</strong>排序，而非开发难度：代码改动越少的项，供应链/生产准备周期越长。</p>
+<ul>
+<li>配对PIN码：BLE配对安全依赖单台机器人独立PIN；出厂默认000000，代码仓库公开，开箱配对仅证明物理接触，安全不足。需要工厂流程生成、打印并记录PIN，不是代码补丁。PIN不能从设备身份生成（身份会在广播报文内发布）。</li>
+<li>标定：设备初始化的另一半。设备身份不再依赖标定：机器人从SoC序列号生成身份，命名为duck-c51b。</li>
+<li>恢复网络，实体板实测。代码已打包启用，但从未在守护进程启动失败的版本上触发（这是唯一关键故障场景）。最低成本验证：一块板子，刷入一个故意损坏的版本。</li>
+<li>会话授权（继承M5）</li>
+<li>清单过期上报（§8.4.2）</li>
+<li>权限仲裁，已完成，包含#52暴露的边界问题：<code>Call::is_mutating()</code>没有覆盖robot.enable，启动行走机器人策略的调用被归类为普通hello消息。</li>
+<li>手机APP：#107仅完成设计，未编码。阻塞点：手机端原型开发，在真实iPhone和安卓设备完成扫描、连接、握手、鉴权、带<code>--require-pairing</code>的system.info。§5.5目前仅在笔记本CoreBluetooth上验证。</li>
+</ul>
+<p>已决策移出M6：客户机器人下载源。决定公开本仓库，量产机器人无需token、不需要额外服务器拉取版本。后续需要评估预算，不是阻塞项：匿名GitHub API单IP上限60次/小时；单台Duck远低于限额；同一WiFi下20台设备会触及上限（§6.1）。</p>
+<p>验收：非开发人员可以用手机升级机器人；故意刷坏的版本，无需笔记本即可自动恢复。</p>
+<h3 id="m7--设备状态诊断"><a class="header" href="#m7--设备状态诊断">M7 — 设备状态诊断</a></h3>
+<p>用户拿到的Duck发生故障，当前只能由开发者SSH读取日志定位。方案尚未定型，属于开放性调研课题。</p>
+<p>现有能力：<code>robotctl health</code>上报总线、IMU、电池、各电机温度、SoC；<code>robotctl monitor</code>可视化主循环、手柄流、ToF矩阵、3D机器人模型与功耗；<code>scripts/pad-stack-report.sh</code>提供范例，把子系统完整信息打包为可粘贴文本；board-test.sh包含60项检测，但运行在CI的aarch64模拟器而非实体板。</p>
+<p>待解决问题：</p>
+<ol>
+<li>诊断打包脚本：故障后一条命令导出可发送的诊断包。目前没有工具一次性汇总健康状态、版本、日志、更新历史、服务状态。<code>robotctl update show</code>是子系统范例，生成带对应时段日志的持久记录，但只覆盖更新模块。</li>
+<li>非开发人员可执行硬件自检：总线扫描、各伺服状态、IMU有效性、ToF/摄像头/NPU/麦克风喇叭检测、电池带载测试。思路接近board-test.sh，面向硬件而非软件版本。</li>
+<li>历史记录：偶发故障无法靠快照定位。总线读失败、tick丢失、伺服温度尖峰、电压跌落。M4设计日志断电丢失，因此关键故障记录需要复用更新历史的持久存储，而不是journal日志。</li>
+<li>和#52 IPC监控器设计重叠：IPC监控是本问题的软件部分。崩溃日志持久化在<code>/var/lib</code>固定大小文件，不在版本目录，升级/回滚不会丢失，正好满足硬件故障报告的持久化需求。两者统一设计，不要两套独立方案。</li>
+<li>M4遗留两个测量指标归入此处：eMMC写入耗时、电池带载测试。</li>
+</ol>
+<p>验收：非开发人员故障后执行一条命令，输出报告，定位故障部件或判定硬件正常。</p>
+<h3 id="m8--策略通道从hub拉取策略"><a class="header" href="#m8--策略通道从hub拉取策略">M8 — 策略通道：从Hub拉取策略</a></h3>
+<p>旧方案：所有策略打包在守护进程镜像内。新步态必须发布完整daemon版本；笔记本训练的策略只能通过CI或者完整daemon侧载部署。
+本里程碑目标：microduck_rl（私有训练仓库）训练出的策略，可独立发布、安装、测试、回滚；用户也可以加载别人训练的策略。</p>
+<p>设计文档：policy-channel-design.md，确定全部之前悬而未决的规则。简述：策略槽位来源分三类</p>
+<ul>
+<li>官方：pollen-robotics/*，重置默认目标</li>
+<li>社区：任意Hub仓库，无签名，会上报状态，但不会自动应用</li>
+<li>本地：板上本地路径
+policy load写入配置项，policy reset清除配置；持久化与回滚复用现有机制；官方策略打包为独立policies组件，而非每个槽位单独包。</li>
+</ul>
+<p>引擎大部分已实现：hf_hub源解析校验、组件独立版本链、回滚、版本锁定、启动试跑、已知坏版本记录；on_apply支持reload；xtask sign可对任意制品目录签名。</p>
+<p>分三阶段，每一阶段可独立交付：</p>
+<ol>
+<li>本地离线链路。<code>robot.loadPolicy</code> + 归位姿态重载；robotctl policy list / load / reset。实现“不用修改toml文件测试策略”，不访问Hub，不涉及发布逻辑。API_VERSION 17 → 18。</li>
+<li>官方策略脱离daemon镜像。已完成。robotd读取<code>/opt/robot/policies/current</code>；scripts/seed-policies.sh从pollen-robotics/microduck-policies下载锁定版本，和setup-board.sh加载ONNX Runtime方式一致。移除policies目录与三组--include列表；更新<code>[workspace.metadata.policies]</code>版本号即为步态版本发布。</li>
+<li>脱离固定版本锁定。已完成。updaterd增加policy.*接口、robot.reloadPolicies、robotctl policy check / update。训练后的步态不用发布daemon版本即可部署，这是本里程碑核心目标。每个策略包记录来源仓库，避免重复配置。</li>
+<li>社区策略库。已完成。<code>policy load &lt;slot&gt; &lt;org/repo&gt;</code>从任意Hub仓库拉取策略到<code>/var/lib/robot/policies/&lt;org&gt;/&lt;name&gt;/&lt;rev&gt;/</code>；来源标记为community；policy search列出可用策略。已发布仓库自带manifest.json，包含obs_len、action_len、model_api，无法运行的策略下载前直接拒绝；model_api从“仅设计未实现”进入落地规划。</li>
+</ol>
+<p>reset统一含义：清除覆盖配置，重新解析策略源。阶段1可正确回滚内置策略；阶段2修改解析源，无需改动reset命令。</p>
+<p>真正缺失的部分在两端，中间链路已完成：</p>
+<ul>
+<li>robotd无法按需重载策略。底层能力已有：robot.setMode在归位姿态重建所有ONNX会话，但缺少按槽位触发的接口；加载失败时必须保持原有控制器，不能让机器人失去步态。</li>
+<li>策略打包发布工具：xtask package --channel接近需求，但会校验crate版本号，策略包没有crate版本；HF仓库目录结构尚未搭建。</li>
+<li>model_api两端仅设计未实现：robot.modelApi可应答，但没有模块读取该参数。</li>
+<li>训练链路：microduck_rl导出ONNX，但没有自动推送至机器人的流程。阶段1让“训练→测试”从CI流水线改为分钟级本地流程。</li>
+</ul>
+<p>验收：microduck_rl训练策略发布到Hub，安装到Duck，测试，robotctl policy reset回滚；全程控制回路不丢失电机控制；其他人可在机器人上检索并加载该策略。</p>
+<h3 id="m9--自主决策大脑"><a class="header" href="#m9--自主决策大脑">M9 — 自主决策大脑</a></h3>
+<p>最大的待开发模块：运行时autonomous.rs在守护进程中完全不存在，暂无设计文档承接。ideas/autonomous_behavior.md为草稿：基于能量/情绪模型的16状态机、新奇网格探索、ToF避障、惊吓反应、声音交互、玩球、小憩周期、抚摸交互。</p>
+<p>现在所有输入源均已就绪，部分新增：环境声音事件、深度帧、躯干障碍物分类点、语音标签、附近Duck稳定ID、共享节拍、RSSI粗略距离、实时合成语音、ToF手部距离。</p>
+<p>架构形态比状态机更重要：在场感知、情绪、节拍是大脑的输入，不是独立模式。合唱、特雷门琴过去作为独立模式实现，是因为没有统一大脑承载（合唱模块55KB，位于robotd）。本里程碑目标就是杜绝这种实现模式。<strong>先写设计文档，再写代码</strong>。</p>
+<p>验收：Duck单独留在房间，能持续自主行为10分钟以上；合唱是机器人自主决策触发，而非命令启动。</p>
+<h2 id="工作执行顺序"><a class="header" href="#工作执行顺序">工作执行顺序</a></h2>
+<p>M编号仅为标识，下面是实际优先级：</p>
+<ol>
+<li>M8 策略通道。下一个核心功能。不阻塞其他任务，但打通机器人行为迭代闭环：训练 → 发布 → 安装 → 测试 → 回滚。</li>
+<li>M5 传输方案调研。工作量小，结论决定Python SDK是几十行轻量库还是大型项目。</li>
+<li>M6 随产品临近，按交付周期推进：客户机器人下载源 → PIN码 → 恢复网络硬件测试。会话授权可以尽早落地。</li>
+<li>M7 — 调研项，无固定时间表。一旦用户设备出现无法定位故障，优先级拉高；最优方案是和#52 IPC监控一起设计，而不是后置。</li>
+<li>M9 自主大脑 — 有意延后开发。剩余工作量最大，开发过程范围容易膨胀。</li>
+</ol>
+<h2 id="影响整体架构的决策"><a class="header" href="#影响整体架构的决策">影响整体架构的决策</a></h2>
+<ul>
+<li>签名密钥保管：daemon相关已完成。3个加密发布密钥 + 未加密开发密钥存放<code>~/.duck-keys</code>；仅release-1录入secrets。CI在release环境签名，隔离密钥，但不做强制准入（无评审人、分支保护）。在无量产设备阶段主动接受该方案；后续只需修改配置即可启用严格校验。详见ci-setup.md。M8策略发布引入第三类密钥，该议题会重新讨论。</li>
+<li>安全权限（§6）：M3落地完成。</li>
+<li>设备初始化：身份模块完成；标定、PIN未完成；PIN属于工厂流程，不是代码（M6）。</li>
+<li>隐私：会话授权在M5，无阻塞；指示灯是硬件问题，单独评估。</li>
+<li>客户机器人下载源，2026-08-26决议：公开仓库，机器人直接拉取版本。§6.1保留其他备选方案与理由，作为仓库再次私有化时的降级预案。</li>
+<li>策略是否脱离daemon镜像：倾向于可以，尚未最终敲定。策略外置，缺失模型上报为降级（degraded）而非不健康，允许更新提交；初始化脚本预装基础策略。M8会评估该方案不稳定时的备选方案。</li>
+<li>精选模型库还是开放社区库：开放社区，属于信任策略，不是底层技术问题（M8）。</li>
+</ul>
+<h2 id="明确不做的功能已归档决策"><a class="header" href="#明确不做的功能已归档决策">明确不做的功能（已归档决策）</a></h2>
+<p>记录在此避免反复讨论：A/B镜像升级、OS/内核OTA、设备集群看板/遥测、差分更新、灰度分批发布、硬件能力矩阵、每个槽位多模型备选（§17）、外设固件OTA（§11.1）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/project/ci-setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/project/ci-setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

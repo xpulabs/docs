@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Readme - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="offical_docs/index.html" class="active"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="文档"><a class="header" href="#文档">文档</a></h1>
+<p>README 是入口文档——介绍 Microduck 是什么，以及该去哪里查阅更多内容。如果你手边有一台设备并想要操控它，请从速查表开始。</p>
+<p>faq.md 是另一个入口文档：面向基于 Microduck 做二次开发（而非修改设备底层）的开发者，收录各类任务相关问题，例如：在开发板上运行超出硬件负载的模型、在自研程序中接入摄像头、Space 无法连接等问题。</p>
+<p>它同时也是发布方的起始参考文档：<code>policy-manifest.md</code> 是 Microduck 的 ONNX 模型配套 <code>manifest.json</code> 的规范契约，定义了全部字段。设计文档会说明背后的原理，并引用该文件。</p>
+<h2 id="robot--你拥有一台机器人"><a class="header" href="#robot--你拥有一台机器人">robot/ — 你拥有一台机器人</a></h2>
+<ul>
+<li>cheatsheet.md 所有 robotctl 命令</li>
+<li>pair-a-gamepad.md 游戏手柄配对：每个手柄只需执行一次，包含配对模式、配对操作，以及配对失败时的处理方案</li>
+<li>cheatsheet-dev.md 开发板专用命令：分支构建、候选版本、开发推送</li>
+<li>dev-push.md 在本地电脑构建程序，通过 SSH 安装到开发板，无需执行 CI 流水线</li>
+<li>simulation.md 仿真 Microduck：<code>scripts/duck-sim</code>，在 MuJoCo 物理实体上运行真实守护进程，可在容器内运行单台或多台机器人</li>
+<li>duckctl.md 全部 duckctl 命令——通过笔记本蓝牙操控机器人</li>
+<li>install-dev.md 从零开始，将开发板配置为开发环境</li>
+<li>install-by-hand.md 拆分为独立命令的同一份安装流程，用于分步调试</li>
+</ul>
+<h2 id="design--修改守护进程"><a class="header" href="#design--修改守护进程">design/ — 修改守护进程</a></h2>
+<p>介绍工作原理与设计思路。这类文档改动较少；若程序实际行为与设计文档冲突，<strong>以文档为准，视为程序缺陷</strong>。</p>
+<p><strong>一份文档负责一个机制，其他文档仅做引用</strong>下表就是职责划分：如果某项内容归属这里列出的某篇文档，其他文档只写一句话并指向该文档，不再重复解释。
+同一条信息如果在多处文档重复编写，会出现多处不一致，每一处单独看又都合乎逻辑。就曾出现过这样的情况：六个文档都写着 updaterd 和 btd 会保留旧二进制文件直到下次重启，但两个版本迭代后代码早已不再这样工作，而用户排查该问题时查看的两份文档还保留着旧描述。
+因此，当两份文档内容冲突时，<strong>不属于该机制的那一份文档存在错误</strong>。</p>
+<ul>
+<li>architecture.md 服务拆分、IPC通信契约、状态归属、安全与权限</li>
+<li>robotd-design.md 控制循环：Dynamixel总线、端口归属、模型、传感、观测、策略、安全机制，以及和时钟节拍绑定的其他模块</li>
+<li>updater-design.md 更新引擎：校验、原子替换、健康检查、回滚、发布包格式</li>
+<li>policy-channel-design.md ONNX策略模型来源：策略组件、加载第三方策略、重置操作的恢复内容</li>
+<li>restart-order.md 所有状态变更场景（含开机）中，各个组件在哪一步重启</li>
+<li>app-path-design.md btd 和 configd：手机如何通过低功耗蓝牙（BLE）配置机器人</li>
+<li>mobile-app.md 手机应用：项目构成，以及机器人端需要提供给APP的能力；代码存放于 microduck-app 仓库</li>
+<li>remote-webrtc.md WebRTC会话、信令、控制通道：远端节点如何操控与查看机器人</li>
+<li>webrtc-console.md WebRTC客户端：由机器人提供页面服务、设备发现、页面功能定义</li>
+<li>remote-access-design.md 局域网外访问Microduck：Hugging Face账号、设备授权流程、中继服务桥接</li>
+<li>boot-recovery-net.md 开机后新版本无法启动守护进程时，回退到黄金固件版本</li>
+<li>simulation.md 数字孪生：守护进程与物理实体之间的接口、实体通信协议、虚拟无线电、容器，以及孪生仿真的覆盖范围与局限</li>
+</ul>
+<h2 id="project--项目运行记录"><a class="header" href="#project--项目运行记录">project/ — 项目运行记录</a></h2>
+<p>属于带时间戳的记录，不是参考手册。描述某一时刻的状态，内容会随时间自然失效。</p>
+<ul>
+<li>roadmap.md 里程碑，当前可用功能与规划功能</li>
+<li>ci-setup.md 发布流水线一次性配置：密钥、保密信息、密钥轮换</li>
+<li>install-path-gap.md 4个安装路径相关bug为何会下发到开发板，以及修复方案；从中总结的规则写在 - updater-design.md §9.1</li>
+<li>slice-2-bringup.md Radxa Zero 3W 硬件在 slice 2 阶段的实测情况</li>
+<li>update-over-ble.md 手机侧触发更新流程：发现的问题，以及通过无线进行回滚的最终方案</li>
+<li>media-bringup.md Radxa Zero 3W 的视频处理：VPU硬件、MPP依赖项，以及必须编译的两个插件</li>
+<li>pad-minimal-pairing.md 游戏手柄成功配对所需的最小开发板配置，通过逐项删减硬件/服务测试得出</li>
+<li>idle-cpu.md 无任务时守护进程的运行状态：4项已关停模块、2项经测试保留、仍需占用开发板资源的模块</li>
+<li>tof-on-demand.md tofd空闲时5%CPU占用中，9成来自头部IMU、1成来自深度传感器，且IMU无消费方。解释为何保留激光与传感器单元，而给IMU增加开关</li>
+</ul>
+<h2 id="ideas--尚未落地的设计构想"><a class="header" href="#ideas--尚未落地的设计构想">ideas/ — 尚未落地的设计构想</a></h2>
+<p>待构思内容，后续需要撰写正式设计文档。先记录下来，避免想法丢失，同时区分“构想”和“最终决策”。</p>
+<ul>
+<li>autonomous_behavior.md 行为栈：运行时核心需要舍弃的能力，以及chorale、theremin相关工作遗留的构想</li>
+</ul>
+<h2 id="其他文档"><a class="header" href="#其他文档">其他文档</a></h2>
+<ul>
+<li>../CONTRIBUTING.md 编译、测试、仓库结构、代码规范、版本发布</li>
+<li>project/npu-bringup.md RK3566 NPU上的Microduck目标检测器：运行内容、基准测试方法，以及尚缺失的帧传输链路</li>
+<li>../deploy/README.md 机器人镜像的配置项，以及设备初始化（provisioning）的实际工作内容</li>
+</ul>
+<blockquote>
+<p>术语注释（便于你阅读源码）
+daemon：守护进程
+atomic swap：原子替换
+IPC：进程间通信
+BLE：蓝牙低功耗
+WebRTC：网页实时通信
+MuJoCo：物理仿真引擎
+ONNX：神经网络模型格式
+NPU：神经网络处理器
+VPU：视频处理单元
+Tof：飞行时间深度传感器
+IMU：惯性测量单元
+CI：持续集成
+SSH：远程安全登录协议</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="offical_docs/faq.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="offical_docs/faq.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

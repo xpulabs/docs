@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>boot-recovery-net.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html" class="active"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="启动恢复防护网"><a class="header" href="#启动恢复防护网">启动恢复防护网</a></h1>
+<p>当机器人本次启动的软件版本无法拉起后台守护进程时，本机制将机器人回滚至一个已知稳定的版本。</p>
+<p>本文档定义：启动超时阈值及其判定条件、监控服务单元的准入规则、<code>robot-rescue</code> 恢复程序、稳定版符号链接（golden symlink）以及死循环防护。<code>restart-order.md</code> 定义本机制所处的执行时序（含 <code>updaterd</code> 启动时读取故障痕迹文件的逻辑）；<code>updater-design.md</code> 定义版本存储、健康检测闸门与启动计数器。</p>
+<h2 id="本机制解决的问题"><a class="header" href="#本机制解决的问题">本机制解决的问题</a></h2>
+<p>更新过程中 <code>updaterd</code> 不会重启自身，因为它正是执行更新的进程。三层校验用于控制更新风险，且三层校验全部在开发板正常运行状态下执行：</p>
+<ol>
+<li><code>self_test_updaterd</code> 在版本提交前，运行新版本自带的 <code>updaterd --self-test</code> 自检。若二进制架构不匹配、缺少依赖库或 <code>updater.toml</code> 配置校验失败，则直接终止更新，旧版本继续保持运行；</li>
+<li>延迟重启：更新应答成功5秒后，使用新二进制文件重启 <code>updaterd</code> 和 <code>btd</code>；</li>
+<li>启动一致性校验：由新版本侧校验上述重启动作是否成功执行。</li>
+</ol>
+<p>在运行中的板子上可以正常启动的二进制文件，在开机阶段仍有可能失败：开机阶段网络未就绪、外设未枚举、服务单元启动顺序不同。并且一致性校验在 <code>updaterd</code> 启动时执行，前提是 <code>updaterd</code> 本身能成功启动。</p>
+<p><strong>这正是设计本机制的根本原因</strong>。<code>BootCounter::record_boot</code> 在 <code>updaterd</code> 内部，由 <code>Engine::recover_on_start</code> 调用；它统计的是 <code>updaterd</code> 的启动次数，而不是物理开机次数。因此如果 <code>updaterd</code> 无法启动，则不会计数。“永不变砖”保障最终依靠这个可能失效的进程。如果没有本机制：板子磁盘上虽存在可用版本、回滚试探机制已就绪，但没有任何进程可以执行回滚动作。</p>
+<p>启动计数器处理另一类故障：版本可以开机运行，但始终上报不健康状态。而本恢复机制专门处理<strong>版本完全无法拉起守护进程</strong>的场景。</p>
+<h2 id="组件清单"><a class="header" href="#组件清单">组件清单</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>组件</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>robot-boot-check.timer</code></td><td>每次开机180秒后触发</td></tr>
+<tr><td><code>robot-boot-check.service</code></td><td>一次性服务：判断版本是否正常拉起；失败则交由恢复程序处理</td></tr>
+<tr><td><code>scripts/robot-boot-check</code></td><td>判定逻辑脚本，安装路径 <code>/usr/local/sbin/robot-boot-check</code></td></tr>
+<tr><td><code>scripts/robot-rescue</code></td><td>将当前版本切换为稳定版、记录日志并重启；路径 <code>/usr/local/sbin/robot-rescue</code></td></tr>
+<tr><td><code>&lt;install_dir&gt;/golden</code></td><td>稳定版符号链接，指向具备长期可用性保障的版本，由 <code>updaterd</code> 创建维护</td></tr>
+<tr><td><code>&lt;state_dir&gt;/rescued</code></td><td>故障痕迹文件：记录上一次恢复尝试，同时作为死循环防护标记</td></tr>
+</tbody></table>
+</div>
+<p>两个脚本均为 <code>/bin/sh</code> 脚本，由 <code>scripts/install.sh</code> 和 <code>hooks/postinstall</code> 复制到 <code>/usr/local/sbin</code>。该设计决策与单元文件的处理逻辑一致：直接复制文件，而不是通过当前版本去读取。
+如果恢复程序本身作为二进制打包进版本包，则会被它本应救回的故障版本破坏：架构不匹配、缺少共享库、启动时内核panic。如果恢复程序从当前版本路径加载，则恢复流程会依赖那个已经故障、需要被恢复的系统。</p>
+<h2 id="触发方式使用超时阈值而非-onfailure"><a class="header" href="#触发方式使用超时阈值而非-onfailure">触发方式：使用超时阈值，而非 OnFailure=</a></h2>
+<p><code>OnFailure=</code> 看似很合适：systemd 在服务耗尽重启次数、进入失败状态时自动触发，无需轮询，也不需要常驻看门狗。但不适用于本系统的服务单元，因为这些单元配置为<strong>不会进入失败状态</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>服务单元</th><th>重启策略</th><th>重启间隔</th></tr></thead><tbody>
+<tr><td>btd</td><td>Restart=always</td><td>5 s</td></tr>
+<tr><td>padd</td><td>Restart=always</td><td>5 s</td></tr>
+<tr><td>configd</td><td>Restart=always</td><td>2 s</td></tr>
+<tr><td>robotd</td><td>Restart=always</td><td>2 s</td></tr>
+<tr><td>updaterd</td><td>Restart=on-failure</td><td>—</td></tr>
+</tbody></table>
+</div>
+<p>每一项配置 <code>Restart=always</code> 都是有意为之，单元文件内附有论证。所有单元均未覆盖 <code>StartLimitIntervalSec/StartLimitBurst</code>，沿用 systemd 默认规则：10秒最多启动5次。而每5秒重启一次的 <code>btd</code> 远不会触达该限制。它会无限崩溃循环，但永远不会进入 <code>failed</code> 状态，而 <code>OnFailure=</code> 正是等待该状态。若要让 <code>OnFailure=</code> 生效，就需要修改单元配置，让守护进程在多次失败后放弃重启——为了启用恢复机制而牺牲正常场景的稳定性。</p>
+<p>采用超时阈值则思路相反，无需修改服务单元，并且可以捕获这种无限重启的服务。开机延时设为180秒，原因是开发板启动速度比看上去更慢：上电后大约73秒才出现 <code>hci0</code> 蓝牙设备，其中 <code>bluetooth.service</code> 有26秒阻塞在D-Bus调用。守护进程会等待硬件就绪而不是直接退出，因此启动慢不等于启动失败。</p>
+<h2 id="判定条件"><a class="header" href="#判定条件">判定条件</a></h2>
+<p>两个条件，满足任意一条（针对任意一个被监控单元），即代表 systemd 尝试启动守护进程，但无法维持其运行：</p>
+<ol>
+<li><code>ActiveState</code> 为 <code>failed</code>（失败）；</li>
+<li><code>NRestarts</code>（重启次数）≥3。</li>
+</ol>
+<p>其余情况均不触发恢复，这种非对称判断是设计重点。</p>
+<ul>
+<li>运维人员手动停止的单元：状态为非活跃，重启次数为0，<strong>不触发回滚</strong>。和启动一致性校验逻辑保持一致，手动停止的服务保持停止状态。</li>
+<li>版本中不存在的单元：不会被加载，判定结果同上。</li>
+<li>仍在等待硬件的守护进程：状态为活跃。</li>
+<li>单次崩溃后恢复：重启次数为1或2，达不到阈值。</li>
+</ul>
+<p><strong>漏判（假阴性）</strong> 只会增加运维诊断难度；<strong>误判（假阳性）</strong> 会错误回滚一个正常版本，代价更大。</p>
+<p>选择3次重启而不是1次：<code>Restart=always</code> 搭配2~5秒重启间隔，真正的崩溃循环会在超时窗口内轻松达到3次；而瞬时偶发故障导致的单次崩溃不会触发。</p>
+<h2 id="三种禁止触发恢复的保护机制"><a class="header" href="#三种禁止触发恢复的保护机制">三种禁止触发恢复的保护机制</a></h2>
+<ol>
+<li>一次性服务配置 <code>Conflicts=shutdown.target</code>。系统关机过程中被杀死的守护进程可能被标记为失败；若无此配置，在错误时机执行 <code>systemctl poweroff</code> 会导致机器人意外重启并切到稳定版。</li>
+<li>开机时长防护。开机超过10分钟后，若本脚本被定时器以外的方式拉起，则直接退出，不属于本脚本的判定范围。</li>
+<li>一次性服务不配置 <code>[Install]</code> 段，安装器会解读为“不启用本服务”。如果缺少该限制，<code>hooks/postinstall</code> 在安装新版本时执行 <code>enable --now</code>，会在更新中途执行回滚检查；此时守护进程正处于合法重启阶段，会被误判为本版本无法启动。定时器启用但不自动启动，原因相同：一个已经超过启动时限的 <code>OnBootSec=</code> 定时器一旦启用会立刻触发。</li>
+</ol>
+<h2 id="服务单元准入规则"><a class="header" href="#服务单元准入规则">服务单元准入规则</a></h2>
+<p>反对“任意守护进程失败就回滚”的理由：守护进程失败有可能是硬件问题导致，回滚无法修复（如无线模块缺失、电机总线未上电）。因硬件故障回滚一个正常版本，比不做任何处理更糟。</p>
+<p>由此制定单元准入规则：<strong>仅当服务在依赖硬件缺失/异常时选择等待硬件，而不是直接退出，才可加入监控集合</strong>。一旦该单元持续异常，则代表二进制本身损坏：架构不匹配、库缺失、启动panic、配置不接受，这类问题才是回滚能够修复的。</p>
+<div class="table-wrapper"><table><thead><tr><th>守护进程</th><th>是否纳入监控集合</th><th>依赖项缺失时行为</th></tr></thead><tbody>
+<tr><td>robotd</td><td>是</td><td>等待电机总线，“保持等待，不执行任何指令”</td></tr>
+<tr><td>updaterd</td><td>是</td><td>持续提供服务；它本身就是恢复通路，系统故障时也必须可访问</td></tr>
+<tr><td>btd</td><td>是</td><td>每5秒重试寻找蓝牙适配器；适配器出现后若再次失联，会完整重新初始化</td></tr>
+<tr><td>configd</td><td>是</td><td>提供 <code>system.*</code> 和 <code>pad.*</code> 接口，上报网络状态不可用</td></tr>
+<tr><td>padd</td><td>否</td><td>设计上：缺少 robotd socket 时干净退出</td></tr>
+</tbody></table>
+</div>
+<p><code>btd</code> 纳入监控不是为了对称，而是必要性：无网络时，BLE是唯一接入手段。如果开机后 <code>btd</code> 无法启动，又没有已知WiFi，则机器人完全无法远程访问。<code>configd</code> 同理：<code>system.pin</code> 是 <code>btd</code> 获取手机认证PIN码的来源，<code>configd</code> 宕机则手机认证通路一并失效。</p>
+<p>未来新增守护进程，如果在硬件缺失时直接退出，则要么修改该守护进程逻辑，要么不加入监控集合。<strong>不可放宽本条规则</strong>。</p>
+<h2 id="恢复逻辑-robot-rescue"><a class="header" href="#恢复逻辑-robot-rescue">恢复逻辑 robot-rescue</a></h2>
+<p><code>robot-rescue</code> 仅读取两个符号链接，<strong>不解析任何配置文件</strong>。</p>
+<p>这不是为了节省代码。最常见的恢复场景：新版本的 <code>updaterd</code> 拒绝板子上的 <code>updater.toml</code>（该文件由运维维护，跨版本保留，而新版本可以修改预期的配置格式）。如果恢复脚本也要解析这个文件，它会和故障版本一样失效，无法完成自救。</p>
+<p>稳定版（golden）是配置文件（<code>ComponentConfig::golden</code>）中定义的版本。<code>Engine::refresh_golden_links</code> 在每次 <code>updaterd</code> 启动时，将其创建为和 <code>current</code> 并列的 <code>golden</code> 符号链接。仅需一次 <code>readlink</code> 读取，不存在解析失败。它属于缓存，不是第二可信数据源；具备故障安全：即使 <code>updaterd</code> 无法启动，链接仍然指向上次写入时的稳定可用版本。若配置的稳定版并未安装，则不创建该链接，防止悬空链接误导恢复程序认为存在目标版本。</p>
+<p>选用 <code>golden</code>（长期稳定版）而不是 <code>previous</code>（上一版本）：如果故障本身就是恢复通路损坏，那么上一个版本同样可能坏掉。<code>golden</code> 是唯一具备长期保障的版本，版本清理（prune）永远不会删除它。</p>
+<p>在以下场景恢复程序直接退出并给出原因：无 <code>golden</code> 链接、<code>golden</code> 指向版本未安装、当前版本已经就是稳定版。最后一条最重要：如果稳定版上守护进程仍然持续失败，则问题不是版本本身，切换版本只会增加一次重启，硬件故障会演变成无限重启循环。</p>
+<p>版本切换通过重命名临时符号链接覆盖 <code>current</code>，和 <code>Store::link_to</code> 逻辑保持一致。<code>ln -sfn</code> 会删除重建链接，存在短暂窗口导致守护进程无法执行。<code>rename(2)</code> 不跟随符号链接，但普通 <code>mv</code> 的路径解析会跟随链接；直接执行 <code>mv tmp current</code> 会把链接移动到 <code>releases/&lt;version&gt;</code> 目录，<code>current</code> 保持不变。GNU工具链用 <code>-T</code> 参数解决，BSD用 <code>-h</code>。</p>
+<p><code>--reboot</code> 为可选参数。所有单元都通过 <code>current</code> 链接加载程序，因此链接切换不会立刻生效，需要守护进程重启。机器人在守护进程崩溃时如果仍直立，会直接倾倒，由手持机器人的人决定是否重启。开机检查脚本传入该重启标记；控制台人工执行时，仅打印命令，不自动重启。</p>
+<h2 id="死循环防护与解锁条件"><a class="header" href="#死循环防护与解锁条件">死循环防护与解锁条件</a></h2>
+<p>两个独立机制防止“切换版本+重启”无限循环：</p>
+<ol>
+<li>当前版本已经是稳定版时直接拒绝恢复（覆盖常规场景：一次成功恢复后就处于该状态）；</li>
+<li>故障痕迹文件（breadcrumb）：覆盖上一条无法处理的场景——更新把当前版本切离稳定版，再次失败。</li>
+</ol>
+<p><code>Engine::record_rescue</code> 在将故障痕迹写入更新日志后，在下一次 <code>updaterd</code> 启动时清除痕迹文件。也就是说，<strong>只有板子证明更新守护进程可以正常运行，防护锁才会打开；一旦无法运行，锁保持关闭</strong>。一台日志正常、静止的机器人，远比无限重启的机器人更好。可使用 <code>robot-rescue --force</code> 手动绕过防护。</p>
+<p>清除痕迹的操作在启动计数器之前执行，<strong>执行顺序至关重要</strong>。未处理的试探回滚会回退至上一版本；而本恢复机制直接回退到稳定版。如果痕迹不清除，<code>record_boot</code> 会继续推进试探计数，最终把 <code>current</code> 切离开恢复程序选定的稳定版本。恢复防护网和永不变砖保障会互相抵消，仅隔一次开机。</p>
+<p>故障痕迹文件采用 <code>key=value</code> 格式而非JSON，尽管 <code>updaterd</code> 可以解析：</p>
+<pre><code>at=1786453421
+install_dir=/opt/robot/daemon
+from=1.2.0
+to=1.0.0
+because=boot check: robotd.service (failed, 7 restarts)
+</code></pre>
+<p>写入方是运行在故障板子上的shell脚本；在shell中正确转义JSON很容易写出一份无法解析的记录。<code>journal::Breadcrumb</code> 同样采用宽松解析，所有字段可选：无法解析的痕迹文件等价于永远不解锁防护锁。<code>install_dir</code> 用于将记录归属到对应组件，无需在另一处和 <code>updater.toml</code> 对齐组件名称。</p>
+<h2 id="日志痕迹"><a class="header" href="#日志痕迹">日志痕迹</a></h2>
+<p>静默回滚会导致“在我的板子上能复现”这类难以排查的问题，因此版本切换会留下三处痕迹：</p>
+<ol>
+<li>两个脚本的日志输出：优先使用 <code>logger</code>，无logger则输出到标准错误，写入系统日志journal；</li>
+<li>更新日志：记录为 <code>Outcome::RolledBack</code>，原因字段标注失败单元名称，<code>robotctl update log</code> 可查看，永久保存，不同于会被清除的痕迹文件；</li>
+<li><code>robotctl version</code>：间接反映状态，若板子当前运行版本低于已安装版本，即可判定发生过回滚。</li>
+</ol>
+<h2 id="尚未覆盖的测试项"><a class="header" href="#尚未覆盖的测试项">尚未覆盖的测试项</a></h2>
+<p>业务逻辑单元测试：<code>xtask/tests/rescue.rs</code> 在临时文件树上对两个脚本执行全部判定，用桩 <code>systemctl</code> 模拟单元状态、记录是否请求重启；<code>scripts/board-test.sh</code> 在真实ARM64 Linux上覆盖安装器部分。</p>
+<p><strong>systemd 相关行为未验证</strong>：
+定时器是否在开机180秒触发、<code>Conflicts=shutdown.target</code> 是否保证一次性服务不会在关机阶段误触发、崩溃循环单元的 <code>NRestarts</code> 是否和判定逻辑预期一致，全部没有验证。只有真实systemd环境（<code>systemd-nspawn</code>，或以systemd为PID1的特权容器）才能验证，<code>install-path-gap.md</code> 记录该需求论证。这是需要搭建该测试环境的第二个理由：恢复防护网正是要在其余全部组件失效时仍能工作的代码，也是最难测试的代码。</p>
+<p>在搭建测试环境前，该机制只能在实验板上验证，验证方法：给板子刷入一份 <code>robotd</code> 无法启动的版本。</p>
+<p>整套机制尚未在硬件上完整跑通；最关键的故障路径，需要一块加载了无法启动版本的硬件板来验证。</p>
+<blockquote>
+<p>术语表</p>
+<ul>
+<li>boot recovery net：启动恢复防护网</li>
+<li>daemon：守护进程</li>
+<li>golden symlink：稳定版符号链接</li>
+<li>breadcrumb：故障痕迹文件</li>
+<li>oneshot：systemd一次性服务</li>
+<li>crash-loop：崩溃循环</li>
+<li>rollback：版本回滚</li>
+<li>never-brick：永不变砖</li>
+<li>systemd unit：systemd服务单元</li>
+<li>NRestarts：服务重启次数</li>
+<li>ActiveState：服务活动状态</li>
+<li>prune：版本清理</li>
+<li>pid 1：一号进程（系统初始化进程）</li>
+<li>stub：桩/模拟对象</li>
+</ul>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/remote-access-design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/simulation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/remote-access-design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/simulation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

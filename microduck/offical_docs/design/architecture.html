@@ -1,0 +1,530 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>architecture.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html" class="active"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="机器人守护进程--总体架构"><a class="header" href="#机器人守护进程--总体架构">机器人守护进程 — 总体架构</a></h1>
+<p>状态：草案 · 日期：2026-07-22 · 负责人：pierre</p>
+<p>版本排期与里程碑见 <code>roadmap.md</code>。</p>
+<p>本文档是 <code>updater-design.md</code> 的配套文档，后者详细描述升级系统。本文档介绍服务拆分、服务间通信方式、状态存储位置，以及机器人的本地控制、App控制、远程控制机制。</p>
+<p>范围说明：本文描述<strong>首个正式发布版本</strong>的目标架构，并非当前原型（<code>microduck_runtime</code>，仅用于探索，后续会重写）。v1版本面向一套固定、规格明确的硬件配置。</p>
+<h2 id="整体架构概览"><a class="header" href="#整体架构概览">整体架构概览</a></h2>
+<p>单板上运行7个守护进程，通过Unix套接字通信。其中一个负责驱动机器人；另外三个独立运行，保证即使驱动进程崩溃，单板仍可访问；其余进程为传输层与传感器进程，本身不持有设备状态。</p>
+<pre><code>游戏手柄        手机          笔记本（你）    任意位置对等端    GitHub发行包
+   │ BLE/USB      │ BLE           │ ssh             │ WebRTC            │ https
+   ▼              ▼               ▼                 ▼                   │
+┌────────┐    ┌────────┐    ┌──────────┐     ┌──────────┐                │
+│ padd   │    │ btd    │    │robotctl  │     │ mediad   │                │
+└───┬────┘    └───┬────┘    └────┬─────┘     └────┬─────┘                │
+    │             │  共用API的子集                │                      │
+    │ robot.*     │ robot.health · update.* · net.* · pad.* · system.*   │
+    ▼             ▼               ▼                 ▼                      │
+┌──────────────────────────────────────────────────────────────────┐      │
+│ 每个服务独立Unix套接字 · JSON-RPC 2.0，每行一个JSON对象           │      │
+└────┬──────────────────────┬─────────────────────────┬────────────┘      │
+     ▼                      ▼                         ▼                   │
+┌───────────┐        ┌─────────────┐           ┌─────────────┐            │
+│ robotd    │        │ configd     │           │ updaterd    │◄──────────┘
+│ robot.*   │        │ net.* pad.* │           │ update.*    │
+│ 50Hz      │        │ system.*    │           │ 验证签名    │
+│ 控制循环  │        │ wifi、名称  │           │ 版本切换    │
+│ 安全逻辑  │        │ 手柄绑定    │           │ 健康校验    │
+└─────┬─────┘        └──────┬──────┘           └──────┬──────┘
+      │ Dynamixel舵机总线   │ D-Bus                   │ systemctl重启，
+      ▼                     ▼                         │ 再查询robot.health
+15个舵机+IMU传感器      BlueZ · NetworkManager        ▼
+同一条UART串口                              /opt/robot/daemon/current
+
+┌ 仅发布数据，不处理请求 ───────────────────────────────────────┐
+│ tofd — 头部8×8深度矩阵，套接字 /run/tofd/tof.sock。           │
+│         mediad 和 robotd 读取它；它不读取任何其他进程。        │
+└───────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>robotd</strong> 是唯一可以直接操控机器人硬件的进程。15个舵机与IMU模块共用一条串口总线，由50Hz控制循环独占。客户端发送<strong>意图指令</strong>（“以此速度前进”、“看向目标”、“起立”），由robotd内部安全层判断指令是否可执行。系统内其他任何组件都不能直接下发电机指令（详见robotd-design.md）。</p>
+<p>其中3个服务可在robotd崩溃后继续运行：configd、updaterd、btd。它们在systemd中不依赖robotd，无机器学习运行时、无媒体处理栈；它们构成故障恢复链路：当机器人控制循环无法启动时，用户恰恰需要重新配置、升级或回滚固件。这也是配置放在configd而非robotd的原因（§1.1）。mediad与padd依赖robotd，这是允许的：即便摄像头、手柄失效，机器人依然支持升级。</p>
+<p>btd、padd、mediad不持有机器人状态，仅作为传输层：</p>
+<ul>
+<li>btd：将BLE收到的API子集转发给对应套接字服务；</li>
+<li>padd：读取游戏手柄输入，转换成与App相同的意图指令；</li>
+<li>mediad：通过WebRTC数据通道转发API调用，仅负责媒体管线。</li>
+</ul>
+<p>这三个进程可独立替换，不会改变机器人本体行为；且持续被测试，保证App所用API不会静默失效。
+tofd比较特殊：它独占一个传感器，向外发布帧数据，不接收外部指令（§1）。</p>
+<p><strong>版本采用替换机制，而非增量补丁</strong>。构建产物整体存放在 <code>/opt/robot/daemon/releases/&lt;版本号&gt;/</code>；updaterd校验签名、切换current软链接、重启服务单元，然后查询robotd健康状态。若检测异常，自动回滚旧版本。若程序持续崩溃，由启动计数器兜底（updater-design.md）。</p>
+<div class="table-wrapper"><table><thead><tr><th>服务</th><th>负责资源</th><th>监听地址</th><th>对外访问目标</th></tr></thead><tbody>
+<tr><td>robotd</td><td>电机控制、传感、策略、安全、robot.health</td><td>/run/robotd.sock</td><td>Dynamixel舵机总线</td></tr>
+<tr><td>configd</td><td>WiFi、机器人标识与名称、配对PIN码、手柄绑定、重启</td><td>/run/configd.sock</td><td>通过D-Bus调用BlueZ、NetworkManager</td></tr>
+<tr><td>updaterd</td><td>版本包：校验、安装、切换、健康校验、回滚</td><td>/run/updaterd.sock</td><td>GitHub发行包、systemctl、robotd</td></tr>
+<tr><td>btd</td><td>无状态 — BLE传输层，提供部分API子集</td><td>BLE GATT服务</td><td>robotd, configd, updaterd；不连接padd、tofd，带宽不足以承载它们的数据流</td></tr>
+<tr><td>padd</td><td>无状态 — 游戏手柄传输；提供原始输入流</td><td>/run/padd/pad.sock（仅pad.input）</td><td>/run/robotd.sock</td></tr>
+<tr><td>mediad</td><td>摄像头与音频管线；不持有机器人状态 — WebRTC传输与远程入口(§5.2)</td><td>TCP：8080端口控制台与PNG帧GET /frame；8443信令端口；独立Unix套接字/run/mediad/media.sock，向本地录制/感知进程以及robotctl监视器提供media.frame，监视器打开时每秒请求2帧，关闭时停止请求。原始单帧约1.8MiB，因此不在WebRTC控制通道传输</td><td>robotd, configd, updaterd</td></tr>
+<tr><td>tofd</td><td>头部ToF传感器：发布8×8深度矩阵，其他进程只读</td><td>/run/tofd/tof.sock（tof.stream）</td><td>扩展板I²C总线</td></tr>
+<tr><td>robotctl</td><td>无状态 — 命令行工具，机器人故障时仍可使用</td><td>—</td><td>上面所有套接字</td></tr>
+</tbody></table>
+</div>
+<h2 id="状态存储位置以及升级后保留的数据"><a class="header" href="#状态存储位置以及升级后保留的数据">状态存储位置，以及升级后保留的数据</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>路径</th><th>说明</th></tr></thead><tbody>
+<tr><td>/etc/robot/robotd.toml, updater.toml</td><td>单板专属配置；安装器一次性写入，永不覆盖。robotd.toml由robotd读取，其中[media]媒体配置同时由mediad读取；修改该配置只会重启mediad，不重启robotd</td></tr>
+<tr><td>/var/lib/robot/config/config.json</td><td>机器人名称、蓝牙配对PIN码；文件+文件锁，由configd管理（§3.1）</td></tr>
+<tr><td>NetworkManager profiles</td><td>WiFi凭证；我们不单独存储凭证（§3）</td></tr>
+<tr><td>/opt/robot/daemon/releases/<ver>/</td><td>二进制程序、策略、出厂默认配置 — 原子替换</td></tr>
+<tr><td>/opt/robot/daemon/current</td><td>软链接，标记当前正在运行的版本</td></tr>
+<tr><td>/run/<service>/identity.json</td><td>各守护进程启动时发布，记录当前运行实例信息</td></tr>
+</tbody></table>
+</div>
+<p><strong>所有 releases/<ver>/ 目录以外的数据，升级和回滚都会保留</strong>。这是核心规则，单板专属配置不会打包在版本包内。</p>
+<h3 id="变更下发全链路"><a class="header" href="#变更下发全链路">变更下发全链路</a></h3>
+<p>推送分支 → CI编译并签名发行包 → robotctl update apply
+　　　　　　　　　　　　　　　　│
+　　　　　　　　　　　　　　　　▼
+　　　　　　updaterd：校验签名、解压、切换<code>current</code>链接、重启服务
+　　　　　　　　　　　　　　　　│
+　　　　　　　　　　　　　　　　▼
+　　　　　　　　健康校验：查询robot.health
+　　　　　　　　　├─健康 → 保留新版本
+　　　　　　　　　└─异常 → 自动回滚旧版本</p>
+<p>文档后续章节阐述设计思路：服务拆分（§1）、服务间通信（§2）、状态归属（§3）、API与传输层（§4）、远程访问（§5）、安全权限（§6）。</p>
+<h2 id="1-服务"><a class="header" href="#1-服务">1. 服务</a></h2>
+<p>systemd作为进程管理器：管理生命周期、崩溃自动重启、启动顺序、看门狗。</p>
+<div class="table-wrapper"><table><thead><tr><th>服务</th><th>负责资源</th><th>备注</th></tr></thead><tbody>
+<tr><td>robotd</td><td>电机控制、运动学、里程计、步态策略、传感器循环、安全</td><td>准实时核心；对所有会损伤机器人的操作拥有最终决定权。里程计是控制循环内的结构体，不是独立服务；输入就是循环读取到的传感器采样值</td></tr>
+<tr><td>mediad</td><td>摄像头/麦克风、编码、感知推理、WebRTC + 远程网关</td><td>资源消耗最大的服务；同时是远程API入口（§5.2）</td></tr>
+<tr><td>btd</td><td>BLE GATT服务端</td><td>仅传输适配器，不持有任何状态（§4.1）。详见app-path-design.md</td></tr>
+<tr><td>configd</td><td>WiFi、机器人身份、电源、手柄配对</td><td>robotd崩溃时配置仍可访问（§3.1），btd不持有状态（§4.1），所以配置独立交由它管理。手柄配对放在这里而非padd：设备绑定需要root权限与BlueZ，padd设计为非特权客户端（§4.1）</td></tr>
+<tr><td>tofd</td><td>头部ToF传感器：扩展板I²C总线上的8×8深度矩阵</td><td>感知模块，从robotd拆分，理由见下文。独占传感器，只发布帧，不读取数据。单板即使未安装该传感器，进程依旧启动并上报该状态</td></tr>
+<tr><td>updaterd</td><td>升级引擎</td><td>详见updater-design.md</td></tr>
+</tbody></table>
+</div>
+<p>将mediad与robotd解耦是刻意设计：媒体/感知进程崩溃，<strong>不能导致电机控制失效</strong>。tofd遵循同样原则：VL53L5/8CX上电需要通过I²C上传约90KB固件，耗时数秒；I²C总线与音频编解码器共享，且大部分机器人硬件根本不搭载该传感器。这类重试逻辑不应放在电机控制主进程。控制循环本身不需要深度数据，拆分不会丢失功能。
+刻意不把tofd放进mediad：深度传感器属于总线外设，不是媒体管线；深度数据在摄像头可用之前就有价值。</p>
+<p>其他组件获取深度数据的方式，和读取手柄原始流一致：订阅对应守护进程套接字的流（tof.stream），<strong>不经过robotd转发</strong>。将深度帧重投影到机器人本体坐标系，需要结合robot.state关节状态，通过运动学库的头部正向运动学计算；tofd只输出传感器原始观测，不做超出能力的几何运算。</p>
+<h3 id="11-不变量核心约束"><a class="header" href="#11-不变量核心约束">1.1 不变量（核心约束）</a></h3>
+<ol>
+<li>btd、configd、updaterd在robotd崩溃后仍可运行。它们是故障恢复链路；必须在系统故障场景下可用。不在systemd中依赖robotd；所有IPC通信支持可选、超时机制；依赖最小化，无ML运行时、无媒体栈。详见updater-design.md §4.1。</li>
+<li>configd独立存在是工程刚需，不是对称设计：机器人故障时，最需要配置WiFi；如果配置放在robotd，故障时就无法访问。</li>
+<li>robotd拥有安全逻辑最终决定权。任何远程/本地客户端都无法绕过跌倒检测、关节/温度限制、安全姿态逻辑。客户端发送意图，robotd决定是否执行。</li>
+<li>robotd控制循环<strong>永不阻塞等待其他服务</strong>。跨服务读取全部采用“最新值缓存”，不使用同步RPC（§2.4）。</li>
+<li>状态唯一写入者原则：每一项状态仅有一个所属服务；其他服务只能读取或订阅。</li>
+</ol>
+<h2 id="2-服务间通信"><a class="header" href="#2-服务间通信">2. 服务间通信</a></h2>
+<h3 id="21-控制平面-vs-数据平面"><a class="header" href="#21-控制平面-vs-数据平面">2.1 控制平面 vs 数据平面</a></h3>
+<p>两类流量需求完全不同，混在一起是经典设计错误。</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>控制平面</th><th>数据平面</th></tr></thead><tbody>
+<tr><td>内容</td><td>指令、配置、状态、感知事件</td><td>音视频帧</td></tr>
+<tr><td>大小/频率</td><td>数十字节，≤100Hz</td><td>640×480 RGB@30fps约27MB/s</td></tr>
+<tr><td>传输方式</td><td>Unix套接字RPC</td><td>不跨套接字传输</td></tr>
+</tbody></table>
+</div>
+<h3 id="22-控制平面基于unix套接字的json-rpc-20"><a class="header" href="#22-控制平面基于unix套接字的json-rpc-20">2.2 控制平面：基于Unix套接字的JSON-RPC 2.0</a></h3>
+<p>每个服务独占一个Unix套接字，客户端直连。4个服务规模下不需要消息总线；总线本身也是故障点，会破坏上面的不变量1。</p>
+<ul>
+<li>报文格式：JSON-RPC 2.0，每行一个JSON对象（NDJSON）。选用标准协议而非自定义协议：标准请求响应关联、标准错误对象、标准通知事件，适合推送进度与事件流。</li>
+<li>帧编码：tokio_util::codec::LinesCodec；消息结构体使用serde序列化。</li>
+<li>全链路异步+超时，无例外。对端进程随时可能退出；套接字关闭/无响应视为正常返回。</li>
+<li>订阅机制：长连接上持续推送通知流。</li>
+</ul>
+<p>评估备选方案（统计独立依赖库数量，ARM-Linux目标平台）</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th>依赖数量</th><th>舍弃原因</th></tr></thead><tbody>
+<tr><td>JSON-RPC/NDJSON + tokio</td><td>30</td><td>✅ 选用</td></tr>
+<tr><td>仅jsonrpsee-types（自定义传输）</td><td>36</td><td>可行；舍弃：把稳定规范换成0.x版本依赖</td></tr>
+<tr><td>varlink</td><td>24</td><td>思路接近；熟悉度低，相比JSON-RPC收益有限</td></tr>
+<tr><td>zbus（D-Bus，点对点+阻塞）</td><td>66</td><td>见下文</td></tr>
+<tr><td>axum over UDS</td><td>66</td><td>可行，见HTTP/WS章节</td></tr>
+<tr><td>tarpc</td><td>71</td><td>Rust之间开发友好，但不可读，服务端推送麻烦</td></tr>
+<tr><td>tonic(gRPC)</td><td>81</td><td>少量接口也要proto+代码生成，开销大</td></tr>
+<tr><td>jsonrpsee-server</td><td>112</td><td>不支持Unix套接字，仅HTTP/WebSocket；jsonrpsee-ipc从未实现</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>依赖数量仅作参考，不是决定性因素。</p>
+</blockquote>
+<h4 id="为什么选用unix套接字而不是本地httpwebsocket"><a class="header" href="#为什么选用unix套接字而不是本地httpwebsocket">为什么选用Unix套接字，而不是本地HTTP/WebSocket</a></h4>
+<p>功能上接近；差异集中在访问控制与故障模式：</p>
+<ol>
+<li>文件系统权限天然实现鉴权。套接字设置0660权限+专属用户组，仅授权进程可访问。TCP端口本机所有进程/用户均可访问，必须额外搭建鉴权层。</li>
+<li>SO_PEERCRED可以获取调用方uid/gid/pid，用于审计日志（技术支持首要查询：谁触发了回滚）与权限校验。两层权限，各司其职：
+<ul>
+<li>套接字用户组（0660）：决定谁可以连接守护进程；</li>
+<li>allow_uids/allow_gids：决定谁<strong>可以修改机器人状态</strong>，仅针对写操作。守护进程自身uid永久允许；其他用户需要在白名单，未知用户拒绝。只读接口不设门槛：技术支持需要查看故障机器人，但不一定拥有修改权限。仅靠用户组判断“允许升级固件”粒度太粗，BLE服务本身也是客户端。</li>
+</ul>
+</li>
+<li>消除一类接口错误：代码/配置错误或临时补丁误绑定<code>0.0.0.0</code>，会把固件升级接口暴露到局域网。Unix套接字不存在这个风险。这是权重最高考量，不一定是当前威胁模型，而是规避故障模式。</li>
+<li>适配未来SDK：如果板上运行第三方/用户代码，TCP端口会开放给它们；用户组管控的Unix套接字不会。</li>
+</ol>
+<blockquote>
+<p>不选用HTTP/WebSocket作为控制平面（axum虽然支持UDS）：协议需要服务端向客户端推送进度。HTTP方案需要POST调用 + WebSocket/SSE通知，两套机制；curl无法消费流式通知，调试能力只覆盖请求响应。全部走WebSocket可以统一机制，但增加握手，JSON帧解析复杂，curl无法使用。NDJSON长连接模型：调用和通知同一套机制，无需握手，概念更少，这是核心目标。</p>
+</blockquote>
+<p>未来可选方案（调试用curl）：在同一Unix套接字上增加轻量只读HTTP端点（GET /status、GET /log），支持<code>curl --unix-socket … http://x/status</code>，但<strong>控制操作不迁移到HTTP</strong>，不重复实现流通道。诊断与控制需求不同，分开实现对两者都有利。</p>
+<blockquote>
+<p>不选用D-Bus：BlueZ（bluer）已经引入D-Bus，系统自带，zbus支持无总线点对点通信。但同一套消息结构还要在BLE、WebRTC/WebSocket传输（§4.1、§5.2），serde结构体原生适配JSON，D-Bus类型不兼容。目标：一套类型定义，多传输通道；JSON实现这个目标成本最低。仅在操作系统强制要求的场景使用D-Bus（BlueZ、NetworkManager）。</p>
+</blockquote>
+<p>后续可重新评估：若btd深度依赖D-Bus操作BlueZ，那么通过zbus暴露升级接口几乎无成本，还支持busctl自检调试。改动成本低：消息类型不变，仅修改封包方式。</p>
+<h3 id="23-等待逻辑异步计算逻辑同步"><a class="header" href="#23-等待逻辑异步计算逻辑同步">2.3 等待逻辑异步，计算逻辑同步</a></h3>
+<p>异步（tokio）用于进程等待场景：长任务期间持续提供IPC服务、对端查询/子进程超时、取消正在执行的任务。</p>
+<p>CPU密集型、长时间文件操作保持同步；异步调用方交给<code>spawn_blocking</code>执行。updater中典型场景：工件SHA-256、minisign流校验、zstd+tar解压、递归删除目录。在树莓派上这类操作耗时数秒；如果放在异步工作线程，会阻塞IPC任务，升级过程中无法响应状态/订阅查询。</p>
+<p>极快的文件操作（软链接重命名、fsync、小文件追加）直接调用；丢进线程池开销大于收益。</p>
+<h3 id="24-数据平面传递特征而非原始帧"><a class="header" href="#24-数据平面传递特征而非原始帧">2.4 数据平面：传递特征，而非原始帧</a></h3>
+<p>robotd不需要摄像头原始帧，只需要提取后的特征（“球坐标(x,y)”、“检测到人”、“巨大声响”）。几十字节，10–30Hz，套接字传输毫无压力。</p>
+<p>原则：感知推理放在传感器侧。mediad持有摄像头、运行推理、发布特征。如果把原始帧发给robotd做视觉，会大量占用板载内存带宽。</p>
+<p>控制循环内：robotd订阅一次，读取本地缓存最新快照，非阻塞、新值覆盖旧值。mediad卡顿只会降低感知能力，不会给电机控制引入抖动。</p>
+<p>万不得已必须跨进程传输帧（兜底方案）：共享内存（shm/dmabuf环形缓冲区），套接字只传递“N号帧在偏移X就绪”。libcamera支持dmabuf，可实现零拷贝。优先采用<strong>特征而非帧</strong>方案，尽量避免这个兜底方案。</p>
+<h2 id="3-状态归属"><a class="header" href="#3-状态归属">3. 状态归属</a></h2>
+<p>分三类；升级/回滚影响参见updater-design.md §5.7</p>
+<div class="table-wrapper"><table><thead><tr><th>状态</th><th>所有者</th><th>机制</th></tr></thead><tbody>
+<tr><td>WiFi凭证</td><td>NetworkManager</td><td>我们不存储凭证。configd通过D-Bus控制NM；NM以root权限保存配置文件，自动重连</td></tr>
+<tr><td>机器人标识、用户偏好、可调参数</td><td>配置存储（§3.1）</td><td>文件 + flock锁 + rename(2)原子写入，由configd管理</td></tr>
+<tr><td>标定参数、学习状态、设备独有的生成资源</td><td>所属服务</td><td>版本目录之外，升级与回滚都保留</td></tr>
+<tr><td>出厂默认配置、二进制、策略包</td><td>升级系统</td><td>存放在releases/<ver>/，原子替换</td></tr>
+</tbody></table>
+</div>
+<p>交由NetworkManager管理WiFi凭证：代码更少，安全性更高，减少迁移工作量。</p>
+<p>硬件单板出厂默认不带NetworkManager（最初设计假设）。Armbian无头镜像使用netplan + systemd-networkd + wpa_supplicant；netplan只是配置生成器，没有扫描API；<code>netplan apply</code>只返回“配置已应用”，<strong>不返回WiFi是否连接成功</strong>。而手机配网最需要两个能力：“列出可用网络”、“密码错误提示”。因此维持方案，脚本<code>migrate-network.sh</code>会把单板迁移到NM。详细逻辑与板上测试数据见app-path-design.md §2。</p>
+<h3 id="31-配置存储"><a class="header" href="#31-配置存储">3.1 配置存储</a></h3>
+<p>普通文件 + 小型共享库，<strong>刻意不做成独立服务</strong>：</p>
+<ul>
+<li>flock实现写串行；临时文件+rename(2)保证原子写入；</li>
+<li>inotify用于变更通知；</li>
+<li>无单点故障，任意服务崩溃仍可读；升级器不会修改该文件（updater-design.md §5.7）。</li>
+</ul>
+<p>实现文件：<code>configd/src/store.rs</code>，保存机器人名称、蓝牙配对PIN码。inotify暂未启用：只有多个进程读文件时才有价值，当前只有configd读写；仅自己写自己监听属于多余开销。</p>
+<p><strong>配置必须在robotd崩溃时仍可访问</strong>——机器人故障时用户最需要WiFi配网，所以配置不能放在robotd。</p>
+<p>配置属于<strong>状态，不是动作</strong>。“连接WiFi”、“重启”、“应用升级”、“选择模型”是动作，通过RPC下发给对应服务。</p>
+<h2 id="4-机器人api"><a class="header" href="#4-机器人api">4. 机器人API</a></h2>
+<h3 id="41-一套定义多传输通道"><a class="header" href="#41-一套定义多传输通道">4.1 一套定义，多传输通道</a></h3>
+<p>btd不持有任何状态。BLE只是多个入口之一。如果配置/配网逻辑放在btd，其他服务依赖它，SDK就必须走BLE，设计不合理。</p>
+<pre><code>        ┌──────── 一套API定义（共享库：类型 + 操作）
+        │
+   ┌────┴─────┬────────────┬──────────────┬────────────────┐
+  BLE       unix socket   WebSocket     WebRTC datachannel
+ (btd)      robotctl,     服务端          远程临场，
+  子集      板上SDK        智能体/LLM      完整能力
+</code></pre>
+<p>每种传输层只是同一API的薄适配层。BLE只暴露API子集（配网、状态、升级触发/进度），带宽有限，无法承载完整接口，大载荷不走BLE。</p>
+<h3 id="42-通用规则"><a class="header" href="#42-通用规则">4.2 通用规则</a></h3>
+<ul>
+<li>按传输通道独立鉴权：BLE隐含物理在场+配对；网络通道需要token。同一API，不同鉴权策略，从一开始就确定鉴权位置。</li>
+<li>API版本握手：SDK与守护进程版本可能不一致。使用单个整数版本号，版本不匹配返回明确错误（和model_api方案一致）。</li>
+<li>传递<strong>意图指令，不直接写电机</strong>，详见§6。</li>
+</ul>
+<h2 id="5-远程访问"><a class="header" href="#5-远程访问">5. 远程访问</a></h2>
+<h3 id="51-需求"><a class="header" href="#51-需求">5.1 需求</a></h3>
+<p>所有机器人与媒体数据可通过WebRTC访问，支持：(a)远程临场；(b)服务器端程序（如LLM）观测、控制机器人。后者接口要足够简单。</p>
+<h3 id="52-webrtc会话"><a class="header" href="#52-webrtc会话">5.2 WebRTC会话</a></h3>
+<p>单个PeerConnection承载全部数据：</p>
+<pre><code>对等端（浏览器/手机/服务器）
+   ├── 视频轨      ── 摄像头
+   ├── 音频轨      ── 麦克风+扬声器（双向，远程临场）
+   ├── 数据通道&quot;control&quot;  可靠有序 → 机器人API（§4）
+   └── 数据通道&quot;teleop&quot;   不可靠无序 → 输入 + 高频遥测
+</code></pre>
+<p>两条数据通道，对应§2.1的控制/数据平面：遥操作输入、遥测走不可靠通道（maxRetransmits:0），因为重传80ms前的摇杆指令毫无意义，永远使用最新指令。</p>
+<p>PeerConnection由mediad维护。PeerConnection不能跨进程拆分（音视频轨与数据通道共享一套DTLS/SCTP会话），且需要编码媒体流，所以放在mediad内；mediad将控制消息代理转发给各服务的Unix套接字。mediad就是远程网关。</p>
+<p>隔离代价可接受：远程临场会话离不开媒体流，合在一起不会损失隔离能力。本地恢复链路依旧独立，依靠BLE / robotctl（不变量1）。</p>
+<h3 id="53-服务器智能体不必强制走webrtc"><a class="header" href="#53-服务器智能体不必强制走webrtc">5.3 服务器智能体：不必强制走WebRTC</a></h3>
+<p>LLM控制器使用WebRTC成本更高。智能体不需要解码30fps H.264视频；只需要每秒1~2帧图像+状态数据包。强制ICE/DTLS/SDP+解码管线得不偿失。</p>
+<div class="table-wrapper"><table><thead><tr><th>使用方</th><th>传输方式</th><th>媒体</th></tr></thead><tbody>
+<tr><td>人类远程临场</td><td>WebRTC</td><td>音视频轨，低延迟</td></tr>
+<tr><td>服务器智能体/LLM</td><td>WebSocket</td><td>get_frame按需获取JPEG，或1–2fps推送</td></tr>
+<tr><td>板上SDK、robotctl</td><td>Unix套接字</td><td>快照API</td></tr>
+<tr><td>App</td><td>BLE + WebRTC</td><td>按需使用</td></tr>
+</tbody></table>
+</div>
+<p>底层API统一。“服务器运行LLM控制机器人”简化为：打开WebSocket，拉取图像，发送意图指令，几十行代码，无需媒体处理栈。这就是设计追求的简易性。</p>
+<p>LLM延迟在数百毫秒到数秒，因此智能体属于高层控制器：“走到厨房”、“看向人”。实时反应控制依然在本地robotd。无论传输层如何，这个职责划分是正确的。</p>
+<h3 id="54-基础设施现实考量"><a class="header" href="#54-基础设施现实考量">5.4 基础设施现实考量</a></h3>
+<p>“机器人连上WiFi” ≠ “公网可访问”。WebRTC远程访问需要：
+信令通道（SDP/ICE交换）、STUN，对称NAT场景需要TURN中继，会产生带宽成本。
+这与升级设计“无后端”的前提冲突。仅局域网远程临场可完全规避；公网远程临场做不到。属于待解决问题（§9）。</p>
+<h3 id="55-实现备注"><a class="header" href="#55-实现备注">5.5 实现备注</a></h3>
+<p>库选型取决于硬件编码：如果使用V4L2 M2M硬件H.264，GStreamer webrtcbin更实用；<code>webrtc-rs</code>纯Rust，逻辑更简单，但媒体管线需要自己实现。会极大影响mediad架构，需要尽早确定。</p>
+<p>远程操控延迟目标：端到端&lt;200ms。需要低延迟编码器配置，禁用B帧，使用帧内刷新代替大关键帧。</p>
+<h2 id="6-安全与权限"><a class="header" href="#6-安全与权限">6. 安全与权限</a></h2>
+<p>在丢包网络下远程控制行走机器人，安全机制<strong>必须原生设计，不能后期补</strong>。</p>
+<ol>
+<li>死亡开关/心跳检测：指令中断或RTT超过阈值时，robotd自主停机。硬性要求：网络断连、LLM推理卡死、笔记本休眠都可能发生。</li>
+<li>意图指令，而非直接写电机：远端下发速度、注视目标、“坐下”，永远不下发原始关节指令。robotd拥有跌倒检测、关节/温度限制、安全姿态的最终决定权。即使智能体逻辑错乱，也不能下发让机器人撞墙的指令。</li>
+<li>显式权限仲裁：物理手柄、App、远程对等端、自主行为层都可能抢占控制。定义优先级与控制权移交逻辑，不是简单“后写入覆盖前者”。本地/物理控制器可以抢占远程控制。</li>
+<li>会话限制：v1版本同一时间仅支持一路媒体会话，外加M个纯控制客户端。多用户视频（同屏多路、一次编码多路分发）延后实现。</li>
+</ol>
+<h2 id="7-隐私"><a class="header" href="#7-隐私">7. 隐私</a></h2>
+<p>设备是部署在用户家中的摄像头+麦克风。</p>
+<ul>
+<li>启动远程会话必须显式授权（单会话授权，或可随时撤销的永久授权）。</li>
+<li>媒体流传输期间，机器人本体要有可见指示灯。</li>
+<li>DTLS-SRTP保证媒体端到端加密，即使经过TURN中继；需要明确告知客户端。</li>
+<li>BLE配网传输WiFi凭证：该特征通道必须配对+加密。</li>
+</ul>
+<h2 id="8-可观测性日志与版本"><a class="header" href="#8-可观测性日志与版本">8. 可观测性：日志与版本</a></h2>
+<p>跨模块基础能力；用户家中机器人无法外接调试器。技术支持需要的信息必须预先在机器人上留存。</p>
+<p>部署细节（journald配置片段、安装步骤、校验命令）见<code>../deploy/README.md</code>。本节是所有服务必须遵守的约定。</p>
+<h3 id="81-所有服务输出日志到stderr"><a class="header" href="#81-所有服务输出日志到stderr">8.1 所有服务输出日志到stderr</a></h3>
+<p>tracing → stderr → journald；日志级别由RUST_LOG控制，发布版本默认info。服务不单独写日志文件：统一机制、统一保留策略、统一查看入口。</p>
+<p>每个守护进程启动第一行输出自身身份，warn级别，保证RUST_LOG=warn时仍可捕获：</p>
+<pre><code>WARN starting service=&quot;robotd&quot; build=0.2.0 (rev a1b2c3d, built 2026-07-28T13:50:00Z)
+     exe=/opt/robot/daemon/releases/0.2.0/bin/robotd pid=814
+</code></pre>
+<p>exe字段很关键：标记进程实际启动的版本目录，区分“升级成功”和“软链接切换成功，但systemd仍运行旧程序”。</p>
+<p>日志量是存储策略问题，不是装饰性需求。robotd每个周期心跳为debug级别；info级别每5分钟输出一条汇总，记录实际循环速率占目标的百分比。如果每个周期都打info日志，闲置机器人一天产生约86k条日志；journal容量上限下，这类日志会覆盖故障排查需要的关键日志。汇总信息更有价值：循环速率只有目标60%代表进程存活但健康度下降，普通日志无法体现。</p>
+<h3 id="82-两类记录持久化能力不同"><a class="header" href="#82-两类记录持久化能力不同">8.2 两类记录，持久化能力不同</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>存储位置</th><th>断电保留</th><th>容量上限</th></tr></thead><tbody>
+<tr><td>服务日志</td><td>journald</td><td>仅配置开启时保留，见deploy/README.md</td></tr>
+<tr><td>升级记录</td><td>/var/lib/robot/updater/update-log.jsonl</td><td>是</td></tr>
+</tbody></table>
+</div>
+<p>升级日志不放在journal是刻意设计。存放在引擎state_dir（/var/lib），每条追加时fsync，重写采用原子操作（临时文件+rename+父目录fsync）。即使journal是易失存储或被清空，依然可以查询“机器人安装了哪些版本、发生了什么”，这是真实的技术支持场景，而非理想情况。</p>
+<h3 id="83-正在运行版本-和-已安装版本-是两个概念"><a class="header" href="#83-正在运行版本-和-已安装版本-是两个概念">8.3 正在运行版本 和 已安装版本 是两个概念</a></h3>
+<p>updaterd升级过程不能重启自身（updater-design.md §4.1），升级后数秒内，运行二进制版本会落后于已安装版本。只用一个版本号汇报会出错，造成假象：看起来升级失败，实际正常。</p>
+<p>仅持续数秒，不需要重启整机：升级应答后，调度5秒后重启自身与btd；下一次updaterd启动校验是否重启成功，重启失败则重试（restart-order.md §5）。</p>
+<p><code>robotctl version</code>同时输出两个版本，并区分异常类型：</p>
+<ul>
+<li>updaterd版本落后于已安装包：短暂预期现象；该异常不会自愈，由新版本进程上报而不是自重启；如果长时间存在代表定时重启未执行。</li>
+<li>robotd版本落后：非正常情况，robotd在on_apply重启列表，说明重启失败。</li>
+</ul>
+<p>两者诊断逻辑不同，不能复用一条提示。<code>--json</code>输出同样内容用于支持打包；即使updaterd挂掉，该命令依旧输出信息，不会直接退出——故障场景下这正是需要排查的时候。</p>
+<p>版本信息4处独立存储，一处损坏仍可恢复：启动日志行；IPC调用robotctl version；每个二进制自带--version；版本目录内version.toml（外加robotctl update list，列出每个安装包对应的编译修订号）。</p>
+<p>revision由编译时<code>DUCK_REVISION</code>注入，CI环境生成；本地编译时如实输出rev unknown，不冒充CI构建。编译期读取，运行时不读取git仓库：出厂机器人不带代码仓库。这点非常重要：分支发布上线后（roadmap M2）多个构建会共用同一个版本号，revision是唯一区分标识。</p>
+<h3 id="84-健康状态是一个查询一条命令"><a class="header" href="#84-健康状态是一个查询一条命令">8.4 健康状态是一个查询，一条命令</a></h3>
+<p><code>robotctl health</code>一次性汇总robotd硬件信息、updaterd软件状态。不是单纯方便使用：“机器人哪里故障”在拿到结果前，无法区分硬件/软件。一小时前自动回滚版本的机器人，症状和舵机断电一模一样，必须同时展示两类信息。如果拆成两条查询，调用方必须预先猜测故障类型。</p>
+<p>机器人不健康或不可达时，命令返回非0退出码，可作为脚本的判断条件；上层所有组件依赖这个约定。退出码仅反映健康/可达性；温度过高、组件卡死、包版本异常仅做上报，不自动判定是否回滚。<strong>不能因为单板硬件状态异常就回滚版本</strong>。</p>
+<p><code>--json</code>输出同样内容，用于导出诊断包。</p>
+<h2 id="9-待解决问题"><a class="header" href="#9-待解决问题">9. 待解决问题</a></h2>
+<ol>
+<li>v1版本是否支持公网远程临场？还是仅局域网使用？核心取舍：无后端架构，还是搭建信令+TURN基础设施（§5.4）。</li>
+<li>SDK是团队内部使用，还是交付给终端用户？决定API兼容性承诺的严格程度（§4.2）。</li>
+<li>App、远程对等端、自主行为冲突时的权限优先级。需要确定固定优先级，而不是临时竞争。</li>
+<li>感知模块放在mediad，还是独立perceptiond？合并的好处：推理贴近摄像头，简单；拆分的好处：感知崩溃不会中断视频流。取决于视觉推理负载。</li>
+<li>行为/决策层（动作、情绪、习惯）：属于robotd，还是独立服务、独立升级通道？无论哪种，学习状态都遵循updater-design.md §5.7规则。</li>
+<li>BLE解绑接口：目前没有解绑手机的API；只能手动<code>bluetoothctl untrust</code>。需要新增API与权限规则（app-path-design.md §5）。</li>
+<li>设备配网状态：当前仅保存每台机器人配对PIN码。序列号原本计划存储，现已不需要：序列号固化在SoC，从<code>/proc/device-tree/serial-number</code>读取（updater-design.md §5.6，app-path-design.md §8.2）。PIN码不能复用设备身份（设备身份会在广播包发布，衍生信息公开）；密钥必须在生产阶段生成、记录、烧录。</li>
+</ol>
+<h2 id="10-构建顺序"><a class="header" href="#10-构建顺序">10. 构建顺序</a></h2>
+<p>优先编译updaterd，之后用它来分发架构其余模块的迭代版本。把升级系统风险前置，早期失败无影响（无用户、无重要资产），机器人出厂前升级链路会经过数百次验证。</p>
+<p>需要遵守的约束：</p>
+<ol>
+<li>updaterd基于robotd<strong>接口</strong>（健康探测、安全重启）开发，而非依赖内部实现；早期使用桩模块，保证可测试。</li>
+<li>早期健康探测逻辑简单（仅判断进程存活）。随着robotd成熟，自动回滚的可靠性逐步提升；升级机制本身是首要测试对象。</li>
+<li>早期开发全程保留手动恢复通道（SSH/重烧固件）。升级器本身不成熟、快速迭代，并且它部署在它自己负责升级的固件包内；<strong>不能把升级器作为唯一恢复手段</strong>。</li>
+<li>无法向后兼容的schema字段（min_supported、schema_version、model_api）在首个版本就要预先定义，即使暂时不用。</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/robotd-design.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/robotd-design.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>dev-push.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html" class="active"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="本地编译板端安装"><a class="header" href="#本地编译板端安装">本地编译，板端安装</a></h1>
+<p>修改一行代码，就能看到机器人运行修改后的代码，<strong>无需代码推送、无需CI流水线、无需打标签</strong>。克隆本仓库后，一条命令即可完成：为开发板编译、对产物签名，并通过SSH安装到板端。增量编译大约只需1分钟；如果走代码推送+CI流水线，则要耗时数分钟。</p>
+<p><code>scripts/dev-push.sh</code> 就是这条命令。下面所有参数都是传给该脚本的选项。</p>
+<h2 id="首次推送前仅需执行一次之后不再需要"><a class="header" href="#首次推送前仅需执行一次之后不再需要">首次推送前（仅需执行一次，之后不再需要）</a></h2>
+<p>需要完成三项前置准备，一次性配置好即可。</p>
+<ol>
+<li>开发板必须是<strong>开发版样机</strong>。编译产物使用团队开发密钥签名，客户版机器人会拒绝该签名包，和拒绝<code>--ref</code>版本包的机制一致。<code>install-dev.md</code>文档介绍如何将普通板子配置为开发板。</li>
+<li>开发签名密钥存放路径：<code>~/.duck-keys/team.dev.key</code>。这是CI用于分支构建签名的密钥私钥，由团队成员保管。如果密钥放在其他位置，设置环境变量<code>DUCK_DEV_SECRET_KEY</code>指向它。</li>
+<li>准备适配开发板的编译工具链。二选一：
+<ul>
+<li>方案A：安装交叉编译器</li>
+</ul>
+<pre><code class="language-bash">cargo install cargo-zigbuild --locked
+brew install zig
+</code></pre>
+<ul>
+<li>方案B：不安装任何工具，每次执行<code>dev-push.sh</code>时附加<code>--docker</code>参数。仅要求本地Docker守护进程正常运行。该方式启动速度较慢，适合<strong>手边暂时没有开发板</strong>的场景，详见容器内编译章节。</li>
+</ul>
+</li>
+</ol>
+<h2 id="开发迭代流程"><a class="header" href="#开发迭代流程">开发迭代流程</a></h2>
+<p>指定机器人名称，脚本自动查找设备：</p>
+<pre><code class="language-bash">scripts/dev-push.sh --name duck-c51b
+</code></pre>
+<p>或者在当前shell会话一次性设置环境变量：</p>
+<pre><code class="language-bash">export DUCK_ROBOT=duck-c51b
+scripts/dev-push.sh
+</code></pre>
+<p>这个名称就是<code>duckctl scan</code>列出、<code>robotctl system set-name</code>设置的名称，工具读取的<code>DUCK_ROBOT</code>变量与之相同（参考<code>duckctl.md</code>）。
+脚本通过蓝牙查询机器人网络地址（由机器人自身<code>net.status</code>返回）并缓存。只有缓存地址无法连通时，才会重新走蓝牙查询。因此DHCP续租、重新烧录固件、更换网络环境，都无需额外操作即可自动适配。</p>
+<p>SSH登录用户名默认为<code>radxa</code>。如果你的板子用户名不同：</p>
+<pre><code class="language-bash">export DUCK_BOARD_USER=pierre
+</code></pre>
+<p>也可以直接写IP地址，完全跳过蓝牙查询：</p>
+<pre><code class="language-bash">scripts/dev-push.sh radxa@192.168.1.42
+export DUCK_BOARD=radxa@192.168.1.42
+</code></pre>
+<p>脚本执行流程：对工作区交叉编译 → 打包成和正式发布包完全相同的产物 → 使用开发密钥签名 → 将包传到板端<code>~/duck-sideload</code>目录 → 调用<code>robotctl update apply --from</code>在板端安装。之后等待各个后台服务上报新版本状态：</p>
+<pre><code>==&gt; building 0.5.1-dev.local.1763400000.g7fc1444 for the board (zigbuild)
+==&gt; packaging
+==&gt; signing with /Users/you/.duck-keys/team.dev.key
+==&gt; copying to radxa@192.168.1.42:/home/radxa/duck-sideload
+==&gt; applying on radxa@192.168.1.42
+==&gt; 0.5.1-dev.local.1763400000.g7fc1444 is live on radxa@192.168.1.42
+==&gt; checking every daemon is running it
+    current -&gt; 0.5.1-dev.local.1763400000.g7fc1444
+    [ok] robotd
+    [ok] configd
+    [ok] padd
+    [ok] updaterd
+    [ok] btd
+    [ok] mediad
+    [ok] tofd
+==&gt; every daemon on radxa@192.168.1.42 is running 0.5.1-dev.local.1763400000.g7fc1444
+</code></pre>
+<p><code>updaterd</code>和<code>btd</code>会在安装指令返回5秒后重启，所以这两项状态上报会稍慢。
+<code>[--] padd published nothing</code><strong>不是报错</strong>：停止/手动禁用的后台服务、无摄像头板子上的<code>mediad</code>都会显示该状态。</p>
+<p><code>[--] tofd published nothing</code>代表当前版本较旧，<code>tofd</code>服务尚未上报身份标识，<strong>不是传感器缺失</strong>，再执行一次推送即可修复；无论是否接入传感器，<code>tofd</code>都会正常运行。</p>
+<p>在板端可通过下面命令查看当前版本号：</p>
+<pre><code class="language-bash">robotctl version
+</code></pre>
+<p>同一未提交修改的代码目录多次推送不会版本冲突：版本号携带推送时间戳，而不只是commit哈希。本场景允许代码目录存在未提交改动。</p>
+<p>这是一套完整的更新流程：签名校验、产物哈希、兼容性检测、健康检查、自动回滚全部生效。如果新版本启动失败，会自动回滚，板子恢复到上一可用版本。手动回滚命令：</p>
+<pre><code class="language-bash">sudo robotctl update rollback daemon
+</code></pre>
+<h2 id="查看刚推送版本的日志"><a class="header" href="#查看刚推送版本的日志">查看刚推送版本的日志</a></h2>
+<p>新开终端，在推送前执行，这样重启日志会被捕获：</p>
+<pre><code class="language-bash">ssh radxa@192.168.1.42 'journalctl -f -u robotd -u configd -u btd -u padd'
+</code></pre>
+<p>单独查看<code>updaterd</code>，可以看到更新全流程、健康检查、定时重启事件：</p>
+<pre><code class="language-bash">ssh radxa@192.168.1.42 'journalctl -f -u updaterd'
+</code></pre>
+<p>后台服务发生panic崩溃时，会输出完整调用栈；二进制文件没有去除调试符号，栈帧带有函数名。</p>
+<p>查看后台服务健康状态：</p>
+<pre><code class="language-bash">ssh radxa@192.168.1.42 robotctl health
+</code></pre>
+<p>可以查看控制环路是否正常，以及每个后台服务正在运行的版本。<code>cheatsheet.md</code>包含更多机器人调试命令。</p>
+<h2 id="日志级别从info改为debug"><a class="header" href="#日志级别从info改为debug">日志级别：从info改为debug</a></h2>
+<p>所有systemd单元默认日志级别<code>RUST_LOG=info</code>。想要查看<code>debug!</code>调试日志，可以添加systemd覆盖配置，以<code>robotd</code>为例（在板端执行）：</p>
+<pre><code class="language-bash">sudo mkdir -p /etc/systemd/system/robotd.service.d
+sudo tee /etc/systemd/system/robotd.service.d/log.conf &gt; /dev/null &lt;&lt;'EOF'
+[Service]
+Environment=RUST_LOG=debug
+EOF
+sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart robotd
+</code></pre>
+<p>该配置文件存放在<code>/etc</code>目录，不受后续dev推送覆盖。调试完成后删除配置：</p>
+<pre><code class="language-bash">sudo rm /etc/systemd/system/robotd.service.d/log.conf
+sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart robotd
+</code></pre>
+<h2 id="仅校验不实际安装"><a class="header" href="#仅校验不实际安装">仅校验，不实际安装</a></h2>
+<pre><code class="language-bash">scripts/dev-push.sh --dry-run radxa@192.168.1.42
+</code></pre>
+<p>执行编译、签名、传输，并执行完整校验流程（签名、哈希、兼容性、解压、检查所有服务不引用不存在的二进制），<strong>但不会切换运行版本</strong>。板子保持原有程序，不会重启后台服务。</p>
+<h2 id="使用容器编译"><a class="header" href="#使用容器编译">使用容器编译</a></h2>
+<pre><code class="language-bash">scripts/dev-push.sh --docker radxa@192.168.1.42
+</code></pre>
+<p>无需安装zig、cargo-zigbuild，也不需要从开发板拷贝<code>libudev</code>库。
+Apple Silicon Mac上容器目标架构与宿主机一致，不做交叉编译；x86笔记本上会启用模拟器运行，脚本会给出提示。生成产物和普通编译完全一致，<code>--dry-run</code>、<code>--bootstrap</code>参数同样可用。</p>
+<p>两种编译模式使用独立的<code>target/</code>目录，来回切换会触发完整重编译。默认本地编译日常速度更快，也是CI流水线使用的方式。</p>
+<h2 id="重新安装板端已有的安装包"><a class="header" href="#重新安装板端已有的安装包">重新安装板端已有的安装包</a></h2>
+<p>dev推送会将产物保留在板端<code>~/duck-sideload</code>目录，无需重新编译即可再次安装：</p>
+<pre><code class="language-bash">sudo robotctl update apply daemon --from ~/duck-sideload
+</code></pre>
+<p>该命令可读取任意存放发布包的目录，例如U盘。每次推送会覆盖该目录，不会追加文件。</p>
+<h2 id="无开发板仅做板端目标编译"><a class="header" href="#无开发板仅做板端目标编译">无开发板，仅做板端目标编译</a></h2>
+<p>在手边没有开发板时，验证代码改动能否编译（含C绑定crate、Linux专属逻辑）：</p>
+<pre><code class="language-bash">cargo board --bins
+</code></pre>
+<p><code>cargo board</code>本质是配置好目标架构与glibc最低版本的<code>cargo zigbuild</code>，配置定义在<code>.cargo/config.toml</code>。需要和默认推送相同的zig工具链；<code>padd</code>依赖首次推送从板子拷贝的<code>libudev</code>库。使用<code>--docker</code>则不需要该库。</p>
+<h2 id="向050旧版本板子做首次推送"><a class="header" href="#向050旧版本板子做首次推送">向0.5.0旧版本板子做首次推送</a></h2>
+<p><code>apply --from</code>需要API版本7，该版本从0.5.0开始引入。低于0.5.0的板子，<code>updaterd</code>不支持该接口，调用会直接拒绝，不会静默从原有源安装。一次性使用无健康门控方式部署：</p>
+<pre><code class="language-bash">scripts/dev-push.sh --bootstrap radxa@192.168.1.42
+</code></pre>
+<p>该操作会停止<code>robotd</code>，<strong>本次安装跳过健康检查</strong>。后续所有推送都可以使用常规命令。</p>
+<h2 id="常见故障排查"><a class="header" href="#常见故障排查">常见故障排查</a></h2>
+<ol>
+<li><strong>no dev signing key at ...</strong>
+板子校验安装包和正式包规则一致，必须签名。向团队成员获取<code>team.dev.key</code>，或设置<code>DUCK_DEV_SECRET_KEY</code>指向密钥。</li>
+<li><strong>cargo-zigbuild is not installed</strong>
+安装cargo-zigbuild与zig，或者使用<code>--docker</code>。</li>
+<li><strong>no libudev.so.1 on <board></strong>
+首次推送会从板子拷贝该库用于链接<code>padd</code>。板子未开机则无法提供库文件；<code>--docker</code>模式不需要。</li>
+<li><strong>重烧录板子后，报libudev链接错误</strong>
+库文件存在本地缓存。删除缓存，下次推送会重新拉取：</li>
+</ol>
+<pre><code class="language-bash">rm -rf ~/.cache/duck-cross/aarch64
+</code></pre>
+<ol start="5">
+<li><strong>apply failed (exit 2)，robotctl/updaterd提示API不匹配</strong>
+板子旧版本不支持<code>apply --from</code>，执行一次<code>--bootstrap</code>即可。</li>
+<li><strong>preflight check failed: SideloadDir: ... is not there for updaterd</strong>
+安装包放在<code>/tmp</code>或<code>/var/tmp</code>。<code>updaterd.service</code>开启<code>PrivateTmp=yes</code>，后台服务拥有独立的tmp目录，和shell不是同一个。使用其他路径，默认<code>~/duck-sideload</code>是推荐选项。旧版本固件会报另一个错误：<code>no manifest for version &lt;version&gt; in &lt;dir&gt;</code>，即使目录里能看到清单文件。</li>
+<li><strong>verification failed: signature did not verify against any of N usable trusted key(s)</strong>
+看起来像包损坏，大多是板子不是开发板：开发密钥未写入，或者<code>allow_dev_keys</code>关闭，导致密钥不在可信列表。在板端执行：</li>
+</ol>
+<pre><code class="language-bash">grep -c 'DEV BOARD' /var/lib/robot/provision.log
+</code></pre>
+<p>返回0代表缺失开发板密钥，<code>install-dev.md</code>文档有完整修复方案。
+8. <strong>could not reach <name> over Bluetooth</strong>
+机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。</p>
+<pre><code class="language-bash">duckctl scan
+</code></pre>
+<p>扫描无结果：机器人关机、超出距离，或已连接手机。直接填写IP地址，绕过蓝牙：</p>
+<pre><code class="language-bash">scripts/dev-push.sh radxa@192.168.1.42
+</code></pre>
+<ol start="9">
+<li><strong>蓝牙能搜到机器人名称，但无WiFi地址</strong>
+机器人已上电，但未接入网络，无法SSH连接。通过蓝牙配置WiFi：</li>
+</ol>
+<pre><code class="language-bash">duckctl --name duck-c51b wifi connect &lt;ssid&gt; --psk &lt;passphrase&gt;
+</code></pre>
+<ol start="10">
+<li><strong>IP地址不变，但SSH无法连接</strong>
+地址本身没问题，一般是板子重烧录导致主机密钥变更，执行：</li>
+</ol>
+<pre><code class="language-bash">./scripts/provision-board.sh radxa@192.168.1.42 --forget-host-key
+</code></pre>
+<ol start="11">
+<li><strong>版本已切换成功，但部分服务没有跑新版本</strong>
+版本替换与健康检查通过，但个别后台进程仍运行旧二进制。脚本会列出异常服务。板端查看：</li>
+</ol>
+<pre><code class="language-bash">robotctl health
+</code></pre>
+<p>服务列表会显示每个daemon运行版本。查看updaterd日志：</p>
+<pre><code class="language-bash">journalctl -u updaterd -b | tail
+</code></pre>
+<p>查找定时重启记录或者失败原因。手动重启updaterd：</p>
+<pre><code class="language-bash">sudo systemctl restart updaterd
+</code></pre>
+<p>正常流程不需要手动重启，建议查看日志定位根因。<code>cheatsheet-dev.md</code>详细记录重启相关坑点，<code>../design/restart-order.md</code>是完整重启顺序文档。</p>
+<h2 id="环境变量配置"><a class="header" href="#环境变量配置">环境变量配置</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>变量</th><th>说明</th></tr></thead><tbody>
+<tr><td>DUCK_ROBOT</td><td>机器人名称，脚本通过蓝牙查询并缓存网络地址</td></tr>
+<tr><td>DUCK_BOARD_USER</td><td>蓝牙查询模式下，SSH登录板端用户名，默认radxa，duckctl ssh/scp同样读取</td></tr>
+<tr><td>DUCK_PIN</td><td>机器人配对PIN码，非出厂默认000000时配置，duckctl读取</td></tr>
+<tr><td>DUCK_BOARD_CACHE</td><td>网络地址缓存目录，默认<code>~/.cache/duck/boards</code></td></tr>
+<tr><td>DUCK_BOARD</td><td>直接指定板端地址，替代命令行参数，示例<code>radxa@192.168.1.42</code></td></tr>
+<tr><td>DUCK_DEV_SECRET_KEY</td><td>开发签名私钥路径，默认<code>~/.duck-keys/team.dev.key</code></td></tr>
+<tr><td>DUCK_SIDELOAD_DIR</td><td>安装包在板端存放目录，默认<code>~/duck-sideload</code>。<strong>禁止放在/tmp、/var/tmp</strong>，updaterd使用独立私有临时目录</td></tr>
+<tr><td>DUCK_CROSS_SYSROOT</td><td>libudev库缓存目录，默认<code>~/.cache/duck-cross/aarch64</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="本工具明确不具备的能力"><a class="header" href="#本工具明确不具备的能力">本工具明确不具备的能力</a></h2>
+<p><strong>不提供正式版本发布所需的溯源能力</strong>。版本号使用时间戳而非git标签；产物使用客户机器人不认可的开发密钥签名；不会上传发布包。其他人无法安装你本地推送的版本。正式版本发布依旧需要打标签，通过<code>release.yml</code>流水线构建（参考<code>../../README.md</code>）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/robot/cheatsheet-dev.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/robot/duckctl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/robot/cheatsheet-dev.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/robot/duckctl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

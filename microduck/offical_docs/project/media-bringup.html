@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>media-bringup.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../../offical_docs/faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../../offical_docs/policy-manifest.html"><strong aria-hidden="true">3.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/recurrent-policies.html"><strong aria-hidden="true">4.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">5.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/design/architecture.html"><strong aria-hidden="true">5.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/robotd-design.html"><strong aria-hidden="true">5.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/updater-design.html"><strong aria-hidden="true">5.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">5.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/restart-order.html"><strong aria-hidden="true">5.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/app-path-design.html"><strong aria-hidden="true">5.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/mobile-app.html"><strong aria-hidden="true">5.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">5.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">5.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/simulation.html"><strong aria-hidden="true">5.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">5.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">6.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">6.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">7.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/project/roadmap.html"><strong aria-hidden="true">7.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/ci-setup.html"><strong aria-hidden="true">7.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">7.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">7.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/media-bringup.html" class="active"><strong aria-hidden="true">7.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">7.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">7.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">7.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">7.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">7.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../../offical_docs/index.html"><strong aria-hidden="true">8.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">8.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">8.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/dev-push.html"><strong aria-hidden="true">8.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/duckctl.html"><strong aria-hidden="true">8.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">8.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/install-dev.html"><strong aria-hidden="true">8.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">8.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../../offical_docs/robot/simulation.html"><strong aria-hidden="true">8.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="硬件媒体调试media-bring-up-on-hardware"><a class="header" href="#硬件媒体调试media-bring-up-on-hardware">硬件媒体调试（Media bring-up on hardware）</a></h1>
+<p>Radxa Zero 3W 的视频能力说明。下文所有结论均为板上实测，并非推测；如果内容仍属于假设，会专门注明。</p>
+<h2 id="已确认结论"><a class="header" href="#已确认结论">已确认结论</a></h2>
+<p>mediad 必须使用硬件 H.264 编码：软件编码不只是速度慢，而是<strong>根本不可行</strong>。在这款 SoC 上，仅靠 jpegenc 无法在 640×480 分辨率下维持 30 帧（代码位置：microduck_runtime/src/camera.rs:500）。H.264 每帧开销高于 JPEG，而 4 核 Cortex‑A55 还要被 robotd 的 50Hz 控制循环占用。</p>
+<p>VPU 负责 H.264 编码，输出码流合法；编码器通过瑞芯微 MPP 调用，而非 V4L2。需要从源码编译两个 GStreamer 插件才能使用该功能，不存在未知阻塞问题。</p>
+<div class="table-wrapper"><table><thead><tr><th>项目</th><th>结果</th></tr></thead><tbody>
+<tr><td>VPU 720p H.264编码</td><td>是，通过mpi_enc_test测试：60帧，428KB</td></tr>
+<tr><td>当前内核下码流有效性</td><td>是，avdec_h264可正常解码，High profile 4.0级别，4:2:0 8bit</td></tr>
+<tr><td>调用入口</td><td>/dev/mpp_service（瑞芯微MPP），<strong>不是V4L2 M2M</strong></td></tr>
+<tr><td>GStreamer 1.x跨版本插件ABI</td><td>无风险，1.14版本编译的插件可在1.26.2正常注册</td></tr>
+<tr><td>mpph264enc元素</td><td>必须源码编译（见「需要编译的组件」章节）</td></tr>
+<tr><td>webrtcsink / webrtcsrc</td><td>需要单独编译</td></tr>
+</tbody></table>
+</div>
+<h2 id="开发板预装环境"><a class="header" href="#开发板预装环境">开发板预装环境</a></h2>
+<p>刚完成初始化部署的开发板上没有预装任何媒体组件。<code>scripts/setup-gstreamer.sh</code> 脚本负责安装媒体组件并输出硬件能力；该脚本就是本文档的可执行版本，所有需要重复执行的命令都应当写进这个脚本。</p>
+<p>GStreamer 直接使用 Debian trixie 官方源；<code>apt-cache policy</code> 显示源为 deb.debian.org、security.debian.org，没有 Armbian 多媒体叠加包，因此完全使用发行版自带版本：</p>
+<div class="table-wrapper"><table><thead><tr><th>软件包</th><th>版本</th></tr></thead><tbody>
+<tr><td>gstreamer1.0-plugins-bad（包含webrtcbin）</td><td>1.26.2-3+deb13u3</td></tr>
+<tr><td>libgstreamer-plugins-bad1.0-dev（包含gstreamer-webrtc-1.0.pc）</td><td>1.26.2-3+deb13u3</td></tr>
+<tr><td>gstreamer1.0-nice</td><td>0.1.22-1</td></tr>
+<tr><td>gstreamer1.0-plugins-rs</td><td>Debian所有版本均无此包</td></tr>
+</tbody></table>
+</div>
+<p>内核版本：<code>6.1.115-vendor-rk35xx</code>。该内核至关重要，两点原因：相机 MIPI‑CSI ISP 采集驱动、VPU 设备节点仅存在于 Armbian 的厂商内核分支。<code>setup-board.sh</code> 已经安装该内核（最初是为音频编解码器 I²S 子系统，并非视频），所以在开发视频前依赖项已经就绪。<strong>如果误执行 apt upgrade 升级内核并改写 /boot，相机和VPU节点都会丢失。</strong></p>
+<h3 id="相机需要设备树叠加层并且要增加前缀镜像"><a class="header" href="#相机需要设备树叠加层并且要增加前缀镜像">相机需要设备树叠加层，并且要增加前缀镜像</a></h3>
+<p>CSI 相机插上后，如果没有启用设备树叠加层，不会生成 <code>/dev/video*</code>，dmesg 也无相关日志——现象和相机没插上完全一样。</p>
+<p>启用叠加层这里有个坑：Armbian 提供的叠加层文件名为 <code>radxa-zero3-rpi-camera-v2.dtbo</code>，不带 <code>rk3568-</code> 前缀，但开发板配置 <code>overlay_prefix=rk3568</code>。于是 <code>overlays=</code> 配置项会去查找 <code>rk3568-radxa-zero3-rpi-camera-v2.dtbo</code>，加载器找不到文件，开发板正常启动，但相机完全不可用。这和 <code>configure_overlay</code> 为 uart2-m0 规避的静默失败属于同类问题。
+解决办法：先把dtbo文件复制一份，加上前缀命名，再写入 overlays 配置。<code>microduck_runtime/install.sh</code> 已经处理了这个逻辑。</p>
+<p><code>setup-board.sh</code> 中的 <code>configure_camera</code> 会完成上述操作，文件放到厂商内核的叠加层目录。MIPI‑CSI 采集驱动只在该分支存在，这也是厂商内核不能替换的第二个理由。
+<code>DUCK_CAMERA_OVERLAY</code> 用来选择传感器对应的叠加层；Armbian 一个传感器对应一个dtbo。本板支持：</p>
+<ul>
+<li>radxa-zero3-rpi-camera-v2：Pi Cam v2 / IMX219（本项目只用这一款）</li>
+<li>radxa-zero3-rpi-camera-v1.3：Pi Cam v1.3 / OV5647</li>
+</ul>
+<h3 id="编码器是mpp不是v4l2"><a class="header" href="#编码器是mpp不是v4l2">编码器是MPP，不是V4L2</a></h3>
+<p>系统没有 <code>v4l2h264enc</code>，也不存在 <code>/dev/video*</code>，这<strong>不是故障</strong>：
+在瑞芯微BSP厂商内核中，VPU暴露为 <code>/dev/mpp_service</code>，而不是V4L2 M2M编码器。<code>gstreamer1.0-plugins-good</code> 只有探测到V4L2编码器节点才会注册 <code>v4l2h264enc</code>，所以该元素缺失属于预期现象，不是缺少软件包。
+完全没有 <code>/dev/video*</code> 也是相机未探测到传感器的正常表现；rkisp采集节点只有传感器被成功枚举后才会出现。</p>
+<p>这点非常关键，是整个方案的分水岭：如果内核将VPU暴露为V4L2编码器，硬件H.264编码完全不需要内核外的额外组件。</p>
+<h3 id="权限陷阱"><a class="header" href="#权限陷阱">权限陷阱</a></h3>
+<p><code>/dev/mpp_service</code> 默认权限 <code>crw------- root root</code>，mode=0600。非root进程无法打开。用 <code>mpi_enc_test</code> 测试时，会生成空文件，退出码0。<strong>没有报错、没有日志。退出码0不代表成功，文件大小才是判断依据。</strong></p>
+<p>mediad 和其他守护进程一样，以独立用户运行（tofd 访问I2C、padd访问输入、btd访问蓝牙）。VPU也需要同样配置：通过udev规则给设备节点分配用户组，并且在systemd单元配置<code>SupplementaryGroups=</code>。
+<code>scripts/setup-gstreamer.sh</code> 安装该规则（99-robot-mpp.rules，组video，权限0660），参考<code>setup-board.sh</code>里tof的i2c udev规则。</p>
+<p>选用<code>video</code>组而不是<code>robot</code>组：robot组用于我们自定义的IPC套接字（app-path-design.md，套接字权限+用户组分层）。内核设备节点不能随意重定义，<code>video</code>是发行版对这类硬件设备的标准用户组，开发者用gst-launch调试时，权限逻辑和mediad保持一致。</p>
+<h2 id="radxa软件源提供的包"><a class="header" href="#radxa软件源提供的包">Radxa软件源提供的包</a></h2>
+<p>Debian官方源不包含瑞芯微MPP。Radxa通过GitHub Pages提供apt软件源；本项目<strong>直接下载deb包</strong>，不把源加入sources.list。<code>microduck_runtime/radxa_setup/setup_rkaiq.sh</code>已经在板子上用该方式安装rkaiq_3A_server。
+基础地址：https://radxa-repo.github.io/bullseye/pool/main</p>
+<div class="table-wrapper"><table><thead><tr><th>包名</th><th>版本</th><th>用途</th></tr></thead><tbody>
+<tr><td>m/mpp/librockchip-mpp1</td><td>1.5.0-1</td><td>MPP用户态库</td></tr>
+<tr><td>m/mpp/librockchip-vpu0</td><td>1.5.0-1</td><td>rockchip-mpp-demos强依赖此版本</td></tr>
+<tr><td>m/mpp/rockchip-mpp-demos</td><td>1.5.0-1</td><td>mpi_enc_test，无需GStreamer即可验证VPU</td></tr>
+<tr><td>m/mpp/librockchip-mpp-dev</td><td>1.5.0-1</td><td>头文件，用于编译编码器插件</td></tr>
+<tr><td>libr/librga/librga2</td><td>2.2.0-1</td><td>瑞芯微2D硬件加速，rockchip插件依赖</td></tr>
+<tr><td>libr/librga/librga-dev</td><td>2.2.0-1</td><td>头文件，用于编译</td></tr>
+<tr><td>g/gstreamer1.0-rockchip/gstreamer1.0-rockchip1</td><td>1.14-4</td><td>MPP的GStreamer插件，下文详述</td></tr>
+</tbody></table>
+</div>
+<p>这些包是bullseye版本编译产物，但可以在trixie的glibc 2.41环境正常配置。</p>
+<p><code>dpkg -i</code>不会自动解决依赖，因为这些包不在apt源内。所有缺失依赖都需要手动补齐，不会自动修复，所以安装时必须一次性补齐全部依赖链，这个坑踩了三轮才摸清楚。</p>
+<h3 id="radxa预编译插件并非只有解码器本文之前的描述有误"><a class="header" href="#radxa预编译插件并非只有解码器本文之前的描述有误">Radxa预编译插件并非只有解码器（本文之前的描述有误）</a></h3>
+<p><code>gstreamer1.0-rockchip1_1.14-4</code> 在GStreamer1.26.2中可以正常安装注册，只显示 <code>mppvideodec</code>、<code>mppjpegdec</code>，看起来只有解码器，本文之前错误地认为它不含编码器。
+对so文件执行strings查看，里面包含<code>mpph264enc</code>、<code>mpph265enc</code>、<code>mppjpegenc</code>、<code>mppvp8enc</code>，编码器全部存在。</p>
+<p>根源就是前面的<strong>权限陷阱</strong>，由此产生4个误导性现象：</p>
+<div class="table-wrapper"><table><thead><tr><th>表面现象</th><th>真实原因</th></tr></thead><tbody>
+<tr><td>mpi_enc_test无输出，退出码0</td><td>设备节点无法打开；退出码0无参考意义</td></tr>
+<tr><td>Radxa的deb包只有解码器</td><td>插件内置全部编码器，只是未注册</td></tr>
+<tr><td>第三方1.14-8的deb同样看不到mpph264enc</td><td>同样是权限问题</td></tr>
+<tr><td>CI构建产物只列出两个解码器</td><td>容器环境不存在/dev/mpp_service，属于预期现象，不是编译失败</td></tr>
+</tbody></table>
+</div>
+<p>MPP插件会无条件注册解码器，注册编码器前会探测MPP设备。当 <code>/dev/mpp_service</code> 权限0600，属主root:root时，探测静默失败，插件内的编码器虽然存在，但不会对外注册。</p>
+<blockquote>
+<p>结论：插件只展示解码器，说明设备节点权限异常，不是插件本身缺少编码器。在udev规则生效前，<code>gst-inspect-1.0 mpph264enc</code> 的结果没有参考价值。</p>
+</blockquote>
+<p>本次安装验证了一点：基于GStreamer1.14编译的插件，在1.26.2中可正常注册。之前担心插件ABI不兼容而不敢源码编译，该风险实际不存在。</p>
+<h2 id="需要编译的组件"><a class="header" href="#需要编译的组件">需要编译的组件</a></h2>
+<p>一共两个插件，原因相互独立，二者不能互相替代。</p>
+<div class="table-wrapper"><table><thead><tr><th>插件</th><th>源码来源</th><th>提供元素</th><th>无法直接安装的原因</th></tr></thead><tbody>
+<tr><td>gstreamer-rockchip</td><td>JeffyCN/mirrors分支 gstreamer-rockchip，meson构建</td><td>mpph264enc硬件编码器</td><td>Debian官方没有瑞芯微编码器插件。Radxa预编译包虽然带编码器，但我们自行编译可以锁定版本、移除libx11-6依赖，并且和下面插件一起打包</td></tr>
+<tr><td>gst-plugin-webrtc</td><td>gst-plugins-rs 0.15.3版本，cargo-c构建</td><td>webrtcsink, webrtcsrc</td><td>Debian所有发行版都没有打包gst-plugins-rs</td></tr>
+</tbody></table>
+</div>
+<p>选用0.15.3而不是reachy_mini SDK文档写的0.14.5：0.14.5是最低底线，低于该版本，<code>webrtcsink</code> 在远端SDP和ICE处理存在死锁bug，现象是客户端一直卡在「connecting」。0.15.3只是更新版本。两个版本最低要求GStreamer v1.22，机器人运行1.26.2，升级无成本。</p>
+<p>系统已通过<code>gstreamer1.0-plugins-bad</code>安装<code>webrtcbin</code>。<strong>不编译第二个插件也可以跑WebRTC会话，但需要自己实现信令协议。</strong> 优先选用<code>webrtcsink</code>，因为它自带的信令协议可以由中继代理转发，实现信令服务器复用。</p>
+<h3 id="为什么不直接使用预编译包"><a class="header" href="#为什么不直接使用预编译包">为什么不直接使用预编译包</a></h3>
+<p>硬件、内核驱动、MPP用户态库无需编译就能工作：mpi_enc_test来自deb包，第一次运行就能完成720p H.264编码。缺失的只是GStreamer绑定层：插件把librockchip-mpp封装成流水线可用的GStreamer元素。mpi_enc_test是独立程序，GStreamer不知道它存在。类比ONNX Runtime：libonnxruntime.so从tar包解压即用，ort绑定层才让程序可以调用。</p>
+<p>预编译绑定包汇总：
+|来源|包含内容|
+| ---- | ---- |
+|Radxa bullseye软件池|gstreamer1.0-rockchip1_1.14-4，安装后仅能看到mppvideodec + mppjpegdec|
+|Radxa rk3588s2-bookworm软件池|同样1.14-4，二进制完全一致|
+|numbqq/gstreamer-rockchip-debs|1.14-8，包含全部编码器|</p>
+<p>第三方numbqq的deb包值得在源码编译前先测试。它bookworm/arm64/<board>目录是软链接指向jammy/arm64，实际是Ubuntu22.04编译，上游来自rockchip-linux/gstreamer-rockchip（现已404），维护者Jeffy Chen，和Radxa用的是同一个上游源码，该版本开启了编码器。so内包含mpph264enc、mpph265enc、mppjpegenc、mppvp8enc。</p>
+<p>它的DT_NEEDED依赖项，板子安装上述deb包后全部满足：librockchip_mpp.so.1, librga.so.2, libgstreamer-1.0.so.0, libgstvideo, libgstallocators, libgstpbutils, libdrm2, libglib2.0-0, libx11-6，libc6 &gt;=2.33，适配glibc2.41。
+插件本身不绑定RK3588，SoC差异由MPP库内部处理，插件只要求GStreamer &gt;=1.14。</p>
+<p>我们自己的插件放在独立仓库<code>microduck-gst-plugins</code>，刻意这样设计：</p>
+<ol>
+<li><strong>不在开发板上编译</strong>：RK3566编译Rust代码速度极慢，无法等待。</li>
+<li><strong>也不使用交叉编译</strong>：守护进程使用cargo-zigbuild交叉编译；<code>scripts/ci-cross-deps.sh</code>提到，仅有的C依赖是这个特例，新增C依赖需要慎重。GStreamer会是第二个巨大的依赖；x86多架构、带meson交叉文件的sysroot，链接的库都是目标平台近似版本，不是真实环境。</li>
+<li><strong>原生编译</strong>：arm64 CI runner，debian:trixie容器，和机器人用户态完全一致，无近似模拟。公共仓库arm64 runner免费。</li>
+<li><strong>公开构建产物</strong>：部署阶段、更新器预安装钩子会下载产物，执行环境干净，无访问令牌。和守护进程获取ONNX Runtime机制一致。</li>
+</ol>
+<p>构建脚本一次性编译两个插件，在<code>pins.env</code>锁定上游commit/tag；禁用<code>rkximage</code>和<code>kmssrc</code>（X11、KMS输出sink，无头机器人不需要，也是Radxa预编译包依赖libx11-6的原因）。发布tar包、sha256校验文件，附带MANIFEST清单记录每个插件对应的上游版本，这是第三方deb包无法提供的。</p>
+<p>该方案规避两个隐患（阅读源码发现，不是跑崩后才发现）：</p>
+<ol>
+<li><code>gst/rockchipmpp/meson.build</code>逻辑：如果找不到mpp依赖，直接<code>subdir_done()</code>跳过插件，meson返回编译成功，不会报错。缺少librockchip-mpp-dev会静默跳过插件。</li>
+<li>直接下载deb包时dpkg不会自动处理依赖，所以Radxa相关依赖包需要一次性批量安装。</li>
+</ol>
+<p><code>mediad.service</code>必须配置<code>GST_PLUGIN_PATH</code>。插件安装到<code>/usr/local/lib/gstreamer-1.0</code>，GStreamer默认不会扫描该目录；默认搜索路径是发行版的<code>/usr/lib/aarch64-linux-gnu/gstreamer-1.0</code>。刻意避开该目录，防止apt操作覆盖/删除插件。
+systemd单元需要增加两行：</p>
+<pre><code class="language-ini">Environment=GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0
+SupplementaryGroups=video
+</code></pre>
+<p>两行都极易遗忘，并且故障现象完全一致：编码器消失，无任何报错提示。</p>
+<p><code>scripts/setup-gstreamer.sh</code>使用锁定版本，永远不用latest。相隔一天两次部署得到不同插件版本，没有版本记录，会产生难以复现的媒体bug。版本锁定写在Cargo.toml的<code>[workspace.metadata.gst-plugins]</code>；脚本直接硬编码版本号（curl独立拉取），xtask单元测试校验版本一致性，和ONNX_VERSION的设计思路相同。</p>
+<p>测试第三方deb包不等于依赖它。这是个人维护的分发包，来源不可控，仓库删除就会失效。它的价值是低成本验证核心问题：插件能否兼容我们的MPP与GStreamer版本。验证通过后，自行基于同源码编译，降低风险，最终方案仍然是我们自己锁定版本的构建产物。</p>
+<p><strong>备选方案</strong>：完全不编译插件，mediad通过Rust FFI直接调用MPP C API（mpi_enc_test证明可行）。代价是手写、手动维护厂商库绑定代码，取舍上不如GStreamer插件。但如果插件和GStreamer1.26冲突，该方案是可行退路，不是死路。</p>
+<h3 id="上游源码说明"><a class="header" href="#上游源码说明">上游源码说明</a></h3>
+<p><code>rockchip-linux/gstreamer-rockchip</code>仓库已失效（404）。<code>JeffyCN/mirrors@gstreamer-rockchip</code>是可用镜像，最后提交2026-05-21；<code>gst/rockchipmpp</code>目录包含<code>gstmpph264enc.c</code>、<code>gstmpph265enc.c</code>、<code>gstmppjpegenc.c</code>、<code>gstmppvp8enc.c</code>。存在大量fork分支；无论选用哪个fork和tag，都必须锁定并记录版本，理由和gst-plugin-webrtc最低版本锁定（≥0.14.5）一致。</p>
+<h3 id="gst-plugin-webrtc版本锁定"><a class="header" href="#gst-plugin-webrtc版本锁定">gst-plugin-webrtc版本锁定</a></h3>
+<p><strong>0.14.5及以上，不要用0.14.4</strong>。更早版本的<code>webrtcsink</code>存在远端SDP和ICE处理死锁bug，现象是客户端无限卡在「connecting」。reachy_mini SDK安装文档记录了该问题；reachy-mini-desktop-app内置0.14.4，因此存在该缺陷。</p>
+<p>Pollen项目已经为x86_64构建该插件：cargo cinstall原生编译、strip精简、按架构提交；CI锁定commit+sha256使用。在同一仓库新增aarch64版本，工作量可能小于新建一套流水线。</p>
+<h3 id="编译好的插件放在哪里"><a class="header" href="#编译好的插件放在哪里">编译好的插件放在哪里</a></h3>
+<p>放到守护进程发布包内，<code>GST_PLUGIN_PATH</code>指向当前版本目录。<strong>不要放入apt包，也不要放到每台机器的/opt</strong>。</p>
+<p>插件版本和mediad代码强耦合：上面0.14.5的例子说明，插件版本直接决定守护进程是否需要打补丁。版本不一致属于mediad的bug，需要跟随mediad生命周期：原子替换、回滚、健康检测。
+<code>librockchip-mpp</code>则相反：属于和内核配对的系统库，所有访问VPU的程序都依赖，应当交给包管理器管理。</p>
+<h2 id="实测项--未实测项"><a class="header" href="#实测项--未实测项">实测项 &amp; 未实测项</a></h2>
+<p>板上实测内容：
+GStreamer1.26.2及其来源；webrtcbin存在；webrtcsink/webrtcsrc缺失；v4l2h264enc缺失，无/dev/video*；<code>/dev/mpp_service</code>权限0600 root:root；非root执行mpi_enc_test无输出，root执行生成428KB码流；码流可以正常High 4.0解码；Radxa deb包依赖链；rockchip插件加载成功，仅加载两个解码器元素。</p>
+<p>编码链路硬件端到端调通，验证步骤：</p>
+<ol>
+<li>从公开发布包下载v1版本，sha256校验，安装到<code>/usr/local/lib/gstreamer-1.0</code></li>
+<li><code>gst-inspect-1.0 mpph264enc</code>显示来源：<code>/usr/local/lib/gstreamer-1.0/libgstrockchipmpp.so</code>（我们编译的版本。提前删除第三方deb包，保证结果归属正确）</li>
+<li>编码测试：<code>videotestsrc ! mpph264enc profile=baseline header-mode=each-idr bps=2000000 ! h264parse ! filesink</code>。720p 60帧耗时0.44s（包含视频源生成、流水线初始化），输出476KB，性能远超实时。输出码流avdec_h264可正常解码。</li>
+<li>非root可用：udev规则设置<code>/dev/mpp_service</code>权限660 root:video，用户加入video组后，普通用户可执行gst-inspect。mediad就是以该用户运行，此前所有测试都用sudo。</li>
+</ol>
+<p>完整媒体链路硬件调通：从传感器到WebRTC协商码流</p>
+<div class="table-wrapper"><table><thead><tr><th>步骤</th><th>证据</th></tr></thead><tbody>
+<tr><td>叠加层加载</td><td>csi2-dphy0探测成功，rkisp启动，生成10个/dev/videoN设备</td></tr>
+<tr><td>传感器识别</td><td>imx219 2-0010：Model ID 0x0219，Lot ID 0x5a8e73，Chip ID 0x0773</td></tr>
+<tr><td>采集节点</td><td>/dev/video0，card名称rkisp_mainpath，支持最高3280×2464</td></tr>
+<tr><td>帧数据</td><td>720p NV12，--stream-count=10帧总字节13,824,000，数值精确</td></tr>
+<tr><td>硬件编码</td><td>v4l2-ctl … --stream-to=-输出原始帧送入 fdsrc ! rawvideoparse ! mpph264enc</td></tr>
+<tr><td>码流</td><td>正常解码；h264parse识别为1280×720 constrained-baseline</td></tr>
+</tbody></table>
+</div>
+<p>设备节点编号每次开机不固定，因此采集节点通过匹配<code>/sys/class/video4linux/*/name</code>下的rkisp_mainpath卡名查找，camera.rs:219就是该逻辑。</p>
+<h3 id="三个设备节点都需要video用户组不止一个"><a class="header" href="#三个设备节点都需要video用户组不止一个">三个设备节点都需要video用户组，不止一个</a></h3>
+<p>前后三轮调试，每轮报错现象都指向不同问题：</p>
+<div class="table-wrapper"><table><thead><tr><th>设备节点</th><th>仅root访问时的现象</th></tr></thead><tbody>
+<tr><td>/dev/mpp_service</td><td>mpi_enc_test无输出，退出码0；mpph264enc完全不注册</td></tr>
+<tr><td>/dev/rga</td><td>元素存在，流水线启动，之后报错<code>Try to use uninit rgaCtx=(nil)</code>，大量rga blit调用失败</td></tr>
+<tr><td>/dev/video0</td><td>默认已经root:video，不会踩坑</td></tr>
+</tbody></table>
+</div>
+<p><code>setup-gstreamer.sh</code>安装一条udev规则覆盖前两个节点。mediad.service配置<code>SupplementaryGroups=video</code>，配合<code>Environment=GST_PLUGIN_PATH</code>。就这两行配置，决定流水线能否正常工作，故障现象有4种不同迷惑性报错。</p>
+<h2 id="旋转操作导致帧率损失22fps"><a class="header" href="#旋转操作导致帧率损失22fps">旋转操作导致帧率损失22fps</a></h2>
+<p>相机安装旋转90度。直观方案：tee之前加videoflip，让所有接收端直接拿到正向画面。在机器人上实测，该方案是错误选择：</p>
+<div class="table-wrapper"><table><thead><tr><th>RGA故障数</th><th>v4l2src丢帧</th><th>帧率</th><th>SoC温度</th></tr></thead><tbody>
+<tr><td>不加翻转</td><td>0</td><td>0</td><td>~30</td></tr>
+<tr><td>加videoflip翻转</td><td>单次会话5522次</td><td>1565</td><td>7–8</td></tr>
+</tbody></table>
+</div>
+<p>mpph264enc会把UYVY→NV12转换交给芯片2D硬件引擎，无CPU开销。而videoflip输出的buffer，RGA硬件不支持：报错<code>10000 unsupport format</code>、<code>RGA_BLIT fail: Bad address</code>。MPP只能切为软件逐帧转换，CPU满载，芯片触发热限频，降到408MHz，相机丢帧。<strong>旋转本身开销只是次要问题，软件转换才是性能杀手。</strong></p>
+<p>因此流水线内<strong>不做图像旋转</strong>。上报相机安装姿态（media.video，每个控制通道上报一次），由显示端做旋转：控制台用CSS transform（零开销），感知算法在重采样阶段完成旋转。<code>--flip-in-pipeline</code>参数可以恢复旧行为，留给有能力承受性能损失、无法自行旋转画面的消费端。</p>
+<p>如果后续确实需要流水线输出正向画面，正确方案：在插件中增加RGA元素，由2D硬件引擎完成旋转，编码器可以零成本使用。</p>
+<h2 id="3a引擎必须在码流启动前就绪"><a class="header" href="#3a引擎必须在码流启动前就绪">3A引擎必须在码流启动前就绪</a></h2>
+<p><code>rkaiq_3A_server</code>挂载到ISP，等待流启动事件；如果流已经启动，会错过事件。mediad正在推流时重启rkaiq，进程会一直卡在：
+<code>DBG: /dev/media0: wait stream start event...</code>
+不再运行统计循环，自动曝光、白平衡失效，画面发绿。重启能“修复”只是巧合：重启刚好让两个服务启动顺序正确。</p>
+<p>这会造成无明显诱因的回归bug：robotctl更新应用时，会在推流运行中重启3A引擎。预安装钩子执行setup-rkaiq.sh，脚本重启rkaiq_3A，脚本提示“重启相机流才能生效”，但没有强制机制，没人手动执行。</p>
+<p>现在脚本安装的systemd配置增加约束：</p>
+<pre><code class="language-ini">ExecStartPost=-/bin/systemctl --no-block try-restart mediad.service
+</code></pre>
+<p>每次3A引擎启动，都会重启mediad推流，让3A等待的流事件重新产生。<code>try-restart</code>保证mediad未运行时不会启动；<code>--no-block</code>防止systemd单元互相等待造成死锁。</p>
+<p>手动恢复板子的操作顺序至关重要：</p>
+<pre><code class="language-bash">sudo systemctl stop mediad &amp;&amp; sudo systemctl restart rkaiq_3A &amp;&amp; sleep 2 &amp;&amp; sudo systemctl start mediad
+</code></pre>
+<h3 id="rkaiq自动曝光仅在捕获流启动时触发一次"><a class="header" href="#rkaiq自动曝光仅在捕获流启动时触发一次">rkaiq自动曝光仅在捕获流启动时触发一次</a></h3>
+<p><code>scripts/setup-rkaiq.sh</code>最初默认开启rkaiq的AE：原型机关闭AE，是为了防止3A引擎和自研曝光控制冲突；mediad没有接管曝光，所以交给3A引擎。引擎<strong>可以写入传感器参数，但不会持续跟踪调整</strong>。</p>
+<p>机器人开机顺序正确的实测记录（rkaiq_3A 17:24:01启动，mediad 17:24:11，17:24:17成功捕获流启动事件）：</p>
+<div class="table-wrapper"><table><thead><tr><th>项目</th><th>数值</th></tr></thead><tbody>
+<tr><td>mediad在17:24:17写入</td><td>exposure=600 analogue_gain=1024</td></tr>
+<tr><td>数分钟后读取/dev/v4l-subdev3</td><td>exposure:1589 analogue_gain:1536</td></tr>
+<tr><td>手动写入exposure=300 analogue_gain=256，观察25秒</td><td>300 / 256，保持不变</td></tr>
+</tbody></table>
+</div>
+<p>引擎只在流启动收敛一次曝光值，之后不再响应画面变化：画面变暗4倍，曝光完全不调整。仅启动时一次收敛，<strong>不是真正自动曝光</strong>；机器人从窗边走到走廊，曝光仍然保留窗边参数。</p>
+<p>如果开机3A错过流启动事件，连这一次收敛都不会执行。最早的测试误判现象：传感器参数固定600/1024，手动修改参数也保持不变，以为AE完全失效；实际是3A从未收到流事件。只读取传感器参数，无法区分这两种状态，所以两个修复必须配套：调整服务启动顺序，才能观察到差异。</p>
+<p><code>mediad::exposure</code>闭环控制逻辑，移植自原型ae_loop：每秒两次从tee原始分支读取平均亮度，目标亮度90；阻尼乘法调节，按噪声优先级依次控制：快门到600行（≈11ms，足够防止行走机器人运动模糊）→模拟增益最高11倍→快门到1200行→ISP数字增益。
+快门存在硬上限：驱动不会截断长曝光，而是直接拉长帧时长；3500行会静默降到15fps。</p>
+<p>相比原型，两点改进：</p>
+<ol>
+<li>亮度采样复用已经分流给目标检测的帧，不需要JPEG解码，也不会二次打开相机。原型最初版本并行v4l2-ctl采样ISP通路，驱动层和采集抢占资源，流水线偶发崩溃。</li>
+<li>写入参数后回读校验：避免各种失败场景（节点无该控制项、权限拒绝、缺少v4l2-ctl）导致相机卡死在固定曝光，和要修复的bug现象一模一样。</li>
+</ol>
+<p><code>setup-rkaiq.sh</code>现在强制设置<code>CommCtrl.Enable = 0</code>。不是因为3A引擎AE完全无效，而是它仅在流启动时刻生效，刚好和mediad曝光环路初始收敛撞在一起，<strong>两个写者争抢同一个控制参数</strong>。</p>
+<p>v4l2-ctl的坑：只要一个控制名称未知，整条<code>--set-ctrl</code>/<code>--get-ctrl</code>直接失败。<code>--get-ctrl=exposure,analogue_gain,digital_gain</code>会提示<code>unknown control 'digital_gain'</code>，并且不返回曝光值，让人误以为节点没有曝光控制。mediad分开两次调用，分别写入传感器曝光增益和ISP数字增益。</p>
+<h2 id="两项尚未完成的工作"><a class="header" href="#两项尚未完成的工作">两项尚未完成的工作</a></h2>
+<p>码率实测值约为目标的1/50。3.3秒采集，bps=2000000配置下，总字节15553，码率约37kbps。两种可能性：</p>
+<ol>
+<li>画面静止，CBR码率自动压缩（可能性较高；ISP初始默认参数，在运行setup-rkaiq.sh前图像偏绿噪声大）</li>
+<li>采集帧率远低于30fps，尚未统计帧数。如果是该原因，怀疑传感器模式：IMX219上电默认3280×2464，原型机每次采集前用media-ctl锁定分辨率（camera.rs:277）。</li>
+</ol>
+<p><code>rawvideoparse blocksize=1382400</code>只是调试临时方案，不是正式设计。它依赖v4l2-ctl输出紧密打包NV12，尺寸是人工计算。一旦切换分辨率出现行填充stride padding，该参数就会静默出错；camera.rs中已经标注该风险。mediad自行实现V4L2 mmap循环送入appsrc，直接从驱动读取真实行宽，不再硬编码假设。</p>
+<h2 id="流水线需要确定的两个方案"><a class="header" href="#流水线需要确定的两个方案">流水线需要确定的两个方案</a></h2>
+<p>采集<strong>不能使用v4l2src</strong>。rkisp驱动给v4l2src分配双buffer池，buffer重入队列太慢，每3帧丢1帧；30fps传感器只能跑出~20fps，日志提示lost frames detected。<code>v4l2-ctl --stream-mmap</code>可以维持满帧率。microduck_runtime使用该方案，原始帧通过管道送入fdsrc流水线（camera.rs:487）。mediad二选一：沿用子进程调用v4l2-ctl，或者自己实现V4L2 mmap循环喂给appsrc。</p>
+<p>mpph264enc四个属性需要流水线主动配置，不能直接继承默认值：</p>
+<div class="table-wrapper"><table><thead><tr><th>属性</th><th>默认值</th><th>mediad应设置值</th><th>说明</th></tr></thead><tbody>
+<tr><td>profile</td><td>high</td><td>baseline</td><td>WebRTC最低兼容等级是Constrained Baseline（profile-level-id 42e01f）。现代浏览器支持High，老客户端不支持。设为baseline后，h264parse识别为constrained-baseline，实测验证。枚举项仅写baseline，但实际满足约束基线要求</td></tr>
+<tr><td>header-mode</td><td>first-frame</td><td>each-idr</td><td>仅首帧带SPS/PPS：晚加入的客户端或者丢包后无法解码。Reachy mini Pi流水线在v4l2h264enc使用repeat_sequence_header=1实现同样需求，参数名不同</td></tr>
+<tr><td>rotation</td><td>0</td><td>alpha阶段设180</td><td>IMX219倒装。microduck_runtime用videoflip rotate-180，CPU逐帧处理，占用robotd共享SoC资源。编码器硬件旋转零开销</td></tr>
+<tr><td>bps</td><td>0自动</td><td>显式目标码率</td><td>rc-mode默认CBR，适合有损链路；码率不能交给自动计算</td></tr>
+</tbody></table>
+</div>
+<p>无需决策的两点：</p>
+<ol>
+<li>没有B帧开关，天然满足§5.5「无B帧」要求，无需配置。</li>
+<li>sink pad接受NV12，正好是rkisp采集输出格式，采集到编码之间不需要videoconvert，也不需要RGA色彩转换。</li>
+</ol>
+<p>关键帧策略：使用<code>min-force-key-unit-interval</code>，而不是固定GOP周期。WebRTC由对端PLI请求触发关键帧；GOP默认每秒生成IDR，不管接收端是否需要。</p>
+<h3 id="约束标识值得仔细阅读pad模板问题造成一次排坑"><a class="header" href="#约束标识值得仔细阅读pad模板问题造成一次排坑">约束标识值得仔细阅读，pad模板问题造成一次排坑</a></h3>
+<p>本文之前计划需要验证：profile枚举是baseline(66)，WebRTC协商Constrained Baseline；Baseline流只要不使用FMO、ASO、冗余切片，就符合Constrained Baseline解码器预期。</p>
+<p>板上实测命令：</p>
+<pre><code class="language-bash">gst-launch-1.0 -v videotestsrc num-buffers=60 ! video/x-raw,format=NV12,width=1280,height=720,framerate=30/1 ! mpph264enc profile=baseline ! h264parse ! fakesink
+</code></pre>
+<p>h264parse在src pad协商得到<code>profile=(string)constrained-baseline</code>。所以码流正确：profile=baseline关闭CABAC和8x8变换，MPP不输出FMO/ASO/冗余切片，SPS的profile_idc=66并且constraint_set1_flag置位。</p>
+<p>问题根源是pad模板，花费一天排查。mpph264enc的src模板只列出<code>profile = { baseline, main, high }</code>，缺少<code>constrained-baseline</code>，而WebRTC恰恰需要这个profile。
+只有编码器放在webrtcsink内部时该问题才暴露，之前单独测试编码器没有触发：</p>
+<ol>
+<li>webrtcsink的codec探测构建编码链，不带输出caps，force_profile=true，插入capsfilter强制要求profile=constrained-baseline。</li>
+<li>h264parse在caps查询时，剥离alignment、stream-format、parsed，但保留profile；约束传递到编码器src pad。</li>
+<li>模板无交集，GstVideoEncoder sink getcaps返回空，报错向上传递四层，videorate提示<code>could not transform NV12 … in anything we support</code>。</li>
+<li>探测放弃H.264，协商VP8，会话在rtpvp8pay阶段中断。<strong>所有日志都不提示profile不匹配。</strong></li>
+</ol>
+<p>两条经验：插件仓库打了一行补丁扩充模板，发布v3版本；mediad必须把GStreamer日志、流水线总线事件接入系统journal，否则媒体故障全部静默，包括协商中途断开。</p>
+<h2 id="不再采用预编码方案"><a class="header" href="#不再采用预编码方案">不再采用预编码方案</a></h2>
+<p>本文旧版本说明：webrtcsink sink pad支持预编码H.264，<code>appsrc ! mpph264enc ! h264parse ! webrtcsink</code>可以让编码器脱离WebRTC协商。该方案确实能跑，但有两个难以补救的缺陷：
+webrtcsink无法管理不属于自己的编码器，拥塞控制不能根据链路动态调整码率；对端PLI请求无法生成关键帧，丢帧后画面卡死，只能等到下一个周期性GOP。</p>
+<p>因此mediad送入原始NV12，交给webrtcsink内部构建编码链路，通过<code>encoder-setup</code>信号配置编码器参数，使用上表参数。代价是编码器参与编解码协商，也正是这个机制，发现了上面pad模板缺陷。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/project/install-path-gap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/project/npu-bringup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/project/install-path-gap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/project/npu-bringup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
