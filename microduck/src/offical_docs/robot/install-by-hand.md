@@ -110,6 +110,4 @@ robotctl version
 sudo robotctl pad pair
 ```
 
-如果你需要，我可以把这段手动步骤提取成**纯命令清单**（删除所有说明文字，只保留代码块），方便直接复制执行。
-
 

@@ -166,6 +166,7 @@ rm -rf ~/.cache/duck-cross/aarch64
 grep -c 'DEV BOARD' /var/lib/robot/provision.log
 ```
 返回0代表缺失开发板密钥，`install-dev.md`文档有完整修复方案。
+
 8. **could not reach <name> over Bluetooth**
 机器人需要开启广播且在蓝牙范围内，才能通过名称解析地址。
 ```bash
