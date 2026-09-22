@@ -34,6 +34,9 @@ jobs:
       - name: Build maple_esp32 mdbook
         run: cd maple_esp32 && mdbook build
 
+      - name: Build microduck mdbook
+        run: cd microduck && mdbook build
+
       - name: 复制文件index.html到docs目录
         run: |
           cp index.html docs/index.html

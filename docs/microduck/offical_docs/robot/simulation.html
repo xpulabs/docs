@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>simulation.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="仿真小鸭simulated-duck"><a class="header" href="#仿真小鸭simulated-duck">仿真小鸭（Simulated duck）</a></h1>
+<p>在MuJoCo中运行的小鸭模型，由真实后台守护进程驱动。你可以像调试实体机器人一样对它进行开发：使用完全相同的<code>robotd</code>、策略模型、50Hz控制循环、<code>robotctl</code>工具与控制台界面，<strong>只有物理本体是虚拟的</strong>。</p>
+<p>本文档介绍使用方法。<code>design/simulation.md</code>会说明仿真模型的边界、它与实体机器人的异同，以及该仿真系统的设计思路。</p>
+<h2 id="仿真系统是什么"><a class="header" href="#仿真系统是什么">仿真系统是什么</a></h2>
+<p>执行<code>robotd --sim host:port</code>启动守护进程，使用<code>duck_control::sim::RemoteIo</code>替代伺服总线：每一个控制周期，关节位置、速度、IMU数据通过TCP套接字从MuJoCo仿真进程传入；策略输出的目标控制指令则反向发回仿真器。
+在这个接口之上的全部代码——控制循环、策略、安全逻辑、跌倒检测、运动学、里程计，整套IPC通信接口，<strong>和实体机器人运行的代码完全一致，无法区分是真机还是仿真</strong>。
+<code>tofd --sim</code>从同一仿真器获取8×8深度相机帧；<code>mediad --sim-camera</code>读取渲染出来的头部相机图像，相机安装角度和实体机器人一样，偏转90°。
+<code>configd</code>与<code>updaterd</code>也原样运行，这使得仿真小鸭拥有序列号、设备名称，还可以绑定Hugging Face账号，不在同一局域网的设备也能访问它。</p>
+<p>MuJoCo仿真部分在<code>microduck_rl</code>仓库内，程序名为<code>duck-body</code>：单个进程、一个可视化窗口，同一个场景中可以加载N个小鸭模型，使用策略训练时对应的BAM执行器模型。</p>
+<p>✅ 适用场景：所有守护进程及其客户端相关功能，包括IPC通信、<code>robotctl</code>、控制台、更新服务、设备广播（chorale）、站立/行走策略、建图。
+❌ 无法验证：底层驱动相关问题。Dynamixel伺服总线、BLE蓝牙、相机ISP、NPU、硬件编码器<strong>没有建模</strong>；这类硬件相关bug只能在实体机器人上复现。</p>
+<h2 id="环境依赖"><a class="header" href="#环境依赖">环境依赖</a></h2>
+<ol>
+<li>本代码仓库，在本机编译（<code>cargo build</code>自动执行）。</li>
+<li>拉取<code>microduck_rl</code>并配置虚拟环境，可以放在本仓库同级目录，或<code>DUCK_SIM_RL</code>环境变量指定的路径。该仓库提供<code>duck-body</code>、仿真场景，以及笔记本电脑缺少的<code>libonnxruntime</code>。相机相关功能在其<code>develop</code>分支。</li>
+<li>非Linux系统，需要启用相机功能：执行<code>brew install gstreamer libnice-gstreamer</code>
+<ul>
+<li>gstreamer：集成<code>webrtcsink</code>、srtp与x264编码。</li>
+<li>libnice-gstreamer：<code>webrtcbin</code>所需的ICE代理。gstreamer本身不依赖它；缺少该库时小鸭可正常启动，但视频流无法对外传输，浏览器请求视频时才会报错。<code>scripts/duck-sim</code>脚本会自动检测这两个依赖。</li>
+</ul>
+</li>
+<li>仅容器模式需要：sudo、<code>systemd-nspawn</code>（包名<code>systemd-container</code>）和<code>mmdebstrap</code>。脚本会提示缺失的组件，并给出对应的安装命令。</li>
+</ol>
+<h2 id="up-模式-还是-boot-模式"><a class="header" href="#up-模式-还是-boot-模式">up 模式 还是 boot 模式？</a></h2>
+<p>两种模式都使用同一个<code>robotd</code>驱动MuJoCo模型，区别在于守护进程的运行环境。</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>scripts/duck-sim（up模式）</th><th>scripts/duck-sim boot N（boot容器模式）</th></tr></thead><tbody>
+<tr><td>守护进程运行方式</td><td>普通进程，以当前用户身份运行，每个进程生成pid文件</td><td>每个小鸭独立<code>systemd-nspawn</code>容器，由真实systemd单元文件启动systemd服务</td></tr>
+<tr><td>依赖</td><td>仅需要本仓库与microduck_rl</td><td>sudo权限；一次性构建Debian根文件系统</td></tr>
+<tr><td>启动耗时</td><td>数秒</td><td>首次启动约1分钟，后续仅需数秒</td></tr>
+<tr><td>设备身份</td><td>复用笔记本身份；多个小鸭属于同一个进程树</td><td>每个小鸭独立machine-id、语音、套接字；容器间通过<code>duck-ether</code>通信</td></tr>
+<tr><td>可验证内容</td><td>控制循环、策略、IPC、robotctl、控制台</td><td>包含up模式全部能力，额外验证：<code>User=</code>/用户组/<code>RuntimeDirectory=</code>/安全加固、更新器应用、健康检查门限、回滚与服务启动顺序、journalctl日志</td></tr>
+</tbody></table>
+</div>
+<p>经验法则：
+开发控制循环、策略、IPC通信或客户端工具，使用<code>up</code>。
+需要测试systemd配置、更新器、设备部署，或者多只小鸭互相通信时，使用<code>boot</code>。
+该仿真器曾经捕获两类bug：守护进程配置的运行用户不存在，导致systemd单元无法启动。这类问题<code>up</code>模式完全无法暴露。</p>
+<h2 id="单只小鸭无容器"><a class="header" href="#单只小鸭无容器">单只小鸭（无容器）</a></h2>
+<pre><code class="language-bash">scripts/duck-sim                # 弹出MuJoCo窗口，小鸭起立，可进行操控
+scripts/duck-sim status         # 查看健康状态，是否处于站立
+scripts/duck-sim drive          # 向前行走8秒（参数vx vyaw，默认0.15 0）
+scripts/duck-sim ctl health     # 调用robotctl操作该仿真小鸭
+scripts/duck-sim monitor        # robotctl monitor：关节、IMU、ToF深度、手柄
+scripts/duck-sim log            # robotd日志
+scripts/duck-sim simlog         # MuJoCo仿真端日志
+scripts/duck-sim realtime       # 查看仿真世界运行倍速（下文说明）
+scripts/duck-sim down
+</code></pre>
+<p>不带参数执行脚本：会基于当前分支编译守护进程，生成参数文件，加载仓库内策略，在<code>~/.cache/duck-sim</code>下启动<code>duck-body</code>、<code>tofd --sim</code>、<code>robotd --sim</code>，并启用站立策略。
+<code>ctl</code>本质是指向该小鸭套接字的<code>robotctl</code>，这是和实体机器人唯一差别：实体板卡套接字在<code>/run</code>目录，仿真环境套接字放在状态目录。</p>
+<p>自研工具连接仿真小鸭的套接字路径：
+<code>~/.cache/duck-sim/duck-a.sock</code>（robotd；<code>duck.sock</code>是软链接，指向ctl当前操作的小鸭）
+<code>~/.cache/duck-sim/duck-a-tof.sock</code>
+模型本体TCP端口：7801</p>
+<h2 id="多只小鸭每只作为独立可登录设备"><a class="header" href="#多只小鸭每只作为独立可登录设备">多只小鸭，每只作为独立可登录设备</a></h2>
+<pre><code class="language-bash">scripts/duck-sim boot 4         # 同一仿真世界内4只小鸭，各自独立容器（需要sudo）
+scripts/duck-sim shell          # 进入 duck-a 容器
+scripts/duck-sim shell duck-c   # 进入其他小鸭容器
+# 在容器内执行
+robotctl health
+journalctl -u robotd -f
+scripts/duck-sim down
+</code></pre>
+<p><code>boot</code>模式在<code>systemd-nspawn</code>容器中，使用真实systemd运行每个小鸭的守护进程；基于Debian13根文件系统启动（一次性构建，约3分钟，保存在状态目录，每只小鸭使用独立overlay文件系统）。
+可以模拟普通模式无法复现的场景：真实单元文件的<code>User=</code>、用户组、<code>RuntimeDirectory=</code>与安全加固，在真实init系统下运行。<code>robotctl update apply</code>、健康门限、服务回滚与启动顺序表现和实体机器人完全一致。
+小鸭命名为<code>duck-a</code>、<code>duck-b</code>……每只拥有独立machine-id与语音标识。</p>
+<p>多小鸭场景下脚本额外启动<code>duck-ether</code>：虚拟无线模块，在容器之间传递chorale广播BLE信标。该虚拟无线<strong>故意模拟较差信道</strong>：信标丢包、延迟。完美无损耗的虚拟链路会掩盖真实硬件上会出现的bug。</p>
+<p>首次执行<code>boot</code>会构建根文件系统，可能提示安装<code>mmdebstrap</code>。每只小鸭对应一个systemd单元，<code>down</code>本质是<code>systemctl stop</code>，不能用快捷键终止。</p>
+<h2 id="仿真场景与相机"><a class="header" href="#仿真场景与相机">仿真场景与相机</a></h2>
+<pre><code class="language-bash">DUCK_SIM_SCENE=apartment DUCK_SIM_CAMERAS=a scripts/duck-sim boot 2
+</code></pre>
+<p>默认场景为空旷地板。<code>apartment</code>是7×6米，包含6个房间，门口故意偏心设计，从小鸭45°前向相机视角可以识别自身位姿。带斜杠的路径代表自定义场景；<code>microduck_rl</code>中<code>scene_*.xml</code>是内置场景文件。</p>
+<p>相机需要手动开启（可选：<code>a</code>、<code>a,c</code>、<code>all</code>）。渲染一帧图像耗时12ms，而4只小鸭的物理步进仅需0.3ms：1个相机占用约1/3核心，4个相机几乎占满一个CPU核心。
+开启相机的小鸭会启动独立<code>mediad</code>，控制台网页按索引监听<code>http://127.0.0.1:8080</code>、<code>8081</code>……，页面内容和实体机器人完全相同。</p>
+<h2 id="公网远程访问仿真小鸭"><a class="header" href="#公网远程访问仿真小鸭">公网远程访问仿真小鸭</a></h2>
+<p>仿真小鸭可以登录Hugging Face账号，在账号机器人列表中展示，和实体机器人行为一致。控制台、App或Hugging Face Space可以通过WebRTC跨网络访问。</p>
+<pre><code class="language-bash">DUCK_SIM_CAMERAS=a scripts/duck-sim
+scripts/duck-sim ctl account login
+</code></pre>
+<p>打开 <code>hf.co/oauth/device</code>，输入终端打印的验证码，几秒后小鸭就会出现在设备列表。</p>
+<pre><code class="language-bash">scripts/duck-sim ctl account status # 查看绑定账号
+scripts/duck-sim ctl system info    # 打印序列号与MuJoCo模型信息
+</code></pre>
+<p>列表中会标记<code>simulated</code>仿真标识，名称基于序列号生成（如<code>duck-eb55</code>），区分实体机器人。其余能力完全一致：同样控制链路、H.264编码、策略。</p>
+<p>基于token的对等发现机制，两条规则：</p>
+<ol>
+<li>一个账号同一时间只能在线一只小鸭。同一账号再次登录会顶替前一个，不会报错，二者轮流在线；多只仿真小鸭需要多个Hugging Face账号。</li>
+<li>访问该小鸭的Space应用需要<strong>自身token</strong>，不是小鸭的token；公开发布的Space使用访客登录凭证。</li>
+</ol>
+<pre><code class="language-bash">scripts/duck-sim ctl account logout # 从列表下线
+</code></pre>
+<h2 id="环境变量全部可选"><a class="header" href="#环境变量全部可选">环境变量（全部可选）</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>环境变量</th><th>默认值</th><th>说明</th></tr></thead><tbody>
+<tr><td>DUCK_SIM_RL</td><td>~/Pollen/microduck_rl</td><td>duck-body、场景文件、ONNX运行库所在目录</td></tr>
+<tr><td>DUCK_SIM_STATE</td><td>~/.cache/duck-sim</td><td>套接字、日志、参数、根文件系统、小鸭overlay存储目录。路径刻意缩短，Unix套接字路径上限约108字节</td></tr>
+<tr><td>DUCK_SIM_DUCKS</td><td>1</td><td>小鸭数量；boot N也会覆盖此值</td></tr>
+<tr><td>DUCK_SIM_SCENE</td><td>bare floor</td><td>场景名（apartment）或者场景文件路径</td></tr>
+<tr><td>DUCK_SIM_CAMERAS</td><td>none</td><td>开启相机的小鸭：a、a,c、all</td></tr>
+<tr><td>DUCK_SIM_DUCK</td><td>duck-a</td><td>ctl/monitor默认操作的小鸭</td></tr>
+<tr><td>DUCK_SIM_KEYFRAME</td><td>SIT</td><td>小鸭初始姿态：SIT蹲坐地面（站立策略从此姿态起立）、HOME、STAND站立、FOLD收拢</td></tr>
+<tr><td>DUCK_SIM_VIEWER</td><td>1</td><td>0 = MuJoCo无头后台运行，不弹出可视化窗口</td></tr>
+<tr><td>DUCK_SIM_PORT</td><td>7801</td><td>第一只小鸭模型端口；每增加一只+1</td></tr>
+<tr><td>DUCK_SIM_FRAME_PORT</td><td>7901</td><td>第一路相机画面端口；每增加一路相机+1</td></tr>
+</tbody></table>
+</div>
+<h2 id="重要注意事项"><a class="header" href="#重要注意事项">重要注意事项</a></h2>
+<ol>
+<li>
+<p><strong>实时倍速很关键</strong>。守护进程循环基于墙上时钟。仿真运行速度低于1.0倍实时，不只是观看卡顿：策略预期机器人的运动幅度和实际仿真不一致，平衡控制失效。
+<code>scripts/duck-sim realtime</code>输出倍速，boot模式启动时也会打印。小鸭数量过多、相机过多不会单纯变慢，会在45Hz健康门限判定为不健康；容器模式下更新器会触发版本回滚。
+优化方案优先级：减少小鸭数量 → 减少相机 → 无头模式运行。</p>
+</li>
+<li>
+<p>小鸭<strong>不支持热添加</strong>。MuJoCo会预编译模型，修改小鸭数量必须重启仿真器。守护进程可以自动恢复：<code>RemoteIo</code>在下一个周期重连；模型短暂消失时，小鸭上报不健康，进程不会崩溃，和实体机器人伺服总线断电现象一致。</p>
+</li>
+<li>
+<p><code>--sim</code> ≠ <code>--fake</code>
+<code>robotd --fake</code>是极简虚拟机器人：无物理仿真，位置直接回传，不会倾倒。仅用于单元测试、不需要物理本体的笔记本端开发。
+<code>--sim</code>是带物理仿真的孪生模型，两个参数互斥，不可同时使用。</p>
+</li>
+<li>
+<p>仿真小鸭不能认为自己是笔记本主机。小鸭语音与chorale广播标识由硬件序列号生成；同一台机器多只小鸭会共用序列号。脚本会为每只小鸭设置独立<code>DUCK_IDENTITY</code>来区分；实体机器人不会设置这个变量。</p>
+</li>
+</ol>
+<h2 id="不使用脚本手动分步启动"><a class="header" href="#不使用脚本手动分步启动">不使用脚本，手动分步启动</a></h2>
+<p>两端都支持指定<code>host:port</code>独立运行，排错时很有用：</p>
+<pre><code class="language-bash"># 仿真本体，在RL仓库虚拟环境中执行
+duck-body --ducks 1 --port 7801 --keyframe SIT
+
+# 守护进程，在本仓库执行
+target/debug/tofd --sim 127.0.0.1:7801 --socket /tmp/d/duck-a-tof.sock
+DUCK_RUNTIME_DIR=/tmp/d ORT_DYLIB_PATH=&lt;libonnxruntime.so&gt; \
+    target/debug/robotd --sim 127.0.0.1:7801 --params &lt;params.toml&gt; --socket /tmp/d/duck-a.sock
+
+# 设备身份与账号配置
+target/debug/configd --socket /tmp/d/duck-a-config.sock --state-dir /tmp/d/duck-a \
+    --simulated sim-duck-a --fake-net --fake-pads
+target/debug/updaterd --config /tmp/d/updater.toml --socket /tmp/d/duck-a-updater.sock \
+    --token /tmp/d/duck-a/hf-token
+
+# 相机（前提：duck-body启动时开启--cameras a）
+printf '[media]\nquality = "360p30"\n' &gt; /tmp/d/mediad.toml
+target/debug/mediad --sim-camera 127.0.0.1:7901 --config /tmp/d/mediad.toml \
+    --robot-socket /tmp/d/duck-a.sock --tof-socket /tmp/d/duck-a-tof.sock \
+    --config-socket /tmp/d/duck-a-config.sock --updater-socket /tmp/d/duck-a-updater.sock \
+    --token /tmp/d/duck-a/hf-token
+</code></pre>
+<p>非Linux系统编译<code>mediad</code>需要开启gstreamer特性：
+<code>cargo build -p mediad --features gstreamer</code>
+不开启该特性，程序启动后打印提示并退出。</p>
+<p><code>--token</code>在两个守护进程指向<strong>同一个文件</strong>：<code>updaterd</code>写入凭证，<code>mediad</code>读取。二者指向不同文件会导致小鸭登录成功，但无法完成注册。</p>
+<p>相机两端分辨率必须匹配：<code>mediad</code>按<code>[media]</code>配置输出画质（360p30为640×360），仿真本体渲染分辨率必须一致。图像帧为原始裸流，没有握手协商；分辨率不匹配时<code>mediad</code>直接丢弃帧，不会显示错误画面。
+<code>scripts/duck-sim</code>包含其余全部参数配置；手动修改前建议阅读脚本源码。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/robot/pair-a-gamepad.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/robot/pair-a-gamepad.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>FAQ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="常见问题faq"><a class="header" href="#常见问题faq">常见问题（FAQ）</a></h1>
+<p>本部分收录的场景：你希望 Microduck 实现出厂默认不支持的功能。设计文档讲解底层机制；本文告诉你该选用哪个组件。</p>
+<h2 id="我想运行开发板承载不了的大模型"><a class="header" href="#我想运行开发板承载不了的大模型">我想运行开发板承载不了的大模型</a></h2>
+<p>把模型放到其他设备上运行，再向它传输摄像头画面。这款开发板是 Radxa Zero 3，板载 NPU 仅能运行小型检测器，更大规模的模型必须放到机器人外部。<strong>Hugging Face Space 付费硬件方案</strong>是开发量最小的选择：自带GPU选项、机器人可共用的账号体系，以及可直接访问的URL。</p>
+<p>推荐使用 WebRTC。机器人通过 WebRTC 会话推送 H.264 码流，你的 Space 服务接收码流；由中继服务（rendezvous）完成两端互相发现，双方无需预先知道对方地址。示例工程见 <code>spaces/vision-demo/</code>。</p>
+<pre><code>你的Space ──登录、列出机器人──► 中继服务  ◄──注册──  Microduck机器人
+你的Space ◄═══════════ WebRTC传输H.264音视频+控制通道 ════════════►  Microduck机器人
+</code></pre>
+<p>选用 WebRTC 自带三项能力，这也是它作为默认方案的原因：</p>
+<ol>
+<li>媒体流通过 DTLS-SRTP 做端到端加密；</li>
+<li>控制通道复用同一会话，可同时查看画面并遥控机器人；</li>
+<li>支持反向通道，后续可按需增加音频或第二路视频流。</li>
+</ol>
+<h2 id="部署在数据中心可以吗我的space处在不受我管控的nat后面"><a class="header" href="#部署在数据中心可以吗我的space处在不受我管控的nat后面">部署在数据中心可以吗？我的Space处在不受我管控的NAT后面</a></h2>
+<p>可以。家用路由器后的机器人与数据中心NAT内的容器通常无法直接打洞建立连接。此时机器人会提供中继候选地址：使用自身账号令牌生成短期有效的 Cloudflare 凭证；接收端可直接使用该凭证，无需自己持有密钥。原理见 <code>remote-access-design.md</code> 第6节。</p>
+<p>有两个注意事项，避免踩坑：</p>
+<ul>
+<li>中继会消耗机器人所有者的带宽，Hugging Face免费账号每月配额10GB。持续720p码流大约每小时消耗1GB，全天不间断推流会快速耗尽配额。ICE协议会优先尝试直连，仅在直连失败时启用中继；但家用网络连数据中心的场景，经常需要走中继。</li>
+<li>浏览器作为接收端，若无独立IPv4地址，则需要单独的中继凭证；Python程序接收端不需要。第6节有详细说明。</li>
+</ul>
+<h2 id="接收端是程序需要724小时持续拉流有没有更省成本的方案"><a class="header" href="#接收端是程序需要724小时持续拉流有没有更省成本的方案">接收端是程序，需要7×24小时持续拉流，有没有更省成本的方案？</a></h2>
+<p>有一个备选方案（属于降级方案，并非主推设计）：<code>media.stream</code>。由机器人主动发起WebSocket连接，向外推送图像帧。</p>
+<pre><code>你的Space ──media.stream {url: "wss://…/frames"}──► 中继服务 ──► Microduck机器人
+Microduck机器人 ══════════ 图像帧，出站WebSocket，直连 ══════════════► 你的Space
+</code></pre>
+<p>这个方案<strong>不占用中继带宽</strong>，因为是机器人主动向外建立连接，不需要端口打洞。
+同时满足下面全部3个条件再选用：接收端是程序而非人；长时间推流，中继流量计费会造成成本压力；只需要图像帧，不需要其他通道。</p>
+<p>选择这个方案需要舍弃WebRTC的能力，因此不作为默认方案：</p>
+<ol>
+<li><strong>完全没有反向通道</strong>：无法向机器人回传任何数据，没有音频、第二路视频、遥控回路；</li>
+<li><strong>无内置控制通道</strong>：如果要遥控机器人，需要单独通过中继服务发起JSON-RPC调用（参考 <code>spaces/shared/wire.py</code>）；</li>
+<li>加密使用TLS，而非DTLS-SRTP；加密在你的服务端终止，不是端到端对等节点加密。</li>
+</ol>
+<p>机器人会先发送一条文本握手消息，描述码流信息：<code>frames.encoding</code> 为 h264 或 jpeg。<strong>请解析这条握手消息，不要靠原始字节猜测编码</strong>。参考接收端代码：<code>spaces/vision-demo/receiver.py</code>，<code>decoder_for</code> 是编码分支处理逻辑。</p>
+<h2 id="space如何发现机器人如何防止其他人访问我的机器人"><a class="header" href="#space如何发现机器人如何防止其他人访问我的机器人">Space如何发现机器人？如何防止其他人访问我的机器人？</a></h2>
+<p>依靠账号鉴权。机器人携带自身Hugging Face令牌在中继服务注册；你的Space通过hf_oauth完成访客登录。中继服务只会展示该账号名下绑定的机器人。机器人端无需额外配置，也不依赖机器人侧的访问网关。<code>remote-access-design.md</code> 第7节解释该方案的安全性依据。</p>
+<p><code>spaces/shared/rendezvous.py</code> 是设备列表查询接口：<code>ducks(token)</code> 会返回该账号可访问的所有机器人。</p>
+<h2 id="没有实体机器人可以做测试吗"><a class="header" href="#没有实体机器人可以做测试吗">没有实体机器人，可以做测试吗？</a></h2>
+<p><code>scripts/duck-sim</code> 在MuJoCo物理仿真环境上运行真实守护进程（文档见 <code>robot/simulation.md</code>）。仿真实例会像真实开发板一样在中继服务注册，并标记为仿真设备。Space访问仿真机器人的方式，和访问真实机器人完全一致。</p>
+<hr />
+<h3 id="术语简释"><a class="header" href="#术语简释">术语简释</a></h3>
+<ul>
+<li>rendezvous：中继/信令协商服务</li>
+<li>NAT：网络地址转换</li>
+<li>hole-punch：NAT打洞</li>
+<li>ICE：交互式连接建立（WebRTC网络探测）</li>
+<li>DTLS-SRTP：WebRTC端到端加密协议</li>
+<li>WebSocket：长连接双向通信协议</li>
+<li>JSON-RPC：远程过程调用协议</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../offical_docs/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../offical_docs/policy-manifest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../offical_docs/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../offical_docs/policy-manifest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

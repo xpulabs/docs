@@ -1,0 +1,617 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>remote-access-design.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="远程访问--账号以及背后的中继服务"><a class="header" href="#远程访问--账号以及背后的中继服务">远程访问 — 账号，以及背后的中继服务</a></h1>
+<p>文档状态：草案 · 日期：2026-09-02 · 负责人：pierre</p>
+<p>本文说明如何从局域网外部访问 Duck 机器人。<code>remote-webrtc.md</code> 第7节描述了整体架构：搭建一座桥，把中继服务（rendezvous service）和机器人上已运行的信令服务器连通，该架构本身是正确的。本文档定义该架构所缺失的两项核心组件：用于标识账号的凭证，以及承载该凭证的服务。</p>
+<p>已完成开发（2026-09-02）：第2节，账号相关能力。<code>account.login</code>、<code>account.status</code>、<code>account.logout</code> 由 <code>updaterd</code> 提供，可在本地、BLE、WebRTC 数据通道调用。
+<code>robotctl account login</code> 会打印验证码并等待；<code>duckctl account login</code> 打印验证码后挂断。凭证保存在 <code>/etc/robot/hf-token</code>，支持自动续期。目前尚无模块消费该凭证——这是第3节的工作，也是下一开发分片。</p>
+<p>下面是通过探测相关服务得到的结论（而非阅读文档）：</p>
+<ul>
+<li>Hugging Face 实现了 OAuth 设备授权流程；<code>huggingface_hub</code> 内置官方公共客户端（<code>DEVICE_CODE_OAUTH_CLIENT_ID</code>），因此无需注册独立 OAuth 应用。见 §2.3。</li>
+<li>Token 有效期30天，附带刷新令牌；每次刷新都会轮换刷新令牌。§2.7介绍其代价。</li>
+<li>该令牌会携带 Hugging Face 授予的全部权限范围：<code>write-repos</code>、<code>manage-repos</code>、<code>jobs</code>、<code>read-billing</code>。原因是该官方客户端不支持传入权限参数。见 §2.4。这是产品正式发布前必须修改的一点。</li>
+<li><code>/oauth/userinfo</code> 一次往返即可返回身份信息，无需解析JWT。</li>
+<li>中继服务由我方维护，项目为 <code>pollen-robotics/reachy_mini_central</code>，是部署在 Hugging Face Space 上的 FastAPI 应用，我方拥有读写权限。下文第3、4节所有描述均来自对该服务的实测，而非客户端侧推断。</li>
+<li>它的通信协议并非 WebSocket 上的 GStreamer 信令协议。而是基于 HTTP 的 JSON 报文：入站SSE、出站POST、<code>Authorization: Bearer</code> 鉴权，每一跳都有独立的对等端ID与会话ID。这修正了 <code>remote-webrtc.md</code> §7 中的原有表述；§3.2介绍对应的实现代价。</li>
+</ul>
+<h2 id="1-机器人可被外网访问的必要条件"><a class="header" href="#1-机器人可被外网访问的必要条件">1. 机器人可被外网访问的必要条件</a></h2>
+<p>共四点，机器人初始状态下全部不具备：</p>
+<ol>
+<li>一份凭证，标识该机器人归属的账号（§2）；</li>
+<li>一个机器人主动向外连接的服务，仅向机器人所有者展示该机器人（§4）；</li>
+<li>一座桥，连通该服务与 <code>ws://127.0.0.1:8443</code>（§3）；</li>
+<li>一个能理解该服务通信协议的客户端，部署在用户可访问的位置（§5）。</li>
+</ol>
+<p>外加NAT穿透，这属于媒体传输链路的属性，不属于以上四点（§6）。</p>
+<p>一条不可妥协的约束贯穿全部四点：<strong>本地模式不能依赖这套远程访问体系</strong>。<code>architecture.md</code> 的第一条不变量：本地恢复能力保持独立；<code>remote-webrtc.md</code> §7 将该约束延伸至媒体流：即便中继服务宕机，局域网客户端仍可正常连接。
+本方案中，有很多方案可以简化实现（例如让本地会话也走中继服务），但出于该约束全部被否决；§3.1会介绍由此带来的开销。</p>
+<h2 id="2-账号基于-hugging-face-的-oauth-设备授权流程"><a class="header" href="#2-账号基于-hugging-face-的-oauth-设备授权流程">2. 账号：基于 Hugging Face 的 OAuth 设备授权流程</a></h2>
+<p>该授权流程独立存放于 <code>hf-robot-account</code> 仓库，因为这套逻辑和Duck机器人本身无关：任何无浏览器的机器人都使用相同方式登录。
+<code>updater/src/account.rs</code> 存放的是与本机机器人绑定的信息：token路径、机器人用户组、Protobuf映射、各类错误对应的JSON-RPC返回码。
+下文关于授权流程本身的描述，针对该Rust crate；而凭证存放位置、读写权限归属，则属于本仓库的内容。</p>
+<h3 id="21-为何选用设备授权device-grant也是reachy-mini最终选用的方案"><a class="header" href="#21-为何选用设备授权device-grant也是reachy-mini最终选用的方案">2.1 为何选用设备授权（device grant），也是Reachy Mini最终选用的方案</a></h3>
+<p>Reachy Mini同时支持两种登录方式。最初采用<strong>授权码+PKCE</strong>，重定向URI指向机器人自身HTTP服务：<code>http://reachy-mini.local:8000/api/hf-auth/oauth/callback</code>，有线版本则用localhost。后续新增设备码流程，源码中将其描述为<strong>支持刷新、无需重定向的登录</strong>，也是其移动端配置向导当前使用的方案。选择理由有两点。值得注意：这不是观点分歧，两套产品从不同方向推导，得到了相同结论。</p>
+<p>重定向授权流程存在三大缺陷：</p>
+<ol>
+<li>每个主机名需要注册独立重定向URI。应用仅有一个可用URI，所以移动端内置回环HTTP桥接模块，捕获HF回调到127.0.0.1:8000，并重写为自定义<code>reachymini://</code>协议的302跳转。该组件的目的就是避免在Hugging Face侧修改配置（<code>features/auth/oauthLoopback.ts</code>）。</li>
+<li>浏览器必须能解析并访问机器人。回调地址是机器人上的URL。登录必须处于机器人同一局域网，且mDNS正常工作。<code>webrtc-console.md</code> §2也专门描述过网页端遇到的同类问题。</li>
+<li>在无浏览器设备上使用浏览器登录流程。机器人并不是认证主体，仅仅承载回调着陆页面。</li>
+</ol>
+<p>设备授权则反转了这套逻辑：机器人向HF请求验证码，提示用户“打开 hf.co/oauth/device，输入 M8HJ-FMGN”，然后轮询等待用户确认。无需重定向URI、无需主机名、授权设备<strong>完全不需要能够访问机器人</strong>——手机使用蜂窝网络即可完成。
+该流程就是为无浏览器、无键盘的设备设计，Duck机器人正好属于这类设备。同时它也是两种方案里<strong>唯一能拿到刷新令牌</strong>的方案，保证机器人在首月之后仍可被远程访问（§2.7）。</p>
+<p>代价直白：用户需要手动输入8位字符。仅此而已，相比它消除的mDNS依赖，代价更小。</p>
+<p>从Reachy Mini的配置向导继承三条核心设计准则，均与Python无关，都是踩坑后总结的经验：</p>
+<ol>
+<li><strong>优先展示验证码</strong>。是否打开浏览器属于交互层选择，不是强制规则。Mini的APP曾自动跳转Safari，导致验证码在用户阅读前被隐藏。手机端浏览器会抢占屏幕，APP被后台挂起，验证码直接丢失。终端则会保留滚动历史记录。基于这个逻辑，三种客户端行为各不相同：
+<ul>
+<li><code>robotctl account login</code>：不打开任何页面。该命令运行在机器人上，机器人无显示屏；仅打印验证码并等待。</li>
+<li><code>duckctl account login</code>：打印验证码，然后打开网页。该命令运行在用户电脑，<code>duckctl open</code>本身支持唤起浏览器。<code>--no-open</code>参数可禁用；stderr非终端时也不会打开浏览器，防止脚本意外弹出浏览器窗口。浏览器启动失败时仅在验证码后追加警告，<strong>不会用错误信息覆盖验证码</strong>。</li>
+<li>手机APP沿用Mini原有规则，原因相同。</li>
+</ul>
+</li>
+</ol>
+<p>打开浏览器的作用是导航跳转，<strong>不能替代手动输入</strong>。早期版本文档曾设想机器人返回带验证码参数的URL，依据是Mini文档提到<code>huggingface_hub</code>可以拼接<code>?user_code=</code>参数。实际测试发现：库不会拼接，仍返回原始<code>verification_uri</code>；HF的设备授权页面会直接忽略该URL参数，在上线后通过浏览器验证确认。
+因此目前<code>verification_uri_complete</code>仅返回基础页面；保留该字段只是为了兼容未来服务端升级，届时无需修改客户端通信逻辑。</p>
+<ol start="2">
+<li>
+<p><strong>流程中途客户端退出属于预期情况，不是错误</strong>。打开HF页面会把手机APP后台挂起，iOS会断开GATT连接。此时底层传输已经完成任务：守护进程持续轮询，客户端可重新连接查询状态。
+这就是登录接口<strong>返回验证码而非直接返回token</strong>的原因；<code>robotctl</code>的等待循环被设计为不承担核心业务逻辑。</p>
+</li>
+<li>
+<p><strong>成功的唯一判定标准：机器人出现在中继服务列表中</strong>。凭证保存成功仅代表登录流程执行完毕，<strong>不代表机器人可被外网访问</strong>。Mini的向导判定逻辑：“硬件ID对应的机器人出现在列表”才算成功，其余问题都属于可恢复故障。§3需要实现该检测能力，<code>account.status</code>将上报中继链路状态。</p>
+</li>
+</ol>
+<h3 id="22-授权流程与报文示例"><a class="header" href="#22-授权流程与报文示例">2.2 授权流程与报文示例</a></h3>
+<pre><code class="language-http">POST https://huggingface.co/oauth/device
+     client_id=26be6b09-91c5-47da-9861-d2d2bb7a7e36
+</code></pre>
+<p>返回：</p>
+<pre><code class="language-json">{"device_code":"41ad39ae-…","user_code":"A6MY-0314",
+ "verification_uri":"https://hf.co/oauth/device","expires_in":300}
+</code></pre>
+<pre><code class="language-http">POST https://huggingface.co/oauth/token
+     grant_type=urn:ietf:params:oauth:grant-type:device_code
+     &amp;client_id=26be6b09-…&amp;device_code=41ad39ae-…
+</code></pre>
+<ul>
+<li>用户未确认前，持续返回 <code>HTTP 400 {"error":"authorization_pending"}</code></li>
+<li>用户确认后返回：</li>
+</ul>
+<pre><code class="language-json">{"access_token":"…","refresh_token":"…","expires_in":2591999,
+ "token_type":"bearer","id_token":"…","scope":"manage-repos write-repos …"}
+</code></pre>
+<pre><code class="language-http">GET  https://huggingface.co/oauth/userinfo
+Authorization: Bearer &lt;access token&gt;
+</code></pre>
+<pre><code class="language-json">{"name":"Rouanet","preferred_username":"PierreRouanet","orgs":[…], …}
+</code></pre>
+<p>请求时<strong>不携带scope参数</strong>，因为官方客户端不支持该参数（§2.4）。该接口返回的信息有五点关键结论，现阶段无需额外决策：</p>
+<ol>
+<li>没有<code>verification_uri_complete</code>，也无法自行拼接。不存在内置验证码的URL；HF页面忽略<code>?user_code=</code>。验证码必须人工阅读，因此展示验证码是客户端的职责，而非守护进程。字段原样透传<code>verification_uri</code>，后续服务端支持完整链接时无需改动客户端。</li>
+<li>轮询间隔不自定义。遵循RFC 8628规定的5秒，收到<code>slow_down</code>则再加5秒。</li>
+<li>验证码有效期<code>expires_in:300</code>，即5分钟。时间足够从容操作，又不会过长；客户端需要展示剩余倒计时，所以<code>account.status</code>做倒计时，而非直接返回原始数值。</li>
+<li>Token有效期<code>expires_in:2591999</code>（30天），附带刷新令牌，见§2.7。</li>
+<li><code>/oauth/userinfo</code>单次往返拿到身份信息。<code>preferred_username</code>是账号名，<code>name</code>是可自定义显示名，因此存储与展示使用账号名。备选方案是解析id_token，需要JWT解析器并拉取JWKS，更复杂。</li>
+</ol>
+<p>该接口是最后一步，优先级最低，<strong>不能因为该接口失败导致登录整体失败</strong>。用户已经在手机输入验证码，如果仅仅因为代理返回502就丢弃token，需要重新走完整流程。
+因此会先保存记录，用户名暂时置空；<code>account.status</code>返回unknown，而不是“已登出”。下一次自动维护任务补全用户名。该网络故障属于机器人主板预期会遇到的网络问题。</p>
+<p><strong>同一时间只允许一次登录</strong>。校验覆盖完整往返流程，而不是仅做前置检查。配置向导阶段，控制台网页和手机同时发起登录是常见场景。如果不限制，两者都会拿到验证码，最终只会保留最后一次确认的凭证，另一个验证码会失效，用户看到无响应。
+先发起的登录流程未完成时，第二个调用方返回<code>BUSY</code>并附带独立提示文本。不能复用别处“另一个更新正在进行”的提示，会误导用户。<code>account.status</code>携带当前验证码，丢失会话的客户端可以重新接入，而不是重新发起一次登录。</p>
+<p>失败场景需要提供解决途径，<code>force</code>参数就是该方案。存在无人确认的验证码（用户发起登录后离开），会占用机器人5分钟。旧方案只能调用logout，销毁有效凭证来清除待确认流程。
+<code>force</code>的语义本就是“更换机器人所属账号”；强制终止待确认登录属于同权限下的更小粒度操作。</p>
+<p>代价：被放弃的登录流程对应的device_code仍然有效，如果有人后续完成确认，HF依然会授权。登录流程在独立任务中运行，生命周期长于原始调用。logout也存在同样风险：登出时仍有未确认验证码，一分钟后有人确认，机器人会自动重新登录。
+因此每个登录流程携带生成版本号，读写凭证前后都校验是否仍是当前有效版本。被覆盖的登录流程会保留验证码，但丢弃授权结果。这也是logout能够保证行为的基础。</p>
+<h3 id="23-oauth客户端使用hugging-face官方客户端--已确定"><a class="header" href="#23-oauth客户端使用hugging-face官方客户端--已确定">2.3 OAuth客户端使用Hugging Face官方客户端 — 已确定</a></h3>
+<p><code>huggingface_hub</code>内置官方公共设备码客户端：<code>DEVICE_CODE_OAUTH_CLIENT_ID = 26be6b09-91c5-47da-9861-d2d2bb7a7e36</code>，也就是<code>hf auth login</code>使用的客户端。
+该客户端是公共客户端，无密钥。发布固件时只需要内置这个公开ID，不需要嵌入密钥。无需注册独立OAuth应用。<code>hf_robot_account::HUGGINGFACE_CLIENT_ID</code>就是该常量，该决策到此为止。</p>
+<p>记录两个备选方案（第一个看起来可行但被否决）：</p>
+<ol>
+<li>Reachy Mini自有应用客户端（71146982-…）属于保密客户端，设备码接口拒绝使用。提示：“如果想在无客户端密钥认证下使用设备码流程，删除OAuth应用密钥，改为公共客户端”。把密钥内置到每台Duck机器人，密钥就不再保密；把Mini应用改为公共客户端，会改变Mini的安全模型来适配我们。</li>
+<li>动态注册。<code>POST /oauth/register</code>无需鉴权，支持<code>token_endpoint_auth_method: "none"</code>。机器人首次登录可以动态创建公共客户端。技术可行，但现阶段无意义。每台机器人单独创建客户端，会产生大量无法枚举、无法批量撤销的身份。</li>
+</ol>
+<h3 id="24-权限范围不由我方选择这是上线前必须修复的点"><a class="header" href="#24-权限范围不由我方选择这是上线前必须修复的点">2.4 权限范围不由我方选择，这是上线前必须修复的点</a></h3>
+<p>官方客户端不支持传入scope参数，签发的token会携带HF授予的全部权限：
+<code>manage-repos</code>、<code>write-repos</code>、<code>read-repos</code>、<code>gated-repos</code>、<code>contribute-repos</code>、<code>write-collections</code>、<code>read-collections</code>、<code>openid</code>、<code>write-discussions</code>、<code>inference-api</code>、<code>jobs</code>、<code>webhooks</code>、<code>read-billing</code>、<code>read-mcp</code>。</p>
+<p>Duck机器人拿到的凭证拥有推送仓库、启动任务、读取账单的权限。但这套凭证的唯一用途仅仅是向中继服务证明身份。所有已部署的Reachy Mini都存在相同问题，这是现状，不是安全辩护。</p>
+<p>账号实际需要的权限只有：<code>openid</code>、<code>profile</code>，外加<code>read-repos</code>用于一个场景：<code>policy.install</code>使用同一份token读取私有策略仓库，无需新增机制（policy-channel-design.md §7）。</p>
+<p>因此精简方案：由Pollen拥有一个公共设备码客户端，仅开放<code>openid profile read-repos</code>。只需要配置<code>Config::client_id</code>，由HF组织管理员一次点击即可完成。
+该问题不阻塞开发：当前流程可正常运行，修改权限后用户仅需重新登录一次。<strong>必须在机器人交付用户前完成</strong>。故障模式是不对称的：一旦机器人获得写权限，风险无法回退；后续需要更大权限时，仅需重新申请即可。</p>
+<h3 id="25-token存放位置与写入主体"><a class="header" href="#25-token存放位置与写入主体">2.5 Token存放位置与写入主体</a></h3>
+<p>路径：<code>/etc/robot/hf-token</code>，属主<code>root:robot</code>，权限<code>0640</code>。
+JSON内容包含：访问令牌、刷新令牌、绝对过期时间（接口返回的是时长，重启后时长失效）、用户名。
+好处：<code>account.status</code><strong>离线也能返回结果</strong>，机器人断网时依然知道自身归属账号。</p>
+<p>写入逻辑：先以<code>0600</code>创建临时文件，设置用户组后再放宽至<code>0640</code>。不使用守护进程通用的<code>fsutil::write_atomic</code>。该工具无法设置文件权限。如果文件先写成0644，再chmod，会存在短暂全局可读窗口。这类漏洞测试很难发现，但被入侵后通过ps/cat即可读取。
+<code>account::write_private</code>采用临时文件+重命名机制，临时文件初始权限0600；单元测试保证最终文件对其他用户无任何访问权限。
+在没有robot用户组的设备（开发笔记本、未完成部署的主板），文件保持仅root可读，并仅告警一次，不做猜测。</p>
+<p><strong>不放在 robotd.toml</strong>。该配置文件的所有展示机制都会泄露密钥：<code>robotctl configure --list</code>会打印机器人变更项，policy-channel-design.md全屏编辑器可查看文件，同时系统会生成机器人变更报告。Bearer令牌会出现在全部三处输出。独立文件搭配独立权限，是它的全部保护手段；§7解释该保护为何足够。</p>
+<p>归属服务：<strong>updaterd</strong>。它已经具备HTTP客户端，代机器人访问网络，以root运行，并且已经拥有修改系统状态的调用命名空间（policy.*）。
+<code>configd</code>负责配置，没有HTTP客户端；给负责<code>system.info</code>的守护进程增加外网出口属于新增风险。
+<code>mediad</code>不能持有该文件：它以<code>mediad</code>用户运行，启用<code>ProtectHome=yes</code>，同时是远端对等端通信进程。</p>
+<p><code>mediad</code>会读取该文件：每次连接尝试读取；无token时每30秒慢速轮询，等待凭证就绪。该部分尚未实现。在§3完成前，没有组件使用该凭证。
+<strong>无跨守护进程通知机制</strong>。Reachy Mini在认证路由向中继模块发送<code>notify_token_change</code>。而我们利用重连时重读文件，省去通知。代价：新登录的凭证最多等待一个轮询周期才生效，用户感知不到。</p>
+<h3 id="26-接口定义以及可访问的传输通道"><a class="header" href="#26-接口定义以及可访问的传输通道">2.6 接口定义，以及可访问的传输通道</a></h3>
+<p><code>account.login</code>、<code>account.status</code>、<code>account.logout</code> 由<code>updaterd</code>提供。理由和policy.*完全一致：该守护进程拥有网络栈；<code>robotctl</code>不能链接HTTP栈（属于故障恢复链路）；存储的凭证同时用于访问私有Hub仓库，这本身就是updaterd的职责。
+<code>configd</code>管理配置，不管理凭证，无HTTP客户端。<code>mediad</code>不能持有凭证，它以非特权用户运行，开启<code>ProtectHome=yes</code>，是远端对等端通信进程。</p>
+<p><code>login</code>接口返回验证码，等待逻辑交给守护进程。没有进度推送，不保持长连接；客户端轮询<code>status</code>。这不是简化实现，是硬性需求，见§2.1第二条准则。</p>
+<p>三个接口同时支持三种传输通道：本地调用、BLE、WebRTC数据通道。
+BLE优先级最高，也是最容易实现的通道：全新开箱的机器人没有网络，没有控制台，没有局域网，只有BLE，配置向导也基于BLE。本地调用对应<code>robotctl</code>，供开发者使用。</p>
+<p>WebRTC通道存在争议，需要书面记录，不能假设。控制台网页最适合放置“登录”按钮，页面上直接展示机器人；备选方案是SSH或者手机。
+风险点：这是该通道下<strong>唯一具备持久化效果</strong>的调用。局域网对等端的其他操作都限定在本次会话内；<code>account.login</code>一旦成功，仅需一次连WiFi，就能建立跨越本次会话的外网远程访问。
+<code>remote-webrtc.md</code> §4认为局域网内任何人都可访问机器人与摄像头。但当时没有考虑：局域网内用户可以配置账号，在数月后从另一大洲远程访问机器人。</p>
+<p>三点约束让该方案可接受，而不仅仅是允许：</p>
+<ol>
+<li>已归属账号的机器人会拒绝。不带<code>force</code>参数调用<code>account.login</code>返回<code>INVALID_PARAMS</code>并提示已有账号。局域网用户不能悄无声息抢占机器人，必须显式操作，合规客户端需要先征得人工确认。</li>
+<li>归属账号信息对外可见。<code>account.status</code>可通过任意通道查询，无需鉴权。任何人都可以查询机器人所属账号。</li>
+<li>支持撤销。任意位置调用<code>account.logout</code>；也可在Hugging Face页面撤销授权，这是机器人本地网关无法实现的能力。</li>
+</ol>
+<p>对第一点做精确说明，它分为两部分，只有一部分由updaterd实现：
+<code>logout</code>删除本地凭证，中继模块最多10秒（一个心跳周期）感知并断开连接；中继服务会立刻踢除生产者。登出后的机器人不再出现在列表，外网无法访问。
+但<strong>登出不会向HF发起撤销请求</strong>：logout仅删除机器人本地副本，不通知HF。机器人停止作为生产者，这是登出的目标。但已经读取到本地的访问令牌，在HF侧依然有效，最长可达30天。
+凭证权限<code>0640 root:robot</code>，只有root或mediad进程可读。被盗主板是核心风险场景，这种场景的处理方式是在hf.co账号的应用管理页面撤销授权，而非依赖机器人本地接口。
+机器人主动向HF发送撤销请求作为§9的候选功能，本开发分片不实现。原因：该接口需要校验客户端是官方客户端，不能直接假设；网络中断时的logout依然必须在本地删除token。</p>
+<p>一个跨文件的副作用，同时修复了一个bug：
+<code>account.login</code>和<code>account.logout</code>属于<code>Call::is_mutating</code>（会修改状态），updaterd会基于对等端UID鉴权。因此<code>deploy/updater.toml</code>的<code>allow_users</code>中，需要把<code>mediad</code>和<code>btd</code>一并加入。</p>
+<p>明确该授权带来的权限范围：<code>allow_users</code>是<strong>调用者白名单，不是接口白名单</strong>。一旦加入，mediad发起的所有修改类调用都会被updaterd执行，包括<code>update.apply</code>。
+阻止远端对等端执行更新的是mediad自身路由表，拒绝转发该请求。因此该路由表不是多层限制中的一层，而是唯一一层，位于最容易收到外部流量的进程。
+BLE支持更新后，btd就采用该架构。边界由带校验的命名列表控制：<code>mediad::route</code>中的<code>only_these_mutating_calls_are_reachable_over_webrtc</code>。新增修改类接口走WebRTC，必须手动修改该列表并写明理由。
+如果在updaterd再增加接口级鉴权，会变成两层校验，本方案没有实现，文档记录该选择，并非遗漏。</p>
+<p>记录该逻辑后，立刻发现两个被忽略的bug：<code>policy.install</code>和<code>policy.fetch</code>路由到WebRTC，但mediad不在<code>allow_users</code>列表，updaterd返回<code>PERMISSION_DENIED</code>。控制台Hub浏览器的安装按钮会失效。本次为账号功能添加的<code>allow_users</code>配置同时修复这两个接口。
+这就是命名白名单优于计数式白名单的理由：白名单强制让传输通道权限和配置授权显式对齐。</p>
+<h3 id="27-token有效期30天刷新令牌会轮换--已确定"><a class="header" href="#27-token有效期30天刷新令牌会轮换--已确定">2.7 Token有效期30天，刷新令牌会轮换 — 已确定</a></h3>
+<p>设备码token返回<code>expires_in:2591999</code>即30天，附带<code>refresh_token</code>。<strong>每次刷新都会轮换刷新令牌</strong>：返回新的刷新令牌，旧令牌直接失效。
+存储结构就是两段字符串+时钟，三个重要结论：</p>
+<ol>
+<li>保持开机的机器人必须自动续期。<code>hf_robot_account::maintain</code>每6小时唤醒，剩余有效期不足一周时执行刷新。也就是在token生命周期的3/4处触发，给网络不稳定的主板预留一周重试窗口。该任务无条件启动，和更新调度器不同：即使用户关闭自动更新检查，账号依然会在一个月后失效。</li>
+<li>令牌轮换存在无法完全消除的窗口期。HF下发新令牌对，到新令牌写入磁盘之间，旧刷新令牌已经失效。窗口期断电，机器人会持有HF无法刷新的凭证。
+该问题无法通过调整写入顺序避免，因为轮换发生在HF服务端。采取<strong>容错处理而非完全阻止</strong>：写入是原子操作，读取者只能读到旧或者新完整记录，不会读到半写数据。失败信息暴露在<code>account.status</code>的<code>last_error</code>，解决方案是重新登录。提前一周续期，将其降级为小麻烦，而非服务中断。</li>
+<li>关机超过30天的机器人，重启后需要重新登录，任何余量都无法挽救。<code>account.token_expires_in</code>变为负数，客户端可识别该状态，而不是等到机器人无法上线才发现。</li>
+</ol>
+<h2 id="3-桥接模块"><a class="header" href="#3-桥接模块">3. 桥接模块</a></h2>
+<h3 id="31-在回环地址监听而非在webrtcsink内部实现信令器"><a class="header" href="#31-在回环地址监听而非在webrtcsink内部实现信令器">3.1 在回环地址监听，而非在webrtcsink内部实现信令器</a></h3>
+<p><code>webrtcsink</code>支持自定义信令器（Signallable接口）。很容易直接实现一个信令器，直接对接中继协议：少一跳，无需ID转换，不需要本地WebSocket客户端。该方案被否决，原因是架构层面而非美观问题：<strong>一个webrtcsink只能绑定一个信令器</strong>。
+如果指向中继服务，本地会话也要走中继，破坏§1的不变量；如果想同时支持两种信令，则需要第二个webrtcsink，在编码资源紧张的主板上重复编码相同视频帧。</p>
+<p>因此桥接模块采用<code>remote-webrtc.md</code> §7描述、Reachy Mini正在运行的架构：</p>
+<pre><code>  中继服务  ──SSE──►  中继任务  ──ws──►  127.0.0.1:8443  ◄──ws──  webrtcsink
+  (HTTP)      ◄─POST──  (mediad内)  ◄──ws──  本地信令服务器      (生产者)
+</code></pre>
+<p>中继任务向中继服务注册为生产者；向本地信令服务器注册为监听器。两端角色反转：对中继服务，它代表机器人；对流媒体管道，它是请求会话的对等端。</p>
+<h3 id="32-协议翻译对7的修正"><a class="header" href="#32-协议翻译对7的修正">3.2 协议翻译，对§7的修正</a></h3>
+<p>§7原文描述：“桥接模块不做解析，透明代理GST信令协议，和局域网客户端协议一致”。
+SDP、ICE这类负载确实是不透明二进制，保持原样。但报文封装层不一样，共三点差异：</p>
+<div class="table-wrapper"><table><thead><tr><th>本地端</th><th>中继服务端</th></tr></thead><tbody>
+<tr><td>传输</td><td>WebSocket</td></tr>
+<tr><td>鉴权</td><td>无（remote-webrtc.md §4）</td></tr>
+<tr><td>ID</td><td>自有peerId、sessionId</td></tr>
+<tr><td>我方角色</td><td>监听器</td></tr>
+<tr><td>应答返回位置</td><td>始终在socket流内</td></tr>
+</tbody></table>
+</div>
+<p>最后一行是踩坑后总结，适合用表格记录，不能依赖人脑记忆。WebSocket场景下所有应答都从socket返回，客户端默认认为send是发后即忘。
+本架构中，<code>handle_start_session</code>把<code>{"type":"sessionStarted","sessionId":…}</code>返回给POST /send调用方。生产者从SSE收到通知，消费者在HTTP响应拿到结果。网页端如果丢弃响应体，会拿到机器人的SDP Offer，但没有拿到会话ID，最终对等连接空指针失败。<code>list</code>查询同理；同时在连接建立后推送至SSE流，这就是列表展示正常，但会话建立失败的根源。</p>
+<p>桥接模块双向维护会话表，对每一条对等端消息重写<code>sessionId</code>。这也是Reachy Mini中继模块大部分复杂容错逻辑的来源。准确描述：<strong>它是带不透明负载的协议翻译器，不是简单透明中继</strong>。
+<code>webrtcsink</code>对比<code>webrtcbin</code>带来的收益依然保留：协议是现成标准，不是自行发明；翻译依靠查表，不是语法解析。但“透明代理、不解析任何内容”这句话不再适用。</p>
+<h3 id="33-租约与心跳心跳不可省略"><a class="header" href="#33-租约与心跳心跳不可省略">3.3 租约与心跳：心跳不可省略</a></h3>
+<p>中继服务会在生产者长时间无报文（LEASE_SECONDS）时踢除连接，无论socket状态看起来是否正常。这不是过度防御工程：半开TCP连接（WiFi断开、NAT重绑定、休眠强制门户）会静默吸收服务端保活包长达数分钟。此时机器人认为自己在线，实际外网无法访问。</p>
+<p>参数来自服务端实测，不是猜测：<code>PRODUCER_LEASE_SECONDS=30</code>，SSE欢迎报文推荐<code>recommended_heartbeat_interval_seconds:10.0</code>。
+<strong>租约仅由入站POST /send刷新</strong>，SSE流保持畅通并不会续约。</p>
+<p>中继任务按照服务推荐周期发送<code>setPeerStatus</code>；无推荐值时回退至5秒，钳位在[1s,60s]。防止错误配置的服务触发请求风暴，或者周期长于踢除超时。
+Reachy Mini有中间档位<code>lease_seconds /3</code>，用于服务返回租约时长但不返回心跳周期的场景。本服务不返回lease_seconds，该分支不可达；不值得为一个不存在的字段实现协商逻辑。</p>
+<p><code>GET /events</code>必须在<code>POST /send</code>之前，否则返回400。顺序不是偏好。对等端必须先建立SSE流才存在；身份来自Bearer令牌，令牌通过<code>/events</code>绑定到对等端。§3.4出于别的原因要求注册成功后再上报机器人可访问；服务本身强制同样顺序。</p>
+<p>限流：每个对等端60秒最多1200次请求，滑动窗口。10秒心跳+30秒轮询，每分钟9次请求，不会触达限流。该上限仅作为安全上限，防止有人为了“稳妥”把心跳间隔改短。</p>
+<p>SSE链路自带保活。30秒无数据时服务推送ping事件，目的是防止Hugging Face Space前置HTTP/2代理断开空闲连接。我方读取超时必须显著大于30秒；Reachy Mini选用60秒，允许丢失两次ping，本方案沿用该值。</p>
+<h3 id="34-已知故障模式研读对方中继模块的主要原因"><a class="header" href="#34-已知故障模式研读对方中继模块的主要原因">3.4 已知故障模式，研读对方中继模块的主要原因</a></h3>
+<p>共四类，现在实现成本低，后期踩坑修复成本极高：</p>
+<ol>
+<li><strong>脑裂（Split-brain）</strong>：SSE流正常，但服务列表已经移除本机器人。<code>setPeerStatus</code>往返中途取消就会出现该状态，链路本身检测不到。Mini方案：每30秒轮询<code>/api/robot-status</code>，连续两次失败强制重连。</li>
+<li><strong>并发会话</strong>：服务本身做拦截。<code>handle_start_session</code>返回<code>sessionRejected</code>，理由<code>robot_busy</code>，附带占用会话的应用名称；同时推送<code>sessionStateChanged</code>给所有者其他设备，UI在一轮往返内切换状态。机器人本地校验是双重保险，不是临时补丁。第二个远端对等端同时控制机器人，等价于remote-webrtc.md §9的并发写入bug，只是把手柄换成远端用户，风险很高，必须双重校验。</li>
+<li><strong>注册时序</strong>：必须先注册为生产者，再上报已连接。否则所有查询接口、网页、用户都会看到“远程访问已启用”，但服务端还不知道机器人存在。</li>
+<li><strong>带抖动的退避重试，上限限制</strong>：5秒起步，最长60秒，叠加约10%随机抖动。集群在服务重启后同时重连会造成自引发的服务雪崩。</li>
+</ol>
+<ul>
+<li>连接期间凭证发生变更：每次连接只读取一次token。单纯logout或者<code>login --force</code>更换账号，不会主动中断正在运行的中继。中继会继续使用已被注销的凭证续约。解决方案：心跳周期重读token，延迟最多一个心跳间隔。断开流即注销：正常断开会立刻踢除对等端；轮询清理仅处理未上报关闭的僵死socket。还有<code>roles: []</code>主动撤销，用于保持通道后续重新注册，不是本场景需要。</li>
+<li>401鉴权失败<strong>不做退避重试</strong>。无论重试多少次，被拒绝的token不会自动恢复；需要重新登录。因此该分支和未登录机器人保持同样30秒轮询，不会每5秒向Space发送无效请求。</li>
+</ul>
+<p>另外两个来自对方源码，描述服务行为而非客户端策略：</p>
+<ul>
+<li>只有携带<code>meta.hardware_id</code>的生产者才会被定时清理。不带该字段的生产者永远不会被踢除；守护进程崩溃后，机器人条目会一直留在所有者列表直到Space重启。§3.7的建议升级为强制要求。</li>
+<li>同一token发起第二条<code>/events</code>连接，会替代旧连接，而不是踢除旧对等端。守护进程重启，旧socket处于半开状态时，可以干净重连。这也是60秒读超时安全的原因。</li>
+</ul>
+<p>不照搬<code>RobotAppLock</code>：该模块用于仲裁本地APP和远端会话。Duck机器人没有本地APP。本地手柄与远端同时下发意图的同类问题由<code>remote-webrtc.md</code> §9负责，已推迟设计；第二个远端对等端属于同一类缺口，不是新问题。</p>
+<h3 id="35-作为mediad内的任务模块不含gstreamer代码"><a class="header" href="#35-作为mediad内的任务模块不含gstreamer代码">3.5 作为mediad内的任务，模块不含GStreamer代码</a></h3>
+<p>不新增独立服务<code>relayd</code>。独立中继服务需要独立生产者身份、独立配置、独立重启逻辑；并且mediad不运行时它毫无用处。为隔离一个仅包含WebSocket、HTTP客户端、哈希表的任务，新增三个复杂组件得不偿失。</p>
+<p>代码放在<code>session.rs</code>所在模块，理由一致：<strong>传输无关</strong>。可以在笔记本上使用模拟服务、模拟本地信令服务器做单元测试。这也是控制通道可以脱离硬件板测试的原因。§3.4所有故障都是时序竞态问题，硬件上手动测试很难稳定复现，单元测试价值加倍。</p>
+<p>继承一条规则：GStreamer信号处理函数中<strong>禁止panic</strong>（<code>pipeline.rs</code>头部注释，源于进程崩溃的教训）。中继模块本身不触碰GStreamer，但未来需要访问媒体管道，需要维持该边界干净。</p>
+<h3 id="36-通过桥接接入的远端对等端可调用接口与局域网对等端完全一致"><a class="header" href="#36-通过桥接接入的远端对等端可调用接口与局域网对等端完全一致">3.6 通过桥接接入的远端对等端，可调用接口与局域网对等端完全一致</a></h3>
+<p>会话复用同一个<code>webrtcsink</code>会话，路由表复用<code>route.rs</code>。这是刻意设计，上线后需要重新评估：
+§4论点：中继服务完成两端鉴权，机器人不需要额外网关。读完本文后该论点更强：桥接后的远端对等端已经证明账号所有权；局域网对等端仅证明接入WiFi。机器人可通过源地址区分两者（§7提及），但当前逻辑不做差异化处理。保持该行为不变。</p>
+<h3 id="37-机器人上报身份元数据并非完全自由格式"><a class="header" href="#37-机器人上报身份元数据并非完全自由格式">3.7 机器人上报身份元数据，并非完全自由格式</a></h3>
+<p>协议层面meta字段是自由格式，但服务会读取其中两个键，随意填写会导致隐性异常，而非直接报错：</p>
+<ul>
+<li><code>hardware_id</code>（或<code>install_id</code>）稳定唯一标识。调用<code>setPeerStatus</code>时，服务查找同一用户下相同硬件ID的生产者，踢除旧实例，终止旧会话。
+用途：防止固件重刷、SD卡克隆、僵死后台进程产生重复机器人条目永久驻留列表。</li>
+</ul>
+<p>Duck机器人必须填入稳定值。现成方案：<code>producer.rs</code>读取SoC芯片序列号，满足“同一物理机器人，重装、改名后保持不变”。
+省略该字段：机器人使用新token重连会在列表出现两条记录；并且因为清理机制依赖该字段，旧条目永远不会被踢除。填入机器人名字作为ID，改名会分裂身份。</p>
+<p>无法读取硬件序列号的场景（开发笔记本、设备树无序列号的主板），回退使用<code>/etc/machine-id</code>，按安装实例稳定，不是按物理机器人。稳定性弱，但满足需求：一台机器仅一条记录，生产者可被定时清理。<code>sounds</code>模块已经采用完全相同的降级方案。</p>
+<ul>
+<li><code>simulated</code>：我方自定义字段，服务不读取。MuJoCo仿真Duck注册方式和真实机器人完全一致。如果列表无法区分仿真和真机，会出现用户操控仿真，疑惑实物机器人为什么不动。
+<code>configd --simulated &lt;serial&gt;</code>用来声明仿真属性；<code>docs/design/simulation.md §8</code>说明为什么仅在这里声明。序列号保证仿真Duck的<code>hardware_id</code>正常工作。<code>/etc/machine-id</code>是按安装实例区分，同一机器上多个仿真实例会互相踢除；macOS没有该文件。</li>
+</ul>
+<p><code>name</code>：展示在列表上的人类可读名称；消费者名称会由服务作为<code>activeApp</code>上报给所有者其他设备。
+<code>transport</code>（wifi/usb）是Reachy Mini遗留字段，Duck可以忽略。microduck类型标识，允许客户端在不建立会话的前提下列出两类机器人。</p>
+<p>一条重要协议结论：对等端以token作为索引。<code>get_or_create_peer</code>是token→peer_id映射。同一token新建连接，直接替代旧连接。共享同一个token的两个实例交替上线，两者看起来都正常。
+每台Duck独立运行设备授权流程，<strong>机器人之间不会共享token</strong>。镜像从头构建而非克隆，不存在凭证复制到第二块主板的途径。</p>
+<p>一个坑点：消费端。云后端使用机器人的token认证，会顶替机器人自身对等端，把机器人从列表移除。Space消费Duck机器人，需要使用同账号下独立token，或者访问者的token。§5客户端使用访问者token，因此不会触发该问题。</p>
+<h1 id="4-信令中转服务rendezvous复用reachy-mini所用服务已定方案"><a class="header" href="#4-信令中转服务rendezvous复用reachy-mini所用服务已定方案">4. 信令中转服务（rendezvous）：复用Reachy Mini所用服务——已定方案</a></h1>
+<p>选用 <code>pollen-robotics-reachy-mini-central.hf.space</code>，也就是Mini机器人集群已经注册接入的Hugging Face Space。该方案是<strong>确定选型</strong>，而非临时推导：无需额外后端开发，已经在真实机器人上验证可用，并且使得本页面全部变成客户端侧项目。</p>
+<p>机器人对该服务的依赖接口很少：<code>GET /events</code>（SSE长连接，请求头携带<code>Authorization: Bearer &lt;hf token&gt;</code>）、<code>POST /send</code>（鉴权方式同上），以及<code>GET /api/robot-status</code>，用于查询机器人是否仍在服务列表中。元数据采用自由格式，因此Duck机器人可以使用任意标识信息完成注册；而<code>producer.rs</code>已经组装好了列表展示所需的全部字段（名称、序列号、版本号、API版本），这也和<code>webrtc-console.md</code>第5节对信令中转服务的预期完全一致。Microduck微型机器人采用相同数据结构，因此用于展示用户机器人列表的客户端，无需建立会话，就能区分Duck机器人和Mini机器人。</p>
+<p>该服务由我方维护，这也是复用它而不是引入外部依赖的关键原因：<code>pollen-robotics/reachy_mini_central</code>是部署在Hugging Face Space上的FastAPI应用，我们可以直接阅读和修改代码。由此引出两点结论：</p>
+<ol>
+<li>协议是确定的事实，而非猜测。第3节里所有参数——基于<code>POST /send</code>、有效期30秒的租约，10秒的上报周期，30秒的SSE心跳，会话拒绝闸门，硬件ID淘汰策略——全部取自<code>app.py</code>源码。本文早期版本曾误以为该仓库为私有仓库；实际是名称错误导致的401状态码，被误判为权限错误，当时还毫无必要地从客户端反向解析通信报文。</li>
+<li>Duck机器人相关需求通过<strong>提交PR</strong>实现，而不是直接fork分支。如果Duck需要修改租约时长、在设备列表增加设备类型过滤，或是修改租约淘汰规则（不再假设一个Token仅绑定一台机器人），都属于对我们维护的这台服务端的改动。反过来也存在风险：为Mini机器人做的服务端变更，有可能破坏Duck机器人；本方案落地后，该服务上就同时承载两类机器人。</li>
+</ol>
+<p>有一部分机制无法复用：锁模型<code>RobotAppLock</code>，也就是本地应用与远程会话的隔离机制，Mini的中继服务依靠它管控接入会话。Duck没有本地应用，因此3.4节仅复用重连逻辑，舍弃这部分锁机制。</p>
+<h1 id="5-客户端搭载hugging-face登录能力的space已定方案"><a class="header" href="#5-客户端搭载hugging-face登录能力的space已定方案">5. 客户端：搭载Hugging Face登录能力的Space——已定方案</a></h1>
+<p>控制台页面通过<code>include_str!</code>嵌入<code>mediad</code>并由机器人直接提供（<code>webrtc-console.md</code>第1节），在局域网内可以正常工作。远程客户端无法访问内网机器人的页面，因此远程场景需要把页面托管在机器人之外，同时提供第二套信令传输通道。</p>
+<p>确定方案：在<code>pollen-robotics</code>组织下新建开启<code>hf_oauth: true</code>的Space：<code>microduck-console</code>，托管和机器人本地完全相同的页面，传输通道由页面的打开方式自动选择。<strong>选型的核心考量不是托管能力，而是Token鉴权。</strong></p>
+<p>远程消费端和机器人使用完全相同的方式向信令中转服务鉴权：Bearer令牌，服务端通过<code>whoami-v2</code>接口解析令牌，读取账号名称。服务不校验令牌类型、不校验权限范围，因此浏览器OAuth令牌和机器人设备流令牌拥有同等权限。这就把核心问题简化为：页面如何获取Hugging Face令牌，而Hugging Face Space恰好可以解决这个问题：在README配置<code>hf_oauth: true</code>即可自动创建OAuth应用并注册指向该Space的重定向地址；<code>@huggingface/hub</code>库的<code>oauthLoginUrl</code>与<code>oauthHandleRedirectIfPresent</code>在客户端完成剩余OAuth流程，使用PKCE，页面中不会存放任何密钥。</p>
+<h2 id="50-采用docker类型space耗时一个下午"><a class="header" href="#50-采用docker类型space耗时一个下午">5.0 采用Docker类型Space，耗时一个下午</a></h2>
+<p>Hugging Face Space有两种文档记载的方式，可以向页面注入客户端ID，但是简洁的静态Space方案无法生效。静态Space理论上会注入<code>window.huggingface.variables.OAUTH_CLIENT_ID</code>；<code>huggingface.js</code>、<code>reachy_mini_website</code>均读取这个变量，Hugging Face官方示例<code>huggingfacejs/client-side-oauth</code>也是如此。但在<code>microduck-console</code>上该变量始终无法出现：修改元数据、公开Space、删除重建、补全<code>&lt;html&gt;&lt;head&gt;</code>页面结构（此前页面只有基础文档类型声明），全部无效。Hugging Face API返回信息显示，我们的Space和正常实例各项参数完全一致：SDK类型static、公开、<code>hf_oauth: true</code>、运行中。</p>
+<p>因此控制台改为Docker Space：开启<code>hf_oauth: true</code>后，<code>OAUTH_CLIENT_ID</code>写入容器环境变量（非静态Space的标准方案，<code>grabette-*</code>系列Space均采用此方式），通过8行shell脚本在页面响应时完成变量替换。这个页面本身不需要服务端，仅仅为实现变量替换而部署服务。<code>OAUTH_CLIENT_SECRET</code>同样存放在环境变量，永远不会下发到页面。</p>
+<p>排错过程中保留两个重要设计：</p>
+<ol>
+<li>页面记录自身构建戳记（版本号+页面哈希），静态主机和浏览器都会强缓存页面，曾花费一小时修复缓存导致页面加载旧版本的问题。</li>
+<li>登录流程每一步都存在超时竞争：地址栏残留过期<code>?code=</code>参数会让<code>oauthHandleRedirectIfPresent</code>永久挂起，页面所有相关提示都在await之后，很难捕获。</li>
+</ol>
+<p>本文初稿曾考虑GitHub Pages，但同样卡在OAuth环节：GitHub Pages需要手动注册OAuth应用、维护重定向地址，而Space仅靠README一行元配置即可实现。GitHub Pages方案并未完全废弃——页面也支持从<code>?client_id=</code>URL参数读取客户端ID，早期调试就是这么做的；这和2.3节选择复用Hugging Face官方设备码客户端、而不是自建OAuth客户端的思路一致。</p>
+<p>我们仅申请默认权限范围，<code>openid profile</code>是必选范围，也完全满足需求。令牌的唯一作用就是向信令中转服务证明身份，和2.4节机器人凭证的设计思路一致；如果机器人侧限制权限，却给浏览器开放仓库写入权限，在安全上是不合理的。</p>
+<p>该页面<strong>不作为<code>reachy_mini_central</code>的路由</strong>，独立主机独立部署；代价是Duck的UI嵌入到Mini集群依赖的服务中。第4节“我们维护服务，Duck需求走PR”是双向约束：反过来，我们的页面也会成为Mini集群的运维风险点。</p>
+<p>页面源码存放于本仓库，和机器人托管页面放在一起，因为页面需要同步维护两套内容：信令协议、本项目自定义方法名；如果放在Space独立仓库，代码会不同步。页面文件：<code>mediad/webclient/index.html</code>，单文件；传输通道由<code>{{SIGNALLING_PORT}}</code>变量是否被替换来判断。<code>web.rs</code>完成变量替换，单元测试校验页面中无残留端口标记；Space上部署的版本保留该标记，以此判断页面不是由机器人提供。</p>
+<p><code>pollen-robotics/microduck-console</code>是部署目标，脚本<code>scripts/publish-console.sh</code>将页面、Dockerfile与入口脚本部署上去。脚本从<code>duck-ipc-proto</code>读取API版本、写入构建戳，并且拒绝发布缺失端口标记（会让Space页面尝试打开WebSocket）或客户端ID标记（无法登录）的页面。目前只有一个Space，采用手动发布；后续多实例后改用CI自动发布。</p>
+<p>有一项是无奈选择，并非最优方案，保留自初稿：<code>EventSource</code>无法自定义请求头。浏览器使用SSE协议有两种方案：把令牌放在URL查询参数，或者使用fetch手动拉流、自行解析SSE报文。<code>reachy-mini-js</code>采用前者，而服务端正在逐步废弃该方案：<code>_resolve_hf_token</code>临时兼容<code>?token=</code>，按客户端IP输出弃用警告，注释说明当所有已知客户端都支持请求头传令牌后，移除查询参数方案。Bearer令牌放在查询字符串会被Space访问日志、中间代理全部记录。因此页面改用fetch + 手动分割SSE报文实现，一次性完成开发。</p>
+<p>综上，该页面本质是<code>mediad::relay</code>的镜像：SSE入、<code>POST /send</code>出，携带逐跳ID的GStreamer信令包，以及不透明的SDP/ICE负载；只是数据流向相反，这也是开发前建议阅读3.2节表格的原因。</p>
+<h2 id="51-在mini客户端中展示duck机器人需要沟通而非直接提交代码"><a class="header" href="#51-在mini客户端中展示duck机器人需要沟通而非直接提交代码">5.1 在Mini客户端中展示Duck机器人：需要沟通，而非直接提交代码</a></h2>
+<p>信令中转服务现有客户端包含Reachy Mini移动端、桌面端App，接入Duck之后，Duck会出现在用户的Mini客户端里，客户端会用Mini的方法调用去控制Duck（而Duck并不支持这些接口）。视频画面能正常传输，但其余功能全部失效，表现就像机器人故障。</p>
+<p><code>meta.kind</code>字段的作用就是区分机器人类型（3.7节），本页面会基于此字段过滤设备。但我们无法直接修改Mini客户端代码：需要和Mini客户端维护方沟通，这也是第4节没有考虑到的维度——问题不是“Duck需要服务提供什么能力”，而是“Duck接入服务之后，会对现有客户端造成什么影响”。</p>
+<p>非浏览器消费端目前可正常工作，唯一坑点是数据通道标签。<code>ReachyCentralConsumer</code>是对方基于aiortc实现的客户端，通过信令中转连接Duck，两端无需额外配置即可解码图像帧：执行<code>pip install "reachy_mini[central-consumer]"</code>，设置<code>robot_name="olducky"</code>，调用<code>latest_frame()</code>返回<code>(720, 1280, 3)</code>的uint8图像数组，已验证。日志会打印：忽略未知数据通道'control'。原因是Mini后台守护进程打开的数据通道标签不是<code>control</code>，而我们使用<code>control</code>（<code>remote-webrtc.md</code>第5节）。对于仅获取图像的感知消费端没有影响；但想要下发指令控制Duck的消费端，这只是问题的一小部分，更大的问题是方法调用不兼容。5.2节会完整处理这两点。</p>
+<p>对方两个客户端仅根据<code>meta.name</code>筛选设备，<strong>不会读取kind字段</strong>。主机端选择器列出所有在线设备；<code>ReachyCentralConsumer</code>按robot_name匹配meta.name，存在兜底逻辑：该token下任意在线设备都会被选中，不看名称。因此，如果一个账号唯一在线设备是Duck，原本为Mini开发的云后端会选中Duck，并用Duck不支持的Mini方法调用控制机器人。需要提前告知对方，对方仅需两行代码修改即可解决——kind字段已经在通信报文中携带。</p>
+<h2 id="52-可控制duck的消费端以及需要兼容对方一行代码"><a class="header" href="#52-可控制duck的消费端以及需要兼容对方一行代码">5.2 可控制Duck的消费端，以及需要兼容对方一行代码</a></h2>
+<p><code>spaces/policy-playground</code>是本仓库第二个消费端，也是第一个可以下发指令的客户端：登录账号，列出账号下所有Duck机器人，一键从Hugging Face Hub下发策略。接口包括<code>policy.fetch</code>、<code>robot.setSkill</code>、<code>robot.policies</code>、<code>robot.do</code>，和<code>robotctl policy add</code>的调用顺序一致，只是通信载体由Unix套接字改为WebRTC数据通道。</p>
+<p>“控制”相比“仅查看画面”，全部难点就在于通道标签。<code>ReachyCentralConsumer</code>处理<code>pc.on("datachannel")</code>的逻辑：<code>if channel.label != "data"</code>就忽略未知通道；而<code>mediad</code>打开的通道标签是<code>control</code>（<code>remote-webrtc.md</code> §5）。因此只看画面的消费端不受影响，但想要下发指令的消费端会完全拿不到数据通道。<code>RTCPeerConnection</code>是pyee事件发射器，<code>pc.on</code>是追加监听器，不是覆盖。我们编写子类重写<code>_build_pc</code>，注册第二个监听器；对方原有代码依旧运行，继续打印未知标签警告，而我们接管被它丢弃的数据通道。<strong>不需要修改对方包的源码</strong>，未来对方修复代码后，对方监听器接管control通道，我们的适配层就可以直接删除。</p>
+<p>复用对方<code>send_command</code>而不是重新实现，不是偷懒：<code>RTCDataChannel.send</code>非线程安全，对方已经把所有发送操作调度到PeerConnection所属事件循环；而Gradio回调会在任意工作线程执行。</p>
+<p>两类拒绝逻辑，以及归属哪一端，是本节梳理清楚的核心。</p>
+<ol>
+<li><code>policy.fetch</code>校验机器人相关声明参数：<code>obs_len</code>、<code>action_len</code>、<code>model_api</code>、<code>robot.model</code>，在校验通过后才下载策略。客户端不应重复校验，直接展示机器人返回的结果。</li>
+<li><code>robot.setSkill</code>不校验指令编码：一次性触发的相位策略会被接受，机器人会向经过相位数据训练的网络输入固定值，会产生看起来合理但实际错误的运动。该校验逻辑在<code>robotctl</code>，而网页点击操作不会经过<code>robotctl</code>。因此<code>catalogue.refusal</code>重复实现这套规则；后续任何新增该按钮的客户端，都需要第三次实现该逻辑。</li>
+</ol>
+<p>信令中转服务返回401错误，原因只和令牌有关。一开始猜测错误，阅读对方<code>app.py</code>源码才确认。页面早期版本用<code>GET /api/robot-status</code>查询机器人列表，收到401，当时认为该接口必须建立会话之后才能访问。这个猜想看似合理，因为<code>POST /send</code>确实需要会话（3.1节备注），且机器人只会在流存在时轮询该接口。实际并非如此：接口依赖<code>_resolve_hf_token</code>，再调用<code>validate_hf_token</code>，仅一次<code>whoami-v2</code>调用，<strong>无权限范围校验、无令牌类型校验、不要求会话</strong>，仅过滤用户名匹配。其文档注释写明设计目的：“被动状态指示器，不占用会话槽位”。</p>
+<p>因此该接口比页面内列表方案更合适，3.7节解释原因：会话以token作为索引，浏览器打开<code>/events</code>拉取列表的流会抢占当前会话的流。用这种方式刷新列表，必须断开现有会话。而<code>/api/robot-status</code>不会创建任何流。</p>
+<p>之前遇到的401错误来自Gradio模拟登录。不在Space环境（<code>SPACE_ID</code>未设置）时，<code>gr.LoginButton</code>正常，用户资料是真实的；<code>_get_mocked_oauth_info</code>把<code>access_token</code>设为固定字符串<code>mock-oauth-token-for-local-dev</code>。服务端通过<code>whoami-v2</code>解析令牌，会正确拒绝这个模拟token，现象就是页面提示“重新登录”，但控制台却能列出Duck机器人。本地调试优先使用<code>HF_TOKEN</code>或<code>hf auth login</code>保存的令牌；通过字符串值识别模拟token，而不是依靠<code>SPACE_ID</code>判断——在Space之外传入真实token，依旧是合法令牌。</p>
+<p>由此得到通用经验，也是页面同时输出两份日志的原因：一个按钮触发四层逻辑（令牌、信令中转、ICE候选对、机器人自身拒绝），四层任何一层失败，表现都是“没反应”。记录所有HTTP状态码、信令帧、JSON-RPC报文、拒绝原因，标注令牌来源，不打印令牌明文；<code>DUCK_LOG=DEBUG</code>开启流媒体通知和每条ICE候选日志。日志面板同时放在网页和终端，因为Space后台日志不会被持续查看，浏览器没有标准stderr。每层模块都可以单独运行：<code>uv run rendezvous.py</code>、<code>uv run catalogue.py</code>、<code>uv run lan.py</code>，把“无法工作”定位到代码行，减少沟通成本。</p>
+<p>另一个容易踩坑的是<code>IntentResult</code>：<code>robot.setSkill</code>、<code>robot.do</code>、<code>robot.init</code>、<code>robot.relax</code><strong>刻意返回<code>accepted: false</code>附带原因，而不是JSON-RPC错误</strong>。安全策略拒绝摔倒机器人执行策略，不属于接口调用报错。如果页面只捕获异常，会把这类拒绝判定为调用成功，机器人不动但前端无提示。</p>
+<p>页面重度依赖Space提供的传输通道。控制通道和媒体流共用同一组ICE候选对；如果中继不可用，点击操作直接失效。在数据中心环境，会话协商成功但媒体流可能不通。第6节接口现已可用，覆盖常规场景。但按量计费的依赖始终存在，因此状态提示展示当前所处阶段，而不是简单写“连接中…”，页面同时提供第二套接入方式。</p>
+<p><code>lan.py</code>就是备选通道，它只是另一种传输方案，不是全新架构。机器人已经在<code>ws://&lt;robot&gt;:8443</code>部署webrtcsink信令服务，控制台原本就连接这个地址；承载的GStreamer报文和信令中转通过SSE/POST /send传输的报文完全一致。仅仅替换一跳链路，上层逻辑不变：相同控制通道、JSON-RPC、按钮，页面自动适配两种消费端，无需人工选择。3.2节表格就是全部差异。切换到局域网模式，<strong>是删减能力，不是新增</strong>：不需要账号、租约、信令中转、中继，两端都使用主机候选地址。</p>
+<p>该方案价值不止是DNS故障的临时兜底；就算第6节修复完成，也建议保留：分离传输层和上层业务。如果局域网内可以连通、信令中转无法连通，就能直接定位故障层级，而不是只能猜测。</p>
+<p>代价是这部分代码需要手写，而信令中转部分是复用已有代码：根据<code>net/webrtc/protocol</code>和控制台页面定义十几种报文结构，报文写错不会报错，只会静默失效。<code>uv run lan.py</code>在本地回环地址启动生产者，运行完整协议和真实会话：握手、列表、创建会话、应答Offer、DTLS、SCTP、数据通道、请求与应答。127.0.0.1上两个aiortc对等端并不是Duck机器人，只是复现这套容易静默失败的协议。</p>
+<h2 id="53-从机器人输出图像帧第6节要解决的阻塞点"><a class="header" href="#53-从机器人输出图像帧第6节要解决的阻塞点">5.3 从机器人输出图像帧：第6节要解决的阻塞点</a></h2>
+<p>5.2节搭建的Space，目标是在Hugging Face硬件上处理机器人相机画面。控制通道无法传输像素，媒体流才是负责图像。跨两层NAT的WebRTC需要中继候选，而第6节说明之前缺少中继。<code>vision-demo</code>文档标注预期现象就是“信令正常，媒体不通”，根源就在这里。</p>
+<p>因此改为<strong>机器人主动向外连接Space推送画面</strong>。<code>media.stream {url}</code>由<code>mediad</code>自身处理（和<code>media.video</code>一致，因为媒体流水线归属mediad，不由外部服务管控），指令告诉机器人建立wss://长连接；机器人向外发起连接，推送图像帧。出站WebSocket基本都能正常连通，只要机器人网络可达。无需中继、无需ICE；信令中转只下发指令，不传输图像载荷。该架构可以横向扩容，而通过Mini集群依赖的服务中转像素流无法做到。</p>
+<blockquote>
+<p>Space ──media.stream {url}──► 信令中转服务 ──► 机器人
+机器人 ═══════ H.264，出站wss直连 ═══════► Space</p>
+</blockquote>
+<p>优先选用H.264，最初版本是JPEG。板载硬件编码器，编码由VPU承担，不占用CPU核心；帧间压缩大幅减少字节：合成测试内容下，每个H.264访问单元0.5KB，而JPEG单帧6.5KB，实拍画面差距同样巨大。为保证可靠性，需要实现两处容错逻辑，两类故障都属于静默失效：</p>
+<ol>
+<li>中途接入的接收端，必须等到关键帧才能解码。Space每次重启都会重新拉流，重连是常态。<code>h264parse config-interval=-1</code>在每个关键帧前重复SPS/PPS参数；开启推流阀门时向上游发送强制关键帧指令，保证接收端拿到的首帧可解码。</li>
+<li>JPEG适合丢弃旧帧保留最新帧，但H.264不行。参考帧被丢弃后的预测帧会解码出乱码，看起来像相机损坏，而不是传输故障。因此一旦流中断，直接丢弃到下一个关键帧，在队列和发送通道两处实现。</li>
+</ol>
+<p>JPEG编码仍支持<code>media.stream {"encoding": "jpeg"}</code>，每帧独立，适合频繁重连的接收端。</p>
+<p>该分支采用阀门控制，不是条件分支。<code>webrtcsink</code>管理视频轨道编码器，输入原始裸视频（预编码输入会脱离拥塞控制，流水线曾经尝试过该方案后回滚），因此无法直接分流，需要从原始视频Tee分出第二路编码器。硬件编码器资源有限，无人推流时不能占用资源：分支永久创建，阀门默认<code>drop=true</code>，通过属性写指令开启。另一种方案是动态增删流水线组件，但<code>pipeline.rs</code>中videoflip的历史bug证明该方案风险高，不予采用。</p>
+<p>该方案<strong>不支持浏览器预览画面、音频传输，也不实现遥操作闭环</strong>；这些场景依赖WebRTC，属于第6节的范畴。该图像流面向程序类消费端。</p>
+<h1 id="6-nat两端部署stun由机器人提供中继候选已定方案"><a class="header" href="#6-nat两端部署stun由机器人提供中继候选已定方案">6. NAT：两端部署STUN，由机器人提供中继候选——已定方案</a></h1>
+<p><code>stun.l.google.com:19302</code>，是webrtcsink默认STUN服务器；远程场景下控制台也使用该地址。之前缺失这部分配置，造成严重问题：页面只向跨网机器人提供192.168.x.x内网地址，会话协商成功，但媒体流完全不通，没有可用候选对。</p>
+<p>TURN中继不是可选组件，并且是非对称的。机器人在家庭路由器后，消费端在云容器内，<code>srflx-to-srflx</code>（公网反射地址直连）需要两侧NAT都允许打洞，有时可行，经常失败。中继一定能连通，代价是带宽消耗，所以ICE机制最后才尝试中继。</p>
+<p>只需要<strong>一侧提供中继候选，不需要两端</strong>。aiortc的STUN客户端正常，但TURN客户端存在问题，Python消费端无法作为中继侧，<strong>必须由机器人提供中继</strong>。Reachy Mini #1182提交确立了这套架构，<code>mediad::turn</code>沿用相同设计。</p>
+<p>早期分析忽略两端互通性问题，手机蜂窝网络是典型案例：iPhone没有IPv4套接字，通过DNS64/NAT64解析域名；STUN返回IPv4反射地址，手机收集到该候选。但ICE候选是原始IP文本，机器人的中继候选是纯IPv4地址，机器人板卡没有全局IPv6，手机无法向该IPv4地址发包。在<code>olducky</code>上测试6次会话，每次都返回<code>relays=5</code>，ICE连接状态全部失败，间隔约8秒。</p>
+<p>后续验证发现该测试结论有误，手机实际具备IPv4。<code>relays=5</code>统计的是<strong>webrtcbin收到的TURN服务器URI列表</strong>，在分配中继地址之前统计，不是收集到的中继候选数量。机器人中继分配成功/失败打印相同日志，因此6次失败的统一合理解释是：<strong>两端都没有可用中继候选</strong>。日志字段修改为<code>added TURN servers for this consumer servers=N</code>，用来统计TURN服务数量；<code>count_gathered_candidates</code>在收集完成后记录候选统计，每个消费端执行一次：</p>
+<pre><code>gathered ICE candidates host=2 srflx=1 prflx=0 relay=0 unparsed=0
+TURN servers were added and no relay candidate came back …
+</code></pre>
+<p><code>servers&gt;0</code>但是<code>relay=0</code>就是该无提示故障，第二行日志仅在该场景触发。在机器人实际产生该日志之前，前面DNS64/NAT64段落仅为假设，不是结论。</p>
+<p>因此控制台提供自身的中继（<code>mediad/webclient/index.html</code>中<code>refreshRelays</code>），只有消费端侧分配的中继可以解决该场景：<code>turn.cloudflare.com</code>支持IPv6解析，Cloudflare返回中继地址是IPv4，机器人可以访问。在文档编写前已在手机上验证：Trickle ICE页面使用相同凭证，4G网络下成功拿到IPv4中继候选；而机器人自身候选无法建立配对。</p>
+<p>页面使用<strong>访问者的令牌</strong>申请中继凭证，不是机器人令牌，两点理由：机器人的配额应该留给被观看，而不是发起观看；浏览器通过hf_oauth登录，本身自带令牌。局域网会话不需要中继，两端存在主机候选，不会使用TURN。</p>
+<p>凭证由Hugging Face托管的代理服务基于账号生成，使用和中继登录相同的Hugging Face令牌鉴权。机器人绑定账号才能获取中继，未绑定账号则无法，和第2节的权限逻辑保持一致。凭证生命周期短：任务在600s有效期的一半时间刷新；仅瞬时故障时，30秒后重试。未登录机器人没有重试意义，守护进程持续每30秒打印警告会淹没日志。</p>
+<p><strong>获取凭证不能阻塞主线程</strong>。调用入口是GStreamer的<code>consumer-added</code>回调，回调返回后才生成SDP Offer；如果在这里发起HTTP请求，会阻塞所有连接（包括完全不需要中继的局域网连接）。<code>Relays::uris</code>读取缓存，非阻塞读，无数据直接返回空，不等待、不报错。开机前几秒、无账号的机器人，返回空是正常状态，仅启用host和srflx候选，局域网场景足够。</p>
+<p>Duck确实可以收集中继候选，有实测数据，不是推断。在<code>lavandiere</code>（版本0.12.0-dev.1007.3c8e681，登录账号PierreRouanet），使用webrtcsink信令服务的局域网会话：</p>
+<pre><code>added TURN servers for this consumer  servers=5
+gathered ICE candidates  host=6 srflx=3 prflx=0 relay=6 unparsed=0 complete=false
+</code></pre>
+<p>消费端独立看到6条104.30.…中继记录。说明<code>add-turn-server</code>生效，libnice利用该账号生成的凭证完成Cloudflare中继分配，机器人侧代码无故障。局域网测试的优势：候选收集不依赖对端，无论是否配对成功都会分配中继候选，配对才是远端环节。后续遇到同类问题，这是低成本优先测试方案，无需信令中转、Space、双网络。</p>
+<p>该测试<strong>不能证明所有会话都正常</strong>。会话失败时，需要在故障机器人上抓取日志；这里<code>relay=6</code>只代表模块工作正常，不代表所有Duck都一定成功。</p>
+<p>中继可以承载完整端到端会话。<code>lavandiere</code>版本0.12.0-dev.1011.cb17b40，通过信令中转，由私有HF Space远程控制：</p>
+<pre><code>ICE connection state  state=Checking → Connected (2.0 s) → Completed (2.2 s)
+gathered ICE candidates  host=6 srflx=3 prflx=0 relay=9 unparsed=0 complete=true
+selected candidate pair  local=relay 104.30.144.144:29840/udp via 141.101.90.1
+                         remote=prflx 54.225.144.144:11854/udp
+</code></pre>
+<p>机器人Cloudflare中继作为本地候选，正是建立视频流的候选对。消费端无需提供TURN凭证，这是本节架构的核心特性。</p>
+<p>远端是prflx（对等反射候选）也值得关注：机器人通过入站STUN探测得到Space地址，而不是信令下发候选；这是srflx候选不可用时的典型情况，无需额外处理。</p>
+<p>Duck无法连接时，优先抓取这三行日志，而不是直接修改架构。优先检查构建版本：早于该端点修复版本的机器人，完全没有凭证，每30秒打印警告。</p>
+<p><code>reachy_mini</code>主分支不能直接复制作为参考。架构完全一致，但没有同等验证。对比<code>mediad</code> 9d364df版本：<code>webrtc_utils.TurnCredentials</code>、<code>media_server._apply_turn_servers</code>与<code>turn.rs</code>、<code>offer_relay_candidates</code>逐点对应：相同Space端点、600s TTL，半周期刷新，瞬时故障30秒重试，跳过无凭证stun条目，百分号编码<code>turn://user:pass@host:port</code>，<code>consumer-added</code>内生成Offer前添加TURN服务，缓存读取不阻塞Offer线程。两个守护进程都不配置stun-server，使用webrtcsink默认。并且两者都没有监听候选事件：<code>src/reachy_mini/</code>不存在<code>on-ice-candidate</code>和<code>ice-gathering-state</code>。因此“修复后的守护进程可提供中继”（rf-detr-realtime-webcam的app.py在机器人侧仅传入STUN），依据和本节一样，都是基于<code>add-turn-server</code>执行成功推断。不存在可移植补丁；Mini正常、Duck异常，属于环境差异（配额、板卡网络、libnice编译版本），不是代码差异。</p>
+<p>Mini独有而mediad没有的：协商看门狗。从<code>consumer-added</code>开始计时12秒，连接状态未变为Connected，就主动终止会话，附带原因，避免客户端无限等待。注释写明目标问题：<strong>libnice在CHECKING状态卡死（部分libnice版本已知崩溃模式）</strong>，这是另一种“协商成功、媒体不通”的场景，和无可用候选对属于两类故障。增加该模块和候选统计的目的相同：区分两种外观一致的故障。</p>
+<p>代理服务部署在Space，之前域名是故障点。<code>turn.fastrtc.org</code>：fastrtc源码引用，reachy_mini #1182直接沿用。该域名属于<strong>悬空域名委派</strong>，不是服务宕机：.org注册商分配4个Route53域名服务器，域名注册正常锁定至2027年；4台域名服务器全部返回REFUSED，说明Route53托管区域已删除。域名别名指向的<code>fastrtc/turn-service</code>这个Space本身服务正常。因此<code>DEFAULT_TURN_ENDPOINT</code>直接写<code>https://fastrtc-turn-service.hf.space/credentials</code>，不再使用 vanity域名。</p>
+<p>该修复同时堵住令牌泄露风险，比单纯解决宕机更关键。悬空Route53委派是已知域名劫持攻击向量：攻击者创建托管区域直到拿到四个委派域名服务器其中一个，仅需一台即可伪造域名记录，申请证书，每5分钟劫持所有登录机器人发送的Bearer令牌。该令牌是机器人完整凭证，2.4节说明其权限范围很广。</p>
+<p>访问端点会先校验地址，令牌才会被发送。<code>turn::parse_endpoint</code>是clap参数解析器，<code>--turn-url</code>仅允许https（回环地址除外），不允许用户信息、查询参数、片段。错误地址会在参数解析阶段直接终止守护进程，而不是每30秒输出警告。重定向有天然防护：reqwest在跨协议/主机/端口跳转时自动剥离Authorization头（src/redirect.rs, remove_sensitive_headers），令牌不会被转发到第三方站点。</p>
+<p>配额归属机器人所有者，存在上限：Hugging Face免费账号每月10GB。中继视频会话大约1GB/小时，高负载使用会耗尽配额；耗尽时代理返回无中继服务器，<code>turn.rs</code>打印信息日志“TURN代理未提供中继服务器”。该日志和没有分配中继的现象完全一样，存在可读性缺陷，后续遇到该场景需要优化。这也是<code>stream.rs</code>选择机器人出站推流，而不是中继转发图像的理由。</p>
+<p>增加监控检测该端点存活，解决之前三个月无人发现故障的问题。#1182合入时端点已经失效，唯一表现是日志警告和没人统计的候选类型。<code>.github/workflows/turn-endpoint.yml</code>每日执行：带认证GET请求<code>DEFAULT_TURN_ENDPOINT</code>，校验返回200，并且至少包含一条<code>turn:/</code>记录。仓库其余测试不受影响，其余测试都在同一局域网两台对等端，不会使用中继。</p>
+<p>三点设计考量：</p>
+<ol>
+<li>使用sed从<code>turn.rs</code>读取URL，而不是单独维护副本。如果测试脚本自己保存一份地址，测试的地址和守护进程编译地址不一致，绿色的测试会产生误导，不如不检测。</li>
+<li>不在PR触发：该监控针对“长期无人维护导致失效”，PR触发无法捕获；第三方服务宕机不能阻塞无关代码提交。</li>
+<li>HF_TOKEN缺失直接失败，不静默跳过。静默跳过永久失效正是该监控要解决的故障模式。</li>
+</ol>
+<p>两个明确不做的方案：</p>
+<ol>
+<li>自建代理服务。该端点是小型服务，保存Cloudflare Calls密钥，为持有合法HF令牌的调用方生成短期凭证。自建代理可以解除对闲置项目Space的依赖；<code>--turn-url</code>就是预留的扩展接口。值得做，但不阻塞中继能力上线。<code>*.hf.space</code>命名格式是<code>{owner}-{space}</code>，如果fastrtc重命名/删除Space，服务失效，没有CNAME可以切换。属于已知残留风险。</li>
+<li>在机器人板上直接存放Cloudflare密钥，使用<code>TURN_KEY_ID</code>和<code>TURN_KEY_API_TOKEN</code>。最快但安全性最差：每块板存储长期API密钥，正是2.4节要规避的安全漏洞。</li>
+</ol>
+<p>中继故障不是致命问题。<code>add-turn-server</code>调用前检查是否存在；C闭包内panic会直接终止进程，不会正常回滚（<code>pipeline.rs</code>已有该教训）；无效URI写入系统日志；机器人拿不到中继，大部分网络环境仍然可达。TURN URI包含密码，日志只会打印主机侧信息。</p>
+<h1 id="7-鉴权增加账号体系后重新梳理"><a class="header" href="#7-鉴权增加账号体系后重新梳理">7. 鉴权：增加账号体系后重新梳理</a></h1>
+<p><code>remote-webrtc.md</code>第4节观点：机器人不需要独立鉴权网关。桥接会话到达前已经完成两次鉴权：客户端向服务鉴权，机器人向外携带令牌鉴权。信任边界转移到服务，不是消失。本文不推翻该论点，补充第4节没有说明的：绑定发生时机，以及执行绑定的主体：</p>
+<ol>
+<li><code>account.login</code>登录之前：Duck在局域网外完全不可访问，不存在攻击面。</li>
+<li>登录之后：一个账号绑定该机器人；<code>account.login</code>/<code>account.logout</code>调用变更归属。该调用路由到所有传输通道，包括WebRTC。2.6节给出论证和三条支撑属性：已登录机器人拒绝重复绑定；绑定关系任何人可读；可在机器人之外多处撤销。</li>
+<li>远端对等端重新绑定机器人的风险比表面看起来更小：只有机器人当前归属账号的客户端，才可以远程访问。远端发起<code>account.login</code>只能是账号所有者自己的客户端。真正的暴露面在局域网，这也是强制权限机制的意义。</li>
+<li>机器人移交时必须执行登出。和配对PIN码、标定流程同属M6交接清单，在清单定稿前加入该流程，避免二手Duck向陌生人推流。</li>
+<li>令牌以Bearer凭证存放在文件中，板子被盗会泄露令牌。解决方案是2.4节的只读权限范围，不是加密：机器人开机无人值守读取文件，机器人能解密的内容，窃贼同样可以解密。这是缩小权限范围最有力的理由：当前配置下，被盗Duck的令牌拥有仓库写入权限。</li>
+</ol>
+<h1 id="8-工作顺序"><a class="header" href="#8-工作顺序">8. 工作顺序</a></h1>
+<p>拆分为5个阶段；前两个独立可用，不需要客户端：</p>
+<ol>
+<li><strong>账号登录</strong>：设备码流程、令牌文件、账号状态，updaterd模块。已完成：3个调用接口，3种传输，2套CLI，令牌自动续期。可独立验证：输出Hugging Face用户名，因此作为第一阶段。</li>
+<li><strong>中继与注册</strong>：生产者注册、协商心跳、重连退避、脑裂轮询，mediad模块。已完成：<code>mediad::relay</code>，不含GStreamer的后台任务；仅当<code>/etc/robot/hf-token</code>存在时激活，写入令牌无需重启即可加载。无需客户端即可验证：服务面板统计生产者数量，<code>/api/robot-status</code>列出Duck。</li>
+<li><strong>托管客户端</strong>，第5节。放在会话转换之前，而不是之后，为了方便验证：服务本身不带前端，<code>GET /</code>是状态页，统计对等端、生产者、会话。原有消费端是Mini移动端和桌面端，会使用Mini的方法调用Duck。因此所有客户端都需要我们自己开发；如果先做会话转换，只能基于假设备测试。</li>
+<li><strong>会话转换</strong>：远端消费端获取视频和控制通道。已完成：<code>relay::bridge</code>收到会话请求时，作为消费端打开<code>ws://127.0.0.1:&lt;port&gt;</code>；逐跳重写sessionId，不解析载荷；按名称拒绝第二个会话；无论何种原因结束会话，通知服务，包括生产者不存在（机器人流水线未进入PLAYING状态）。</li>
+<li><strong>STUN确定；机器人提供TURN中继</strong>，第6节。已完成：两端使用<code>stun.l.google.com:19302</code>，<code>mediad::turn</code>维护Cloudflare凭证，每个消费端Offer携带中继候选，地址来自<code>fastrtc-turn-service.hf.space</code>，旧域名是悬空委派。本节核心要点：<strong>仅机器人需要凭证</strong>；读取凭证不能阻塞构建Offer的线程；仓库内没有监控检测该端点宕机。</li>
+</ol>
+<h1 id="9-待解决项以及关闭项"><a class="header" href="#9-待解决项以及关闭项">9. 待解决项，以及关闭项</a></h1>
+<h2 id="待解决needs"><a class="header" href="#待解决needs">待解决（needs）</a></h2>
+<ul>
+<li>§2.4 权限范围：在pollen-robotics HF组织创建一个公开设备码客户端，权限<code>openid profile read-repos</code>，需要组织管理员操作。不阻塞上线——修改权限需要重新登录；但上线前必须完成。</li>
+<li>相机标定：<code>media.video</code>发布模块设计参数，<code>calibrated: false</code>，足够室内建图，达不到计量级精度。单台机器人测量写入<code>[media.intrinsics]</code>完成单台标定；生产阶段逐台标定完成全系列标定。<code>remote-webrtc.md</code> §11。</li>
+<li>所有线上报文需要源时间戳：<code>remote-webrtc.md</code> §11。媒体流<code>abs-capture-time</code>，校验webrtcsink、浏览器、aiortc支持；所有控制通道通知携带单调时钟+纪元时间戳，描述事件时刻。用于机器人视觉+惯性SLAM这类场景，关联图像和本体感知。需要独立版本号升级，不跟随传输层版本。</li>
+<li>§2.6 logout无法撤销令牌：验证Hugging Face是否支持第一方设备码客户端的令牌撤销，不是假设。不阻塞上线：登出后机器人不再可远程访问；被盗板在hf.co端处理。区别在于“遗忘”和“主动撤销”。</li>
+<li>§6 中继监控需要令牌：<code>.github/workflows/turn-endpoint.yml</code>每日运行，缺少仓库<code>HF_TOKEN</code>密钥会失败。该令牌仅用于生成TURN凭证，只有登录权限。故意快速失败，而不是静默跳过。</li>
+<li>§6 中继依赖第三方Space：自建凭证代理，保管Cloudflare密钥，不再依赖闲置项目Space。<code>--turn-url</code>是预留接口。不阻塞上线，Space当前可用；但<code>*.hf.space</code>是所有者+Space命名，对方改名/删除Space就失效，无CNAME切换。</li>
+</ul>
+<h2 id="本文编写后已关闭的问题"><a class="header" href="#本文编写后已关闭的问题">本文编写后已关闭的问题</a></h2>
+<p>OAuth客户端（§2.3，使用Hugging Face官方客户端）；令牌是否过期（§2.7，30天，轮换刷新令牌）；选用哪个信令中转服务（§4，Mini的服务）；能否读取源码（§4，我方维护，早期“私有仓库”是名称错误401）；客户端托管位置（§5，开启hf_oauth静态Space，核心不是托管，是获取令牌）；中继端点（§6，直接使用Space地址，旧域名悬空委派）。</p>
+<p>本文新增并解决的一项：对等端以token为索引，同一token的两台设备交替上线。不是烧录问题：镜像从头构建，不是克隆，不会复制到第二块板。但对消费端是约束：云后端必须使用独立token鉴权，不能复用机器人token，否则连接后会把机器人从列表中挤掉。§3.7。</p>
+<h1 id="10-不实现的功能"><a class="header" href="#10-不实现的功能">10. 不实现的功能</a></h1>
+<ul>
+<li>遥操作数据通道：<code>remote-webrtc.md</code> §6负责该模块；远程会话会放大队头阻塞问题，但不属于紧急需求。</li>
+<li>远程会话执行<code>update.*</code>变更：<code>remote-webrtc.md</code> §8描述所需条件，关键点是客户端支持重启恢复，不在本文范围。</li>
+<li>多对等端：同一时间只支持一路媒体会话，维持原有限制。</li>
+<li>每次会话独立确认：M6阶段任务，和本文正交；跨大陆启动流正是<code>architecture.md</code> §7讨论的场景。</li>
+<li>Duck专用移动端App：#107设计原型，M6负责手机原型验证。本文客户端问题，刻意不依赖开发独立App。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/mobile-app.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/boot-recovery-net.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/mobile-app.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/boot-recovery-net.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

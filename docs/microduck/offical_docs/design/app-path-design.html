@@ -1,0 +1,585 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>app-path-design.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="应用通信链路--btd-与-configd"><a class="header" href="#应用通信链路--btd-与-configd">应用通信链路 — btd 与 configd</a></h1>
+<p>文档状态：草案 · 日期：2026-08-04 · 负责人：pierre</p>
+<p>本文描述手机如何对机器人进行配置：WiFi、设备名称、重启、版本查询以及触发系统更新。</p>
+<p>本文是 <code>architecture.md</code> 的配套文档，<code>architecture.md</code> 定义服务拆分与跨模块通用契约。本文聚焦两个配套开发的守护进程，二者共同实现一套功能，任意一方的设计决策都会约束另一方：<strong>btd 不持有任何持久配置，因此需要 configd；configd 提供PIN码校验，btd才能完成配对；所有在btd中路由转发的接口，都必须由configd实现应答。</strong></p>
+<p>以上是机器人侧的实现。手机客户端的相关内容见 <code>mobile-app.md</code>。</p>
+<p>标注有 <strong>measured（实测验证）</strong> 的章节，结论均基于 Radxa Zero 3W 硬件实测，而非纯理论推导。</p>
+<p>整套链路已在硬件上完成端到端联调（2026-08-05）：Mac 设备发现机器人、建立蓝牙绑定、读取API版本、传递PIN码，并成功获取 <code>system.info</code> 返回数据。完整流程包含：GATT设备发现、双向分块NDJSON传输、PIN码鉴权网关、路由表转发，以及通过Unix套接字转发请求至configd。configd可对接真实NetworkManager，上报当前生效的SSID与IP地址。</p>
+<p>尚未完成验证项：链路目前无加密（§5.5）；尚未通过BLE调用<code>net.connect</code>；全部测试仅使用笔记本，未在手机端验证。</p>
+<h2 id="1-整体架构"><a class="header" href="#1-整体架构">1. 整体架构</a></h2>
+<pre><code>        手机 ──BLE──▸ btd ──┐
+robotctl ──unix socket──┼──▸ configd ──D-Bus──▸ NetworkManager（WiFi管理）
+(mediad) ──WebSocket────┘                    └──▸ logind         （重启）
+                             │                └──▸ 配置文件     （名称、PIN码）
+                             └──▸ updaterd  （更新相关接口 update.*）
+                             └──▸ robotd    （机器人状态 robot.health）
+</code></pre>
+<p>两条来自 <code>architecture.md</code> 的硬性规则决定了该架构，没有其他可选方案：</p>
+<p>§4.1：<strong>btd不持有任何业务配置</strong>。如果设备入网/配置功能放在BLE服务内部，所有其他服务都会依赖BLE，SDK甚至需要通过蓝牙才能修改机器人名称，设计极其不合理。</p>
+<p>§3.1：<strong>当robotd崩溃时，配置服务依然可用</strong>。机器人出现故障时，用户最需要做的就是配置WiFi，因此配置模块不能放在运动控制守护进程中。</p>
+<p>基于以上两条约束，没有其他服务可以承载 <code>net.*</code> 和 <code>system.*</code> 接口，因此新增configd作为第五个核心服务。</p>
+<p>本项目大部分工作量并非蓝牙相关。这套API接口以及承载它的服务，需要同时供手机App、SDK、robotctl、mediad远程网关使用。btd只是一个薄转发通道；佐证这一点：新增7个<code>net.*</code>/<code>system.*</code>接口，btd仅需在路由表中各增加一行配置。</p>
+<h2 id="2-wifinetworkmanager以及主板为何必须迁移至它--实测"><a class="header" href="#2-wifinetworkmanager以及主板为何必须迁移至它--实测">2. WiFi：NetworkManager，以及主板为何必须迁移至它 · 实测</a></h2>
+<p><code>architecture.md</code> §3选定使用NetworkManager，但主板原生并未搭载。</p>
+<p>Armbian无显示器镜像默认使用 <code>netplan + systemd-networkd + wpa_supplicant</code>。在主板上实测得到三点结论，因此放弃沿用原有方案，改用NetworkManager：</p>
+<ul>
+<li>开启D-Bus的wpa_supplicant不管理任何网卡。<code>fi.w1.wpa_supplicant1</code> 对象被占用但处于空闲状态（Interfaces数组为空）；netplan会启动第二个独立配置的wpa_supplicant实例接管wlan0，该实例完全不支持D-Bus。因此就算直接操作wpa_supplicant，也必须替换netplan，并且无法获得NM完善的故障上报能力。</li>
+<li>netplan无法提供手机配网所必需的信息。它只是配置生成器，没有任何层级的扫描API；<code>netplan apply</code> 只会返回“配置已应用”，<strong>不会返回WiFi关联是否成功</strong>。配网流程最核心的两个需求：“列出附近WiFi”、“密码错误提示”，netplan都无法实现。</li>
+<li><code>RequiredForOnline=no</code> 会让开机流程变得更差。Armbian自带配置将<code>systemd-networkd-wait-online</code>设为<code>--any</code>：只要任意networkd网卡就绪即判定网络就绪。WiFi交给NM管理后，networkd仅剩通常不插线的以太网口，<code>--any</code>条件永远无法满足。将该网卡标记为非必需，会直接删掉唯一候选网卡，导致开机判定失败。解决方案是屏蔽该单元，改用<code>NetworkManager-wait-online</code>作为可靠的网络就绪检测。</li>
+</ul>
+<p>脚本 <code>scripts/migrate-network.sh</code> 执行一次性迁移；脚本会先把主板现有WiFi凭证导入NM配置文件，才执行切换，防止无显示器主板直接断网、无法恢复。脚本还会配置开机兜底机制：如果90秒后wlan0仍无IP，则自动回滚netplan并重启。该思路借鉴了更新系统的启动计数器机制，用于网络变更故障保护。</p>
+<h3 id="21-badkey-错误码是迁移的核心目的"><a class="header" href="#21-badkey-错误码是迁移的核心目的">2.1 BadKey 错误码是迁移的核心目的</a></h3>
+<p><code>ConnectFailure::BadKey</code>（密钥错误）正是迁移NM的关键原因。密码被WiFi拒绝是配网场景最高发的故障；如果客户端无法识别该错误，用户将无从排查。NM将该场景上报为设备状态原因码7；configd会把NM的各类原因映射为<code>BadKey</code>、<code>NotFound</code>、<code>Timeout</code>、<code>Unsupported</code>、<code>Other</code>。<strong>未匹配的原始错误码绝对不能映射为BadKey</strong>，否则会造成死循环：用户反复重输本就正确的密码。</p>
+<p>configd调用<code>AddAndActivateConnection</code>后，<strong>持续轮询NM状态</strong>，而不是在启动激活时直接返回。因为netplan的返回值只是“配置已写入”，这正是我们需要摒弃的行为。</p>
+<h3 id="22-新网络配网整套链路的核心场景"><a class="header" href="#22-新网络配网整套链路的核心场景">2.2 新网络配网：整套链路的核心场景</a></h3>
+<p>BLE配网的适用场景：机器人放到新环境，原有WiFi不存在，也没有任何网络可以访问机器人。三个特性支撑该场景，仅第三点需要修复：</p>
+<ol>
+<li>守护进程不等待网络就绪。btd依赖<code>dbus.service bluetooth.service</code>，configd依赖<code>NetworkManager.service</code>；二者均不依赖<code>network-online.target</code>。主板在没有可用AP热点的情况下，依然可以启动并提供BLE服务。</li>
+<li>已保存的网络配置重启后保留。<code>AddAndActivateConnection</code>会生成自动连接默认开启的网络配置文件，重连逻辑完全交给NM，configd不介入重连流程。</li>
+<li>WiFi扫描需要等待扫描完成 · 实测。<code>RequestScan</code>在NM接收请求后立刻返回，<strong>不是射频扫描完成后返回</strong>；NM会清理长时间未探测到的接入点。因此机器人已经连上WiFi时，缓存列表往往只有当前连接的AP。立刻读取缓存会读到上一轮扫描结果：第一次调用返回1个网络，完全相同的第二次调用返回8个。
+configd现在等待<code>LastScan</code>属性更新，最大等待10秒；遇到限流请求时，视为“缓存已是最新”，而非报错。对于一个需要在陌生环境选择WiFi的客户端，“连续查询两次”不是可以交付的API契约。</li>
+</ol>
+<p><strong>读取激活结果，而非直接读取网卡状态 · 实测</strong>
+这是本链路最严重的bug。原先connect接口轮询网卡状态：网卡保持在已激活状态（使用旧WiFi），而新WiFi激活失败。于是调用<code>connect("Tehaupoo", psk: "lol")</code>，目标WiFi甚至不在射频范围内，却返回<code>{"outcome":"connected","ssid":"SFR-e994"}</code>，返回机器人正在使用的旧网络。在完全没有成功入网的场景上报成功，是灾难性错误：手机会认为配网完成，直接进入下一步。</p>
+<p>修改后：轮询<code>AddAndActivateConnection</code>返回的活动连接对象，<strong>返回请求的目标SSID，而不是网卡当前状态</strong>；射频无法搜到的SSID直接返回NotFound。激活失败时，删除NM生成的配置文件，否则自动重连会反复尝试错误密钥，<code>net.status</code>还会报告网络已保存。</p>
+<p>隐藏SSID也会在预检阶段直接拒绝。接入隐藏SSID需要配置<code>802-11-wireless.hidden</code>，并且客户端需要标记“该网络是隐藏SSID”，当前API尚不支持该参数。</p>
+<p><strong>重新配网是覆盖替换，不是追加新增 · 实测</strong>
+<code>AddAndActivateConnection</code>永远新增配置，NM允许同一个ID存在多条配置。旧流程场景：手机输错密码返回BadKey，再输入正确密码，机器人会保留两条配置，重启后NM自动连接哪一条不可控。<code>net.forget</code>原先只会删除其中一条，加剧问题。
+现在：连接WiFi前，枚举该SSID所有配置并全部删除；<code>net.forget</code>删除该SSID全部配置。</p>
+<p>选择<strong>先删后新增</strong>，而不是新增成功再删除旧配置：新增成功但清理失败时，会产生重复配置。如果新增失败，该SSID不再保留任何配置，这是配置替换场景下符合预期的结果，并上报客户端。</p>
+<p>注意：如果被替换的配置正是当前正在使用的WiFi，操作会断网。该现象无法避免——修改密钥必须重新关联WiFi；而BLE上的客户端不受断网影响，这正是整套设计的核心特性。</p>
+<h2 id="3-gatt接口是传输通道不是独立api"><a class="header" href="#3-gatt接口是传输通道不是独立api">3. GATT接口：是传输通道，不是独立API</a></h2>
+<p><strong>单个BLE服务，单个特征值（Characteristic）</strong>。客户端读取一次该特征值获取机器人API版本；向特征值写入NDJSON请求报文；订阅该特征值接收应答。报文格式与其他传输通道（Unix套接字/WebSocket）使用完全相同的JSON-RPC行协议。读取版本操作不可省略，§5说明其必要性。</p>
+<p>返回的版本号用于提示版本不匹配，<strong>不用于拦截调用</strong>。API_VERSION仅代表两端构建版本不一致，不代表哪些接口会失效，在该链路下通常接口都可正常调用。configd不会根据版本号拦截<code>net.*</code>、<code>system.*</code>；updaterd的<code>update.status</code>不需要版本握手，updaterd的hello接口也不再基于版本拒绝访问。
+如果客户端直接因版本不匹配拒绝调用，会拦截机器人本可以正常处理的请求；而这个BLE通道的设计初衷就是机器人无网络时，用<code>net.connect</code>修复网络问题，版本差异正是这种场景。
+<code>duckctl</code>采用警告并继续执行的策略，手机App也应同样处理：展示版本不匹配，继续执行调用；当接口定义真正变更时，会返回JSON-RPC标准错误：<code>METHOD_NOT_FOUND</code>（路由不存在）、<code>INVALID_PARAMS</code>（参数未知）。这些明确的错误码保证继续调用是安全的，而非单纯乐观尝试。</p>
+<p><strong>无自定义帧头</strong>。分隔NDJSON报文的换行符<code>\n</code>同时作为双向帧分隔符。该方案安全可靠：serde_json会把字符串内部换行转义为<code>\n</code>，序列化对象内部不会出现原始0x0A换行字节，这也是NDJSON可以直接在Unix套接字使用的原理。如果增加长度前缀，会变成仅BLE专用的方言，所有客户端都要单独实现。手机端逻辑与robotctl保持一致：写入字节流，读到换行视为一条消息结束。</p>
+<p>报文重组缓冲区上限8KiB，因为该缓冲区可被所有射频范围内的设备访问。</p>
+<p>备选方案及其取舍：</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th>舍弃原因</th></tr></thead><tbody>
+<tr><td>按字段拆分多个特征值（name、ssid、ip、connect等）</td><td>通用BLE调试工具可浏览，但等于同一API的第二种方言；每个字段需要UUID和btd代码，列表类接口<code>net.scan</code>、流式接口<code>update.subscribe</code>适配困难</td></tr>
+<tr><td>两个特征值：写通道 + 通知通道</td><td>经典方案，本项目最初就是该实现。BlueZ将写事件与订阅通知作为独立事件，需要依靠设备地址匹配两组事件，相当于猜测关联关系；单特征天然自带关联</td></tr>
+</tbody></table>
+</div>
+<p>单特征的代价：在nRF Connect这类BLE调试工具中查看时，同一条目同时承担读写通知，观感比较怪异。</p>
+<h3 id="31-路由子集即为安全边界"><a class="header" href="#31-路由子集即为安全边界">3.1 路由子集即为安全边界</a></h3>
+<p>BLE仅暴露接口子集（§4.1）。<code>btd/src/route.rs</code>中的一张路由表，决定接口是否允许调用、由哪个套接字服务、使用哪条套接字连接转发。前两项本质是同一个判断：路由表存在对应服务则允许调用；第三项也放在同一张表中，新增接口时必须显式配置路由（§3.5）。</p>
+<p><strong>Call的模式匹配采用穷尽匹配设计</strong>。新增协议接口时，如果路由表没有处理分支，btd编译直接失败。如果使用<code>_ =&gt; None</code>通配默认分支，短期看似安全，长期存在隐患：静默拒绝新增接口，问题表现为手机App缺失功能，没人记得添加路由。该机制已经发挥作用：新增7个<code>net.*</code>/<code>system.*</code>接口时直接触发编译失败，updaterd的匹配逻辑同样如此。</p>
+<p>被拒绝的接口与原因：</p>
+<div class="table-wrapper"><table><thead><tr><th>拒绝接口</th><th>拒绝理由</th></tr></thead><tbody>
+<tr><td><code>update.pin</code></td><td>误触锁定PIN后，机器人拒绝后续所有更新，并且上报已是最新版本；故障现象看起来像正常行为。仅允许robotctl、人工可信操作调用</td></tr>
+<tr><td><code>update.resetToGolden</code></td><td>实质上等同于恢复出厂，禁止通过无线调用</td></tr>
+<tr><td><code>robot.safeToRestart</code>、<code>robot.modelApi</code>、<code>robot.remoteSessionActive</code></td><td>updaterd向robotd查询的内部私有状态；手机读取后无法执行任何有效操作</td></tr>
+<tr><td><code>system.pairingPin</code>、<code>system.setPairingPin</code></td><td>核心安全项。未配对设备若可读取/修改配对密钥，配对机制形同虚设。btd改为通过Unix套接字向configd读取</td></tr>
+</tbody></table>
+</div>
+<p><code>update.rollback</code>、<code>update.select</code>原本在拒绝列表，现已放开。
+原先拒绝理由：更新引擎可自动回滚失败的版本（健康检查不通过的版本）。但用户拿起手机操作的场景，往往是版本安装成功、健康检查通过，但运行行为异常：行走不稳、手柄断连。这类问题引擎不会自动回滚，只能人工操作，而用户此时只有手机，没有SSH。这两个接口仅切换到主板上<strong>已经运行过</strong>的版本，不会下载新固件，同样带门控与自动回滚。<code>update.apply</code>原本就已放行，是三者中风险更高的接口；放开这两个接口，对射频范围内客户端权限几乎没有扩大。详细决策与权衡见 <code>docs/project/update-over-ble.md §2.4</code>。</p>
+<h2 id="4-鉴权两层独立权限体系"><a class="header" href="#4-鉴权两层独立权限体系">4. 鉴权：两层独立权限体系</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>层级</th><th>机制</th><th>控制目标</th></tr></thead><tbody>
+<tr><td>1</td><td>socket权限0660，归属robot用户组</td><td>谁可以建立连接并收发消息</td></tr>
+<tr><td>2</td><td>allow_users / --allow-user</td><td>谁可以执行修改类操作</td></tr>
+</tbody></table>
+</div>
+<p>只读接口完全跳过第二层鉴权，因此技术支持人员可以查看机器人状态，但不能修改配置。</p>
+<p>两层权限的必要性：btd必须加入robot用户组才能访问套接字；但属于robot组<strong>不等于拥有固件修改权限</strong>。两个服务都显式授予修改权限给指定服务：<code>updater.toml</code>中<code>allow_users = ["btd"]</code>；<code>configd.service</code>启动参数<code>--allow-user btd</code>；两个服务都有测试用例，拒绝直接以robot用户组执行修改操作。</p>
+<p><strong>按用户名校验，不使用UID</strong>。systemd-sysuser动态分配UID，写死在发布配置里的数字UID，在本机正确，换另一块主板就失效。用户名在启动阶段解析；解析失败仅输出警告，不直接退出。机器人某个可选服务缺失时，仍需要对外提供状态查询。</p>
+<p><code>SO_PEERCRED</code>仅返回进程主GID，这是一个陷阱：<code>SupplementaryGroups=</code>可以让进程通过套接字权限校验，但不会提升第二层权限。该问题曾导致：BLE上所有修改类调用返回<code>PERMISSION_DENIED</code>，但只读调用全部正常。该bug很难定位，看起来像神秘故障，而不是配置错误。</p>
+<h3 id="41-权限与解析器部署位置"><a class="header" href="#41-权限与解析器部署位置">4.1 权限与解析器部署位置</a></h3>
+<p>btd以普通非特权用户运行；configd以root运行。看似颠倒，但设计合理。</p>
+<p>btd负责解析射频范围内任意设备发来的字节流。configd只会收到经过本地套接字、带对等进程凭证校验的结构化JSON。<strong>把报文解析器放在安全边界外侧，比加固转发器更重要</strong>。</p>
+<p>configd需要root权限的原因很有限：NM修改连接、logind重启都受polkit管控；镜像没有部署polkit，systemd拒绝无会话非root用户调用这两个操作。备选方案是安装JS策略引擎，只为两个接口鉴权。
+和robotd不同，configd不操作硬件，因此systemd单元做严格沙箱：<code>ProtectSystem=strict</code>，仅一个可写路径，仅允许AF_UNIX套接字，清空CapabilityBoundingSet。<strong>刻意不赋予CAP_SYS_BOOT</strong>：重启动作由logind执行，configd仅发起请求；该能力会允许直接调用非干净的<code>reboot(2)</code>系统调用，正是本设计想要规避的。</p>
+<p>如果后续因其他需求部署polkit，configd应当降权至专用用户，并配置两条polkit规则。</p>
+<h3 id="32-每个订阅对应独立会话以及触发该设计的bug--实测"><a class="header" href="#32-每个订阅对应独立会话以及触发该设计的bug--实测">3.2 每个订阅对应独立会话，以及触发该设计的bug · 实测</a></h3>
+<p>btd维护会话：重组缓冲区、出站队列、鉴权状态。最初设计思路：会话生命周期等同于服务生命周期。因为BlueZ回调模型中订阅没有对等端身份，每个特征值仅维护一个notify状态，当时认为多客户端会话是不必要的复杂逻辑。陈旧的不完整报文最多只会造成一次错误请求。</p>
+<p>实际故障会影响下一个客户端，更严重；主板上复现三类现象：</p>
+<div class="table-wrapper"><table><thead><tr><th>现象</th><th>根因</th></tr></thead><tbody>
+<tr><td>一次请求成功，后续请求超时</td><td>第一个传输任务占用了出站接收器，第二个订阅没有可用发送通道；应答写入无人读取的通道</td></tr>
+<tr><td>返回片段<code>:0,"result":{"authenticated":true}}</code>，应答报文头部丢失</td><td>残留的碎片在后续通知事件中被吐出</td></tr>
+<tr><td>机器人扫描不到，再次执行相同命令又成功</td><td>无关客户端侧bug：固定延时后仅抓取一次扫描快照，广播包是否落在窗口期全凭运气</td></tr>
+</tbody></table>
+</div>
+<p>仅第三点是客户端bug；前两点是同一个缺陷：<strong>会话状态生命周期超过客户端连接生命周期</strong>。断开连接事件在该模型中无法感知，没有任何逻辑重置状态。</p>
+<p>修改方案：<strong>中心设备订阅时创建会话，断开连接时销毁会话</strong>，重组器、队列一并销毁；手机重连后需要重新鉴权，与§5.2描述行为一致。两个关键细节，最初实现均出错：</p>
+<ol>
+<li>发送泵同时监听队列与<code>notifier.stopped()</code>。仅依靠通知发送失败判断客户端离开，需要有报文要发送才能触发；空闲状态断开的客户端会持续占用会话槽位，直到新请求到来。</li>
+<li>销毁逻辑仅在槽位仍持有自身发送器时清空。向已下线中心设备发送通知时，BlueZ会占用一段时间才返回失败；此时重连的客户端可能已经新建会话，粗暴清空会销毁新会话。</li>
+</ol>
+<p>写通道会拒绝无有效订阅的写入。接收写入但没有订阅接收应答，属于逻辑错误：应答无处发送。</p>
+<h3 id="33-移动端app会遇到的坑不要使用服务过滤进行扫描--实测"><a class="header" href="#33-移动端app会遇到的坑不要使用服务过滤进行扫描--实测">3.3 移动端App会遇到的坑：不要使用服务过滤进行扫描 · 实测</a></h3>
+<p><code>duckctl</code>是测试工具，定位简单；真正客户端是手机App。但其中一个bug根源是CoreBluetooth，不是工具本身，需要记录，避免iOS端重复踩坑。</p>
+<p>btd广播服务UUID与主机名。<strong>带服务过滤的扫描经常搜不到机器人</strong>：CoreBluetooth严格执行过滤规则；已绑定的外设经常广播空服务列表，此时过滤扫描直接完全不返回该设备，不是“不带服务信息返回”，而是直接消失。现象：一次扫描找不到机器人，完全不变的环境下，下一次扫描成功。初步修复存在缺陷：基于名称的备选匹配，只能匹配过滤扫描已经返回的外设。</p>
+<p>App应采用<strong>无过滤扫描</strong>，再筛选目标设备，优先级从高到低：广播的服务UUID、已知名称/已保存外设标识符；<strong>成功连接后，验证该设备是否提供目标特征值，作为唯一权威身份校验</strong>。iOS相比duckctl有更好方案：<code>retrievePeripherals(withIdentifiers:)</code>，btleplug不支持该接口。首次连接成功后保存外设标识符，可彻底消除扫描猜测。</p>
+<p>另外：固定延时后仅抓取一次扫描快照是不可靠的。广播是周期性发送，适配器对已绑定外设的检测时有时无；需要循环扫描直到发现目标设备。</p>
+<h3 id="34-机器人广播频率必须足够高才能被扫描发现--实测"><a class="header" href="#34-机器人广播频率必须足够高才能被扫描发现--实测">3.4 机器人广播频率必须足够高，才能被扫描发现 · 实测</a></h3>
+<p>duckctl约半数执行结果报找不到机器人；一度怀疑是工具不稳定，或是游戏手柄LE共享射频造成干扰。二者都不是。
+btd注册广播时未指定广播间隔，BlueZ使用内核默认1.28s；低占空比扫描的中心设备很难稳定捕获该广播包。</p>
+<p>Mac持续扫描两分钟，统计设备广播上报次数：</p>
+<div class="table-wrapper"><table><thead><tr><th>设备</th><th>信号强度</th><th>120s内上报次数</th></tr></thead><tbody>
+<tr><td>智能插座</td><td>−66 dBm</td><td>130</td></tr>
+<tr><td>信标</td><td>−91 dBm</td><td>159</td></tr>
+<tr><td>机器人</td><td>−36 dBm</td><td>16</td></tr>
+</tbody></table>
+</div>
+<p>机器人是房间内信号最强设备，但上报数量低一个数量级。排除距离、干扰、客户端问题。平均7.5s上报一次，最长静默间隔9s、14s、17s，一次长达31s；长间隔是1.28s整数倍，由此确认广播周期。8秒扫描窗口落在静默期就无法发现设备。</p>
+<p>App两点结论：
+手机无法规避该问题。首次配网需要扫描，因此设备发现同样会遇到静默窗口，而首次配网场景机器人必须能被搜到。§3.3的<code>retrievePeripherals(withIdentifiers:)</code>收益有限：保存标识符可以跳过扫描直接重连，仅降低重连延迟，<strong>无法解决首次连接扫描问题，而首次配网是最重要场景</strong>。</p>
+<p>广播间隔属于机器人侧配置，由btd负责：设置为100–150ms，是默认值的8–12倍，与普通蓝牙外设一致。不选用协议允许的20ms：天线同时承载本BLE、游戏手柄LE链路与WiFi，射频占用时间会挤占机器人本身业务。</p>
+<p><code>duckctl/examples/advwatch.rs</code>是本次测量代码，保留用于复现验证：统计每个设备上报次数、信号强度，记录机器人静默时段。</p>
+<p>主板实测验证：设置100–150ms间隔，同一Mac两分钟扫描：</p>
+<div class="table-wrapper"><table><thead><tr><th>配置</th><th>120s上报次数</th><th>平均间隔</th><th>最长静默</th><th>≥8s静默次数</th></tr></thead><tbody>
+<tr><td>默认1.28s</td><td>16</td><td>7.5 s</td><td>30.8 s</td><td>7</td></tr>
+<tr><td>100–150ms</td><td>151</td><td>0.8 s</td><td>3.8 s</td><td>0</td></tr>
+</tbody></table>
+</div>
+<p>上报频率提升9倍；不再存在接近duckctl8秒扫描窗口的长时间静默，因此不会复现该故障。设备列表从106台设备中排第34位，变为74台设备中第7位。</p>
+<h3 id="35-按通道分配独立连接守护进程一次只处理一个请求"><a class="header" href="#35-按通道分配独立连接守护进程一次只处理一个请求">3.5 按通道分配独立连接：守护进程一次只处理一个请求</a></h3>
+<p>btd按需打开到updaterd、robotd、configd的套接字，并在会话生命周期内保持连接（<code>btd/src/upstream.rs</code>）。最初每个服务维持一条连接；后端两个守护进程在单条连接上串行处理请求：读一行，完整处理调用，再读取下一条（<code>updater/src/ipc.rs::handle_connection</code>，<code>configd/src/main.rs::handle</code>）。会话内所有调用排队等待最慢任务。App最常用的两组调用顺序会因此失效：</p>
+<div class="table-wrapper"><table><thead><tr><th>客户端操作</th><th>实际现象</th></tr></thead><tbody>
+<tr><td><code>update.apply</code>，更新运行中同时调用<code>update.status</code>查询状态</td><td>status请求卡在套接字队列，updaterd数分钟不读取；客户端超时，机器人实际正常更新</td></tr>
+<tr><td><code>update.subscribe</code>订阅进度，随后调用<code>update.apply</code></td><td>更严重。<code>stream_progress</code>会占用连接直到客户端断开，不再读取任何新请求；apply写入套接字缓冲区，永远不会执行、无应答、无报错</td></tr>
+</tbody></table>
+</div>
+<p>重点记住第二种场景：用户点击更新，机器人毫无反应，系统找不到任何报错，请求躺在套接字缓冲区。</p>
+<p>解决方案：<strong>按连接占用时长对接口分组，每组独立连接通道</strong>。通道在<code>route.rs</code>中和权限、目标服务一同判定，穷尽匹配机制会强制新增长耗时接口时手动分配通道。</p>
+<div class="table-wrapper"><table><thead><tr><th>通道类型</th><th>占用连接时长</th><th>接口</th></tr></thead><tbody>
+<tr><td>Prompt（快速查询）</td><td>查询瞬间</td><td>hello, update.status, update.log, update.listInstalled, robot.health, net.status, net.forget, system.*, pad.status, pad.forget</td></tr>
+<tr><td>Slow（慢速）</td><td>数秒，网络/射频扫描</td><td>update.check, net.scan</td></tr>
+<tr><td>Operation（操作）</td><td>任务执行全程，修改机器人状态</td><td>update.apply, update.rollback, update.select, net.connect, pad.pair</td></tr>
+<tr><td>Stream（流式）</td><td>永久占用，不处理其他请求</td><td>update.subscribe</td></tr>
+</tbody></table>
+</div>
+<p>同一通道内调用排队；分组逻辑是合理的：updaterd通过文件锁保证变更操作串行，第二个变更直接返回BUSY；同时在configd执行两次射频扫描本身就不合理。<code>update.check</code>刻意不放在Operation通道：更新过程中查询检查可立刻返回结果，如果放入Operation通道，BUSY会变成等待数分钟的加载动画。</p>
+<p>单会话每个服务最多4条套接字，实际通常2条。按单次调用新建连接模型更整洁，但需要btd解析应答报文判断调用结束；本设计刻意不解析应答（§3），该特性保证路由转发层仅作为传输通道，而不是第二套API实现。</p>
+<h3 id="36-超过单次通知最大长度的应答以及通知侧无法获取mtu的问题--实测"><a class="header" href="#36-超过单次通知最大长度的应答以及通知侧无法获取mtu的问题--实测">3.6 超过单次通知最大长度的应答，以及通知侧无法获取MTU的问题 · 实测</a></h3>
+<p>bluer回调模型（本项目选用，见<code>btd/src/bluez.rs</code>头部注释），通知发送方缺少两个关键信息：无法获取链路协商后的MTU；notify在D-Bus信号入队后立刻返回，没有机制告知发送泵射频何时发送完成。
+早期规避方案：全部应答按最小20字节分片，循环尽可能快地发送分片。</p>
+<p>Mac主板测试，调用<code>system.logs</code>读取日志尾部：</p>
+<div class="table-wrapper"><table><thead><tr><th>应答大小</th><th>最小MTU分片通知次数</th><th>现象</th></tr></thead><tbody>
+<tr><td>~5KiB（24行）</td><td>≈265</td><td>成功送达，耗时1.83s</td></tr>
+<tr><td>~7KiB（32行）</td><td>≈350</td><td>150ms时通知会话被断开</td></tr>
+</tbody></table>
+</div>
+<p>第二行是在硬件会话上才发现的严重问题。btd打印INFO日志提示中心设备取消订阅，但实际并未取消，CoreBluetooth链路保持连接；客户端等待60s空闲超时，重组器内保存半份应答，无报错。发送泵把bluer返回的同一类错误统一解读为“客户端断开”，但队列满和客户端下线是两种场景，只能通过<code>is_stopped()</code>区分。</p>
+<p>三项改进（并非根治方案，因为IO模型没有就绪信号）：</p>
+<ol>
+<li>载荷大小由写入端获取。BlueZ在每次入站写入时上报协商后的ATT MTU，双向共用同一个ATT MTU；中心设备在发送应答前必然有写入操作（<code>system.authenticate</code>是会话第一条写入）。会话初始使用最小MTU，收到第一次写入后切换为真实MTU，通知数量降低约一个数量级。</li>
+<li>发送泵每16个分片暂停一次，约等于一个连接间隔；小报文不暂停。</li>
+<li>分片发送失败时重试，不直接判定为断开；多次失败则输出警告。</li>
+</ol>
+<p>彻底解决需要IO模型的<code>sendable()</code>接口，但该接口仅支持Acquire*文件描述符路径，CoreBluetooth中心设备无法使用。</p>
+<p><strong>手机协商MTU为515，改变问题规模 · 实测（2026-09-15）</strong>
+以上全部测试基于Mac。iPhone17 iOS26.6.2，使用tauri-plugin-blec，上报ATT MTU=515：CoreBluetooth最大写入长度512字节+3字节头部；本守护程序剥离头部得到载荷大小。因此btd从会话第一条入站写入后，通知分片大小设为512字节，不再是20字节。</p>
+<p>套用上表数据：5KiB日志从265次通知减少至约11次；7KiB应答从350次降至约14次。该改动<strong>不能修复会话断开问题</strong>，前面三项改进仍然是必要防护；但大量分片造成的队列压力消失，手机端不会触发该问题。这决定了<code>system.logs</code>是否可以作为App接口。</p>
+<h3 id="37-已有一个中心设备连接时机器人仍可被扫描发现--实测2026-09-21"><a class="header" href="#37-已有一个中心设备连接时机器人仍可被扫描发现--实测2026-09-21">3.7 已有一个中心设备连接时，机器人仍可被扫描发现 · 实测（2026-09-21）</a></h3>
+<p>手机App连上机器人后，duckctl扫描完全找不到该设备：不在其他名称下，也不是无服务列表，直接消失。用于查询SSH地址的命令在App占用连接期间完全失效，工具提示用户断开另一客户端。</p>
+<p>两个叠加机制，仅第一条直观：</p>
+<ol>
+<li>建立连接后，触发本次连接的广播集自动停止。属于蓝牙规范，BlueZ和内核不会自动恢复广播，直到链路断开。</li>
+<li>外设角色连接打开时，Linux默认不启用可连接广播，除非控制器支持。<code>net/bluetooth/hci_sync.c</code>中<code>is_advertising_allowed</code>读取控制器LE支持状态：外设连接状态下的<strong>不可连接广播</strong>需要状态20；可连接广播需要状态38与21。</li>
+</ol>
+<p>主板实测（AIC8800，HCI5.4），每秒从机器人侧采样手机连接状态：</p>
+<div class="table-wrapper"><table><thead><tr><th>手机连接时注册广播类型</th><th>射频是否发出</th></tr></thead><tbody>
+<tr><td>不可连接广播，携带duck服务UUID</td><td>是 — 笔记本8秒后扫描发现</td></tr>
+<tr><td>可连接广播，相同载荷</td><td>否 — BlueZ注册成功，但扫描永远收不到</td></tr>
+</tbody></table>
+</div>
+<p><code>hciconfig hci0 lestates</code>确认控制器支持状态20、21；不支持状态38，上表证明该能力缺失。</p>
+<p>方案：<strong>会话活跃时，btd发送不可连接广播；无连接时发送标准外设可连接广播</strong>。载荷不变：名称、服务UUID、4字节IPv4地址。扫描仍然可以找到机器人；App占用连接期间，<code>duckctl ip</code>、ssh、scp、open命令都可用，仅设备发现需要广播包。</p>
+<p>这是唯一可行的广播策略。bluer每个特征值仅维护一条通知状态（§3.2），第二个中心设备不会新建独立会话，而是直接替换原有会话。可连接广播相当于邀请新连接，但守护进程无法同时处理多个会话，新客户端接入会踢掉正在使用的会话。</p>
+<p>两个限制：</p>
+<ol>
+<li>地址会变化：内核对不可连接广播强制启用隐私模式，分配不可解析的私有地址。繁忙机器人在扫描器看来是不同外设身份；依靠名称+服务UUID匹配，而不是蓝牙地址。</li>
+<li>中心设备取消订阅但不断开连接：btd会注册可连接广播，但内核不启用；BlueZ接受注册，直到链路断开自动恢复，属于自恢复旧行为。</li>
+</ol>
+<h2 id="5-配对just-works简易配对--应用层pin校验"><a class="header" href="#5-配对just-works简易配对--应用层pin校验">5. 配对：Just-Works简易配对 + 应用层PIN校验</a></h2>
+<p>6位PIN码存储在configd，btd在提供任何服务前校验PIN。<strong>不是依靠蓝牙绑定本身鉴权</strong>；该限制由蓝牙协议规范强制，不是人为选择。</p>
+<h3 id="51-ble原生配对无法使用印刷pin码--实测"><a class="header" href="#51-ble原生配对无法使用印刷pin码--实测">5.1 BLE原生配对无法使用印刷PIN码 · 实测</a></h3>
+<p>最初方案：机器人向BlueZ的密钥请求返回内置PIN。硬件实测发现macOS会生成随机6位密钥，等待用户在机器人上输入。</p>
+<p>BLE密钥输入机制：一端显示密钥，另一端输入密钥；角色由双方上报IO能力决定。实现<code>request_passkey</code>代表设备支持输入，因此macOS自动承担显示端角色。无键盘机器人无法作为输入端。</p>
+<p>反向方案同样不行：<code>DisplayPasskey</code>让机器人作为显示端，但协议规定<strong>显示端随机生成密钥</strong>，由BlueZ生成并交给代理。无法指定我们预先存储的PIN；无屏幕无头机器人也无法展示密钥。</p>
+<p>因此，<strong>固定印刷在机器人外壳上的PIN，无法直接使用BLE原生密钥输入流程</strong>。剩余三个方案：</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th>说明</th></tr></thead><tbody>
+<tr><td>仅Just-works</td><td>加密、无身份认证、无PIN；依靠物理在场保证安全，大部分无头BLE设备采用</td></tr>
+<tr><td>带外（QR二维码OOB）</td><td>真正的设备级认证，每台机器人独立密钥。BlueZ OOB支持薄弱，没有手机客户端实现，v1开发成本极高</td></tr>
+<tr><td>Just-works + 应用层PIN校验</td><td>选定方案。蓝牙配对建立加密链路；在会话内自定义规则校验PIN</td></tr>
+</tbody></table>
+</div>
+<h3 id="52-工作流程"><a class="header" href="#52-工作流程">5.2 工作流程</a></h3>
+<p>配对采用Just-works：所有代理回调为None，bluer对外上报<code>NoInputNoOutput</code>。读取RPC特征值需要<code>encrypt_read</code>，触发中心设备建立蓝牙绑定；仅普通加密，<strong>不使用encrypt_authenticated_</strong>*。因为Just-works绑定无法满足认证加密，强制启用会拒绝所有客户端。</p>
+<p>建立绑定后，btd<strong>不提供任何服务，直到客户端调用<code>system.authenticate</code></strong>。该调用由传输层本地处理，不转发后端，因此路由表增加第三种结果<code>Route::Local</code>，与转发/拒绝并列。仅<code>hello</code>接口允许未鉴权访问，仅返回版本信息，和GATT读取获取信息一致；拒绝hello会导致版本不匹配的客户端无法排查故障。</p>
+<p>三个关键细节：</p>
+<ol>
+<li>PIN每次校验请求从configd实时读取，不缓存。<code>robotctl system set-pin</code>修改PIN后，下一次鉴权立即生效，无需重启。configd不可访问时直接拒绝会话。</li>
+<li>PIN按字符串比对。<code>042042</code>和<code>42042</code>是不同密钥；如果转为数字解析会判定相同，项目专门增加测试用例覆盖该场景。</li>
+<li>最多3次错误PIN，会话关闭。6位PIN在加密但未认证链路上有百万次猜测空间；限制尝试次数提高暴力破解成本：每次重试需要完整BLE绑定握手。返回<code>attempts_remaining</code>剩余尝试次数，App可以提示“剩余2次机会”，而不是静默断开。</li>
+</ol>
+<h3 id="53-安全收益与局限"><a class="header" href="#53-安全收益与局限">5.3 安全收益与局限</a></h3>
+<p>PIN在加密但未认证链路上传输，配对现场的攻击者可以捕获PIN。这是方案取舍的代价；未来威胁模型要求更高时，优先改用OOB二维码。相比纯Just-works，收益：<strong>仅仅完成蓝牙绑定（射频范围内任何人都可做到），依然无法调用任何接口</strong>。</p>
+<p>出厂默认PIN <code>000000</code>，代码仓库公开。开箱状态仅能证明物理接触，没有安全防护。btd每次使用默认PIN鉴权都会输出警告，<code>robotctl system pin</code>同样提示。安全完全依赖每台机器人独立PIN，属于产线配置任务：生成PIN、印刷、记录。对应<code>updater-design.md §5.7</code>的设备独立状态存储，和序列号共用存储位置。</p>
+<p><strong>不设置配对窗口期，该决策已定，不是延后需求</strong>。机器人只要广播就可以配对。每机独立PIN已经实现窗口期的安全逻辑：读取印刷PIN需要物理接触，能拿到贴纸就可以拿起机器人。实体按键可以增加确认交互、丢失PIN恢复路径、贴纸拍照泄露的纵深防护；v1暂不需要，后续版本可增加。带按键外壳可以控制可配对开关，无需修改本设计。</p>
+<h3 id="55-加密当前默认关闭方案尚未敲定--实测"><a class="header" href="#55-加密当前默认关闭方案尚未敲定--实测">5.5 加密当前默认关闭，方案尚未敲定 · 实测</a></h3>
+<p>特征值开启<code>encrypt_read</code>后macOS会卡死：CoreBluetooth发送Read Request，BlueZ判定加密不足拒绝请求，无弹窗、无错误、无重试；客户端等待超时，机器人本身正常。关闭标记，读取立刻成功，证明是该标记导致。</p>
+<p>因此测试主板btd启用<code>--insecure-no-pairing</code>，PIN在<strong>未加密链路</strong>传输。比§5.3描述更差：链路既无加密也无认证。射频范围内任何人都可以捕获PIN，之后执行所有客户端允许操作。</p>
+<p>待确认：蓝牙绑定是否真的建立。<code>bluetoothctl info &lt;mac&gt;</code>显示Paired: no代表无法建立加密，标记只是表象。确认前，把加密要求移到写入端属于猜测；如果没有绑定，写入加密同样失败。</p>
+<p>当前默认故意设为不安全。标记<code>--require-pairing</code>默认关闭。发布镜像的主板默认开启未加密链路，开箱即用。</p>
+<p>曾尝试默认强制开启配对，但被否决：全新安装安全但完全不可用。所有客户端读取版本请求直接卡死，这正是CoreBluetooth的bug。机器人完全无法通信，安全毫无意义；项目距离正式交付很远，在可用和安全之间，开发工具选择可用版本。</p>
+<p>风险明确记录不回避：所有运行该版本的机器人，WiFi凭证与PIN可被附近窃听。btd每次启动输出警告，保证该风险不会被遗忘。旧参数<code>--insecure-no-pairing</code>会被接收并忽略，避免升级移除该参数后，带旧配置的主板启动失败。</p>
+<p><strong>交付前必须修复</strong>：翻转标记，默认开启加密。如果配置密钥可被旁观者读取，不能交付给外部用户。</p>
+<p>iOS和macOS行为不一致，仅验证到这一步 · 实测（2026-09-14）
+olducky主板做A/B对照，手机连接，通过systemd drop-in重启btd，保证<code>SupplementaryGroups</code>为真实配置。</p>
+<p>关闭<code>--require-pairing</code>（与Reachy Mini配置完全一致）：iPhone连接并发现服务无报错。开启标记，iOS弹出配对弹窗。
+重点记录：手机端CoreBluetooth会发起SMP配对流程，笔记本端CoreBluetooth不会。因此§5.5观测到的卡死不是整个协议栈通用问题，并非“无法建立绑定”。</p>
+<p>测试中途终止，未验证：加密读取是否成功，<code>bluetoothctl info</code>绑定状态。版本读取日志为debug级别，单元设置<code>RUST_LOG=info</code>，日志无输出不能作为证据。后续开发者需要在drop-in中增加<code>Environment=RUST_LOG=debug</code>，连接后执行读取操作，而不是仅连接。</p>
+<p>参考实现完全不使用链路层加密
+在投入更多时间调试标记前需要了解：reachy_mini BLE配网服务（<code>daemon/app/services/bluetooth/bluetooth_service.py</code>）特征值定义为<code>["write"]</code>与<code>["read", "notify"]</code>，<strong>没有任何加密标记</strong>。注册<code>NoInputNoOutput</code>代理并开启可配对，中心设备可以绑定，但不强制加密。这就是iOS可以正常工作的原因：手机不会被要求做链路加密。</p>
+<p>他们的结论与我们早期思路一致，但方案不同：
+此处BLE配对使用Just-Works（机器人无IO硬件，无法防御中间人攻击MITM），因此在应用层加密，设备PIN参与密钥推导。</p>
+<p><code>crate::pairing</code>文档记录了同样的困境。本文思路是修复链路层；他们选择放弃链路层保密，直接加密核心密钥：x25519-hkdf-sha256-aesgcm，临时ECDH密钥+设备轮换密钥，HKDF以PIN为盐，AES-256-GCM，SSID作为附加认证数据AAD。可以抵御被动窃听，无法抵御配网阶段的主动中间人；文档计划后续引入PAKE协议。</p>
+<p>因此§8.1新增第三种候选方案，以及我们独有的限制：核心目标——旁观者无法窃取WiFi密码，依靠临时ECDH，而不是PIN。PIN作为盐的作用：防止错误PIN生成可解密报文；默认PIN为000000时该防护失效。他们每机PIN取自序列号后5位，印刷在外壳；可行的原因是广播匿名，所有设备广播名称都是ReachyMini。我们广播名称由序列号哈希生成（§8.2），因此该方案无法直接复用。</p>
+<p><strong>刻意延后，不是放弃</strong>。产品尚未交付，没有对外发放机器人。链路保持明文，<code>--require-pairing</code>保持关闭作为默认。交付前必须解决该安全门控。</p>
+<h3 id="56-待完成项"><a class="header" href="#56-待完成项">5.6 待完成项</a></h3>
+<ul>
+<li>绑定撤销：没有取消手机配对的接口；<code>bluetoothctl untrust</code>是手动方式。需要API与权限规则，大概率不通过BLE暴露。</li>
+<li>跨会话频率限制：仅在会话内限制3次PIN错误；断开重连后计数器清零。攻击者可以每猜3次重新建立绑定，无限重试。需要按蓝牙地址做退避限流，并跨会话持久存储状态。</li>
+</ul>
+<h3 id="23-模拟器就是规范nm实现没有对照校验"><a class="header" href="#23-模拟器就是规范nm实现没有对照校验">2.3 模拟器就是规范，NM实现没有对照校验</a></h3>
+<p>需要明确：目前已经发现3类WiFi相关bug。主板上所有WiFi故障场景，FakeNet模拟实现都有正确行为，而交付版NetworkManager实现偏离规范：</p>
+<div class="table-wrapper"><table><thead><tr><th>行为</th><th>FakeNet模拟器</th><th>交付版NM实现</th></tr></thead><tbody>
+<tr><td>射频无法扫描到的SSID</td><td>NotFound</td><td>上报已连接，返回其他网络名称</td></tr>
+<tr><td>入网失败</td><td>不保存任何配置</td><td>残留错误密钥的配置文件</td></tr>
+<tr><td>重新配置同一SSID</td><td>覆盖替换</td><td>叠加新增第二条配置</td></tr>
+</tbody></table>
+</div>
+<p>Trait接口不只是测试桩，它是唯一书面化契约。校验方向存在缺陷：测试套件校验模拟器是否符合契约，但<strong>没有校验真实NM是否符合契约</strong>。两者都实现Net接口，理论上可以跑同一套断言；但NM侧需要真实主板、真实射频，不能在CI自动化执行。见<code>install-path-gap.md</code>的“关闭缺口”章节：主板按需部署，不作为CI执行器。</p>
+<p>在自动化测试补齐前，客观现状：configd的WiFi逻辑有单元测试，但<strong>主板上运行的真实代码没有自动化硬件测试</strong>。所有上述bug都是人工在硬件上单会话内复现发现。</p>
+<h3 id="24-主板上已验证的功能"><a class="header" href="#24-主板上已验证的功能">2.4 主板上已验证的功能</a></h3>
+<p>记录该条目，因为长期以来“编译成功”等同于“正常运行”；4个修复项曾基于从未实际运行的二进制验证。</p>
+<p>Radxa Zero 3主板，Mac作为客户端，端到端验证成功：设备发现、建立绑定、版本读取、PIN鉴权、<code>system.info</code>、<code>net.status</code>、<code>net.scan</code>；权限拦截（<code>robot.move</code>、<code>system.pairingPin</code>、<code>update.select</code>被btd直接返回14拒绝）；<code>update.check</code>转发到updaterd；射频不可见SSID返回NotFound；全新未知WiFi通过BLE配网、成功入网、重启自动重连——这正是整套链路的核心场景。密码拒绝返回BadKey，携带NM原因码7，手机可据此重新提示密码，而不是通用失败。</p>
+<p><code>net.forget</code>可以清除某个SSID全部配置：预修复版本残留5条重复密钥配置，一条调用全部清除。完整<code>net.*</code>接口已经对接真实NetworkManager验证。</p>
+<p>主板上<strong>未解决项</strong>：链路无加密（§5.5）。这是交付前仅剩的重大障碍。</p>
+<h2 id="6-无硬件环境测试--实测"><a class="header" href="#6-无硬件环境测试--实测">6. 无硬件环境测试 · 实测</a></h2>
+<p>测试套件可以在笔记本运行，无需硬件、网络、D-Bus、Docker，该约束必须保留。两个抽象层实现该目标：</p>
+<ol>
+<li>configd的WiFi抽象Trait，内存模拟器实现，类似duck-control的RobotIo。<code>--fake-net</code>模拟全套net.*接口，可按需触发密码错误等场景，真实AP很难稳定复现。</li>
+<li>btd射频不是Trait，使用双mpsc通道。GattLink trait需要异步recv与send，会话循环同时等待两个通道，会引入关联类型或select!内借用检查器冲突。简单结构体持有一对mpsc通道即可实现，测试直接构造结构体，无需实现复杂trait。</li>
+</ol>
+<p>会话测试可以在真实Unix套接字上完成完整BLE会话模拟：被拒绝调用不会转发后端，robot.*路由到robotd而非updaterd；订阅流通知报文使用23字节MTU传输。</p>
+<p><code>board-test.sh</code>覆盖仅Linux平台才有的场景：套接字权限、<code>--allow-user</code>名称解析、用户组成员可读、非组成员被套接字权限拦截、非命名用户修改操作被拒绝且变更不生效、密码拒绝退出码5而非1、PIN保留前导零、日志不输出明文密码。同时包含<code>btd --version</code>跨链路校验：btd是除zstd之外唯一链接C库的二进制，bluer依赖zig cc编译的vendored libdbus。</p>
+<p><code>duckctl</code>（<code>cargo run -p duckctl</code>）作为手机替身，是唯一可以驱动射频的工具。属于示例代码，不是正式二进制；btleplug不会部署到机器人。选用btleplug而非bluer，是为了在开发者Mac上运行。复用<code>duck_ble::framing</code>，分片逻辑是客户端侧原生代码，不是独立重实现，避免两端逻辑不一致。</p>
+<h3 id="61-未覆盖的测试场景"><a class="header" href="#61-未覆盖的测试场景">6.1 未覆盖的测试场景</a></h3>
+<ul>
+<li>两个守护进程都没有在真实射频与真实NetworkManager下完成集成测试；仅完成aarch64类型检查。</li>
+<li><code>migrate-network.sh</code>切换逻辑仅在全新烧录主板测试；人工一步步执行，之后重跑脚本验证幂等性。首次烧录主板的人员才是真实测试。</li>
+<li>BLE就绪需要约73秒。hci0设备要等到aic-bluetooth.service挂载AIC8800 UART才出现；bluetooth.service会被dbus阻塞26秒。btd等待并重试，不会直接退出，和robotd等待电机总线思路一致。但为即时发现设计的手机App会遇到延迟。</li>
+</ul>
+<h2 id="7-接受的工程代价"><a class="header" href="#7-接受的工程代价">7. 接受的工程代价</a></h2>
+<ul>
+<li>产物内两套D-Bus栈：btd通过bluer链接libdbus；configd使用zbus。占用数MB。选用bluer是因为GATT服务、广播、配对代理正好是它的定位，可替代约700行手写org.bluez对象代码。如果bluer未来支持zbus后端，可重新评估。</li>
+<li>内置vendored libdbus，自行维护版本，不依赖发行版库。仅本地套接字访问，风险可控。</li>
+<li>btd<strong>刻意不在on_apply重启列表</strong>。更新请求可能通过BLE链路发起；重启btd会断开承载<code>update.subscribe</code>的连接，发起更新的手机无法获知最终结果。和updaterd更新期间不自重启理由一致。代价可控：应答报文发出后，排除机制失效；更新引擎5秒后重启btd，下一次updaterd启动校验重启是否完成（<code>restart-order.md §1 and §5</code>）。</li>
+</ul>
+<h2 id="8-后续工作"><a class="header" href="#8-后续工作">8. 后续工作</a></h2>
+<p>按阻塞依赖排序，而非工作量大小。</p>
+<h3 id="81-加密--阻塞项"><a class="header" href="#81-加密--阻塞项">8.1 加密 —— 阻塞项</a></h3>
+<p>完整见§5.5。链路默认不加密；<code>--require-pairing</code>存在但默认关闭，开启会造成客户端卡死。PIN与WiFi密码明文传输。修复目标：让加密配置稳定可用，并改为默认开启。只实现加密但不改默认，所有主板依旧不安全。</p>
+<p>三种候选修复方案，最初文档只考虑链路层修复：</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th>说明</th><th>弊端</th></tr></thead><tbody>
+<tr><td>修复链路层加密</td><td>本文最初设想。成功则整套路由接口加密，无需手写密码学</td><td>绑定只能是Just-works，无论如何修改都无法使用encrypt_authenticated_write（§5.5）</td></tr>
+<tr><td>应用层加密</td><td>Reachy Mini方案，双平台App已上线并通过App审核。无绑定也可保护密码不被被动窃听</td><td>需要手动加密每个需要保护字段；本链路同时传输设备码、日志、PIN（§3.1），容易遗漏</td></tr>
+<tr><td>会话级加密（而非单接口加密）</td><td>hello握手后建立一次密码学会话，加密后续所有帧。唯一可以覆盖<code>system.authenticate</code>的方案</td><td>工作量最大，新增接口不会遗漏加密</td></tr>
+</tbody></table>
+</div>
+<p>判定方案一的关键信息仍未知：绑定是否成功建立（机器人端执行<code>bluetoothctl info &lt;mac&gt;</code>）。绑定成功但未加密，和完全无法绑定，修复方向完全相反。错误方案上线会看似修复实际无效。§5.5记录iPhone测试进度与后续复现方式。</p>
+<h3 id="82-区分多台机器人三人三台机器人同一房间--已完成"><a class="header" href="#82-区分多台机器人三人三台机器人同一房间--已完成">8.2 区分多台机器人：三人、三台机器人，同一房间 · 已完成</a></h3>
+<p>三个用户开箱三台机器人，需要各自连接自己的设备。在该功能实现前，所有烧录同一镜像的主板广播名称都是radxa-zero3。</p>
+<p>首先是可用性问题，附带安全风险：默认PIN都是000000，手机选错机器人可以鉴权并写入WiFi凭证。但可用性是核心痛点，无法从列表区分的机器人完全无法使用。§8.1独立跟踪，不阻塞本功能。</p>
+<p><strong>机器人命名规则</strong>
+设备身份取自SoC序列号，读取自<code>/proc/device-tree/serial-number</code>，在<code>configd::identity</code>通过<code>system.info</code>对外上报。序列号烧录在芯片内，由bootloader提供；刷机、更换射频模块都不会丢失，无需产线配置即可生效，保证手动烧录主板可用。普通文件读取，无需root、D-Bus，hci0就绪前即可获取，无需等待73秒蓝牙启动。</p>
+<p>仓库已有该思路：<code>updater-design.md §5.6</code>已选用该序列号作为更新日志稳定设备ID，复用后机器人只有一套身份，避免多ID混乱。</p>
+<p>蓝牙适配器地址曾是候选方案：链路层天然可见，由它派生名称不会泄露额外信息。但实测发现问题，放弃（§8.6）。</p>
+<p>默认名称：<code>duck-</code> + 序列号SHA-256哈希的4个十六进制字符，例如<code>duck-c51b</code>。使用哈希而非截取序列号：无法保证芯片ID哪几位在不同主板之间变化。选用SHA-256，而不是Rust内置哈希：内置哈希在不同Rust工具链版本输出不一致，工具链升级会导致所有设备改名，难以关联。</p>
+<p>4位16进制共65536种组合；房间内3台机器人发生碰撞概率约1/22000。该默认名称目标是可区分，不是全局唯一密钥。</p>
+<p>名称放在<strong>扫描响应包</strong>，不在广播包：广播包31字节，flags(3)+128bit服务UUID(18)+地址字段(8)占用29字节。增加地址字段前可用21字节；8字符以内名称可放入，<code>duck-c51b</code>是9字符，超出长度，因此只能放在扫描响应。扫描响应是第二次交互，中心设备可能丢失，因此扫描返回“无名称无服务”的设备，不能直接过滤，有可能是机器人。</p>
+<p><strong>广播名称和系统名称保持同步</strong>
+btd定期查询configd获取设备名称，同步更新广播配置。旧实现中广播主机名<code>/etc/hostname</code>，<code>system.setName</code>写入一个无人读取的文件；修改名称后，手机侧广播名称不变，重启也无效，代码注释仅描述预期行为。</p>
+<p>同步逻辑和适配器监控在同一个启动流程；射频丢失则同步停止，射频恢复后重新查询，捕获蓝牙离线期间修改的名称。</p>
+<p>机器人存在两套名称，都需要同步配置：广播包Local Name；GAP Device Name（0x2A00特征值）由BlueZ读取Adapter.Alias，默认主机名。只设置广播名称会出现：广播叫duck-c51b，连接读取特征返回radxa-zero3。BlueZ缓存该读取结果，Linux上首次连接前显示duck-c51b，连接后变为radxa-zero3；<code>--name duck-c51b</code>会导致无法扫描发现。CoreBluetooth同时保存两个名称，展示为<code>radxa-zero3 [duck-c51b]</code>。手机蓝牙设置显示GAP名称，是用户最直观看到的名称，之前工具无法读取。advertise同时设置Alias别名，所有发布名称的通路同步更新。客户端缓存旧名称，需要客户端手动清除缓存，属于客户端侧问题。</p>
+<p><strong>刻意采用轮询同步，而非事件驱动</strong>。btd转发<code>system.setName</code>但不读取应答（避免解析应答，本守护进程的设计原则）；转发请求立刻轮询会产生竞态。轮询逻辑简单，同时覆盖通过robotctl修改名称的场景（不经过btd）。<code>--name</code>用于台架测试固定名称；轮询循环继续运行，因为地址会独立变化。configd不可访问时回退主机名；btd属于故障恢复链路，机器人其他服务崩溃时仍需要启动。</p>
+<p><strong>广播包携带机器人IPv4地址</strong>
+<code>duckctl scan</code>无需建立连接，这是机器人失联时查询SSH地址的命令。但扫描结果只能包含广播包内信息；SSH地址存放在<code>net.status</code>，读取需要连接、绑定、PIN校验。</p>
+<p>4字节IPv4放在厂商数据字段，公司ID <code>0xFFFF</code>（蓝牙SIG预留用于内部互调测试），适合尚未分配厂商ID的项目。该字段<strong>不作为身份校验</strong>，仅当设备同时广播目标服务UUID时才视为候选设备。</p>
+<p>SSID无法放入：SSID最长32字节，剩余载荷仅6字节，放不下。WiFi状态查询仍需要调用net.status，当扫描地址异常时，需要单独查询。</p>
+<p>无IP的机器人广播<code>0.0.0.0</code>，而不是移除字段。扫描结果可区分三种状态：有IP、无网络IP、旧版本固件（无该字段）。合并后两类会误导用户去查询一台需要升级固件的机器人。</p>
+<p>IP地址和名称使用同一轮询周期更新，远快于DHCP租约变更；主要为WiFi配网后用户立刻读取IP场景。configd查询失败时保留上一次IP，清空会导致configd重启时广播地址反复闪烁。BlueZ拒绝带地址字段的广播包时，重试不带地址的广播；不带地址广播的机器人依然可以被发现，广播失败不会直接失联。</p>
+<p><strong>产线配置可以设置设备名称，但非必需</strong>
+<code>provision.sh --name</code>由<code>provision-board.sh --name</code>透传调用，在末尾执行<code>robotctl system set-name</code>。设计为可选：默认哈希名称已经可以区分设备，产线命名只是优化，不是必须。保证手动烧录主板可用，这也是拒绝产线分配身份的原因。</p>
+<h4 id="应用应实现的功能"><a class="header" href="#应用应实现的功能">应用应实现的功能</a></h4>
+<p>将序列号作为主键存储。序列号是唯一标识句柄，设备重命名、蓝牙地址变更后该标识依然有效；“收藏设备”或用户自定义标签都应绑定在序列号上。</p>
+<p>同时存储外设标识符，用作快速访问路径：iOS 的 <code>retrievePeripherals(withIdentifiers:)</code> 接口可完全跳过扫描流程。该标识符仅为缓存，<strong>不是设备身份标识</strong>：会随蓝牙地址一同失效（见§8.6），依靠序列号才能重新确定收藏项对应的机器人。</p>
+<p>接收信号强度（RSSI）仅用作排序键，<strong>绝不能作为身份标识</strong>。可以用来把距离最近的机器人排在列表首位，但不能作为判定依据：人体、桌面遮挡会随意改变信号强弱，导致设备排序错乱。</p>
+<p>机器人一旦成功连接过一次，该问题即可解决：应用可直接重新连接该设备，并展示用户设置的设备名称。</p>
+<h4 id="待解决问题"><a class="header" href="#待解决问题">待解决问题</a></h4>
+<p>首次使用时，如何分辨列表里三台设备哪一台是当前手上的机器人。列表中三个不同名称，不等于能识别出手里这台。解决该问题需要物理信号：印在机器人本体上的标识、设备识别动作，或是近距离感应。成本最低且无需编码的临时方案：一次只开机一台机器人，由应用提示当前已开机的设备。</p>
+<p><strong>识别动作（identify）</strong>：让机器人点头、闪烁指示灯或发出提示音。当前系统树中没有驱动LED、扬声器或屏幕的通路；并且BLE协议设计上禁止通过蓝牙控制电机（§3.1）。因此这属于缺少设备控制通路，并非表面看上去的策略权限问题。该通路实现后，需要确定两点：可以驱动哪些外设；该功能必须在身份认证前可用。因为如果先要输入PIN码，而用户的目标就是把PIN码发给正确的机器人，会形成逻辑死循环。</p>
+<p>粘贴贴纸，每台机器人单独配置PIN码并印刷在贴纸上。§5.3章节要求使用PIN码；但这两项都依赖尚未敲定的硬件方案。注意：PIN码<strong>不能</strong>从设备身份信息推导得出，设备身份信息会在广播包中对外公开，由它计算出的任何内容都属于公开信息。</p>
+<p><strong>恢复出厂设置的行为定义</strong>：目前没有任何操作可以清空 configd 的配置。设计上该配置可在系统升级与版本回滚后保留；<code>update.resetToGolden</code> 仅回退系统发行版本，不会重置配置。因此出厂预设名称和用户修改后的名称无法区分。只有实现“单独清空其中一项、保留另一项”的机制，独立的“出厂名称”字段才有存在意义。</p>
+<h1 id="测试无法覆盖的场景"><a class="header" href="#测试无法覆盖的场景">测试无法覆盖的场景</a></h1>
+<p>设备身份标识与派生名称可以做常规单元测试。但本设计针对的场景——三台机器人同时广播，客户端正确选中目标设备——无法脱离硬件板卡测试，需要三台实体机器人或者虚拟外设模拟器。应当明确标注该限制，而不是让全绿的测试套件误导认为该场景已覆盖。</p>
+<h2 id="84-跨重连的pin码尝试次数"><a class="header" href="#84-跨重连的pin码尝试次数">8.4 跨重连的PIN码尝试次数</a></h2>
+<p>§5.6：连续输错3次PIN码会关闭当前会话；但重试次数不会在多次重连之间累计。因此通信对端可以无限重试，每猜3次只消耗一次蓝牙绑定记录。需要按蓝牙地址保存状态，记录PIN码失败次数。</p>
+<h2 id="86-适配器蓝牙地址不固定问题暂未调研"><a class="header" href="#86-适配器蓝牙地址不固定问题暂未调研">8.6 适配器蓝牙地址不固定问题——暂未调研</a></h2>
+<p>记录该现象，避免后续重复从头排查。该问题暂不深入跟进，属于搁置项而非正在开发的任务。</p>
+<p>某块开发板在16次开机过程中，btd（蓝牙守护进程）启动日志输出了两个不同蓝牙地址：</p>
+<ul>
+<li><code>50:37:CD:16:2B:EC</code>：单次开机内两次btd启动（10:04、10:05）均为此地址</li>
+<li><code>50:37:CD:16:1B:92</code>：之后15次开机（自10:18起）均为此地址</li>
+</ul>
+<p>期间没有烧录固件。开发板仅执行过 duckctl 蓝牙连接、游戏手柄配对操作。地址高4字节保持不变，仅低2字节发生变化。符合这类驱动行为：在厂商前缀基础上一次性生成地址并缓存，而不是从蓝牙模块读取固定地址。configd 不会对蓝牙适配器做断电重启，仅给处于关闭状态的适配器上电。因此手柄配对操作没有明显的触发机制，应作为测试对象，而非直接认定为故障元凶。</p>
+<h3 id="该问题的影响不只是一条奇怪日志"><a class="header" href="#该问题的影响不只是一条奇怪日志">该问题的影响（不只是一条奇怪日志）</a></h3>
+<p>所有蓝牙绑定信息存放路径：<code>/var/lib/bluetooth/&lt;地址&gt;/</code>。一旦蓝牙地址变更，所有绑定记录失效。已配对游戏手柄、已绑定手机都会断开；重新配对看起来像是修复了某个无关故障。</p>
+<p>iOS 根据设备地址生成外设标识符，因此应用保存的“我的机器人”记录会失效。这就是§8.2要求应用将收藏设备绑定在序列号上的原因。</p>
+<p>该问题已不再影响设备身份判定（§8.2不再依赖蓝牙地址作为身份依据），因此可以延后处理。</p>
+<h3 id="后续最低成本排查步骤有人接手时执行"><a class="header" href="#后续最低成本排查步骤有人接手时执行">后续最低成本排查步骤（有人接手时执行）</a></h3>
+<p>执行 <code>sudo ls -la --time-style=long-iso /var/lib/bluetooth/</code>，获取第二个地址首次出现的时间点。BlueZ会为识别到的每个适配器新建目录，可据此定位。
+然后在执行 <code>robotctl pad pair</code> 前后，运行 <code>bluetoothctl show | head -3</code>，无需重启即可验证手柄配对触发地址变更的假设。
+如果蓝牙地址读取自文件，则可以将地址写死固定；固定地址后，固件重烧录也不会改变地址。</p>
+<blockquote>
+<p>术语备注</p>
+<ul>
+<li>serial：序列号</li>
+<li>peripheral identifier：外设标识符</li>
+<li>RSSI：接收信号强度指示</li>
+<li>BLE：蓝牙低功耗</li>
+<li>configd：配置守护进程</li>
+<li>BlueZ：Linux蓝牙协议栈</li>
+<li>bond：蓝牙绑定（蓝牙配对后的长期安全绑定关系）</li>
+<li>advertise / advertisement：蓝牙广播包</li>
+<li>unit test：单元测试</li>
+<li>reflash：固件烧录</li>
+<li>adapter：蓝牙适配器</li>
+</ul>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/restart-order.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/mobile-app.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/restart-order.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/mobile-app.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

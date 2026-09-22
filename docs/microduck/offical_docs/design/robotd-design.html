@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>robotd-design.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="robotd--控制环路"><a class="header" href="#robotd--控制环路">robotd — 控制环路</a></h1>
+<p>状态：草案 · 日期：2026-08-20 · 负责人：pierre</p>
+<p>本方案实现 <code>architecture.md</code> 第1节中 robotd 模块，覆盖 <code>roadmap.md</code> 的 M3 阶段。待迁移的原型工程为 apirrone/microduck_runtime，文档内统一称为 runtime（运行时）。</p>
+<p>仅保留 alpha 版本硬件方案：仅 Radxa 主板、仅 v2 版 imu_to_dxl 板卡。废弃 v1/v1.5/v1.6 版本、其余4款IMU、3路摄像头以及树莓派。所有发布策略模型均为 <code>alpha_*</code> 系列。轮式构型保留为一个参数开关：<code>policy.mode = "roller"</code>（§4.2）；该配置仅选择一套策略与调参预设，<strong>并非独立硬件变体</strong>。</p>
+<h2 id="1-整体架构"><a class="header" href="#1-整体架构">1. 整体架构</a></h2>
+<p>单进程、单串口总线、50Hz 控制环路。环路通过一次总线事务读取总线上全部16个设备，计算15个关节目标位置，再写回设备。其余所有模块（客户端、健康状态、遥测）均挂载在该环路之上，<strong>不得阻塞环路执行</strong>。</p>
+<h3 id="11-总线与端口所有权"><a class="header" href="#11-总线与端口所有权">1.1 总线与端口所有权</a></h3>
+<p>15个舵机与 imu_to_dxl 板卡共用一路UART，不存在第二条总线或第二个端口：</p>
+<pre><code>                     robotd — 控制线程
+                              │
+                              │  duck_control::bus::DynamixelIo
+                              │  serialport · TIOCEXCL
+                              ▼
+         /dev/ttyS2 · 1 Mbps · Dynamixel v2协议
+                              │
+    ┌────────────┬────────────┴───────┬──────────────────┐
+    │            │                    │                  │
+  id 200       20–24                30–34             10–14
+ imu_to_dxl   左腿        颈部·头部·嘴部     右腿
+  v2板卡      5个舵机             5个舵机           5个舵机
+</code></pre>
+<p>IMU 设备ID为200，与舵机在<strong>同一次同步读指令</strong>中读取。硬件设计如此：v2板卡挂载在 Dynamixel 总线，在舵机共用的寄存器块输出片上SFLP四元数。单块板卡、单代码路径，<strong>不做独立IMU抽象</strong>。ID列表中将它放在首位，保证在舵机批量通信前完成应答。</p>
+<p>同一时刻只允许一个持有者；仅依靠tty独占标志无法实现该约束。serialport 设置 <code>TIOCEXCL</code>，普通用户再次打开端口会返回 EBUSY 忙错误；但 robotd 守护进程以root运行（电机控制需要字符设备），root不受该标志限制。因此守护进程与独立初始化程序使用<strong>建议性文件锁</strong>，单独防止其他程序抢占端口：</p>
+<ul>
+<li>守护进程运行期间，控制环路持有端口所有权。</li>
+<li><code>robotd init</code> 会直接打开端口，但必须先获取守护进程的端点锁。在整个斜坡运动期间持续持有锁：正在运行的守护进程会拒绝init；正在执行运动的init也会阻止守护进程启动或另一个init。</li>
+<li>守护进程运行时，<code>robot.init</code> 和 <code>robot.relax</code> 为IPC调用（§3.3）；独立init是守护进程未启动时的应急方案。</li>
+<li>serial-getty@ttyS2：Armbian 默认在UART2启用登录控制台，agetty占用端口会导致所有舵机无法被访问。<code>scripts/setup-board.sh</code> 屏蔽该服务；<code>fuser -v /dev/ttyS2</code> 可查看占用端口的进程，该命令仍用于查询总线占用方。</li>
+<li>runtime 层面：它复用同一条总线，所以主板只能运行 runtime 或 robotd 其中一个，systemd单元通过 <code>Conflicts=</code> 声明互斥（§5.2）。</li>
+</ul>
+<p><strong>Socket所有权</strong>
+两个入口在创建 <code>/run/robotd/identity.json</code> 或打开总线前，均会获取 <code>&lt;socket&gt;.lock</code>（默认 <code>/run/robotd.sock.lock</code>）。守护进程在启动控制线程前绑定监听套接字，在控制线程退出、套接字清理全程持有锁。重复启动的实例<strong>不能覆盖原有进程PID与构建版本</strong>：<code>robotctl health</code> 和更新器启动校验会读取该身份信息。旧守护进程遗留的无锁监听套接字，仅在连接探测失败时才会被清理；正在工作的监听端点与模糊路径保留不动。独立init仅加锁，不会绑定或清理套接字。</p>
+<p><strong>永远不要删除锁文件，即使是关闭时</strong>。内核会在文件关闭或进程退出（包括SIGKILL）时释放建议锁，文件本身保留。删除重建锁文件会导致多个竞争者对同名但不同inode的文件加锁，引发冲突。锁文件存在≠锁被持有。锁以<code>--socket</code>参数为单位；使用同一物理总线的调用方必须使用相同socket配置。独立端点可用于独立的虚拟守护进程。旧二进制与其他工具不参与该锁机制，在独立init接管总线前必须手动停止。</p>
+<h3 id="12-robotd-的通信对象"><a class="header" href="#12-robotd-的通信对象">1.2 robotd 的通信对象</a></h3>
+<pre><code>   ┌──────────┐   robot.move / robot.head      ┌─────────────────────┐
+   │  padd    │──(通知，≤50Hz)───────────────►│                     │
+   │ 游戏手柄 │   robot.stop / robot.enable    │                     │
+   └──────────┘───(请求，带应答)──────────────►│                     │
+                                               │   /run/robotd.sock  │
+   ┌──────────┐   robot.subscribe              │   JSON-RPC 2.0      │
+   │ robotctl │──────────────────────────────► │   NDJSON            │
+   │ 监控工具 │◄──robot.state（降采样）────────│                     │
+   └──────────┘                                │                     │
+                                               │                     │
+   ┌──────────┐   robot.health                 │                     │
+   │ updaterd │──robot.safeToRestart──────────►│                     │
+   │更新守护  │  robot.modelApi                └──────────┬──────────┘
+   └──────────┘                                           │
+        │                                                 │
+        │ on_apply: systemctl restart robotd              │
+        └─────────────────────────────────────────────────┘
+</code></pre>
+<pre><code>   ┌ 两条传输通道 ───────────────────────┐
+   │  mediad — WebRTC + JSON-RPC中继     │  手机、浏览器、大模型客户端
+   │  btd    — BLE，API子集              │  客户端由此接入
+   └─────────────────────────────────────┘
+</code></pre>
+<p>所有客户端使用同一套双向语义：<strong>输入意图，输出状态</strong>。mediad只转发帧，不做协议翻译（§3.1、§3.2）。updaterd仅做查询，更新链路内<strong>没有任何指令可以驱动电机</strong>。</p>
+<h3 id="13-crate-模块边界"><a class="header" href="#13-crate-模块边界">1.3 crate 模块边界</a></h3>
+<pre><code>duck-ipc-proto/  有线通信协议：仅serde序列化；无tokio、http、加密
+duck-control/    机器人模型、总线、IMU、RobotIo、观测、策略、安全层
+                 包含从总线读取到写回之间全部逻辑
+                 不依赖tokio、socket、systemd
+robotd/          主进程：socket、JSON-RPC、systemd、健康上报
+robotd-params/   启动参数：模式、默认值、校验（§4.2）
+kinematics/      MJCF模型、正运动学、头部与肢体链
+odometry/        机器人位姿估计，基于足底接触与IMU
+sounds/          语音：合成、单机器人个性、合唱乐谱
+pet-detect/      摄像头侧检测器，由robotd轮询，不在控制环路内
+robotctl/        命令行工具
+padd/            游戏手柄 → 意图转换
+updater/         更新引擎 + updaterd
+</code></pre>
+<p><code>robotd/</code> 以下所有模块都是<strong>被调用的库，而非独立服务</strong>：没有独立tokio运行时、不监听socket、不由systemd启动。拆分为独立crate的原因和duck-control一致：借助编译器隔离守护进程相关逻辑；运动学模块有两个使用者（里程计、robotd头部正解），拆分避免重复复制模型。</p>
+<p>duck-control 承载总线读写之间所有逻辑；robotd是包裹它的主进程。编译器强制维护该边界，防止守护进程逻辑污染控制代码。后续迁移时，如果runtime需要复用该模块，可直接拆成独立代码仓库，无需大规模重写。</p>
+<p>安全层持有唯一的 RobotIo 写句柄：策略、控制器、所有客户端都只能生成目标值，<strong>无法直接下发电机指令</strong>。由Rust借用检查器保证，不是单纯代码约定（§2.4）。</p>
+<h3 id="14-控制节拍tick"><a class="header" href="#14-控制节拍tick">1.4 控制节拍（tick）</a></h3>
+<p>50Hz，独立tokio任务使用专属运行时，保证IPC任务不会抢占控制环路。每个节拍2次总线事务，每秒额外执行一次慢速传感器读取：</p>
+<pre><code>read()          一次快速同步读 · IMU板卡 + 15舵机 · 寄存器124–136   (§2.1)
+decide          观测值 → 策略推理 → 目标关节 → 限幅                 (§2.2–§2.4)
+write()         一次同步写 · 目标位置
+publish         原子变量永久更新；状态帧仅在有订阅者时发送            (§4.1)
+
+每1秒       slow_sensors()     · 寄存器144–146 · 电压 + 温度 (§2.1)
+</code></pre>
+<p>单次周期数据流：</p>
+<pre><code>  Dynamixel总线
+       │ 一次快速同步读：IMU板卡+15舵机，单次事务
+       ▼
+   传感器 ──────────┬──────────────────────► safety.observe ──► 是否摔倒（防抖滤波）
+   关节、IMU       │
+                     ▼
+              Observation::build  ◄──── Command ◄── deadman看门狗 ◄──意图快照
+                     │              (扭转、头部、身体为标称值)
+                     │  [f32; 61]
+                     ▼
+              Policy::infer ──── 特技 &gt; 踢 &gt; 地面拾取 &gt; 坐起/站起 &gt;
+                     │           站立（根据扭转幅值或强制）&gt; 行走
+                     │  [f32; 14]   — 嘴部关节不参与
+                     ▼
+              零位姿态 + 缩放系数 × 动作 ──► 头部腿部一阶低通滤波
+                     │
+                     │  [f64; 15] 候选目标
+                     ▼
+        ╔═════════════════════════════════════════════╗
+        ║  safety.apply   ← 持有唯一RobotIo写句柄      ║
+        ║  · 拒绝非有限浮点数(NaN/Inf)                ║
+        ║  · 限幅到舵机运动范围                       ║
+        ║  · 摔倒判定仅上报，不阻断控制                ║
+        ╚═════════════════════════════════════════════╝
+                     │ 同步写入目标位置
+                     ▼
+              Dynamixel总线
+</code></pre>
+<p>数据流图之外的决策逻辑：</p>
+<pre><code>启动流程
+    ├─ 打开总线（持续等待）       板卡断电通过开关恢复，不直接放弃环路
+    ├─ Safety::new(io)            安全层获取RobotIo；其他模块无法写电机
+    ├─ read() → hold = 当前姿态    启动时不主动运动
+    └─ 策略
+         禁用 ─────────────► controller = None                    状态健康
+         加载成功 ─────────► controller = Some
+         加载失败 ─────────► controller = None + policy_error   状态不健康
+
+每个节拍
+    读取 ─┬─ 成功  ─► 清空连续错误计数
+          └─ 失败 ─► 计数+1，传感器数据置空（节拍继续运行）
+
+    观测 → 是否摔倒?     对外发布；不阻断任何控制
+
+    driving = 启用 ∧ 策略加载成功 ∧ 本节拍传感器有效 ∧ 非跌倒缓降状态
+
+    状态跳变 ─┬─ 开始驱动 ──► controller.reset()
+           │                      防止陈旧动作、滤波器基于旧姿态导致机器人突然晃动
+           └─ 停止驱动 ──► hold = 捕获当前姿态
+                                  每节拍重复读取会因重力导致姿态下垂
+
+    driving ─┬─ 跌倒缓降 ─► 使用缓降序列的目标与增益    (§2.4.1)
+             ├─ 正常驱动 ─► step() → 目标、增益、当前网络名称
+             └─ 停止驱动 ─► 目标=保持姿态，默认增益，标记"held"
+
+    safety.apply(targets, hold, gain)
+
+    发布 ─┬─ 原子变量            永久更新      → robot.health, safeToRestart
+             └─ 状态帧        仅订阅者接收   → robot.state
+</code></pre>
+<p>驱动生效的4个条件缺一不可。<code>本节拍传感器有效</code>是容易忽略的约束：读取失败就没有观测数据，不能凭空编造观测输入给策略模型。<code>非跌倒缓降</code>不是拒绝条件：当跌倒缓降序列接管机器人（§2.4.1），策略主动停止驱动，目标由缓降序列生成。</p>
+<p>环路使用tokio interval任务，<strong>不采用硬实时（§5.4）</strong>。相比runtime的重要改动：<code>MissedTickBehavior::Skip</code>。</p>
+<ul>
+<li>Burst：积压的tick一次性连续执行，电机指令堆叠。</li>
+<li>Delay：每次完成后按<code>now+周期</code>调度下一次，唤醒延迟不断累积，环路变慢。</li>
+<li>Skip：维持原始调度，丢弃错过的节拍，正是控制环路需要的行为。
+感知模块迁移到mediad，消除了大部分与环路抢占CPU的负载。</li>
+</ul>
+<h3 id="15-不变量核心约束"><a class="header" href="#15-不变量核心约束">1.5 不变量（核心约束）</a></h3>
+<p>所有设计围绕下面5条属性，每条都有强制校验，不是单纯设想：</p>
+<ol>
+<li>安全层之上任何模块<strong>不能直接写电机</strong>。安全层持有唯一RobotIo，Rust借用检查器强制保证（§2.4）。</li>
+<li>robotd不会因为进程启动而自动移动机器人；更新重启时，站立机器人保持原有姿态（§3.3）。</li>
+<li>控制环路<strong>永远不会阻塞等待客户端</strong>。意图采用原子加载；遥测数据滞后丢弃（§4.1）。</li>
+<li>健康状态是主动发布，而非被动查询。环路卡死时会上报不健康，而不是阻塞调用方（§3.4）。</li>
+<li>只有版本发布本身导致的故障才计入健康判定。电池电压、温度仅作为描述信息，<strong>不作为自动回滚的触发条件</strong>（§3.4）。</li>
+</ol>
+<h2 id="2-控制链路"><a class="header" href="#2-控制链路">2. 控制链路</a></h2>
+<h3 id="21-总线层与robotio"><a class="header" href="#21-总线层与robotio">2.1 总线层与RobotIo</a></h3>
+<p>基于rustypot的轻量封装：打开端口、快速同步读、同步写目标位置、扭矩开关、增益设置、慢速传感器读取、启动寄存器校验。代码重新编写，但参数取自runtime，附带注释标注来源。</p>
+<p><code>RAD_PER_SEC_PER_COUNT = 0.229 × 2π/60</code>，用于位置计数值 ↔ 弧度换算。</p>
+<p><code>check_and_fix_config</code> 启动时校验并修复EEPROM寄存器：<code>return_delay_time=0</code>、<code>baud_rate=3</code>、<code>pwm_slope=255</code>、<code>shutdown=52</code>。
+<code>return_delay_time=0</code>至关重要：XL330默认值250会带来每个设备500µs应答延迟，16个设备单周期约8ms，占用40%时间预算。舵机恢复出厂或更换后会回到默认250，该校验解决一类“机器人运行缓慢”问题。<code>shutdown=52</code>为错误掩码，捕获过载、过热、输入欠压故障。</p>
+<p><strong>舵机自动适配</strong>：替换新舵机无需手动配置。全新XL330默认ID=1，波特率57600，本总线不使用该参数。打开总线时先ping15个预期ID；恰好一个设备无响应时，寻找ID1：先1Mbps，再切57600波特，写入目标ID与总线波特率，切回1Mbps，执行寄存器校验，重启舵机。重启清除flash残留硬件告警，否则舵机会持续关闭扭矩直到断电。完整总线只会执行15次ping；只有舵机缺失才触发57600探测。两个及以上舵机缺失则不处理，日志记录，无法判断新舵机对应哪个位置。</p>
+<p>位置P增益写入时I、D置0，沿用runtime <code>--ki/--kd</code> 默认值。这是RAM寄存器，上电复位恢复出厂值；出厂D不为零，保留会抑制舵机内置PID，同等kP下机器人明显变软。该参数固定，不对外暴露。</p>
+<p>每节拍2次总线事务，每秒额外一次慢速读取。节拍读取连续寄存器124–136（PWM、电流、速度、位置）。电压、温度位于144–146，与前面间隔12字节轨迹寄存器。因此每秒单独一次事务读取电压温度（约1ms），而不是50Hz下把每个舵机读取长度扩大到22字节。采样窗口和实际环路频率测量共用同一时钟源。</p>
+<p>电压取舵机均值：15个舵机共用一块电池；返回0的设备过滤，不参与平均，避免误判电池半电。温度不做平均：上报每个关节温度并输出最高温关节名称。膝盖深蹲时温度远高于嘴部，平均值会掩盖接近过热停机的关节。</p>
+<p>舵机无应答会导致整个同步读事务失败：rustypot同步读等待全部ID，任一设备无应答则本次事务失败。两次读取均为<strong>全有或全无</strong>；读取失败时保留上一次采样值，不把单次丢失当作有效事件。</p>
+<p>所有同步读使用快速同步读（协议2.0指令0x8A），控制器全局开启。指令包格式和普通同步读一致，应答方式不同：不再返回16条独立状态包（各带10字节协议头+设备应答延迟），所有设备把数据块追加到广播ID的单条应答包。总线每周期只一次应答翻转，以此配合<code>return_delay_time=0</code>降低开销。其余普通总线事务仍会按设备产生延迟，寄存器校验依然必要。</p>
+<p>快速同步读同样全有或全无：设备固件不支持0x8A指令则完全不响应，读取超时，不会返回部分数据。XL330固件必须≥v46；ID200的imu_to_dxl板卡也必须实现该指令。</p>
+<p>这是固件层面约束，软件无法绕过。所以<code>bus.fast_sync_read</code>默认开启，作为可配置项而非硬编码常量。关闭后所有同步读退化为普通模式，行为和未启用该指令时完全一致；open_bus会在日志打印该状态，否则慢速模式和性能差的机器人无法区分。</p>
+<p>默认开启是激进方案，但故障现象明确：不支持0x8A的设备完全不响应，所有读取超时，不会返回似是而非的数值。环路第一拍就上报总线丢失，<code>min_achieved_hz</code>判定不健康；启用该功能但固件不支持的版本会自动回滚。旧固件机器人需要手动设置一次参数；启动阶段不做版本协商和探测，因为无应答设备和断电设备现象一致，探测无法区分。</p>
+<p>板卡温度是第三路传感器，不在电机总线。读取SoC所有热区的最高温度，来自sysfs，每秒采样（robotd/src/soc.rs）。放在robotd而非duck-control：属于Linux主板属性，不是机器人本体。电机总线失效时仍然可读，用来区分“通风口堵导致主板过热”和“舵机损坏”。取所有热区最大值，避免传感器布线差异导致漏报高温通道。</p>
+<p>同时读取热损耗信息（温度无法直接体现）：同一采样读取时钟上限（scaling_max_freq / cpuinfo_max_freq）与cpufreq冷却状态。Radxa Zero3在95℃时热管理会把主频锁在408MHz（最大1800MHz），不足原调参CPU的1/4，高温下机器人步态变差就是CPU降频导致。仅温度只能提示“需要关注”；温度+频率限制才能判定机器人性能受损。</p>
+<p>两项读数缺一不可：冷却状态标识热为根源，但只是频率表索引，“6/6”看不出损失多少；主频上限反映损失，但也可能是用户态策略。取最差热区和最深cpufreq冷却状态，和最高温逻辑一致：大小核主板优先降大核，只看policy0会误判，控制环路所在核心已经降频却显示主板空闲。</p>
+<p>永久跟踪IMU数据陈旧问题：读取成功但返回重复采样值，会给策略送入错误姿态，该问题不易察觉。总线层保存上一帧数据，统计连续重复样本，持续足够时间（0.5s，和SFLP解码器判定有效测量的等待时间一致）才写入日志。首次重复不告警（避免日志刷屏）；超过阈值后限流输出，防止50Hz重复告警填满日志。</p>
+<p>抽象接口：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait RobotIo {
+    fn read(&amp;mut self) -&gt; Result&lt;Sensors&gt;;                 // 关节+IMU，单次事务
+    fn write(&amp;mut self, targets: &amp;JointTargets) -&gt; Result&lt;()&gt;;
+    fn set_gain(&amp;mut self, kp: u16) -&gt; Result&lt;()&gt;;         // 每个关节单独写，非每节拍调用
+    fn set_torque(&amp;mut self, on: bool) -&gt; Result&lt;()&gt;;      // 同上
+    fn slow_sensors(&amp;mut self) -&gt; Result&lt;SlowSensors&gt;;     // 电压+每个关节温度
+    fn imu_stale(&amp;self) -&gt; ImuStale;                       // 默认实现
+    fn imu_ready(&amp;self) -&gt; bool;                           // 默认实现
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>set_gain</code>、<code>set_torque</code>每个关节一次总线事务，不在每节拍调用。上电使能采用状态机，而不是循环持续设置标志（§3.3）。两个不属于trait的辅助方法仅init使用：<code>present_positions</code>（轻量读，启动一次性读取当前姿态）、<code>interpolate_to</code>（阻塞线性斜坡；刻意阻塞，运动期间不允许其他总线访问）。</p>
+<p>两个实现：<code>DynamixelIo</code>（真实硬件）、<code>FakeIo</code>（脚本化模拟采样，可冻结/模拟故障）。FakeIo用于单元测试，<code>cargo test</code>无需硬件、网络、Docker。</p>
+<p>macOS不使用条件编译关闭该模块。原本想把serialport排除在macOS依赖树，但rustypot与serialport均可编译，该条件编译没有收益，反而失去无硬件板卡时的类型检查。仅打开真实端口的入口做条件编译。Mac编译后不会模拟机器人；<code>robotd --fake</code>是mac上的测试方式，必须手动指定，不会自动降级。</p>
+<h3 id="22-观测向量生成器"><a class="header" href="#22-观测向量生成器">2.2 观测向量生成器</a></h3>
+<p>所有alpha策略统一：<code>obs[1,61] → actions[1,14]</code>；已在行走、站立、地面拾取、踢球、坐姿场景验证。固定布局：</p>
+<pre><code>[ gyro(3) | projected_gravity(3) | joint_pos(14) | joint_vel(14) | last_action(14) | command(13) ]
+                                                                    command = vel(3) + head(4) + body(6)
+</code></pre>
+<p>嘴部关节不纳入观测；动作输出映射回15路电机，索引9置0。旧的51/54D、49D轮式、85D追踪观测布局随硬件变体废弃。</p>
+<p>指令向量（command）是唯一曾经存在争议的部分，直接取自原型control_step，不猜测定义：</p>
+<ul>
+<li>48..51：vx, vy, vyaw</li>
+<li>51..55：neck_pitch, head_pitch, head_yaw, head_roll</li>
+<li>55..57：body x, y — 硬编码0，训练时不绑定</li>
+<li>57..60：body z, roll, pitch</li>
+<li>60：body yaw — 硬编码0，训练时不绑定</li>
+</ul>
+<p>三个容易踩坑点：</p>
+<ol>
+<li>body全零是标准编码，不是占位符：x,y,yaw固定为0代表“未绑定”；z/roll/pitch仅在身体姿态模式启用时非零。</li>
+<li>头部目标在command内，<strong>不是叠加在策略输出之上</strong>。原型在不同模式两种方式切换，通过<code>!new_cmd_obs</code>控制叠加，注释：head_offsets作为command送入观测向量，不要二次叠加。两者同时启用会导致头部偏转两次。</li>
+<li>body段顺序是 z, roll, pitch，不是z,pitch,roll；顺序颠倒会导致前倾指令时机器人侧向倾斜。</li>
+</ol>
+<h3 id="23-策略模块"><a class="header" href="#23-策略模块">2.3 策略模块</a></h3>
+<p>刻意沿用runtime结构。<code>robotd/src/control.rs</code>保存优先级链和全部取自control_step的数值默认参数，替换原有逻辑。</p>
+<pre><code>技能窗口 ← 更新/过期（特技窗口、踢球计时器、拾取阶段、坐起/站起过渡）
+指令     ← 客户端平滑指令，编码适配当前激活技能
+网络     ← 特技 &gt; 踢球 &gt; 地面拾取 &gt; 坐起/站起 &gt; 按幅值站立(或强制站立) &gt; 行走
+动作     ← ONNX推理
+目标姿态 ← 零位姿态 + action_scale × 动作输出
+滤波     ← 头部、腿部一阶低通滤波
+</code></pre>
+<p>原型两个细节需要保留，容易被误改：</p>
+<ul>
+<li>踢球窗口使用站立调参：踢球观测向量command全零，触发站立过渡，因此踢球使用standing_action_scale与站立柔化增益。保留该逻辑，因为踢球参数基于该设定调优。</li>
+<li>坐起→站立上升阶段同样使用站立增益（command全零），坐姿不使用（姿态标志把扭转幅值置1）。同一机制，理由相同。</li>
+</ul>
+<p>一处刻意改动：原型在状态切换时保存恢复action_scale，坐→站切换后可能残留旧值，直到下一次行走。本实现<strong>每节拍基于当前状态重新计算scale与增益</strong>。</p>
+<p>策略文件路径在参数文件配置，默认指向发布目录。正常更新会携带配套训练策略；开发者可自定义onnx路径迭代，无需打包新版本。</p>
+<p>策略文件选择（正式版本、Hub组件、开发者上传文件）由 <code>policy-channel-design.md</code> 定义，包含切换命令与加载失败处理。本节只定义策略本身、校验、运行逻辑。</p>
+<p><strong>校验在加载阶段，而非推理阶段</strong>：观测向量长度、动作输出维度、ONNX Runtime是否存在。所有网络必须61输入14输出，加载阶段校验，不能运行中途发现错误。runtime旧51维观测模型仅在<code>--new-cmd-obs=false</code>加载，robotd拒绝这类模型，报错观测宽度51，预期61。环路启动前执行预热推理，消除首推理耗时（避免被误判为丢deadline），同时验证动态库加载成功。</p>
+<p>缺少ONNX Runtime时ort会panic。它在setup_api内部懒加载，任意API调用都可能触发，无法捕获为普通错误；一旦panic会杀死控制线程，环路永远无法完成节拍，上报“环路未完成周期”，表现为卡死，比本设计要规避的崩溃重启更差。<code>policy::ensure_runtime</code>使用和ort相同的加载器与搜索路径，提前探测动态库，缺失时转为普通错误。</p>
+<p><code>policy.enabled</code>区分两种状态：<strong>不启用策略</strong>（健康，用于更新器测试）和<strong>策略损坏</strong>（不健康，触发版本回滚）。合并两个状态会导致测试机器人误报故障，或损坏版本通过校验。<code>robotd --no-policy</code>开启该模式，CI与笔记本无ONNX Runtime，测试使用该参数。</p>
+<p>ONNX Runtime为板卡前置依赖，由<code>scripts/install.sh</code>安装，<strong>不打包进发布包</strong>。它更新频率远低于守护进程，每个版本包附带20MB会无谓增大更新包。代价：缺少该库的板卡安装启动正常，但无法行走；健康状态会输出库搜索路径。</p>
+<p>暂未实现：预绑定ONNX输入输出张量。当前每次推理分配61个float向量，50Hz下约244字节。需要在板卡实测后再优化。</p>
+<p>从runtime继承经过验证的逻辑：头腿低通滤波、动作缩放、电压自适应缩放、站立过渡增益切换。属于可调参数（§4.2），不重新设计。低通alpha值必须和alpha策略训练所用完全一致，否则迁移效果下降。原则：不破坏已经能正常运行的功能。</p>
+<h3 id="24-安全层"><a class="header" href="#24-安全层">2.4 安全层</a></h3>
+<p>安全层持有唯一RobotIo写句柄。策略、客户端都没有写句柄，安全约束是<strong>结构上不可突破，不是靠人为遵守约定</strong>。和更新器的故障恢复逻辑理念一致：仅在异常时才执行的代码最容易静默失效；直接让非法状态无法编译表达。</p>
+<p>两条无条件规则：</p>
+<ol>
+<li><strong>拒绝非有限浮点数</strong>：NaN目标不会限幅，直接拒绝。</li>
+<li><strong>执行执行器范围限幅</strong>：每节拍把目标限制在舵机物理行程。这是舵机硬件范围，不是关节解剖限位；捕获NaN、不合理动作缩放、异常张量；<strong>不能阻止关节进入机械危险位置</strong>（§9.3）。</li>
+</ol>
+<p>外加指令看门狗：意图停止接收，速度置零。停止不等于缓降，区分很重要：通信丢失，双足机器人保持站立（安全状态）；失衡是另一类事件，不由该层处理。</p>
+<p>摔倒判定<strong>仅为上报，不阻断控制</strong>。每节拍计算躯干坐标系下的投影重力，0.2s防抖，避免足落地误判摔倒；判定结果对外发布，但不阻断任何逻辑。摔倒的机器人依然可以启用、初始化、执行运动、调用技能。设计意图：倒地时恰恰需要这些接口可用；如果重力误判倾斜就自动停止，机器人会反复坐下。摔倒后的恢复逻辑放在上层，无需特殊豁免。早期版本曾有fall_limp阻断和自动站起，已移除：恢复逻辑需要绕过的安全规则，就不是有效的安全规则。</p>
+<h4 id="241-摔倒属于独立事件"><a class="header" href="#241-摔倒属于独立事件">2.4.1 摔倒属于独立事件</a></h4>
+<p>前面的摔倒判定回答“机器人是否已经倒地”，适合上报侧翻；但<strong>不适合做落地缓冲</strong>：重力持续200ms低于fall_gravity_z时机器人已经倒地，缓冲窗口期已经过去。</p>
+<p>因此<code>limp_fall</code>（默认关闭：默认velstand步态不加载站立网络）独立检测器<code>duck_control::fall</code>，<strong>基于角速度而非位置</strong>。躯干坐标系下投影重力随躯干旋转，$\dot{g}=-\omega\times g$，直接取自IMU12字节数据；外推0.3s预测重力走向。当机器人倾斜约26°、持续倾倒无法恢复、预测超过摔倒阈值，防抖3个节拍触发。直接对SFLP四元数求导会叠加滤波器延迟，而该信号需要提前预测。</p>
+<p>该机制目标不是缓冲落地，而是<strong>摔倒之后的站起</strong>。站立策略在姿态稳定时可以干净站起；如果机器人倒地挣扎，多次尝试行走增益会带来巨大电机负载。因此该序列接管控制：以<code>gain_limp</code>跟随关节缓慢下放，等待陀螺仪稳定，约1s斜坡回到站立姿态，交还控制权。交还时扭转指令保持为0，指令幅值选择站立网络，完成站起。</p>
+<p>实现上脱离策略主路径：整个缓降阶段<code>driving=false</code>（§1.4），目标由缓降序列生成，通过<code>apply</code>和其他目标一样下发电机；没有特殊豁免、后门。安全层无需额外配置，因为摔倒判定不阻断控制；斜坡运动对倒地机器人和正常机器人处理逻辑完全相同。</p>
+<p>调参是非对称设计：假阳性触发缓降会主动制造摔倒，比硬着陆更糟，因此默认参数偏向<strong>晚触发</strong>。</p>
+<p>电池耗尽是另一种非指令运动：开启<code>safety.battery_empty_shutdown</code>（默认启用），平滑电压达到低压阈值时机器人下蹲，板卡断电。EMA滤波窗口约10s，负载压降不会误触发；电压降到6.6V代表电池真正耗尽。</p>
+<h3 id="25-机器人模型"><a class="header" href="#25-机器人模型">2.5 机器人模型</a></h3>
+<p>仅alpha版本的Rust常量：15个关节，Dynamixel ID 20–24 / 30–34 /10–14，关节名称、默认零位、执行器行程。沿用runtime motor.rs的表，移除废弃变体。仅定义单机器人；硬件改版新增第二套表。</p>
+<p>两个表跨crate强依赖：<code>JOINT_NAMES</code>在<code>duck-ipc-proto</code>，因为有线协议按索引映射关节与目标，顺序不能错位，由const断言强制保证。<code>DEFAULT_POSITION</code>必须和训练环境<code>HOME_FRAME</code>一致：策略观测关节位置是相对零位，不一致会导致14个观测通道出现恒定偏移。</p>
+<h2 id="3-api接口"><a class="header" href="#3-api接口">3. API接口</a></h2>
+<h3 id="31-意图输入"><a class="header" href="#31-意图输入">3.1 意图输入</a></h3>
+<p>两类语义：<strong>输入意图、输出状态</strong>。JSON-RPC两类消息刚好对应：</p>
+<pre><code class="language-json">// 连续通知：无id，无应答，后写覆盖前写
+{"jsonrpc":"2.0","method":"robot.move","params":{"vx":0.2,"vy":0.0,"vyaw":0.4}}
+{"jsonrpc":"2.0","method":"robot.head","params":{"neck_pitch":0.35,"head_pitch":0.35,"head_yaw":0.0,"head_roll":0.0}}
+
+// 离散请求：带id，有应答
+{"jsonrpc":"2.0","id":7,"method":"robot.stop"}
+{"jsonrpc":"2.0","id":8,"method":"robot.enable","params":{"on":true}}
+</code></pre>
+<p>单位全部为弧度，躯干坐标系，右手定则，符号在协议固定。runtime存在一堆符号修正参数<code>--laser-track-yaw-sign</code>等，是因为之前没有书面约定，各客户端自行试错。写入协议规范消除这类问题。</p>
+<p>50Hz连续意图采用通知模式，<strong>无应答流量</strong>。后续走WebRTC时，通知走不可靠遥测通道，请求走可靠控制通道，符合architecture.md §5.2，由消息类型自然区分，无需额外规则记忆。</p>
+<p>躯干运动与头部指令<strong>分为独立槽位</strong>。合并槽位更新一个字段就需要读改写；手柄控制身体、另一模块控制头部会静默覆盖对方指令。独立槽位在实践上单写入者，后写覆盖逻辑符合预期。每个槽带时间戳：环路关心的不是数值，而是<strong>数据新旧</strong>，看门狗基于时间戳判断。</p>
+<p>look（视线方向）暂未实现；两种视线接口后续开放，仲裁策略为后写覆盖，不做混合插值。</p>
+<h3 id="32-状态输出"><a class="header" href="#32-状态输出">3.2 状态输出</a></h3>
+<p>可订阅的单一流，支持按订阅者单独降采样。<strong>必须上报被限幅的内容，不只是最终执行结果</strong>。遥操UI如果显示摇杆前进，但机器人不动且无说明，将无法使用；安全层会持续限幅。</p>
+<pre><code class="language-json">{"method":"robot.state","params":{
+  "t":1234.567,
+  "move":{"requested":[0.4,0,0],"applied":[0.15,0,0],"limited_by":["max_velocity"]},
+  "policy":"walk", "safety":{"fallen":false,"limp":false},
+  "loop":{"hz":49.8,"missed":0},
+  "battery":{"volts":7.62,"percent":64}
+}}
+</code></pre>
+<p>电池同时输出电压与百分比。映射规则：负载状态6.6V空，8.2V满，NP-F550电池，实现在<code>duck_control::model::battery_percent</code>，随数据下发。原型只下发电压，APP本地计算百分比，同一电池两端显示不一致。客户端绘制电池图标不需要知道电池型号。无独立电量计，直接读取舵机供电电压，负载下电压跌落，静置恢复。</p>
+<p><code>robotctl monitor</code>和后续APP共用同一载荷。替代旧runtime的9870端口180字节帧、9871JPEG流、9872 UDP指令、9874/9875地图定位端口、web hub <code>/state.json</code>。新增字段只需要修改单个结构体，旧客户端自动忽略未知字段，不会多处静默不一致。</p>
+<p><code>robot.subscribe</code>将连接转为状态流；环路写入有界广播通道，<strong>不会阻塞等待订阅者</strong>，慢订阅者丢失片段，和更新器进度上报规则一致。降采样在服务端按订阅者独立配置，10Hz仪表盘相比50Hz数字孪生，对机器人负载更小。</p>
+<p>订阅应答返回策略信息<code>SubscribeResult</code>：进程加载的网络文件名，以及无驱动时的说明（参数禁用/加载失败）。握手阶段返回，进程生命周期内不变；state帧内的policy字段回答另一问题：当前节拍由哪个网络驱动。两个版本都叫walk，但开发者对比版本时需要知道网络文件。如果放在state帧，每节拍控制线程分配字符串，而该信息几乎不变。</p>
+<p>两个容易踩坑细节：</p>
+<ol>
+<li>无订阅者时不构造状态帧（机器人常态），避免在控制线程无必要分配内存。</li>
+<li>限幅原因直接使用协议字符串，不自动从Rust枚举派生；修改枚举变体不会静默破坏客户端的分支判断。</li>
+</ol>
+<h3 id="33-上电使能enable-init-relax"><a class="header" href="#33-上电使能enable-init-relax">3.3 上电使能：enable, init, relax</a></h3>
+<p>robotd默认不会自动运动。启动读取当前关节位置，作为目标，不打开扭矩。Dynamixel在进程退出时保持最后目标，重启姿态不变，更新过程机器人保持站立。如果启动自动回到零位，每次更新重启会驱动站立机器人，带来摔倒风险，干扰更新器测试。</p>
+<p><code>robot.enable</code>早期只是切换标志；扭矩由独立子命令<code>robotd init</code>打开，需要停止守护进程，无文档，新机器人按下启动无动作：策略运行、环路写位置，但舵机扭矩关闭。因此环路引入上电状态机，<code>robot.enable</code>触发状态推进：</p>
+<blockquote>
+<p>缓降状态 ──enable（策略加载成功+新采样）──▶ 归位（扭矩开启，2s斜坡） ──▶ 就绪 ──▶ 策略驱动</p>
+</blockquote>
+<p>原有不变量保留：<strong>进程启动不会自动触发任何动作</strong>。更新重启后机器人处于Limp，不开启扭矩，站立机器人保持站立；断言<code>a_restart_asks_for_no_torque</code>校验无写操作，而非写false。改动点：“绝不碰扭矩”这条规则过于宽泛，给每次驱动增加手动步骤。</p>
+<p>使能的两个前置条件：</p>
+<ol>
+<li>策略加载成功：enable代表启用策略；如果策略禁用/加载失败就上电，会让机器人在坏版本下站起并保持。</li>
+<li>有效新采样：斜坡从当前关节位置启动；未读取位置直接启动会产生冲击，这正是斜坡要避免的。</li>
+</ol>
+<p>机器人倒地<strong>不是禁止条件</strong>。早期版本倒地时禁止上电，因为当时安全层会在摔倒时保持缓降增益，斜坡站起会失败；摔倒判定不再阻断控制后移除该限制。机器人倒地时调用上电，就是用户想要的站起操作；斜坡正常执行，由站立策略接管。</p>
+<p>策略禁用时<strong>不会关闭扭矩</strong>：机器人保持姿态，即“站立机器人维持站立”。</p>
+<p><code>robot.init</code>与<code>robot.relax</code>是两个独立状态转换指令：“站起”和“松开扭矩”。<code>robot.init</code>曾经是独立打开总线的子命令，<code>relax</code>之前不存在。两者都由robotd处理，不需要停止守护进程；控制环路正在使用总线时，两者不能写总线。init<strong>不需要策略</strong>：无行走网络也允许站起，CI无ONNX Runtime也能测试上电流程。</p>
+<p>指令每节拍读取一次，不是持续标志：<code>set_torque</code>每个关节一次总线事务，持续标志会导致每节拍16次写。后到达请求覆盖未处理的旧请求：20ms内先后发送站起、松开，执行后者。relax清除enable标记，否则下一个节拍检测到驱动请求会再次站起。</p>
+<p>两个接口<strong>不开放给BLE</strong>。手机按键直接释放扭矩会让机器人摔倒；站起会同时驱动全部关节，需要用户目视机器人。</p>
+<h3 id="34-健康状态判定边界"><a class="header" href="#34-健康状态判定边界">3.4 健康状态，判定边界</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>方法</th><th>返回内容</th></tr></thead><tbody>
+<tr><td>robot.health</td><td>环路是否按时完成（实际频率+丢节拍计数）；附带描述信息：环路、总线、IMU、电池、舵机、板卡温度、主板时钟上限；健康判定<strong>不读取描述字段</strong></td></tr>
+<tr><td>robot.safeToRestart</td><td>策略启用且机器人正在运动时返回false</td></tr>
+<tr><td>robot.modelApi</td><td>常量</td></tr>
+<tr><td>robot.remoteSessionActive</td><td>false，mediad维护真实会话状态</td></tr>
+</tbody></table>
+</div>
+<p>健康状态由IPC侧读取环路发布的原子变量（上一次节拍时间戳+计数器）计算，<strong>不阻塞查询环路</strong>。环路卡死也能上报不健康，而不是挂起调用方。</p>
+<p>环路运行在60%目标频率，进程存活、接口可应答，但已经严重故障。控制环路优先实现，再开发行走逻辑，就是为了能区分这种情况（§5.1）。</p>
+<p><strong>哪些信息参与健康判定</strong>：healthy/degraded是更新系统输入；只有版本发布本身的问题才会触发健康降级。其余信息仅为描述，<strong>自动回滚逻辑禁止读取</strong>：电池、电机/板卡温度、时钟降频、环路/总线/IMU计数器。
+举例：基于电池判定回滚会导致低电量机器人更新失败，反复回滚；高温环境电机温度、主板降频同理，修复热问题的版本会被热保护误判拒绝。</p>
+<p>为什么一起返回：用户发现机器人异常，一次查询拿到全部信息；健康判定和原始指标共存，例如<code>不健康：控制环路43.9Hz，missed=0</code>，区分“唤醒延迟”和“负载过高”，两者修复方案不同。<code>robotctl health</code>合并updaterd软件层面信息并打印。</p>
+<p><code>safeToRestart</code>：策略启用且机器人正在运动返回false。行走中途重启电机控制会导致机器人摔倒（updater-design.md §7.2）。</p>
+<h3 id="35-维护命令独立命名空间"><a class="header" href="#35-维护命令独立命名空间">3.5 维护命令独立命名空间</a></h3>
+<p>init、紧急扭矩关闭、标定、原始关节写指令<strong>不属于意图指令</strong>。独立命名空间，转发层可配置传输白名单，禁止远程通道访问。信令控制谁可以连接，但不代表遥操者拥有机械维护权限；<code>update.*</code>指令如果到达DataChannel，远程客户端可触发版本回滚。</p>
+<h2 id="4-环路周边模块"><a class="header" href="#4-环路周边模块">4. 环路周边模块</a></h2>
+<h3 id="41-环路读取快照永不阻塞"><a class="header" href="#41-环路读取快照永不阻塞">4.1 环路读取快照，永不阻塞</a></h3>
+<p>意图和参数由IPC线程写入，环路<strong>原子一次性加载快照</strong>。没有任何反向背压；遥测通过有界广播，慢订阅者丢失帧，和更新器IPC模式一致。</p>
+<pre><code>   IPC任务（tokio多线程）        控制线程（独立运行时，50Hz）
+   ═══════════════════════════════        ═══════════════════════════════════
+
+     robot.move  ──► ┌────────────┐
+     robot.head  ──► │意图槽位    │ ──原子加载，每节拍一次──► 读取
+                     │ twist│head │
+                     └────────────┘
+                     ArcSwap，带时间戳
+
+     robot.init  ──► ┌────────────┐
+     robot.relax ──► │电源请求    │ ──每节拍读取一次──────────► 上电状态机
+     skills      ──► │技能标志    │
+                     └────────────┘
+                     后写覆盖
+
+     robot.health ◄── ┌──────────┐ ◄──────────发布 ─────────── 原子变量
+     safeToRestart    │原子变量  │              tick计数、hz、missed、摔倒、运动状态
+                      └──────────┘
+
+     robot.state  ◄── ┌──────────┐ ◄──发送，仅订阅者 ── 状态帧
+                      │广播通道  │
+                      └──────────┘
+                      有界，滞后丢帧
+</code></pre>
+<p>无反向通道。健康状态主动发布，不按需查询，保证卡死环路可上报。</p>
+<p>技能标志使用布尔变量，不是队列：单个20ms节拍内同一按键多次触发无额外意义；两个不同技能请求都需要被捕获，单槽后写覆盖会丢失请求。</p>
+<h3 id="42-参数配置"><a class="header" href="#42-参数配置">4.2 参数配置</a></h3>
+<p>TOML文件，启动读取，默认不监听文件变更。文件放在<code>releases/&lt;ver&gt;/</code>之外，更新/回滚保留，路径<code>/etc/robot/robotd.toml</code>，和更新器配置放一起。</p>
+<p>两处例外监听，是重启代价过大的妥协，不是全面热加载：</p>
+<ol>
+<li>padd每秒stat文件，<code>[pad]</code>和<code>[pad_imu_head_control]</code>修改后重读。手机修改手柄映射，重启padd会断开手柄会话，看门狗会让行走机器人急停。</li>
+<li>robotd可按需重读<code>[policy]</code>（mode、enabled除外），<code>robotctl policy add</code>新增技能，无需停下电机控制。</li>
+</ol>
+<p>运行中热加载<code>[safety]</code>或<code>[control]</code>是更大承诺，暂不支持。<code>robotctl configure</code>识别不同配置项，非法键会触发测试失败。</p>
+<p>文件属于板卡而非版本包：手动修改的策略路径会保留。默认路径指向release目录，普通更新携带配套训练策略；删除覆盖配置就恢复默认。配置文件允许缺失，未配置板卡使用内置默认启动，远程调试比直接崩溃更容易排查。历史教训：注释掉的参数会永久留在该板卡，版本升级不会覆盖，导致一批机器人kP=120，但新版本默认160。</p>
+<p>参数约10个，不是142个：控制频率、增益、动作缩放、低通alpha、最大速度、看门狗超时、策略路径、更新门限。runtime大量标记是硬件变体、废弃技能、废弃传感器，现已全部移除。</p>
+<p>一个高层开关：<code>policy.mode</code>，walk / roller，选择加载策略与调参默认值，未设置字段按模式填充。切换轮式构型仅改一行+重启。这是预设，不是硬件变体；roller调参来自原型，基于alpha默认参数重构。</p>
+<h3 id="43-游戏手柄是普通客户端"><a class="header" href="#43-游戏手柄是普通客户端">4.3 游戏手柄是普通客户端</a></h3>
+<p>padd读取gilrs，通过robotd socket发送意图。独立crate，手柄栈不进入robotctl（故障机器人仍需CLI工具可用）。</p>
+<p>一次socket转发，微秒级延迟。好处：APP、SDK、远程客户端使用的输入链路，开发者日常同样使用，不会代码长期失活。开发时<code>ssh -L /tmp/robotd.sock:/run/robotd.sock</code>，笔记本手柄控制板卡机器人，无需修改代码。</p>
+<p>板卡上为<code>padd.service</code>开机启动，接入任意手柄；无手柄时安全，不发送指令，看门狗保持机器人姿态。进程无特权，这是“手柄作为客户端”的核心约束：仅拥有输入与robot用户组权限。手柄配对属于configd（architecture.md §1），不属于本模块；蓝牙配对需要root+BlueZ，padd不能持有该权限，否则不再能模拟APP使用的API。</p>
+<h3 id="44-里程计复用环路已读取的采样"><a class="header" href="#44-里程计复用环路已读取的采样">4.4 里程计：复用环路已读取的采样</a></h3>
+<p><code>odometry::Odometry::alpha()</code>每节拍基于环路读取的关节位置+IMU四元数更新；估计结果在state流输出<code>odom: { position, yaw }</code>。<code>robotctl monitor</code>在3D视图下绘制轨迹地图。</p>
+<p>基于足底接触，移植自原型runtime：单足底作为地面锚点；躯干世界位姿由运动学模型正向求解；另一个足底低于锚点时更新锚点，保证步态不会跳变。航向使用IMU积分偏航角，世界坐标系为机器人开机朝向。<strong>无磁力计，不修正漂移</strong>，属于相对运动，所有客户端必须按相对位姿处理。</p>
+<p>每节拍两次运动学链计算，<strong>不增加总线流量</strong>，所以和环路同50Hz，而不是原型独立100Hz。之前否决里程计的原因不是计算开销，而是没有模块消费里程计数据；monitor轨迹可视化使用后，该决策被推翻。</p>
+<h3 id="45-环路驱动的其他子系统为什么没有独立设计文档"><a class="header" href="#45-环路驱动的其他子系统为什么没有独立设计文档">4.5 环路驱动的其他子系统，为什么没有独立设计文档</a></h3>
+<p>第二阶段迭代后新增4个非控制、非安全子系统。共同特点：挂载在tick上，<strong>不能阻塞环路</strong>；只能通过环路仲裁后的意图访问总线。</p>
+<div class="table-wrapper"><table><thead><tr><th>模块</th><th>功能</th><th>设计说明位置</th></tr></thead><tbody>
+<tr><td>sound.rs</td><td>语音播放：aplay子进程；新声音杀死旧进程，PCM声卡独占</td><td>模块头部注释</td></tr>
+<tr><td>theremin.rs</td><td>TOFD 15Hz测距→音符、嘴部开度、状态；50Hz环路采样，不等待</td><td>模块头部注释</td></tr>
+<tr><td>chorale.rs</td><td>多台Duck合唱：ID最小为主持，分配席位；btd广播信令，无计算</td><td>模块头部注释</td></tr>
+<tr><td>pet-detect/</td><td>板载麦克风40维log-mel特征，20KB CNN，独立工作线程</td><td>crate头部注释</td></tr>
+</tbody></table>
+</div>
+<p>外加<code>soc.rs</code>，读取主板热区和时钟上限，sysfs读取；<strong>不放在RobotIo之后</strong>，电机总线失效时仍然可读。</p>
+<p>它们没有独立设计文档，是设计规则，不是遗漏。当多个读者需要从代码推导接口契约时，才需要独立文档（../README.md）。这些模块仅有单一实现、单一调用方，逻辑局部，放在模块头部注释。操作手册（cheat sheet）负责使用说明：语音、合唱、特雷门琴。</p>
+<h2 id="5-设计目标与由来"><a class="header" href="#5-设计目标与由来">5. 设计目标与由来</a></h2>
+<h3 id="51-目标不是写一个更好的robotd"><a class="header" href="#51-目标不是写一个更好的robotd">5.1 目标，不是“写一个更好的robotd”</a></h3>
+<p>两个目标，第二个重构了开发顺序：</p>
+<ol>
+<li>快速迭代控制核心。</li>
+<li><strong>真正在硬件上测试更新器</strong>。</li>
+</ol>
+<p>更新引擎已经完成，但从未在硬件运行。关键路径未验证：<code>on_apply</code>中的<code>systemctl restart</code>没有真实systemd验证；30s健康门限只是猜测；最重要：自动回滚的前提是<code>robot.health</code>含义可靠。早期health只是“环路跑过一次节拍”，之前所有回滚测试都是占位模拟。</p>
+<p>所以第一阶段目标不是行走，而是<strong>在真实板卡提供可信的健康信号</strong>（§3.4）。</p>
+<h3 id="52-robotd替代哪些组件"><a class="header" href="#52-robotd替代哪些组件">5.2 robotd替代哪些组件</a></h3>
+<p>robotd逐步替代runtime，runtime包含5个独立职责，仅一项交给robotd：</p>
+<div class="table-wrapper"><table><thead><tr><th>runtime功能</th><th>迁移目标</th><th>阶段</th></tr></thead><tbody>
+<tr><td>控制环路、策略、电机、IMU</td><td>robotd</td><td>完成</td></tr>
+<tr><td>游戏手柄</td><td>意图客户端(padd)</td><td>完成</td></tr>
+<tr><td>摄像头、球/激光/宠物检测、JPEG</td><td>mediad</td><td>M5</td></tr>
+<tr><td>Web hub、PWA、大脑指令socket</td><td>mediad / APP</td><td>M5+</td></tr>
+<tr><td>maploc — 建图、MCL、规划</td><td>未分配</td><td>—</td></tr>
+</tbody></table>
+</div>
+<p>两者可以并行部署一段时间，但<strong>不能同时运行</strong>：单串口总线，唯一所有者（§1.1）。systemd单元通过<code>Conflicts=</code>互斥。</p>
+<p>远程APP层不在本文设计范围：基于reachy_mini架构，WebRTC媒体 + DataChannel上JSON-RPC2.0，Rust移植，超出本文档范围。对robotd的唯一约束见§3.5。</p>
+<h3 id="53-两个迭代阶段完成定义"><a class="header" href="#53-两个迭代阶段完成定义">5.3 两个迭代阶段，“完成”定义</a></h3>
+<p><strong>阶段1 — 保持姿态</strong>
+tick、总线、模型、RobotIo、可信健康。无策略推理，held_pose是启动读取的固定姿态。目标：总线真实负载，环路时序与健康指标真实；故意发布损坏版本不会失控。可反复执行安装/回滚/断电。
+验收标准：robotd稳定保持姿态1小时无总线错误；robotctl update apply安装版本，重启，通过健康门限，机器人不运动；不健康版本自动回滚；更新中途断电可通过boot计数器恢复。</p>
+<p><strong>阶段2 — 行走与站立</strong>
+观测、ONNX策略、安全层、意图接口、手柄客户端。
+验收标准：通过意图API在板卡行走；robotctl更新重启，门限校验通过；<code>--unhealthy</code>版本自动回滚。</p>
+<p>后续新增功能（技能优先级链、上电状态机、roller预设、跌倒缓降）在该基础上扩展，不改变基础架构。</p>
+<h3 id="54-回归基准作为验收标准"><a class="header" href="#54-回归基准作为验收标准">5.4 回归基准作为验收标准</a></h3>
+<p>已有基准测试：<code>bench_dynamixel_bus</code>，50Hz与100Hz下输出实际频率、抖动、读取耗时、总线耗时、占用率、错误、IMU新鲜度。记录基准，robotd性能必须匹配。
+<strong>本项目不做硬实时工程</strong>：不使用SCHED_FIFO、不绑定CPU核心、不mlockall。当前环路已经可靠；目标是保持可靠性，简化外围代码。</p>
+<h2 id="6-测试"><a class="header" href="#6-测试">6. 测试</a></h2>
+<p>FakeIo模拟采样，无需硬件：</p>
+<ul>
+<li>节拍超时，health置false；</li>
+<li>启动读取当前姿态，不会自动运动；</li>
+<li>安全层拒绝非有限目标，限幅执行器范围；摔倒事件不会抢占策略或客户端增益；</li>
+<li>跌倒预测器仅在摔倒触发，落地冲击、静态倾斜不触发；姿态斜坡最终回到站立姿态；</li>
+<li>意图中断，看门狗置零速度；</li>
+<li>golden观测向量：mjlab导出（输入，预期61维float数组），提交入库。观测索引错误不会明显崩溃，而是机器人步态异常倾倒。依赖microduck_brain导出（§9.2）。</li>
+</ul>
+<p>每条测试注释说明该测试要规避的故障，遵循仓库规范。</p>
+<h1 id="7-已确定的设计决策"><a class="header" href="#7-已确定的设计决策">7. 已确定的设计决策</a></h1>
+<p>duck-control 作为工作空间 crate 由编译器强制边界，不单独设立第二个代码仓库
+总线层全新编写，常量复用 代码精简，但调优后的参数不再重新推导
+电机同步读取中集成IMU IMU是同一总线上的设备；不做独立IMU抽象
+模型使用Rust常量 仅存在单台机器人实例
+参数文件，无自动监听 仅创建文件并确定存放路径；文件监听机制后续实现
+策略文件路径写在参数内，默认路径为发布目录 更新包附带策略；开发人员可手动覆盖
+启动时沿用当前位姿 更新逻辑不能驱动静止机器人发生移动
+上电启动采用状态机实现，而非简单标志位 set_torque（设置扭矩）按关节作为事务单元
+跌倒判定仅上报状态，不做阻断控制 跌倒后的处置逻辑属于上层控制决策（§2.4）
+里程计：方案已反转 监控模块的路径地图会读取里程计；在控制循环已采样的数据上仅做一次运动学计算（§4.4）
+优先级链维持运行时架构形态 技能模块是基于该机制的特性调参
+游戏手柄独立为单独crate 避免gilrs库被恢复模式命令行工具引入
+仿真放在第二阶段之后 硬件作为主要验证路径；FakeIo用于笔记本端开发</p>
+<h1 id="8-刻意延后实现的功能"><a class="header" href="#8-刻意延后实现的功能">8. 刻意延后实现的功能</a></h1>
+<p>MuJoCo后端、RemoteIo协议 · 技能抽象层 · 策略包清单与model_api访问控制 · 观察/位姿/动作意图 · 视线逆运动学 · 参数实时重载与配置存储 · 温度限制 · 速率限制 · 单设备IMU标定</p>
+<p>里程计已从本列表移除。此前延后是因为没有模块读取它；现在 robotctl 监控模块的路径地图需要读取里程计（§4.4）。</p>
+<h1 id="9-待解决的开放问题"><a class="header" href="#9-待解决的开放问题">9. 待解决的开放问题</a></h1>
+<p>Radxa板载控制频率。50Hz继承自Pi Zero 2W。硬件板卡到位后已可实测：bench_dynamixel_bus工具与控制循环自带的五分钟汇总报告结果一致。</p>
+<p>microduck_brain 应当输出基准向量（golden vectors），用于训练环境的回归校验，而不是作为真值来源。该功能不是产品发布的前置依赖。</p>
+<p>不存在单关节限位。安全钳位仅限制执行器行程，可捕获NaN、异常动作缩放、无效张量；但无法阻止关节运动到机械结构上不安全的位置。真实限位定义在alpha MJCF文件（31KB），本项目不直接引入该文件。如果限位只是仿真层面的虚拟解剖限位，就意味着机器人没有真实物理保护。</p>
+<p>如果后续需要仿真与真机一致性测试，alpha MJCF存放位置：31KB XML文件 + 19MB网格模型，当前位于运行时脚本目录 <code>scripts/alpha_assets/</code>。</p>
+<p>C语言依赖带来的持续开销。Linux下gilrs会无条件引入libudev-sys，因此CI与板卡交叉编译环境都需要安装该库。后续任何需要部署到板卡的C依赖都会带来同样成本，因此这条链路优先选用纯Rust crate。macOS未验证：交叉编译需要aarch64系统根目录，Mac无法提供，因此本地执行<code>cargo board --bins</code>会失败；可使用<code>-p updater -p robotd -p robotctl</code>编译发布版本，或者在Linux环境编译。</p>
+<h2 id="遥测映射api-v24"><a class="header" href="#遥测映射api-v24">遥测映射（API v24）</a></h2>
+<p>视频远端的映射模块（当前是笔记本，后续改为服务器）需要从机器人获取三项<code>robot.state</code>未包含的数据：与tof帧对齐的共享时钟、除重力投影之外的IMU原始数据、相机与TOF传感器的安装位姿。三项均为新增字段。</p>
+<p><code>robot.state</code>与<code>tof.frame</code>中的<code>t_ns</code>是CLOCK_MONOTONIC单调时钟，单位纳秒（proto::clock）。保留<code>t</code>与<code>at_us</code>：分别是各守护进程自身的运行时长，只接收单路数据流的读取端仍需要从零开始计数的时间戳。mediad媒体视频模块在同一时刻读取mono_ns与real_ns，因此RTP时间戳（RTCP发送报告使用墙上时钟）可以映射到同一时间轴。</p>
+<p>imu: {gyro, quat} 是控制循环读取到的ImuData：躯干IMU，50Hz，无上层处理（文档 docs/design/robotd-design.md §IMU）。原型HAT板载头部IMU目前没有模块读取；后续启用时，它会和tof.frame并行推送，不在此字段内。</p>
+<p>frames: {camera, tof} 为本周期基于实测头部关节，通过运动学<code>kinematics::head::HeadFk</code>计算得到的躯干坐标系下相机与TOF位姿（和robot.look求解使用同一套前向运动学FK）；静态几何参数（躯干高度、关节顺序、TOF光束方向、头部零点位姿）由robot.model提供。运动学代码放在独立crate，客户端按需查询，不直接复制计算逻辑。</p>
+<p>开销：每次发布周期增加3个小型结构体，仅当存在订阅者时才发送；前向运动学计算耗时约50纳秒。</p>
+<blockquote>
+<p>术语备注（机器人+Rust工程）
+crate：Rust软件包
+MJCF：MuJoCo仿真模型XML文件
+FK：Forward Kinematics 前向运动学
+IK：Inverse Kinematics 逆运动学
+IMU：惯性测量单元
+ToF：飞行时间传感器
+RTP/RTCP：实时传输协议及控制协议
+NaN：非数值（浮点异常）
+CLOCK_MONOTONIC：单调时钟，不受系统时间修改影响</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/updater-design.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/updater-design.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

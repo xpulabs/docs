@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>pad-minimal-pairing.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="游戏手柄蓝牙绑定的最小环境"><a class="header" href="#游戏手柄蓝牙绑定的最小环境">游戏手柄蓝牙绑定的最小环境</a></h1>
+<p>记录时间：2026-08-18；硬件：Radxa Zero 3W（MAC：50:37:CD:16:2A:39），Xbox无线手柄（MAC：78:86:2E:92:47:67）。已在另一块搭载同款网卡的Zero 3W开发板复现验证。</p>
+<h2 id="可成功绑定的操作流程"><a class="header" href="#可成功绑定的操作流程">可成功绑定的操作流程</a></h2>
+<p>烧录Radxa Zero 3专用极简版Armbian镜像。在镜像烧录器内预先配置WiFi与用户名，<strong>不额外安装任何软件</strong>：不部署后台守护进程、不执行设备初始化配置。</p>
+<pre><code class="language-bash">sudo sed -i -E 's|^[[:space:]]*#?[[:space:]]*Privacy[[:space:]]*=.*|Privacy = device|' /etc/bluetooth/main.conf
+grep -n "^Privacy" /etc/bluetooth/main.conf
+sudo reboot
+</code></pre>
+<blockquote>
+<p>这里<strong>必须重启，不能只执行<code>systemctl restart bluetooth</code></strong>：单纯重启蓝牙服务有时会导致内核占用hci0，报“无默认控制器”，只有整机重启才能清除该异常。</p>
+</blockquote>
+<p>按住手柄配对键直到指示灯快速闪烁，然后执行：</p>
+<pre><code class="language-bash">bluetoothctl
+scan on
+</code></pre>
+<p>等待日志出现 <code>[NEW] Device 78:86:2E:92:47:67 Xbox Wireless Controller</code>，继续：</p>
+<pre><code class="language-bash">scan off
+connect 78:86:2E:92:47:67
+</code></pre>
+<p>授权请求选择<code>yes</code>，然后执行：</p>
+<pre><code class="language-bash">trust 78:86:2E:92:47:67
+</code></pre>
+<p><strong>全程不需要输入<code>pair</code>命令</strong>。</p>
+<h2 id="绑定成功后的验证现象"><a class="header" href="#绑定成功后的验证现象">绑定成功后的验证现象</a></h2>
+<pre><code class="language-bash">ls /dev/input/js*
+dmesg | tail -3
+</code></pre>
+<p>内核输出示例：</p>
+<pre><code>input: Xbox Wireless Controller as /devices/virtual/misc/uhid/0005:045E:0B13.0001/input/input5
+microsoft 0005:045E:0B13.0001: input,hidraw0: BLUETOOTH HID v5.09 Gamepad [Xbox Wireless Controller]
+</code></pre>
+<p>验证输入数据流：全程拨动左摇杆，跳过前184字节，查找类型0x02、时间戳持续递增的事件包：</p>
+<pre><code class="language-bash">sudo timeout 5 cat /dev/input/js0 | od -Ad -tx1 | head -20
+</code></pre>
+<p>绑定关系可承受手柄断电重启（长按Xbox键约6秒关机，再重新开机）：</p>
+<pre><code class="language-bash">ls /dev/input/js*; bluetoothctl info 78:86:2E:92:47:67 | grep -E "Connected|Bonded|Trusted"
+</code></pre>
+<h2 id="测试成功的开发板配置"><a class="header" href="#测试成功的开发板配置">测试成功的开发板配置</a></h2>
+<p>该配置并非预期标准方案，因此全部参数记录如下：</p>
+<ul>
+<li><code>cat /sys/module/aic8800_bsp/srcversion</code>：<code>738316A2E9D9825966BDB6B (86016)</code></li>
+<li>最小/最大连接间隔 <code>conn_min_interval / conn_max_interval</code>：24 / 40（内核默认值，对应30–50ms）</li>
+<li><code>/etc/bluetooth/main.conf</code>：<code>Privacy = device</code></li>
+<li>运行的守护进程：无</li>
+</ul>
+<p>文档<code>design/pad-bond-failure.md</code>中标记此驱动存在缺陷；本次测试未修改连接间隔。但这两项都不是决定手柄能否绑定的关键因素。</p>
+<h2 id="失败场景汇总"><a class="header" href="#失败场景汇总">失败场景汇总</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>测试环境</th><th>结果</th></tr></thead><tbody>
+<tr><td>纯净Armbian，Privacy = off（或不配置该项，BlueZ默认为off）</td><td>connect返回<code>le-connection-abort-by-local</code>；配对状态为否，完全不执行SMP安全交换</td></tr>
+<tr><td>纯净Armbian，无Privacy配置行，先执行pair再connect</td><td>可完成绑定，但每次重连都会报<code>Encryption Change: PIN or Key Missing (0x06)</code>，连接每秒反复断开重连</td></tr>
+<tr><td>已初始化配置的开发板（确认第99行Privacy=device），停止padd、btd，手动connect</td><td>授权请求通过，随后<code>ServicesResolved: no</code>，手柄立刻断连，不会生成js0设备</td></tr>
+</tbody></table>
+</div>
+<p>第三行是待定位的疑点：<strong>完全相同镜像、相同Privacy参数，一旦设备完成初始化配置就会失败</strong>。问题根源是初始化脚本修改了系统持久态配置，而非正在运行的进程；就算停止padd和btd，配对依然无法恢复。</p>
+<h2 id="新建绑定和维持已有绑定是两回事"><a class="header" href="#新建绑定和维持已有绑定是两回事">新建绑定和维持已有绑定是两回事</a></h2>
+<p>在完整部署、全部后台服务运行的设备上：<strong>已经完成绑定的手柄可以正常连接、操控</strong>。
+但执行<code>robotctl pad pair</code>（先forget清除旧绑定，手柄进入配对模式，新建配对）会失败。</p>
+<p>也就是说：现有绑定不会被系统破坏；但系统内某个组件会阻止<strong>创建新的蓝牙绑定</strong>。configd与btd日志没有给出有效排查信息。</p>
+<h2 id="测试计划逐个叠加组件"><a class="header" href="#测试计划逐个叠加组件">测试计划：逐个叠加组件</a></h2>
+<p>将开发板重新烧录镜像，确认上面最小流程可正常配对；<strong>每次只新增一项组件，重启，尝试新建配对，再继续叠加下一项</strong>。</p>
+<p>脚本复制到家目录<code>~</code>，不要放到<code>/tmp</code>：每一步都要重启，<code>/tmp</code>内容重启后丢失；btmon抓包文件同理。</p>
+<pre><code class="language-bash">scp scripts/setup-board.sh scripts/migrate-network.sh pierre@BOARD:~/
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>步骤</th><th>新增内容</th><th>手柄能否配对</th><th>备注</th></tr></thead><tbody>
+<tr><td>0</td><td>无，上面最小环境</td><td>是</td><td>对照组</td></tr>
+<tr><td>1</td><td><code>sudo sh ~/setup-board.sh</code>：设备树覆盖层、console=display、getty掩码、onnxruntime</td><td>是</td><td></td></tr>
+<tr><td>2</td><td><code>sudo sh ~/migrate-network.sh</code>：netplan迁移至NetworkManager</td><td>是</td><td></td></tr>
+<tr><td>3</td><td><code>sudo -E sh ~/install.sh</code></td><td>否</td><td>首轮测试；守护进程全部启动</td></tr>
+<tr><td>3b</td><td>设置<code>DUCK_NO_START=1</code>，重启</td><td>是</td><td>证明install.sh写入磁盘的文件本身没问题</td></tr>
+<tr><td>4</td><td><code>systemctl enable --now updaterd</code></td><td></td><td></td></tr>
+<tr><td>5</td><td>启动robotd</td><td></td><td></td></tr>
+<tr><td>6</td><td>启动configd</td><td></td><td></td></tr>
+<tr><td>7</td><td>启动btd</td><td></td><td></td></tr>
+<tr><td>8</td><td>启动padd</td><td></td><td></td></tr>
+</tbody></table>
+</div>
+<p>测试执行时间：2026-08-19。每一步都用bluetoothctl手动配对，测试完成后删除手柄设备。
+步骤1、2配对正常；到install.sh环节配对失效。
+结论：设备板级初始化、设备树覆盖层、控制台重定向、NetworkManager迁移均不是故障原因。</p>
+<p>2026-08-19拆分install.sh内部逻辑：设置<code>DUCK_NO_START=1</code>并重启后，手柄可以正常绑定。
+说明install.sh写入磁盘的内容都没问题：系统单元、用户、用户组、发布目录、token配置片段都排除嫌疑。<strong>问题来自五个守护进程中正在运行的某一个</strong>。</p>
+<p>本次测量前浪费三次测试，根源相同：发布包内<code>hooks/postinstall</code>会在updaterd安装阶段提前执行<code>systemctl enable --now</code>启用所有服务单元，早于install_units。测试过程中守护进程一直处于运行状态；就算之后执行<code>systemctl disable --now</code>，也无法撤销它已经写入蓝牙适配器硬件的状态。btd会保留“可配对”标志、广播实例，以及默认配对代理设置给适配器的IO能力。<strong>测量前必须重启</strong>。</p>
+<h2 id="定位到元凶btd"><a class="header" href="#定位到元凶btd">定位到元凶：btd</a></h2>
+<p>2026-08-19，单一变量对照，在MAC尾号2A:39设备上双向可复现：</p>
+<ul>
+<li>btd启用 → 重启 → 手柄重置 → 新建配对：失败</li>
+<li>btd禁用 → 重启 → 手柄重置 → 新建配对：成功</li>
+</ul>
+<p>成功测试时没有清空<code>/var/lib/bluetooth</code>目录。btd驱动BlueZ生成的两个持久文件（attributes：本地GATT数据库；identity：适配器本地IRK身份密钥）均排除嫌疑，其他持久存储数据同样无关。</p>
+<p>早期有一轮测试，关闭btd仍然无法配对，原因是手柄自身的绑定槽：Xbox手柄仅保存一个主机绑定记录。一次未完成的配对会让手柄保留一份主机密钥，但开发板这边密钥已经不存在。<strong>每次测试前需要在电脑上重置手柄</strong>，否则故障现象和被污染的绑定记录完全一致，这个问题耗费了近两天排查时间。</p>
+<blockquote>
+<p>重点：所有后台服务运行时，<strong>已经存在的绑定不受影响</strong>，绑定好的手柄可以正常连接操控；仅新建绑定失败。</p>
+</blockquote>
+<h2 id="原理猜想尚未实测验证"><a class="header" href="#原理猜想尚未实测验证">原理猜想（尚未实测验证）</a></h2>
+<p>btd作为外设持续广播。当<code>Privacy = device</code>时，广播使用可解析私有地址；但同一蓝牙适配器又作为中心设备尝试与手柄建立绑定。SMP DHKey校验会基于两端设备地址计算，这种场景会触发<code>DHKey check failed (0x0b)</code>错误。当初项目正是因为这个报错，在btd运行的环境下把Privacy设置改成off。抓取失败配对的btmon日志，查看地址类型与SMP失败原因，即可确认猜想。</p>
+<h2 id="两个独立故障曾被误判为同一个"><a class="header" href="#两个独立故障曾被误判为同一个">两个独立故障，曾被误判为同一个</a></h2>
+<p>测试前重置手柄，保证结果不受残留绑定记录干扰：</p>
+<ol>
+<li><strong>开发板个体差异</strong>：全新纯净Armbian，部分Zero3W在BlueZ默认<code>Privacy=off</code>下可以绑定手柄；另一部分完全无法绑定，只能用<code>Privacy=device</code>。十块板子中两类大约各一半，暂时没有找到可量化区分的硬件参数。</li>
+<li><strong>Privacy配置与btd冲突</strong>：设置<code>Privacy=device</code>时，只要btd在广播，就无法新建手柄绑定。</li>
+</ol>
+<p>两者叠加，就会出现当初<code>DHKey check failed (0x0b)</code>报错：当时在一块需要<code>Privacy=device</code>才能配对的板子上测出故障，误判定是Privacy=device本身破坏配对。导致连续两周，半数开发板无法完成手柄绑定。</p>
+<p>仅仅停止btd进程还不够：进程退出后，它写入蓝牙控制器的配置仍然保留。所有成功的手动配对操作，都是在停止btd后执行了重启。
+替代方案：蓝牙适配器电源循环 <code>bluetoothctl power off &amp;&amp; power on</code>，可以代替重启。2026-08-19验证：完整部署的板子，执行该命令后首次配对即可成功，这也是把配对操作简化为单条命令的基础。</p>
+<p>两套修复逻辑都封装在<code>provision-board.sh --weird-ble</code>，不需要该方案的板子不会启用：该参数自动设置<code>Privacy=device</code>，并写入标记文件<code>/var/lib/robot/weird-ble</code>；<code>robotctl pad pair</code>仅在带有该标记的板子上临时暂停btd。优先在不带该标记的板子测试。aic8800网卡更换后，这两个问题都会消失。</p>
+<blockquote>
+<p>测试规范：每一步操作后重启；每次配对尝试前清空两端绑定记录：开发板执行pad forget / bluetoothctl remove，手柄进入配对模式。Xbox手柄只能保存一个主机绑定，半完成的配对会残留密钥，现象和真实故障一模一样。</p>
+</blockquote>
+<p>步骤3需要install.sh读取的环境变量：</p>
+<pre><code class="language-bash">export DUCK_TOKEN=github_pat_replace_with_your_token
+export DUCK_REF=pad-privacy-device-not-off
+export DUCK_DEV_KEY=$HOME/team.dev.pub
+</code></pre>
+<p>步骤1、2不需要token和网络。</p>
+<h2 id="和microduck_runtime对比存在尚未验证的差异"><a class="header" href="#和microduck_runtime对比存在尚未验证的差异">和microduck_runtime对比，存在尚未验证的差异</a></h2>
+<p>microduck_runtime安装脚本会在NetworkManager活跃WiFi连接上关闭WiFi省电（install.sh:244、:383）：</p>
+<pre><code class="language-bash">sudo nmcli con mod "$WIFI_CON" wifi.powersave 2
+</code></pre>
+<p>scripts目录没有对应的配置。aic8800是WiFi+蓝牙二合一芯片，共用SDIO射频通道，因此这是一个可疑候选因素。但之前能正常配对的纯净板没有读取该项参数，仅为推测，尚未证实。
+查看WiFi省电状态命令：</p>
+<pre><code class="language-bash">iw dev wlan0 get power_save
+</code></pre>
+<h2 id="故障3手机已连接时已绑定手柄无法重连实测2026-09-17"><a class="header" href="#故障3手机已连接时已绑定手柄无法重连实测2026-09-17">故障3：手机已连接时，已绑定手柄无法重连（实测，2026-09-17）</a></h2>
+<p>前面两个故障都是<strong>新建绑定</strong>问题；本故障是<strong>重连</strong>，相互独立，也是手机APP用户最先碰到的问题。</p>
+<p>测试设备lavandiere：使用<code>--weird-ble</code>初始化，<code>Privacy=device</code>，Xbox手柄已绑定并信任。</p>
+<div class="table-wrapper"><table><thead><tr><th>场景</th><th>现象</th></tr></thead><tbody>
+<tr><td>APP先连接，再打开手柄电源</td><td>手柄始终无法连上开发板</td></tr>
+<tr><td>退出APP，再打开手柄电源</td><td>手柄立刻连接成功</td></tr>
+<tr><td>先连接手柄，再打开APP</td><td>两者都正常工作</td></tr>
+</tbody></table>
+</div>
+<p>结论：绑定记录、手柄本身没有问题。<strong>先建立的链路会被保留，第二条链路可以附加；但btd作为外设广播链路存在时，无法发起新的中心设备连接</strong>。</p>
+<p>开发板主动执行connect会直接返回明确错误，而不是单纯超时：</p>
+<pre><code>Failed to connect: org.bluez.Error.Failed le-connection-abort-by-local
+</code></pre>
+<p>这是本地主机主动终止连接，不是手柄拒绝。BlueZ后台对可信设备的自动重连逻辑同样报这个错，这就是手柄无响应的根本原因。</p>
+<p>发生该故障时btd<strong>并没有广播</strong>：当存在中心设备连接时，btd会停止广播，这也是手机APP连上机器人后，duckctl扫描不到该机器人的原因。
+因此这不是故障2的变体：广播已经关闭，发起连接仍然失败。指向<strong>蓝牙控制器硬件限制：工作在外设角色时，不能作为发起端</strong>，不是守护进程软件逻辑选择。</p>
+<h3 id="不值得开发的修复方案"><a class="header" href="#不值得开发的修复方案">不值得开发的修复方案</a></h3>
+<p>直观方案：configd/padd轮询检测可信但离线的手柄，主动发起连接。不可行，因为该调用就会触发上面的报错。</p>
+<p>另外两套可行方案在当前射频芯片上都存在严重取舍：</p>
+<ol>
+<li>手柄请求连接时，btd主动断开手机链路。手机会随机掉线；并且btd没有办法感知手柄是否正在请求连接。</li>
+<li>将配对、重连逻辑交给APP控制，由APP主动断开链路后再执行配对。需要大量开发工作量，而本项目后续计划直接更换这块aic8800芯片。</li>
+</ol>
+<h3 id="替代使用方案"><a class="header" href="#替代使用方案">替代使用方案</a></h3>
+<p><strong>先打开手柄，再打开手机APP</strong>。按这个顺序两者都可正常工作，这就是全部规避办法。
+<code>pad.status</code>接口分开上报“已绑定”和“已连接”状态。客户端可以识别这种状态：已绑定、已信任、未连接，并提示用户，而不是让用户反复按Xbox按键，机器人却无响应。</p>
+<p>和前两个故障一样，更换aic8800网卡后，该问题会一并消失。</p>
+<hr />
+<p>术语注释</p>
+<ul>
+<li>Bond：蓝牙绑定（长期密钥配对）</li>
+<li>BlueZ：Linux蓝牙协议栈</li>
+<li>SMP：安全管理协议，蓝牙用于密钥交换</li>
+<li>IRK：身份解析密钥（可解析私有地址用）</li>
+<li>peripheral / central：蓝牙外设角色 / 中心角色</li>
+<li>AIC8800：WiFi+蓝牙二合一SDIO无线芯片</li>
+<li>btd、padd、configd、robotd、updaterd：项目自定义后台守护进程</li>
+<li>js0：Linux输入子系统游戏手柄设备节点</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/project/npu-bringup.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/project/slice-2-bringup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/project/npu-bringup.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/project/slice-2-bringup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

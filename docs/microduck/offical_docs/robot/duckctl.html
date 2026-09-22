@@ -1,0 +1,566 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>duckctl.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="duckctl--全部命令"><a class="header" href="#duckctl--全部命令">duckctl — 全部命令</a></h1>
+<p>在笔记本上与机器人通信，<strong>无需网络，无需SSH</strong>。它是手机App的替代工具，也是访问从未接入过WiFi网络的机器人的方式。</p>
+<p>当前底层使用低功耗蓝牙（BLE）通信，但工具名称刻意没有带上蓝牙字样：<code>mediad</code> 为机器人提供了第二种传输通道，可调用另一组接口。因此该工具以<strong>通信对象</strong>命名，而非当前使用的无线链路。在仅有BLE作为通信方案的阶段，它曾命名为 <code>duck-btctl</code>。</p>
+<blockquote>
+<p>⚠️ <strong>不要在机器人板端运行 duckctl</strong>。正式发布固件不依赖该工具；板端预装的工具是 <code>robotctl</code>，命令参考 <code>cheatsheet.md</code>，其中大部分命令都有对应的 duckctl 版本，见下文。</p>
+</blockquote>
+<h2 id="安装方式"><a class="header" href="#安装方式">安装方式</a></h2>
+<p>在本仓库克隆目录内直接运行：</p>
+<pre><code class="language-bash">cargo run -q -p duckctl -- --name &lt;robot-name&gt; info
+</code></pre>
+<p>或者一次性安装（缺点：安装后是固定快照，不会跟随代码分支自动更新）：</p>
+<pre><code class="language-bash">cargo install --path duckctl
+duckctl --name &lt;robot-name&gt; info
+</code></pre>
+<p>下文所有命令均采用<strong>已安装</strong>的写法。如果想在源码目录直接运行，在命令前加上 <code>cargo run -q -p duckctl -- </code>。</p>
+<p>该工具旧版本会安装为 <code>btctl</code>。如果执行 <code>which btctl</code> 仍然能找到该程序，那是你之前安装的旧版本，不会自动更新：</p>
+<pre><code class="language-bash">cargo uninstall btd --bin btctl
+</code></pre>
+<h2 id="查找机器人"><a class="header" href="#查找机器人">查找机器人</a></h2>
+<pre><code class="language-bash">duckctl scan
+</code></pre>
+<pre><code>1 robot(s) advertising the duck service:
+  aa:bb:cc:dd:ee:ff duck-c51b — 192.168.1.42, 1 service(s)  ← DUCK_ROBOT
+
+7 other device(s) in range, not listed. …
+</code></pre>
+<p>扫描结果<strong>只列出机器人</strong>，其他在无线范围内的设备仅做计数，不展示。加上 <code>--verbose</code> 参数会展开完整设备列表；当目标机器人不在首条结果时，建议开启该参数。</p>
+<p>每台机器人会广播自身IPv4地址，这也是SSH连接所用IP的来源。<strong>无需建立连接，不需要PIN码</strong>。</p>
+<ul>
+<li>行内无IP地址：机器人未接入网络；</li>
+<li>整条记录没有IP：固件版本较旧，当时机器人还不支持广播IP，可使用 <code>duckctl wifi status</code> 查看网络状态。</li>
+</ul>
+<p>SSID不会出现在扫描列表里——广播数据包容量不足以承载。<code>duckctl wifi status</code> 可以查看SSID、信号强度与双地址信息。</p>
+<p>只获取IP地址，用于命令替换：</p>
+<pre><code class="language-bash">ssh radxa@$(duckctl ip)
+</code></pre>
+<p><code>ip</code> 子命令仅输出IP地址，方便脚本替换。它读取蓝牙广播包，<strong>不建立连接、无需PIN</strong>，耗时约1秒。地址信息不会过时：<code>btd</code> 每5秒重新读取地址，网络变更时会重新广播。</p>
+<p>或者直接使用内置ssh封装：</p>
+<pre><code class="language-bash">duckctl ssh
+duckctl ssh -- sudo robotctl pad pair
+</code></pre>
+<p><code>ssh</code> 子命令和 <code>ip</code> 一样自动获取IP，然后直接调用原生ssh。交互提示、终端会话、退出码都由ssh本身提供。
+登录用户名优先使用 <code>--user</code> 参数；其次读取环境变量 <code>DUCK_BOARD_USER</code>（<code>dev-push.sh</code> 也读取该变量，配置过dev推送的笔记本可直接复用）；默认用户为 <code>radxa</code>。
+<code>--</code> 后面的内容会直接在机器人上执行，不会打开交互式shell。</p>
+<p>文件传输用法类似：</p>
+<pre><code class="language-bash">duckctl scp report.md :/tmp/
+duckctl scp :/var/log/robotd.log .
+</code></pre>
+<p>路径以 <code>:</code> 开头代表机器人板端路径：相当于scp的<code>host:path</code>，主机部分由工具自动查找。其余参数原样传给scp，包括 <code>-r</code> 等选项，进度条、退出码均为scp原生行为。用户名解析规则和ssh一致。</p>
+<blockquote>
+<p>工具自身参数放在路径前面：</p>
+</blockquote>
+<pre><code class="language-bash">duckctl --name ducky scp -r logs/ :/tmp/
+</code></pre>
+<p>如果整条命令中没有 <code>:</code>，扫描阶段就直接拒绝执行：判定为本机到本机拷贝，不涉及机器人，scp本身不会提示该问题。如果本地文件名字真的是<code>:foo</code>，写成 <code>./:foo</code>。</p>
+<p>当笔记本和机器人已蓝牙绑定后，机器人经常会停止向本机广播服务。此时 <code>ip</code> 会建立连接调用 <code>net.status</code> 查询地址，速度更慢，<strong>需要PIN码</strong>，但一定能返回结果。<code>--verbose</code> 会打印当前使用的是广播方式还是查询方式。</p>
+<p>没有网络地址的机器人，不会直接返回空结果，而是给出处理方案。因为配置网络必须走无线链路；WebRTC设计上不允许通过它调用 <code>net.connect</code>。</p>
+<p>从未重命名的机器人命名规则：<code>duck-</code> + 由序列号生成的4位字符，例如 <code>duck-c51b</code>。macOS可能同时展示两个名称，如 <code>radxa-zero3 [duck-c51b]</code>，<strong>两个名称都可以作为 --name 的参数</strong>。</p>
+<p>现象：扫描显示名称为<code>duck-c51b</code>，一次连接后扫描只显示<code>radxa-zero3</code>。
+原因：固件只在广播包写入机器人名称，但适配器名称没有更新，客户端缓存了适配器名称。
+解决：升级机器人固件；固件升级不会清除客户端缓存，需要手动清理：Linux执行<code>bluetoothctl remove &lt;mac&gt;</code>，macOS在蓝牙设置里忽略该设备。</p>
+<p>不指定名称（无<code>--name</code>，也未设置<code>DUCK_ROBOT</code>）：默认选用扫描找到的第一台机器人。
+指定名称，但有多台机器人匹配该名称 → 直接报错，不会自动选择：</p>
+<pre><code>2 robots answer to "radxa-zero3": radxa-zero3, radxa-zero3
+</code></pre>
+<p>成因：板子bootloader序列号为空，主机名被用作机器人名称，同一镜像烧录的所有板子名字相同。
+解决：在机器人板端重命名，使用新名称：</p>
+<pre><code class="language-bash">robotctl system set-name ducky
+</code></pre>
+<h2 id="网页控制台"><a class="header" href="#网页控制台">网页控制台</a></h2>
+<p>机器人内置网页，可预览摄像头画面、远程控制机器人：</p>
+<pre><code class="language-bash">duckctl open
+</code></pre>
+<p>自动查找机器人，在浏览器打开 <code>http://&lt;address&gt;:8080/</code>。</p>
+<ul>
+<li><code>--print</code>：只输出URL，不打开浏览器，适合无浏览器机器或脚本；</li>
+<li><code>--port</code>：用于<code>mediad</code>使用非默认web端口启动的机器人。</li>
+</ul>
+<p><strong>无需额外安装服务</strong>：页面内嵌在<code>mediad</code>守护进程中，只要机器人运行该服务，就自带网页控制台。</p>
+<p>网页功能：</p>
+<ul>
+<li>摄像头画面，附带链路码率、帧率、丢包、往返延迟；</li>
+<li>双虚拟手柄，W/A/S/D、Q/E按键控制，速度0.3m/s，角速度1.5rad/s；可拖动画面定点观察；</li>
+<li>启用、初始化、松弛、停止、关机按钮；</li>
+<li>语音库菜单，机器人动态填充技能菜单：机器人拥有哪些技能是配置项，页面会查询<code>robot.policies</code>，而非写死预设列表；</li>
+<li>2Hz状态流 + <code>robot.health</code>，展示舵机过热、电池低电量、控制环路卡顿等告警。</li>
+</ul>
+<blockquote>
+<p><code>stop</code>只是清零网页下发的控制指令，<strong>不是急停</strong>。本系统无法通过浏览器切断舵机电源，按钮仅为普通停止指令。</p>
+</blockquote>
+<p>页面底部折叠面板：原始JSON窗口、日志、WebRTC连接拒绝的调用信息，用于验证路由表，<strong>不直接驱动机器人</strong>。</p>
+<p>涉及两个端口，只有网页端口需要手动关注：页面通过自身所在主机连接8443信令服务器。页面加载成功但提示信令端口无响应，代表机器人正常运行，但你的电脑与机器人8443端口之间被阻断，<strong>通常是防火墙</strong>。</p>
+<p>摄像头与运动控制依赖WebRTC。<strong>无网络地址的机器人无法打开网页控制台</strong>。需要先通过蓝牙配置WiFi，下面的<code>duckctl wifi connect</code>不需要本机已有网络。</p>
+<h2 id="固定目标机器人"><a class="header" href="#固定目标机器人">固定目标机器人</a></h2>
+<p>把机器人名称写入环境变量，不用每次命令都带<code>--name</code>：</p>
+<pre><code class="language-bash">export DUCK_ROBOT=duck-c51b
+</code></pre>
+<p>写入<code>~/.zshrc</code>可以永久生效。之后命令可以省略<code>--name</code>：</p>
+<pre><code class="language-bash">duckctl info
+</code></pre>
+<p><code>DUCK_PIN</code>同理，用于需要配对PIN码的机器人：</p>
+<pre><code class="language-bash">export DUCK_PIN=418299
+</code></pre>
+<p>单次命令临时切换其他机器人，<code>--name</code>优先级更高：</p>
+<pre><code class="language-bash">duckctl --name duck-ffff info
+</code></pre>
+<p>单次执行清空默认机器人（工作台存在别人的机器人场景）：</p>
+<pre><code class="language-bash">DUCK_ROBOT= duckctl scan
+</code></pre>
+<p><code>scan</code>会标记<code>DUCK_ROBOT</code>指定的机器人并放在列表首位；所有查找机器人的命令，扫描前都会打印目标名称。</p>
+<h2 id="身份管理"><a class="header" href="#身份管理">身份管理</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; info
+</code></pre>
+<p>查看名称、序列号、运行时长。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; name &lt;new-name&gt;
+</code></pre>
+<p>重命名，最多24字符。几秒内生效，<strong>无需重启</strong>。但Mac会缓存旧蓝牙名称，所以macOS蓝牙设置和scan结果会滞后。后续所有命令使用新名称。</p>
+<blockquote>
+<p>⚠️ 重命名<strong>不会自动更新环境变量<code>DUCK_ROBOT</code></strong>，需要手动修改该变量，否则后续命令会查找不存在的旧名称。</p>
+</blockquote>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; reboot
+</code></pre>
+<p>重启机器人。</p>
+<h2 id="wifi相关"><a class="header" href="#wifi相关">WiFi相关</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; wifi status
+</code></pre>
+<p>查看SSID、信号强度、网络地址。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; wifi scan
+</code></pre>
+<p>扫描WiFi，耗时数秒：机器人会重新扫描无线信道，不是直接返回上次缓存结果。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; wifi connect &lt;ssid&gt; --psk &lt;passphrase&gt;
+</code></pre>
+<p>开放网络去掉<code>--psk</code>参数。连接新网络会断开原有WiFi，正在运行的SSH会话会断开，属于正常现象。最多等待45秒返回结果。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; wifi forget &lt;ssid&gt;
+</code></pre>
+<p>删除保存的WiFi配置。</p>
+<h2 id="健康与状态"><a class="header" href="#健康与状态">健康与状态</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; health
+</code></pre>
+<p>查看控制环路健康状态。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; status
+</code></pre>
+<p>版本握手信息与更新状态。</p>
+<h2 id="查询运行版本"><a class="header" href="#查询运行版本">查询运行版本</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; version
+</code></pre>
+<p>输出API版本、固件发行版本、构建所用git修订号。revision为<code>null</code>代表该版本是在开发者笔记本本地编译，不是CI流水线构建。</p>
+<h2 id="日志"><a class="header" href="#日志">日志</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; logs robotd
+</code></pre>
+<p>查看本次开机后<code>robotd</code>最近40行系统日志。查看更多行，或上一次开机日志：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; logs robotd -n 200
+duckctl --name &lt;robot-name&gt; logs btd --boot -1
+</code></pre>
+<p>支持查看的单元：<code>updaterd</code>、<code>robotd</code>、<code>configd</code>、<code>btd</code>、<code>padd</code>、<code>mediad</code>、<code>tofd</code>，外加<code>bluetooth</code>、<code>NetworkManager</code>。<code>.service</code>后缀可省略；其它名称会直接拒绝并列出可用单元。</p>
+<p>日志输出到stdout，其余诊断信息输出到stderr，支持管道过滤：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; logs robotd -n 200 | grep -i panic
+</code></pre>
+<p>超长日志会被截断至无线链路可承载的大小，优先输出旧日志，附带截断提示。
+日志跨进程重启时会标记分隔：</p>
+<pre><code>2026-09-09T12:27:20+00:00 systemd[1]: Starting robotd.service - Robot control daemon...
+-- new robotd process, pid 3227 --
+2026-09-09T12:27:21+00:00 robotd[3227]: control loop running joints=15 hz=50.0 driving=true
+</code></pre>
+<p>升级后这种分隔很重要，40行日志可能包含两个不同版本的输出。<code>-- … --</code>之间的内容由机器人主动输出，并非系统日志原生内容。</p>
+<p><code>logs</code><strong>不支持 <code>-f</code>、<code>--since</code>和内置搜索</strong>，需要实时跟踪日志请SSH进板端：</p>
+<pre><code class="language-bash">ssh radxa@$(duckctl --name &lt;robot-name&gt; ip)
+journalctl -u robotd -f
+</code></pre>
+<h2 id="固件更新"><a class="header" href="#固件更新">固件更新</a></h2>
+<p>命令语法和<code>robotctl update</code>完全一致，板端学会的命令可以直接复用。所有更新命令支持<code>--component &lt;name&gt;</code>，默认<code>daemon</code>，也是机器人当前唯一组件。</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; update check
+duckctl --name &lt;robot-name&gt; update status
+duckctl --name &lt;robot-name&gt; update versions
+duckctl --name &lt;robot-name&gt; update log --limit 20
+</code></pre>
+<p>安装更新需要数分钟，实时打印进度：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; update apply
+· daemon: preflight
+· daemon: downloading 12%
+· daemon: downloading 47%
+· daemon: verifying
+· daemon: swapping
+· daemon: health_gate
+{
+  "outcome": "applied",
+  "from": "0.5.1",
+  "to": "0.6.0"
+}
+</code></pre>
+<blockquote>
+<p>注意：机器人会重启后台服务，<code>btd</code>会在返回后约5秒重启，因此连接会断开，<strong>这是更新正常现象，不是报错</strong>。重新连接，执行<code>duckctl update status</code>；<code>last_attempt</code>字段记录本次更新结果。</p>
+</blockquote>
+<p>指定分支构建、精确版本、预发布候选版：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; update apply --ref my-branch
+duckctl --name &lt;robot-name&gt; update apply --version 0.5.1
+duckctl --name &lt;robot-name&gt; update apply --staging
+</code></pre>
+<p><code>--dry-run</code>：完整校验所有条件，在版本切换前停止。<code>--ref</code>与<code>--version</code>互斥，同时传入会被拒绝。</p>
+<p>版本回滚（上一版本，或<code>update versions</code>列出的指定版本）：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; update rollback
+duckctl --name &lt;robot-name&gt; update select 0.5.1
+</code></pre>
+<p>回滚同样经过健康门控，新版本启动失败会自动复原，不会删除任何文件。</p>
+<p>监控别人或机器人自身触发的更新进度：</p>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; update watch
+</code></pre>
+<p>持续打印正在执行的更新进度，不会自动退出，按<code>Ctrl-C</code>终止。</p>
+<h2 id="hugging-face账号登录"><a class="header" href="#hugging-face账号登录">Hugging Face账号登录</a></h2>
+<pre><code class="language-bash">duckctl account login
+</code></pre>
+<p>输出验证码并打开 https://hf.co/oauth/device，你手动输入验证码。HF设备授权页面不支持URL携带验证码，打开页面仅省去跳转，仍需手动输入。机器人等待授权，工具打印验证码后就断开连接；在弹出浏览器（或其他设备）完成授权。</p>
+<pre><code class="language-bash">duckctl account status
+duckctl account logout
+</code></pre>
+<p><strong>这是唯一可以在完全无网络机器人上执行的功能</strong>：无WiFi就没有网页控制台与局域网，仅蓝牙可用。BLE登录流程和开机引导向导完全相同。</p>
+<pre><code class="language-bash">duckctl account login --no-open
+</code></pre>
+<p>只输出验证码与链接，不打开浏览器。脚本运行时会自动启用该模式。
+机器人已登录、或等待授权未完成时，再次执行login会拒绝并提示当前账号；<code>--force</code>强制覆盖，旧未确认验证码失效。</p>
+<h2 id="策略与技能policy--skills"><a class="header" href="#策略与技能policy--skills">策略与技能（Policy &amp; Skills）</a></h2>
+<p>查看各策略槽位运行内容，以及机器人可用技能列表：</p>
+<pre><code class="language-bash">duckctl policy list
+</code></pre>
+<p><code>skills</code>数组就是机器人能执行的动作集合。技能属于配置项，不同机器人不一样，不能写死预设列表；展示按钮前建议先读取该列表。</p>
+<p>执行一个技能：</p>
+<pre><code class="language-bash">duckctl do roulade
+</code></pre>
+<p>机器人需要处于驱动就绪状态，先按下手柄Start键，否则会返回提示。<strong>不需要持续按住手柄</strong>：安全死区机制会自动清零运动指令，无人操控时机器人保持静止并执行动作。</p>
+<p>动态更换行走策略模型：</p>
+<pre><code class="language-bash">duckctl policy load walk /opt/robot/policies/current/alpha_walking.onnx
+</code></pre>
+<p>恢复该槽位默认策略：</p>
+<pre><code class="language-bash">duckctl policy reset walk
+</code></pre>
+<p>一次仅操作一个槽位，接口限制如此；一次性重置全部7个槽位需要在板端使用<code>robotctl policy reset</code>。路径为<strong>机器人板端绝对路径</strong>。</p>
+<p>通过<code>duckctl policy load</code>加载的策略<strong>重启后保留</strong>，行为和板端<code>robotctl policy load</code>一致：后台进程在切换策略前写入<code>robotd.toml</code>。<code>duckctl policy reset &lt;slot&gt;</code>用于撤销。</p>
+<p>重新从配置文件加载全部槽位（配置被外部修改时使用）：</p>
+<pre><code class="language-bash">duckctl policy reload
+</code></pre>
+<p>机器人先回到带扭矩的初始姿态，加载策略后恢复运动，耗时数秒，命令内置超时等待。模型张量不符合<code>obs[1,61] -&gt; actions[1,14]</code>会直接拒绝，加载失败会保留原有运行策略。</p>
+<h3 id="hub模型相关"><a class="header" href="#hub模型相关">Hub模型相关</a></h3>
+<p>查询Hub上为此机器人发布的策略，检查官方策略包更新：</p>
+<pre><code class="language-bash">duckctl policy search microduck
+duckctl policy check
+</code></pre>
+<p>安装最新官方策略包；<code>--version v1</code>回退旧版本：</p>
+<pre><code class="language-bash">duckctl policy update
+</code></pre>
+<p>下载他人策略包（不执行）：</p>
+<pre><code class="language-bash">duckctl policy fetch RemiFabre/microduck-flamingo-cycle
+</code></pre>
+<p>返回结果给出文件保存路径。<code>load</code>接收本地路径，不再需要<code>组织/仓库名</code>；<code>fetch</code>和<code>load</code>是两条独立调用（<code>robotctl</code>可一条命令完成）。</p>
+<h3 id="自定义技能命名"><a class="header" href="#自定义技能命名">自定义技能命名</a></h3>
+<p><code>fetch</code>只下载模型文件；下面命令把模型注册为可被<code>robot do</code>调用的技能：</p>
+<pre><code class="language-bash">duckctl policy skill polite-bow --path /var/lib/robot/policies/fffiloni/microduck-polite-bow-b1d864/main/policy.onnx --duration 4
+duckctl do polite-bow
+</code></pre>
+<p>单条命令完成：机器人写入配置并重载，<strong>无需重启服务</strong>。<code>--duration</code>首次注册必填，后续持久保存；修改参数只需要提交变更字段。</p>
+<pre><code class="language-bash">duckctl policy skill polite-bow --command 1,0,0
+</code></pre>
+<p><code>--command</code>：策略运行时输入的扭转指令，默认0；flamingo模型格式为<code>[flag, side, 0]</code>。<code>--unwind</code>、<code>--unwind-s</code>用于终止持续保持姿态的策略。</p>
+<p>查看机器人可执行技能及每个技能的时序参数：</p>
+<pre><code class="language-bash">duckctl policy skills
+</code></pre>
+<p>返回中的<code>built_in</code>包含<code>ground_pick</code>、<code>sit_toggle</code>，同样支持<code>robot do</code>调用，但属于机器人内置逻辑，不在技能配置表内。</p>
+<p>删除自定义技能注册项：</p>
+<pre><code class="language-bash">duckctl policy unskill polite-bow
+</code></pre>
+<p>删除后，固件自带的同名内置技能会恢复生效；该操作仅移除覆盖配置，不会删除原始内置技能。</p>
+<blockquote>
+<p>⚠️ 第三方发布的策略包没有官方验证。保障安全的是下载前清单校验、加载时张量形状校验、关节限位、跌倒保护，不是描述文字。首次运行务必把机器人放在支架上。</p>
+</blockquote>
+<h2 id="手柄按键绑定"><a class="header" href="#手柄按键绑定">手柄按键绑定</a></h2>
+<pre><code class="language-bash">duckctl pad bindings
+duckctl pad bind x polite-bow
+duckctl pad reset x
+</code></pre>
+<p>无需重启，<code>padd</code>会在1秒内重读配置。绑定前校验技能名称；拼写错误会返回提示可用技能，不会绑定一个无效果的按键。</p>
+<p>列表会标记两类状态：</p>
+<ul>
+<li><code>overridden</code>：覆盖默认配置，不查默认值就能看到自定义修改；</li>
+<li><code>error</code>：按键绑定到一个机器人已不存在的技能；通常是技能被删除，而非手敲错名字。</li>
+</ul>
+<p>赋值空字符串<code>""</code>用于关闭按键，和<code>pad reset</code>恢复出厂默认不是同一个操作。
+可绑定按键共5个：<code>a</code>、<code>x</code>、<code>lb</code>、<code>rb</code>、<code>dpad_down</code>；<code>lb/rb</code>是肩键，模拟扳机保留为嘴和鸣笛功能。</p>
+<blockquote>
+<p>手柄配对属于另一命名空间，由<code>configd</code>管理，用<code>call</code>调用<code>pad.pair</code> / <code>pad.forget</code>；按键绑定属于<code>robotd</code>，绑定前需要读取技能列表校验。</p>
+</blockquote>
+<h2 id="通用底层调用-call"><a class="header" href="#通用底层调用-call">通用底层调用 call</a></h2>
+<pre><code class="language-bash">duckctl --name &lt;robot-name&gt; call &lt;method&gt; '&lt;json-params&gt;'
+</code></pre>
+<p>参数默认<code>{}</code>。这些接口可通过蓝牙访问，没有封装成独立子命令：</p>
+<div class="table-wrapper"><table><thead><tr><th>调用</th><th>说明</th></tr></thead><tbody>
+<tr><td>call system.services</td><td>查看所有后台服务状态、各自运行版本</td></tr>
+<tr><td>call pad.status</td><td>手柄是否已绑定、是否在线</td></tr>
+<tr><td>call pad.pair '{"timeout_seconds":30}'</td><td>绑定处于配对模式的手柄</td></tr>
+<tr><td>call pad.forget '{"mac":"<address>"}'</td><td>删除手柄绑定</td></tr>
+</tbody></table>
+</div>
+<p><code>call</code> 等待60秒返回结果。上面的更新命令使用静默超时（3分钟无响应），因此<strong>更新操作推荐用update子命令，而不是call调用update.apply</strong>。</p>
+<h2 id="全局选项"><a class="header" href="#全局选项">全局选项</a></h2>
+<p><code>--name &lt;robot-name&gt;</code>：指定目标机器人。无该参数则读取<code>DUCK_ROBOT</code>；变量未设置则选用扫描到第一台机器人。<strong>建议始终带上</strong>，可以跳过Mac上缓慢的兜底扫描（会遍历所有已连接外设，包括耳机）。</p>
+<p><code>--pin &lt;六位数字&gt;</code>：配对PIN码，优先读取<code>DUCK_PIN</code>，默认<code>000000</code>。板端<code>robotctl system pin</code>查看真实PIN。</p>
+<p><code>--verbose</code>：打印全部收发报文，<code>scan</code>列出全部设备。程序卡住时优先添加该参数排查。</p>
+<h2 id="输出规则"><a class="header" href="#输出规则">输出规则</a></h2>
+<p>返回结果以格式化JSON输出到stdout；进度、诊断、无线报文信息输出到stderr。
+<code>logs</code>例外：直接输出文本行（JSON转义后的日志难以阅读），但日志报错仍然返回JSON。</p>
+<pre><code class="language-bash">duckctl ... info &gt; reply.json
+</code></pre>
+<p>可以把JSON结果单独保存；机器人返回JSON-RPC错误时，退出码非0。
+进度行以<code>·</code>开头，单行输出，因此：</p>
+<pre><code class="language-bash">duckctl ... update apply &gt; outcome.json
+</code></pre>
+<p>进度信息留在屏幕，最终结果保存在文件。</p>
+<p><strong>一条命令建立一次连接</strong>：查找机器人、按需配对、校验PIN、执行请求、断开连接。</p>
+<p>所有命令使用<strong>静默超时</strong>，不是固定总时长。长时间更新不会被中途切断；机器人无应答会在数秒上报错。链路断开会立刻上报；更新apply后断开是正常重启导致。
+正在执行的更新不会因为连接断开而终止：由机器人后台拉取更新，无人监控也会继续执行，后续用<code>update status</code>查看结果。</p>
+<h2 id="蓝牙接口禁止调用的功能"><a class="header" href="#蓝牙接口禁止调用的功能">蓝牙接口禁止调用的功能</a></h2>
+<p>遥操作（<code>robot.move</code>、<code>robot.head</code>、<code>robot.enable</code>、<code>robot.stop</code>、<code>robot.init</code>、<code>robot.relax</code>）、高频遥测（<code>robot.subscribe</code>）、高危更新指令（<code>update.pin</code>、<code>update.resetToGolden</code>）、配对PIN读写（<code>system.pairingPin</code>、<code>system.setPairingPin</code>），<strong>由btd直接拦截，不会转发到后台服务</strong>。</p>
+<p><code>robot.do</code>不在拦截列表，虽然会驱动机器人：遥操作是每秒50次高频小数据包，BLE通知通道带宽上限20字节无法承载；技能执行是单次请求。这类调用返回错误码14：<strong>“蓝牙通道不可用”</strong>。</p>
+<p>这是安全边界，不是功能缺失。拒绝原因写在<code>btd/src/route.rs</code>；设计文档 <code>app-path-design.md §3.1</code>。这些功能需要在机器人板端使用<code>robotctl</code>。</p>
+<h2 id="找不到机器人时排查"><a class="header" href="#找不到机器人时排查">找不到机器人时排查</a></h2>
+<pre><code class="language-bash">duckctl --verbose scan
+</code></pre>
+<p>扫描结果为空（连耳机都没有）：问题在Mac端，蓝牙未开启，或者终端没有蓝牙权限。</p>
+<p>扫描列表没有目标机器人：问题在机器人。机器人名称在扫描响应包广播，有可能丢失；扫描显示无名称无服务的设备，有可能就是目标机器人；<code>--name</code>仍然可以尝试连接。
+macOS显示机器人已配对，但连接/首次读取卡住：配对状态不完整。</p>
+<pre><code class="language-bash">sudo pkill bluetoothd
+</code></pre>
+<p>macOS蓝牙设置里忽略该设备效果相同。
+在机器人板端执行：<code>journalctl -u btd -b</code>，查看GATT服务是否成功注册。</p>
+<hr />
+<p>术语注释：</p>
+<ul>
+<li>daemon：后台守护进程</li>
+<li>BLE：低功耗蓝牙</li>
+<li>policy：运动策略模型</li>
+<li>skill：机器人技能</li>
+<li>teleop：实时遥操作</li>
+<li>GATT：蓝牙通用属性配置文件</li>
+<li>deadman：安全死区保护</li>
+<li>WebRTC：网页实时音视频通信</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/robot/dev-push.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/robot/install-by-hand.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/robot/dev-push.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/robot/install-by-hand.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>policy-channel-design.md - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="策略通道--来自模型中心hub的机器人策略"><a class="header" href="#策略通道--来自模型中心hub的机器人策略">策略通道 —— 来自模型中心（Hub）的机器人策略</a></h1>
+<p>状态：草案 · 日期：2026-08-31 · 负责人：pierre</p>
+<p>本文描述ONNX策略模型的来源、用户如何试用非自己训练的策略，以及执行“重置”操作会恢复到什么状态。</p>
+<p>截至2026-08-31已完成：§3、§4、§5、§9、§9.1、§9.2；§7全部功能已实现，仅<strong>社区模型的版本校验</strong>尚未完成。机器人主板上可直接试用策略、回滚策略，无需手动编辑文件或重启服务；官方策略包从Hub拉取，不再打包进发布包；重新训练的步态模型可下发至机器人，<strong>无需发布新版守护进程</strong>。</p>
+<p>尚未实现：<code>policy check</code> 目前仅支持校验官方策略包。从动态分支拉取的社区策略会记录来源提交哈希，但暂无机制对比远端分支，检测分支是否发生更新。文档其余部分均已落地。</p>
+<p>本文为配套文档，关联：</p>
+<ul>
+<li><code>updater-design.md</code>：定义更新引擎（组件、数据源、签名、健康检查门限、回滚逻辑）</li>
+<li><code>robotd-design.md §2.3</code>：定义策略模型的校验与运行机制</li>
+</ul>
+<p>本文聚焦<strong>策略通道</strong>：哪个模型文件占用哪个策略槽位、发布者信息、以及变更策略的相关命令。若某项机制归属上述文档，本文仅简要说明并跳转引用。</p>
+<h2 id="1-当前存在的问题"><a class="header" href="#1-当前存在的问题">1. 当前存在的问题</a></h2>
+<p>9个ONNX模型文件全部打包在守护进程发布制品内，<code>robotd</code> 从 <code>/opt/robot/daemon/current/policies/</code> 加载模型。自 <code>policies/README.md</code> 编写之初就明确了三大痛点：</p>
+<ol>
+<li>步态模型重新训练后，必须发布新版守护进程；</li>
+<li>守护进程小版本修复时，会重新下载6MB未改动的权重文件；</li>
+<li>在笔记本上训练得到的策略，只能通过CI流水线或完整守护进程侧载才能部署到Duck机器人。</li>
+</ol>
+<p>由此衍生两个需求，二者并非同一功能：</p>
+<ol>
+<li>官方策略独立于守护进程做版本管理；</li>
+<li>用户可试用他人训练的策略，评估效果并随时回退。</li>
+</ol>
+<p>第1点属于常规组件能力（更新器设计文档 §5.5），不需要新增底层概念。本文重点阐述第2点，该需求不在原有组件模型覆盖范围内。</p>
+<h2 id="2-三类来源一个策略槽位"><a class="header" href="#2-三类来源一个策略槽位">2. 三类来源，一个策略槽位</a></h2>
+<p>策略槽位包含：<code>walk</code>（行走）、<code>stand</code>（站立）、<code>sitstand</code>（坐立切换）、<code>ground_pick</code>（地面拾取）、<code>kick_left</code>（左脚踢）、<code>kick_right</code>（右脚踢）、<code>roulade</code>（翻滚）。
+每个槽位同一时刻只能使用<strong>三类来源之一</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>来源</th><th>溯源信息</th><th>签名</th><th>自动更新</th><th>重置目标</th></tr></thead><tbody>
+<tr><td>官方</td><td>策略组件</td><td>清单文件 + 语义化版本</td><td>支持</td><td>支持，遵循auto_apply配置</td></tr>
+<tr><td>社区</td><td>任意其他HuggingFace仓库</td><td>仓库 + 版本分支 + commit哈希</td><td>不自动更新，仅上报新版本</td><td>否</td></tr>
+<tr><td>本地</td><td>主板本地文件路径</td><td>无</td><td>无法检测更新</td><td>否</td></tr>
+</tbody></table>
+</div>
+<p>来源判定依据HuggingFace组织名：<code>pollen-robotics/*</code> 属于官方，其余全部为社区来源。该规则写死为常量，不可配置。<strong>不作为配置项</strong>——如果机器人允许配置信任的组织，那么“官方”标签就失去意义。</p>
+<p>来源决定行为，而不只是一个标签：</p>
+<ul>
+<li>官方策略：<code>policy reset</code> 会恢复至此；也是唯一允许周期性自动更新的来源。</li>
+<li>社区/本地策略：永远不会自动应用，也不会作为重置目标；所有展示位置都会标注来源：策略列表、策略校验、<code>robotctl monitor</code> 输出的策略名称（当前该命令仅输出walk，无法区分除槽位外的信息）。</li>
+</ul>
+<p>社区策略<strong>不强制签名校验</strong>。更新引擎安装的所有其他制品都基于可信密钥校验，这是唯一例外。理由：策略不等同于可执行二进制程序。<code>robotd</code> 是关节抱闸背后总线的唯一写入方；内置跌倒→肢体松弛保护、意图失效安全机制（robotd-design.md §2.4）；机器人静止时，<code>obs[1,61] → actions[1,14]</code> 校验网关会直接拒绝结构异常的计算图。这套沙盒才是安全边界，而非签名。守护进程二进制不存在这类沙盒，因此组件更新的签名规则保持不变。</p>
+<h2 id="3-槽位属于配置加载重置本质是修改配置"><a class="header" href="#3-槽位属于配置加载重置本质是修改配置">3. 槽位属于配置，加载/重置本质是修改配置</a></h2>
+<p><code>robotd.toml</code> 中 <code>policy.walk</code> 类型为 <code>Option&lt;PathBuf&gt;</code>；未设置时代表“使用当前模式默认模型”（<code>robotd-params/src/lib.rs</code>，<code>PolicyParams::resolved</code>）。<code>robotctl configure</code> 可通过toml_edit精准增删指定配置项，不改动注释。</p>
+<p>因此：</p>
+<ul>
+<li><code>policy load &lt;slot&gt; &lt;x&gt;</code>：写入 <code>policy.&lt;slot&gt;</code> 配置项，<strong>热重载</strong>生效；</li>
+<li><code>policy reset &lt;slot&gt;</code>：删除该配置项，热重载生效；</li>
+<li><code>policy reset</code>：清空全部7个槽位，恢复出厂默认。</li>
+</ul>
+<p><strong>配置写入方是robotd，而非调用方</strong>。<code>robot.loadPolicy</code> 在发起模型替换前，先在 <code>robotd.toml</code> 记录槽位配置。持久化能力由接口本身保证，而非调用该接口的命令。早期设计相反：<code>robotctl</code> 直接写文件，守护进程仅修改内存，会导致手机端使用同名命令得到临时模式，正是本节要摒弃的方案。
+配置写入逻辑放在 <code>robotd_params::edit</code>，附带schema校验；每次读写修改全程对文件加锁。包含守护进程在内，共有4个进程会修改该配置。</p>
+<p>这就是完整持久化模型，无需新增底层组件。加载后的策略重启后依然保留，满足 <code>updater-design.md §5.7</code> 要求：<strong>激活模型选择属于用户偏好</strong>，保存在配置文件中，更新/回滚过程不会被更新器覆盖。</p>
+<p>曾考虑过“临时试用，重启失效”模式，最终否决。该方案看似更安全——坏步态断电即可清除；但会造成机器人运行状态存在两套可信数据源，并且重置命令几乎失去意义（重启就等于撤销）。<strong>持久化配置 + 一键重置</strong>更容易理解、更容易验证。该方案带来的风险，在§5单独处理。</p>
+<h2 id="4-热重载"><a class="header" href="#4-热重载">4. 热重载</a></h2>
+<p><code>robot.setMode</code> 已经支持在50Hz主循环运行时切换全部ONNX会话；策略加载复用这套逻辑，只是作用范围更小。
+执行流程（<code>robotd/src/main.rs</code>，模式切换处理器，在归位姿态完成切换）：</p>
+<ol>
+<li>IPC调用 → 本地执行可完成的校验，设置意图，返回接受</li>
+<li>主循环 → 重新解析参数，在工作线程加载控制器（加载+预热），判断本次变更是否影响当前正在运行的网络
+<ul>
+<li>如果影响：保持力矩，机器人归位；在归位姿态完成替换</li>
+<li>如果不影响：在机器人当前姿态直接替换，保留运行状态</li>
+</ul>
+</li>
+<li>成功后 → 发布新策略名称，继续运行</li>
+</ol>
+<p>相比模式切换，存在三处差异：</p>
+<ol>
+<li><strong>作用范围</strong>：load仅覆盖policy_params的单个字段并重新解析，类似mode切换修改policy_params.mode。重建控制器会<strong>重载全部7个会话</strong>，在工作线程执行；因为切换可在机器人运动时执行，主循环不能阻塞等待加载。</li>
+<li><strong>仅当驱动网络发生变化时，才移动机器人</strong>。早期设计缺陷示例：加载行走策略、行走、坐下、重置行走策略，机器人会自动归位站立。重置修改的是配置，但机器人当前由sitstand策略控制，重置并未改动sitstand。
+因此主循环对比本次变更和上一帧执行的网络路径（技能驱动时，比对整个技能列表，技能是索引）。</li>
+</ol>
+<ul>
+<li>网络未变化：原地替换控制器，继承旧控制器的状态、技能、滤波器状态，下一帧在同一位置使用新网络；</li>
+<li>网络变化：机器人先归位，等待加载完成。</li>
+</ul>
+<blockquote>
+<p>重载永远视作对当前驱动网络的变更：用于处理文件路径不变、但文件内容更新的场景，仅靠路径无法判断。</p>
+</blockquote>
+<ol start="3">
+<li><strong>状态已生效的请求不执行任何操作</strong>。重置未被覆盖的槽位、加载机器人正在运行的模型文件，直接返回成功，不排队执行任务。逻辑同<code>robot.setMode</code>“已处于目标模式”：调用方请求的状态已经达成。否则，在未修改任何策略的机器人执行reset，机器人会归位、重载7个网络，回到原有状态，表现如同故障。</li>
+</ol>
+<p>唯一例外：<strong>存在错误的槽位</strong>。启动时加载失败的覆盖策略会在内存中丢弃（§5），表现为未覆盖、使用默认模型，和从未修改的槽位无法区分。重置操作会清除错误以及对应的配置行，因此该请求必须完整执行。</p>
+<p><strong>加载失败不能丢失原有步态</strong>。当前模式切换时，如果控制器构建失败，会标记<code>policy_error</code>、健康状态异常，机器人保持姿态。该逻辑适合模式配置变更，但不适合策略试用（试用本身是试探性操作）。加载51维模型失败，不能让机器人失去步态直到人工重启。
+因此加载新模型失败时，<strong>保留当前正在运行的控制器</strong>，并把失败原因返回调用方。生成错误信息的校验网关已存在，在模型正式运行前于归位姿态执行；本节定义如何处理错误结果。</p>
+<h2 id="5-错误的自定义策略不能阻塞守护进程更新"><a class="header" href="#5-错误的自定义策略不能阻塞守护进程更新">5. 错误的自定义策略不能阻塞守护进程更新</a></h2>
+<p>持久化存在一个风险点：之前试用成功的社区/本地策略，下次开机可能加载失败（文件删除、库被清理、主板重刷但配置保留）。<code>robotd</code>每次启动都会上报不健康，更新器的健康门限会回滚守护进程版本。故障根源和守护进程版本无关：文件缺失，更新包无法修复，会陷入无限更新回滚循环。</p>
+<p>修复规则：</p>
+<ul>
+<li>社区/本地覆盖策略加载失败：回退到该槽位的官方默认策略，上报<strong>降级（degraded）</strong>，并指明缺失文件；</li>
+<li>官方策略加载失败：保持不健康状态。</li>
+</ul>
+<p><code>HealthResult::degraded</code> 就是为区分该场景设计。缺失的自定义策略属于主板本地问题，不是待发布版本的缺陷；回滚守护进程无法修复，只会反复触发重启计数。官方策略损坏代表发布包本身损坏，回滚是正确处理方式。</p>
+<blockquote>
+<p>注意：不会静默修改配置。覆盖策略配置行保留，<code>robotctl health</code>会提示哪个文件加载失败，状态可见，使用<code>policy reset &lt;slot&gt;</code>修复。如果启动失败时守护进程悄悄改写配置，比机器人明确提示降级更难排查。</p>
+</blockquote>
+<h2 id="6-版本管理以及新版本检测"><a class="header" href="#6-版本管理以及新版本检测">6. 版本管理，以及新版本检测</a></h2>
+<p>社区策略以库内文件形式存储，本身没有版本号，无法直接对比。因此库会为每条策略保存附属元数据：仓库、版本分支、解析后的commit哈希、文件名、拉取时间。依靠这份记录实现版本检测。相关读取逻辑大部分已实现：<code>source/hf_hub.rs</code> 解析refs API得到RepoRefs{tags}；<code>api/models/{repo}</code>可获取sha与最后修改时间。</p>
+<p>版本展示遵循发布方实际提供的信息，不强行假设全部使用语义化版本：</p>
+<div class="table-wrapper"><table><thead><tr><th>来源</th><th>展示形式</th></tr></thead><tbody>
+<tr><td>官方</td><td>清单定义的语义化版本，例如1.2.0，和其他组件一致</td></tr>
+<tr><td>社区（仓库带v开头标签）</td><td>使用标签名</td></tr>
+<tr><td>社区（跟踪分支）</td><td>短commit哈希 + 日期</td></tr>
+<tr><td>本地</td><td>local，版本检测显示unknown</td></tr>
+</tbody></table>
+</div>
+<p><code>policy check</code> 是统一查询入口，内部路由分发：官方槽位向更新器查询策略组件；社区槽位向Hub查询。避免“查询行走策略是否更新”存在两套逻辑造成混淆。</p>
+<p>周期性检测（检测间隔6小时）同样覆盖社区策略，<strong>仅上报，不自动安装</strong>。和auto_apply对普通版本的处理逻辑一致：是否可用是信息，是否安装是人工决策。该机制也让移动端APP后续可以提示“你的bouncy行走策略有新版本”，无需新增底层通道。</p>
+<h2 id="7-命令集"><a class="header" href="#7-命令集">7. 命令集</a></h2>
+<pre><code>robotctl policy list                      槽位 · 当前策略 · 来源 · 版本
+robotctl policy check [slot]              检查源端是否存在新版本
+robotctl policy load &lt;slot&gt; &lt;repo|name|path&gt;
+robotctl policy update &lt;slot&gt;             拉取最新版本并加载
+robotctl policy reset [slot]              恢复官方默认；不带槽位则重置全部7个
+robotctl policy search &lt;query&gt;            在Hub搜索匹配关键词的模型
+</code></pre>
+<p><code>load</code>支持三种输入：HF仓库（组织/名称[@版本]）、本地库中已缓存的策略名称、主板本地路径。路径模式方便开发者在实验台通过scp上传模型并快速测试，也是该功能最核心的价值；同时该输入无溯源信息，因此§2将本地作为一等来源，不是临时方案。</p>
+<p>没有独立的fetch命令：load按需下载，本地库会缓存多个模型。先后加载A、B、再切回A，A只会下载一次。
+<code>search</code>调用<code>api/models?search=</code>检索关键词。在Hub设置microduck标签前，直接使用关键词检索。搜索返回匹配项的文件列表，可直接获取仓库预览视频；同时读取存在的manifest.json，用于获取描述信息。<code>policy-manifest.md</code>定义manifest字段和约束。</p>
+<h2 id="8-通信协议与实现代价"><a class="header" href="#8-通信协议与实现代价">8. 通信协议与实现代价</a></h2>
+<p><code>robotd</code>新增两个IPC方法：</p>
+<ol>
+<li><code>robot.loadPolicy</code>（槽位+源信息，返回风格同<code>robot.setMode</code>：接受/拒绝并返回原因/无操作）</li>
+<li><code>robot.policies</code>（查询每个槽位运行的策略、来源、版本）</li>
+</ol>
+<p><code>updaterd</code>新增命名空间<code>policy.*</code>，用于模型拉取。</p>
+<p>API版本从17升级至18。<code>robotctl</code>和<code>btd</code>与<code>robotd</code>打包在同一个制品，版本同步。锁定v17的客户端调用新接口会收到<code>METHOD_NOT_FOUND</code>，属于预设版本不兼容行为，不会触发握手拒绝（<code>duck-ipc-proto/src/lib.rs</code> API_VERSION）。</p>
+<p>拉取逻辑放在<code>updaterd</code>而非<code>robotctl</code>。<code>robotctl/Cargo.toml</code>规定：恢复链路中的维护工具，不能链接更新引擎的http/tar/zstd/密码学依赖，架构上禁止。<code>updaterd</code>本身已经实现HF地址解析、reqwest客户端、APP需要的进度通知。</p>
+<p>代价说明：这是守护进程内首次支持<strong>无签名下载</strong>。守护进程的核心不变量：<strong>未签名数据不能进入运行链路</strong>。因此<code>policy.*</code>命名空间只能写入模型库目录，严禁写入组件安装目录，保证核心不变量在关键链路严格生效。</p>
+<p>模型库路径：<code>/var/lib/robot/policies/</code>，在所有发布目录之外，遵循<code>updater-design.md §5.7</code>规则1。每个仓库保留两个版本：最新拉取版本、上一版本（§9.1官方策略包使用）。没有自动清理机制；<code>policy.fetch</code>及底层命令支持双无线传输通道。机器人正在使用的策略（任意槽位/技能）会永久保留；机器人离线无响应时，不执行清理——离线仅代表robotd宕机，不代表策略不再使用。</p>
+<h2 id="9-脱离发布制品打包"><a class="header" href="#9-脱离发布制品打包">9. 脱离发布制品打包</a></h2>
+<p><code>robotd</code>从 <code>/opt/robot/policies/current</code> 读取策略，不再从发布包内读取。这部分已经落地，核心目标达成：运行时策略仅有唯一来源，发布包内副本和外部模型之间不存在优先级规则。</p>
+<p>目录填充脚本：<code>scripts/seed-policies.sh</code>，负责下载。每次更新的<code>hooks/postinstall</code>以及全新主板<code>install.sh</code>都会执行该脚本，从Hub拉取锁定版本策略包至 <code>/opt/robot/policies/releases/seed-&lt;pin&gt;/</code>，软链接<code>current</code>指向该目录。和更新器已有的 <code>releases/ + current</code> 软链接架构一致（更新器设计 §7.1）。</p>
+<p>采用下载而非内置复制，思路和<code>setup-board.sh</code>拉取ONNX Runtime、<code>setup-gstreamer.sh</code>拉取插件保持一致。主板需要这些组件，但不应该打包在发布包内。Duck检测器也采用同样方案：<code>scripts/seed-detector.sh</code>、<code>/opt/robot/detector/current</code>、<code>robotctl duck-detector check/update</code>，配置<code>[workspace.metadata.detector]</code>锁定版本；检测器两个文件名称固定，使用固定文件列表代替清单。</p>
+<p>版本锁定值写在<code>[workspace.metadata.policies]</code>，同时硬编码在脚本内，配套单元测试保证二者一致。<code>setup-gstreamer.sh</code>有同样陷阱：运行在发布包内部的脚本无法读取清单文件。</p>
+<p><strong>锁定版本是最低基线，不是上限</strong>，该区分至关重要。锁定版本随守护进程发布包一同打包，提升锁定版本<strong>仍然需要发布新版守护进程</strong>。早期文档草稿表述错误，误以为无需发布守护进程。
+锁定版本决定两件事：全新装机主板安装的策略包、该守护进程可运行的最低官方策略版本。
+如果主板使用本仓库策略包，版本低于锁定基线，postinstall钩子自动升级至基线。守护进程槽位默认引用模型文件名，如果默认引用的模型只存在于更高版本策略包（v5的velstand.onnx），仅升级守护进程的主板会加载失败，健康异常并触发回滚。
+高于锁定基线、来自其他仓库、无.source记录的策略包，不会被自动修改。升级超过基线版本依靠<code>robotctl policy update</code>（§9.1）。这正是重新训练步态无需发布守护进程的核心，也是整个策略通道的价值所在。</p>
+<p>脚本三条约束：</p>
+<ol>
+<li>已拥有对应版本策略包则不再重复下载；锁定版本不变的更新不会触发网络请求。postinstall钩子有120s超时，超时会回滚更新，该约束很关键。</li>
+<li>不安装不完整下载：全部文件先放到临时目录，完整下载完成后再切换current软链接。</li>
+<li>远端拉取失败时，不会用旧版本覆盖当前正常策略。半发布的远端版本不会影响机器人现有步态，下次更新重试锁定基线。</li>
+</ol>
+<p>该下载不做签名校验，遵循§2逻辑。用户也可以手动下载这些文件，全部进入robotd做结构校验的目录。结构校验同时捕获截断损坏文件，因此不需要为每次训练更新维护会失效的哈希值。</p>
+<p>一条核心规则，保证这是<strong>引导初始化</strong>而不是第二套常驻源：<strong>已安装策略包，无论锁定版本如何，不会被自动替换</strong>。只有两种状态：已安装 / 未安装；仅未安装状态执行拉取。首次安装之后的所有变更都走§9.1。</p>
+<p>该规则是踩坑后收紧的。旧逻辑会自动替换旧seed包，当时认为步态更新只能靠守护进程发布。现在步态更新靠<code>policy update</code>，旧逻辑存在隐患：手动升级到v2的主板，current指向<code>releases/seed-v2</code>，匹配种子脚本识别的路径；后续一次无关的守护进程更新会静默把策略包回退到v1，二进制更新附带非预期的步态回滚。</p>
+<p><strong>策略不再随守护进程一起回滚</strong>，需要明确说明，因为过去是自动联动。策略放在发布包内时，回滚发布包会同步回退策略；现在current软链接由postinstall钩子修改，回滚流程不会执行钩子（post_swap仅在安装流程触发）。
+如果某个版本因为内置策略缺陷被回滚，机器人仍然继续运行该策略。两种恢复方式：</p>
+<ol>
+<li>常规方案：<code>robotctl update apply daemon --version &lt;旧版本&gt;</code>，正向执行旧版本，触发钩子重新初始化种子策略；</li>
+<li>备选：被替换的种子包仍然保存在主板，种子脚本会保留上一版，可手动将current软链接切回旧包。</li>
+</ol>
+<p>这是预期架构，不是降级：两套独立版本线，不会一起回滚。仅当发布包仍是策略唯一来源时才会有风险，因此要尽快脱离该状态。</p>
+<p>全新主板首次安装无法访问Hub时，没有步态模型，属于预期设计而非疏漏。<code>robotd</code>保持姿态并上报降级，更新健康门限通过，不触发回滚；下次更新时尝试拉取。和ONNX Runtime、GStreamer插件的取舍一致：主板只需要一次联网，不需要在每一份守护进程包里永久携带6MB模型。</p>
+<p>种子脚本<strong>严禁异常退出</strong>：postinstall钩子非0退出码会触发更新回滚，网络问题不能导致无关发布包被回滚。所有错误分支返回0，并在stderr输出提示。</p>
+<p><strong>整套官方策略包作为一个组件，而不是每个槽位单独一个组件</strong>。更新器设计曾设想model-walk、model-jump等独立组件，组件模型天然支持按槽位拆分。但存在弊端：9个模型来自同一次训练任务；槽位到文件的映射和机器人模式相关（行走在腿式机器人使用alpha_walking.onnx，轮式使用roller.onnx，该映射在文档编写之后新增）。拆成9个组件意味着9个仓库、9套签名、9组配置、9次网络轮询，还会产生9维版本不兼容矩阵，无法记录某一组行走/站立模型是联合训练产出。
+单一组件的优势：模式切换无需下载，策略包版本和训练产出保持一致。</p>
+<p>单一组件的代价：<strong>无法单独回滚某一个槽位</strong>。而§3的单槽位覆盖机制恰好弥补该能力，支持任意来源的单独槽位替换，拆分组件也无法实现。</p>
+<p>遵循§5相同规则：缺失策略标记为降级，而非不健康。全新装机主板尚未拉取策略包时没有步态，不能让后续所有守护进程更新触发健康门限失败。装机流程安装引导策略包，和安装ONNX Runtime、GStreamer插件位置一致；网络依赖仅在装机阶段存在，运行时策略只有唯一来源，发布包副本与Hub下载模型之间不存在优先级。</p>
+<h3 id="91-升级到高于锁定基线的版本"><a class="header" href="#91-升级到高于锁定基线的版本">9.1 升级到高于锁定基线的版本</a></h3>
+<p><code>robotctl policy check</code> 查询Hub仓库，对比主板上策略包版本。<code>robotctl policy update</code> 安装新版本（默认最新，支持<code>--version v1</code>回退旧版本），通知robotd重新读取全部槽位。</p>
+<p>两个命令都由<code>updaterd</code>提供（§8）。三点关键差异，说明它不是种子脚本的简单复刻：</p>
+<ol>
+<li>仓库信息来自策略包本身，而非配置文件。每一个已安装策略包自带<code>.source</code>记录，记录来源仓库与版本，由安装工具写入。不需要额外配置仓库，不存在配置漂移；未来新工具安装的策略包，同样可以正确查询版本。</li>
+<li>“最新”指仓库内自身排序，不使用语义化版本排序。策略仓库不强制使用semver。直接把bouncy-2和v10比较排序属于主观猜测。Hub按从旧到新列出引用，最新为反转顺序；check命令输出完整版本列表，向前升级和回退旧版本同等重要。</li>
+<li>新增<code>robot.reloadPolicies</code>接口：文件路径不变，但文件内容更新。安装策略包替换current软链接，所有槽位解析路径字符串不变，<code>robot.loadPolicy</code>会判定无需操作。路径相同但字节不同，需要独立接口，并且不能短路跳过，该接口就是专门处理这种场景。</li>
+</ol>
+<p>重载会替换全部网络，机器人运动状态下会先归位（所有破坏性变更统一规则）。机器人静止坐在底座上属于非运动状态：早期版本在底座上执行<code>policy update</code>会归位站立，因为sitstand网络在驱动，重载被判定为扰动。底座是固定姿态+静态标志，现在支持原地替换，保留底座姿态，和非驱动网络变更逻辑一致。</p>
+<p>重载<strong>不会修改配置</strong>，用户手动加载的槽位策略会保留。这不是附加功能：每次policy update末尾都会执行重载；如果安装过程静默覆盖用户的策略实验，会造成严重问题。</p>
+<p>Hub无法连接时仅上报，不抛出致命错误。机器人继续运行，调用方看到“无法访问Hub”提示，同时看到当前已安装策略。区分“无策略包”场景：无策略包不是网络故障，不能复用同一字段，避免误判Hub离线。</p>
+<p>安装保留当前在用版本和上一版本，每个版本约7MB。方便用户来回对比不同步态。保留上一版本的目的：守护进程回滚不会执行钩子，策略不会跟着回滚；当策略本身出问题时，可以手动把current切回保留的旧包恢复。</p>
+<h3 id="92-第三方社区策略"><a class="header" href="#92-第三方社区策略">9.2 第三方社区策略</a></h3>
+<p><code>robotctl policy load walk RemiFabre/microduck-flamingo-cycle</code>：从任意Hub仓库拉取单个策略，存入<code>/var/lib/robot/policies/&lt;org&gt;/&lt;name&gt;/&lt;revision&gt;/</code>并分配给指定槽位。目录独立于所有发布包，遵循更新器设计§5.7：用户选择的策略，在更新、守护进程回滚后仍然保留。</p>
+<p>路径由来源信息构成，无需额外查询即可展示来源：发布组织作为路径一部分，<code>robot.policies</code>上报社区/官方来源标签。标签只是标记，不是安全边界——能编辑robotd.toml的用户可以随意命名目录，本身就可以运行任意模型。<strong>不良策略和机器人损坏之间的防护依靠§2的沙盒机制</strong>。</p>
+<p>约定：一个仓库包含<strong>单个policy.onnx</strong>。该约定在本功能开发前就已存在：所有发布的microduck仓库内，仅有一个onnx文件、README和manifest。拉取逻辑读取唯一onnx；仓库含多个onnx会拒绝并列出全部文件。选错模型等于在真机上运行错误网络，不能赌运气；支持<code>&lt;repo&gt;:&lt;file&gt;</code>指定文件。</p>
+<p>仓库附带<code>manifest.json</code>，提供比设计预期更丰富的元数据：<code>obs_len</code>观测维度、<code>action_len</code>动作维度、<code>model_api</code>、<code>robot.model</code>，外加名称、类型、描述。读取清单可以在下载800KB模型、尝试运行<strong>之前</strong>拒绝不兼容策略。例如：“清单声明观测宽度51，本机需要61”，和robotd加载时的校验结果一致，提前反馈给用户。
+<code>model_api</code>字段终于落地使用：更新器设计§5.5定义了该字段，但此前两端均未使用；现在需要更高版本守护进程的策略会直接拒绝，并给出解决方案。</p>
+<p>三条规则防止清单带来安全陷阱：</p>
+<ol>
+<li>清单不可信：第三方对第三方文件的描述，仅作为拒绝依据，<strong>不可作为信任依据</strong>；清单造假会被结构校验网关捕获，结构校验才是最终判定；</li>
+<li>清单缺失不代表拒绝：无清单或缺少关键字段的仓库仍然允许加载。Hub大部分仓库不遵循我们的约定，空白直接拒绝会过滤绝大多数社区模型；</li>
+<li>校验的数值定义在<code>duck_ipc_proto</code>，不重复拷贝；<code>duck_control</code>编译期断言两边定义一致。和策略发布者的契约放在双方都可访问的位置。</li>
+</ol>
+<p>槽位支持关闭：<code>[policy] &lt;slot&gt; = "none"</code>配置。除walk以外所有槽位都支持；walk是其他槽位的回退兜底，不能为空，写入会被拒绝。配置文件已存在该配置时，开机自动修复并上报降级。
+不是事后补充：首个社区策略需要独立双足站立；<code>will_stand</code>在指令幅值为0时切换到站立网络，正好是双足站立场景。如果无法设置stand为none，运行该策略就必须手动编辑配置文件，而整套命令的目标就是免去手动改文件。</p>
+<p><code>robotctl policy search microduck</code>列出Hub上匹配模型，标记来源，附带发布者单行描述，仓库有预览视频时附带视频链接。不使用标签过滤：已发布模型共同特征是名字包含microduck，后续有需要再新增标签。</p>
+<p>描述信息是搜索列表的价值：全部结果都是microduck-xxx，仅靠名字无法区分flamingo-cycle步态和粗糙行走步态。若无描述，只能下载安装才能知道策略行为。</p>
+<h3 id="93-策略包自描述"><a class="header" href="#93-策略包自描述">9.3 策略包自描述</a></h3>
+<p>策略仓库根目录的<code>manifest.json</code>描述整套策略包包含的内容，以及每个策略信息。<strong>仅保存在Hub，本仓库不保存副本</strong>。
+如果本地仓库保留副本，Hub上版本更新后会存在两套可信源；单元测试会校验本地副本，而非机器人实际下载的远端文件，测试通过但主板拉取到不同内容，比没有测试更糟。</p>
+<p>原先两个硬编码列表，会导致第十个策略只能靠守护进程发布新增，无法通过标签版本更新：</p>
+<ol>
+<li><code>scripts/seed-policies.sh</code> 硬编码下载文件列表 → 现在从manifest读取；manifest出现前的旧tag版本，保留原有9个文件作为降级兜底。</li>
+<li><code>robotd-params</code> 硬编码一次性技能列表和时长 → 现在从manifest读取，兜底规则同上。</li>
+</ol>
+<p><code>policy.install</code>随策略包一并安装manifest，遵循相同两条兜底规则。早期版本从主板已有文件获取下载列表，第十个策略只能被种子脚本识别，<code>robotctl policy update</code>无法更新，只能依靠守护进程发布，违背本功能初衷。并且新版策略包缺少manifest，robotd回退到编译时内置的3个技能名称，策略包定义的技能参数会静默丢失。
+现在使用该版本自身的manifest作为文件列表，manifest随策略包写入目录；无manifest的旧版本继续使用主板本地onnx文件名兜底。脚本与守护进程都会跳过非普通文件名的文件，不下载第三方文档，避免路径冲突。</p>
+<p>字段契约见<code>../policy-manifest.md</code>：两大维度、全部字段、对机器人的影响，本文不再重复。本节仅说明机制存在的设计理由。</p>
+<p>核心目的重申：<code>kind</code>与<code>command.encoding</code>是两大维度；<strong>阶段性策略仅在恒定指令下作为技能运行</strong>。phase或posture_flag字段，为守护进程驱动的机械臂提供时序。这就是为什么训练出更长周期的地面拾取策略，可以直接打标签发布，不需要发布新版守护进程。</p>
+<p>单策略仓库使用的字段在整套策略包manifest中同样存在，额外增加file字段。社区发布者只需要添加这组字段，不需要完全适配整套自定义格式，同一套解析逻辑可处理两种结构。</p>
+<h1 id="10-技能可向机器人下发的动作任务"><a class="header" href="#10-技能可向机器人下发的动作任务">10. 技能：可向机器人下发的动作任务</a></h1>
+<p><strong>槽位（slot）</strong>：机器人默认运行的任务。<strong>技能（skill）</strong>：收到指令后执行的动作——踢腿、前滚翻，以及其他同类型动作。</p>
+<p>过去新增一项技能，需要修改七处代码：技能枚举、网络定义、策略路径、策略字段及其存在性标记、带配置键与注册项的槽位、控制循环分支，还有padd按键表。因此，想要添加一个和前滚翻结构完全一致的社区策略（零指令、4秒时长，选中即触发），必须发布一次守护进程版本更新才能实现。</p>
+<p>之所以要改七处，是因为当初没有设计成统一的实现方式。下面两段代码分支本质是同一套执行逻辑：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>} else if let Some((left, _)) = self.kick {
+    let net = if left { Net::KickLeft } else { Net::KickRight };
+    (net, Command::default(), label)
+} else if self.roulade.is_some() {
+    (Net::Roulade, Command::default(), "roulade")
+<span class="boring">}</span></code></pre></pre>
+<p>踢腿和前滚翻仅有四个数值参数不同：持续时间、动作缩放系数、增益比，以及长按按键是否连锁触发下一个动作，其余逻辑完全一致。所以新增技能只需要配置这四个参数：</p>
+<pre><code class="language-toml">[[policy.skill]]
+name = "polite-bow"
+path = "/var/lib/robot/policies/fffiloni/microduck-polite-bow-b1d864/main/policy.onnx"
+duration = 4.0
+</code></pre>
+<p>执行<code>robotctl policy add polite-bow &lt;仓库地址&gt;</code>即可写入该配置，时长从仓库清单文件读取。若不填写，则使用内置的三项默认参数；配置项按名称合并，因此硬件主板更新配置时无需额外配置、无需迁移。新增技能不会因为配置省略而静默删除其他技能。填写<code>none</code>则移除内置技能，该关键字同样用于关闭策略槽位。</p>
+<h2 id="101-动作结束逻辑由谁控制"><a class="header" href="#101-动作结束逻辑由谁控制">10.1 动作结束逻辑由谁控制</a></h2>
+<p>清单文件中的<code>kind</code>字段<strong>不代表策略运行时长</strong>，而是定义<strong>由谁来终止该策略</strong>。</p>
+<ul>
+<li><strong>片段式策略（episodic policy）</strong>：动作结束后机器人自动回到安全姿态——例如礼貌鞠躬，4秒后自动恢复站立。超时后直接退出，由步态控制器接管直立状态的机器人。</li>
+<li><strong>常驻式策略（perpetual policy）</strong>：持续保持姿态，直到收到终止指令；如果直接超时退出，步态控制器会接管一个单脚支撑的机器人，极易失衡。</li>
+</ul>
+<p>因此一个技能可以同时声明两段控制参数：</p>
+<pre><code class="language-toml">command  = [1.0, 1.0, 0.0]   # 动作执行期间的扭转指令 — flamingo模块解析为 [标志位, 侧方, 0]
+unwind   = [0.0, 1.0, 0.0]   # 动作回退阶段的驱动指令
+unwind_s = 3.0
+</code></pre>
+<p>由守护进程负责实现策略本身不具备的回退收尾逻辑，这和坐姿切换的现有机制一致：锁存触发，延时回正后交还控制权；因为撤销标志位不会让机器人瞬间站直。两个参数默认均为空，大部分场景不需要配置。</p>
+<p>所有技能执行的任意阶段，头部与身体指令都会置零。目前所有已发布的一次性动作都声明不使用头部和身体通道；使用<code>zero_command_padding</code>训练的策略也正是期望这种行为。只有扭转指令会变化，多数技能下扭转指令同样为0。</p>
+<p>技能的扭转指令本身不做平滑处理。指数移动平均（EMA）仅作用于客户端下发的原始指令；技能不会读取经过平滑后的指令，控制循环会新建独立指令块。这就是为什么：读取标志位而非速度的策略，作为技能运行时不需要<code>cmd_alpha</code>；但如果放在行走槽位运行，就必须全局配置该参数。</p>
+<h2 id="102-保留在守护进程内部的逻辑"><a class="header" href="#102-保留在守护进程内部的逻辑">10.2 保留在守护进程内部的逻辑</a></h2>
+<p>行走（walk）与站立（stand）是兜底成对动作，由指令幅值选择，没有更低层级的动作可以交还控制权。
+坐立切换（sitstand）是锁存式动作，由关机落座、上电起身的内部逻辑驱动，不只是按键触发——按清单文件描述，属于脚本化动作。
+地面拾取（ground_pick）输出的是阶段指令，而非恒定值。</p>
+<p>这四个动作都不属于通用一次性技能。配置集中的条目不能直接用于<code>ground_pick</code>或<code>sit_toggle</code>；若同名位置加载第二个神经网络，网络会收到完全未训练过的全零指令。除名称校验外还有编码类型校验：无论如何命名，阶段类型、姿态标志类型的条目永远不会被当作技能加载。
+配置集只能定义这几组动作的时序参数（§9.3）：拾取动作的周期与截断条件、起身过程、落座稳定时间；这些属于训练网络本身的属性，不是编译时写死的常量。</p>
+<p>技能运行期间，<strong>跌倒保护 reflex 全程关闭</strong>：只有控制器非忙状态时，才会查询软跌倒预测器；任何正在运行的技能都会将控制器置为忙。
+当所有一次性动作都短于1秒时，该机制没有争议。但如果技能可配置为保持10秒，意味着机器人在10秒内没有跌倒保护，这个行为需要主动决策，不能直接沿用旧逻辑。</p>
+<h2 id="103-按键配置"><a class="header" href="#103-按键配置">10.3 按键配置</a></h2>
+<p><code>[pad]</code>段用于定义五个一次性动作按键分别绑定哪个技能：</p>
+<pre><code class="language-toml">[pad]
+x = "polite-bow"
+</code></pre>
+<p><code>robotctl pad bindings</code>查看绑定关系；<code>pad bind</code>修改绑定；<code>pad reset</code>恢复默认。默认值沿用原型机的映射，未配置<code>[pad]</code>的机器人保持原有行为；padd会在1秒内重新读取配置文件，<strong>无需重启任何服务</strong>。</p>
+<p>仅这五个按键支持技能绑定。Start键、两个摇杆模式切换键、长按Select、长按方向上键，都不是<code>robot.do</code>调用。关机按键的绑定逻辑受保护，不能被配置修改意外清除。</p>
+<p>在通信链路层面：<code>pad.bindings</code>和<code>pad.bind</code>属于<code>robotd</code>服务，不属于管理其余<code>pad.*</code>配置的<code>configd</code>。
+设备配对是无线链路层面；按键绑定定义按键对机器人的作用。处理绑定请求时需要读取机器人可用技能列表，遇到不存在的技能名直接拒绝，防止按键变成无效死键。
+不同方法路由独立：<code>policy.*</code>交给更新服务<code>updaterd</code>，而<code>robot.loadPolicy</code>交给<code>robotd</code>，虽然概念相近。这种拆分不会带来额外性能开销，只是命名空间容易让人混淆。</p>
+<p>按键绑定会对照<code>do_names</code>列表校验，<strong>该列表不等于<code>policy.skills</code></strong>：<code>ground_pick</code>和<code>sit_toggle</code>拥有独立的级联执行分支，不是配置条目，因此不在技能列表内，但仍是合法可调用动作。
+如果仅使用技能列表做校验，会导致出厂预设的五个按键中有两个被拒绝，该问题已被测试捕获。</p>
+<p>技能列表可通过两种传输通道访问，完整流程由此打通：拉取他人的策略、自定义名称与时长、通过名称调用、绑定到按键，全程不需要在机器人本地接入终端。
+<code>robot.setSkill</code>在单次调用内写入配置并重载；<code>robot.skills</code>接口单独区分内置技能，因为<code>ground_pick</code>、<code>sit_toggle</code>不在技能表内，如果客户端只读取技能表，会误以为它们不存在。</p>
+<p>padd本身完全不理解技能逻辑：只检测哪个按键按下，查找对应的技能名称，发送名称字符串；由<code>robotd</code>判断机器人是否拥有该技能，不存在时返回本机可用技能列表。校验逻辑放在拥有完整信息的<code>robotd</code>中，所以<code>robotctl pad bind</code>会向机器人查询，遇到拼写错误时返回真实可用列表供核对。</p>
+<h2 id="104-通过手机端调用"><a class="header" href="#104-通过手机端调用">10.4 通过手机端调用</a></h2>
+<p><code>robot.do</code>、<code>robot.policies</code>、<code>robot.loadPolicy</code>、<code>robot.reloadPolicies</code>同时支持**蓝牙低功耗（BLE）**与WebRTC通道。安全机制没有改动：形状校验门、关节限位、跌倒保护，无论谁发起请求都保持一致；变化的只是现在有了客户端，而之前所有接口限制设计的目标就是等待客户端。</p>
+<p>技能<strong>不是遥操作</strong>。<code>robot.do</code>曾经和移动指令等归为BLE流传输接口：通知包上限20字节，上电后前约73秒链路还未就绪。遥操作面向持续数据流：每秒50次小幅更新。技能是单次请求，<strong>完全不需要持续控制链路</strong>：失活保护机制会自动清零扭转指令；无驱动指令时机器人保持静止，完成鞠躬动作。</p>
+<p>BLE最符合“有人观测”的安全前提，也是大部分接口限制的核心依据。无线通信距离约10米，按下按键的人必然在机器人同一房间；设备配对使用PIN码校验与加密认证写入。
+WebRTC以另一种方式满足观测条件：对等端正在观看视频流，该机制已经用于<code>robot.init</code>和<code>robot.shutdown</code>。步态动作的安全判定优先级高于单纯站立，因为对等端能直接看到机器人即将运动。</p>
+<p>需要记住的不对称性和直觉相反：
+BLE具备身份认证；WebRTC没有身份认证。remote-webrtc.md §4规定局域网内任意对等端都能访问开放接口；而BLE只能由10米内、完成PIN绑定的调用者发起同样指令。
+这是完善§4安全规则的理由，而不是从可直观看到结果的传输通道移除该接口的理由。</p>
+<p>手机选定的步态，就是机器人开机加载的步态。<code>robot.loadPolicy</code>自行写入槽位键，因此§3的持久化模型归属该接口，而非调用它的命令。
+早期设计并非如此：<code>robotctl</code>写入文件，守护进程仅更新内存。同一命令在不同调用者下行为不一致，远程调用者会得到临时模式：“重启即失效”，该方案在§3中评估后被否决。撤销操作使用不带路径参数的同一接口，同样可由手机调用。</p>
+<p><code>robot.policies</code>接口返回技能列表，这是整套远程功能可用的基础。客户端需要先确认机器人支持鞠躬动作，才能展示该功能；技能列表现在属于配置，无需编译进固件。
+技能名称原本在<code>robot.subscribe</code>的应答报文内，但这是50Hz高频流，只应答一次性查询，并且BLE刻意不转发该流。</p>
+<h1 id="11-当前官方策略集清单"><a class="header" href="#11-当前官方策略集清单">11. 当前官方策略集清单</a></h1>
+<p>记录在此处，因为相关文件移出代码仓库后，仓库没有其他地方保存这份映射，并且无法从Hub上的文件名还原映射关系。
+抄录自apirrone/microduck_runtime 提交号<code>5f3b314</code>（前滚翻<code>roulade.onnx</code>首次出现于<code>7e4ab6d</code>），解析该仓库用于固定训练版本的符号链接：</p>
+<div class="table-wrapper"><table><thead><tr><th>策略集内文件名</th><th>上游来源</th><th>作用描述</th></tr></thead><tbody>
+<tr><td>alpha_walking.onnx</td><td>BEST_alpha_walking_rough.onnx</td><td>行走 / 零速站立（v5版本之前默认行走策略）</td></tr>
+<tr><td>velstand.onnx</td><td>pollen-robotics/microduck_rl velstand_best.onnx（2026-09-14）</td><td>行走+零指令站立；v5版本起默认行走策略，站立策略不启用</td></tr>
+<tr><td>alpha_stand.onnx</td><td>BEST_alpha_stand_body_control.onnx</td><td>站立+身体姿态控制</td></tr>
+<tr><td>alpha_sitstand.onnx</td><td>BEST_alpha_sitstand.onnx</td><td>坐↔站切换（姿态标志位）</td></tr>
+<tr><td>alpha_ground_pick.onnx</td><td>alpha_ground_pick.onnx</td><td>地面拾取（阶段指令）</td></tr>
+<tr><td>ball_kick_left.onnx</td><td>ball_kick_left.onnx</td><td>左腿踢腿</td></tr>
+<tr><td>ball_kick_right.onnx</td><td>ball_kick_right.onnx</td><td>右腿踢腿</td></tr>
+<tr><td>roller.onnx</td><td>BEST_roller.onnx</td><td>滚轮模式移动</td></tr>
+<tr><td>roller_crouch.onnx</td><td>BEST_roller_crounch.onnx</td><td>滚轮模式下蹲（地面拾取槽位）</td></tr>
+<tr><td>roulade.onnx</td><td>roulade.onnx</td><td>前滚翻（Mjlab-Roulade-MicroDuck）</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>注：roller_crouch同时修正上游文件名拼写错误。</p>
+</blockquote>
+<p>文件名代表<strong>功能角色</strong>，不是单次训练版本。这种间接映射的意义：重新训练模型仅需要更新版本锁定，无需修改每台机器人的配置；更换哪一组训练权重作为“行走策略”，不需要编辑<code>robotd.toml</code>。</p>
+<p>仅支持61维特征族。原型机附带51维版本：3陀螺仪 +3重力 +42关节 +3指令，传统<code>[vx, vy, vtheta]</code>。<code>robotd</code>加载时会拒绝该版本，同时标注两种维度。
+该校验可以把加载错误策略的故障转为可诊断问题，避免机器人出现无法解释的异常运动；同时也能检测不完整的下载文件（§9）。</p>
+<h1 id="12-命名规范"><a class="header" href="#12-命名规范">12. 命名规范</a></h1>
+<p>更新服务（updater）中称为model；robotd中称为policy。统一使用policy：组件名policies，命名空间<code>policy.*</code>，命令行<code>robotctl policy …</code>。
+<code>models/</code>目录保留原有含义，存放真正的模型，而不是控制策略，例如pet_detect.onnx、鸭子检测器。</p>
+<h1 id="13-设计决策记录"><a class="header" href="#13-设计决策记录">13. 设计决策记录</a></h1>
+<div class="table-wrapper"><table><thead><tr><th>决策</th><th>说明</th></tr></thead><tbody>
+<tr><td>加载与重置 = 修改配置 + 动态重载</td><td>机器人运行状态唯一可信源；重置无需新增概念（§3）</td></tr>
+<tr><td>不提供临时试验模式</td><td>避免存在两套状态源；防止重置等价于重启（§3）</td></tr>
+<tr><td>加载失败时保留原有控制器</td><td>试验是试探性操作，不能丢失当前可用步态（§4）</td></tr>
+<tr><td>已完成的请求不排队新任务</td><td>否则无改动机器人的重置操作会触发十秒无效处理（§4）</td></tr>
+<tr><td>……槽位存在错误时除外</td><td>降级后的槽位看起来未改动，重置的作用就是清除错误（§4）</td></tr>
+<tr><td>社区策略加载失败：降级运行，而非标记设备异常</td><td>否则过期配置会阻断所有守护进程更新（§5）</td></tr>
+<tr><td><code>pollen-robotics/*</code>为官方源，硬编码</td><td>可配置信任组织会让官方标识失去意义（§2）</td></tr>
+<tr><td>社区策略不做签名校验</td><td>安全层与形状校验门作为边界，不靠密钥（§2）</td></tr>
+<tr><td>单一policies组件，而非每个槽位独立组件</td><td>整套策略是联合训练；槽位独立覆盖其余场景（§9）</td></tr>
+<tr><td>拉取逻辑放在updaterd</td><td>robotctl不引入HTTP协议栈（§8）</td></tr>
+<tr><td>策略独立于发布包，由发布包预置种子</td><td>运行时数据源唯一，不存在复杂优先级冲突（§9）</td></tr>
+<tr><td>预置种子不会覆盖非种子安装的策略集</td><td>切换无需标志位；第一次真正安装即结束种子模式（§9）</td></tr>
+<tr><td>策略集在线下载，不内置在固件包</td><td>和ONNX Runtime、插件一致；修改版本锁定即可更新步态（§9）</td></tr>
+<tr><td>拉取失败保留已安装策略集</td><td>未完全发布的版本不能降级当前正常步态（§9）</td></tr>
+<tr><td>版本锁定是最低版本；策略更新可升级到更高版本</td><td>新版策略文件不会回退旧主板守护进程；步态更新无需守护进程发布（§9.1）</td></tr>
+<tr><td>策略集记录来源仓库</td><td>单一写入源、单一副本，避免重复配置与配置漂移（§9.1）</td></tr>
+<tr><td>重载是独立操作，不是全部重置</td><td>外部表现近似，混淆会丢失所有自定义覆盖项（§9.1）</td></tr>
+<tr><td>一次性技能写在配置而非代码</td><td>踢腿、前滚翻是同一套逻辑，仅参数不同；社区技能属于第五类策略集（§10）</td></tr>
+<tr><td>kind定义策略终止方，不是运行时长</td><td>片段式自动回位；常驻式依赖守护进程回退；脚本式属于片段式但可中断（§9.3, §10.1）</td></tr>
+<tr><td>command.encoding定义守护进程输入类型</td><td>常量→技能；阶段→地面拾取；姿态标志→坐站切换。只有常量类型可作为一次性技能加载（§9.3）</td></tr>
+<tr><td>策略集自带时序参数</td><td>拾取周期/截断、起身/落座稳定时间属于网络属性，不是编译常量；[policy]配置项优先级更高（§9.3）</td></tr>
+<tr><td>技能不改动行走、站立、坐站切换、地面拾取</td><td>两个兜底步态，一个内部驱动，一个阶段驱动；均不属于通用一次性技能（§10.2）</td></tr>
+<tr><td>按键绑定属于配置；Start、Select不支持</td><td>停机按键绑定必须防止被配置误删（§10.3）</td></tr>
+<tr><td>robot.do不属于遥操作，BLE可承载</td><td>单次请求而非持续流；无需控制链路，失活保护自动清零扭转（§10.4）</td></tr>
+<tr><td>策略加载支持两种传输通道</td><td>所有接口限制都是为客户端准备；现在客户端已实现（§10.4）</td></tr>
+<tr><td>槽位键由守护进程写入，而非调用方</td><td>否则同一命令在不同调用者下行为不一致（§3, §10.4）</td></tr>
+<tr><td>robotd.toml所有写入操作加锁</td><td>四个进程会修改该文件；同时两个暂存会造成文件半写入覆盖（§3）</td></tr>
+<tr><td>支持从Hub安装策略</td><td>UID鉴权使用btd凭证，不是手机端，和update.apply逻辑一致（§10.4）</td></tr>
+<tr><td>策略集清单随策略集一起安装</td><td>否则策略更新会丢失策略集定义的技能，列表无法扩展（§9.3）</td></tr>
+<tr><td>本地库每个仓库保留两个版本</td><td>无自动清理，拉取支持两种无线通道（§8）</td></tr>
+<tr><td>……但不会保留机器人正在使用的版本；无响应则不保存</td><td>无响应代表robotd宕机，不是没有加载任何策略（§8）</td></tr>
+<tr><td>种子加载器绝不替换已安装策略集</td><td>否则守护进程更新会静默覆盖policy update选定的步态（§9）</td></tr>
+<tr><td>来源是路径内的组织名</td><td>无需查询即可标识，仅作为标签而非安全边界（§9.2）</td></tr>
+<tr><td>清单文件可以拒绝加载，但不能做可信背书</td><td>清单只是第三方声明；形状校验门才是安全检查（§9.2）</td></tr>
+<tr><td>仓库包含两个策略则直接拒绝</td><td>猜测选择策略会导致真实机器人加载错误网络（§9.2）</td></tr>
+<tr><td>种子策略只保留当前版本与上一版本</td><td>避免每版本7MB无限制增长；上一版本用于回滚恢复（§9）</td></tr>
+<tr><td>单次策略校验，内部路由分发</td><td>同一问题不要两条命令，避免混淆（§6）</td></tr>
+</tbody></table>
+</div>
+<h1 id="14-有意延后的需求"><a class="header" href="#14-有意延后的需求">14. 有意延后的需求</a></h1>
+<ol>
+<li>同一社区策略的多版本管理。一个槽位只能加载一个文件；本地库可保存多个版本，仅配置决定当前生效版本。完整（名称，版本）主键方案在updater-design.md §17评估：约14个文件，需要提升API_VERSION；A/B测试可通过依次加载实现。</li>
+<li>一次性加载整套策略集。当前仅支持按槽位加载。当跨训练集切换成为常规操作时该需求才有意义；混合A训练集行走+B训练集站立，属于网络从未训练过的组合。</li>
+<li>Hub上增加microduck标签。现阶段直接搜索关键词即可，无需打标签。</li>
+<li>社区策略签名，以及需要签名的可信组织方案。</li>
+</ol>
+<h1 id="15-待解决事项"><a class="header" href="#15-待解决事项">15. 待解决事项</a></h1>
+<p>技能运行全程关闭跌倒保护（§10.2）。半秒的踢腿没问题；配置为保持10秒的技能，意味着机器人10秒无跌倒保护。</p>
+<p><code>robotctl configure</code>可以列出技能表，但<strong>不能编辑</strong>。重复表项不是带游标的键值，因此编辑入口放在<code>robotctl policy</code>。让配置注册表支持重复段是最大工作量，但收益最低。</p>
+<p>官方策略集是否升级为更新组件。现在交付不再依赖该组件：§9直接从Hub拉取锁定版本，和主板其他依赖包一样。需要权衡收益（回滚、版本锁定、基准版本、已知坏版本记录、周期性校验）与代价，代价和策略本身无关。组件通道安装的所有制品强制签名，和守护进程二进制使用同一校验代码。如果官方策略集走该通道，则必须签名；不是策略本身需要签名，而是该通道不支持无签名模式，新增无签名模式会扩大安全漏洞。如果后续频繁需要整套策略回滚，可重新评估；目前无需求。</p>
+<p>APP是否展示相关功能、需要实现§7多少内容。所有接口都复用btd转发的套接字，属于UI层问题，不是协议问题。</p>
+<p>每次加载触发七轮重建，在主板上是否存在可观测的性能劣化（§4）。模式切换当前就是这个行为，需要实测评估再开发。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../offical_docs/design/updater-design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../offical_docs/design/restart-order.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../offical_docs/design/updater-design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../offical_docs/design/restart-order.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
