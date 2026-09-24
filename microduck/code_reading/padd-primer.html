@@ -1,0 +1,1240 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>padd/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html" class="active"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="padd-新手导读"><a class="header" href="#padd-新手导读"><code>padd</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>手柄驱动这件事的操作者视角由 <a href="robot/pair-a-gamepad.html"><code>robot/pair-a-gamepad.md</code></a> 拥有；
+<code>[pad]</code> / <code>[pad_imu_head_control]</code> 的 schema 归 <a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>；
+它发出去的那些 intent 归 <a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a> 和
+<a href="robotd-primer.html"><code>robotd-primer.md</code></a>。若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a>（手柄那个 IMU 的姿态怎么算出来的）、
+<a href="duck-control-primer.html"><code>duck-control-primer.md</code></a>（intent 到了 robotd 之后变成什么）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个系统里的位置</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E4%B8%AA%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E7%89%B9%E6%9D%83%E7%9A%84-api-%E5%AE%A2%E6%88%B7">⭐ 核心心智模型：一个没有任何特权的 API 客户</a></li>
+<li><a href="#4-%E9%82%A3%E5%BC%A0%E6%8C%89%E9%94%AE%E8%A1%A8">那张按键表</a></li>
+<li><a href="#5-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#6-%E4%B8%80%E4%B8%AA-tick-%E9%87%8C%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88">一个 tick 里发生什么</a></li>
+<li><a href="#7--select%E4%B8%80%E4%B8%AA%E6%8C%89%E9%92%AE%E4%B8%A4%E4%BB%B6%E4%BA%8B%E9%9D%A0%E6%9D%BE%E5%BC%80%E5%88%86%E8%BE%A8">⭐ <code>Select</code>：一个按钮，两件事，靠&quot;松开&quot;分辨</a></li>
+<li><a href="#8--continuous%E6%8C%89%E4%BD%8F%E4%B8%8D%E5%8A%A8%E5%B0%B1%E4%B8%8D%E5%8F%91">⭐ <code>Continuous</code>：按住不动就不发</a></li>
+<li><a href="#9-%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F">三种模式</a></li>
+<li><a href="#10-%E9%85%8D%E7%BD%AE%E6%98%AF%E6%B4%BB%E7%9A%84">配置是活的</a></li>
+<li><a href="#11-%E6%89%8B%E6%9F%84%E7%9A%84-imu-%E6%8E%A7%E5%A4%B4">手柄的 IMU 控头</a></li>
+<li><a href="#12--%E9%82%A3%E4%B8%AA-raw-tap%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E9%95%BF%E5%87%BA%E4%BA%86%E4%B8%80%E4%B8%AA-socket">⭐ 那个 raw tap：为什么它长出了一个 socket</a></li>
+<li><a href="#13-%E6%B5%8B%E8%AF%9523-%E4%B8%AA">测试：23 个</a></li>
+<li><a href="#14-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#15-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#16-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>padd</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>我按了这个手柄，机器人该做什么？</strong></p>
+</blockquote>
+<p>它把手柄的摇杆和按键翻译成 <strong>intent</strong>，通过 <code>robotd</code> 的 socket 发过去 ——
+<strong>和任何一个客户端走的是同一条路。</strong></p>
+<p>一句话说清它的定位（<code>main.rs:3-5</code>）：</p>
+<blockquote>
+<p>It has <strong>no privileged access to the robot</strong>. It reads a pad, turns sticks and buttons into
+intents, and sends them over <code>robotd</code>'s socket <strong>like any other client</strong>.</p>
+</blockquote>
+<p>规模：<strong>2,826 行</strong>（<code>main.rs</code> 1463 + <code>tap.rs</code> 1315），加一个 systemd 单元。</p>
+<hr />
+<h2 id="2-它在整个系统里的位置"><a class="header" href="#2-它在整个系统里的位置">2. 它在整个系统里的位置</a></h2>
+<pre><code>      手柄（蓝牙 / USB）
+            │
+   ┌────────┴─────────┐
+   │                  │
+   ▼                  ▼
+ gilrs              evdev          ← 同一颗节点，读两遍
+ （解析按键/摇杆）    （原始事件流）
+   │                  │
+   │                  └──► raw tap（/run/padd/pad.sock）
+   │                          └──► robotctl monitor 的「pad」面板
+   ▼
+ padd 的主循环
+   │  按键 → skill 名 / 模式切换 / 停止
+   │  摇杆 → 速度、头部角度、身体姿势
+   ▼
+ /run/robotd.sock ──► robotd 的 intents ──► 控制环 ──► 舵机
+</code></pre>
+<p>两个消费者/关联方：</p>
+<div class="table-wrapper"><table><thead><tr><th>谁</th><th>关系</th></tr></thead><tbody>
+<tr><td><strong><code>robotd</code></strong></td><td>intent 的收件人。<code>padd</code> 是它<strong>最老也最苛刻的客户</strong></td></tr>
+<tr><td><strong><code>robotctl monitor</code></strong></td><td>订阅 raw tap，画手柄面板和线框手柄</td></tr>
+<tr><td><strong><code>configd</code></strong></td><td>手柄<strong>配对</strong>归它（需要 root 和 BlueZ），<code>padd</code> 不做</td></tr>
+<tr><td><strong><code>pad-imu</code></strong></td><td>手柄 IMU 的姿态滤波器，<code>padd</code> 用它控头</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 配对为什么不在这里（<code>main.rs:63-65</code>）：
+bonding a device needs root and BlueZ, and <strong>a <code>padd</code> holding either would stop being the
+unprivileged client whose whole value is having no special access.</strong> It lives in <code>configd</code>,
+next to wifi.</p>
+</blockquote>
+<hr />
+<h2 id="3--核心心智模型一个没有任何特权的-api-客户"><a class="header" href="#3--核心心智模型一个没有任何特权的-api-客户">3. ⭐ 核心心智模型：一个没有任何特权的 API 客户</a></h2>
+<p>这是读懂 <code>padd</code> 最重要的一件事，而它<strong>不是一个技术决定，是一个产品决定</strong>。</p>
+<h3 id="31-为什么它是一个独立进程"><a class="header" href="#31-为什么它是一个独立进程">3.1 为什么它是一个独立进程</a></h3>
+<p><code>main.rs:8-12</code>：</p>
+<blockquote>
+<p><strong>That is the point of it being a separate process rather than a thread inside <code>robotd</code>.</strong> The
+intent API is the path the app, the SDK and any remote client will use, and here <strong>it gets
+exercised every day by whoever is working on the robot — so it cannot quietly rot the way an API
+only the phone app uses inevitably would.</strong> The cost is a socket hop: <strong>tens of microseconds
+against a 20 ms tick.</strong></p>
+</blockquote>
+<p>这段话值得慢慢读。<strong>&quot;只有手机 app 用的 API 一定会烂掉。&quot;</strong>
+而手柄是每天有人在用的东西 —— 所以让它走和 app 一模一样的那条路，
+这条 API 就永远有人替你验证。</p>
+<p>代价是&quot;一次 socket 往返&quot;：几十微秒，对比 20 ms 的控制周期。</p>
+<h3 id="32-它不做的事"><a class="header" href="#32-它不做的事">3.2 它<strong>不</strong>做的事</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>不做</th><th>为什么</th></tr></thead><tbody>
+<tr><td><strong>配对</strong></td><td>需要 root 和 BlueZ（<code>main.rs:63-65</code>）</td></tr>
+<tr><td><strong>知道一个 skill 是什么</strong></td><td>它只读&quot;哪个按钮按下去了&quot;，查出旁边的名字，发出去</td></tr>
+<tr><td><strong>判断 skill 存不存在</strong></td><td>那是机器人的事，而它答&quot;没有这个&quot;时会带上自己有的列表</td></tr>
+</tbody></table>
+</div>
+<p><code>main.rs:31-35</code>：</p>
+<blockquote>
+<p>This daemon <strong>still knows nothing about what a skill <em>is</em></strong>. It reads which button went down,
+looks up the name beside it, and sends that name; <strong><code>robotd</code> decides whether the robot has such a
+thing and answers with the list it does have when it does not.</strong></p>
+</blockquote>
+<p><strong>&quot;它读哪个按钮按下去了，查旁边的名字，把名字发出去。&quot;</strong> 就这么多。</p>
+<h3 id="33-为什么-padd-是独立-crate"><a class="header" href="#33-为什么-padd-是独立-crate">3.3 为什么 <code>padd</code> 是独立 crate</a></h3>
+<p><code>Cargo.toml:8-9</code>：</p>
+<blockquote>
+<p>Its own crate so a gamepad stack stays out of <code>robotctl</code>, <strong>which has to work on a broken robot
+and is part of the recovery path</strong>. <strong>Nothing here is on that path.</strong></p>
+</blockquote>
+<p><strong><code>robotctl</code> 必须在机器人坏掉的时候还能用，而它是恢复路径的一部分。</strong>
+所以手柄这一堆东西（还有它的 C 依赖）不能进去。</p>
+<h3 id="34-一个被记账的代价"><a class="header" href="#34-一个被记账的代价">3.4 一个被记账的代价</a></h3>
+<p><code>Cargo.toml:11-18</code>：</p>
+<blockquote>
+<p><code>gilrs</code> depends on <code>libudev-sys</code> <strong>unconditionally on Linux — no feature disables it</strong> — so both
+CI and the board cross-build install libudev. <strong>That is a real cost, paid to keep gilrs's SDL
+controller database</strong>: without it we would hand-map each pad's raw evdev codes, and <strong>the same
+Xbox controller reports different codes over USB and Bluetooth.</strong></p>
+<p>The same expense returns for the next C dependency that has to reach the board, which is <strong>an
+argument for preferring pure-Rust crates anywhere else on that path</strong>.</p>
+</blockquote>
+<p><strong>&quot;同一个 Xbox 手柄插 USB 和走蓝牙报的是不同的码。&quot;</strong> 这就是为什么值得为它引一个 C 依赖。
+而 <code>evdev</code>（raw tap 用的那个）是纯 Rust 的 —— 同一个设备节点，不带来任何 C。</p>
+<hr />
+<h2 id="4-那张按键表"><a class="header" href="#4-那张按键表">4. 那张按键表</a></h2>
+<p><code>main.rs:37-46</code> 的模块文档就是这张表，抄在这里：</p>
+<pre><code class="language-text">Start        切换策略（policy）开关
+Y (North)    头部模式 —— 摇杆摆头
+B (East)     身体姿态模式 —— 摇杆让站着的机器人倾斜、下蹲
+A (South)    地面拾取
+LB / RB      左踢 / 右踢
+DPad-Down    坐下 ↔ 站起
+RT / LT      嘴（哪个扳机大听哪个）· RT 叫一声 · LT 骑 wheee
+Select       松开时断电（torque off）—— 急停
+Select 按住 2 秒   坐下、断电、然后关机 —— 之后的松开什么都不做
+</code></pre>
+<h3 id="41-只有五个是可以改的"><a class="header" href="#41-只有五个是可以改的">4.1 只有五个是可以改的</a></h3>
+<p><code>main.rs:27-30</code>：</p>
+<blockquote>
+<p>The five one-shot buttons are <code>[pad]</code> in <code>robotd.toml</code> — so <strong>a robot that has learned a new skill
+can put it on a button without a release</strong>. The defaults are exactly the mapping below, so a robot
+with no <code>[pad]</code> section behaves as it always has.</p>
+<p><strong>Only those five.</strong> <code>Start</code>, the two mode toggles, held <code>Select</code> and held D-pad up are not
+<code>robot.do</code> calls, and <strong>the button that powers a robot off is the one binding worth not being able
+to lose to a config edit.</strong></p>
+</blockquote>
+<p><strong>&quot;那个关机的按钮，是唯一一个值得保证不会被一次配置编辑弄丢的绑定。&quot;</strong></p>
+<p>可绑定的五个（<code>robotd-params</code> 的 <code>PadParams</code>）：<code>a</code> · <code>x</code> · <code>lb</code> · <code>rb</code> · <code>dpad_down</code>，
+默认分别是 <code>ground_pick</code> · <code>roulade</code> · <code>kick_left</code> · <code>kick_right</code> · <code>sit_toggle</code>。</p>
+<h3 id="42--gilrs-的扳机命名是个坑"><a class="header" href="#42--gilrs-的扳机命名是个坑">4.2 ⚠️ gilrs 的扳机命名是个坑</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// padd/src/main.rs:529-536（节选）
+// gilrs names the *bumpers* `LeftTrigger`/`RightTrigger`; the analog
+// triggers are `LeftTrigger2`/`RightTrigger2`. Getting that backwards binds
+// a skill to a control nobody presses.
+Button::LeftTrigger =&gt; pressed.push(&quot;lb&quot;),
+Button::RightTrigger =&gt; pressed.push(&quot;rb&quot;),
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>LeftTrigger</code> 是肩键（LB），<code>LeftTrigger2</code> 才是模拟扳机（LT）。</strong>
+搞反了就是&quot;把一个技能绑到一个没人按的控件上&quot;。</p>
+<p>同一个坑在 <code>robotd-params</code> 的 <code>PadParams</code> 注释里也写了一遍 —— 说明它咬过人。</p>
+<h3 id="43-方向键的两个特殊用途"><a class="header" href="#43-方向键的两个特殊用途">4.3 方向键的两个特殊用途</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>键</th><th>干什么</th><th>为什么在这个键上</th></tr></thead><tbody>
+<tr><td><strong>D-pad 右</strong></td><td><code>robot.rebootMotors</code> —— 伺服原地重启</td><td>&quot;the way back from a tripped overload <strong>without pulling the battery</strong>&quot;（<code>main.rs:541-542</code>）</td></tr>
+<tr><td><strong>D-pad 上（按住 3 秒）</strong></td><td>切换驱动模式：走 ⇄ 轮</td><td>见下</td></tr>
+</tbody></table>
+</div>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:259-264
+/// D-pad up held this long switches drive mode, walk ⇄ roller.
+///
+/// Three seconds, longer than the shutdown hold, and the prototype's number. **D-pad up is a
+/// direction anybody might lean on for a moment while driving**; the mode switch takes the robot
+/// home and reloads its policies, so **it has to be a hold nobody performs by accident.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;D-pad 上是任何人开车时都可能顺手按住一下的方向键。&quot;</strong> 所以三秒 —— 比关机还长。</p>
+<hr />
+<h2 id="5-目录导览"><a class="header" href="#5-目录导览">5. 目录导览</a></h2>
+<pre><code>padd/
+├── Cargo.toml              48 行 —— 头 18 行讲清 gilrs 那个 C 依赖值不值
+├── src/
+│   ├── main.rs           1463 行  主循环、按键映射、模式、Select、Continuous
+│   └── tap.rs            1315 行  原始事件流那个 socket（**只有 Linux**）
+└── systemd/
+    ├── padd.service      105 行  注释比指令多
+    └── sysusers.d/padd.conf
+</code></pre>
+<h3 id="taprs-在非-linux-上是一个空壳"><a class="header" href="#taprs-在非-linux-上是一个空壳"><code>tap.rs</code> 在非 Linux 上是一个空壳</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// padd/src/main.rs:95-101
+/// The raw tap, on a platform with no evdev to read.
+///
+/// A `padd` on a Mac **still drives a pad** — that is the bench setup in the crate docs above, and
+/// **it would be a poor trade to lose it over a debug facility.** It serves no tap, and `robotctl
+/// monitor` finds no socket **and says so, which is the truth rather than an empty stream**.
+#[cfg(not(target_os = &quot;linux&quot;))]
+mod tap { /* 每个方法都是空实现 */ }
+<span class="boring">}</span></code></pre></pre>
+<p><strong>一台 Mac 上的 <code>padd</code> 照样能开车，只是不提供 tap。</strong> 而且 monitor 找不到 socket 时<strong>会说出来</strong> ——
+&quot;那是事实，而不是一条空流&quot;。</p>
+<hr />
+<h2 id="6-一个-tick-里发生什么"><a class="header" href="#6-一个-tick-里发生什么">6. 一个 tick 里发生什么</a></h2>
+<p>主循环（<code>main.rs:481-969</code>）默认 <strong>50 Hz</strong>。按顺序：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>干什么</th><th>行</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>每秒一次</strong>看看配置文件改没改</td><td><code>:487-495</code></td></tr>
+<tr><td>2</td><td><strong>排空 gilrs 的事件队列</strong>，抓按键<strong>边沿</strong></td><td><code>:503-546</code></td></tr>
+<tr><td>3</td><td>没有手柄？<strong>什么都不发</strong>，睡 500 ms</td><td><code>:551-575</code></td></tr>
+<tr><td>4</td><td>告诉 tap 在看哪个手柄、IMU 要不要开</td><td><code>:585-590</code></td></tr>
+<tr><td>5</td><td>取手柄的姿态（如果开了）</td><td><code>:594-604</code></td></tr>
+<tr><td>6</td><td><strong>Y / B / Start</strong> 三个模式相关的按键</td><td><code>:606-696</code></td></tr>
+<tr><td>7</td><td><strong>五个可绑定按钮</strong> → <code>robot.do</code></td><td><code>:704-718</code></td></tr>
+<tr><td>8</td><td><strong>X 按住</strong> → 重复发（让技能接续）</td><td><code>:729-741</code></td></tr>
+<tr><td>9</td><td><strong>Select</strong>：松开停 / 按住关</td><td><code>:746-768</code></td></tr>
+<tr><td>10</td><td><strong>D-pad 右</strong> → 重启伺服</td><td><code>:770-782</code></td></tr>
+<tr><td>11</td><td><strong>D-pad 上按住 3 秒</strong> → 换模式</td><td><code>:788-825</code></td></tr>
+<tr><td>12</td><td>读摇杆、扳机</td><td><code>:827-841</code></td></tr>
+<tr><td>13</td><td><strong>嘴 + 声音边沿</strong>（RT 叫 / LT wheee）</td><td><code>:842-881</code></td></tr>
+<tr><td>14</td><td><strong>组这一帧的连续 intent</strong></td><td><code>:886-959</code></td></tr>
+<tr><td>15</td><td><strong>发出去</strong>（可能被抑制）</td><td><code>:961-964</code></td></tr>
+<tr><td>16</td><td>睡到周期末尾</td><td><code>:966-968</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="61--只理第一个手柄的事件"><a class="header" href="#61--只理第一个手柄的事件">6.1 ⚠️ 只理第一个手柄的事件</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:500-503
+// The driving pad is the first one, and only its events may act: with two pads
+// connected, a Start or Select from the *other* one would otherwise steer a robot
+// whose sticks belong to somebody else.
+let pad_id = gilrs.gamepads().next().map(|(id, _)| id);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;否则另一个手柄上的 Start 或 Select 会去操纵一台摇杆属于别人的机器人。&quot;</strong></p>
+<p>而且排空之后要<strong>按 id 重新取</strong>（<code>:548-551</code>）：</p>
+<blockquote>
+<p>a <code>Disconnected</code> dequeued above may have taken it, and asking for the first pad again would
+<strong>silently hand the robot the <em>other</em> pad's sticks</strong>.</p>
+</blockquote>
+<p><strong>&quot;一 tick 的'手柄没了'好过那个。&quot;</strong></p>
+<h3 id="62-没有手柄时什么都不发"><a class="header" href="#62-没有手柄时什么都不发">6.2 没有手柄时<strong>什么都不发</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:552-554
+// No pad. Send nothing: `robotd`'s deadman stops the robot on its own, which is
+// exactly the wanted behaviour, and inventing a zero command here would mask a
+// disconnected pad as a deliberate stop.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;在这里造一个零命令，会把'手柄掉了'伪装成'有人决定停下'。&quot;</strong></p>
+<p>这是整份代码里最该记住的一句安全设计。<code>robotd</code> 那边有个<strong>死手开关</strong>（deadman，
+<code>duck-control/src/safety.rs:74</code>，默认 500 ms）：intent 不再到达，速度就归零。
+<code>padd</code> 只要<strong>闭嘴</strong>，机器人就会停 —— 而&quot;闭嘴&quot;和&quot;发零&quot;是两件不同的事。</p>
+<h3 id="63-断线时要把按到一半的按住清掉"><a class="header" href="#63-断线时要把按到一半的按住清掉">6.3 断线时要把&quot;按到一半&quot;的按住清掉</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:563-568
+// A hold in flight was measured against the pad that just left: drop it, or a
+// Select (or D-pad up) still down when the pad returns lands its full hold time
+// at once — a shutdown or a mode switch nobody asked for.
+select.reset();
+dpad_up_held_since = None;
+mode_switch_sent = false;
+imu_head = PadImuHead::Off;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;否则手柄回来时那个还按着的 Select 会一次性兑现它的整个按住时长 ——
+一次没人要求的关机或模式切换。&quot;</strong></p>
+<h3 id="64-一帧一写"><a class="header" href="#64-一帧一写">6.4 一帧一写</a></h3>
+<p>连续 intent 是<strong>攒成一帧</strong>再写的（<code>:886</code>、<code>:1014-1038</code>）：</p>
+<blockquote>
+<p>One write for the whole frame: the calls describe a single instant, and <strong>a peer that read half of
+one would be acting on a head pose without the velocity that came with it.</strong></p>
+</blockquote>
+<p><strong>&quot;读到半帧的对端，会拿着一个头部姿态却不知道配套的速度。&quot;</strong>
+<code>robotd</code> 那边自己再把缓冲区切成行。</p>
+<hr />
+<h2 id="7--select一个按钮两件事靠松开分辨"><a class="header" href="#7--select一个按钮两件事靠松开分辨">7. ⭐ <code>Select</code>：一个按钮，两件事，靠&quot;松开&quot;分辨</a></h2>
+<p>这是整份代码里最精巧的一段状态机。</p>
+<h3 id="71-问题"><a class="header" href="#71-问题">7.1 问题</a></h3>
+<p><code>Select</code> 有两种含义：</p>
+<ul>
+<li><strong>短按</strong> → 急停（<code>robot.relax</code>，断电，机器人瘫下去）</li>
+<li><strong>按住 2 秒</strong> → 关机序列（坐下、断电、关机）</li>
+</ul>
+<p><strong>而&quot;短按&quot;和&quot;长按&quot;只有在松开的那一刻才知道是哪个。</strong></p>
+<h3 id="72-解法短按在松开时发"><a class="header" href="#72-解法短按在松开时发">7.2 解法：短按<strong>在松开时</strong>发</a></h3>
+<p><code>main.rs:198-203</code>：</p>
+<blockquote>
+<p>A short press is the emergency stop … Held for [<code>SHUTDOWN_HOLD</code>] it is the shutdown sequence
+instead … <strong>The two cannot both fire — a robot that has already gone limp cannot sit</strong> — so the
+stop is sent <strong>on release</strong>, and only if the hold never reached the shutdown. The cost is that
+the stop lands when the thumb comes off rather than when it goes down, <strong>which for a button
+somebody presses and lets go of is the same instant.</strong></p>
+</blockquote>
+<p><strong>&quot;两个不可能同时发生 —— 一只已经瘫掉的机器人坐不下去。&quot;</strong></p>
+<p>代价写得很诚实：急停<strong>在手指松开时</strong>才生效，而不是按下时。
+<strong>&quot;而对于一个按一下就松开的按钮来说，那是同一个瞬间。&quot;</strong></p>
+<h3 id="73-那个-released-边沿"><a class="header" href="#73-那个-released-边沿">7.3 那个 <code>released</code> 边沿</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:225-227
+/// `released` is the edge from the event queue, because a press and release inside one tick
+/// leaves `pressed` false on both sides and would otherwise be a stop nobody saw.
+fn tick(&amp;mut self, pressed: bool, released: bool, now: Instant) -&gt; SelectAction {
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个 tick 内按下又松开，<code>pressed</code> 在两边都是 false&quot;</strong> ——
+所以&quot;松开&quot;必须是<strong>从事件队列里抓的边沿</strong>，不能靠比较 <code>pressed</code>。</p>
+<h3 id="74--reset-只清一半"><a class="header" href="#74--reset-只清一半">7.4 ⭐ <code>reset()</code> 只清一半</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:246-256
+/// Forget a hold in flight. Called when the pad goes away: **the hold's start was measured
+/// against *that* pad's button**, and carrying it onto the next pad would turn a Select
+/// still held across a long dropout into a shutdown on the first tick back.
+///
+/// **`shutdown_sent` survives**, because it is a fact about the robot rather than about the pad:
+/// the shutdown went out, the robot is sitting down, and **the release that follows must stay
+/// silent whether or not the pad blinked in between.** Clearing it here would hand that release
+/// back to the stop and **drop a robot mid-sit.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;<code>shutdown_sent</code> 是关于机器人的事实，不是关于手柄的。&quot;</strong></p>
+<ul>
+<li><code>held_since</code>（按住的起点）<strong>清掉</strong> —— 它是对着<strong>那个</strong>手柄的按钮量的；</li>
+<li><code>shutdown_sent</code>（关机已经发出去了）<strong>留着</strong> —— 清了的话，
+接下来的松开会被当成急停，<strong>把一只正在坐下的机器人摔下去</strong>。</li>
+</ul>
+<p>这两个测试（<code>main.rs:1412</code> 和 <code>:1438</code>）正是分别钉住这两半的：</p>
+<pre><code>a_hold_does_not_survive_the_pad_going_away
+a_pad_dropout_after_the_shutdown_does_not_revive_the_stop
+</code></pre>
+<p>第二个的注释：<em>&quot;The robot is already sitting down; a <code>Relax</code> here would cut torque mid-motion,
+<strong>which is the pairing the two actions are written to keep apart</strong>.&quot;</em></p>
+<h3 id="75-关机之后那一下松开也是静默的"><a class="header" href="#75-关机之后那一下松开也是静默的">7.5 关机之后那一下松开也是静默的</a></h3>
+<p><code>main.rs:236-243</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let was_shutdown = self.shutdown_sent;
+self.held_since = None;
+self.shutdown_sent = false;
+if released &amp;&amp; !was_shutdown {
+    return SelectAction::Relax;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>关机的那个 hold 一结束，<code>shutdown_sent</code> 就复位</strong> —— 所以下一次短按又变回普通的急停。</p>
+<hr />
+<h2 id="8--continuous按住不动就不发"><a class="header" href="#8--continuous按住不动就不发">8. ⭐ <code>Continuous</code>：按住不动就不发</a></h2>
+<h3 id="81-问题"><a class="header" href="#81-问题">8.1 问题</a></h3>
+<p>摇杆是<strong>轮询</strong>的。所以一个没人碰的手柄，每秒五十次重复发送<strong>同样的三个零</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:982-985
+/// The sticks are *polled*, so an untouched pad re-sent the same three zeros fifty times a
+/// second — a `serde_json` encode, a `write_all`, a `flush`, and a `serde_json` parse on
+/// `robotd`'s side, **a hundred messages a second in the modes that send two, to say nothing
+/// changed. Ten a second says it as well.**
+<span class="boring">}</span></code></pre></pre>
+<h3 id="82-解法字节相同就按住不发但有个心跳"><a class="header" href="#82-解法字节相同就按住不发但有个心跳">8.2 解法：字节相同就按住不发，但有个心跳</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:995
+const HEARTBEAT: Duration = Duration::from_millis(100);
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1026-1028
+if self.line == self.last &amp;&amp; self.may_hold(calls, now) {
+    return Ok(());
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;字节完全相同 + 允许按住&quot;才不发。</strong></p>
+<h3 id="83--那个允许的条件是这个设计的全部"><a class="header" href="#83--那个允许的条件是这个设计的全部">8.3 ⭐ 那个&quot;允许&quot;的条件，是这个设计的全部</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1040-1052
+/// Whether an unchanged frame may be left unsent this tick.
+///
+/// **Only while it asks for no velocity.** The deadman zeroes the twist and nothing else, so on a
+/// frame that already commands zero, letting it fire changes nothing about what the robot does —
+/// and **on a frame that commands motion it would stop a robot whose stick is still held.** That
+/// is the whole of the argument, and **it holds whatever `deadman_ms` is set to.**
+fn may_hold(&amp;self, calls: &amp;[proto::Call], now: Instant) -&gt; bool {
+    let asks_for_motion = calls.iter().any(|call| match call {
+        proto::Call::RobotMove(p) =&gt; p.vx != 0.0 || p.vy != 0.0 || p.vyaw != 0.0,
+        _ =&gt; false,
+    });
+    !asks_for_motion &amp;&amp; self.at.is_some_and(|at| now.duration_since(at) &lt; HEARTBEAT)
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>只有当这一帧要的速度是零，才允许不发。</strong></p>
+<p>因为死手开关<strong>只把速度归零</strong>：</p>
+<ul>
+<li>一帧本来就要零 —— 让死手触发<strong>什么都不改变</strong>；</li>
+<li>一帧要的是运动 —— 让死手触发会<strong>停住一台摇杆还扳着的机器人</strong>。</li>
+</ul>
+<p><strong>&quot;这个论证不依赖于 <code>deadman_ms</code> 被设成多少。&quot;</strong></p>
+<h3 id="84-那它为什么不干脆整个省掉"><a class="header" href="#84-那它为什么不干脆整个省掉">8.4 那它为什么不干脆整个省掉</a></h3>
+<p><code>main.rs:986-994</code>：</p>
+<blockquote>
+<p><strong>Nothing about the robot's safety rests on this number</strong>, which is why it can be <strong>picked for
+legibility</strong> rather than argued against <code>[safety] deadman_ms</code> — <strong>a value this daemon cannot read
+and does not know</strong>. … What the heartbeat buys is <strong>the report</strong>: without it <code>robotd</code>'s twist would
+age past the deadman while a pad sat connected and idle, and <code>robot.state</code> would carry
+<code>limited_by: [&quot;deadman&quot;]</code> for <strong>a robot that is stationary because it was asked to be</strong>.</p>
+</blockquote>
+<p><strong>&quot;心跳买到的是那份报告。&quot;</strong> 没有它，一本正经停在原地的机器人会被标成&quot;死手触发了&quot;。</p>
+<blockquote>
+<p>💡 那个 <code>std::mem::swap</code> 的细节（<code>main.rs:1033-1035</code>）也值得看一眼：
+发完把 <code>last</code> 和 <code>line</code> <strong>对调</strong>，而不是克隆 —— 被换出来的那个缓冲区就是下一 tick 的草稿纸。
+<strong>稳态下零分配。</strong></p>
+</blockquote>
+<hr />
+<h2 id="9-三种模式"><a class="header" href="#9-三种模式">9. 三种模式</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:279-286
+/// What the sticks drive. **Head and body-pose are modal because two sticks cannot express
+/// nine degrees of freedom**; the toggles are the prototype's Y and B buttons.
+enum Mode { Drive, Head, BodyPose }
+<span class="boring">}</span></code></pre></pre>
+<div class="table-wrapper"><table><thead><tr><th>模式</th><th>摇杆驱动什么</th><th>怎么进</th></tr></thead><tbody>
+<tr><td><strong><code>Drive</code></strong></td><td>走路（<code>robot.move</code>）</td><td>默认</td></tr>
+<tr><td><strong><code>Head</code></strong></td><td>头部四个关节（<code>robot.head</code>）</td><td>Y</td></tr>
+<tr><td><strong><code>BodyPose</code></strong></td><td>站姿的高度和倾角（<code>robot.pose</code>）</td><td>B</td></tr>
+</tbody></table>
+</div>
+<h3 id="91--为什么头身模式要同时把速度归零"><a class="header" href="#91--为什么头身模式要同时把速度归零">9.1 ⭐ 为什么头/身模式要<strong>同时</strong>把速度归零</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:912-921
+// The body must not keep its last velocity while the sticks are posing the
+// head. The deadman would catch it eventually; **a robot that keeps walking
+// because you started moving its head is a bad enough surprise to be explicit about.**
+//
+// In the same frame as the head rather than a notification of its own: the two
+// describe one instant, and sending them separately was two `write_all` and two
+// `flush` syscalls a tick to say so.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一只因为你开始摆它的头而继续往前走的机器人，是一个足够糟糕的意外。&quot;</strong></p>
+<p>而且这两件事<strong>必须在同一帧</strong>里 —— 分开发是两个 <code>write_all</code> 加两个 <code>flush</code>，
+就为了说一件同一瞬间的事。</p>
+<h3 id="92-走路的符号"><a class="header" href="#92-走路的符号">9.2 走路的符号</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:900-911
+Mode::Drive =&gt; frame.push(proto::Call::RobotMove(proto::MoveParams {
+    vx: left_y * if left_y &gt;= 0.0 { args.max_linear } else { args.max_linear_backward },
+    // `vy` is positive to the left; stick-left reads negative on every pad gilrs normalises.
+    vy: -left_x * args.max_linear,
+    vyaw: -right_x * args.max_angular,
+})),
+<span class="boring">}</span></code></pre></pre>
+<p>三件事：<strong>前进和后退的上限是分开的</strong>；<strong>左摇杆往左读出来是负数，所以要取负</strong>；
+<strong>右摇杆往右转是负的 yaw</strong>。三处都有一个负号，全都不是笔误。</p>
+<h3 id="93-头部模式符号是实测出来的"><a class="header" href="#93-头部模式符号是实测出来的">9.3 头部模式：符号是实测出来的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:922-930
+// The prototype's alpha mapping, signs included (its head_pitch/head_yaw
+// joint axes are inverted relative to stick direction — verified on
+// hardware there, kept verbatim here).
+frame.push(proto::Call::RobotHead(proto::HeadParams {
+    neck_pitch: right_y * args.max_head,
+    head_pitch: -left_y * args.max_head,
+    head_yaw: -left_x * args.max_head,
+    head_roll: right_x * args.max_head,
+}));
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;在硬件上验过，原样保留。&quot;</strong></p>
+<h3 id="94-轮模式另一套手感"><a class="header" href="#94-轮模式另一套手感">9.4 轮模式：另一套手感</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:272-277
+/// The prototype's roller-mode stick shaping: **push and brake are asymmetric, there is no
+/// strafe**, and heading is capped at 0.3 rad/s regardless of the walking limits — the roller
+/// launch line's `--max-angular-vel 0.3`, **unchanged across both of its eras.**
+const ROLLER_PUSH: f64 = 0.6;
+const ROLLER_BRAKE: f64 = 0.5;
+const ROLLER_YAW: f64 = 0.3;
+<span class="boring">}</span></code></pre></pre>
+<p>推得比刹得快（0.6 vs 0.5），没有横移，转向上限写死 0.3 rad/s。</p>
+<h3 id="95--模式切换是点名不是取反"><a class="header" href="#95--模式切换是点名不是取反">9.5 ⭐ 模式切换是&quot;点名&quot;，不是&quot;取反&quot;</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:784-787
+// Sent once per hold, and the target is named rather than toggled — so a request that crosses a
+// switch from somewhere else asks for a mode rather than for &quot;the other one&quot;, **which could be
+// either by the time it lands.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个跨过别人切换的请求，要的是'某个模式'而不是'另一个' ——
+而'另一个'在它落地的时候可能是任何一种。&quot;</strong></p>
+<p>而且本地的摇杆手感<strong>跟着机器人走，只在机器人同意之后</strong>（<code>:802-808</code>）：</p>
+<blockquote>
+<p>The stick shaping follows the robot, and only when it agreed: <strong>a refused switch that changed the
+mapping here would leave the pad driving a walking duck with roller curves.</strong></p>
+</blockquote>
+<p><strong>&quot;一次被拒绝的切换如果改了这边的映射，就留下一只用手柄轮式曲线在开走路鸭子的手。&quot;</strong></p>
+<hr />
+<h2 id="10-配置是活的"><a class="header" href="#10-配置是活的">10. 配置是活的</a></h2>
+<h3 id="101-pad-每秒重读一次"><a class="header" href="#101-pad-每秒重读一次">10.1 <code>[pad]</code> 每秒重读一次</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:484-486
+// Once a second, not every tick: a `stat` at 50 Hz to catch a file somebody edits by
+// hand a few times a week is work for nothing, and a second is faster than typing the
+// next command.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一秒比敲下一条命令还短。&quot;</strong></p>
+<h3 id="102--读不懂的配置不能把手柄拿走"><a class="header" href="#102--读不懂的配置不能把手柄拿走">10.2 ⭐ 读不懂的配置<strong>不能</strong>把手柄拿走</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:291-296
+/// A file that will not parse is **never a reason to leave somebody without a pad**: the defaults
+/// are a working robot, and the reason is logged. **That matters more here than elsewhere because
+/// this is re-read while running** — a half-saved file caught mid-write must not take the buttons
+/// away, and the next read a second later gets the finished one.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个写到一半被读到的文件，不能把按钮拿走；一秒后的下一次读会拿到写完的那个。&quot;</strong></p>
+<p>这和 <a href="configd-primer.html"><code>configd-primer.md</code></a> 里 <code>mediad</code> 那条&quot;读不懂的文件不是没有视频的理由&quot;
+是同一个思路。</p>
+<h3 id="103-为什么重读是安全的"><a class="header" href="#103-为什么重读是安全的">10.3 为什么重读是安全的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:453-455
+// `padd` holds no motor control and no session state — **the whole of it is this table** — so
+// re-reading is a swap between two ticks rather than anything to sequence.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;它整个进程就是那张表。&quot;</strong> 所以重读只是两个 tick 之间的一次交换，没有什么需要排序。</p>
+<hr />
+<h2 id="11-手柄的-imu-控头"><a class="header" href="#11-手柄的-imu-控头">11. 手柄的 IMU 控头</a></h2>
+<p><code>[pad_imu_head_control] enabled = true</code> 且手柄有 IMU 时，<strong>Y 键的意思变了</strong>。</p>
+<h3 id="111-三态"><a class="header" href="#111-三态">11.1 三态</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:329-339
+/// Where the pad's IMU stands in relation to the head.
+enum PadImuHead {
+    /// Y means what it always did.
+    Off,
+    /// The head follows the pad's attitude relative to `reference`. The sticks keep driving.
+    Following { reference: [f32; 4] },
+    /// The head stays where the last pose left it; nothing is sent for it. The sticks drive.
+    Holding,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>按 Y 循环：<code>Off</code> → <code>Following</code> → <code>Holding</code> → <code>Following</code> → …</strong></p>
+<p>每次从 <code>Off</code>/<code>Holding</code> 进入 <code>Following</code>，<strong>都用当前姿态当新的基准</strong>（<code>main.rs:345-350</code>）：</p>
+<blockquote>
+<p>Off or holding → follow <strong>from here</strong>, which is what <strong>beats the gyro's yaw drift</strong>: every
+re-entry makes the pad's current attitude the new centre.</p>
+</blockquote>
+<p><strong>&quot;每一次重新进入，都把'手柄现在的位置'设成新的中心。&quot;</strong>
+这就是 <a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a> §9 那个 <code>relative()</code> 在真实交互里的样子。</p>
+<h3 id="112--两个摇头的来源不能同时开着"><a class="header" href="#112--两个摇头的来源不能同时开着">11.2 ⚠️ 两个&quot;摇头&quot;的来源不能同时开着</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:609-613
+// Y is the IMU's. The sticks never pose the head while this is possible: two
+// sources for one joint set is a head that shakes.
+if mode == Mode::Head {
+    mode = Mode::Drive;
+}
+imu_head = imu_head.on_y(attitude);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个关节组有两个来源 = 一个会抖的头。&quot;</strong></p>
+<h3 id="113-姿态还没来的时候要说出来"><a class="header" href="#113-姿态还没来的时候要说出来">11.3 姿态还没来的时候要<strong>说出来</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:626-632
+if imu_head_cfg.enabled &amp;&amp; tap.as_ref().is_some_and(|tap| tap.has_imu()) {
+    // The IMU is there and has not spoken yet — a second after connecting,
+    // typically. Saying so beats silently doing the other thing.
+    tracing::warn!(&quot;the pad's IMU has no attitude yet; Y is stick head mode this once&quot;);
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;IMU 在那里但还没开口 —— 通常是连上之后的一秒内。说出来，好过默默地做另一件事。&quot;</strong></p>
+<p>而 <code>has_imu()</code> 回答的是&quot;<strong>这个手柄有没有</strong>&quot;，不是&quot;<strong>它开没开</strong>&quot;（<code>tap.rs:255-259</code>）：</p>
+<blockquote>
+<p>True <strong>as soon as the node is known, before it is open</strong> — the question &quot;can Y mean IMU head
+control on this pad&quot; needs answering on the press.</p>
+</blockquote>
+<p><strong>&quot;Y 键按下去的那一刻就要有答案。&quot;</strong> 所以它从 <code>wanted_imu</code> 读，而不是从打开的设备读。</p>
+<h3 id="114-gain-和限位"><a class="header" href="#114-gain-和限位">11.4 <code>gain</code> 和限位</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:363-372
+let angle = |degrees: f32| (f64::from(degrees).to_radians() * gain).clamp(-max_head, max_head);
+proto::HeadParams {
+    neck_pitch: 0.0,                 // 一个 pitch 关节足够跟住一只手腕
+    head_pitch: angle(pitch),
+    head_yaw: angle(yaw),
+    head_roll: -angle(roll),
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>脖子恒为 0</strong>，而且这里有两层钳制：<code>gain</code> 缩放之后还要 <code>.clamp(-max_head, max_head)</code> ——
+<strong>头自己的行程上限仍然适用</strong>。</p>
+<hr />
+<h2 id="12--那个-raw-tap为什么它长出了一个-socket"><a class="header" href="#12--那个-raw-tap为什么它长出了一个-socket">12. ⭐ 那个 raw tap：为什么它长出了一个 socket</a></h2>
+<p><code>padd</code> 提供<strong>唯一一个由它自己回答的调用</strong>：<code>pad.input</code>。</p>
+<h3 id="121-那个别处答不了的问题"><a class="header" href="#121-那个别处答不了的问题">12.1 那个&quot;别处答不了的问题&quot;</a></h3>
+<p><code>tap.rs:5-14</code>（模块文档）：</p>
+<blockquote>
+<p>One question about a gamepad <strong>cannot be answered from anywhere else in this system</strong>. <code>padd</code>
+polls the last known stick value and sends it at a steady 50 Hz, so <strong>a radio that has stopped
+delivering reports still produces perfectly fresh intents</strong>: <code>robotd</code> sees a live driver, <strong>the
+deadman never fires</strong>, and the robot keeps walking on a command nobody is still giving. <strong>Every
+surface downstream — <code>robot.state</code>, the monitor's <code>requested</code> column, the journal — shows a
+healthy robot, because from their side it is one.</strong></p>
+<p>The evidence lives <strong>one layer below <code>padd</code></strong>: the event stream itself, where a report that never
+arrived <strong>leaves a hole in the cadence</strong>.</p>
+</blockquote>
+<p><strong>这就是那个问题：</strong> 你自己在轮询，所以&quot;上一次的值&quot;永远新鲜 ——
+从 <code>robotd</code> 那一侧看，驱动一直活着，死手永远不触发，<strong>机器人拿着一个没人在给的指令一直走。</strong></p>
+<p><strong>证据在 <code>padd</code> 的下一层</strong>：事件流本身。一个没到达的报文会在节奏里留下一个洞。</p>
+<p>所以这个 tap <strong>原样转出事件流，不做任何总结</strong>，让查的人自己算。</p>
+<h3 id="122-为什么不直接转发-gilrs-给的东西"><a class="header" href="#122-为什么不直接转发-gilrs-给的东西">12.2 为什么不直接转发 gilrs 给的东西</a></h3>
+<p><code>tap.rs:18-22</code>：</p>
+<blockquote>
+<p><strong><code>Gilrs::next_event</code> is not the raw stream and cannot be made into one.</strong> It applies three
+filters by default — <code>axis_dpad_to_button</code>, <code>Jitter</code>, <code>deadzone</code> — which <strong>rewrite values, drop
+small movements, and swallow whole events</strong>; <code>gilrs-core</code> turns <code>SYN_DROPPED</code> into an internal
+resync flag that <strong>never reaches a consumer</strong>; and neither <code>SYN_REPORT</code> nor <code>MSC_SCAN</code> survives
+the trip. <strong>Every one of those is a thing someone chasing an unreliable link needs to see.</strong></p>
+</blockquote>
+<p><strong>&quot;这些每一条都是追查一条不可靠链路的人需要看到的东西。&quot;</strong></p>
+<h3 id="123-读两遍不花钱"><a class="header" href="#123-读两遍不花钱">12.3 读两遍不花钱</a></h3>
+<p><code>tap.rs:24-29</code>：</p>
+<blockquote>
+<p>Opening the node twice <strong>costs nothing and takes nothing away</strong>: an evdev reader gets its own
+queue, so this cannot starve gilrs of an event, and <code>scripts/pad-link-test.sh</code> has been reading
+the same node alongside <code>padd</code> since before this existed. The node comes from <strong>gilrs itself</strong>
+([<code>gilrs::LinuxGamepadExt::devpath</code>]), which is the only way to be sure this is watching the pad
+that is actually driving — <strong>one Xbox controller registers several input devices, and the first
+one in <code>/proc/bus/input/devices</code> is a media-key keyboard that never sends anything.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 Xbox 手柄会注册好几个输入设备，而第一个是永远不会发任何东西的多媒体键盘。&quot;</strong></p>
+<h3 id="124--没人看的时候就关掉"><a class="header" href="#124--没人看的时候就关掉">12.4 ⭐ 没人看的时候就关掉</a></h3>
+<p><code>tap.rs:33-35</code>：</p>
+<blockquote>
+<p><strong>Nothing.</strong> The device is not opened until a subscriber connects, and it is <strong>closed again after
+the first report following the last one leaving</strong> — the same bargain <code>robotd</code> strikes by only
+assembling a <code>robot.state</code> frame when someone is subscribed. <strong>A pad at rest is silent, so a
+parked reader is not a wakeup either.</strong></p>
+</blockquote>
+<p>规则在 <code>done_with</code>（<code>tap.rs:373-385</code>）里，<strong>每个报文之后问一次</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if state.subscribers.is_empty() {
+    return Some(&quot;nobody is watching any more&quot;);
+}
+if state.wanted.as_deref() != Some(node) {
+    return Some(&quot;the pad changed&quot;);
+}
+None
+<span class="boring">}</span></code></pre></pre>
+<p>而这个规则的完整说法在测试的注释里（<code>tap.rs:1072-1073</code>）：</p>
+<blockquote>
+<p><strong>The reader opens nothing until there is both a pad and somebody watching, and lets go as soon as
+either goes away.</strong> On a robot nobody is usually watching, and <strong>a per-report wakeup for an
+audience of none is the cost <code>robotd</code> refuses to pay for <code>robot.state</code> either.</strong></p>
+</blockquote>
+<p><strong>&quot;为一个没有观众的场合做每次报文一次的唤醒，正是 <code>robotd</code> 为 <code>robot.state</code> 拒绝付的那笔钱。&quot;</strong></p>
+<p><strong>注意它返回的是一个&quot;理由字符串&quot;</strong>，注释解释了为什么（<code>tap.rs:376-377</code>）：</p>
+<blockquote>
+<p>Said as a reason rather than dropped silently: <strong>a client that reconnects wants to know why the
+previous stream ended</strong>, and &quot;nobody was watching&quot; is not a fault.</p>
+</blockquote>
+<p>IMU 那条路多一个条件（<code>tap.rs:404-411</code>）：<strong>没有订阅者但 <code>control</code> 开着也继续读</strong> ——
+那就是 <code>padd</code> 自己说&quot;给我留着&quot;（<code>Tap::imu_control</code>）。</p>
+<h3 id="125-慢订阅者会被丢下但不会被断开"><a class="header" href="#125-慢订阅者会被丢下但不会被断开">12.5 慢订阅者会被丢下，但不会被断开</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// padd/src/tap.rs:512-515
+/// Hand one report to every subscriber, **dropping it for any that has fallen behind.**
+///
+/// **Never blocks.** The reader thread is the only thing that can measure the pad's cadence, and
+/// **a subscriber that stalled it would corrupt the measurement it asked for** — every frame after
+/// the stall would carry a gap the radio had nothing to do with.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个把读线程卡住的订阅者，会毁掉它自己要的那个测量。&quot;</strong></p>
+<p>丢掉的报文<strong>不是消失</strong>：计数器累加，然后<strong>打在订阅者收到的下一个报文上</strong>（<code>tap.rs:616-618</code>）：</p>
+<blockquote>
+<p>Whatever this subscriber missed goes on the next frame it does get, <strong>where it belongs: beside
+the gap it explains.</strong> Left on the counter until then, so it cannot be lost to an <code>Attached</code> or a
+<code>Detached</code> that carries nowhere to put it.</p>
+</blockquote>
+<p><strong>&quot;紧挨着它解释的那个洞。&quot;</strong> 而且计数器会<strong>留到那时候</strong> —— 否则会被一个没地方放它的
+<code>Attached</code>/<code>Detached</code> 吃掉。</p>
+<h3 id="126-socket-协议"><a class="header" href="#126-socket-协议">12.6 socket 协议</a></h3>
+<pre><code>客户端 ──{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;pad.input&quot;}──►
+        ◄──{&quot;result&quot;:{&quot;accepted&quot;:true}}           ← 先回，再订阅
+        ◄──{&quot;method&quot;:&quot;pad.report&quot;,&quot;params&quot;:{...}} ← 之后是通知流
+</code></pre>
+<p>两个细节：</p>
+<p><strong>① 先回答，再订阅</strong>（<code>tap.rs:601</code>）：</p>
+<blockquote>
+<p>Answered before subscribing, so <strong>the reply cannot arrive after a notification it precedes.</strong></p>
+</blockquote>
+<p><strong>② 敲错门会被告知敲的是哪扇</strong>（<code>tap.rs:580-589</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>format!(&quot;padd's socket serves {} only, not {}&quot;, proto::method::PAD_INPUT, other.method())
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>A client that meant to reach <code>robotd</code> or <code>configd</code> gets told which door it is knocking on rather
+than <strong>a silent hang</strong>.</p>
+</blockquote>
+<h3 id="127-权限"><a class="header" href="#127-权限">12.7 权限</a></h3>
+<p><code>/run/padd/pad.sock</code>，模式 <code>0660</code>，模式 <code>0660</code> + 交给 <code>robot</code> 组 ——
+和 <code>mediad</code> 的 <code>media.frame</code> 完全一样的做法（<code>getgrnam</code> + <code>chown</code>）。</p>
+<p><code>padd.service:98-101</code> 解释了为什么<strong>在代码里做而不是用 <code>Group=robot</code></strong>：</p>
+<blockquote>
+<p>That is done in code rather than with <code>Group=robot</code> here, the way <code>robotd</code> does it: <strong>this process
+keeps its own primary group, and reaches the robot group as a supplementary one.</strong></p>
+</blockquote>
+<p><code>tap.rs:938-943</code> 把机制说全了：</p>
+<blockquote>
+<p><code>robotd</code> gets the same effect from <code>Group=robot</code> in its unit, because <strong>a socket inherits its
+creator's primary group</strong>. <code>padd</code> cannot copy that: its primary group is its own, and it reaches
+the robot group as a supplementary one — <strong>which is enough for this, since POSIX lets the owner of
+a file give it to any group the owner belongs to.</strong></p>
+</blockquote>
+<p><strong>&quot;socket 继承创建者的主组&quot;</strong> —— 所以 <code>robotd</code> 能用 <code>Group=robot</code>，而 <code>padd</code> 不能。</p>
+<h3 id="128-四条线程两把锁"><a class="header" href="#128-四条线程两把锁">12.8 四条线程，两把锁</a></h3>
+<p><code>Tap::serve</code>（<code>tap.rs:200-215</code>）起三条常驻线程，每个订阅者再加一条：</p>
+<div class="table-wrapper"><table><thead><tr><th>线程名</th><th>拥有什么</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>pad-tap-accept</code></td><td><code>UnixListener</code></td><td>死循环接受连接，每个连接起一条 <code>pad-tap-client</code></td></tr>
+<tr><td><code>pad-tap-read</code></td><td>手柄的 <code>RawDevice</code></td><td>读事件，攒成 <code>PadFrame</code></td></tr>
+<tr><td><code>pad-tap-imu</code></td><td>IMU 的 <code>RawDevice</code></td><td><strong>单独一条线程，因为 <code>fetch_events()</code> 会阻塞</strong></td></tr>
+<tr><td><code>pad-tap-client</code></td><td>一条 socket</td><td>读一行请求，然后一直往外写</td></tr>
+</tbody></table>
+</div>
+<p>通信靠两把锁加每订阅者一条有界通道：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// tap.rs:117-126
+struct Shared {
+    state: Mutex&lt;State&gt;,
+    /// Signalled whenever the reader might have work: a pad appeared, or someone subscribed.
+    wake: Condvar,
+    /// The IMU's attitude, kept by the IMU reader for the main loop. `None` while no IMU is
+    /// open. **Its own lock, not `state`'s: the main loop reads it fifty times a second and must
+    /// not queue behind a subscriber's send.**
+    attitude: Mutex&lt;Option&lt;pad_imu::Imu&gt;&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>⚠️ <strong>姿态为什么要有自己的一把锁</strong> —— 这条值得单独记：</p>
+<p><code>state</code> 那把锁在<strong>向所有订阅者分发</strong>的时候是held住的（<code>State::send</code> 拿着它在 <code>try_send</code>）。
+而主循环<strong>每 50 ms 要看一次姿态</strong>。如果姿态住在 <code>State</code> 里，
+<strong>控头的延迟就会继承&quot;最慢的那个订阅者写出去的耗时&quot;</strong>。</p>
+<p><strong>一把锁保护两件事的时候，快的那件事要为慢的那件事买单。</strong></p>
+<p>跨通道传的全是 <code>Arc&lt;proto::PadReport&gt;</code> —— 所以<strong>一个报文只序列化一次，N 个订阅者共享</strong>。</p>
+<h3 id="129-关掉之后为什么要睡-250-ms"><a class="header" href="#129-关掉之后为什么要睡-250-ms">12.9 关掉之后为什么要睡 250 ms</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// tap.rs:110
+const REOPEN_AFTER: std::time::Duration = std::time::Duration::from_millis(250);
+<span class="boring">}</span></code></pre></pre>
+<p>理由（<code>tap.rs:99-106</code>）：</p>
+<blockquote>
+<p><strong>It bounds a spin.</strong> Two of the ways a stream ends <strong>leave the state that started it unchanged</strong>
+— the node cannot be opened at all (no <code>input</code> group, so every attempt fails identically), and a
+device that is already gone when it is opened — and <strong>without this the reader would reopen, fail,
+and reopen again as fast as the kernel could refuse it.</strong></p>
+</blockquote>
+<p><strong>&quot;有两条结束路径不会改变那个让它开始的状态。&quot;</strong> 不睡就是拿满一个核去撞内核。</p>
+<h3 id="1210-syn_dropped那个故意不自动恢复的读法"><a class="header" href="#1210-syn_dropped那个故意不自动恢复的读法">12.10 <code>SYN_DROPPED</code>：那个故意<strong>不</strong>自动恢复的读法</a></h3>
+<p>这就是 <code>Cargo.toml:41-42</code> 说的那件事：</p>
+<blockquote>
+<p>The raw event stream, unfiltered: <strong><code>raw_stream::RawDevice</code> is the one that does <em>not</em> resync on
+<code>SYN_DROPPED</code>, which is the event a link investigation most needs to see.</strong></p>
+</blockquote>
+<p>普通的 evdev reader 会在 <code>SYN_DROPPED</code> 之后<strong>自动把所有设备状态重查一遍</strong>，
+让上层看起来什么也没发生。<strong>那样的读者看不到这个事件本身。</strong></p>
+<p>而内核的契约是（<code>tap.rs:680-681</code>）：</p>
+<blockquote>
+<p>The kernel's contract after <code>SYN_DROPPED</code>: <strong>everything up to the next <code>SYN_REPORT</code> is a
+half-report and must be thrown away</strong>, because the events that completed it are already gone.</p>
+</blockquote>
+<p>所以 tap 自己处理它（<code>tap.rs:699-706</code>）：丢掉半截报文，标记 <code>resyncing</code>，
+并且<strong>把 <code>after_drop</code> 置上</strong> —— 理由（<code>tap.rs:700-701</code>）：</p>
+<blockquote>
+<p><strong>Not the radio.</strong> This reader fell behind and the kernel emptied its queue, <strong>which makes the gap
+around it unmeasurable</strong> — so the next complete report says so.</p>
+</blockquote>
+<p><strong>&quot;不是电台的问题。&quot;</strong> 这个标记存在的意义就是：<strong>别把自己造成的洞算到链路上。</strong></p>
+<h3 id="1211-那个队列是两秒但只按摇杆报文算"><a class="header" href="#1211-那个队列是两秒但只按摇杆报文算">12.11 那个队列是&quot;两秒&quot;，但只按摇杆报文算</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// tap.rs:84-87
+/// **Two seconds of a busy pad.** Generous, because the cost of a queue is memory and **the cost of
+/// a drop is a hole in the very measurement this exists to make** — but bounded, because the
+/// alternative is a slow client turning into unbounded memory on a robot. **A drop is counted and
+/// reported rather than hidden.**
+<span class="boring">}</span></code></pre></pre>
+<p><code>QUEUE = 256</code>（<code>tap.rs:88</code>）。但要注意：<strong>摇杆报文和 IMU 批次共用这一条通道</strong>，
+而 IMU 每秒约 200 批、摇杆每秒约 50 帧 —— 所以 IMU 的洪水可以挤掉摇杆的帧，反之亦然。</p>
+<p>这正是两个计数器分开的原因（<code>tap.rs:152-154</code>）：</p>
+<blockquote>
+<p>counted apart: <strong>a lost sample says nothing about the stick reports</strong>, and stamping it onto a
+<code>PadFrame</code> would say it did.</p>
+</blockquote>
+<p><strong>&quot;丢了一个 IMU 采样，对'摇杆报文有没有丢'什么都没说。&quot;</strong></p>
+<hr />
+<h2 id="13-测试23-个"><a class="header" href="#13-测试23-个">13. 测试：23 个</a></h2>
+<pre><code class="language-bash">cargo test -p padd
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>数量</th><th>都在测什么</th></tr></thead><tbody>
+<tr><td><code>main.rs</code></td><td>12</td><td><code>Continuous</code>、<code>SelectButton</code>、<code>head_from_pad</code>、参数校验</td></tr>
+<tr><td><code>tap.rs</code></td><td>11</td><td>订阅者生命周期、IMU 兄弟节点、线格式</td></tr>
+</tbody></table>
+</div>
+<p>而且<strong>两个都是纯单元测试</strong> —— 用一个 <code>UnixStream::pair()</code> 当假 <code>robotd</code>（<code>main.rs:1108</code>），
+<strong>非阻塞</strong>，因为大多数断言是&quot;<strong>什么也没发</strong>&quot;：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1104-1107
+/// A socket pair standing in for `robotd`, and what came out of it.
+///
+/// **Non-blocking on the reading end so a test can assert that *nothing* was sent**, which
+/// is the assertion most of these are making.
+<span class="boring">}</span></code></pre></pre>
+<h3 id="131-mainrs-的-12-个"><a class="header" href="#131-mainrs-的-12-个">13.1 <code>main.rs</code> 的 12 个</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>行</th><th>验什么</th></tr></thead><tbody>
+<tr><td><code>an_unchanged_stationary_frame_is_not_resent</code></td><td><code>:1141</code></td><td>静止的重复帧不发</td></tr>
+<tr><td><code>a_frame_that_asks_for_motion_is_always_sent</code></td><td><code>:1162</code></td><td><strong>要动的一定发</strong></td></tr>
+<tr><td><code>a_stationary_frame_goes_out_again_on_the_heartbeat</code></td><td><code>:1183</code></td><td>心跳到了还是要发</td></tr>
+<tr><td><code>a_changed_frame_is_sent_at_once</code></td><td><code>:1208</code></td><td>变了立刻发</td></tr>
+<tr><td><code>a_two_call_frame_is_one_write_and_two_lines</code></td><td><code>:1228</code></td><td>一帧一写、两行</td></tr>
+<tr><td><code>an_untouched_pad_in_head_mode_holds_both_intents</code></td><td><code>:1256</code></td><td>头模式两件事一起被按住</td></tr>
+<tr><td><code>a_rate_this_loop_cannot_run_at_is_refused_rather_than_divided_by</code></td><td><code>:1282</code></td><td><code>--hz 0</code> 被拒绝而不是除以零</td></tr>
+<tr><td><code>y_cycles_follow_hold_follow_and_re_centres_each_time</code></td><td><code>:1301</code></td><td>Y 的三态循环 + 每次重新取基准</td></tr>
+<tr><td><code>the_head_follows_the_pad_with_the_sticks_signs_gain_and_limit</code></td><td><code>:1337</code></td><td>IMU 控头的符号/gain/限位</td></tr>
+<tr><td><code>select_stops_on_a_short_release_and_shuts_down_on_a_long_hold</code></td><td><code>:1382</code></td><td>Select 的两义</td></tr>
+<tr><td><code>a_hold_does_not_survive_the_pad_going_away</code></td><td><code>:1412</code></td><td>断线清 <code>held_since</code></td></tr>
+<tr><td><code>a_pad_dropout_after_the_shutdown_does_not_revive_the_stop</code></td><td><code>:1438</code></td><td>断线<strong>不清</strong> <code>shutdown_sent</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="132-taprs-的-11-个"><a class="header" href="#132-taprs-的-11-个">13.2 <code>tap.rs</code> 的 11 个</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>行</th></tr></thead><tbody>
+<tr><td><code>a_subscriber_arriving_mid_stream_is_told_the_device</code></td><td><code>:1019</code></td></tr>
+<tr><td><code>a_slow_subscriber_is_dropped_from_rather_than_blocking_the_reader</code></td><td><code>:1032</code></td></tr>
+<tr><td><code>a_departed_subscriber_is_forgotten</code></td><td><code>:1061</code></td></tr>
+<tr><td><code>the_device_is_only_held_while_a_pad_and_a_watcher_both_exist</code></td><td><code>:1075</code></td></tr>
+<tr><td><code>every_code_gets_a_name_or_a_number</code></td><td><code>:1106</code></td></tr>
+<tr><td><code>dropped_samples_are_not_dropped_frames</code></td><td><code>:1135</code></td></tr>
+<tr><td><code>head_control_holds_the_imu_open_and_reads_the_filter</code></td><td><code>:1151</code></td></tr>
+<tr><td><code>a_subscriber_arriving_mid_stream_is_told_the_imu_too</code></td><td><code>:1196</code></td></tr>
+<tr><td><code>the_imu_is_the_accelerometer_sibling_under_the_same_hid_device</code></td><td><code>:1224</code></td></tr>
+<tr><td><code>an_unreadable_sibling_does_not_end_the_imu_search</code></td><td><code>:1277</code></td></tr>
+<tr><td><code>a_frame_survives_the_wire</code></td><td><code>:1309</code></td></tr>
+</tbody></table>
+</div>
+<p>两个值得单独看：</p>
+<p><strong><code>every_code_gets_a_name_or_a_number</code>（<code>:1106</code>）：</strong></p>
+<blockquote>
+<p>Names come from the kernel's own tables, and a code with no name there becomes <strong>numbers rather
+than evdev's <code>unknown key: 42</code> prose — which nobody can grep for and which would land in the
+middle of a JSON line.</strong></p>
+</blockquote>
+<p><strong>&quot;没人能 grep 它，而且它会落在一条 JSON 行的中间。&quot;</strong></p>
+<p><strong><code>dropped_samples_are_not_dropped_frames</code>（<code>:1135</code>）</strong> ——
+IMU 采样丢的计数和摇杆报文的计数是<strong>两个独立的计数器</strong>，
+因为&quot;丢了一批 IMU 采样&quot;对&quot;摇杆报文有没有丢&quot;什么都没说。</p>
+<hr />
+<h2 id="14-几处读者会绊到的地方"><a class="header" href="#14-几处读者会绊到的地方">14. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="141-mainrs-是-1463-行其中-350-行是测试"><a class="header" href="#141-mainrs-是-1463-行其中-350-行是测试">14.1 <code>main.rs</code> 是 1463 行，其中 350 行是测试</a></h3>
+<p><code>padd/src/main.rs</code> 的主体在 <code>:970</code> 结束（<code>request</code> 之后），<code>:1108-1463</code> 全是 <code>mod tests</code>。
+所以&quot;主循环&quot;实际读到 <code>:969</code> 就够了。</p>
+<h3 id="142-paddservice-的-documentation-指向一个确实会被安装的文件"><a class="header" href="#142-paddservice-的-documentation-指向一个确实会被安装的文件">14.2 <code>padd.service</code> 的 <code>Documentation=</code> 指向一个<strong>确实会被安装</strong>的文件</a></h3>
+<pre><code class="language-ini"># padd/systemd/padd.service:21
+Documentation=file:///opt/robot/daemon/current/docs/architecture.md
+</code></pre>
+<p><code>architecture.md</code> 在发布时被从 <code>docs/design/</code> <strong>改名</strong>到 <code>docs/</code>（<code>scripts/dev-push.sh:397</code>），
+所以这条路径是对的。<strong>对比 <code>mediad.service:17</code> 指向的 <code>docs/design/remote-webrtc.md</code> 并不在安装清单里</strong> ——
+详见 <a href="mediad-primer.html"><code>mediad-primer.md</code></a>（那是我之前报过的一处）。</p>
+<h3 id="143-heartbeat-那个常数故意不去对齐-deadman_ms"><a class="header" href="#143-heartbeat-那个常数故意不去对齐-deadman_ms">14.3 <code>HEARTBEAT</code> 那个常数<strong>故意</strong>不去对齐 <code>deadman_ms</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:986-994
+/// **Nothing about the robot's safety rests on this number**, which is why it can be picked for
+/// legibility rather than argued against `[safety] deadman_ms` — **a value this daemon cannot read
+/// and does not know.**
+<span class="boring">}</span></code></pre></pre>
+<p><code>100 ms</code> 和 <code>duck-control</code> 默认的 <code>500 ms</code> 之间是<strong>五倍</strong>关系，而这个关系没有被任何代码保证。
+论证（§8.3）说明为什么这没关系 —— 但它值得知道：<strong>这两个数字是可以独立漂移的。</strong></p>
+<h3 id="144-两个按住的时长在注释里被显式排序"><a class="header" href="#144-两个按住的时长在注释里被显式排序">14.4 两个&quot;按住&quot;的时长在注释里被显式排序</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:259-264
+/// Three seconds, **longer than the shutdown hold**, and the prototype's number.
+<span class="boring">}</span></code></pre></pre>
+<p><code>MODE_HOLD = 3 s</code> &gt; <code>SHUTDOWN_HOLD = 2 s</code>，而注释说这是个<strong>有意的顺序</strong>。
+但两个常数之间<strong>没有代码层面的约束</strong> —— 把 <code>SHUTDOWN_HOLD</code> 改成 4 秒不会有任何东西抱怨。</p>
+<h3 id="145-轮模式的转向上限和走路的上限互不相干"><a class="header" href="#145-轮模式的转向上限和走路的上限互不相干">14.5 轮模式的转向上限和走路的上限互不相干</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const ROLLER_YAW: f64 = 0.3;     // main.rs:277 —— 写死
+// ...
+vyaw: -right_x * args.max_angular,   // main.rs:910 —— 走 --max-angular，默认 1.5
+<span class="boring">}</span></code></pre></pre>
+<p><code>--max-angular</code> 的默认是 <strong>1.5 rad/s</strong>，而轮模式把它换成写死的 <strong>0.3</strong> ——
+<strong><code>--max-angular</code> 在轮模式下完全不起作用</strong>，命令行上没有任何提示。</p>
+<h3 id="146-订阅者线程没有上限而且是每个连接一条"><a class="header" href="#146-订阅者线程没有上限而且是每个连接一条">14.6 订阅者线程没有上限，而且是每个连接一条</a></h3>
+<p><code>accept</code>（<code>tap.rs:538-553</code>）每接受一个连接就 <code>spawn</code> 一条 <code>pad-tap-client</code> 线程，
+<strong>不设上限</strong>；<code>Shared::subscribe</code> 那边也没有。因为是本机 unix socket，
+所以这是&quot;同机器上的事&quot;，但一台板子上跑满线程仍然是一个可以到达的状态。</p>
+<h3 id="147-订阅者只读一行之后再也不读"><a class="header" href="#147-订阅者只读一行之后再也不读">14.7 订阅者只读一行，之后再也不读</a></h3>
+<p><code>subscriber</code>（<code>tap.rs:564-568</code>）读完那行 <code>pad.input</code> 之后<strong>再也没读过 socket</strong>。
+没有 keepalive，也没有流水线：<strong>同一个连接上的第二个请求永远不会被看见</strong>。
+一个连上却不发东西的客户端会一直阻塞在 <code>read_line</code> 里，直到它断开。</p>
+<h3 id="148-imu-节点只在每个手柄节点上找一次"><a class="header" href="#148-imu-节点只在每个手柄节点上找一次">14.8 IMU 节点只在&quot;每个手柄节点&quot;上找一次</a></h3>
+<p><code>Tap::watch</code> 在手柄节点没变时<strong>提前返回</strong>（<code>tap.rs:229-231</code>），
+所以那次 sysfs 搜索<strong>每个手柄节点只跑一次</strong>。注释（<code>tap.rs:132-133</code>）解释了为什么：</p>
+<blockquote>
+<p>Resolved once per pad node rather than per tick, <strong>because it is a walk through sysfs</strong>.</p>
+</blockquote>
+<p>代价是没写的：<strong>一个在手柄节点之后才注册出来的 IMU 节点，要等手柄重新连一次才会被找到。</strong></p>
+<h3 id="149-一处措辞不够精确"><a class="header" href="#149-一处措辞不够精确">14.9 一处措辞不够精确</a></h3>
+<p>模块文档说设备在 <em>&quot;the first report following the last one leaving&quot;</em>（<code>tap.rs:33-34</code>）之后关掉，
+而检查实际发生在<strong>每个读批次之后</strong>（<code>tap.rs:740-744</code>）。一个批次里带好几个报文的话，
+是在<strong>第一个批次</strong>之后关的，严格说不是&quot;第一个报文&quot;。</p>
+<hr />
+<h2 id="15-阅读路线"><a class="header" href="#15-阅读路线">15. 阅读路线</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>1</td><td><code>padd/src/main.rs:1-81</code></td><td>模块文档 = 整个设计 + <strong>那张按键表</strong></td></tr>
+<tr><td>2</td><td><code>padd/Cargo.toml</code>（1-18 行）</td><td>gilrs 那个 C 依赖值不值的账</td></tr>
+<tr><td>3</td><td><code>padd/systemd/padd.service</code></td><td>权限、为什么是个常驻单元、<code>AF_NETLINK</code> 为什么承重</td></tr>
+<tr><td>4</td><td><code>padd/src/main.rs:184-296</code></td><td>常数和 <code>SelectButton</code> —— <strong>每个常数都解释了为什么是这个值</strong></td></tr>
+<tr><td>5</td><td><code>padd/src/main.rs:481-969</code></td><td>主循环。<strong>对着 §6 那张表读</strong></td></tr>
+<tr><td>6</td><td><code>padd/src/main.rs:995-1064</code></td><td><code>Continuous</code> —— §8 的核心</td></tr>
+<tr><td>7</td><td><code>padd/src/tap.rs:1-111</code></td><td>模块文档 = <strong>为什么它长出了一个 socket</strong></td></tr>
+<tr><td>8</td><td><code>padd/src/tap.rs:347-545</code></td><td><code>Shared</code> 的锁与生命周期规则</td></tr>
+<tr><td>9</td><td><code>padd/src/tap.rs:556-648</code></td><td>socket 协议（很短）</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读 <code>main.rs:1-81</code>，然后读 §3 和 §8.3。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>它没有任何特权，而这是重点。</strong> 走和 app 完全一样的那条 API，
+所以那条 API 每天都被验证；配对、root、BlueZ 全都在别处。</li>
+<li><strong>不说谎。</strong> 没有手柄就<strong>什么都不发</strong>（让死手去停），不造一个零命令假装是有人要停；
+配置读不懂就用默认值并说出来，不把手柄拿走；IMU 还没开口就说&quot;还没开口&quot;。</li>
+<li><strong>每个常数都解释了两头夹在哪。</strong> 500 ms 的轮询、2 秒和 3 秒的按住、
+100 ms 的心跳、3 °/s 的死区 —— 没有一个是&quot;看起来差不多&quot;。</li>
+</ol>
+<hr />
+<h2 id="16-术语表"><a class="header" href="#16-术语表">16. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>intent</strong></td><td>&quot;我想让机器人做什么&quot;。区别于&quot;直接控制舵机&quot;</td></tr>
+<tr><td><strong><code>robot.move</code> / <code>.head</code> / <code>.pose</code> / <code>.do</code> / <code>.relax</code> / <code>.enable</code></strong></td><td>各种 intent 的名字</td></tr>
+<tr><td><strong>continuous intent</strong></td><td>持续意图：每 tick 覆盖一次，最后写入者赢（速度、头部角度、站姿）</td></tr>
+<tr><td><strong>discrete intent</strong></td><td>一次性意图：有回答（技能、开关、停止）</td></tr>
+<tr><td><strong>notification vs request</strong></td><td>通知没有 <code>id</code>、不等回复；请求有 <code>id</code>、等一个回答</td></tr>
+<tr><td><strong>deadman（死手开关）</strong></td><td>intent 不再到达就把速度归零。默认 500 ms。<strong><code>padd</code> 安全设计的另一半</strong></td></tr>
+<tr><td><strong>twist</strong></td><td>速度三元组 <code>(vx, vy, vyaw)</code></td></tr>
+<tr><td><strong>gilrs</strong></td><td>Rust 的手柄库。带 SDL 手柄数据库（所以有那个 C 依赖）</td></tr>
+<tr><td><strong>evdev</strong></td><td>Linux 的原始输入设备接口。<code>tap.rs</code> 直接读它</td></tr>
+<tr><td><strong><code>SYN_REPORT</code></strong></td><td>内核说&quot;一个完整的报文到此为止&quot;</td></tr>
+<tr><td><strong><code>SYN_DROPPED</code></strong></td><td>内核说&quot;你的队列溢出过，我丢了些东西&quot;</td></tr>
+<tr><td><strong><code>MSC_SCAN</code></strong></td><td>记录&quot;这个按键对应的是扫描码几&quot;</td></tr>
+<tr><td><strong>resync</strong></td><td>收到 <code>SYN_DROPPED</code> 后重新查询设备全状态。<strong>tap 故意不要这个</strong></td></tr>
+<tr><td><strong>raw tap</strong></td><td>那个原样转出事件流的 socket（<code>pad.input</code>）</td></tr>
+<tr><td><strong>cadence（节奏）</strong></td><td>报文到达的间隔规律。<strong>链路健不健康的唯一证据</strong></td></tr>
+<tr><td><strong>HID</strong></td><td>人机接口设备。一个手柄可能注册好几个</td></tr>
+<tr><td><strong>sysfs</strong></td><td><code>/sys</code>，内核把设备拓扑摊在这里。<code>imu_sibling</code> 走它</td></tr>
+<tr><td><strong><code>condvar</code></strong></td><td>条件变量。一个线程等，另一个叫醒它</td></tr>
+<tr><td><strong>primary / supplementary group</strong></td><td>主组 / 附加组。socket 的权限看的是主组</td></tr>
+<tr><td><strong>torque off</strong></td><td>舵机断电，机器人瘫软</td></tr>
+<tr><td><strong>policy（策略）</strong></td><td>那个 ONNX 神经网络。Start 开的是它</td></tr>
+<tr><td><strong>skill</strong></td><td>一个有名字的动作（<code>ground_pick</code>、<code>roulade</code>…）。<code>padd</code> <strong>不知道它是什么</strong></td></tr>
+<tr><td><strong>mode（驱动模式）</strong></td><td>走 ⇄ 轮</td></tr>
+<tr><td><strong>Modal（模态）</strong></td><td>摇杆的当前含义取决于哪个模式</td></tr>
+<tr><td><strong>边沿（edge）</strong></td><td>&quot;这一 tick 刚按下&quot; / &quot;刚松开&quot;，而不是&quot;现在按着&quot;</td></tr>
+<tr><td><strong><code>AF_NETLINK</code></strong></td><td>libudev 用的 socket 类型。少了它<strong>开机后连上的手柄永远发现不了</strong></td></tr>
+<tr><td><strong><code>RuntimeDirectory=</code></strong></td><td>systemd 建的目录，属主是这个单元，且不受 <code>ProtectSystem=strict</code> 影响</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>怎么配对手柄（操作者视角）</td><td><a href="robot/pair-a-gamepad.html"><code>robot/pair-a-gamepad.md</code></a></td></tr>
+<tr><td><code>[pad]</code> / <code>[pad_imu_head_control]</code> 的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>手柄那个 IMU 的姿态怎么算的（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>那些 intent 的线上契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>intent 到了 robotd 之后变成什么</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a> · <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td><strong>死手开关</strong>和安全层</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>配对归谁：蓝牙和 BlueZ（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a> · <a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个 <code>monitor</code> 面板（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>&quot;手柄和远程 peer 抢方向盘&quot;那个已知缺口</td><td><a href="design/remote-webrtc.html"><code>design/remote-webrtc.md</code></a> §9</td></tr>
+<tr><td>手柄 IMU 控头的设计取舍</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a></td></tr>
+<tr><td>机器人走到哪了（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 那个手柄面板（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/pad-imu-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/pet-detect-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/pad-imu-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/pet-detect-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

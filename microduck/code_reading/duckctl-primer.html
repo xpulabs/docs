@@ -1,0 +1,918 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>duckctl/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html" class="active"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="duckctl-新手导读"><a class="header" href="#duckctl-新手导读"><code>duckctl</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p><code>duckctl</code> 的定位由 <a href="design/app-path-design.html"><code>design/app-path-design.md</code></a> §3 拥有（英文），
+命令参考在 <a href="robot/duckctl.html"><code>robot/duckctl.md</code></a>。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="btd-primer.html"><code>btd-primer.md</code></a> —— <strong><code>duckctl</code> 是 <code>btd</code> 的对手方</strong>。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%92%8C-robotctl-%E7%9A%84%E5%88%86%E5%B7%A5">和 <code>robotctl</code> 的分工</a></li>
+<li><a href="#3-%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E6%89%8B%E6%9C%BA%E7%9A%84%E6%9B%BF%E8%BA%AB">核心心智模型：手机的替身</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-%E5%AE%83%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%BE%E5%88%B0%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84">它是怎么找到一台机器人的</a></li>
+<li><a href="#6-%E4%B8%80%E6%AC%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次请求的完整旅程</a></li>
+<li><a href="#7--%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B1%8F%E5%B9%95%E4%B8%8A%E9%95%BF%E8%BF%99%E6%A0%B7">⭐ 为什么屏幕上长这样</a></li>
+<li><a href="#8--%E8%B6%85%E6%97%B6%E6%98%AF%E4%BB%80%E4%B9%88%E9%83%BD%E4%B8%8D%E6%9D%A5%E7%9A%84%E9%97%B4%E9%9A%94">⭐ 超时是&quot;什么都不来的间隔&quot;</a></li>
+<li><a href="#9-%E5%9C%B0%E5%9D%80%E4%BB%8E%E5%B9%BF%E6%92%AD%E9%87%8C%E6%9D%A5">地址从广播里来</a></li>
+<li><a href="#10-%E7%89%88%E6%9C%AC%E4%B8%8D%E4%B8%80%E8%87%B4%E6%97%B6%E5%AE%83%E5%81%9A%E4%BB%80%E4%B9%88">版本不一致时它做什么</a></li>
+<li><a href="#11-advwatch%E9%82%A3%E4%B8%AA%E6%B5%8B%E9%87%8F%E5%B7%A5%E5%85%B7"><code>advwatch</code>：那个测量工具</a></li>
+<li><a href="#12-%E6%B5%8B%E8%AF%95">测试</a></li>
+<li><a href="#13-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#14-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>duckctl</code> 是<strong>在笔记本上跟机器人说话的工具</strong> —— 没有网络、没有 ssh 的时候。</p>
+<pre><code class="language-bash">cargo install --path duckctl      # 装一次
+duckctl scan                      # 附近的机器人，以及它们的地址
+duckctl status
+duckctl wifi scan
+duckctl wifi connect &quot;Pollen&quot; --psk secret
+duckctl name &quot;Ducky&quot;
+duckctl call robot.health
+duckctl logs robotd -n 100
+</code></pre>
+<p>一句话说清它的定位（模块头原话）：</p>
+<blockquote>
+<p><strong>手机 App 的替身，也是唯一能对着真无线电测 <code>btd</code> 的办法。</strong></p>
+<p><strong>蓝牙是它今天够到机器人的方式，不是它本身是什么。</strong> ……
+所以名字说的是<strong>跟谁说话</strong>，而不是<strong>用什么无线电</strong>。
+<strong>BLE 是唯一答案的那些日子里，它叫 <code>duck-btctl</code>。</strong></p>
+</blockquote>
+<p>规模：<strong>3940 行</strong>（<code>main.rs</code> 3625 + <code>advwatch.rs</code> 241 + <code>Cargo.toml</code> 74），<strong>51 个测试</strong>。</p>
+<hr />
+<h2 id="2-和-robotctl-的分工"><a class="header" href="#2-和-robotctl-的分工">2. 和 <code>robotctl</code> 的分工</a></h2>
+<p>这是新手最容易搞混的一对。一句话：</p>
+<pre><code class="language-text">   robotctl   ←  在机器人**上**，说 unix socket，**随发布包发货**
+   duckctl    ←  在笔记本**上**，走无线电，**永远不进发布包**
+</code></pre>
+<p><code>Cargo.toml</code> 的第一句就是：</p>
+<blockquote>
+<p><strong>客户端那一半，而且它跑在离机器人很远的地方。</strong></p>
+</blockquote>
+<p>而 <code>CONTRIBUTING.md</code> 的目录表里，<code>duckctl/</code> 那一行写的是：</p>
+<pre><code class="language-text">   duckctl/        the laptop-side client — never shipped, never cross-built
+</code></pre>
+<p><strong>&quot;never cross-built&quot;（从不交叉编译）是真话，而且是机制保证的</strong> —— 见第 3.2 节。</p>
+<p>两条工具在文档里反复互相指：</p>
+<ul>
+<li>需要机器人本机能力时 → <strong>ssh 进去打 <code>robotctl</code></strong>
+（<code>duckctl ssh -- sudo robotctl pad pair</code>）</li>
+<li>被 BLE 拒绝的那些命令 → 最终就是**&quot;机器人上的 <code>robotctl</code>&quot;**</li>
+</ul>
+<hr />
+<h2 id="3-核心心智模型手机的替身"><a class="header" href="#3-核心心智模型手机的替身">3. 核心心智模型：手机的替身</a></h2>
+<h3 id="31-它存在的理由"><a class="header" href="#31-它存在的理由">3.1 它存在的理由</a></h3>
+<p>设计文档 §3.3 说得很直接：</p>
+<blockquote>
+<p><strong><code>duckctl</code> 是一个测试工具，而且刻意不只是多一点 —— 真正的客户端是一个手机 App。</strong></p>
+</blockquote>
+<p>它存在的意义是：<strong>在手机 App 写出来之前，先把那条路径每天走一遍</strong>。</p>
+<p>而 <code>mobile-app.md</code> 对它的定位说得更重：</p>
+<blockquote>
+<p><strong><code>duckctl.md</code> 是这个 App 拥有的、最接近功能规格的东西</strong> ——
+里面每一条命令，<strong>都是 App 能用同样的无线电、拿到同样回复的一个调用</strong>。</p>
+</blockquote>
+<p><strong>这就是为什么它必须走无线电，而不是走一条更省事的捷径。</strong></p>
+<h3 id="32-永远不在机器人上是怎么保证的"><a class="header" href="#32-永远不在机器人上是怎么保证的">3.2 ⭐「永远不在机器人上」是怎么保证的</a></h3>
+<blockquote>
+<p><strong>机器人上没有任何东西依赖 <code>duckctl</code></strong>，这正是让 <code>btleplug</code>（客户端的蓝牙库）不进发布包的原因。</p>
+</blockquote>
+<p>而这句话<strong>曾经是靠一个副作用成立的，现在是直接说出来的</strong>：</p>
+<pre><code class="language-text">   以前：它是 `btd` 的一个 **example**。
+         example 的依赖是 dev-dependency，
+         所以 `btleplug` 永远到不了发布产物里 ——
+         **一个真的保证，但是靠&quot;文件坐在哪个目录&quot;顺带得到的。**
+
+   现在：它是一个**独立的 crate**，而且被
+         **排除在 workspace 的 `default-members` 之外**。
+</code></pre>
+<p>那第二句才是关键：<code>cargo board --bins</code> 会为 aarch64 构建<strong>每一个默认成员</strong>，
+而 <code>duckctl</code> 不在其中 —— <strong>所以它永远不会被交叉编译上板子</strong>。</p>
+<blockquote>
+<p>（我核实过：<code>Cargo.toml</code> 里 <code>duckctl</code> 在 <code>members</code> 里、<strong>不在</strong> <code>default-members</code> 里。
+而 CI 用的是 <code>--workspace</code>，所以它照常被 lint 和测试。）</p>
+</blockquote>
+<h3 id="33-为什么用-btleplug-而不是-bluer"><a class="header" href="#33-为什么用-btleplug-而不是-bluer">3.3 为什么用 <code>btleplug</code> 而不是 <code>bluer</code></a></h3>
+<p><code>btd</code> 在板上用的是 <code>bluer</code>，这里用的是 <code>btleplug</code>。理由很简单：</p>
+<blockquote>
+<p><strong>因为这一端跑在开发者的机器上</strong>：macOS 上是 CoreBluetooth，Linux 上是 BlueZ，Windows 上是 WinRT。
+<strong><code>bluer</code> 会把客户端限制成 Linux 专用，那就把&quot;有一个客户端&quot;的意义抹掉了。</strong></p>
+</blockquote>
+<p>而它有一个<strong>刻意的版本下限</strong>，<code>Cargo.toml</code> 里写得很详细：</p>
+<blockquote>
+<p><strong>0.13 或更新，而这个下限是刻意的。</strong>
+每一个 0.11 在 CoreBluetooth 后端里有<strong>三个 <code>.expect()</code></strong> —— 它们不是让一个调用失败，
+而是<strong>直接终止整个 BLE 事件循环</strong>：<code>set_characteristics</code> 在一个它不认识的服务上 panic，
+而 <code>update_descriptors</code> 又在未知服务或特征上 panic 两次。</p>
+<p><strong>后一对会在 CoreBluetooth 实际会产生的一种发现回调顺序上触发</strong>（deviceplug/btleplug#397），
+<strong>而它带走的是整个客户端，不是那条连接。</strong></p>
+<p>……我们没有在这里见过那个 panic，而<strong>那说明不了什么</strong>：
+<code>duckctl</code> 连一下就走了，开发者不会为此提 issue。
+换版本的理由是：<strong>那是一个进程直接 abort，出现在的却是人们在板子已经不对劲时才会去拿的工具上。</strong></p>
+</blockquote>
+<h3 id="34-它复用-duck_bleframing--这是刻意的"><a class="header" href="#34-它复用-duck_bleframing--这是刻意的">3.4 它复用 <code>duck_ble::framing</code> —— 这是刻意的</a></h3>
+<blockquote>
+<p>这里的分片是<strong>机器人用的那个模块的客户端半边</strong>，
+所以如果分片逻辑不对称，<strong>这个工具根本不会工作</strong> ——
+<strong>这使它成为一次对协议的真正测试，而不是一个可以跟自己达成一致的重写。</strong></p>
+</blockquote>
+<p>而<strong>唯一刻意不对称的是行长上限</strong>，而且必须不对称：</p>
+<blockquote>
+<p>机器人那个上限约束的是<strong>无线电范围内一个未配对的对端能让它缓冲多少</strong>，而这一端没有这样的对端。
+共用那个紧的，会让<strong>每一条超过 8 KiB 的回复在这里读不出来</strong> —— 而 <code>btd</code> 把那些回复服务得好好的。</p>
+</blockquote>
+<p>（这就是 <code>duck-ble-primer.md</code> §5.2 讲的 <code>MAX_LINE</code> vs <code>MAX_REPLY_LINE</code>。）</p>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code class="language-text">duckctl/
+├── Cargo.toml              74 行   依赖（注释解释了每个不显然的选择）
+├── src/main.rs           3625 行   全部逻辑
+└── examples/advwatch.rs   241 行   那个测量工具（见第 11 节）
+</code></pre>
+<p><code>main.rs</code> 的分区（左边是行号）：</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">行号</th><th>内容</th></tr></thead><tbody>
+<tr><td style="text-align: right">1–129</td><td>模块头 + <strong>14 个常量</strong>，每个都有一段理由</td></tr>
+<tr><td style="text-align: right">130–262</td><td><code>Seen</code> / <code>Address</code> / <code>identity</code> / <code>answers_to</code> —— 一次扫描看到的东西</td></tr>
+<tr><td style="text-align: right">263–424</td><td><code>Target</code> / <code>resolve_pin</code> / <code>choose</code> —— 找哪一台、用哪个 PIN</td></tr>
+<tr><td style="text-align: right">425–620</td><td><code>deliver</code> / <code>ssh_*</code> / <code>scp_*</code> / <code>console_url</code> —— 第 9 节</td></tr>
+<tr><td style="text-align: right">621–842</td><td>列表渲染与错误消息（<code>:621</code>–<code>:830</code>）</td></tr>
+<tr><td style="text-align: right">843–1351</td><td><code>Cli</code> / <code>Command</code> 和五个嵌套子命令枚举</td></tr>
+<tr><td style="text-align: right"><strong>1352–1812</strong></td><td><strong><code>run()</code> —— 每个子命令</strong></td></tr>
+<tr><td style="text-align: right">1813–1990</td><td>输出格式化 + <code>Waited</code></td></tr>
+<tr><td style="text-align: right">1991–2106</td><td>收发：<code>write_line</code> / <code>read_line</code> / <code>characteristics</code> / <code>warn_about_skew</code></td></tr>
+<tr><td style="text-align: right">2107–2600</td><td>请求构造（<code>request_line</code> / <code>update_request_line</code> / 三个 <code>*_note</code>）</td></tr>
+<tr><td style="text-align: right">2600–3625</td><td>其余命令 + <strong>51 个测试</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>建议的阅读顺序：</strong> 模块头 → 那 14 个常量 → <code>run()</code> 的骨架 → <code>request_line</code> → 输出格式化那一段。</p>
+<hr />
+<h2 id="5-它是怎么找到一台机器人的"><a class="header" href="#5-它是怎么找到一台机器人的">5. 它是怎么找到一台机器人的</a></h2>
+<h3 id="51-扫描是不带过滤的"><a class="header" href="#51-扫描是不带过滤的">5.1 扫描是<strong>不带过滤</strong>的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>start_scan(ScanFilter::default())   // ← 空过滤，故意
+<span class="boring">}</span></code></pre></pre>
+<p>因为设计文档 §3.3 记着一个<strong>属于 CoreBluetooth 而不是这个工具的</strong>性质：</p>
+<blockquote>
+<p><strong>CoreBluetooth 严格地遵守过滤条件，而一个已配对的外设经常带着空的服务列表广播。</strong>
+一旦过滤，<strong>它就根本不会被报告</strong> —— 不是&quot;被报告但没有服务&quot;，是<strong>不存在</strong>。</p>
+<p>这表现为&quot;一次运行 <code>no robot found</code>、下一次成功，中间什么都没改&quot;。</p>
+</blockquote>
+<h3 id="52--轮询而不是睡一觉再取一次快照"><a class="header" href="#52--轮询而不是睡一觉再取一次快照">5.2 ⭐ 轮询，而不是&quot;睡一觉再取一次快照&quot;</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const SCAN_TIME: Duration = Duration::from_secs(8);   // 最多找多久
+const SCAN_POLL: Duration = Duration::from_millis(250); // 多久重看一次结果
+<span class="boring">}</span></code></pre></pre>
+<p><code>SCAN_POLL</code> 的注释是一段<strong>认错</strong>：</p>
+<blockquote>
+<p><strong>在固定 sleep 之后取一次快照，是这里以前的做法，而它会间歇性地失败</strong>：
+BLE 广播是周期性的，而 CoreBluetooth 对一个已配对外设的视图会来会走，
+所以&quot;机器人在不在那一张快照里&quot;<strong>有一部分是靠运气</strong> ——
+于是一个下一次就答得好好的机器人被报成 <code>no robot found</code>。</p>
+<p>而且轮询到有东西出现，也<strong>让常见情况在远不到一秒内就结束</strong>，而不是每次都付满 <code>SCAN_TIME</code>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>这正是 <code>btd-primer.md</code> §8.1 里那个&quot;三个症状&quot;的第三个</strong> ——
+当时判定它是<strong>唯一一个客户端侧的 bug</strong>，而这里就是它被修掉的地方。</p>
+</blockquote>
+<h3 id="53-四档候选和一个说清为什么没找到的过程"><a class="header" href="#53-四档候选和一个说清为什么没找到的过程">5.3 四档候选，和一个说清&quot;为什么没找到&quot;的过程</a></h3>
+<p>扫描过程中会把看到的设备分成几档，从最可信到最不可信：</p>
+<pre><code class="language-text">   advertised   广播里带着服务 UUID            ← 最可信
+   named        名字对得上
+   connected    本机已经连着它
+   （全部）      都记下来，用于&quot;没找到&quot;时解释
+</code></pre>
+<p>而 <code>Target</code>（<code>:263</code>）决定&quot;我在找谁&quot;：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// `--name` 如果给了；否则 `DUCK_ROBOT` 如果它说了什么。
+fn new(flag: Option&lt;String&gt;, var: Option&lt;String&gt;) -&gt; Self
+<span class="boring">}</span></code></pre></pre>
+<p>一个细节很讲究：</p>
+<blockquote>
+<p><strong>一个空的 <code>--name</code> 仍然是一次 <code>--name</code>。</strong> 这个 flag 在任何情况下都压过环境变量，
+<strong>包括这一种</strong> —— 所以&quot;用一个空值压过它&quot;是<strong>第二个逃生舱</strong>：
+<strong>一行命令就能丢掉默认值，而不用去改它运行的那个 shell。</strong>
+（<code>DUCK_ROBOT= duckctl scan</code>）</p>
+</blockquote>
+<p><strong>为什么不用 <code>clap</code> 自带的 <code>env</code> 支持？</strong> 因为它用 <code>env::var_os</code>，会把 <code>DUCK_ROBOT=</code> 当成一个<strong>值</strong> ——
+于是唯一逃开它的办法是 <code>unset</code>，而<strong>需要逃开的恰恰就是眼下这一条命令</strong>。</p>
+<h4 id="-一个-clap-撞车的事故"><a class="header" href="#-一个-clap-撞车的事故">⚠️ 一个 <code>clap</code> 撞车的事故</a></h4>
+<p><code>--name</code> 这个全局参数的 <strong>clap id 不叫 <code>name</code></strong>。原因值得一记：</p>
+<blockquote>
+<p>clap 用<strong>参数的 id</strong> 做键，而 <code>name</code> 这个子命令的 positional 参数派生出<strong>同一个 id</strong> ——
+<strong>positional 赢了</strong>。</p>
+<p>于是 <code>duckctl --name duck-c51b name leduckpierre</code> 会去搜 <strong><code>leduckpierre</code></strong>
+（也就是它<strong>正要设置的那个名字</strong>），然后<strong>把眼前站着的机器人报成不在范围里</strong>。</p>
+<p>改成 <code>id = &quot;robot&quot;</code> 就好了。</p>
+</blockquote>
+<blockquote>
+<p>💡 这是个很好的提醒：<strong>&quot;找机器人&quot;和&quot;给机器人改名&quot;共用了一个词，于是它们在一个 CLI 解析器里撞了车。</strong></p>
+</blockquote>
+<h3 id="54-choose多个候选就拒绝不猜"><a class="header" href="#54-choose多个候选就拒绝不猜">5.4 <code>choose</code>：<strong>多个候选就拒绝，不猜</strong></a></h3>
+<pre><code class="language-text">   没给名字   →  第一个候选赢（省略 --name 就是要这个，报错会破坏台架上的简写）
+   给了名字   →  命中多个 → **拒绝**
+</code></pre>
+<p><code>choose</code>（<code>:379</code>）拒绝而不是&quot;挑一个&quot;，理由很硬：</p>
+<blockquote>
+<p><strong>从客户端这一侧看，这两台无法区分</strong> —— 挑任何一台都意味着<strong>这次写会落到先被报告的那一台</strong>。
+<strong>而 <code>net.connect</code> 会把 wifi 密码放上去。</strong></p>
+</blockquote>
+<p>而这件事<strong>不需要有人做错</strong>就会发生（注释里点名的机制）：</p>
+<blockquote>
+<p><strong>bootloader 留空 <code>serial-number</code>，名字就回退成 hostname</strong> ——
+于是<strong>一批刷同一镜像的板子全都叫 <code>radxa-zero3</code></strong>。</p>
+</blockquote>
+<p>失败时它会列出<strong>其他候选实际叫什么</strong>，并附上名字的来源。</p>
+<h3 id="55-一台机器人可能有两个名字"><a class="header" href="#55-一台机器人可能有两个名字">5.5 一台机器人可能有<strong>两个</strong>名字</a></h3>
+<p><code>answers_to</code>（<code>:230</code>）必须同时接受两半：</p>
+<pre><code class="language-text">   radxa-zero3 [duck-c51b]
+   └────┬────┘  └───┬────┘
+    GAP 名        广播里的名字
+   （BlueZ 的 adapter alias，源自 hostname）
+</code></pre>
+<blockquote>
+<p>CoreBluetooth <strong>从不披露地址</strong>，macOS 上所有设备都报 <code>00:00:00:00:00:00</code> ——
+所以 <code>identity</code>（<code>:200</code>）用 per-Mac 的 id 顶替它，否则<strong>一份列表分不出哪个未命名设备是哪个</strong>，
+而那正是列表存在的场合。</p>
+</blockquote>
+<p>而<strong>历史上每个机器人都不同</strong>：GAP 名是 BlueZ 的 adapter alias，源自 hostname，
+<strong>同一镜像全是 <code>radxa-zero3</code></strong>。<code>btd</code> 现在会把 alias 一起设成广播名（<code>btd-primer.md</code> §11.3），
+但它<strong>仍然必须两半都收</strong> —— 因为老 release 的板子还在，而且更新前缓存了旧 GAP 名的客户端也在。</p>
+<blockquote>
+<p>有一个教训：<strong>精确匹配那个拼接串，曾经让两种拼法都被拒</strong> ——
+而且失败还把这台机器人当成&quot;不在范围里&quot;的证据列了出来。</p>
+</blockquote>
+<h3 id="56--错误消息是一等产物"><a class="header" href="#56--错误消息是一等产物">5.6 ⭐ 错误消息是<strong>一等产物</strong></a></h3>
+<p>这个工具在&quot;没找到机器人&quot;时<strong>不是一个失败就完了</strong>，而是分成好几种，每一种给出不同的下一步：</p>
+<pre><code class="language-text">   nothing_found    什么都没看到，而且列出的设备里没有像机器人的
+   radio_saw        无线电看到了设备，但没有一台应答
+   missed_the_named_robot   有机器人，但没有一台叫你要找的那个名字
+</code></pre>
+<p>有测试专门钉住&quot;<strong>一次没找到</strong>和<strong>一次名字冲突</strong>不是同一种失败&quot;，
+以及&quot;<strong>没有 <code>--name</code> 时第一个候选仍然会赢</strong>&quot;。</p>
+<blockquote>
+<p>这一类设计在这个工具里是系统性的：<code>step()</code>（<code>:830</code>）给每一个异步操作套上超时，
+超时时把 <strong>&quot;哪一步&quot; + 多行提示 + 预算</strong> 一起打出来。</p>
+</blockquote>
+<hr />
+<h2 id="6-一次请求的完整旅程"><a class="header" href="#6-一次请求的完整旅程">6. 一次请求的完整旅程</a></h2>
+<pre><code class="language-text">   ① 解析命令行，决定找谁（`Target`）和用哪个 PIN
+   ② **先做便宜的拒绝**（`scp_refusal`，见第 9 节）—— 在无线电打开之前
+   ③ 扫描（不带过滤，轮询到有候选为止）
+   ④ connect → discover → 读一次特征
+        每一步各有各的超时和失败消息
+   ⑤ warn_about_skew —— 版本不一致只说，不拒绝（见第 10 节）
+   ⑥ ⭐ **先 subscribe，再写**
+   ⑦ 发 `system.authenticate`（PIN 错了会告诉你还剩几次）
+   ⑧ 把请求切成 20 字节的块写出去 —— **而且每块都要求一个回应**（见下）
+   ⑨ 循环收通知：
+        · 没有 `id` 的 → 进度，走 stderr
+        · `logs` / `search` / 解析地址 → 各自的渲染器
+        · 其余 → 机器人的回复**原样 pretty JSON** 打到 stdout
+        · JSON-RPC error 也算&quot;机器人应答了&quot;，用退出码报告
+   ⑩ 成功后追加几行&quot;注记&quot;到 stderr（见第 7.2 节）
+</code></pre>
+<h3 id="61-为什么是先读再订阅后写"><a class="header" href="#61-为什么是先读再订阅后写">6.1 为什么是<strong>先读、再订阅、后写</strong></a></h3>
+<pre><code class="language-text">   读   ← 这是**唯一被确认**、而且能触发配对的一步
+   订阅 ← 它是 `btd` 那个会话能够存在的前提
+   写   ← 最后
+</code></pre>
+<p>而 <code>btd</code> 那边有一条对应的规矩：<strong>没有活跃订阅时，写入是被拒绝的</strong> ——
+因为<strong>接受它是撒谎：没有地方可以送回复</strong>（<code>btd-primer.md</code> §8.2）。</p>
+<h3 id="62--为什么每块都要一个回应"><a class="header" href="#62--为什么每块都要一个回应">6.2 ⭐ 为什么每块都要一个回应</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 用 WithResponse，不是 WithoutResponse
+framing::chunks(line, 20)
+<span class="boring">}</span></code></pre></pre>
+<p>BLE 里&quot;写&quot;有两种：<strong>Write Command</strong>（<code>WithoutResponse</code>，不等确认）和 <strong>Write Request</strong>（<code>WithResponse</code>，等确认）。
+这里<strong>刻意用慢的那个</strong>，而注释是一段实打实的事故记录：</p>
+<blockquote>
+<p><code>WithoutResponse</code> 不带回应，所以<strong>一次拒绝（比如加密不足）完全不可见</strong>：
+<strong>请求静默地没有到达，而客户端等到超时，还不知道为什么。</strong></p>
+<p><strong>这正是它最初的行为，对着一个完全正常的机器人。</strong></p>
+</blockquote>
+<p>而 20 字节是<strong>每一条 BLE 链路都保证支持的下限</strong> —— 因为 <code>btleplug</code> <strong>不暴露协商出来的 MTU</strong>。</p>
+<blockquote>
+<p>⚠️ 注意这和机器人侧的区别：<code>btd</code> 那边<strong>知道</strong> MTU（BlueZ 在每次入站写时上报它），
+所以它按真实值切块。客户端这一侧没有这个信息，只能从下限起步。</p>
+</blockquote>
+<h3 id="63-waited三态"><a class="header" href="#63-waited三态">6.3 <code>Waited</code>：三态</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Waited { … }
+<span class="boring">}</span></code></pre></pre>
+<p>等待的结束有三种原因，而它们<strong>给出不同的下一步</strong>：</p>
+<pre><code class="language-text">   收到回复了        → 正常
+   一直没东西来      → 超时（&quot;静默&quot;）
+   链路没了          → 连接断了
+</code></pre>
+<blockquote>
+<p>而这两个失败<strong>必须分开</strong>，因为<strong>一次<em>成功</em>的 <code>update apply</code> 本来就会断链</strong>
+—— 那个 daemon（连同 <code>btd</code>）在更新完成后会重启。</p>
+</blockquote>
+<hr />
+<h2 id="7--为什么屏幕上长这样"><a class="header" href="#7--为什么屏幕上长这样">7. ⭐ 为什么屏幕上长这样</a></h2>
+<p><strong><code>duckctl</code> 没有 <code>--json</code>，而且是刻意的。</strong> 这是这个工具最好的设计课。</p>
+<h3 id="71-一条规矩stdout-上只有机器人说的话"><a class="header" href="#71-一条规矩stdout-上只有机器人说的话">7.1 一条规矩：<strong>stdout 上只有机器人说的话</strong></a></h3>
+<pre><code class="language-text">   stdout  ←  **机器人的回复本身**（pretty JSON 原样）
+   stderr  ←  进度、诊断、警告、注记 —— 一切不是机器人说的话
+</code></pre>
+<p>于是这些<strong>都能工作</strong>：</p>
+<pre><code class="language-bash">duckctl logs robotd | grep panic        # 管道里不会混进工具自己打印的行
+duckctl policy search flamingo | grep … # 同理
+duckctl status &gt; reply.json             # 得到一个干净的 JSON
+</code></pre>
+<p>而<strong>机器可读性就是靠这条分工，不是靠一个开关</strong>。</p>
+<blockquote>
+<p>只有<strong>三个渲染例外</strong>，而它们有一个共同点：
+<strong>答案是&quot;一份供人挑一个的清单&quot;</strong> —— <code>policy search</code>、<code>logs</code>，以及 <code>ip</code>（只要一个字段）。
+<strong>&quot;答案是一个事实&quot;的命令不享受渲染。</strong></p>
+</blockquote>
+<h3 id="72-那几行注记_note"><a class="header" href="#72-那几行注记_note">7.2 那几行&quot;注记&quot;（<code>*_note</code>）</a></h3>
+<p>有三个函数专门在<strong>机器人回复之外</strong>再打一行到 stderr：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>什么时候</th><th>为什么必须单独说</th></tr></thead><tbody>
+<tr><td><code>account_note</code></td><td>登录</td><td>把 <code>user_code</code> / <code>verification_uri</code> / <code>expires_in</code> 变成&quot;打开这个网页、输入这个码&quot;。<strong>先打印再开浏览器</strong> —— 因为终端有 scrollback，而浏览器可能没开起来</td></tr>
+<tr><td><code>limp_note</code></td><td><code>reboot-motors</code></td><td>回了 <code>{&quot;accepted&quot;:true}</code> <strong>只表示接受</strong>，而扭矩真的全关了 —— <strong>只看 JSON 的客户端会以为机器人还站在地上</strong>。所以单独一行叫人扶住它</td></tr>
+<tr><td><code>restart_note</code></td><td><code>update apply</code> / <code>rollback</code> / <code>select</code></td><td>只有在<strong>真动作</strong>且 <code>component == &quot;daemon&quot;</code> 时，预告&quot;约 5 秒后连接会掉，<strong>那是升级在工作</strong>&quot;</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>为什么不塞进 JSON 里？</strong> 因为这些是&quot;<strong>JSON 本身没说、但人类下一步必须知道</strong>&quot;的东西。
+塞进去会<strong>污染 stdout 上那份&quot;机器人的原话&quot;</strong>。
+分开之后，<code>duckctl … &gt; reply.json</code> 仍然干净，而 JSON 依然原样打印 ——
+<strong>注记是补充，不是替代。</strong></p>
+</blockquote>
+<h3 id="73-一条具体的教训"><a class="header" href="#73-一条具体的教训">7.3 一条具体的教训</a></h3>
+<p><code>print_journal</code> 和 <code>print_search</code> 都遵守同一条：<strong>关于日志的一切（空尾巴、被截断、说明句）都走 stderr</strong>。</p>
+<blockquote>
+<p><strong>这正是 <code>duckctl logs robotd | grep panic</code> 能工作的原因</strong>：
+<strong>管道里不能出现机器人没写过的行。</strong></p>
+</blockquote>
+<p>而且 <code>print_search</code> 的空结果会说 <code>nothing on the Hub matched.</code> —— 一个&quot;下一句建议&quot;，
+<strong>照样打在 stderr 上</strong>，这样 <code>| grep flamingo</code> 不会把它带上。</p>
+<hr />
+<h2 id="8--超时是什么都不来的间隔"><a class="header" href="#8--超时是什么都不来的间隔">8. ⭐ 超时是&quot;什么都不来的间隔&quot;</a></h2>
+<p>这是这个工具体验上最讲究的一处。四个常量：</p>
+<pre><code class="language-text">   REPLY_TIMEOUT       15s    本地读一读
+   SLOW_REPLY_TIMEOUT  60s    要动机器人网络或让机器人真干活
+                              （wifi scan/connect、policy search/fetch、account login）
+   UPDATE_IDLE_TIMEOUT = duck_ipc_proto::UPDATE_MAX_SILENCE_SECONDS + 60
+   FOLLOW_TIMEOUT      24h    `update watch` 跟着进度跑，直到被打断
+</code></pre>
+<h3 id="81-空闲而不是总时长"><a class="header" href="#81-空闲而不是总时长">8.1 &quot;空闲&quot;而不是&quot;总时长&quot;</a></h3>
+<p><code>REPLY_TIMEOUT</code> 的注释：</p>
+<blockquote>
+<p><strong>是空闲而不是总时长，而正是这个区别让一次更新变得可观看。</strong></p>
+<p>一次 apply 要多久取决于机器人 —— 下载、校验、解包、换链接、hook、健康门 ——
+所以一个总预算<strong>要么砍掉一次正在工作的更新，要么为一个死掉的机器人干等</strong>。</p>
+<p><strong>但有用的信号已经在来了</strong>：每一条进度通知都是&quot;机器人活着并在干活&quot;的证明，
+所以<strong>每收到一条就把表重新开始计</strong>。而一个卡住的镜像<strong>仍然会在几秒内失败</strong>。</p>
+</blockquote>
+<h3 id="82--那个-60-秒余量是从协议常量推导出来的"><a class="header" href="#82--那个-60-秒余量是从协议常量推导出来的">8.2 ⭐ 那个 60 秒余量是从<strong>协议常量推导出来的</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const UPDATE_IDLE_TIMEOUT: Duration =
+    Duration::from_secs(duck_ipc_proto::UPDATE_MAX_SILENCE_SECONDS + 60);
+<span class="boring">}</span></code></pre></pre>
+<p>注释说明了它为什么不能是这里的一个数字：</p>
+<blockquote>
+<p><strong>这个间隔就是 pre-install hook 的上限</strong>，所以它是从 <code>UPDATE_MAX_SILENCE_SECONDS</code> 推导来的，不是这里的数。</p>
+<p>那个 hook 会装一个发布需要而板子可能没有的东西 —— ONNX Runtime，
+以及一块从没装过的板子上<strong>约 100 MB 的 apt</strong>（给 <code>mediad</code> 的 GStreamer 栈）。
+<strong>这个预算在那个上限还是两分钟的时候是 180 秒。</strong></p>
+<p><strong>一个低于那个上限的预算，会把一次正在工作的更新报告成&quot;机器人停止应答&quot;</strong> ——
+而操作者的下一步就是<strong>去打断一次本来好好的更新</strong>。</p>
+<p>（余下的那一分钟，是留给 hook 之后那条回复的。）</p>
+</blockquote>
+<blockquote>
+<p>💡 这就是 <code>duck-ipc-proto-primer.md</code> §10 里那个 <code>UPDATE_MAX_SILENCE_SECONDS = 600</code> 的<strong>客户端一侧</strong>：
+<strong>服务端执行它，客户端把自己的预算设在它之上，两边读同一个常量所以不可能分歧。</strong></p>
+</blockquote>
+<h3 id="83-link_poll为什么还要每-2-秒查一次链路"><a class="header" href="#83-link_poll为什么还要每-2-秒查一次链路">8.3 <code>LINK_POLL</code>：为什么还要每 2 秒查一次链路</a></h3>
+<blockquote>
+<p><strong>没有它，一条掉掉的连接和一台安静下来的机器人无法区分</strong>：
+通知流只是停止产出，于是等待跑完它的空闲预算，然后报告一个&quot;停止应答&quot;的机器人。</p>
+<p>在一次 <code>update apply</code> 之后，<strong>这是错两次</strong> —— <strong>机器人应答了，而消失的是这条链路</strong> ——
+而且要说出来得花掉 <code>UPDATE_IDLE_TIMEOUT</code>。</p>
+</blockquote>
+<h3 id="84-每一步都有自己的预算和消息"><a class="header" href="#84-每一步都有自己的预算和消息">8.4 每一步都有自己的预算和消息</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const CONNECT_TIMEOUT: Duration = Duration::from_secs(20);
+const DISCOVER_TIMEOUT: Duration = Duration::from_secs(20);
+const READ_TIMEOUT: Duration = Duration::from_secs(15);
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p><strong>btleplug 对这三步一个都不限时</strong>，所以没有它们的话，
+从&quot;找到了机器人&quot;到&quot;发出请求&quot;之间任何一处卡住，都只会打印 <code>connecting to …</code> 然后<strong>什么都没有</strong> ——
+<strong>那只说明有东西不对，不说明是什么。</strong></p>
+<p>连接、发现、第一次读<strong>各自以不同方式失败，也各自想要不同的下一步</strong>，所以每一步都说出是哪一步。</p>
+</blockquote>
+<hr />
+<h2 id="9-地址从广播里来"><a class="header" href="#9-地址从广播里来">9. 地址从广播里来</a></h2>
+<p>这是 <code>duckctl</code> 最有用的一个功能，也是 <code>btd</code> 那边一个决定的终点。</p>
+<h3 id="91-三个命令"><a class="header" href="#91-三个命令">9.1 三个命令</a></h3>
+<pre><code class="language-bash">duckctl ip                    # 只打印地址
+duckctl ssh -- uname -a       # ssh 进去
+duckctl scp file :/tmp/       # 拷文件过去
+duckctl open                  # 打开那个 WebRTC 控制台页面
+</code></pre>
+<p><strong>它们都不需要先跑 <code>ip</code>，也不需要配对。</strong></p>
+<h3 id="92-为什么不配对也拿得到"><a class="header" href="#92-为什么不配对也拿得到">9.2 为什么不配对也拿得到</a></h3>
+<p>因为<strong>机器人的 IPv4 地址就在广播里</strong>（<code>btd-primer.md</code> §11.2 讲的四字节）：</p>
+<blockquote>
+<p>那个地址是 <code>btd</code> 每 5 秒重读一次 <code>net.status</code> 之后重新广播的，
+所以&quot;读广播&quot;等于<strong>同一次调用、带 5 秒延迟</strong> ——
+<strong>却不需要绑定、不需要 PIN，而且大约一秒就够。</strong></p>
+<p>只有广播没带地址时才回落到连接（<code>:1532</code>）——
+一台<strong>配对过的 Mac 常常不再广播那个服务</strong>。</p>
+</blockquote>
+<p>这一整套的起点是 <code>btd</code> 那边的一句话（<code>btd-primer.md</code> §11.2）：</p>
+<blockquote>
+<p><code>duckctl scan</code> <strong>故意不连接任何东西</strong>，这正是它在机器人连不上时该被想起来的原因。
+而一个列表最常被用来回答的问题就是 <strong>&quot;我该 ssh 到哪&quot;</strong>。</p>
+</blockquote>
+<h3 id="93--拒绝发生在最便宜的时刻"><a class="header" href="#93--拒绝发生在最便宜的时刻">9.3 ⭐ 拒绝发生在最便宜的时刻</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// run() 里，在打开无线电之前：
+scp_refusal(&amp;paths)?;
+<span class="boring">}</span></code></pre></pre>
+<p><code>scp_refusal</code> 拒绝两种输入：</p>
+<pre><code class="language-text">   ① 没有任何一个路径以 `:` 开头
+        ← 那其实是**本地到本地的复制**，`scp` 会高高兴兴地执行，
+          而**机器人在不在场根本没人知道**。
+          而 scp 自己的 usage 错误**说不出这条规则**。
+
+   ② 只有一个路径（有源无目标）
+</code></pre>
+<p>而它被放在<strong>扫描之前</strong>，理由写在注释里：</p>
+<blockquote>
+<p>否则你会为<strong>一台根本不会被碰到的机器人</strong>先花掉 8 秒。</p>
+</blockquote>
+<h3 id="94-become_program把进程交出去"><a class="header" href="#94-become_program把进程交出去">9.4 <code>become_program</code>：把进程交出去</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn become_program(program: &amp;str, argv: &amp;[String]) -&gt; Result&lt;...&gt;
+<span class="boring">}</span></code></pre></pre>
+<p>它做两件事：</p>
+<ol>
+<li><strong>先把命令行 echo 到 stderr</strong> —— &quot;地址归你，而且那也是下次要加 flag 时可以直接粘的那一行&quot;</li>
+<li>在 unix 上 <strong><code>exec</code> 顶替掉自己的进程</strong></li>
+</ol>
+<blockquote>
+<p>于是终端、提示符、进度条、退出码、断链处理<strong>全归 ssh/scp</strong>，
+<strong>不会留下一个需要单独 Ctrl-C 的父进程</strong> —— 而无线电在之前就已经释放了。</p>
+</blockquote>
+<h3 id="95-console_url-为什么是-http"><a class="header" href="#95-console_url-为什么是-http">9.5 <code>console_url</code> 为什么是 <code>http</code></a></h3>
+<blockquote>
+<p>因为<strong>机器人的局域网上没有证书</strong>，而一个 <code>https</code> 页面里的 <code>ws://</code> 会被当成混合内容拦掉。</p>
+</blockquote>
+<hr />
+<h2 id="10-版本不一致时它做什么"><a class="header" href="#10-版本不一致时它做什么">10. 版本不一致时它做什么</a></h2>
+<p><code>warn_about_skew</code>（<code>:2077</code>）—— 这是&quot;<strong>记录但不拒绝</strong>&quot;那条规矩的<strong>客户端一侧</strong>：</p>
+<pre><code class="language-text">   me     = hello 结果里的 api_version
+   mine   = proto::API_VERSION
+   不一致 → 警告，然后**继续**
+</code></pre>
+<p>理由（<code>:2057-2084</code>）：</p>
+<blockquote>
+<p><strong>BLE 是&quot;一台没有网络的机器人&quot;的传输方式，而 <code>wifi connect</code> 正是它上网的唯一途径。</strong>
+<strong>按版本关门，恰好锁掉的就是那条用来修偏斜的命令。</strong></p>
+</blockquote>
+<p>这正是 <code>duck-ipc-proto-primer.md</code> §7 那段&quot;被推翻的设计&quot;的实践面：
+<strong>服务端不拒绝，客户端也不拒绝 —— 只把差异说出来。</strong></p>
+<hr />
+<h2 id="11-advwatch那个测量工具"><a class="header" href="#11-advwatch那个测量工具">11. <code>advwatch</code>：那个测量工具</a></h2>
+<p><code>duckctl/examples/advwatch.rs</code>（241 行）是<strong>这个仓库里最好的&quot;测量驱动开发&quot;样本</strong>。</p>
+<h3 id="111-它要回答的问题"><a class="header" href="#111-它要回答的问题">11.1 它要回答的问题</a></h3>
+<blockquote>
+<p><strong>机器人广播的到达频率到底是多少？</strong></p>
+</blockquote>
+<p>因为 <code>duckctl scan</code> 只扫 8 秒，<strong>要么找到要么找不到</strong> ——
+于是<strong>一个广播得很慢的机器人看起来就是一个坏掉的机器人</strong>。
+<code>advwatch</code> 改成连续监听并打印到达模式，<strong>把&quot;第二次才找到&quot;变成一个数字</strong>。</p>
+<h3 id="112-为什么这个数字值得测"><a class="header" href="#112-为什么这个数字值得测">11.2 为什么这个数字值得测</a></h3>
+<blockquote>
+<p>它是<strong>区分三种故障的唯一办法</strong>：
+机器人根本没在广播 / 广播太稀扫不到 / 客户端有问题。</p>
+<p>而且它<strong>把同房间的每个设备一起测了</strong>，所以结论是<strong>决定性的</strong>：
+<strong>一个比它弱 55 dB 的信标被听到的次数是它的十倍</strong> ——
+说明既不是距离，也不是干扰。</p>
+</blockquote>
+<h3 id="113--一个必须记的统计陷阱"><a class="header" href="#113--一个必须记的统计陷阱">11.3 ⭐ 一个必须记的统计陷阱</a></h3>
+<blockquote>
+<p>统计的是 <strong>arrivals（到达）而不是 events（事件）</strong>。
+一次广播接收会同时触发<strong>多个</strong> btleplug 事件
+（<code>DeviceUpdated</code> / <code>ServicesAdvertisement</code> / <code>ManufacturerDataAdvertisement</code>…），
+<strong>按事件计数会把&quot;被听到&quot;的频率高估 3–4 倍。</strong></p>
+<p>所以用 200 ms 去抖：每个设备每次真实到达只记 1。</p>
+</blockquote>
+<h3 id="114-它怎么把结论读出来"><a class="header" href="#114-它怎么把结论读出来">11.4 它怎么把结论读出来</a></h3>
+<p>输出包括：<strong>每设备到达数 + 信号强度</strong>（机器人那一行标 <code>&lt;-- the robot</code>）、
+<strong>每秒一个字符的时间线</strong>（<code>#</code> 有报告、<code>.</code> 沉默 —— <strong>8 个连续 <code>.</code> 就是一次会失败的 <code>duckctl</code> 运行</strong>）、
+<strong>间隔直方图</strong>，以及 <strong>≥8 秒的间隔个数</strong>。</p>
+<p>而有一个很漂亮的小技巧：</p>
+<blockquote>
+<p><strong>最小区间就是广播间隔</strong> —— 两个都到达的连续报告不可能比广播间隔更近。
+从到达数据里读出来<strong>成本为零</strong>，而<strong>直接问控制器需要在板子上有 root</strong>。</p>
+</blockquote>
+<h3 id="115-它的成品"><a class="header" href="#115-它的成品">11.5 它的成品</a></h3>
+<p>设计文档 §3.4 就是这份仪器的报告，而文档里明确写了它的地位：</p>
+<blockquote>
+<p><code>duckctl/examples/advwatch.rs</code> <strong>就是那次测量</strong>，
+<strong>保留它是因为这个结论只能靠重跑验证。</strong></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th></th><th style="text-align: right">120 秒到达</th><th style="text-align: right">平均间隔</th><th style="text-align: right">最坏沉默</th><th style="text-align: right">≥8 秒的沉默</th></tr></thead><tbody>
+<tr><td>默认（内核 1.28 s）</td><td style="text-align: right"><strong>16</strong></td><td style="text-align: right">7.5 s</td><td style="text-align: right">30.8 s</td><td style="text-align: right"><strong>7</strong></td></tr>
+<tr><td>改成 100–150 ms</td><td style="text-align: right"><strong>151</strong></td><td style="text-align: right">0.8 s</td><td style="text-align: right">3.8 s</td><td style="text-align: right"><strong>0</strong></td></tr>
+</tbody></table>
+</div>
+<p>（完整的故事在 <code>btd-primer.md</code> §11.1。）</p>
+<h3 id="116-它为什么住在这里而不是-btd"><a class="header" href="#116-它为什么住在这里而不是-btd">11.6 它为什么住在这里而不是 <code>btd</code></a></h3>
+<p><code>Cargo.toml</code> 里那句答案很干脆：</p>
+<blockquote>
+<p><strong>它住这里而不是 <code>btd</code>，理由和客户端一样：它是一个扫描器，而扫描器跑在笔记本上。</strong></p>
+</blockquote>
+<p>两层含义：</p>
+<ol>
+<li><strong>被测的是 <code>btleplug</code> / CoreBluetooth 那一侧</strong>（Mac 上）。
+板子上的 <code>btd</code> 用的是 <code>bluer</code>/BlueZ —— <strong>它不是被测量的对象</strong>。</li>
+<li><strong>它是个 example，而 example 的依赖是 dev-dependency</strong> —— 所以 <code>btleplug</code> 永远进不了板上的产物。</li>
+</ol>
+<hr />
+<h2 id="12-测试"><a class="header" href="#12-测试">12. 测试</a></h2>
+<p><strong>51 个测试，全在 <code>main.rs</code> 里</strong>（<code>advwatch.rs</code> 没有测试）。</p>
+<p>对一个 CLI 工具来说这个数字不寻常 —— 而它测的不是&quot;命令能跑&quot;，
+而是<strong>那些容易搞错、错了又很难看出来的判断</strong>：</p>
+<pre><code class="language-text">   ── 找哪一台机器人 ────────────────────────────────
+   a_single_name_answers_to_itself
+   either_half_of_a_macos_composite_answers      ← `radxa-zero3 [duck-c51b]` 两半都算
+   a_name_matching_two_robots_is_refused_rather_than_guessed   ← ★ 冲突就拒绝，不猜
+   a_miss_and_a_collision_are_not_the_same_failure             ← ★ 两种失败不同
+   without_a_name_the_first_candidate_still_wins
+   a_named_robot_is_waited_for_rather_than_the_first_one_reported
+   a_rename_still_selects_the_robot_by_the_name_it_has_now
+
+   ── 环境变量与 flag 的优先级 ──────────────────────
+   the_flag_beats_the_environment
+   an_empty_value_is_no_default_at_all            ← ★ 空的 --name 仍然压过环境变量
+
+   ── ssh / scp ────────────────────────────────────
+   ssh_resolves_its_user_and_passes_the_command_through
+   scp_points_colon_paths_at_the_robot_and_leaves_the_rest_alone
+   scp_refuses_a_copy_the_robot_has_nothing_to_do_with        ← ★ 第 9.3 节
+   a_robot_with_no_network_is_told_how_to_get_one
+
+   ── 地址 ─────────────────────────────────────────
+   a_robot_broadcasts_where_it_is
+   no_wifi_and_no_field_read_differently          ← ★ 第 11.2 节的三种情况
+   only_a_robot_is_read_for_an_address
+
+   ── 超时（这些是规格，不只是配置）──────────────────
+   reading_a_journal_gets_the_slow_budget
+   the_hub_commands_wait_as_long_as_they_need
+   an_update_is_given_the_longest_silence
+   the_link_is_checked_lot_before_a_wait_gives_up ← 第 8.3 节
+
+   ── 注记 ─────────────────────────────────────────
+   a_servo_reboot_says_the_robot_is_limp          ← ★ limp_note
+   a_restart_is_announced_only_when_the_release_changed        ← ★ restart_note
+   a_login_note_carries_the_code_without_opening_anything      ← ★ account_note
+   a_drop_during_an_apply_points_at_the_record
+</code></pre>
+<blockquote>
+<p>注意最后那几组：<strong>&quot;超时&quot;和&quot;注记&quot;都被测试钉住了</strong> ——
+也就是说在这个工具里，<strong>&quot;它说什么、等多久&quot;是规格的一部分，不是实现细节。</strong></p>
+</blockquote>
+<hr />
+<h2 id="13-阅读路线"><a class="header" href="#13-阅读路线">13. 阅读路线</a></h2>
+<p><strong>第 1 步 —— 建立直觉（30 分钟）</strong></p>
+<ol>
+<li>读 <code>main.rs</code> 的模块头（前 40 行）。</li>
+<li>读 <a href="robot/duckctl.html"><code>robot/duckctl.md</code></a> 的开头（前 20 行）—— 操作者视角。</li>
+<li>读 <code>Cargo.toml</code> —— &quot;<strong>客户端那一半，而且它跑在离机器人很远的地方</strong>&quot;那段。</li>
+</ol>
+<p><strong>第 2 步 —— 常量（30 分钟）</strong></p>
+<ol start="4">
+<li>读 <code>main.rs:55–123</code> 那 14 个常量。<strong>每一个都有一段理由</strong>，而且是这个工具最有价值的部分之一。</li>
+</ol>
+<p><strong>第 3 步 —— 骨架（1 小时）</strong></p>
+<ol start="5">
+<li>读 <code>run()</code>（<code>:1362</code>）—— 第 6 节那张时序图。</li>
+<li>读 <code>request_line</code>（<code>:2107</code>）—— 命令 → 请求 + <strong>该等多久</strong>。</li>
+<li>读 <code>Target</code>（<code>:263</code>）和 <code>choose</code>（<code>:379</code>）。</li>
+</ol>
+<p><strong>第 4 步 —— 输出（40 分钟）</strong></p>
+<ol start="8">
+<li>读 <code>:1777</code> 附近（回复怎么打出去）和三个 <code>*_note</code>（<code>:2466</code> / <code>:2514</code> / <code>:2524</code>）—— 第 7 节。</li>
+<li>读 <code>print_journal</code>（<code>:1851</code>）—— 为什么诊断走 stderr。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p duckctl             # 51 个测试，不需要蓝牙
+
+cargo run -p duckctl -- scan
+cargo run -p duckctl -- --help
+</code></pre>
+<blockquote>
+<p>⚠️ 第一稿读代码时我以为 <code>duckctl</code> 是 <code>btd</code> 的一个 example（有几份文档就是这么写的）。
+<strong>现在不是了</strong> —— 它是一个独立的 crate，有自己的 binary，<code>advwatch</code> 才是它的 example。
+见文末&quot;两处过时说法&quot;。</p>
+</blockquote>
+<hr />
+<h2 id="14-术语表"><a class="header" href="#14-术语表">14. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>central / peripheral</strong></td><td>BLE 的两个角色：central（笔记本 / 手机）主动连，peripheral（机器人）被连</td></tr>
+<tr><td><strong>广播 / advertisement</strong></td><td>peripheral 周期性喊&quot;我在这里&quot;。<strong>连接之前唯一的信息来源</strong></td></tr>
+<tr><td><strong>扫描 / scan</strong></td><td>central 听广播的过程</td></tr>
+<tr><td><strong>配对 / 绑定</strong></td><td>建立加密链路 / 把密钥存下来</td></tr>
+<tr><td><strong>bond</strong></td><td>绑定过的设备。<strong>配对过的 Mac 常常不再广播服务列表</strong> —— 这是第 5.1 节的由来</td></tr>
+<tr><td><strong>GATT / 特征 / 服务</strong></td><td>BLE 组织数据的模型。见 <code>duck-ble-primer.md</code></td></tr>
+<tr><td><strong>MTU</strong></td><td>一次能传的最大字节数。这里决定分片大小</td></tr>
+<tr><td><strong>NDJSON</strong></td><td>一行一个 JSON 对象</td></tr>
+<tr><td><strong>JSON-RPC 通知</strong></td><td>没有 <code>id</code>、不期待回复的消息。<strong>进度就是靠它推的</strong></td></tr>
+<tr><td><strong><code>btleplug</code></strong></td><td>跨平台的蓝牙客户端库（macOS/Linux/Windows）。<code>btd</code> 用的 <code>bluer</code> 是 Linux 专用的</td></tr>
+<tr><td><strong><code>bluer</code></strong></td><td>只在 Linux 上跑的 BlueZ 客户端库。<code>btd</code> 用它</td></tr>
+<tr><td><strong>CoreBluetooth</strong></td><td>macOS/iOS 的蓝牙栈</td></tr>
+<tr><td><strong>快照 vs 轮询</strong></td><td>&quot;睡一觉再取一次&quot; vs &quot;持续重看直到有东西&quot;。<strong>第 5.2 节那个 bug 就是这两者的区别</strong></td></tr>
+<tr><td><strong>到达 / arrival</strong></td><td>一次真实的广播接收。<strong>不是 btleplug 的一个事件</strong>（一次到达会触发多个）</td></tr>
+<tr><td><strong>去抖 / debounce</strong></td><td>一段时间内的重复信号只算一次。见第 11.3 节</td></tr>
+<tr><td><strong>RSSI</strong></td><td>收到的信号强度（dBm）。<strong>是负数，越接近 0 越强</strong></td></tr>
+<tr><td><strong><code>--psk-stdin</code></strong></td><td>从标准输入读 wifi 密码，这样它不会出现在 <code>ps</code> 的输出里</td></tr>
+<tr><td><strong>退出码</strong></td><td>进程结束时给 shell 的数字</td></tr>
+<tr><td><strong><code>exec</code></strong></td><td>用另一个程序顶替掉当前进程。<strong>终端、信号、退出码全都交出去</strong></td></tr>
+<tr><td><strong>stdout / stderr</strong></td><td>标准输出 / 标准错误。<strong>第 7.1 节那条规矩就是它们的区别</strong></td></tr>
+<tr><td><strong>pipe / 管道</strong></td><td>`</td></tr>
+<tr><td><strong>cross-build / 交叉编译</strong></td><td>在一台机器上为另一种架构构建。<strong><code>duckctl</code> 永远不参与</strong></td></tr>
+<tr><td><strong><code>default-members</code></strong></td><td>cargo 默认构建的成员列表。<strong>把 <code>duckctl</code> 排除在外，就是它不上板子的机制</strong></td></tr>
+<tr><td><strong>dev-dependency</strong></td><td>只给测试和示例用的依赖，不进发布产物</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>每条命令做什么（操作者手册）</td><td><a href="robot/duckctl.html"><code>robot/duckctl.md</code></a></td></tr>
+<tr><td>手机 App 的契约（<code>duckctl.md</code> 是它的功能规格）</td><td><a href="design/mobile-app.html"><code>design/mobile-app.md</code></a></td></tr>
+<tr><td>它对面那一半：蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>每条方法归谁、占多久（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>在板子上用的那个工具</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td></tr>
+<tr><td>广播间隔那件事的完整实测</td><td><a href="design/app-path-design.html"><code>design/app-path-design.md</code></a> §3.4</td></tr>
+<tr><td>配置文件的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>控制循环本身（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 的 ToF 点云视图背后的几何（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>那台服务页面的机器人和它的摄像头（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 的路径地图画的是什么（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 里那个线框手柄画的是什么（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 那个手柄面板的数据源（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><strong>跑在机器人上</strong>的那一个（姊妹篇，别搞混）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/duck-ipc-proto-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/hooks-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/duck-ipc-proto-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/hooks-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

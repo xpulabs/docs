@@ -1,0 +1,825 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>deloy/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html" class="active"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="deploy-新手导读"><a class="header" href="#deploy-新手导读"><code>deploy</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p><code>deploy/</code> 自己的 <a href="../deploy/README.html"><code>README.md</code></a>（484 行）就是这个目录的权威文档，
+而信任链的机制由 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §5 拥有。
+本文只做一件事：<strong>带你把这个目录过一遍，并告诉你每个文件归谁管</strong>。</p>
+<p>姊妹篇：<a href="hooks-primer.html"><code>hooks-primer.md</code></a> —— 那一份讲<strong>发布怎么把自己装到板子上</strong>，
+这一份讲<strong>板子被配置成什么样子</strong>。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-deploy-%E5%92%8C-scripts-%E7%9A%84%E5%88%86%E5%B7%A5"><code>deploy/</code> 和 <code>scripts/</code> 的分工</a></li>
+<li><a href="#3-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#4--%E4%BF%A1%E4%BB%BB%E9%93%BE%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%87%AD%E4%BB%80%E4%B9%88%E7%9B%B8%E4%BF%A1%E4%B8%80%E4%B8%AA%E5%8F%91%E5%B8%83">⭐ 信任链：机器人凭什么相信一个发布</a></li>
+<li><a href="#5--%E6%97%A5%E5%BF%97%E5%8E%BB%E5%93%AA%E4%B8%A4%E4%B8%AA%E8%AE%B0%E5%BD%95%E4%B8%A4%E7%A7%8D%E8%80%90%E4%B9%85%E6%80%A7">⭐ 日志去哪：两个记录，两种耐久性</a></li>
+<li><a href="#6-%E9%85%8D%E7%BD%AErobotd-toml-%E5%92%8C-updater-toml">配置：<code>robotd.toml</code> 和 <code>updater.toml</code></a></li>
+<li><a href="#7-%E7%A1%AC%E4%BB%B6%E4%BD%BF%E8%83%BD%E8%AE%BE%E5%A4%87%E6%A0%91%E5%92%8C%E4%B8%80%E4%B8%AA%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8">硬件使能：设备树和一个内核驱动</a></li>
+<li><a href="#8-%E9%83%A8%E7%BD%B2%E4%B9%8B%E5%90%8E%E4%B8%9C%E8%A5%BF%E9%83%BD%E5%9C%A8%E5%93%AA">部署之后，东西都在哪</a></li>
+<li><a href="#9-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#10-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>deploy/</code> 里是<strong>属于机器人镜像、而不属于某个服务</strong>的东西。目录自己的 README 第一句就是这个意思：</p>
+<blockquote>
+<p>属于<strong>机器人镜像</strong>而不是属于任何一个服务的配置。
+<strong>服务的单元文件住在服务旁边</strong>（<code>updater/systemd/</code>、<code>robotd/systemd/</code>）；
+<strong>任何机器人范围的东西都在这里。</strong></p>
+</blockquote>
+<pre><code class="language-text">   deploy/
+   ├── README.md          484 行   ★ 这个目录的权威文档
+   ├── robotd.toml        488 行   控制循环的配置（出厂默认值）
+   ├── updater.toml       179 行   更新引擎的配置（生产版）
+   ├── journald.conf.d/    51 行   日志的持久化与上限
+   ├── trusted_keys/               ★ 信任锚：三把 release 公钥
+   ├── dev-key/                    开发板的公钥（**故意不放在上面那个目录**）
+   ├── audio/                    音频编解码器的设备树 + 一个 vendored 内核驱动
+   └── overlays/                 开启 NPU 的设备树 overlay
+</code></pre>
+<p>规模：<strong>3795 行，19 个文件</strong>。</p>
+<blockquote>
+<p>💡 其中 <strong>1888 行是一个 Linux 内核驱动</strong>（<code>audio/aic3x-dkms/tlv320aic3x.c</code>）——
+一个 C 文件住在一个 Rust 仓库里，而它是<strong>故意的</strong>。见第 7 节。</p>
+</blockquote>
+<hr />
+<h2 id="2-deploy-和-scripts-的分工"><a class="header" href="#2-deploy-和-scripts-的分工">2. <code>deploy/</code> 和 <code>scripts/</code> 的分工</a></h2>
+<p>新手最容易问的是：&quot;配置在这，那<strong>装它</strong>的脚本呢？&quot;</p>
+<pre><code class="language-text">   deploy/    3795 行   **配置与硬件使能** —— 声明&quot;机器人镜像应该长什么样&quot;
+   scripts/   9990 行   **执行那些声明的过程** —— 把上面那些东西装上去
+</code></pre>
+<p><strong>它们不在同一个目录，而这是有意的</strong>：<code>deploy/</code> 里的东西<strong>跟着发布走</strong>（被打包进产物、被签名），
+而 <code>scripts/</code> 里的东西<strong>是被 curl 下来的</strong>。</p>
+<p>这也是 <code>hooks-primer.md</code> §3.2 里第四个案例的根源：</p>
+<blockquote>
+<p>登录 shell 那段 <code>install.sh</code> 长了出来，而 <strong><code>install.sh</code> 不被打进发布</strong>，
+所以<strong>没有任何 hook 能做这件事</strong> —— 直到那个脚本自己搬进 <code>scripts/</code>（而 <code>scripts/</code> 跟着发布走）。</p>
+</blockquote>
+<p><strong>记住这一条就够了</strong>：<code>deploy/</code> 是&quot;<strong>结果</strong>&quot;，<code>scripts/</code> 是&quot;<strong>过程</strong>&quot;。</p>
+<hr />
+<h2 id="3-目录导览"><a class="header" href="#3-目录导览">3. 目录导览</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th style="text-align: right">行数</th><th>干什么</th><th>装到哪</th></tr></thead><tbody>
+<tr><td><code>README.md</code></td><td style="text-align: right">484</td><td><strong>这个目录的权威文档</strong></td><td>—</td></tr>
+<tr><td><code>robotd.toml</code></td><td style="text-align: right">488</td><td>控制循环的配置，<strong>每个值都是内置默认值</strong></td><td><code>/etc/robot/robotd.toml</code></td></tr>
+<tr><td><code>updater.toml</code></td><td style="text-align: right">179</td><td>更新引擎的配置，<strong>生产版</strong>（不是参考版）</td><td><code>/etc/robot/updater.toml</code></td></tr>
+<tr><td><code>journald.conf.d/10-robot.conf</code></td><td style="text-align: right">51</td><td>日志持久化与上限</td><td><code>/etc/systemd/journald.conf.d/</code></td></tr>
+<tr><td><code>trusted_keys/release-{1,2,3}.pub</code></td><td style="text-align: right">2 各</td><td><strong>信任锚</strong>：三把 release 公钥</td><td><code>/etc/robot/trusted_keys/</code></td></tr>
+<tr><td><code>trusted_keys/README.md</code></td><td style="text-align: right">39</td><td>为什么是三把、怎么轮换</td><td>—</td></tr>
+<tr><td><code>dev-key/team.dev.pub</code></td><td style="text-align: right">2</td><td>开发板的公钥</td><td><strong>只在你显式推它的时候</strong></td></tr>
+<tr><td><code>dev-key/README.md</code></td><td style="text-align: right">26</td><td>为什么它<strong>故意不在</strong> <code>trusted_keys/</code> 里</td><td>—</td></tr>
+<tr><td><code>overlays/rk3568-npu-enable.dts</code></td><td style="text-align: right">37</td><td>开启 NPU 的设备树 overlay</td><td><code>/boot/dtb/.../overlay/</code></td></tr>
+<tr><td><code>audio/i2c3-pihat.dts</code></td><td style="text-align: right">69</td><td>硬件 I²C 总线（排针 3/5 脚）</td><td>编成 <code>.dtbo</code></td></tr>
+<tr><td><code>audio/aic3104-i2c3.dts</code></td><td style="text-align: right">92</td><td>编解码器 + I²S 声卡</td><td>编成 <code>.dtbo</code></td></tr>
+<tr><td><code>audio/aic3104-init.sh</code></td><td style="text-align: right">42</td><td>开机把混音器音量调好</td><td><code>/usr/local/bin/</code></td></tr>
+<tr><td><code>audio/aic3x-dkms/</code></td><td style="text-align: right">2280</td><td><strong>vendored 的内核驱动</strong>（5 个文件）</td><td>DKMS 构建</td></tr>
+</tbody></table>
+</div>
+<h3 id="31--这份目录表比-readme-里那张全"><a class="header" href="#31--这份目录表比-readme-里那张全">3.1 ⚠️ 这份目录表比 README 里那张全</a></h3>
+<p><code>deploy/README.md</code> 自己也有一张表，但<strong>只列了三项</strong>（<code>updater.toml</code>、<code>trusted_keys/</code>、<code>journald.conf.d/</code>）。
+我核实过：<strong><code>robotd.toml</code> 和 <code>audio/</code> 在整份 README 里一个字都没提到</strong>
+（<code>robotd.toml</code> 出现 0 次，<code>audio</code> 出现 0 次，<code>aic3104</code> 出现 0 次）。</p>
+<p>这<strong>不是错误</strong> —— 那份 README 的主题是&quot;<strong>信任链、什么装到哪、日志去哪</strong>&quot;，
+而不是一份完整的文件索引，而且 <code>robotd.toml</code> 在<strong>它自己里面</strong>有 488 行的注释。
+但对一个刚打开 <code>deploy/</code> 的人来说，<strong>一个 1888 行的 C 文件出现在目录里、而目录的 README 不提它</strong>，
+是值得补一句的。</p>
+<p><strong><code>robotd.toml</code> 的权威解释</strong>是 <a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>，
+而 <code>updater.toml</code> 的在 <a href="design/updater-design.html"><code>design/updater-design.md</code></a>。</p>
+<hr />
+<h2 id="4--信任链机器人凭什么相信一个发布"><a class="header" href="#4--信任链机器人凭什么相信一个发布">4. ⭐ 信任链：机器人凭什么相信一个发布</a></h2>
+<p><strong>这是 <code>deploy/</code> 里最值得理解的一部分</strong>，也是这个目录为什么叫&quot;部署&quot;而不是&quot;配置&quot;。</p>
+<h3 id="41-一句话公钥烧进镜像签名决定装不装"><a class="header" href="#41-一句话公钥烧进镜像签名决定装不装">4.1 一句话：公钥烧进镜像，签名决定装不装</a></h3>
+<pre><code class="language-text">   发布包 ──用私钥签名──▸ ① manifest 的签名
+                         ② artifact 的签名
+
+   机器人 ──用公钥验证──▸ 对得上就装，对不上就拒绝
+</code></pre>
+<p>而<strong>公钥从哪里来</strong>？<strong>从镜像里</strong>。<code>install.sh</code> 把它们拷到 <code>/etc/robot/trusted_keys/</code>，
+而 <code>updater.toml</code> 里那一行指向它：</p>
+<pre><code class="language-toml">trusted_keys_dir = &quot;/etc/robot/trusted_keys&quot;
+</code></pre>
+<h3 id="42-那个-pub-文件里到底是什么"><a class="header" href="#42-那个-pub-文件里到底是什么">4.2 那个 <code>.pub</code> 文件里到底是什么</a></h3>
+<p>只有<strong>两行</strong>，而两行都值得看懂：</p>
+<pre><code class="language-text">   untrusted comment: minisign public key: FDD681D1AFBC0B12
+   0000000000000000000000000000000000000000000000000000000000000000
+   └──────────────────────── base64 ────────────────────────────┘
+</code></pre>
+<p><strong>第一行是&quot;不受信任的注释&quot;</strong> —— <code>untrusted</code> 是<strong>字面意思</strong>：
+<strong>验证器完全忽略这一行</strong>，它只是给人看的。</p>
+<p><strong>第二行解码出来正好 42 个字节</strong>，结构是：</p>
+<pre><code class="language-text">   ┌────┬──────────────┬────────────────────────────────┐
+   │ Ed │  key ID (8)  │  Ed25519 公钥 (32 字节)        │
+   │ 2  │              │                                │
+   └────┴──────────────┴────────────────────────────────┘
+</code></pre>
+<p>（我实际解码验证过：<code>release-1.pub</code> 的第二行是 42 字节，前两字节是 <code>Ed</code>，
+后面 8 字节 <code>120b bcaf d181 d6fd</code> <strong>小端反转</strong>之后正是第一行注释里的 <code>FDD681D1AFBC0B12</code>。）</p>
+<blockquote>
+<p>💡 所以第一行<strong>不泄露任何东西</strong> —— 那个 key ID 本来就在 base64 里。
+它存在的意义是让<strong>人</strong>能一眼认出&quot;这是哪把钥匙&quot;。</p>
+</blockquote>
+<h3 id="43-为什么公钥可以公开私钥不行"><a class="header" href="#43-为什么公钥可以公开私钥不行">4.3 为什么公钥可以公开，私钥不行</a></h3>
+<p><code>trusted_keys/README.md</code> 说得直接：</p>
+<blockquote>
+<p><strong>公钥不是秘密</strong>，提交进仓库是<strong>对的</strong>。
+私钥在 <code>~/.duck-keys</code> 和密码管理器里，<strong>只有 release-1 的那把在 CI</strong>。</p>
+</blockquote>
+<p>而 <code>xtask keygen</code> 把这条写成了<strong>硬约束</strong>：</p>
+<blockquote>
+<p><strong>一把被提交进仓库的签名私钥，无法靠事后删除来&quot;收回泄露&quot;。</strong></p>
+<p>（所以 <code>keygen</code> 会<strong>拒绝写进仓库里</strong>。）</p>
+</blockquote>
+<h3 id="44--为什么是三把-key"><a class="header" href="#44--为什么是三把-key">4.4 ⭐ 为什么是<strong>三把</strong> key</a></h3>
+<p>这是这个目录里最漂亮的一个设计。三把 key 的<strong>分工</strong>是：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>干什么</th></tr></thead><tbody>
+<tr><td><strong>release-1</strong></td><td>签今天所有的发布和晋升。<strong>它的私钥在 CI 里</strong>（因为要自动签名）</td></tr>
+<tr><td><strong>release-2</strong></td><td><strong>第一个轮换目标</strong> —— CI 或 release-1 失守时立刻顶上去</td></tr>
+<tr><td><strong>release-3</strong></td><td>最后手段。<strong>私钥永不接触任何联网的机器</strong></td></tr>
+</tbody></table>
+</div>
+<p>而<strong>真正的理由</strong>在这里（<code>trusted_keys/README.md</code>）：</p>
+<blockquote>
+<p><strong>三把从一开始就随镜像出厂，而这正是要点。</strong></p>
+<p><strong>机器人只能用它被烧录时内嵌的那一组 key 来验证</strong> ——
+所以一台&quot;只有一把 key、而私钥后来丢失或泄露&quot;的机器人
+<strong>无法通过 OTA 更换那把 key</strong>，只能<strong>手工重刷</strong>。</p>
+<p><strong>现在带上备用 key 是免费的；事后补装是不可能的。</strong></p>
+</blockquote>
+<p>⚠️ 而有一个<strong>残酷的不对称</strong>，README 专门写明了：</p>
+<blockquote>
+<p><strong>一个新增的 key，只在&quot;它被加入之后烧录&quot;的机器人上被信任。</strong>
+所以<strong>轮换只保护未来，救不了已经在现场的机器人</strong> ——
+<strong>而这就是备用 key 必须事先存在的原因。</strong></p>
+</blockquote>
+<h3 id="45-泄露之后怎么办一个故意滞后的顺序"><a class="header" href="#45-泄露之后怎么办一个故意滞后的顺序">4.5 泄露之后怎么办：一个<strong>故意滞后</strong>的顺序</a></h3>
+<p><code>docs/project/ci-setup.md</code> 记着四步：</p>
+<pre><code class="language-text">   ① 用 release-2 的私钥替换 CI 里的 release-1
+   ② **发布一个由 release-2 签名的版本** ← 机器人**已经**信任它
+   ③ **在后续的发布里**才把 release-1.pub 从 trusted_keys_dir 移除
+   ④ 生成一把新的第三把补位（release-4）
+</code></pre>
+<p><strong>第 ③ 步故意慢于第 ② 步</strong>，而理由是：</p>
+<blockquote>
+<p><strong>在每一台机器人都装上 release-2 签名的版本之前就吊销旧 key，
+会让错过那一版的机器人直接搁浅。</strong></p>
+</blockquote>
+<p>而 <code>install.sh</code> 把这个不对称<strong>落成了代码</strong>：</p>
+<pre><code class="language-text">   缺失的**备用** key → 一条 warning，跳过
+   缺失的 **release-1**  → **致命错误**
+        （&quot;没有它就无法验证任何东西，也就没有任何东西可以安全安装&quot;）
+</code></pre>
+<h3 id="46-开发密钥唯一区别是文件名后缀"><a class="header" href="#46-开发密钥唯一区别是文件名后缀">4.6 开发密钥：唯一区别是<strong>文件名后缀</strong></a></h3>
+<pre><code class="language-text">   deploy/trusted_keys/   ← 会被装到**每一台**机器人上
+   deploy/dev-key/        ← **默认没有人安装它**
+</code></pre>
+<p><code>dev-key/README.md</code> 解释了为什么分开：</p>
+<blockquote>
+<p><strong>故意不放在 <code>../trusted_keys/</code></strong> —— 那个目录会被 <code>install.sh</code> 拷到<strong>每一台</strong>机器人；
+<strong>而一台信任 dev key 的机器人，会装下团队里任何人构建的东西。</strong></p>
+</blockquote>
+<p>而一台板子接受分支构建需要<strong>两个独立的条件同时成立</strong>：</p>
+<pre><code class="language-text">   ① 那个 key 在这块板子的 trusted_keys_dir 里，**而且**
+   ② 它的 updater.toml 里 allow_dev_keys = true
+</code></pre>
+<p><strong>而把 dev key 和 release key 区分开的，就是文件名</strong>：</p>
+<pre><code class="language-text">   team.dev.pub
+        └┬┘
+     &quot;.dev.&quot; 这个中缀是**承重的，不是装饰**
+</code></pre>
+<blockquote>
+<p>⚠️ <code>install.sh</code> 会把 dev key <strong>一律装成 <code>team.dev.pub</code>，不管来源文件叫什么</strong> ——
+因为 <code>.dev.</code> 这个中缀<strong>就是分类依据</strong>。
+一把落在别的名字下的 key 会被当成 <strong>release key</strong> 信任，<strong>于是分支构建会被当作已审查的发布接受</strong>。</p>
+</blockquote>
+<h3 id="47-一个诚实的风险声明"><a class="header" href="#47-一个诚实的风险声明">4.7 一个诚实的风险声明</a></h3>
+<p><code>docs/project/ci-setup.md</code> 里有一段<strong>坦白陈述的已接受风险</strong>，值得新手读：</p>
+<blockquote>
+<p>原来的计划是用 GitHub 的 required reviewers 把关 release-1，
+<strong>而那建不起来</strong>（免费计划的私有仓库不支持，报 <code>HTTP 422</code>）。</p>
+<p>所以：<strong>任何有 push 权限的人都能读到 <code>release-1</code>。</strong></p>
+<p><strong>&quot;仅用于发布&quot;只是互信同事之间的约定，不是访问控制</strong> ——
+<strong>workflow 文件不是边界。</strong></p>
+</blockquote>
+<p>而它点名了那个<strong>无法撤销的失败形态</strong>：</p>
+<blockquote>
+<p>泄露意味着要向<strong>每一台</strong>机器人推一个 release-2 签名的更新，
+<strong>而任何错过它的机器人，将永远信任那把已泄露的 key。</strong></p>
+</blockquote>
+<h3 id="48-updater-只链接能验证的那个库"><a class="header" href="#48-updater-只链接能验证的那个库">4.8 <code>updater</code> 只链接&quot;能验证&quot;的那个库</a></h3>
+<p>一个值得学的细节（<code>updater/src/verify.rs</code>）：</p>
+<blockquote>
+<p><code>updater</code> 只依赖 <code>minisign-verify</code> —— <strong>一个只能验、不能签的库</strong> ——
+因为<strong>它没资格签名，就不该链接能签名的代码</strong>。</p>
+</blockquote>
+<p>而它的<strong>校验顺序</strong>是：</p>
+<pre><code class="language-text">   ① 验证 manifest 的签名
+   ② 下载 artifact
+   ③ 校验 artifact 的 sha256
+   ④ 验证 artifact 的签名
+   → **任何未签名的字节都不会被解包到活动路径、也不会被执行**
+</code></pre>
+<h3 id="49-空目录是错误不是空允许列表"><a class="header" href="#49-空目录是错误不是空允许列表">4.9 空目录是<strong>错误</strong>，不是空允许列表</a></h3>
+<blockquote>
+<p>一个<strong>空的 keyring 是一个错误</strong>，而不是一份空的允许列表 ——
+<strong>&quot;静默地谁也不信&quot;和&quot;路径配错了&quot;从外面看一模一样。</strong></p>
+</blockquote>
+<hr />
+<h2 id="5--日志去哪两个记录两种耐久性"><a class="header" href="#5--日志去哪两个记录两种耐久性">5. ⭐ 日志去哪：两个记录，两种耐久性</a></h2>
+<p>这是 <code>deploy/README.md</code> 花最多篇幅讲的一件事，而它有一个<strong>实测过</strong>的坑。</p>
+<h3 id="51-两个记录"><a class="header" href="#51-两个记录">5.1 两个记录</a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>在哪</th><th>熬得过重启</th><th>熬得过断电</th><th>上限</th></tr></thead><tbody>
+<tr><td><strong>服务日志</strong></td><td>journald</td><td>只在配置了之后</td><td><strong>不能</strong></td><td><code>SystemMaxUse=200M</code></td></tr>
+<tr><td><strong>更新历史</strong></td><td><code>/var/lib/robot/updater/update-log.jsonl</code></td><td><strong>能</strong></td><td><strong>能</strong></td><td>200 条</td></tr>
+</tbody></table>
+</div>
+<p>而<strong>更新历史故意不放 journal</strong>：</p>
+<blockquote>
+<p>它住在引擎的 <code>state_dir</code>（<code>/var/lib</code> 下），<strong>每一条在追加时都被 <code>fsync</code></strong>，
+重写走&quot;临时文件 + rename + 给父目录 fsync&quot;。</p>
+<p>所以**&quot;这台机器人装过什么、后来怎么样了&quot;能熬过一台日志是易失的机器人**，
+而它可以用 <code>robotctl update log</code> 读，或者直接当 JSON 行从磁盘上读。
+<strong>这个性质是被测试验证的，不是假定的。</strong></p>
+</blockquote>
+<h3 id="52-那个-storageauto-陷阱"><a class="header" href="#52-那个-storageauto-陷阱">5.2 那个 <code>Storage=auto</code> 陷阱</a></h3>
+<p><code>journald.conf.d/10-robot.conf</code> 开头解释了<strong>为什么需要这个文件</strong>：</p>
+<blockquote>
+<p>systemd 的默认值是 <code>Storage=auto</code>，它<strong>把日志留在 RAM 里</strong>（<code>/run/log/journal</code>），
+除非 <code>/var/log/journal</code> 已经存在。</p>
+<p>在一张它不存在的镜像上，<strong>每一次日志都在重启时丢掉</strong> ——
+于是 support 永远会问的那个问题（<strong>&quot;它重启之前说了什么？&quot;</strong>）恰恰就是缺失的那个。</p>
+</blockquote>
+<p>所以这里写死 <code>Storage=persistent</code> —— <strong>让行为明确，并自己创建那个目录</strong>，
+而不是取决于别的包碰巧有没有创建它。</p>
+<h3 id="53--而它在-varlog-是-tmpfs-时不够"><a class="header" href="#53--而它在-varlog-是-tmpfs-时不够">5.3 ⚠️ 而它在 <code>/var/log</code> 是 tmpfs 时<strong>不够</strong></a></h3>
+<p>这是注释里的一段警告，而且它是<strong>实测的</strong>：</p>
+<blockquote>
+<p>⚠️ <strong>如果 <code>/var/log</code> 是 tmpfs，这个文件本身不够。</strong>
+Armbian 镜像带过一种 RAM 日志机制（<code>armbian-ramlog</code> / <code>log2ram</code>），它把 <code>/var/log</code> 挂到内存里来省 SD 卡，
+定期、以及在干净关机时同步到磁盘。</p>
+<p>在那种情况下，<strong>这个文件让 journald <em>以为</em>它是持久的</strong>，
+而<strong>一次不干净的断电仍然会丢掉最近的日志</strong> ——
+<strong>而机器人一直在被不干净地断电。</strong></p>
+<p>在板子上验证：</p>
+<pre><code class="language-bash">findmnt /var/log                  # 这里显示 tmpfs 就意味着日志在内存里
+systemctl status armbian-ramlog   # 或者 log2ram
+</code></pre>
+</blockquote>
+<p>而 <code>deploy/README.md</code> 记了后续（<strong>实测之后</strong>）：</p>
+<blockquote>
+<p><code>/var/log</code> 在这张镜像上是一个 <strong>zram 设备</strong>，所以 <code>Storage=persistent</code> 拿到的目录<strong>本身就在内存里</strong>。
+它在板子上确认过，不是推断的……</p>
+<p>它<strong>熬得过一次干净的 <code>reboot</code></strong>（因为关机会写回），
+而<strong>在一次断电时丢掉最近的日志 —— 而那才是机器人实际被关掉的方式</strong>。</p>
+<p>所以服务日志<strong>按构造就是尽力而为的</strong>，而<strong>持久的记录是 <code>/var/lib</code> 下的更新历史</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>这是&quot;设计意图&quot;和&quot;平台现实&quot;打架时正确的处理方式</strong>：
+不改默认值、不假装问题不存在 —— <strong>说清楚哪个是持久的、哪个是尽力而为的，并指出改动它的代价</strong>：</p>
+<pre><code class="language-bash">sudo systemctl disable --now armbian-zram-config   # 日志落到 eMMC 并磨损它
+</code></pre>
+<p><em>&quot;那是一个<strong>每块板子各自的决定</strong>，不是一个该全机队改掉的默认值。&quot;</em></p>
+</blockquote>
+<h3 id="54-上限和限流"><a class="header" href="#54-上限和限流">5.4 上限和限流</a></h3>
+<pre><code class="language-text">   SystemMaxUse=200M         eMMC 很小，而机器人要跑好几个月
+   SystemMaxFileSize=20M     200M / 20M ≈ 保留十次轮转 —— 够跨好几次启动，
+   SystemMaxFiles=10         而这正是让&quot;崩溃之前的日志&quot;够得着的东西
+   MaxRetentionSec=3month    一台闲置了几个月的机器人不该还留着那时的日志
+   Compress=yes
+   ForwardToSyslog=no        这张镜像上没有任何东西消费 syslog
+                             （顺带跳过 /dev/kmsg，它有自己的一小圈缓冲）
+</code></pre>
+<p>而限流那条最值得看：</p>
+<blockquote>
+<p><strong>限流保持开启</strong> —— 一个真正失控的服务不能填满磁盘 ——
+<strong>但默认值（每服务 30 秒 1000 条）低到会在崩溃循环中丢消息</strong>，
+<strong>而那恰恰是每一行都重要的时候。</strong></p>
+<p><strong>提高它，而不是去掉它。</strong></p>
+</blockquote>
+<pre><code class="language-text">   RateLimitIntervalSec=30s
+   RateLimitBurst=10000        ← 默认是 1000
+</code></pre>
+<hr />
+<h2 id="6-配置robotdtoml-和-updatertoml"><a class="header" href="#6-配置robotdtoml-和-updatertoml">6. 配置：<code>robotd.toml</code> 和 <code>updater.toml</code></a></h2>
+<h3 id="61-两种生产版-vs-参考版的哲学并排放在一个仓库里"><a class="header" href="#61-两种生产版-vs-参考版的哲学并排放在一个仓库里">6.1 两种&quot;生产版 vs 参考版&quot;的哲学，并排放在一个仓库里</a></h3>
+<p>这是这个仓库里一个<strong>很有意思的对照</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th><code>robotd</code></th><th><code>updater</code></th></tr></thead><tbody>
+<tr><td><strong>生产文件</strong></td><td><code>deploy/robotd.toml</code>（488 行）</td><td><code>deploy/updater.toml</code>（179 行）</td></tr>
+<tr><td><strong>参考文件</strong></td><td><strong>就是生产文件本身</strong></td><td><code>updater/updater.example.toml</code>（214 行）</td></tr>
+<tr><td>风格</td><td><strong>穷尽注释，每个键都有一大段</strong></td><td>生产版<strong>刻意简洁</strong>，参考版才解释每个选项</td></tr>
+</tbody></table>
+</div>
+<p><code>updater.example.toml</code> 的开头把两种文件的定位说得很清楚：</p>
+<blockquote>
+<p><strong>不是发货的那个。</strong> <code>deploy/updater.toml</code> 是 <code>scripts/install.sh</code> 装到机器人上的文件；
+<strong>这一个记录每一个选项，包括若干在那边被刻意留空的。</strong>
+<strong>两者不同之处，正是要点 —— 两份的注释都读。</strong></p>
+</blockquote>
+<p>而 <code>deploy/updater.toml</code> 的开头回敬了同一句：</p>
+<blockquote>
+<p>和 example 的区别就是要点：<strong>example 展示什么是可能的，这一份展示一台发货的机器人<em>实际</em>是什么样</strong>。
+下面每一个值要么是一个<strong>决定</strong>，要么是一个<strong>事实</strong>；
+两份文件不一致的时候，<strong>example 的注释解释那个选项，这份的注释解释那个选择</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <code>robotd.toml</code> 走的是另一条路：<strong>它自己就是参考</strong> ——
+而且<strong>它被一个测试钉住</strong>：<code>the_shipped_example_matches_the_defaults</code> 逐项断言文件里的每个值都等于内置默认值
+（见 <a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a> §13.2）。</p>
+</blockquote>
+<h3 id="62--orgduck-daemon-是一个有守卫的占位符"><a class="header" href="#62--orgduck-daemon-是一个有守卫的占位符">6.2 ⚠️ <code>ORG/duck-daemon</code> 是一个<strong>有守卫的</strong>占位符</a></h3>
+<p><code>deploy/updater.toml</code> 里有一行看起来像没填完：</p>
+<pre><code class="language-toml">repo           = &quot;ORG/duck-daemon&quot;
+</code></pre>
+<p><strong>它不是 bug。</strong> <code>install.sh</code> 在安装时会替换它：</p>
+<pre><code class="language-sh">fetch &quot;${config_raw}/deploy/updater.toml&quot; &quot;${CONFIG_DIR}/updater.toml&quot;
+sed -i &quot;s|\&quot;ORG/duck-daemon\&quot;|\&quot;${REPO}\&quot;|&quot; &quot;${CONFIG_DIR}/updater.toml&quot;
+</code></pre>
+<p>而 <code>REPO</code> 默认是 <code>pollen-robotics/microduck</code>，可以用 <code>DUCK_REPO</code> 覆盖。</p>
+<p><strong>而它有一个守卫</strong> —— 如果替换没发生（比如你直接拿这个文件用），<code>install.sh</code> 会<strong>直接死掉</strong>：</p>
+<pre><code class="language-sh">case &quot;$REPO&quot; in
+    ORG/*)
+        die &quot;REPO is still the placeholder '${REPO}'.
+  Set DUCK_REPO, or substitute the real repository in scripts/install.sh and
+  deploy/updater.toml. A robot installed against a repository that does not exist
+  installs fine and then never finds another update.&quot;
+        ;;
+esac
+</code></pre>
+<blockquote>
+<p>💡 这值得学：<strong>一个占位符要么有守卫，要么就是一个等着发生的 bug。</strong>
+而它给出的理由很实在 —— <strong>一台对着不存在的仓库装好的机器人，会装得很顺利，然后永远找不到下一次更新。</strong></p>
+</blockquote>
+<h3 id="63-updatertoml-里三个值得看的决定"><a class="header" href="#63-updatertoml-里三个值得看的决定">6.3 <code>updater.toml</code> 里三个值得看的决定</a></h3>
+<p><strong>一、<code>allow_users = [&quot;btd&quot;, &quot;mediad&quot;]</code>，以及</strong>绝不能出现<strong>的那个值：</strong></p>
+<pre><code class="language-text">   btd      ← 机主从手机更新机器人，正是 M6 要交付的东西
+   mediad   ← 控制台页面是登录的地方，以及 Hub 浏览器的安装按钮
+
+   ⚠️ 绝不能出现的是 allow_groups = [&quot;robot&quot;]：
+      robot 组的成员身份让一个进程**够到** updaterd（说话），
+      把&quot;可以改&quot;也给它，就把两层塌成一层 ——
+      于是**任何能读状态的东西都能替换固件**。
+</code></pre>
+<p>而注释特意说明：<strong>这是被一个测试守住的，不是被这段注释守住的</strong>。</p>
+<p><strong>二、<code>auto_apply = &quot;mandatory&quot;</code> 是刻意的默认值：</strong></p>
+<blockquote>
+<p>一个 manifest 里 <code>min_supported</code> 高于当前版本的发布 —— <strong>因为另一个选择是整个机队卡在一个我们已经撤回的版本上。</strong></p>
+<p><strong>普通发布仍然等一个客户端</strong>：<strong>机器人什么时候重启是它主人的决定</strong>，
+而 App 驱动的更新流程存在的意义就是把这个决定交给他。</p>
+</blockquote>
+<p><strong>三、健康门回滚的是 <code>unhealthy</code>，<strong>不是</strong> <code>degraded</code>：</strong></p>
+<blockquote>
+<p>一台<strong>看不见自己舵机</strong>的机器人报告 <code>degraded</code>，<strong>然后通过</strong>：
+它在换版之前说的也是同一句话，所以<strong>回滚修不了它，
+而且会把每一个发布都回滚掉</strong>。</p>
+</blockquote>
+<p>（这正是 <a href="robotd-primer.html"><code>robotd-primer.md</code></a> §6.3 那条规矩在配置里的体现。）</p>
+<p><strong>四、<code>golden</code> 故意是注释掉的：</strong></p>
+<blockquote>
+<p>它命名一个<strong>永不删除的已知良好发布</strong>，而 <code>robotctl update reset-to-golden</code> 是那条&quot;永不砖化&quot;链条的最后一环。
+<strong>命名一个机器人从没装过的版本，会让那条命令在恰恰最需要它的时候失败</strong> ——
+那比它诚实地报告&quot;没有配置 golden&quot;更糟。
+<strong>在发布 1.0.0 的同一次改动里设置它。</strong></p>
+</blockquote>
+<hr />
+<h2 id="7-硬件使能设备树和一个内核驱动"><a class="header" href="#7-硬件使能设备树和一个内核驱动">7. 硬件使能：设备树和一个内核驱动</a></h2>
+<p><code>deploy/</code> 里还有一类东西：<strong>让这块板子上的硬件真的能用</strong>。</p>
+<h3 id="71-音频那件事五层"><a class="header" href="#71-音频那件事五层">7.1 音频那件事：五层</a></h3>
+<p><code>scripts/setup-board.sh</code> 里有一段<strong>权威的五层解释</strong>（这是整个音频目录存在的理由）：</p>
+<blockquote>
+<p>五层，每一层都是幂等的：</p>
+<p><strong>① <code>alsa-utils</code></strong>（<code>aplay</code>/<code>arecord</code>/<code>amixer</code>）+ DKMS 工具链 + <code>dtc</code>。</p>
+<p><strong>② Armbian 的<em>厂商</em>（BSP 6.1）内核</strong> ——
+<strong>编解码器的 I²S 时钟树只存在于那里</strong>，而 DKMS 模块对着它的头文件构建。</p>
+<p><strong>③ 设备树 overlay</strong>，从 <code>deploy/audio/</code> 里 vendored 的源码编译：
+<strong>排针 3/5 脚上的硬件 i2c3 总线</strong>，以及<strong>嫁接在它上面的编解码器 + I²S 声卡</strong>。</p>
+<p><strong>④ 编解码器驱动本身</strong>，通过 DKMS 树外构建 ——
+<strong>厂商内核不构建 <code>SND_SOC_AIC3X</code>，这就是为什么一块原装板子没有 aic3104 声卡。</strong></p>
+<p><strong>⑤ 开机时的混音器音量</strong>：<code>aic3104-init.service</code>，
+在 <code>robotd</code> 之前跑那个 vendored 的 <code>amixer</code> 脚本，<strong>好让那声&quot;你好&quot;听得见</strong>。</p>
+</blockquote>
+<p><strong>所以那 1888 行 C 文件为什么在这里？</strong> 因为：</p>
+<ol>
+<li><strong>那块芯片的时钟树只存在于厂商内核里</strong>（换内核就没有声音了）；</li>
+<li><strong>而厂商内核偏偏不构建那个编解码器驱动</strong>。</li>
+</ol>
+<p>于是他们<strong>把驱动 vendor 进仓库，用 DKMS 树外构建</strong>。</p>
+<h3 id="72-dkms-是什么"><a class="header" href="#72-dkms-是什么">7.2 DKMS 是什么</a></h3>
+<pre><code class="language-text">   dkms.conf      PACKAGE_NAME=&quot;aic3x&quot; / PACKAGE_VERSION=&quot;6.1-rkr5.1&quot;
+                  AUTOINSTALL=&quot;yes&quot;    ← ★ 内核升级后自动重建
+   Makefile       声明两个模块：snd-soc-tlv320aic3x[-i2c].ko
+</code></pre>
+<p><strong><code>AUTOINSTALL=&quot;yes&quot;</code> 是这一整套的关键</strong>：内核一升级，DKMS 会<strong>自动重新编译</strong>这个模块。
+没有它，一次 <code>apt upgrade</code> 就会让机器人<strong>失去声音和耳朵</strong>。</p>
+<blockquote>
+<p>💡 所以 <code>deploy/audio/</code> 里的东西是<strong>跟着内核走的</strong>，不跟着发布走 ——
+<code>setup-board.sh</code> 把它们编译好放进 <code>/boot/dtb-*/rockchip/overlay/</code>，
+而它是一个<strong>只在 provision 时做一次</strong>的动作（参见 <code>deploy/README.md</code> 里那句
+&quot;<code>setup-board.sh</code> 是 OS 级 bring-up……<strong>改得很稀，而且需要重启</strong>&quot;）。</p>
+</blockquote>
+<h3 id="73--npu-那个-overlay只有一个属性"><a class="header" href="#73--npu-那个-overlay只有一个属性">7.3 ⭐ NPU 那个 overlay：<strong>只有一个属性</strong></a></h3>
+<p><code>overlays/rk3568-npu-enable.dts</code> 只有 37 行，而它的注释把&quot;为什么这很安全&quot;说完了：</p>
+<blockquote>
+<p>Armbian 的 <code>rk3566-radxa-zero3.dtb</code> 把 <code>npu@fde40000</code> 发成 <code>status = &quot;disabled&quot;</code>，
+<strong>而它提供的唯一一个 NPU overlay 是进一步禁用它</strong> ——
+所以这个节点必须在 <code>librknnrt.so</code>、<code>duck-detect</code> 或 NPU 驱动能做任何事之前<strong>手工打开</strong>。</p>
+<p><strong>只有一个属性。</strong> 驱动需要的其余一切<strong>已经在基础节点里了</strong>：
+时钟、复位、<code>power-domains</code>、<code>operating-points-v2</code>、<code>iommus</code> 和 <code>rknpu-supply</code>。
+<strong>那就是为什么它可以放心试</strong> —— <strong>失败模式是一个探测不到的驱动，而那正是这块板子现在所在的位置。</strong></p>
+</blockquote>
+<pre><code class="language-dts">	fragment@0 {
+		/*
+		 * 按路径而不是按标签：基础 dtb 没有为这个节点导出 `__symbols__` 条目，
+		 * 所以 `&amp;rknpu` 在 overlay 应用时解析不了。
+		 */
+		target-path = &quot;/npu@fde40000&quot;;
+		__overlay__ {
+			status = &quot;okay&quot;;
+		};
+	};
+</code></pre>
+<blockquote>
+<p>💡 那句 <strong>&quot;失败模式是一个探测不到的驱动，而那正是这块板子现在所在的位置&quot;</strong>
+是一个很好的判断准则：<strong>当&quot;什么都不会发生&quot;和&quot;现在就是这样&quot;是同一件事时，试它就没有下行风险。</strong></p>
+<p>而 <code>target-path</code> vs <code>&amp;rknpu</code> 那个细节是设备树 overlay 的经典坑。</p>
+</blockquote>
+<p>这和 <a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a> §6.1 是同一件事的两面 ——
+那一份讲&quot;驱动没绑上时检测器怎么退化到 CPU&quot;，这一份讲&quot;怎么把它打开&quot;。</p>
+<hr />
+<h2 id="8-部署之后东西都在哪"><a class="header" href="#8-部署之后东西都在哪">8. 部署之后，东西都在哪</a></h2>
+<p><code>deploy/README.md</code> 有一张很实用的表：</p>
+<pre><code class="language-text">/etc/robot/updater.toml                  配置；**更新永不碰它**
+/etc/robot/robotd.toml                   同上
+/etc/robot/trusted_keys/release-*.pub    信任锚
+/opt/robot/daemon/releases/&lt;版本&gt;/        发布树
+/opt/robot/daemon/current -&gt; releases/&lt;版本&gt;
+/etc/systemd/system/*.service            **每一个单元，从发布里拷出来**
+/usr/lib/sysusers.d/robot.conf           创建 `robot` 组
+/var/lib/robot/updater/                  锁、更新日志、启动计数器
+/usr/local/bin/robotctl -&gt; current/bin/robotctl
+/usr/local/sbin/robot-provision          provisioning，重启后接着跑
+/var/lib/robot/provision.log             无人看管的那一半做了什么
+</code></pre>
+<h3 id="81-单元文件是拷贝而不是符号链接"><a class="header" href="#81-单元文件是拷贝而不是符号链接">8.1 单元文件是<strong>拷贝</strong>而不是符号链接</a></h3>
+<p>这一条的理由很实在：</p>
+<blockquote>
+<p><strong>读时通过符号链接，它们会在每次更新时在 systemd 脚下改变</strong>，
+而<strong>回滚之后 systemd 的视角会取决于上一次 <code>daemon-reload</code> 时碰巧是哪个发布活着</strong>。</p>
+<p><strong>而 <code>robotctl</code> <em>是</em>一个符号链接</strong> —— 因为<strong>它是一个操作者去调用的工具，
+而不是一个 systemd 会缓存的文件</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>同一个&quot;符号链接 or 拷贝&quot;的选择，在两个不同的消费者面前答案相反</strong> ——
+判据是&quot;谁在读它、以及它会不会被缓存&quot;。</p>
+</blockquote>
+<h3 id="82-为什么-installsh-直接跑会让第一次-robotctl-health-失败"><a class="header" href="#82-为什么-installsh-直接跑会让第一次-robotctl-health-失败">8.2 为什么 <code>install.sh</code> 直接跑会让第一次 <code>robotctl health</code> 失败</a></h3>
+<p>这是一个<strong>很经典的 Unix 细节</strong>，README 专门警告了：</p>
+<blockquote>
+<p>⚠️ <strong>直接跑 <code>install.sh</code>，第一次 <code>robotctl health</code> 会失败，而安装本身是好的。</strong></p>
+<p>两个 socket 都是 <code>root:robot</code> 模式 0660，而 <code>install.sh</code> 把操作者加进了 <code>robot</code> ——
+<strong>但一个进程的组在它<em>启动</em>时就固定了</strong>，
+所以<strong>运行安装的那个 shell 不在它刚刚加入的那个组里</strong>。</p>
+<p>在同一个 shell 里一条命令：</p>
+<pre><code class="language-bash">newgrp robot
+</code></pre>
+<p><strong>没有任何 API 能给一个正在运行的进程加组，即使对 root 也没有</strong> ——
+所以安装器做什么都修不了启动它的那个 shell。</p>
+<p><strong>这就是 <code>provision.sh</code> 在第一阶段就创建那个组的原因</strong>，而重启完成了剩下的工作。</p>
+</blockquote>
+<blockquote>
+<p>💡 这段还解释了为什么 <code>robotctl</code> 在失败时<strong>点名这条命令</strong>，而不是把你送去 <code>systemctl status</code> ——
+<strong>那会显示两个完全健康的 daemon。</strong></p>
+</blockquote>
+<hr />
+<h2 id="9-阅读路线"><a class="header" href="#9-阅读路线">9. 阅读路线</a></h2>
+<p><strong>第 1 步 —— 先读那份 README（1.5 小时）</strong></p>
+<ol>
+<li>读 <a href="../deploy/README.html"><code>deploy/README.md</code></a> 的 <strong>Quickstart</strong>（<code>:22</code>–<code>133</code>）。</li>
+<li>读 <strong><code>The trust chain</code></strong>（<code>:288</code>）和 <strong><code>What ends up where</code></strong>（<code>:350</code>）。</li>
+<li>读 <strong><code>Where logs go</code></strong>（<code>:393</code>）—— 第 5 节那个 zram 的故事。</li>
+</ol>
+<p><strong>第 2 步 —— 信任（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>deploy/trusted_keys/README.md</code>（<strong>39 行，全读</strong>）—— 为什么是三把。</li>
+<li>读 <code>deploy/dev-key/README.md</code>（<strong>26 行，全读</strong>）—— 为什么它不在上面那个目录里。</li>
+<li>读 <a href="project/ci-setup.html"><code>project/ci-setup.md</code></a> 里的<strong>已接受风险</strong>那一节。</li>
+<li>自己解码一把公钥：
+<pre><code class="language-bash">sed -n '2p' deploy/trusted_keys/release-1.pub | base64 -d | xxd | head -3
+# 42 字节，前两字节是 &quot;Ed&quot;
+sed -n '2p' deploy/trusted_keys/release-1.pub | base64 -d | xxd | sed -n '1p'
+# 对比第 1 行注释里的 key ID（小端反转）
+</code></pre>
+</li>
+</ol>
+<p><strong>第 3 步 —— 配置（1 小时）</strong></p>
+<ol start="8">
+<li>读 <code>deploy/updater.toml</code> 全文（179 行）—— 注意每条注释都在<strong>解释一个选择</strong>。</li>
+<li>读 <code>updater/updater.example.toml</code> 的开头 30 行 —— 那份<strong>解释选项</strong>。</li>
+<li>读 <code>deploy/robotd.toml</code> 的开头（前 40 行）—— 那份<strong>就是</strong>文档。</li>
+</ol>
+<p><strong>第 4 步 —— 硬件（40 分钟）</strong></p>
+<ol start="11">
+<li>读 <code>scripts/setup-board.sh:488–500</code>（那五层）。</li>
+<li>读 <code>deploy/overlays/rk3568-npu-enable.dts</code>（37 行，全读）。</li>
+<li>读 <code>deploy/audio/aic3x-dkms/dkms.conf</code>（9 行）—— <code>AUTOINSTALL=&quot;yes&quot;</code> 是重点。</li>
+</ol>
+<p><strong>第 5 步 —— 动手（在板子上）</strong></p>
+<pre><code class="language-bash">robotctl health                      # 部署完了吗
+findmnt /var/log                     # 日志在 RAM 里吗
+journalctl --list-boots              # 上一轮启动的日志还在吗
+robotctl update log                  # 那个持久的记录
+</code></pre>
+<hr />
+<h2 id="10-术语表"><a class="header" href="#10-术语表">10. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>deploy / 部署</strong></td><td>把一台机器人从&quot;一块板子&quot;变成&quot;一台能工作的机器人&quot;的过程</td></tr>
+<tr><td><strong>provisioning</strong></td><td>同上的另一个说法，通常特指<strong>首次</strong>那一次</td></tr>
+<tr><td><strong>trust anchor / 信任锚</strong></td><td>那个&quot;你无条件相信&quot;的起点。这里是一组公钥</td></tr>
+<tr><td><strong>minisign</strong></td><td>一个小巧的签名工具（Ed25519）。发布包用它签名</td></tr>
+<tr><td><strong>公钥 / 私钥</strong></td><td>用来<strong>验证</strong> / 用来<strong>签名</strong>。公钥可以公开，私钥绝不能</td></tr>
+<tr><td><strong><code>.pub</code></strong></td><td>公钥文件。这里只有两行：一行给人看的注释，一行 base64</td></tr>
+<tr><td><strong>Ed25519</strong></td><td>一种椭圆曲线签名算法。那 32 字节就是它的公钥</td></tr>
+<tr><td><strong>key ID</strong></td><td>一把 key 的短标识。<strong>它本来就是公开的</strong></td></tr>
+<tr><td><strong>keyring / 钥匙环</strong></td><td>一组被信任的公钥。<strong>空的 keyring 是错误，不是&quot;谁也不信&quot;</strong></td></tr>
+<tr><td><strong>轮换 / rotation</strong></td><td>换一把新的签名密钥。<strong>因为信任集合只能烧录，所以必须提前备好</strong></td></tr>
+<tr><td><strong><code>.dev.pub</code></strong></td><td>文件名里带 <code>.dev.</code> 中缀的公钥 —— <strong>这就是&quot;开发密钥&quot;的分类方式</strong></td></tr>
+<tr><td><strong>吊销 / revoke</strong></td><td>把一把 key 从信任集合里去掉。<strong>只能靠一次新的发布生效</strong></td></tr>
+<tr><td><strong>journald / journal</strong></td><td>systemd 的日志系统</td></tr>
+<tr><td><strong>zram</strong></td><td>一块<strong>在内存里</strong>的块设备（压缩过的）。<code>/var/log</code> 在这张镜像上就是它</td></tr>
+<tr><td><strong>fsync</strong></td><td>强制把数据真正写到磁盘</td></tr>
+<tr><td><strong>原子替换</strong></td><td>先写临时文件再 rename。中途失败不会留下半个文件</td></tr>
+<tr><td><strong>设备树 / device tree</strong></td><td>Linux 上描述硬件的那个数据结构</td></tr>
+<tr><td><strong>overlay</strong></td><td>在设备树上叠一层修改。<strong>不重编内核就能改硬件描述</strong></td></tr>
+<tr><td><strong><code>.dtbo</code></strong></td><td>编译好的设备树 overlay（<code>.dts</code> 是源码）</td></tr>
+<tr><td><strong>DKMS</strong></td><td>Dynamic Kernel Module Support —— <strong>内核升级后自动重建模块</strong>的机制</td></tr>
+<tr><td><strong>树外模块 / out-of-tree</strong></td><td>不在内核源码树里构建的内核模块</td></tr>
+<tr><td><strong>BSP / 厂商内核</strong></td><td>芯片厂商维护的那个内核分支。<strong>它的驱动比主线多</strong></td></tr>
+<tr><td><strong>ALSA / ASoC</strong></td><td>Linux 的音频子系统 / 它的嵌入式编解码器框架</td></tr>
+<tr><td><strong>codec / 编解码器</strong></td><td>音频芯片。这里是 TLV320AIC3104</td></tr>
+<tr><td><strong>I²S</strong></td><td>一种数字音频接口</td></tr>
+<tr><td><strong>I²C</strong></td><td>一种两线制的芯片间控制总线</td></tr>
+<tr><td><strong>amixer</strong></td><td>命令行调音量的 ALSA 工具</td></tr>
+<tr><td><strong>NPU</strong></td><td>神经网络加速器（见 <code>duck-detect-primer.md</code>）</td></tr>
+<tr><td><strong>排针 / header pins</strong></td><td>板子边上那排可以插线的针脚</td></tr>
+<tr><td><strong>占位符 / placeholder</strong></td><td>一个等着被替换的值。<strong>要么有守卫，要么就是等着发生的 bug</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>这个目录自己的权威文档</strong></td><td><a href="../deploy/README.html"><code>../deploy/README.md</code></a></td></tr>
+<tr><td>信任链与签名的完整机制</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a> §5</td></tr>
+<tr><td>密钥的一次性设置与轮换</td><td><a href="project/ci-setup.html"><code>project/ci-setup.md</code></a></td></tr>
+<tr><td><code>robotd.toml</code> 的每个键</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装上去（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>哪一步重启哪个单元</td><td><a href="design/restart-order.html"><code>design/restart-order.md</code></a></td></tr>
+<tr><td>NPU 那件事的另一半</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a> §6</td></tr>
+<tr><td>蓝牙门房：手机怎么连上机器人（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>完整的安装流程</td><td><a href="robot/install-dev.html"><code>robot/install-dev.md</code></a> · <a href="robot/install-by-hand.html"><code>robot/install-by-hand.md</code></a></td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程可达（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>用麦克风的那个人：log-mel、arecord、重训（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>机器人上的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/configd-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/duck-ble-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/configd-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/duck-ble-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

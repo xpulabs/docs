@@ -1,0 +1,765 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>hooks/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html" class="active"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="hooks-新手导读"><a class="header" href="#hooks-新手导读"><code>hooks</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>hook 的机制由 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9 拥有（英文），
+那条规则的来历在 <a href="project/install-path-gap.html"><code>project/install-path-gap.md</code></a>。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<strong>这一份讲的是&quot;发布包怎么把自己装到板子上&quot;</strong> ——
+前面九份讲的都是<strong>代码</strong>，这一份是<strong>那次交付本身</strong>。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E6%9B%B4%E6%96%B0%E6%B5%81%E7%A8%8B%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个更新流程里的位置</a></li>
+<li><a href="#3--%E9%82%A3%E6%9D%A1%E8%A7%84%E5%88%99%E6%96%B0%E8%A3%85%E5%81%9A%E7%9A%84%E4%BA%8Bhook-%E4%B9%9F%E8%A6%81%E5%81%9A">⭐ 那条规则：新装做的事，hook 也要做</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-postinstall%E6%8A%8A%E5%8F%91%E5%B8%83%E5%8C%85%E7%9A%84%E4%B8%9C%E8%A5%BF%E9%93%BA%E5%88%B0%E6%9D%BF%E5%AD%90%E4%B8%8A"><code>postinstall</code>：把发布包的东西铺到板子上</a></li>
+<li><a href="#6-preinstall%E5%9C%A8%E4%B8%8A%E7%BA%BF%E4%B9%8B%E5%89%8D%E7%A1%AE%E8%AE%A4%E6%9D%BF%E5%AD%90%E8%B7%91%E5%BE%97%E5%8A%A8"><code>preinstall</code>：在上线<strong>之前</strong>确认板子跑得动</a></li>
+<li><a href="#7-%E8%B6%85%E6%97%B6%E4%B8%A4%E4%B8%AA%E4%B8%8D%E5%90%8C%E7%9A%84%E9%A2%84%E7%AE%97">超时：两个不同的预算</a></li>
+<li><a href="#8-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83%E6%B8%85%E7%A9%BA%E7%9A%84%E7%8E%AF%E5%A2%83">运行环境：清空的环境</a></li>
+<li><a href="#9-%E5%8D%95%E4%B8%80%E7%9C%9F%E7%9B%B8%E6%9D%A5%E6%BA%90%E4%B8%8E%E9%82%A3%E4%BA%9B%E6%B5%8B%E8%AF%95">单一真相来源与那些测试</a></li>
+<li><a href="#10-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#11-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>hooks/</code> 里是<strong>两个 shell 脚本</strong>，它们在一个发布包被装到机器人上时运行：</p>
+<pre><code class="language-text">   hooks/
+   ├── postinstall    185 行  装完之后：把单元、脚本、音色库铺到板子上
+   └── preinstall.in  231 行  装之前：确认这块板子跑得动这个发布
+</code></pre>
+<p><strong>它们为什么重要？</strong> 因为 <code>CLAUDE.md</code> 有一句话：</p>
+<blockquote>
+<p><strong><code>main</code> 修好了不等于机器人修好了。</strong> 稳定通道上的机器人要等一次<strong>发布</strong>才会动。
+…… <a href="design/updater-design.html"><code>docs/design/updater-design.md</code></a> 拥有这个机制。</p>
+</blockquote>
+<p>而 <strong>hook 是唯一一个&quot;在每一块板子上、每一次更新时都会运行&quot;的东西</strong> ——
+所以&quot;这块板子必须先有 X，这个发布才能工作&quot;这句话，<strong>只能写在这里</strong>。</p>
+<p>规模：<strong>416 行</strong>（两个 shell 脚本），加上 <code>xtask</code> 和 <code>updater</code> 里驱动它们的那些代码。</p>
+<hr />
+<h2 id="2-它在整个更新流程里的位置"><a class="header" href="#2-它在整个更新流程里的位置">2. 它在整个更新流程里的位置</a></h2>
+<p>一次更新有<strong>五步</strong>，而两个 hook 各自卡在一个精确的位置上：</p>
+<pre><code class="language-text">   ① 下载 → 校验签名 → 解包
+              │
+              ▼
+   ② hooks/preinstall          ★ 在换链接**之前**
+              │                    · 失败 → **中止更新，旧发布继续跑，不回滚**
+              │                    · 为什么这个位置就是全部价值 —— 见第 6 节
+              ▼
+   ③ 换 symlink：current 指向新发布
+              │
+              ▼
+   ④ hooks/postinstall         ★ 在换链接**之后**、重启之前
+              │                    · 失败 → **更新失败，触发回滚**
+              │                    · 这是**唯一能工作的窗口** —— 见第 5.1 节
+              ▼
+   ⑤ systemctl restart（`on_apply`）→ 健康门
+</code></pre>
+<p><code>updater/src/hooks.rs</code> 的开头就是这张图的原文：</p>
+<pre><code class="language-text">   extract → [pre_install] → symlink swap → [post_install] → apply → health gate
+</code></pre>
+<blockquote>
+<p><strong>一次非零退出 = 更新失败并触发回滚，和健康探测失败完全一样。
+hook 是那道门的一部分，不是&quot;发出去就不管&quot;。</strong></p>
+</blockquote>
+<hr />
+<h2 id="3--那条规则新装做的事hook-也要做"><a class="header" href="#3--那条规则新装做的事hook-也要做">3. ⭐ 那条规则：新装做的事，hook 也要做</a></h2>
+<p><strong>这是整个目录存在的理由，也是这个仓库里被违反次数最多的规则之一。</strong></p>
+<p>设计文档 §9.1 的原话：</p>
+<blockquote>
+<p><strong>一个发布在被装齐它需要的一切之前，都不算装好了。</strong>
+<strong>把文件送进发布目录不等于安装了它；把脚本送进发布目录不等于运行了它。</strong></p>
+<p>hook 是唯一在每一块板子上、每一次更新时都运行的东西，
+所以&quot;这块板子在这个发布能工作之前必须有 X&quot;就属于这里 ——
+<strong>不属于一个在 X 存在之前只跑过一次的 provisioning 脚本，也不属于某个人的记忆。</strong></p>
+</blockquote>
+<h3 id="31-要问的那个问题是机械的"><a class="header" href="#31-要问的那个问题是机械的">3.1 要问的那个问题是<strong>机械的</strong></a></h3>
+<blockquote>
+<p><strong>问题不是&quot;这个发布需不需要它&quot;，而是&quot;一次全新安装会不会做这件事&quot;。</strong></p>
+<p>&quot;需要&quot;是一个判断，而它<strong>已经放过去一个</strong>：一小段把机器人名字放进 shell 提示符的代码
+<strong>不是一个发布<em>需要</em>的东西</strong>，所以它进了 <code>install.sh</code> 而没进别处，
+<strong>于是每一块只更新过的板子都没有它</strong>。</p>
+<p>改问那个机械的问题 —— <strong><code>scripts/install.sh</code> 会写这个文件、或者跑这个命令吗？</strong> ——
+因为那个问题<strong>能靠 grep 一个文件回答</strong>，而且因为
+<strong>一块不是全新的板子，拿到的恰恰就是 hook 做的事，不多不少。</strong></p>
+</blockquote>
+<h3 id="32--这条规则已经被违反了四次四个不同的形状"><a class="header" href="#32--这条规则已经被违反了四次四个不同的形状">3.2 ⚠️ 这条规则<strong>已经被违反了四次</strong>，四个不同的形状</a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>出了什么事</th></tr></thead><tbody>
+<tr><td><strong>① 单元文件</strong></td><td>一个加了新 daemon 的发布把 <code>.service</code> 放进了产物，<strong>而 systemd 从不看那里</strong>。<code>btd</code> 在一块<strong>发布完整且正确</strong>的板子上以 <code>203/EXEC</code> 失败，而 <code>on_apply</code> <strong>没法重启一个还不存在的单元</strong></td></tr>
+<tr><td><strong>② GStreamer 栈和 3A 引擎</strong></td><td>provisioning 装过它们，所以在那之前 provision 的板子没有；插件比发布旧的那些板子也没有。现在 <code>preinstall</code> 每次更新都跑发布<strong>自带的</strong> <code>setup-gstreamer.sh</code> / <code>setup-rkaiq.sh</code></td></tr>
+<tr><td><strong>③ NPU</strong></td><td>加鸭子检测的那个分支写了 <code>setup-npu.sh</code>、把它和模型一起打进了发布 —— <strong>然后从来没有调用过它</strong>。每块板子都会带着一个<strong>够不到 NPU 的检测器</strong>出货，而发现这一点的方式是 <code>rknn_init</code> 返回一个数字</td></tr>
+<tr><td><strong>④ 登录 shell</strong></td><td><code>install.sh</code> 长出了一段 <code>/etc/profile.d</code> 片段，把机器人的名字放在主机名旁边（<code>microduck@radxa-zero3 (coincoin):~$</code>），这样三个 ssh 窗口不会是三个一模一样的提示符。<strong>没有别的东西装它，而 <code>install.sh</code> 不被打进发布</strong>，所以<strong>没有任何 hook 能做这件事</strong></td></tr>
+</tbody></table>
+</div>
+<p>设计文档的总结：</p>
+<blockquote>
+<p><strong>每一次形状都一样：活是<em>干完了</em>的，而&quot;让这个活到达板子&quot;的那一步被落下了。</strong>
+它在 review 里是<strong>看不见的</strong>，因为那个加了脚本的 diff <strong>看起来是完整的</strong>。</p>
+</blockquote>
+<blockquote>
+<p>第四个案例（登录 shell）的版本更高一层：它连 hook 都到不了，
+因为 <code>install.sh</code> <strong>本身</strong>不在发布里。所以 <code>postinstall</code> 现在会<strong>自己去调</strong> <code>scripts/setup-login.sh</code> ——
+而那个脚本<strong>跟着发布走</strong>，所以这次它能到达了。</p>
+</blockquote>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code class="language-text">hooks/
+├── postinstall    185 行   **不是模板** —— 没有东西需要替换，所以原样发布
+└── preinstall.in  231 行   **是模板** —— `xtask package` 替换两个占位符后
+                            以 `hooks/preinstall` 的名字打包
+</code></pre>
+<p><strong>一个 <code>.in</code>、一个不是</strong>，而两个文件的头部都解释了原因：</p>
+<pre><code class="language-text">   postinstall:    &quot;Not a template — nothing here needs substituting — so unlike
+                    `preinstall.in` this ships as-is.&quot;
+
+   preinstall.in:  &quot;TEMPLATE. `xtask package` substitutes @ONNX_FLOOR@ and @ONNX_TARGET@
+                    from [workspace.metadata.onnxruntime] in Cargo.toml and ships the result
+                    as `hooks/preinstall`. **Edit this file, never the generated one** —
+                    and there is no copy of the version to keep in step, because the hook
+                    is built from the same constant the release is.&quot;
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>改 <code>.in</code>，不要改生成出来的那个。</strong> 而 <code>hooks/preinstall</code> 根本不在仓库里 ——
+它是 <code>xtask package</code> 在打包时生成的。<code>xtask</code> 里有一条明确的拒绝：</p>
+<pre><code class="language-text">  return Err(&quot;hooks/preinstall is generated; remove the --include for it&quot;.into());
+</code></pre>
+<p>也就是说，<strong>有人试图手工把它加进打包清单时，构建会失败。</strong></p>
+</blockquote>
+<hr />
+<h2 id="5-postinstall把发布包的东西铺到板子上"><a class="header" href="#5-postinstall把发布包的东西铺到板子上">5. <code>postinstall</code>：把发布包的东西铺到板子上</a></h2>
+<h3 id="51--为什么它必须在那个窗口里运行"><a class="header" href="#51--为什么它必须在那个窗口里运行">5.1 ⭐ 为什么它必须在&quot;那个窗口&quot;里运行</a></h3>
+<p>脚本头部的第二段：</p>
+<blockquote>
+<p><strong>运行在符号链接交换之后、<code>on_apply</code> 的重启之前</strong> ——
+<strong>而这是唯一能让它工作的窗口</strong>：
+<code>current</code> 已经指向这个发布了，所以一个单元的 <code>ExecStart</code> <strong>解析得开</strong>；
+而紧接着的那次重启<strong>会遇到一个已经存在的单元</strong>。</p>
+</blockquote>
+<h3 id="52--致命-vs-警告一条明确的分界线"><a class="header" href="#52--致命-vs-警告一条明确的分界线">5.2 ⭐ 致命 vs 警告：一条明确的分界线</a></h3>
+<blockquote>
+<p><strong>hook 非零退出会让更新失败并触发回滚</strong>，
+所以这里的规则是：<strong>只为&quot;这个发布装不上&quot;的事情失败，其余一切只警告。</strong></p>
+<p><strong>复制一个单元是第一种。一个服务起不来是第二种</strong> ——
+<strong><code>btd</code> 在一块蓝牙适配器还没出现的板子上合法地失败</strong>，
+而<strong>一台因为无线电不在就不能更新的机器人，是一笔很差的交易</strong>。</p>
+</blockquote>
+<p>把这条规则套到脚本里，你会看到它<strong>逐条</strong>地把每个操作标成 fatal 或 warn：</p>
+<div class="table-wrapper"><table><thead><tr><th>操作</th><th>是 fatal 吗</th><th>为什么</th></tr></thead><tbody>
+<tr><td>装 <code>sysusers.d/*.conf</code></td><td><strong>是</strong></td><td>单元里的 <code>User=</code> 不存在会让单元起不来，<strong>而那个失败读起来像&quot;daemon 坏了&quot;而不是&quot;少了个账号&quot;</strong></td></tr>
+<tr><td>装 <code>.service</code> / <code>.timer</code></td><td><strong>是</strong></td><td>&quot;这个发布装不上&quot;</td></tr>
+<tr><td>装救援脚本</td><td>否（警告）</td><td><em>&quot;一个装不上它们的发布仍然是一个值得拥有的发布&quot;</em>，而 <code>install.sh</code> 在新板子上会做</td></tr>
+<tr><td>登录 shell 文件</td><td>否</td><td><em>&quot;一个 shell 提示符不值得为它回滚一次更新&quot;</em></td></tr>
+<tr><td>apt 离开启动路径</td><td>否</td><td><em>&quot;启动慢一点不值得回滚&quot;</em></td></tr>
+<tr><td>渲染音色库</td><td>否</td><td><em>&quot;一台没有嗓子的机器人照样走路&quot;</em></td></tr>
+<tr><td>播种策略集</td><td>否</td><td><em>&quot;一台没有策略的机器人保持姿势并报告 degraded&quot;</em></td></tr>
+<tr><td>播种鸭子检测器</td><td>否</td><td>检测器默认关着，而且 <code>mediad</code> 会在 journal 里说</td></tr>
+<tr><td><code>systemd-sysusers</code></td><td>否</td><td><em>&quot;账号可能已经存在了，而那才是常见情况&quot;</em></td></tr>
+<tr><td><code>systemdctl daemon-reload</code></td><td>否</td><td></td></tr>
+<tr><td><code>enable --now &lt;单元&gt;</code></td><td>否</td><td><em>&quot;<code>on_apply</code> 片刻之后会重启它自己列表里的单元，所以一个只是慢的单元不是问题&quot;</em></td></tr>
+</tbody></table>
+</div>
+<h3 id="53-单元的两个特殊处理--都关于别在现在跑一个本该开机才跑的东西"><a class="header" href="#53-单元的两个特殊处理--都关于别在现在跑一个本该开机才跑的东西">5.3 单元的两个特殊处理 —— 都关于&quot;别在<strong>现在</strong>跑一个本该开机才跑的东西&quot;</a></h3>
+<pre><code class="language-text">   ① 没有 [Install] 段的单元 → **根本不能 enable**，只打一句说明。
+        而恢复机制（recovery net）的 oneshot 单元**故意没有**。
+        `enable --now` 它会在更新中途跑一次回滚检查，
+        而那时 daemon 正合法地处在重启中间 ——
+        **那读起来恰恰就是&quot;一个起不来的发布&quot;。**
+
+   ② 定时器（.timer）→ **enable 但不 start**。
+        一个 `OnBootSec=` 的定时器如果在它自己的截止时间之后被启动，
+        会**立刻开火** —— 而这个 hook 跑在更新**中途**。
+        它在**下一次开机**时武装，而那才是它要管的那次开机。
+</code></pre>
+<blockquote>
+<p>💡 第二点是新手最容易觉得&quot;多此一举&quot;的：<code>enable</code> 和 <code>enable --now</code> 只差三个字母，
+而在这里它们差着&quot;一次更新中途意外触发的开机任务&quot;。</p>
+</blockquote>
+<h3 id="54-回滚时这些单元会怎样--而且是故意的"><a class="header" href="#54-回滚时这些单元会怎样--而且是故意的">5.4 回滚时这些单元会怎样 —— 而且是<strong>故意的</strong></a></h3>
+<blockquote>
+<p>回滚时，这里装的单元<strong>会留下来</strong>，指向 <code>current</code> —— 而那时 <code>current</code> 是<strong>更老的、可能不包含它们二进制</strong>的那个发布，
+所以它们<strong>起不来</strong>。<strong>这是刻意的</strong>：</p>
+<p>另一个选择是<strong>记录装了什么</strong>，好让一次回退能撤销它；
+而&quot;这个发布没装上，而且有一个服务在下一个发布装上之前一直失败&quot;
+<strong>两种情况是同一个局面</strong>。</p>
+<p>而且它<strong>会自我修正</strong>，因为下一次成功的更新会把它带的东西重新装一遍。</p>
+</blockquote>
+<h3 id="55-顺序用户和组先于单元"><a class="header" href="#55-顺序用户和组先于单元">5.5 顺序：用户和组<strong>先于</strong>单元</a></h3>
+<pre><code class="language-sh"># Users and groups before units: a unit naming a `User=` that does not exist fails to start,
+# and that failure reads as a broken daemon rather than a missing account.
+</code></pre>
+<h3 id="56-单元文件是覆盖而不是合并"><a class="header" href="#56-单元文件是覆盖而不是合并">5.6 单元文件是<strong>覆盖</strong>而不是合并</a></h3>
+<blockquote>
+<p>覆盖，和 <code>install.sh</code> 做的一样：<strong>单元文件属于发布</strong>，
+而<strong>定制一个受支持的方式是 <code>/etc/systemd/system/&lt;单元&gt;.d/</code> 下的 drop-in，而这里不碰它</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="6-preinstall在上线之前确认板子跑得动"><a class="header" href="#6-preinstall在上线之前确认板子跑得动">6. <code>preinstall</code>：在上线<strong>之前</strong>确认板子跑得动</a></h2>
+<h3 id="61--位置就是全部价值"><a class="header" href="#61--位置就是全部价值">6.1 ⭐ 位置就是全部价值</a></h3>
+<p>脚本头部：</p>
+<blockquote>
+<p>运行在产物<strong>下载、校验、解包之后</strong>，但<strong>在换链接之前</strong>。
+<strong>那个位置就是全部价值</strong>：在这里失败会<strong>中止更新，而旧发布仍然是活的、不回滚、也不折腾 boot counter</strong>。</p>
+<p>对比一下另一个选择 —— <strong>而那恰好是板子上真实发生过的</strong>：
+完整下载、换链接、重启、30 秒健康门、一次回滚，
+<strong>而唯一的解释是 <code>control loop has not completed a cycle yet</code>。</strong></p>
+</blockquote>
+<h3 id="62-两个依赖故意用不同的方式失败"><a class="header" href="#62-两个依赖故意用不同的方式失败">6.2 两个依赖，<strong>故意用不同的方式失败</strong></a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>失败会怎样</th><th>为什么</th></tr></thead><tbody>
+<tr><td><strong>ONNX Runtime</strong></td><td><strong>致命</strong></td><td><em>&quot;一个加载不了策略的发布就是一台站不起来的机器人，而在这里中止会让旧发布继续活着，没有回滚、也不折腾 boot counter。&quot;</em></td></tr>
+<tr><td><strong>GStreamer 栈</strong></td><td><strong>不致命</strong></td><td><em>&quot;一块没有摄像头栈的板子会失去 <code>mediad</code> —— 视频和 WebRTC 控制台 —— 而它照样走路、照样配手柄、照样更新。<strong>为它拒绝这次更新，会意味着一块板子无法被那个'修板子'的机制修好。</strong>&quot;</em></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>📌 第二句值得反复读。它说的是：<strong>如果一个可选的依赖能挡住更新，那你就失去了唯一的修复手段。</strong></p>
+</blockquote>
+<p>同样的道理让 <strong>3A 引擎</strong>和 <strong>NPU</strong> 也都是&quot;不致命&quot;：
+一块装不上 3A 的板子<strong>仍然是一台机器人</strong>（只是摄像头偏绿、固定曝光）；
+一块没有 NPU 的板子<strong>照样走路、照样推流、照样看得见</strong> —— 只是在 CPU 上。</p>
+<h3 id="63-onnx-runtime-的版本检查两个细节"><a class="header" href="#63-onnx-runtime-的版本检查两个细节">6.3 ONNX Runtime 的版本检查：两个细节</a></h3>
+<pre><code class="language-sh">installed_onnx() {
+    resolved=&quot;$(readlink -f &quot;${ONNX_LIB_DIR}/libonnxruntime.so&quot; ...)&quot;
+    ...
+}
+</code></pre>
+<blockquote>
+<p>那个 tarball 会铺下 <code>libonnxruntime.so.&lt;版本&gt;</code>，并把裸名作为<strong>符号链接</strong>，
+所以<strong>解析那个链接就能拿到版本，而不用运行任何东西</strong>。
+去问库它自己意味着 <strong>dlopen 它</strong> —— 而那正是我们想避免不安全地做的事。</p>
+</blockquote>
+<p>而版本比较<strong>是数字的，不是字符串的</strong>：</p>
+<blockquote>
+<p><strong>数字而不是字符串：<code>&quot;1.9&quot;</code> 在字典序上排在 <code>&quot;1.23&quot;</code> 之上</strong>，
+那会让一块跑不动的板子通过。补丁号被忽略 —— <code>ort</code> 关心的是 API 版本，而它跟着次版本号走。</p>
+</blockquote>
+<h3 id="64-一个故意写在不该写的地方的副作用"><a class="header" href="#64-一个故意写在不该写的地方的副作用">6.4 一个&quot;故意写在不该写的地方&quot;的副作用</a></h3>
+<pre><code class="language-sh"># This writes to /usr/local/lib before the swap, so the change outlives an aborted update.
+# Deliberate and safe in this direction: ...
+</code></pre>
+<blockquote>
+<p>它在换链接<strong>之前</strong>写 <code>/usr/local/lib</code>，所以<strong>这次改动会活过一次中止的更新</strong>。
+<strong>这是刻意的，而且在这个方向上是安全的</strong>：
+<code>ort</code> 向 dylib 要的是<strong>至少</strong>它的 <code>ORT_API_VERSION</code>，
+而 ONNX Runtime 保持 C API 向后兼容 ——
+<strong>所以我们正要放弃的那个发布，仍然能对着这个更新的运行时工作。</strong></p>
+</blockquote>
+<h3 id="65-装完还要再验一遍"><a class="header" href="#65-装完还要再验一遍">6.5 装完<strong>还要再验一遍</strong></a></h3>
+<pre><code class="language-sh">have=&quot;$(installed_onnx)&quot;
+at_least &quot;$have&quot; &quot;$ONNX_FLOOR&quot; \
+    || die &quot;installed ONNX Runtime ${have:-none}, still below ${ONNX_FLOOR}&quot;
+</code></pre>
+<blockquote>
+<p><strong>验证而不是假定</strong>：一次报告了成功、但把符号链接留错了的安装，
+否则会在 <code>robotd</code> 的控制线程 panic 时被发现 —— <strong>而那正是这个 hook 被写出来要消除的失败模式。</strong></p>
+</blockquote>
+<p>（这呼应了 <code>duck-control-primer.md</code> §10.3：<code>ort</code> 在库缺失时<strong>不是返回错误，而是 panic</strong>。）</p>
+<h3 id="66-三个跑发布自带的脚本"><a class="header" href="#66-三个跑发布自带的脚本">6.6 三个&quot;跑发布自带的脚本&quot;</a></h3>
+<p>GStreamer、3A、NPU 三个函数<strong>形状完全一样</strong>：</p>
+<pre><code class="language-sh">script=scripts/setup-XXX.sh
+[ -f &quot;$script&quot; ] || { say &quot;...&quot;; return 0; }     # 发布里没有就跳过
+if sh &quot;$script&quot;; then ... else ... fi            # 失败只报告
+</code></pre>
+<p>而注释解释了<strong>为什么要跑脚本而不是复制它的内容</strong>：</p>
+<blockquote>
+<p><strong>是那个脚本，不是它做的事的一份拷贝。</strong>
+它拥有固定的插件版本、Debian 包列表、Rockchip 的 MPP 和 RGA deb、
+<code>/dev/mpp_service</code> 的 udev 规则、以及编码器报告 ——
+<strong>六件本来会存在两份、然后漂移的事</strong>，而那正是这个仓库一直在写下来的那一类 bug。</p>
+</blockquote>
+<blockquote>
+<p>💡 还有一句解释了整个&quot;provisioning vs 更新&quot;的分工：
+<strong><code>provision.sh</code> 在全新板子上装这个栈；而每一块在那之前 provision 的板子、
+以及每一块插件比这个发布构建时更旧的板子，都由一次普通更新修好 ——
+而不是靠某个人记得一条命令。</strong></p>
+</blockquote>
+<hr />
+<h2 id="7-超时两个不同的预算"><a class="header" href="#7-超时两个不同的预算">7. 超时：两个不同的预算</a></h2>
+<p>两个 hook 的超时<strong>不一样</strong>，而且差很多：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// updater/src/engine.rs
+const HOOK_TIMEOUT: Duration = Duration::from_secs(120);            // ← postinstall
+const PRE_INSTALL_HOOK_TIMEOUT: Duration =
+    Duration::from_secs(crate::proto::UPDATE_MAX_SILENCE_SECONDS);  // ← preinstall = 600s
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>PRE_INSTALL_HOOK_TIMEOUT</code> 的注释解释了<strong>为什么它能这么长</strong>：</p>
+<blockquote>
+<p>它装着这个发布需要而板子上没有的东西：ONNX Runtime，以及 <code>mediad</code> 的 GStreamer 栈 ——
+<strong>在一台从没装过的板子上，大约是 100 MB 的 apt</strong>，还要经过机器人连的那个 wifi。</p>
+<p><strong>能这么长，恰恰是因为它运行的位置。</strong> 什么都还没换，旧发布仍然是活的、仍然在服务，
+所以一个跑得久的 hook <strong>是一次慢更新，而不是一台有风险的机器人</strong> ——
+同样的几分钟花在 post-install 里，就会<strong>夹在换链接和重启之间，那时板子两个发布都跑不好</strong>。</p>
+<p><strong>十分钟是靠&quot;一个卡住的 apt 更像卡死而不是慢&quot;划出来的那条线。</strong></p>
+</blockquote>
+<p>而它<strong>住在 <code>duck-ipc-proto</code></strong> 的理由，正是 <code>duckctl</code> 那一侧：</p>
+<blockquote>
+<p>这个数字住在 <code>duck-ipc-proto</code> 里，因为<strong>它是对每一个客户端的契约，不是一个私有预算</strong>：
+<strong>phase 通知在 hook <em>之前</em>到达</strong>，所以这是&quot;一次 apply 最长能沉默多久&quot;，
+<strong>而一个 idle 预算比它短的客户端，会把一次正在工作的更新叫作一台死掉的机器人。</strong></p>
+</blockquote>
+<blockquote>
+<p>💡 这一条把三个地方串起来了：
+<code>engine.rs</code> 用 <code>UPDATE_MAX_SILENCE_SECONDS</code> 当上限，
+<code>duckctl</code> 用 <code>UPDATE_MAX_SILENCE_SECONDS + 60</code> 当自己的预算（<code>duckctl-primer.md</code> §8.2），
+而 <code>preinstall.in</code> 里的 <code>CURL_MAX_TIME = 90</code> 保证<strong>下载超时会先用自己的话报错</strong>。</p>
+</blockquote>
+<h3 id="71--一处过时的注释"><a class="header" href="#71--一处过时的注释">7.1 ⚠️ 一处过时的注释</a></h3>
+<p><code>preinstall.in:34-35</code> 是这么写的：</p>
+<pre><code class="language-sh"># Below the updater's 120s ceiling on a hook, so a slow network produces our message naming
+# the fix rather than a bare &quot;timed out after 120s&quot;.
+CURL_MAX_TIME=90
+</code></pre>
+<p><strong>而 pre-install hook 现在拿到的是 600 秒，不是 120 秒。</strong></p>
+<p>我核实了时间线：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>什么时候</th></tr></thead><tbody>
+<tr><td>那句注释（&quot;the updater's <strong>120s</strong> ceiling on a hook&quot;）</td><td><code>88dc1ff</code> · <strong>2026-08-04</strong></td></tr>
+<tr><td><code>PRE_INSTALL_HOOK_TIMEOUT</code>（= <code>UPDATE_MAX_SILENCE_SECONDS</code> = <strong>600 s</strong>）</td><td><code>ae81306</code> · <strong>2026-08-25</strong></td></tr>
+<tr><td>那次提交的标题</td><td><em>&quot;preinstall installs the GStreamer stack, which was always the plan&quot;</em></td></tr>
+</tbody></table>
+</div>
+<p>也就是说：<strong>这个上限正是为了容纳 GStreamer 那 100 MB 的 apt 才从 120 秒提到 600 秒的</strong>，
+而解释 <code>CURL_MAX_TIME</code> 的那句话还停在 120 —— 它现在指的是<strong>另一个 hook</strong>（postinstall）的上限。</p>
+<blockquote>
+<p><strong>行为没问题</strong>（90 &lt; 120 &lt; 600，两边都安全），但<strong>理由指错了地方</strong>。
+而下一个想把 <code>CURL_MAX_TIME</code> 往上调的人，会去对着一个不适用于这个 hook 的数字思考。</p>
+</blockquote>
+<hr />
+<h2 id="8-运行环境清空的环境"><a class="header" href="#8-运行环境清空的环境">8. 运行环境：清空的环境</a></h2>
+<p><code>updater/src/hooks.rs</code> 在运行 hook 之前做四件事：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>command
+    .current_dir(release_dir)     // ← cwd 就是正在装的那个发布
+    .env_clear()                  // ← **清空整个环境**
+    .env(&quot;PATH&quot;, &quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;)
+    .kill_on_drop(true)
+<span class="boring">}</span></code></pre></pre>
+<h3 id="81-为什么清空环境"><a class="header" href="#81-为什么清空环境">8.1 为什么清空环境</a></h3>
+<blockquote>
+<p><strong>一个最小的环境</strong>：hook 拿到的是我们传的东西加上 <code>PATH</code>，
+所以<strong>它们的行为不取决于 systemd 碰巧是怎么调用我们的</strong>。</p>
+</blockquote>
+<p>而 <code>preinstall.in</code> 的头部补了一句<strong>后果</strong>：</p>
+<blockquote>
+<p>环境被更新器清空了，<code>PATH</code> 和 hook 上下文之外什么都不剩，<strong>所以这里没有 token</strong>。
+那没关系，<strong>而且这正是这个 hook 取的两样东西都是公开的</strong>的原因：
+从 <code>microsoft/onnxruntime</code> 取 ONNX Runtime，从 <code>pollen-robotics/microduck-gst-plugins</code> 取 GStreamer 插件。</p>
+</blockquote>
+<blockquote>
+<p>💡 这是个很值得学的推理链：<strong>因为环境被清空 → 所以 hook 里没有凭据 → 所以它只能装公开的东西 →
+所以那两个源的公开性是一条被依赖的性质，而不是巧合。</strong></p>
+</blockquote>
+<h3 id="82-cwd-是发布目录--而这一点被依赖"><a class="header" href="#82-cwd-是发布目录--而这一点被依赖">8.2 <code>cwd</code> 是发布目录 —— 而这一点被依赖</a></h3>
+<p><code>postinstall</code> 里有一句：</p>
+<pre><code class="language-sh"># Hooks run with the release directory as their working directory.
+</code></pre>
+<p>所以脚本里的相对路径（<code>scripts/setup-login.sh</code>、<code>bin/sounds</code>、<code>systemd/*.service</code>）
+<strong>全都是&quot;这个发布里的&quot;</strong> —— 而不是&quot;板子上某处的&quot;。</p>
+<p><code>HookContext</code> 里也因此区分了两个目录：</p>
+<pre><code class="language-text">   UPDATE_INSTALL_DIR   ← 组件的**根**（比如 /opt/robot/daemon）
+   UPDATE_RELEASE_DIR   ← **正在装的那个发布**（比如 /opt/robot/daemon/releases/1.4.2）
+</code></pre>
+<blockquote>
+<p>注释：<em>&quot;hook 自己的位置是它的 cwd，而 <code>$PWD</code> 就是正在装的那个发布。&quot;</em></p>
+</blockquote>
+<h3 id="83-传给-hook-的环境变量"><a class="header" href="#83-传给-hook-的环境变量">8.3 传给 hook 的环境变量</a></h3>
+<pre><code class="language-text">   UPDATE_COMPONENT        组件名（比如 daemon）
+   UPDATE_CHANNEL          同一个值（文档里按这个名字写）
+   UPDATE_NEW_VERSION
+   UPDATE_INSTALL_DIR
+   UPDATE_RELEASE_DIR
+   UPDATE_NEW_SCHEMA_VERSION
+   UPDATE_OLD_*            （缺席时**省略**而不是设成空，
+                            这样 hook 能区分&quot;全新安装&quot;和&quot;不知道&quot;）
+</code></pre>
+<blockquote>
+<p>那个&quot;省略而不是设空&quot;很讲究：<strong>空字符串和&quot;没有&quot;在 shell 里长得一样，但在语义上完全不同</strong> ——
+这和 <code>duck-ipc-proto-primer.md</code> §10.1 里&quot;<code>None</code> 不是 <code>0</code>&quot;是同一个思路。</p>
+</blockquote>
+<h3 id="84--一个-etxtbsy-竞态以及一次靠注释维持的不变式"><a class="header" href="#84--一个-etxtbsy-竞态以及一次靠注释维持的不变式">8.4 ⚠️ 一个 <code>ETXTBSY</code> 竞态，以及一次靠注释维持的不变式</a></h3>
+<p>刚写完的脚本可能还&quot;忙&quot;着（内核在刷），于是 <code>exec</code> 会失败并返回 <code>ETXTBSY</code>。
+<code>updater/src/spawn.rs</code> 的 <code>retrying_busy</code> 就是为了重试它，而那里的注释记着一课：</p>
+<blockquote>
+<p><strong>这个 crate 里没有任何东西可以绕过 <code>retrying_busy</code> 去 spawn 一个进程。</strong></p>
+<p>上面那段文档声称每一次 spawn 都走这里，<strong>而一个写在注释里的声称恰恰就是漂移的东西</strong>：
+<strong><code>hooks.rs</code> 有这个重试，<code>engine.rs</code> 没有</strong> ——
+而那段解释这个竞态的段落，<strong>早就把 <code>systemctl</code> 点名为引起它的进程之一了</strong>。</p>
+<p>代价是一个<strong>间歇性变红的 CI job</strong>（包括在一个只改了文档的 PR 上），
+以及在板子上，一次来自 <code>self_test_updaterd</code> 的 <code>ETXTBSY</code>，<strong>回滚了一个本来没问题的发布</strong>。</p>
+</blockquote>
+<p>而修法是一条<strong>grep 源码的测试</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 这个 crate 里没有任何东西可以绕过 [`retrying_busy`] 去 spawn 一个进程。
+///
+/// 用一个源码 grep 而不是一个类型：`tokio::process::Command` 不是我们能封起来的，
+/// 而包它的一个 newtype 得把每一个 builder 方法都重新导出才有点用。
+#[test]
+fn every_spawn_in_the_crate_goes_through_the_retry()
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>💡 <strong>&quot;注释里的一个声称会漂移，所以把它变成一条测试&quot;</strong> —— 这是这个仓库反复出现的模式。</p>
+</blockquote>
+<hr />
+<h2 id="9-单一真相来源与那些测试"><a class="header" href="#9-单一真相来源与那些测试">9. 单一真相来源与那些测试</a></h2>
+<p><code>hooks</code> 里有两个版本号，而<strong>它们都不能自己说了算</strong>：</p>
+<pre><code class="language-toml"># Cargo.toml
+[workspace.metadata.onnxruntime]
+floor  = &quot;1.23&quot;
+target = &quot;1.28.0&quot;
+</code></pre>
+<pre><code class="language-sh"># hooks/preinstall.in —— 两个占位符，打包时被替换
+ONNX_FLOOR=&quot;@ONNX_FLOOR@&quot;
+ONNX_TARGET=&quot;@ONNX_TARGET@&quot;
+</code></pre>
+<p>而 <code>xtask package</code> 负责替换，<strong>并且检查替换干净了</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>return Err(&quot;preinstall template still has unsubstituted @ONNX_...@ placeholders&quot;.into());
+<span class="boring">}</span></code></pre></pre>
+<h3 id="91-那些读不到-cargotoml-的脚本怎么办"><a class="header" href="#91-那些读不到-cargotoml-的脚本怎么办">9.1 那些<strong>读不到</strong> <code>Cargo.toml</code> 的脚本怎么办</a></h3>
+<p>有一类脚本是<strong>被单独 curl 下来执行的</strong>，所以它<strong>读不到这个文件</strong>，只能自己写一个字面量。
+那种情况下，<strong>测试就是那根把它们绑在一起的绳子</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>元数据</th><th>字面量住在</th><th>怎么防漂移</th></tr></thead><tbody>
+<tr><td><code>[workspace.metadata.onnxruntime]</code></td><td>被替换进 <code>hooks/preinstall</code></td><td>打包时替换 + 占位符检查</td></tr>
+<tr><td><code>[workspace.metadata.rknpu]</code></td><td><code>scripts/setup-npu.sh</code></td><td><strong>一个测试断言两者一致</strong></td></tr>
+<tr><td><code>[workspace.metadata.gst-plugins]</code></td><td><code>scripts/setup-gstreamer.sh</code></td><td><strong>一个测试断言两者一致</strong></td></tr>
+</tbody></table>
+</div>
+<p>而 <code>Cargo.toml</code> 里写了<strong>为什么值得这样</strong>：</p>
+<blockquote>
+<p>一个真相来源，理由和上面的 <code>[workspace.metadata.onnxruntime]</code> 一样：
+<code>scripts/setup-gstreamer.sh</code> 是被单独 curl 下来执行的，读不到这个文件，所以它带一个字面量，
+<strong>而一个测试断言两者一致</strong>。</p>
+<p><strong>两份版本号漂开，正是一块板子最后拿到一个它的 <code>ort</code> 会 panic 的 ONNX Runtime 的方式。</strong></p>
+</blockquote>
+<hr />
+<h2 id="10-阅读路线"><a class="header" href="#10-阅读路线">10. 阅读路线</a></h2>
+<p><strong>第 1 步（20 分钟）</strong></p>
+<ol>
+<li>读 <code>hooks/postinstall</code> 的<strong>头部注释</strong>（前 31 行）—— 那张窗口图和那条 fatal/warn 规则。</li>
+<li>读 <code>hooks/preinstall.in</code> 的<strong>头部注释</strong>（前 28 行）—— 为什么位置就是价值。</li>
+<li>读 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9.1 —— <strong>那条规则和它的四个案例</strong>。</li>
+</ol>
+<p><strong>第 2 步 —— 两个脚本（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>postinstall</code> 全文（185 行）—— 注意每个操作旁标的 fatal/warn。</li>
+<li>读 <code>preinstall.in</code> 全文（231 行）—— 注意两个依赖的不同失败方式。</li>
+<li>读 <a href="project/install-path-gap.html"><code>project/install-path-gap.md</code></a> —— 第一个案例的完整经过。</li>
+</ol>
+<p><strong>第 3 步 —— 驱动它们的那一侧（40 分钟）</strong></p>
+<ol start="7">
+<li>读 <code>updater/src/hooks.rs</code> 的模块头 + <code>run()</code>（<code>:112</code>）。</li>
+<li>读 <code>updater/src/engine.rs:46–66</code>（两个超时常量）。</li>
+<li>读 <code>updater/src/spawn.rs:39–60</code>（<code>retrying_busy</code>）和它那条 <code>#[cfg(test)]</code>。</li>
+</ol>
+<p><strong>第 4 步 —— 动手</strong></p>
+<pre><code class="language-bash"># 这两个脚本自己会被 shellcheck（CI 里跑）
+shellcheck hooks/postinstall
+
+# 看打包时模板是怎么被替换的
+grep -n -A 12 &quot;fn render_preinstall_hook&quot; xtask/src/main.rs
+</code></pre>
+<p><strong>自己验证一次替换</strong>：</p>
+<pre><code class="language-bash">sed -e 's/@ONNX_FLOOR@/1.23/' -e 's/@ONNX_TARGET@/1.28.0/' hooks/preinstall.in | head -35
+</code></pre>
+<hr />
+<h2 id="11-术语表"><a class="header" href="#11-术语表">11. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>hook</strong></td><td>在某个时刻自动运行的一段脚本。这里是 <code>preinstall</code> 和 <code>postinstall</code></td></tr>
+<tr><td><strong><code>preinstall</code> / <code>postinstall</code></strong></td><td>装<strong>之前</strong> / 装<strong>之后</strong>。两个位置各有各的意义</td></tr>
+<tr><td><strong><code>postinst</code></strong></td><td>Debian 包里同一个概念的名字。这个仓库的注释拿它作类比</td></tr>
+<tr><td><strong>产物 / artifact</strong></td><td>一个发布打包出来的那个压缩文件（含签名）</td></tr>
+<tr><td><strong>换链接 / symlink swap</strong></td><td>把 <code>current</code> 指向新发布的那一步。<strong>它是&quot;上线&quot;的分界线</strong></td></tr>
+<tr><td><strong><code>on_apply</code></strong></td><td>更新里&quot;重启单元&quot;的那一步</td></tr>
+<tr><td><strong>健康门 / health gate</strong></td><td>换版后问 <code>robot.health</code>，不健康就回滚</td></tr>
+<tr><td><strong>回滚 / rollback</strong></td><td>把 <code>current</code> 指回上一个发布</td></tr>
+<tr><td><strong>boot counter</strong></td><td>启动计数器。用来抓&quot;起来了但活不过去&quot;的发布</td></tr>
+<tr><td><strong>恢复机制 / boot recovery net</strong></td><td>连发布都起不来时那套兜底的东西</td></tr>
+<tr><td><strong>provisioning</strong></td><td>给一块<strong>新</strong>板子配置的过程（<code>provision.sh</code> / <code>install.sh</code>）</td></tr>
+<tr><td><strong><code>sysusers.d</code></strong></td><td>声明&quot;这个系统需要哪些用户/组&quot;的目录，<code>systemd-sysusers</code> 读它</td></tr>
+<tr><td><strong>单元 / unit</strong></td><td>systemd 眼里的一个服务或定时器</td></tr>
+<tr><td><strong><code>[Install]</code> 段</strong></td><td>单元文件里声明&quot;怎么被 enable&quot;的那一段。<strong>没有它就不能 enable</strong></td></tr>
+<tr><td><strong><code>enable</code> vs <code>enable --now</code></strong></td><td>只登记开机自启 / <strong>顺带现在就启动</strong></td></tr>
+<tr><td><strong><code>daemon-reload</code></strong></td><td>让 systemd 重读单元文件。<strong>改了单元之后必须做</strong></td></tr>
+<tr><td><strong>drop-in</strong></td><td><code>/etc/systemd/system/&lt;单元&gt;.d/*.conf</code>，用来定制而不改原文件</td></tr>
+<tr><td><strong><code>oneshot</code></strong></td><td>一种只跑一次就结束的单元类型</td></tr>
+<tr><td><strong><code>OnBootSec=</code></strong></td><td>定时器的&quot;开机后多久触发&quot;。<strong>过了截止时间才启动会立刻开火</strong></td></tr>
+<tr><td><strong><code>203/EXEC</code></strong></td><td>systemd 的&quot;我找不到或者起不了这个程序&quot;错误码</td></tr>
+<tr><td><strong>ONNX Runtime</strong></td><td>跑 <code>.onnx</code> 策略的运行时。<strong>板子的前置依赖</strong>，不随发布走</td></tr>
+<tr><td><strong><code>ORT_API_VERSION</code></strong></td><td>ONNX Runtime 的 C API 版本号</td></tr>
+<tr><td><strong><code>dlopen</code></strong></td><td>运行时才去找动态库</td></tr>
+<tr><td><strong>dylib</strong></td><td>动态链接库（Linux 上是 <code>.so</code>）</td></tr>
+<tr><td><strong><code>ldconfig</code></strong></td><td>更新动态库缓存的命令。<strong>新拷进去的库需要它才找得到</strong></td></tr>
+<tr><td><strong>GStreamer</strong></td><td>多媒体框架。<code>mediad</code> 用它推视频</td></tr>
+<tr><td><strong>3A（rkaiq）</strong></td><td>摄像头的自动曝光/白平衡/对焦引擎</td></tr>
+<tr><td><strong>NPU / RKNN</strong></td><td>神经网络加速器 / Rockchip 的运行时（见 <code>duck-detect-primer.md</code>）</td></tr>
+<tr><td><strong>overlay（设备树）</strong></td><td>在设备树上叠一层修改。启用 NPU 就是一次 overlay + 重启</td></tr>
+<tr><td><strong><code>ETXTBSY</code></strong></td><td>&quot;文本文件忙&quot; —— 刚写完的可执行文件还没刷完，<code>exec</code> 会失败</td></tr>
+<tr><td><strong>shellcheck</strong></td><td>检查 shell 脚本问题的工具</td></tr>
+<tr><td><strong>模板 / <code>.in</code> 后缀</strong></td><td>&quot;这个文件要先被替换，才是最终的东西&quot;的惯例</td></tr>
+<tr><td><strong>单一真相来源</strong></td><td>一个值只在一处定义，别处引用或由测试绑定</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>hook 的权威设计（英文）</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9</td></tr>
+<tr><td>那条规则的四个案例</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9.1</td></tr>
+<tr><td>第一个案例的完整经过</td><td><a href="project/install-path-gap.html"><code>project/install-path-gap.md</code></a></td></tr>
+<tr><td>整个更新引擎</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a></td></tr>
+<tr><td>哪一步重启哪个单元</td><td><a href="design/restart-order.html"><code>design/restart-order.md</code></a></td></tr>
+<tr><td>客户端这一侧：超时怎么和它对齐</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a> §8</td></tr>
+<tr><td>那个会被回滚的机制（健康判决）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a> §6.3</td></tr>
+<tr><td>启动恢复机制</td><td><a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a></td></tr>
+<tr><td>一个具体依赖的安装（NPU）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a> §6.1</td></tr>
+<tr><td>另一个具体依赖（ONNX Runtime）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a> §10.3</td></tr>
+<tr><td>配置文件的 schema / 编辑器（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房：手机怎么连上机器人（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程可达（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>update show</code>：一次更新的全文（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/duckctl-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/kinematics-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/duckctl-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/kinematics-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

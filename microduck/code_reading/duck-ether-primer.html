@@ -1,0 +1,679 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>duck-ether/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html" class="active"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="duck-ether-新手导读"><a class="header" href="#duck-ether-新手导读"><code>duck-ether</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>仿真的机制由 <a href="design/simulation.html"><code>design/simulation.md</code></a> 拥有（英文），
+电台那部分尤其看 §4 和 §5。两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="btd-primer.html"><code>btd-primer.md</code></a> —— 这个 crate 就是<strong>把 <code>btd</code> 的电台换掉</strong>。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E4%BB%BF%E7%9C%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个仿真里的位置</a></li>
+<li><a href="#3-%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E5%AE%83%E4%B8%8D%E6%98%AF%E7%94%B5%E5%8F%B0%E6%98%AF-btd-%E7%9A%84%E6%9B%BF%E8%BA%AB">核心心智模型：它不是电台，是 <code>btd</code> 的替身</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-%E4%B8%80%E6%AC%A1%E4%BF%A1%E6%A0%87%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次信标的完整旅程</a></li>
+<li><a href="#6-%E8%B0%81%E5%90%AC%E5%BE%97%E8%A7%81%E8%B0%81%E8%B7%9D%E7%A6%BB%E4%B8%8D%E6%98%AF%E4%BF%A1%E5%8F%B7%E5%BC%BA%E5%BA%A6">谁听得见谁：距离，不是信号强度</a></li>
+<li><a href="#7-%E6%95%85%E6%84%8F%E5%81%9A%E4%B8%80%E4%B8%AA%E5%9D%8F%E7%94%B5%E5%8F%B0">⭐「故意做一个坏电台」</a></li>
+<li><a href="#8-%E4%B8%A4%E4%B8%AA%E5%AE%B9%E6%98%93%E6%90%9E%E9%94%99%E8%80%8C%E5%AE%83%E6%90%9E%E5%AF%B9%E4%BA%86%E7%9A%84%E5%9C%B0%E6%96%B9">两个容易搞错、而它搞对了的地方</a></li>
+<li><a href="#9-%E6%80%8E%E4%B9%88%E7%94%A8%E5%AE%83">怎么用它</a></li>
+<li><a href="#10-%E6%B5%8B%E8%AF%95">测试</a></li>
+<li><a href="#11-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#12-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>duck-ether</code> 是<strong>给模拟鸭子用的电台</strong>：<strong>一只鸭子广播的东西，它附近的鸭子听得见。</strong></p>
+<pre><code class="language-bash">duck-ether --duck duck-a=/run/duck-a/robotd.sock@7801 \
+           --duck duck-b=/run/duck-b/robotd.sock@7802
+</code></pre>
+<p>一句话说清它的定位：</p>
+<blockquote>
+<p><strong>它替换 <code>btd</code> 的电台，以及那之上的一切都不动。</strong></p>
+</blockquote>
+<p>为什么能这么干净？因为**&quot;在场&quot;本来就是一个 IPC 契约**，住在 <code>robotd</code> 自己的 socket 上：</p>
+<pre><code class="language-text">   chorale.subscribe   ← 告诉我该往空中放什么
+   chorale.beacon      ← 放什么
+   chorale.heard       ← 听到了什么
+</code></pre>
+<p>而 <strong><code>btd</code> 是 <code>robotd</code> 的一个<em>客户端</em>，不是一个服务端</strong>。所以这个程序<strong>不冒充任何东西、不抢任何 socket 路径</strong> —— 它每只鸭子开一条连接，<strong>和 <code>btd</code> 做的事一模一样</strong>，于是每只鸭子的选举、名册、节拍、和对指挥的服从<strong>全都原样跑，分辨不出来</strong>。</p>
+<p>规模：<strong>481 行，两个文件</strong>（<code>Cargo.toml</code> + <code>main.rs</code>）。</p>
+<hr />
+<h2 id="2-它在整个仿真里的位置"><a class="header" href="#2-它在整个仿真里的位置">2. 它在整个仿真里的位置</a></h2>
+<pre><code class="language-text">   ┌─ 一台笔记本 ─────────────────────────────────────────────────────┐
+   │                                                                  │
+   │   MuJoCo（物理）                                                  │
+   │      ▲ TCP 身体协议            ▲ TCP                    ▲ TCP     │
+   │      │                         │                        │        │
+   │   ┌──┴──────┐              ┌───┴─────┐              ┌───┴─────┐  │
+   │   │ robotd  │              │ robotd  │              │ robotd  │  │
+   │   │ duck-a  │              │ duck-b  │              │ duck-c  │  │
+   │   └──┬──────┘              └───┬─────┘              └───┬─────┘  │
+   │      │ unix socket             │                        │        │
+   │      └──────────┬──────────────┴────────────────────────┘        │
+   │                 ▼                                                │
+   │           ┌────────────┐                                         │
+   │           │ duck-ether │  ← 假电台                                │
+   │           └────────────┘                                         │
+   │                 │                                                │
+   │                 └── 也去问每台模拟器：&quot;你的鸭子站在哪？&quot;            │
+   └──────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>在真实的机器人上</strong>，那三条线是蓝牙；<strong>在仿真里</strong>，它们全部经过 <code>duck-ether</code> 这一个进程。</p>
+<p><strong>它不在真板上跑</strong>，也不参与发布 —— 它是仿真工具链的一部分，由 <code>scripts/duck-sim boot</code> 在鸭子多于一只时启动。</p>
+<blockquote>
+<p>操作者视角的说明在 <a href="robot/simulation.html"><code>robot/simulation.md</code></a>：
+「鸭子多于一只时，脚本还会启动 <code>duck-ether</code>，一个在容器之间搬运合唱 BLE 信标的假电台。
+它<strong>故意是一个<em>坏</em>电台</strong> —— 会丢、会延迟 —— 因为<strong>一个完美的电台会掩盖真实电台会暴露的 bug</strong>。」</p>
+</blockquote>
+<hr />
+<h2 id="3-核心心智模型它不是电台是-btd-的替身"><a class="header" href="#3-核心心智模型它不是电台是-btd-的替身">3. 核心心智模型：它不是电台，是 <code>btd</code> 的替身</a></h2>
+<p>这是理解这个 crate 最关键的一句话，值得单独一节。</p>
+<pre><code class="language-text">   ┌──────────────────────────────────────────────────────────┐
+   │  robotd  —— 完全不知道电台是什么                          │
+   │    chorale.subscribe → &quot;我想要往空中放这个&quot;               │
+   │    chorale.heard     ← &quot;我听到了这个&quot;                     │
+   └───────────────────────┬──────────────────────────────────┘
+                           │  unix socket（IPC 契约）
+         ┌─────────────────┴─────────────────┐
+         ▼                                   ▼
+   ┌───────────┐                       ┌────────────┐
+   │    btd    │  真机器人上            │ duck-ether │  仿真里
+   │ 真蓝牙电台 │                       │  假电台     │
+   └───────────┘                       └────────────┘
+</code></pre>
+<p><strong>两边做的是同一件事：扮演 <code>robotd</code> 眼里的&quot;电台&quot;。</strong></p>
+<p>设计文档 §4 把好处列成了三条，而且<strong>没有一条是&quot;省事&quot;</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td><strong>基于&quot;年龄&quot;的同步路径被真的走了一遍</strong></td><td>而不是被短路掉（见第 8 节）</td></tr>
+<tr><td><strong>从 ground truth 来的距离</strong></td><td>让&quot;范围切分&quot;和&quot;不对称链路&quot;变成一个<strong>旋钮</strong>，而不是一个&quot;要布置现场&quot;的问题</td></tr>
+<tr><td><strong><code>from</code> 被按时轮换</strong></td><td>那个曾经让项目损失一天的地址轮换 bug，<strong>变成了一个回归测试</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>⚠️ <strong>&quot;不需要改 <code>robotd</code>、不需要做协议工作&quot;</strong> —— 这不是巧合，是因为 <code>btd</code> 当初就被摆成了客户端。
+详见 <code>btd-primer.md</code> §3&quot;一条管道&quot;。</p>
+</blockquote>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code class="language-text">duck-ether/
+├── Cargo.toml      15 行   依赖：只有 duck-ipc-proto + clap + tokio + serde_json
+└── src/main.rs    466 行   全部逻辑
+</code></pre>
+<p><code>main.rs</code> 内部，按顺序（左边是那一项开始的行号）：</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">行号</th><th>内容</th></tr></thead><tbody>
+<tr><td style="text-align: right">1–51</td><td>模块文档 —— <strong>把&quot;为什么&quot;说完了，先读这个</strong></td></tr>
+<tr><td style="text-align: right">63 / 69</td><td>两个常量：<code>RANGE</code>（8 米）和 <code>DELIVERY</code>（200 ms）</td></tr>
+<tr><td style="text-align: right">73</td><td><code>Args</code> —— 六个命令行开关</td></tr>
+<tr><td style="text-align: right">101 / 110</td><td><code>Weather</code>（天气 = 电台的不完美程度）+ <code>noise()</code>（确定性噪声）</td></tr>
+<tr><td style="text-align: right">121 / 127</td><td><code>Duck</code> 和它的解析（<code>name=socket@port</code>）</td></tr>
+<tr><td style="text-align: right">145</td><td><code>OnAir</code> —— 一只鸭子此刻在空中的状态</td></tr>
+<tr><td style="text-align: right">160</td><td><code>main()</code> —— 每只鸭子一个 task</td></tr>
+<tr><td style="text-align: right">234</td><td><code>address_for()</code> —— 造一个像样的 BLE 地址</td></tr>
+<tr><td style="text-align: right"><strong>248</strong></td><td><strong><code>serve()</code> —— 与一只鸭子的全部对话</strong></td></tr>
+<tr><td style="text-align: right"><strong>311</strong></td><td><strong><code>nearby()</code> —— 谁听得见谁</strong></td></tr>
+<tr><td style="text-align: right">375 / 389</td><td><code>positions()</code> / <code>ask_where()</code> —— 问模拟器鸭子站在哪</td></tr>
+<tr><td style="text-align: right">410</td><td><code>rotate()</code> —— 定期换地址</td></tr>
+<tr><td style="text-align: right">428</td><td>四个测试</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="5-一次信标的完整旅程"><a class="header" href="#5-一次信标的完整旅程">5. 一次信标的完整旅程</a></h2>
+<pre><code class="language-text">   ① 启动：每只鸭子一个 task
+      · 连上它的 robotd socket
+      · 发 chorale.subscribe     ← &quot;把该广播的东西告诉我&quot;
+              │
+              ▼
+   ② robotd 回一条通知：chorale.beaconSet { beacon: Option, listening: bool }
+      · beacon = 这只鸭子想广播的内容（它选好了曲子、算好了节拍）
+      · listening = 它在不在听
+              │
+              ▼
+   ③ duck-ether 记在 OnAir 里：
+      · beacon / listening
+      · since ← 它**第一次**开始广播的时刻（发现延迟从这里起算）
+              │
+              │   ┌──────────────────────────────────────────┐
+              │   │  另一条并行的线：positions()              │
+              │   │  每 250 ms 问一次每只鸭子的模拟器：       │
+              │   │  TCP → {&quot;op&quot;:&quot;hello&quot;} → {&quot;op&quot;:&quot;read&quot;}     │
+              │   │      → 读回答里的 &quot;trunk&quot; 字段           │
+              │   └──────────────────────────────────────────┘
+              ▼
+   ④ 每 200 ms（DELIVERY）：
+      nearby() 算出&quot;我这只鸭子听得见谁&quot;
+        · 我在听吗？不在 → 谁都不听
+        · 逐个看别人：有 beacon 吗？
+        · 距离 = √(Δx² + Δy²)  ← **只有水平面**
+        · 超过 range？跳过
+        · 还没被&quot;发现&quot;？跳过（每个&quot;对&quot;各有各的延迟）
+        · 这一拍丢了？跳过（按对和 tick 播种）
+              │
+              ▼
+   ⑤ 每个听得见的，回一条通知给这只鸭子：
+      chorale.heard { beacon, from: 对方的地址, age_us: 1000 }
+              │
+              ▼
+   ⑥ robotd 拿到它，喂给合唱的相位锁
+</code></pre>
+<p><strong>注意第 ④ 步：距离是 <code>duck-ether</code> 自己算的</strong>，因为它每 250 ms 去问了每只鸭子的模拟器。</p>
+<p><strong>注意它是&quot;推&quot;而不是&quot;广播&quot;</strong> —— 每只鸭子拿到的是<strong>过滤过的、只属于它的</strong>一份列表。</p>
+<hr />
+<h2 id="6-谁听得见谁距离不是信号强度"><a class="header" href="#6-谁听得见谁距离不是信号强度">6. 谁听得见谁：距离，不是信号强度</a></h2>
+<p>这是最容易误解的一处，代码的模块文档专门解释了：</p>
+<blockquote>
+<p><strong>距离，因为 <code>ChoraleHeard</code> 里没有信号强度</strong> ——
+一个真实的扫描器<strong>要么看见一条广播，要么看不见</strong>，而<strong>超出范围的信标根本不会到达</strong>。</p>
+<p>所以这个 ether 问每台模拟器它的鸭子站在哪，<strong>只把信标投递给它 <code>RANGE</code> 以内的鸭子</strong>。
+那是一个<strong>比真电台更粗糙、但可控得多</strong>的电台：
+<strong>一个数字形式的范围，让&quot;这两只能互相听见、那两只不能&quot;变成一秒就能摆好的事</strong> ——
+而在真硬件上，那意味着<strong>把机器人搬到别的房间去</strong>。</p>
+</blockquote>
+<p>两个细节：</p>
+<p><strong>一、距离只算水平面。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let distance = ((other.at[0] - here[0]).powi(2) + (other.at[1] - here[1]).powi(2)).sqrt();
+<span class="boring">}</span></code></pre></pre>
+<p><code>z</code> 被忽略了 —— 对&quot;同一层楼里的两只鸭子&quot;来说这是对的。</p>
+<p><strong>二、<code>RANGE</code> 默认 8 米，而且&quot;故意给得宽&quot;。</strong></p>
+<blockquote>
+<p>一个真实的广播能穿过一个房间还有富余，
+<strong>而有趣的故障是关于谁在范围<em>之外</em></strong> —— 那才是 <code>--range</code> 存在的意义。</p>
+</blockquote>
+<h3 id="61--和设计文档的一处不一致"><a class="header" href="#61--和设计文档的一处不一致">6.1 ⚠️ 和设计文档的一处不一致</a></h3>
+<p><code>design/simulation.md</code> §4 是这么写的：</p>
+<blockquote>
+<p>一个进程为每只鸭子持有一条连接，收集每只想广播的内容，
+并且<strong>带着一个由它们身体之间距离推导出的 RSSI</strong> 投递给其他鸭子。</p>
+</blockquote>
+<p><strong>但 <code>ChoraleHeard</code> 里没有 RSSI。</strong> 它的字段只有三个：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct ChoraleHeard {
+    pub beacon: ChoraleBeacon,
+    pub from: String,     // 身份，只用于去重
+    pub age_us: u64,      // 年龄，不是时间戳
+}
+<span class="boring">}</span></code></pre></pre>
+<p>我核实过：全仓库的 <code>rssi</code> 只出现在 <code>duckctl</code> 的测量工具和 <code>btd</code> 的 BlueZ 监视器参数里，
+<strong>协议里没有任何地方带信号强度</strong>。</p>
+<p>所以按<strong>代码</strong>的说法（<code>duck-ether</code> 的模块文档，写得很明确、也给了理由），真实行为是
+<strong>按距离做范围切分</strong>，而不是<strong>附上一个 RSSI 值</strong>。设计文档那半句描述的是一个协议承载不了的东西。</p>
+<blockquote>
+<p>两处都是 <strong>2026-08-30</strong> 同一天进来的（设计文档 <code>47f4003</code>，<code>duck-ether</code> <code>2581e62</code>），
+所以 git 分不出先后。但<strong>代码是考虑过这件事的</strong>（它明说&quot;没有信号强度&quot;并解释了替代方案），
+所以看起来是<strong>那半句话没跟上</strong>。</p>
+<p>按 <code>CLAUDE.md</code>：&quot;当行为和一份设计文档不一致时，<strong>文档才是 bug</strong>。&quot;</p>
+</blockquote>
+<hr />
+<h2 id="7-故意做一个坏电台"><a class="header" href="#7-故意做一个坏电台">7. ⭐「故意做一个坏电台」</a></h2>
+<p><strong>这是整个 crate 存在的最深理由，也是最值得学的一节。</strong></p>
+<p>模块文档开头就是：</p>
+<blockquote>
+<p><strong>一个完美的 ether 会掩盖真电台造成的 bug</strong>，而这<strong>不是假设</strong>。</p>
+<p><strong>孪生里的四只鸭子每一次都会收敛到同一首曲子上</strong> —— 错开启动也一样 ——
+<strong>因为每只鸭子从它启动的那一刻起，就对其他每一只可见，瞬间而且无损。</strong></p>
+<p>在真硬件上，BLE 发现是慢的、有损的，所以<strong>两只鸭子可能在另外两只还没看见它们的时候就已经在唱了</strong> ——
+<strong>而那正是合唱的选举必须活下来的那个脑裂（split-brain）。</strong></p>
+</blockquote>
+<h3 id="71-三个旋钮"><a class="header" href="#71-三个旋钮">7.1 三个旋钮</a></h3>
+<pre><code class="language-text">   --discovery &lt;秒&gt;   一只鸭子要花多久才被&quot;注意到&quot;
+   --loss &lt;0.0-1.0&gt;   丢掉这个比例的投递
+   --seed &lt;n&gt;         上面两个的随机种子
+</code></pre>
+<p><strong>⭐ <code>--discovery</code> 是&quot;每一对&quot;的，不是全局的。</strong> 注释说得很清楚：</p>
+<blockquote>
+<p><strong>每一对，而且从对方上空中那一刻起计时：</strong>
+<strong>正是那个<em>不对称</em>才把鸭群劈开的</strong>，所以一个所有人共享的延迟<strong>造不出那个场景</strong> ——
+A 和 B 很快互相找到、而 C 和 D 还聋着，<strong>那才是要复现的情形</strong>。</p>
+</blockquote>
+<p>代码里是这样落地的一对一键：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let pair = format!(&quot;{}&lt;-{}&quot;, duck.name, name);       // &quot;duck-a&lt;-duck-b&quot;
+let wait = Duration::from_millis(noise(seed, &amp;pair, 0) % discovery_ms);
+<span class="boring">}</span></code></pre></pre>
+<h3 id="72--为什么要---seed"><a class="header" href="#72--为什么要---seed">7.2 ⭐ 为什么要 <code>--seed</code></a></h3>
+<blockquote>
+<p><strong>两者都由一个有种子 PRNG 驱动</strong>，所以<strong>一次发生过的劈裂可以被弄成再发生一次</strong> ——
+<strong>一个随机性不重复的坏电台，只有在调试时才有用。</strong></p>
+</blockquote>
+<p>而 <code>noise()</code> 是<strong>手写的一个 splitmix 步骤</strong> —— 短、分布好、<strong>不需要任何依赖</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 确定性噪声 —— 一个 splitmix 步骤。
+/// **确定性才是重点：一个每次运行都抖得不一样的电台，不能用来追 bug。**
+fn noise(seed: u64, key: &amp;str, salt: u64) -&gt; u64
+<span class="boring">}</span></code></pre></pre>
+<h3 id="73-那个复现配方"><a class="header" href="#73-那个复现配方">7.3 那个复现配方</a></h3>
+<p>设计文档 §5 记录了它复现出来的东西 —— <strong>一个现场报告</strong>：</p>
+<blockquote>
+<p>四只鸭子，<strong><code>a</code> 和 <code>b</code> 比 <code>c</code> 和 <code>d</code> 早唱十二秒</strong>：</p>
+<pre><code>duck-ether --discovery 90 --loss 0.3 --seed 3
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>鸭子</th><th>声部</th><th>小节</th><th>名册</th></tr></thead><tbody>
+<tr><td>a</td><td><strong>没在唱</strong></td><td>—</td><td>范围内 1 个</td></tr>
+<tr><td>b</td><td>bass</td><td>4</td><td>3 个声音</td></tr>
+<tr><td>c</td><td>alto</td><td>4</td><td>2 个声音</td></tr>
+<tr><td>d</td><td>bass</td><td>2</td><td>2 个声音</td></tr>
+</tbody></table>
+</div>
+<p><strong>那就是现场报告</strong> —— &quot;有时候什么都不发生，有时候两首不同的歌&quot; ——
+<strong>而且还带着互相矛盾的名册和一个重复的声部。</strong></p>
+</blockquote>
+<p><strong>而设计文档也诚实地说它还没证明什么：</strong></p>
+<blockquote>
+<p>合入 <code>chorale-election</code> 之后，同样的场景<strong>仍然会劈</strong>（小节 5、12、8：三条时间线）。
+但在 <code>--discovery 20 --loss 0.4</code> 下<strong>两者都会收敛</strong>，
+所以九十秒的发现时间<strong>比那个分支写的时候预想的更狠</strong>，
+而这<strong>不是</strong>&quot;那个修复在真机器人上会失败&quot;的证据。
+值得跑的实验是一次<strong>扫描</strong> —— 每个版本停止收敛的那个发现值 ——
+<strong>而现在那是一段对一个数字的循环，而不是四台机器人和一个房间。</strong></p>
+</blockquote>
+<blockquote>
+<p>💡 这句话是整个 crate 的价值所在：
+<strong>一个原本需要&quot;四台机器人和一个房间&quot;才能碰到的故障，变成了一个可以循环的数字。</strong></p>
+</blockquote>
+<hr />
+<h2 id="8-两个容易搞错而它搞对了的地方"><a class="header" href="#8-两个容易搞错而它搞对了的地方">8. 两个容易搞错、而它搞对了的地方</a></h2>
+<p>模块文档专门列了这两条，而且<strong>两条都是踩过坑的</strong>：</p>
+<h3 id="81-age_us-是年龄不是时间戳"><a class="header" href="#81-age_us-是年龄不是时间戳">8.1 <code>age_us</code> 是&quot;年龄&quot;，不是&quot;时间戳&quot;</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>age_us: 1_000,
+<span class="boring">}</span></code></pre></pre>
+<p>原话：</p>
+<blockquote>
+<p><strong><code>age_us</code> 是一个年龄，不是一个时间戳。</strong> 这个字段存在，是因为<strong>两个 daemon 共享一台机器而不共享 epoch</strong>，
+而 <code>robotd</code> 在收到时<strong>把它从自己的时钟里减掉</strong> ——
+所以<strong>填一个真实的流逝时间，才是让&quot;基于节拍的同步&quot;被真的走了一遍，而不是被短路掉</strong>。</p>
+</blockquote>
+<p>而代码注释还解释了<strong>为什么不是 0</strong>：</p>
+<blockquote>
+<p><strong>零会声称&quot;这条广播在它被交出去的瞬间到达&quot;</strong> ——
+而那<strong>恰恰是一个真实扫描器永远不会产生的读数</strong>。</p>
+</blockquote>
+<h3 id="82-地址会轮换"><a class="header" href="#82-地址会轮换">8.2 地址会轮换</a></h3>
+<blockquote>
+<p><strong><code>from</code> 被文档规定为&quot;只用于去重的身份&quot;，而一只真鸭子的 BLE 地址会在它底下改变</strong> ——
+<strong>这个事实曾经让这个项目损失了一天</strong>，当时有东西拿它当了键。</p>
+<p><strong><code>--rotate</code> 让那件事按定时器发生，从而把那个 bug 变成一个测试。</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let generation = started.elapsed().as_secs() / seconds.max(1);
+entry.address = address_for(index, generation);
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>address_for()</code> 造出来的是<strong>长得像真的</strong>的地址（<code>E</code> 前缀，六组十六进制），
+并且有一对测试钉住&quot;<strong>每只鸭子地址不同</strong>&quot;和&quot;<strong>每一代地址都换</strong>&quot;。</p>
+<blockquote>
+<p>📌 注意到没有：<strong>这两条和 <code>btd-primer.md</code> §11.3&quot;机器人有两个名字&quot;、§11.4&quot;地址会变&quot;是同一类知识</strong>。
+仿真器的价值之一，就是把这些&quot;真硬件上才知道的事&quot;变成可以随手开关的旋钮。</p>
+</blockquote>
+<hr />
+<h2 id="9-怎么用它"><a class="header" href="#9-怎么用它">9. 怎么用它</a></h2>
+<h3 id="91-命令行"><a class="header" href="#91-命令行">9.1 命令行</a></h3>
+<pre><code class="language-text">   --duck &lt;NAME=SOCKET@PORT&gt;   一只鸭子（可重复，必填）
+                                SOCKET = 它的 robotd socket
+                                PORT   = 它的**模拟器**身体端口
+   --range &lt;米&gt;                信标能传多远（默认 8.0）
+   --rotate &lt;秒&gt;               每隔多久换一次地址；0 = 不换
+   --discovery &lt;秒&gt;            每只鸭子最多花多久才被&quot;注意到&quot;（每对）；0 = 完美电台
+   --loss &lt;0.0-1.0&gt;            丢掉这个比例的投递
+   --seed &lt;n&gt;                  discovery 和 loss 的种子
+</code></pre>
+<p><strong>解析 <code>name=socket@port</code> 是从右边切 <code>@</code> 的</strong>，所以 socket 路径里可以有 <code>@</code> —— 有一个测试专门钉这件事（<code>a_socket_path_may_contain_an_at_sign</code>）。</p>
+<h3 id="92-正常情况下你不是直接调它"><a class="header" href="#92-正常情况下你不是直接调它">9.2 正常情况下你不是直接调它</a></h3>
+<pre><code class="language-bash">scripts/duck-sim boot 4        # 鸭子多于一只时，脚本会自动起 duck-ether
+</code></pre>
+<p>它<strong>只在仿真里跑</strong>，和发布无关。</p>
+<h3 id="93-想复现那个脑裂"><a class="header" href="#93-想复现那个脑裂">9.3 想复现那个脑裂</a></h3>
+<pre><code class="language-bash">duck-ether --discovery 90 --loss 0.3 --seed 3
+</code></pre>
+<p>再改 <code>--seed</code>，看劈裂是不是稳定复现。</p>
+<h3 id="94-它容错的方式"><a class="header" href="#94-它容错的方式">9.4 它容错的方式</a></h3>
+<p><code>serve()</code> 外面包着一层<strong>每秒重试</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>loop {
+    if let Err(e) = serve(&amp;duck, &amp;air, range, weather).await {
+        tracing::warn!(duck = %duck.name, error = %e, &quot;lost the duck; retrying&quot;);
+    }
+    tokio::time::sleep(Duration::from_secs(1)).await;
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>一只鸭子重启、它的 socket 短暂消失，都不会让整个 ether 挂掉。</p>
+</blockquote>
+<p>而<strong>运行时是单线程的</strong>（<code>#[tokio::main(flavor = &quot;current_thread&quot;)]</code>）—— 它只搬运字节，
+而且全部状态在一把 <code>Mutex&lt;HashMap&lt;String, OnAir&gt;&gt;</code> 里。</p>
+<hr />
+<h2 id="10-测试"><a class="header" href="#10-测试">10. 测试</a></h2>
+<p><strong>4 个测试</strong>，全部是纯函数：</p>
+<pre><code class="language-text">   a_duck_is_a_name_a_socket_and_a_body
+   a_socket_path_may_contain_an_at_sign        ← 从右边切 @
+   what_is_not_a_duck_says_so                  ← 三种错误输入
+   every_duck_has_its_own_address_and_a_new_one_each_generation
+</code></pre>
+<p><strong>没有一个测试碰网络或 IPC。</strong></p>
+<p>这看起来少，但要说清楚<strong>这个 crate 的验证手段不是单元测试，而是它复现出来的那个故障</strong> ——
+它存在的全部意义是&quot;让一个原本需要四台机器人和一个房间的故障可以被循环&quot;。</p>
+<blockquote>
+<p>设计文档 §5 的那张表（a 没在唱 / b bass bar 4 / c alto bar 4 / d bass bar 2）
+<strong>就是这个 crate 的验收标准</strong>，而且它是一份<strong>现场报告的复现</strong>，不是一个断言。</p>
+</blockquote>
+<hr />
+<h2 id="11-阅读路线"><a class="header" href="#11-阅读路线">11. 阅读路线</a></h2>
+<p><strong>第 1 步（15 分钟）</strong></p>
+<ol>
+<li>读 <code>main.rs</code> 的模块文档（<strong>前 20 行</strong>）—— 它把&quot;为什么&quot;说完了。</li>
+<li>读 <a href="design/simulation.html"><code>design/simulation.md</code></a> §4（&quot;Faking the radio costs nothing&quot;）和 §5（&quot;The radio has to be bad&quot;）——
+这是这个 crate 的全部理由。</li>
+</ol>
+<p><strong>第 2 步 —— 骨架（40 分钟）</strong></p>
+<ol start="3">
+<li>读 <code>Args</code>（<code>:73</code>）—— 六个开关，每个都有理由。</li>
+<li>读 <code>OnAir</code>（<code>:145</code>）—— 一只鸭子此刻在空中的状态。</li>
+<li>读 <code>main()</code>（<code>:160</code>）—— 每只鸭子一个 task，加上 <code>positions</code> 和可选的 <code>rotate</code>。</li>
+</ol>
+<p><strong>第 3 步 —— 核心（1 小时）</strong></p>
+<ol start="6">
+<li>读 <code>serve()</code>（<code>:248</code>）—— 与一只鸭子的全部对话。<strong>这是第 5 节那张时序图。</strong></li>
+<li>读 <code>nearby()</code>（<code>:311</code>）—— 谁听得见谁。<strong>这是第 6、7 节。</strong></li>
+<li>读 <code>positions()</code> / <code>ask_where()</code>（<code>:375</code>）—— 它怎么知道鸭子站在哪。</li>
+</ol>
+<p><strong>第 4 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p duck-ether        # 4 个测试，不需要任何东西
+
+cargo run -p duck-ether -- --help
+</code></pre>
+<p><strong>第 5 步 —— 想看真的，就跑仿真</strong></p>
+<pre><code class="language-bash">scripts/duck-sim boot 3         # 三只鸭子，脚本会自动起 duck-ether
+</code></pre>
+<p>然后按第 9.3 节的配方去复现脑裂。</p>
+<hr />
+<h2 id="12-术语表"><a class="header" href="#12-术语表">12. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>仿真 / simulation</strong></td><td>机器人跑在 MuJoCo 里，而不是真硬件上</td></tr>
+<tr><td><strong>孪生 / twin</strong></td><td>&quot;数字孪生&quot; —— 那个仿真出来的机器人</td></tr>
+<tr><td><strong>MuJoCo</strong></td><td>一个物理仿真引擎</td></tr>
+<tr><td><strong>ether</strong></td><td>&quot;以太&quot; —— 旧物理学里假想的那种传播无线电的介质。这里指&quot;空气&quot;本身</td></tr>
+<tr><td><strong>body / 身体</strong></td><td>仿真里那只鸭子的物理实体（相对于 daemon 那套&quot;软件&quot;）</td></tr>
+<tr><td><strong>身体协议 / body protocol</strong></td><td><code>robotd</code> 和 MuJoCo 之间那条 TCP 上的行分隔 JSON</td></tr>
+<tr><td><strong><code>chorale.*</code></strong></td><td>合唱那三个 IPC 方法：<code>subscribe</code> / <code>beaconSet</code> / <code>heard</code></td></tr>
+<tr><td><strong>信标 / beacon</strong></td><td>一只鸭子往空中放的一小段数据（曲子、节拍、声部、名册）</td></tr>
+<tr><td><strong>名册 / roster</strong></td><td>指挥维护的&quot;谁唱哪个声部&quot;的名单</td></tr>
+<tr><td><strong>脑裂 / split-brain</strong></td><td>一个分布式系统分裂成两组、各自以为自己是全部 —— 这里是&quot;两组鸭子唱不同的歌&quot;</td></tr>
+<tr><td><strong>收敛 / converge</strong></td><td>所有鸭子最终唱到同一首、同一拍上</td></tr>
+<tr><td><strong>选举 / election</strong></td><td>决定谁当指挥。这里的规则是&quot;id 最小者&quot;，是确定性的</td></tr>
+<tr><td><strong>RSSI</strong></td><td>收到的信号强度。&quot;我知道它多远&quot;的粗略估计</td></tr>
+<tr><td><strong>ground truth</strong></td><td>&quot;真值&quot; —— 仿真里可以直接读到的准确位置，真硬件上读不到</td></tr>
+<tr><td><strong><code>epoch</code></strong></td><td>时间的零点。<strong>两个进程的 epoch 不同，所以时间戳不能直接用</strong></td></tr>
+<tr><td><strong><code>age_us</code></strong></td><td>消息有多旧（微秒）。<strong>这是跨进程能用的那个表示</strong></td></tr>
+<tr><td><strong>seeded PRNG</strong></td><td>有固定种子的伪随机数发生器 —— <strong>同样的种子产生同样的&quot;随机&quot;</strong></td></tr>
+<tr><td><strong>splitmix</strong></td><td>一种短小的哈希/PRNG 算法。这里手写了它的一个步骤，避免引入依赖</td></tr>
+<tr><td><strong>幂等 / 可复现</strong></td><td>同样的输入给同样的输出。<strong>调 bug 的前提</strong></td></tr>
+<tr><td><strong>回归测试</strong></td><td>一个专门用来防止某个已修好的 bug 复发的测试</td></tr>
+<tr><td><strong><code>systemd-nspawn</code></strong></td><td>systemd 的容器工具。<code>duck-sim boot</code> 用它跑真的 systemd 单元</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>仿真的权威设计（英文）</td><td><a href="design/simulation.html"><code>design/simulation.md</code></a> §4 · §5</td></tr>
+<tr><td>操作者视角：怎么跑仿真</td><td><a href="robot/simulation.html"><code>robot/simulation.md</code></a></td></tr>
+<tr><td>它替换掉的那个电台（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>合唱本身（在 <code>robotd</code> 里）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a> §8 · <a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td></tr>
+<tr><td>鸭子站在哪：<code>robotd</code> 怎么跟 MuJoCo 说话</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a> §14</td></tr>
+<tr><td>配置文件的 schema / 编辑器（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>语音与合唱的音色</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.5</td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程可达（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>机器人上的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/duck-detect-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/duck-ipc-proto-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/duck-detect-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/duck-ipc-proto-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

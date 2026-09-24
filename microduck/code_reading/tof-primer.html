@@ -1,0 +1,1527 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>tof/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html" class="active"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="tof-新手导读"><a class="header" href="#tof-新手导读"><code>tof/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是<strong>鸭子头部的两个传感器</strong>：一个 ToF 深度相机，和一个 IMU。
+为什么感知必须是它自己的守护进程，由 <a href="design/architecture.html"><code>design/architecture.md</code></a> §1 拥有；
+通道契约（<code>tof.stream</code> 那些方法）由 <a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a> 拥有；
+这个守护进程<strong>空闲时花掉的那 5%</strong>，由
+<a href="project/tof-on-demand.html"><code>project/tof-on-demand.md</code></a> 拥有（那是测量记录）。
+<strong>特雷门没有设计文档，而这是有意的</strong> —— <code>design/robotd-design.md:921-929</code> 说，
+一个服务只有在&quot;第二个读者否则就得从代码里推导它的契约&quot;时才需要一页；
+这些东西各自只有一个实现和一个消费者。本导读就是那个&quot;一页&quot;。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（唯一的消费者）、
+<a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a>（<code>tof.stream</code> 的线上形状）、
+<a href="kinematics-primer.html"><code>kinematics-primer.md</code></a>（把帧变成几何）、
+<a href="robotctl-primer.html"><code>robotctl-primer.md</code></a>（<code>monitor</code> 里那个网格）、
+<a href="deploy-primer.html"><code>deploy-primer.md</code></a>（I²C 总线是怎么来的）、
+<a href="scripts-primer.html"><code>scripts-primer.md</code></a>（<code>/dev/i2c-pihat</code> 那条 udev 规则）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E8%BF%99%E4%B8%AA-crate-%E9%87%8C%E6%9C%89%E4%B8%A4%E4%B8%AA%E4%BC%A0%E6%84%9F%E5%99%A8">⚠️ 这个 crate 里有两个传感器</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E5%B8%A7%E7%9A%84%E4%B8%89%E7%A7%8D%E7%8A%B6%E6%80%81">⭐ 核心心智模型：一帧的三种状态</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%9C%B0%E5%9B%BE">目录地图</a></li>
+<li><a href="#5-%E9%82%A3%E4%BB%BD-vendor-%E7%9A%84-c">那份 vendor 的 C</a></li>
+<li><a href="#6-%E4%BC%A0%E6%84%9F%E5%99%A8%E4%B8%A4%E4%BB%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E5%86%B3%E5%AE%9A">传感器：两代，在运行时决定</a></li>
+<li><a href="#7-tofd-%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90"><code>tofd</code> 的四种数据来源</a></li>
+<li><a href="#8--%E4%B8%BB%E5%BE%AA%E7%8E%AF%E9%82%A3%E4%B8%AA-poll-guard">⭐ 主循环：那个 poll guard</a></li>
+<li><a href="#9-socket-%E9%82%A3%E4%B8%80%E5%8D%8A">socket 那一半</a></li>
+<li><a href="#10-%E5%A4%B4-imu%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E5%9C%A8-tofd-%E9%87%8C">头 IMU：为什么它在 <code>tofd</code> 里</a></li>
+<li><a href="#11-%E5%AF%B9%E5%A4%96%E7%9A%84%E5%BD%A2%E7%8A%B6">对外的形状</a></li>
+<li><a href="#12-%E8%B0%81%E5%9C%A8%E8%AF%BB%E5%AE%83">谁在读它</a></li>
+<li><a href="#13-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#14-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#15-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>tof/</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>鸭子头上那个传感器看到了什么，怎么把它变成一帧可以读的数据？</strong></p>
+</blockquote>
+<p>规模很小 —— <strong>2,191 行自己的 Rust</strong>，加上一份 40 KB 的 ST 寄存器序列和 550 KB 的固件。</p>
+<pre><code>   VL53L8CX / VL53L5CX            （ToF，8×8 深度矩阵，看头部朝向）
+   BMI088                          （IMU，陀螺仪 + 加速度计 + 姿态）
+        │
+        │  同一个 I²C 总线（i2c3），和音频 codec 共用
+        ▼
+   tofd  ← 唯一碰这条总线的进程
+        │
+        │  /run/tofd/tof.sock  （unix socket，mode 0660，group robot）
+        ▼
+   tof.stream / head_imu.stream  →  robotd · robotctl monitor
+</code></pre>
+<p>三个值得先记住的事实：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>事实</th><th>为什么重要</th></tr></thead><tbody>
+<tr><td><strong>①</strong></td><td><strong>一帧有「三种」状态，不是一种</strong></td><td>空无一物 ≠ 测不出来。见 §3</td></tr>
+<tr><td><strong>②</strong></td><td><strong>它每 66 毫秒只问传感器 3 次，而不是 7 次</strong></td><td>一个省掉 57% 总线流量的守卫。见 §8</td></tr>
+<tr><td><strong>③</strong></td><td><strong>头 IMU 默认是关的</strong></td><td>因为它 4% 的 CPU，而没有任何东西订阅它。见 §10</td></tr>
+<tr><td><strong>④</strong></td><td><strong>那个「三种状态」的判断，有一个消费者故意不用</strong></td><td>特雷门信的是一组更宽的状态码，否则它在 30 cm 外就看不见手。见 §3.6</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="2--这个-crate-里有两个传感器"><a class="header" href="#2--这个-crate-里有两个传感器">2. ⚠️ 这个 crate 里有两个传感器</a></h2>
+<p><code>Cargo.toml:1-6</code> 的第一句就会让人绊一下：</p>
+<blockquote>
+<p>The head ToF sensor: an 8x8 depth matrix from a VL53L8CX, and the daemon that serves it.</p>
+</blockquote>
+<p><strong>但它其实服务两个传感器</strong>，而第二个只在文件末尾才出现：</p>
+<div class="table-wrapper"><table><thead><tr><th>传感器</th><th>是什么</th><th>在哪读</th><th>默认</th></tr></thead><tbody>
+<tr><td><strong>VL53L8CX / VL53L5CX</strong></td><td>8×8 深度矩阵</td><td><code>src/sensor.rs</code> + vendor C</td><td><strong>总是开</strong></td></tr>
+<tr><td><strong>BMI088</strong></td><td>头部 IMU（陀螺仪 + 加速度计 + 姿态）</td><td><code>src/imu.rs</code>（纯 Rust 驱动）</td><td><strong>默认关</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>imu.rs:1</code> 讲了为什么它在这里：</p>
+<blockquote>
+<p>The head IMU (BMI088 on the HAT), read by <code>tofd</code> <strong>because <code>tofd</code> owns this I²C bus.</strong></p>
+</blockquote>
+<p><strong>&quot;因为 <code>tofd</code> 拥有这条 I²C 总线。&quot;</strong> —— 两个芯片挂在同一条总线上
+（<code>imu.rs:3-6</code>：加速度计 <code>0x19</code>、陀螺仪 <code>0x68</code>、ToF <code>0x29</code>、codec <code>0x18</code>，不冲突）。</p>
+<p>而<strong>它们跑在两个不同的线程上</strong>（<code>imu.rs:8-11</code>）：</p>
+<blockquote>
+<p>Runs on its own std thread, <strong>not the ToF thread</strong>: the ToF blocks for seconds uploading
+firmware and backs off for up to a minute when no sensor is fitted, and <strong>the IMU stream must
+not stall behind that.</strong></p>
+</blockquote>
+<p><strong>&quot;IMU 的流不能堵在它后面。&quot;</strong></p>
+<h3 id="21-那条容易被忽略的依赖"><a class="header" href="#21-那条容易被忽略的依赖">2.1 那条容易被忽略的依赖</a></h3>
+<p><code>Cargo.toml:40-47</code> —— 这个 crate 依赖一个 <strong>git 上的第二个仓库</strong>：</p>
+<pre><code class="language-toml">[target.'cfg(target_os = &quot;linux&quot;)'.dependencies]
+# The BMI088 driver and its Madgwick fusion, ours because the crates.io ones stop at the raw
+# registers. Pinned to a tag: it is a second repository and a moving `main` is not a dependency.
+# v0.1.2 is the one that has `Bmi088Ahrs::update_all`, which is what takes a head-IMU sample
+# from three I²C transactions to two.
+bmi088 = { git = &quot;https://github.com/pollen-robotics/bmi088-rs&quot;, tag = &quot;v0.1.2&quot; }
+</code></pre>
+<p><strong>&quot;钉在一个 tag 上：它是一个第二个仓库，而一个会动的 <code>main</code> 不是一个依赖。&quot;</strong></p>
+<hr />
+<h2 id="3--核心心智模型一帧的三种状态"><a class="header" href="#3--核心心智模型一帧的三种状态">3. ⭐ 核心心智模型：一帧的三种状态</a></h2>
+<p>这是整个目录<strong>最值得理解的一件事</strong>，而它全部写在 <code>lib.rs:65-80</code>：</p>
+<blockquote>
+<p>What one zone of a frame actually says.</p>
+<p><strong>ST's status byte is the difference between &quot;nothing is there&quot; and &quot;I could not tell&quot;, and
+collapsing them loses the distinction a map most needs: empty space is information, an
+unusable measurement is not.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Zone {
+    /// 有测量值，单位米。状态 5（有效）或 9（有效，大脉冲）。
+    Range(f32),
+    /// 状态 255：传感器看了，范围内什么也没有。**这是空无一物**。
+    NoTarget,
+    /// 任何其它状态：测量失败。**这说明不了外面有什么** —— 带着原始码，
+    /// 因为对读 ST 表格的人来说，那些码有具体含义。
+    Unusable(u8),
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="31-为什么不能用一个数字"><a class="header" href="#31-为什么不能用一个数字">3.1 为什么不能用「一个数字」</a></h3>
+<p><code>duck-ipc-proto/src/lib.rs:4646-4651</code> 从<strong>线格式</strong>的角度给了同一个论点：</p>
+<blockquote>
+<p><strong>Millimetres and ST's raw status, not metres.</strong> <strong>JSON has no NaN</strong>, so a distance-only frame
+would have to encode &quot;no measurement&quot; as <strong>a magic number</strong>; carrying the status byte instead
+keeps the sensor's own <strong>three-way answer</strong> intact — a range, nothing in range, or a
+measurement that failed. The <code>tof</code> crate's <code>Frame::zone</code> is the interpretation, and <strong>consumers
+should use it rather than re-deriving the thresholds.</strong></p>
+</blockquote>
+<p><strong>&quot;JSON 没有 NaN，所以一个只有距离的帧，只能用某个魔法数字来编码'没有测量'。&quot;</strong></p>
+<p>所以线上格式带的是<strong>毫米 + 原始状态字节</strong>（两个平行数组），<strong>由 <code>Frame::zone</code> 解释</strong>。</p>
+<h3 id="32--一个反直觉的细节有效状态--负距离--范围"><a class="header" href="#32--一个反直觉的细节有效状态--负距离--范围">3.2 ⚠️ 一个反直觉的细节：有效状态 + 负距离 ≠ 范围</a></h3>
+<p><code>lib.rs:93-100</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if STATUS_VALID.contains(&amp;status) {
+    // Negative distances come back from the sensor occasionally on a
+    // failed convergence; they are not a range whatever the status says.
+    if distance &gt; 0 {
+        return Zone::Range(f32::from(distance) / 1000.0);
+    }
+    return Zone::Unusable(status);
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;负距离偶尔会从一个失败的收敛里回来；不管状态说什么，它们都不是一个范围。&quot;</strong></p>
+<p>而这一条被测试<strong>钉住了</strong>（<code>lib.rs:141-145</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert_eq!(
+    frame(5, -3).zone(0),
+    Zone::Unusable(5),
+    &quot;a valid status with a negative range is not a range&quot;
+);
+<span class="boring">}</span></code></pre></pre>
+<h3 id="33-那两个状态码"><a class="header" href="#33-那两个状态码">3.3 那两个状态码</a></h3>
+<p><code>lib.rs:82-86</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// ST 文档里算作可用范围的码：有效，以及有效（大脉冲）
+/// （约 50% 置信度，传感器仍然为它背书）。
+pub const STATUS_VALID: [u8; 2] = [5, 9];
+/// &quot;测到了，那里什么都没有&quot;的状态码。
+pub const STATUS_NO_TARGET: u8 = 255;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="34-唯一的那个一个数"><a class="header" href="#34-唯一的那个一个数">3.4 唯一的那个「一个数」</a></h3>
+<p><code>lib.rs:112-116</code>：</p>
+<blockquote>
+<p>How many zones carry a usable range. <strong>The one number that says whether the sensor is seeing
+anything at all.</strong></p>
+</blockquote>
+<p><code>robotctl monitor</code> 的网格就是在画这三态。见 §12。</p>
+<h3 id="35-一个不信任输入的设计"><a class="header" href="#35-一个不信任输入的设计">3.5 一个不信任输入的设计</a></h3>
+<p><code>lib.rs:155-168</code> 的测试：</p>
+<blockquote>
+<p>A short or ragged frame must not panic a consumer — <strong>the wire carries vectors, and a peer from
+another release could send fewer.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert_eq!(ragged.zone(0), Zone::Range(1.0));
+assert_eq!(ragged.zone(2), Zone::NoTarget, &quot;missing status&quot;);
+assert_eq!(ragged.zone(99), Zone::NoTarget, &quot;past the end&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;线上传的是向量，而来自另一个发布的对端可能发得更少。&quot;</strong>
+缺的状态读作 <code>NoTarget</code> —— <strong>不是 panic，也不是&quot;有东西&quot;。</strong></p>
+<h3 id="36--但是有一个消费者故意不用这个判断"><a class="header" href="#36--但是有一个消费者故意不用这个判断">3.6 ⚠️ 但是有一个消费者<strong>故意不用</strong>这个判断</a></h3>
+<p>这是读完 §3 之后最容易搞错的一处，也是最值得知道的一处。</p>
+<p><code>lib.rs:82-84</code> 说 <code>[5, 9]</code> 是&quot;ST 文档里算作可用范围的码&quot;，而线格式的文档说
+<strong>&quot;consumers should use it rather than re-deriving the thresholds&quot;</strong>（<code>duck-ipc-proto/src/lib.rs:4649-4651</code>）。</p>
+<p><strong>但特雷门没有用。</strong> 它用的是一个<strong>更长</strong>的集合（<code>kinematics/src/hand.rs:73</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 5 和 9 是 ST 的 &quot;valid&quot; 和 &quot;valid, large pulse&quot;。6 是一个还没做环绕检查的首次测距，
+// 10 是一个有效测距但上一次什么都没看到，12 是被尖锐边缘模糊的目标 —— 而手的边缘就是那样。
+// 4 和 13 是移动的手在 30 cm 以外产生的**一致性失败**，它们在里面，是因为
+// 一个音高不需要毫米级的精度。
+statuses: vec![4, 5, 6, 9, 10, 12, 13],
+<span class="boring">}</span></code></pre></pre>
+<p>而理由是<strong>第一版死在哪里</strong>（<code>hand.rs:22-26</code>）：</p>
+<blockquote>
+<p><strong>Which status bytes count.</strong> ST calls 5 and 9 &quot;valid&quot;, and on this sensor at 15 Hz <strong>a hand
+past ~30 cm routinely comes back as 4 or 13</strong> — <em>consistency failed</em>, sigma too high —
+<strong>carrying a distance perfectly good enough for a pitch.</strong> <strong>Accepting only 5 and 9 is why the
+first version died at 30 cm.</strong> The set is <code>Config::statuses</code>, and it is <strong>config rather than a
+constant because it is the one number a bench session needs to move.</strong></p>
+</blockquote>
+<p><strong>&quot;只接受 5 和 9，就是第一版死在 30 厘米的原因。&quot;</strong></p>
+<h3 id="37-所以-robotd-把帧原样留着"><a class="header" href="#37-所以-robotd-把帧原样留着">3.7 所以 <code>robotd</code> 把帧原样留着</a></h3>
+<p><code>robotd/src/theremin.rs:57-63</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// One depth frame, as the wire sent it.
+///
+/// **Kept raw — distances and status bytes, uninterpreted — because which statuses count is
+/// `hand::Config`'s decision and it is the decision this feature turned out to hinge on.
+/// Interpreting here would have buried it.**
+struct Frame {
+    distance_mm: Vec&lt;i16&gt;,
+    status: Vec&lt;u8&gt;,
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;在这里解释它，会把它埋掉。&quot;</strong></p>
+<p>而那个 bug 被测试钉住了（<code>hand.rs:217-220</code>）：</p>
+<blockquote>
+<p>The bug that killed the first version, pinned: <strong>a hand past 30 cm arrives with a
+consistency-failure status, and it must still play.</strong> If someone narrows <code>Config::statuses</code>
+back to ST's two &quot;valid&quot; codes, <strong>this is the test that says why not.</strong></p>
+</blockquote>
+<h3 id="38-怎么理解这两件事并存"><a class="header" href="#38-怎么理解这两件事并存">3.8 怎么理解这两件事并存</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>层</th><th>它对「什么算一个范围」的答案</th><th>为什么</th></tr></thead><tbody>
+<tr><td><strong><code>tof::Zone</code></strong></td><td><strong><code>[5, 9]</code></strong></td><td>它回答的是&quot;这一格到底测到没有&quot; —— <strong>一个通用的、保守的答案</strong></td></tr>
+<tr><td><strong>特雷门（<code>hand::Config</code>）</strong></td><td><strong><code>[4, 5, 6, 9, 10, 12, 13]</code></strong></td><td>它回答的是&quot;这个距离能不能当音高用&quot; —— <strong>一个用途专属的、宽松的答案</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>两个都对，因为它们回答的不是同一个问题。</strong>
+&quot;一个音高不需要毫米级的精度&quot; —— 而一格深度矩阵的用途会决定它能容忍多少不确定性。</p>
+<p><strong>这一条可以带走</strong>：一个&quot;三态&quot;的抽象<strong>不可能同时是通用答案和最佳答案</strong>。
+<code>tof</code> 提供了一个保守的默认（<code>Zone</code>），并<strong>把原始字节一起发出去</strong>，
+让那个知道自己在干什么的消费者自己决定 —— 而它确实决定了。</p>
+<hr />
+<h2 id="4-目录地图"><a class="header" href="#4-目录地图">4. 目录地图</a></h2>
+<pre><code>tof/
+├── Cargo.toml            54   ← 依赖很少，但有一个 git 依赖
+├── build.rs             118   ← ⭐ 编译那两份 vendor 的 C（只讲了一件事：六次重命名）
+├── src/
+│   ├── lib.rs           169   ← ⭐ 帧的形状 + 那三种状态（**先读这个**）
+│   ├── sensor.rs        424   ← 对 vendor C 的安全包装；两代，运行时分流
+│   ├── imu.rs           299   ← 头 IMU（BMI088），纯 Rust，默认关
+│   ├── config.rs         66   ← 只读一个键：`[head_imu] enabled`
+│   ├── status.rs        104   ← &quot;没有传感器&quot;和&quot;还没有帧&quot;是两句不同的话
+│   └── main.rs          957   ← `tofd` 本身：循环、socket、四种数据来源
+├── systemd/
+│   ├── tofd.service           ← 加固、那个**故意不设**的 `PrivateDevices=`
+│   └── sysusers.d/tofd.conf   ← 两个组：`i2c` 和 `robot`
+└── vendor/                    ← ST 的 Ultra Lite Driver，BSD-3-Clause，**逐字搬运**
+    ├── LICENSE.txt
+    ├── platform.c             ← ⭐ 一份实现，每个代各编译一次
+    ├── probe.c                ← 60 行 ioctl，回答&quot;这是哪一代&quot;
+    ├── vl53l8cx/{shim.c, shim 用到的头, *_api.c, *_buffers.h}
+    └── vl53l5cx/{同上}
+</code></pre>
+<p><strong>注意没有 <code>tests/</code>。</strong> 测试都在各个文件底部 —— 而且它们测的多是<strong>论证</strong>，不是行为（见 §8.4）。</p>
+<hr />
+<h2 id="5-那份-vendor-的-c"><a class="header" href="#5-那份-vendor-的-c">5. 那份 vendor 的 C</a></h2>
+<p>这是这个目录里最&quot;重&quot;的一部分（两份 ULD 一共约 5,000 行 + 550 KB 固件头），
+而 <code>lib.rs:13-26</code> 用一段话解释了整个决定：</p>
+<blockquote>
+<h2 id="why-the-c-is-vendored"><a class="header" href="#why-the-c-is-vendored">Why the C is vendored</a></h2>
+<p>Each of ST's Ultra Lite Drivers is <strong>40 KB of register sequences plus a 550 KB firmware blob
+that is uploaded into the sensor on every start.</strong> <strong>Reimplementing that in Rust would be
+transcribing a binary blob and a state machine nobody has documented outside the driver</strong>;
+<strong>depending on a third-party crate would put a sensor this robot needs behind someone else's
+maintenance.</strong> So both ULDs are <strong>vendored verbatim</strong> (BSD-3-Clause, <code>vendor/LICENSE.txt</code>), the
+Linux i2c-dev platform hooks come from <code>microduck_runtime</code> <strong>where they were measured</strong> — one
+implementation, compiled once per generation — and <strong>a flat shim keeps every struct on the C
+side of the boundary.</strong></p>
+</blockquote>
+<p>三个理由，每一个都值得记住：</p>
+<div class="table-wrapper"><table><thead><tr><th>理由</th><th>原文</th></tr></thead><tbody>
+<tr><td><strong>不能重写</strong></td><td><em>&quot;transcribing a binary blob and a state machine <strong>nobody has documented outside the driver</strong>&quot;</em></td></tr>
+<tr><td><strong>不能依赖</strong></td><td><em>&quot;would put a sensor this robot needs <strong>behind someone else's maintenance</strong>&quot;</em></td></tr>
+<tr><td><strong>不能镜像结构体</strong></td><td>见下</td></tr>
+</tbody></table>
+</div>
+<h3 id="51-那个-shim-的全部意义"><a class="header" href="#51-那个-shim-的全部意义">5.1 那个 shim 的全部意义</a></h3>
+<p><code>vendor/vl53l8cx/shim.c:1-16</code>：</p>
+<blockquote>
+<p>Flat C API over the VL53L8CX ULD, for <code>tof</code>'s Rust wrapper.</p>
+<p><strong>Nothing but scalars and arrays crosses this boundary. That is the whole point</strong>:
+<code>VL53L8CX_Configuration</code> <strong>embeds the platform struct, the firmware staging buffer and the
+results block</strong>, and <strong>mirroring it as <code>repr(C)</code> in Rust would be a large hand-written struct
+that must track ST's header forever. Twelve functions taking <code>u8</code>/<code>i16</code> do not.</strong></p>
+</blockquote>
+<p><strong>&quot;十二个接受 <code>u8</code>/<code>i16</code> 的函数则不需要。&quot;</strong></p>
+<p>而这条直接决定了 Rust 那边 <code>unsafe</code> 的<strong>形状</strong>（<code>sensor.rs:1-6</code>）：</p>
+<blockquote>
+<p>Every call here is one FFI call into a <code>vendor/*/shim.c</code>, whose whole surface is <strong>scalars and
+two 64-entry arrays</strong>. <strong>The unsafety is therefore confined to this file and is all of one
+shape</strong> — &quot;the C writes 64 entries into a buffer I sized at 64&quot; — <strong>rather than spread across a
+hand-mirrored <code>repr(C)</code> struct.</strong></p>
+</blockquote>
+<p><strong>&quot;不安全被限制在这一个文件里，而且全都是一种形状 —— 'C 往一个我按 64 大小分配的缓冲区里写 64 项'。&quot;</strong></p>
+<h3 id="52--那六次重命名"><a class="header" href="#52--那六次重命名">5.2 ⭐ 那六次重命名</a></h3>
+<p>这是 <code>build.rs:9-16</code> 唯一详细解释的东西，也是整个构建最巧妙的一步：</p>
+<blockquote>
+<p><strong>Why the six renames.</strong> Each ULD calls its platform hooks by the bare names
+<code>RdByte</code>/<code>WrByte</code>/<code>RdMulti</code>/<code>WrMulti</code>/<code>SwapBuffer</code>/<code>WaitMs</code>, and we ship <strong>one</strong> implementation
+of them (<code>vendor/platform.c</code>). <strong>Two generations in one binary would therefore define the same
+six symbols twice.</strong> <strong>The ULD sources are upstream and unedited, so the rename happens in the
+preprocessor instead</strong>: each generation compiles <em>its own copy</em> of <code>platform.c</code> with its hooks
+under a <code>vl5_</code>/<code>vl8_</code> prefix, and its ULD compiled with the same defines so the call sites
+follow.</p>
+</blockquote>
+<p><strong>&quot;ULD 的源码是上游的、未经编辑的，所以重命名发生在预处理器里。&quot;</strong></p>
+<pre><code>        vendor/platform.c   （一份实现）
+              │
+      ┌───────┴───────┐
+      │               │
+  -DRdByte=vl8_RdByte   -DRdByte=vl5_RdByte
+  -DTOF_PLATFORM=       -DTOF_PLATFORM=
+     VL53L8CX_Platform     VL53L5CX_Platform
+      │               │
+  vl8 静态库        vl5 静态库     ← 六个符号各有一套，链接不冲突
+</code></pre>
+<p><code>build.rs:51-59</code> 是那六个名字的清单，<code>build.rs:86-88</code> 是施加 define 的地方。</p>
+<h3 id="53-另外三条决定"><a class="header" href="#53-另外三条决定">5.3 另外三条决定</a></h3>
+<p><strong>① 警告不是错误</strong>（<code>build.rs:18-20</code>）：</p>
+<blockquote>
+<p>Warnings are not errors here: <code>vl53l?cx_api.c</code> is <strong>upstream code we do not edit</strong>, and <strong>a new
+compiler finding something in it must not be able to stop a robot release from building.</strong></p>
+</blockquote>
+<p><strong>② 用 target 而不是 host</strong>（<code>build.rs:62-64</code>）：</p>
+<blockquote>
+<p>The target, not the host: <strong>a build script is compiled for the machine it runs on</strong>, so
+<code>cfg!(target_os)</code> here would answer for the laptop and <strong>cross-compiling to the board would
+build nothing.</strong></p>
+</blockquote>
+<p><strong>③ 固件 blob 要在 <code>rerun-if-changed</code> 里点名</strong>（<code>build.rs:104-105</code>）：</p>
+<blockquote>
+<p>The firmware blob is <strong>a 550 KB header no source file lists</strong>, so it needs naming here or <strong>a
+driver update would not trigger a rebuild.</strong></p>
+</blockquote>
+<h3 id="54-probec为什么它不用-platform-层"><a class="header" href="#54-probec为什么它不用-platform-层">5.4 <code>probe.c</code>：为什么它不用 platform 层</a></h3>
+<p><code>vendor/probe.c:9-12</code>：</p>
+<blockquote>
+<p><strong>Standalone on purpose</strong>: it opens its own descriptor and does its own three transactions
+<strong>rather than borrowing a generation's platform layer</strong>, because <strong>borrowing one would mean
+picking a generation before knowing which is there.</strong> <strong>Sixty lines of ioctl beats that
+chicken-and-egg.</strong></p>
+</blockquote>
+<p><strong>&quot;借用一个代的 platform 层，意味着在还不知道有哪一代之前就得先选一代。六十行 ioctl 胜过这个先有鸡还是先有蛋。&quot;</strong></p>
+<h3 id="55-platformc-里的一个数字"><a class="header" href="#55-platformc-里的一个数字">5.5 <code>platform.c</code> 里的一个数字</a></h3>
+<p><code>vendor/platform.c:38-42</code>：</p>
+<blockquote>
+<p>/* One chunk per I2C_RDWR message. The rk3x controller handles large messages fine (FIFO
+refills under interrupt); <strong>2 KiB keeps each bus hold short enough that the codec never waits
+long — the TLV320AIC3104 shares this bus, and a stalled mixer write is audible.</strong> */
+<code>#define CHUNK 2048u</code></p>
+</blockquote>
+<p><strong>&quot;一次卡住的 mixer 写入是听得见的。&quot;</strong> —— 分块大小是为<strong>音频</strong>选的，不是为 ToF。</p>
+<p>而 <code>platform.c:20-24</code> 讲了为什么这段是 C 而不是脚本：</p>
+<blockquote>
+<p>Doing the transfers in C <strong>rather than through a per-callback trip into a scripting language
+cuts the per-transaction overhead ~10x</strong>: the 90 kB firmware upload takes <strong>a few seconds at
+400 kHz instead of tens of seconds</strong> — and <strong>that upload happens on every sensor start.</strong></p>
+</blockquote>
+<hr />
+<h2 id="6-传感器两代在运行时决定"><a class="header" href="#6-传感器两代在运行时决定">6. 传感器：两代，在运行时决定</a></h2>
+<p><code>lib.rs:8-11</code>：</p>
+<blockquote>
+<p><strong>Both generations, decided at runtime.</strong> The two are <strong>interchangeable on the board</strong> and
+differ only in firmware and a driver prefix, so <strong>which one is fitted is not a build-time
+choice</strong>: an ID read picks the driver <strong>before any firmware is uploaded</strong>. <strong>Ducks in the field
+have both.</strong></p>
+</blockquote>
+<h3 id="61-那个区分它们的字节"><a class="header" href="#61-那个区分它们的字节">6.1 那个区分它们的字节</a></h3>
+<p><code>sensor.rs:68-80</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Generation {
+    /// Revision 0x0C.
+    L8cx,
+    /// Revision 0x02 —— 更老的那个传感器，也是**场上大多数鸭子有的那个**。
+    L5cx,
+    /// 有东西回答了，但不是任何一个驱动认识的 ID。
+    Unknown { device_id: u8, revision_id: u8 },
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="62--为什么未知的那一代绝不能猜"><a class="header" href="#62--为什么未知的那一代绝不能猜">6.2 ⚠️ 为什么未知的那一代绝不能猜</a></h3>
+<p><code>sensor.rs:388-390</code> 的测试注释：</p>
+<blockquote>
+<p>The revision byte is what picks the firmware, so the mapping is the whole two-generation story.
+<strong>ST's values, and an unknown one must not be guessed at — uploading the wrong blob is how you
+brick a probe.</strong></p>
+</blockquote>
+<p><strong>&quot;上传错的 blob 就是你搞砖一个探头的方式。&quot;</strong></p>
+<p>而代码确实不猜（<code>sensor.rs:255-260</code>）：未知的 <code>driver()</code> 返回 <code>None</code>，
+然后报一个<strong>带着两个字节的错</strong>：</p>
+<pre><code>something at 0x29 answered with device 0x00 revision 0xff, which is neither a VL53L5CX nor a VL53L8CX
+</code></pre>
+<h3 id="63-开传感器的顺序"><a class="header" href="#63-开传感器的顺序">6.3 开传感器的顺序</a></h3>
+<p><code>sensor.rs:238-286</code>，每一步失败都有自己的一句话：</p>
+<pre><code>① tof_probe_id()        → &quot;nothing answered at 0x29 on /dev/i2c-3&quot;
+② Generation::from_ids  → &quot;…which is neither a VL53L5CX nor a VL53L8CX&quot;
+③ driver.open()         → &quot;cannot open /dev/i2c-3&quot;
+④ driver.is_alive()     → &quot;the VL53L8CX stopped answering between the probe and the handshake&quot;
+⑤ driver.init()         → &quot;VL53L8CX firmware upload failed (ULD status N)&quot;
+</code></pre>
+<p><code>④</code> 那句注释说明了为什么它单独存在（<code>sensor.rs:242-243</code>）：</p>
+<blockquote>
+<p>Ask what is there <strong>before</strong> loading anything: the two generations take different firmware, and
+<strong>the upload is the expensive, slow step.</strong></p>
+</blockquote>
+<h3 id="64-那个慢"><a class="header" href="#64-那个慢">6.4 那个慢</a></h3>
+<p><code>sensor.rs:224-228</code>：</p>
+<blockquote>
+<p>The slow part is the firmware: <strong>~90 KB over I²C, a few seconds at 400 kHz</strong> (tens on a
+bit-banged bus). It happens <strong>once per process</strong>, before ranging, which is <strong>why the daemon does
+it off the socket-serving task.</strong></p>
+</blockquote>
+<h3 id="65--单实例以及那个会变成永久故障的-bug"><a class="header" href="#65--单实例以及那个会变成永久故障的-bug">6.5 ⭐ 单实例，以及那个会变成永久故障的 bug</a></h3>
+<p><code>sensor.rs:16-19</code>：</p>
+<blockquote>
+<p><strong>One instance per process, enforced.</strong> Each shim keeps its configuration in a file-scope
+static (see its header for why), so <strong>a second <code>Sensor</code> would quietly share and corrupt the
+first one's state.</strong> <code>Sensor::open</code> refuses instead.</p>
+</blockquote>
+<p><code>shim.c:14-18</code> 从 C 那一侧说了同一件事：</p>
+<blockquote>
+<p><strong>One sensor per process.</strong> The configuration is a file-scope static because <strong>the ULD wants a
+stable address for a ~16 KB struct</strong> and this daemon drives one sensor.
+<code>tof::Sensor</code> enforces the single instance on the Rust side, so <strong>the static cannot be entered
+twice.</strong></p>
+</blockquote>
+<p>而实现里有一个<strong>很容易漏掉</strong>的细节（<code>sensor.rs:230-236</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn open(bus: &amp;Path, address: u8) -&gt; Result&lt;Self&gt; {
+    if TAKEN.swap(true, Ordering::AcqRel) {
+        bail!(&quot;a sensor is already open in this process&quot;);
+    }
+    // From here on every early return must release the claim, or one failed
+    // attempt would refuse every retry for the life of the process.
+    Self::open_inner(bus, address).inspect_err(|_| TAKEN.store(false, Ordering::Release))
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;从这以后每一个提前返回都必须释放这个声明，否则一次失败的尝试会让这个进程余生都拒绝每一次重试。&quot;</strong></p>
+<p>而 <code>sensor.rs:410-412</code> 的测试把它钉住了：</p>
+<blockquote>
+<p>Opening a bus that cannot exist must fail <em>and</em> release the single-instance claim — <strong>the daemon
+retries after a failure, and a claim left set would turn one bad open into a permanently
+sensorless process.</strong></p>
+</blockquote>
+<h3 id="66-非-linux-上那个故意不可构造的类型"><a class="header" href="#66-非-linux-上那个故意不可构造的类型">6.6 非 Linux 上那个<strong>故意不可构造</strong>的类型</a></h3>
+<p><code>sensor.rs:342-354</code>：</p>
+<blockquote>
+<p><code>vendor/platform.c</code> reaches the bus through Linux's <code>I2C_RDWR</code> ioctl, so <code>build.rs</code> compiles no
+driver anywhere else and there is nothing for <code>open</code> to open. <strong>This is not a fake sensor and
+must never become one</strong> — <code>tofd --fake</code> already exists for a laptop, and <strong>it says what it is
+in its name.</strong> This exists so that <code>cargo test --workspace</code> works off a board.</p>
+<p><strong>Uninhabited on purpose</strong>: <code>open</code> is the only constructor and it always fails, so <strong>the
+compiler discharges every other method instead of leaving a body that could one day return an
+invented frame.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[cfg(not(target_os = &quot;linux&quot;))]
+pub struct Sensor(std::convert::Infallible);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;故意不可构造：编译器会替我们排除掉其它每一个方法，而不是留下一个有一天可能返回一帧凭空捏造的数据的函数体。&quot;</strong></p>
+<p><strong>这一句是整个仓库里我最喜欢的一处设计</strong>：用一个类型系统的事实，
+替代了一句&quot;记得不要在这里造假数据&quot;的注释。</p>
+<hr />
+<h2 id="7-tofd-的四种数据来源"><a class="header" href="#7-tofd-的四种数据来源">7. <code>tofd</code> 的四种数据来源</a></h2>
+<p><code>main.rs:218-224</code> 那个 <code>if/else</code> 就是全部：</p>
+<div class="table-wrapper"><table><thead><tr><th>来源</th><th>开关</th><th>干什么</th><th>用在哪</th></tr></thead><tbody>
+<tr><td><strong>真传感器</strong></td><td>（默认）</td><td>扫总线、探 ID、传固件</td><td>板子上</td></tr>
+<tr><td><strong><code>--fake</code></strong></td><td><code>main.rs:399</code></td><td>一个合成的场景，<strong>三种状态都有</strong></td><td>笔记本上</td></tr>
+<tr><td><strong><code>--sim</code></strong></td><td><code>main.rs:456</code></td><td>从 MuJoCo 身体要一帧</td><td>仿真</td></tr>
+<tr><td>—</td><td>—</td><td>（IMU 单独有 <code>--imu</code> / <code>--no-imu</code>）</td><td>见 §10</td></tr>
+</tbody></table>
+</div>
+<h3 id="71-为什么---fake-不是一个平坦的梯度"><a class="header" href="#71-为什么---fake-不是一个平坦的梯度">7.1 为什么 <code>--fake</code> 不是一个平坦的梯度</a></h3>
+<p><code>main.rs:393-398</code>：</p>
+<blockquote>
+<p>A synthetic scene at the configured rate: a wall receding across the frame, a near object,
+<strong>a column of empty space and one of failed measurements.</strong></p>
+<p><strong>Deliberately not a flat gradient.</strong> The three zone classes render differently and <strong>the two
+non-range ones are the easy ones to get wrong</strong>, so <code>--fake</code> shows all three from the first
+frame.</p>
+</blockquote>
+<p><strong>&quot;那两种非范围的，正是最容易弄错的。&quot;</strong> —— 一个只会看到范围的视图，
+是一个<strong>它的另外两种情况从来没被画过</strong>的视图。</p>
+<p>实现里就是两列写死的状态（<code>main.rs:420-425</code>）：第 2 列状态 4，第 5 列状态 255。</p>
+<h3 id="72---sim-和---fake-的分工"><a class="header" href="#72---sim-和---fake-的分工">7.2 <code>--sim</code> 和 <code>--fake</code> 的分工</a></h3>
+<p><code>main.rs:159-169</code>：</p>
+<blockquote>
+<p><strong>The fake at the loop level, with a simulator behind it</strong> — which is where a fake belongs
+here: <strong><code>sensor.rs</code> says in as many words that the off-board <code>Sensor</code> &quot;is not a fake sensor and
+must never become one&quot;</strong>, because <strong>the thing it stands for is a vendor C library talking to a
+bus. A frame arriving from somewhere else is a different question from a sensor that lies.</strong></p>
+</blockquote>
+<p><strong>&quot;一帧来自别处，和一个会撒谎的传感器，是两个不同的问题。&quot;</strong></p>
+<p>而它对<strong>掉线</strong>的处理值得注意（<code>main.rs:452-455</code>）：</p>
+<blockquote>
+<p>A simulator that goes away is <strong>one missed frame and a reconnect, not a dead daemon</strong>: MuJoCo
+is restarted whenever the number of ducks changes, and <strong>a duck is expected to live through
+that.</strong></p>
+</blockquote>
+<p>握手只做一次（<code>main.rs:546-556</code>），之后每帧一个 <code>{&quot;op&quot;:&quot;tof&quot;}</code>。
+而 <code>connect_sim</code> 里有两条关于延迟的（<code>main.rs:551-553</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Nagle 会给一个 15 Hz 的请求/响应加上几十毫秒，那几乎是整整一帧。
+let _ = stream.set_nodelay(true);
+let _ = stream.set_read_timeout(Some(Duration::from_millis(500)));
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="8--主循环那个-poll-guard"><a class="header" href="#8--主循环那个-poll-guard">8. ⭐ 主循环：那个 poll guard</a></h2>
+<p>这是 <code>tofd</code> 里<strong>最值得学的一处优化</strong>，而它只改了 20 毫秒的一个常数。</p>
+<h3 id="81--先解释一件事为什么是问而不是被通知"><a class="header" href="#81--先解释一件事为什么是问而不是被通知">8.1 ⚠️ 先解释一件事：为什么是&quot;问&quot;，而不是&quot;被通知&quot;</a></h3>
+<p><strong>这个传感器没有中断引脚。</strong> <code>tof/</code> 这个 crate 里没有任何 GPIO 或中断处理
+（<code>grep -i gpio\|irq tof/src/</code> 一无所获）—— 唯一能知道&quot;一帧好了&quot;的方式，
+是<strong>读一个寄存器</strong>（<code>sensor.rs:302-310</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Is a new frame ready? `Err` is a bus error, which the caller treats as
+/// &quot;the sensor went away&quot; rather than &quot;not yet&quot;.
+pub fn data_ready(&amp;self) -&gt; Result&lt;bool&gt; {
+    match self.driver.data_ready() {
+        1 =&gt; Ok(true),
+        0 =&gt; Ok(false),
+        _ =&gt; Err(anyhow!(&quot;the sensor stopped answering&quot;)),
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>所以&quot;多久问一次&quot;不是一个可以回避的问题</strong> —— 它是这个驱动程序的<strong>唯一</strong>选择，
+而每一个问题的代价都是<strong>一次 I²C 事务</strong>（在一条音频 codec 也在用的总线上）。</p>
+<p><strong>这就是为什么下面的那 20 毫秒值得写一整节</strong>：在一个有中断线的传感器上，
+这个优化的对象根本不存在。</p>
+<h3 id="82-问题"><a class="header" href="#82-问题">8.2 问题</a></h3>
+<p>帧率 15 Hz → 每帧间隔 <strong>66 毫秒</strong>。而循环每 <strong>10 毫秒</strong>问一次传感器&quot;好了吗&quot;。</p>
+<p><code>main.rs:67-73</code> 把它说得很直白：</p>
+<blockquote>
+<p><strong>Asking every 10 ms for the whole period is asking six times to be told no once.</strong> A frame is
+66 ms away at 15 Hz and <strong>the sensor answers on its own clock</strong>, so the poll <strong>only has to be
+running as the frame lands</strong> — the rest was <strong>a hundred I²C transactions and a hundred thread
+wakeups a second, forever, on a daemon whose sensor produces fifteen frames in that time.</strong></p>
+</blockquote>
+<p><strong>&quot;在整个周期里每 10 毫秒问一次，就是问六次只为被拒绝一次。&quot;</strong></p>
+<h3 id="83-那个守卫"><a class="header" href="#83-那个守卫">8.3 那个守卫</a></h3>
+<p><code>main.rs:74-82</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// How long before a frame is due the loop starts asking for it.
+///
+/// Two poll intervals of margin, and **the anchor is the last frame's *arrival***, so the
+/// estimate **can never accumulate more than one period of drift**: this tolerates the sensor
+/// being **20 ms early on any given frame — a 30% period error**, far past anything a hardware
+/// ranging timer does — and a sensor that is merely late is polled for exactly as long as it was
+/// before. **Frame age is unchanged either way: it is still bounded by [`POLL`]**, because that
+/// is the granularity the frame is noticed at whichever way the loop got there.
+const POLL_GUARD: Duration = Duration::from_millis(20);
+<span class="boring">}</span></code></pre></pre>
+<pre><code>   一帧到达                                     下一帧到达
+       │                                            │
+       ├────────── quiet_period (46 ms) ────────┤    │
+       │      这段什么都不问，直接睡              │    │
+       │                                    ├─ 20ms ─┤
+       │                                    开始每 10ms 问一次
+       ▼                                            
+    锚点是**上一帧的到达时刻**，不是某个绝对时间
+</code></pre>
+<p><code>main.rs:295-297</code> 那三行是整个机制的实现：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn quiet_period(hz: u8) -&gt; Duration {
+    Duration::from_secs_f64(1.0 / f64::from(hz.max(1))).saturating_sub(POLL_GUARD)
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>saturating_sub</code> 而不是 <code>-</code>：<strong>比守卫还快的帧率没有东西可跳过</strong>
+（<code>main.rs:290-294</code>），而 <code>--hz 0</code> 是一次&quot;不能做的除法&quot;（<code>main.rs:949-957</code>）。</p>
+<h3 id="84-那个省下来的量被写成了测试"><a class="header" href="#84-那个省下来的量被写成了测试">8.4 那个省下来的量，被写成了测试</a></h3>
+<p><code>main.rs:918-932</code> —— <strong>这是这个仓库里我最欣赏的一个测试</strong>：</p>
+<blockquote>
+<p><strong>The saving, as arithmetic rather than as a claim in a comment.</strong></p>
+<p>At the shipped rate a frame used to cost <strong>seven <code>data_ready</code> reads to find, six of them
+answered no</strong>. <strong>Widening <code>POLL_GUARD</code> until the quiet stretch disappears would leave the loop
+correct and the reason for it gone, which is exactly the change nothing else here would
+notice.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let polls = |window: Duration| (window.as_secs_f64() / POLL.as_secs_f64()).ceil() as u32;
+
+assert_eq!(polls(period), 7, &quot;what polling the whole period cost&quot;);
+// The guard's window, plus the poll that finds the frame at the end of it.
+assert_eq!(polls(period - quiet_period(15)) + 1, 3);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;把 <code>POLL_GUARD</code> 放宽到那段安静消失，会让循环依然正确、而它存在的理由消失 —— 那正是别的东西都不会注意到的改动。&quot;</strong></p>
+<p><strong>一个测试同时是文档、是回归保护、也是一个&quot;别删这个常数&quot;的警告。</strong></p>
+<h3 id="85-另外两个关于守卫的测试"><a class="header" href="#85-另外两个关于守卫的测试">8.5 另外两个关于守卫的测试</a></h3>
+<p><code>main.rs:933-940</code>：</p>
+<blockquote>
+<p>The anchor is the last frame's arrival, so <strong>the guard only ever has to absorb one period of
+drift.</strong> 20 ms of it at 15 Hz is <strong>a 30% period error</strong> — far past anything a hardware ranging
+timer does.</p>
+</blockquote>
+<p><code>main.rs:949-957</code>：</p>
+<blockquote>
+<p>A rate whose period is shorter than the guard has nothing to skip, and <strong>must poll straight
+through rather than underflow into a long sleep.</strong></p>
+</blockquote>
+<h3 id="86-重试一个退避服务两种失败"><a class="header" href="#86-重试一个退避服务两种失败">8.6 重试：一个退避服务两种失败</a></h3>
+<p><code>main.rs:84-91</code>：</p>
+<blockquote>
+<p>Backoff between attempts to bring a sensor up, doubling to a cap.</p>
+<p>The two failures that matter are <strong>&quot;not fitted&quot; (forever, on most ducks)</strong> and <strong>&quot;the bus
+glitched&quot; (transient)</strong>. <strong>One backoff serves both</strong>: the transient case recovers in a second,
+and <strong>the permanent one settles at one attempt a minute instead of hammering a bus the audio
+codec is also using.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const RETRY_MIN: Duration = Duration::from_secs(1);
+const RETRY_MAX: Duration = Duration::from_secs(60);
+<span class="boring">}</span></code></pre></pre>
+<h3 id="87-只抱怨一次"><a class="header" href="#87-只抱怨一次">8.7 只抱怨一次</a></h3>
+<p><code>main.rs:378-384</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Said once per run of failures, not once per attempt: a duck
+// with no ToF fitted would otherwise write this line into the
+// journal forever.
+if !said { said = true; tracing::warn!(...); }
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;否则一只没装 ToF 的鸭子会永远把这一行写进 journal。&quot;</strong></p>
+<h3 id="88-试哪些总线和地址"><a class="header" href="#88-试哪些总线和地址">8.8 试哪些总线和地址</a></h3>
+<p><code>main.rs:93-107</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Buses to try when none was named, in order.
+///
+/// `/dev/i2c-pihat` is the udev symlink `setup-board.sh` installs, which follows the HAT bus;
+/// `/dev/i2c-3` is what the `i2c3-pihat` overlay creates and is **the answer on a board
+/// provisioned before that rule existed.** Trying both means **a board that predates the rule
+/// still finds its sensor**, and the log says which path answered.
+pub(crate) const BUS_CANDIDATES: [&amp;str; 2] = [&quot;/dev/i2c-pihat&quot;, &quot;/dev/i2c-3&quot;];
+
+/// 0x29 is the factory default for both generations. **0x52 is where the prototype moved a
+/// VL53L5CX when an I²C IMU wanted 0x29** — that IMU is gone, but **a sensor programmed then is
+/// still at 0x52, and the address survives power cycles.**
+const ADDRESS_CANDIDATES: [u8; 2] = [0x29, 0x52];
+<span class="boring">}</span></code></pre></pre>
+<p><strong>两条都是&quot;兼容过去的板子&quot;</strong>：一条 udev 规则之前的板子，和一个原型时期改过地址的传感器。</p>
+<p>而缺总线的报错<strong>特意不一样</strong>（<code>main.rs:570-573</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A missing bus is not worth an address sweep, and saying so is more use
+// than &quot;nothing answered&quot;: it means the overlay is not loaded.
+last = Some(anyhow::anyhow!(&quot;{} does not exist&quot;, bus.display()));
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;它意味着 overlay 没有被加载。&quot;</strong></p>
+<hr />
+<h2 id="9-socket-那一半"><a class="header" href="#9-socket-那一半">9. socket 那一半</a></h2>
+<h3 id="91-权限模型"><a class="header" href="#91-权限模型">9.1 权限模型</a></h3>
+<p><code>main.rs:47-53</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Same mode and reasoning as every other socket here: the group decides who may
+/// ask, and it is the same group that may watch `robot.state`.
+const SOCKET_MODE: u32 = 0o660;
+/// Deliberately the same one as `robotd`'s socket and `padd`'s tap:
+/// **whoever may watch the robot may watch what it sees.**
+const GROUP: &amp;str = &quot;robot&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;能看这台机器人的人，就能看它看到的东西。&quot;</strong></p>
+<p>而 <code>tofd.service:24-27</code> 是它成立的原因：</p>
+<pre><code># i2c  — /dev/i2c-* is root:i2c mode 0660, which is the whole of this daemon's
+#        privileged access
+# robot — so the depth socket can be handed to the group that may watch the
+#        robot, exactly as padd does with its pad tap
+SupplementaryGroups=i2c robot
+</code></pre>
+<p><code>sysusers.d/tofd.conf:6-11</code> 补了那个&quot;为什么不是 root&quot;：</p>
+<blockquote>
+<p><code>tofd</code> runs unprivileged <strong>for the same reason <code>padd</code> does: it needs exactly one thing the
+operator's account does not have — the I²C bus — and that comes from group membership granted
+in tofd.service, not from being root.</strong></p>
+</blockquote>
+<h3 id="92-拿不到那个组的时候"><a class="header" href="#92-拿不到那个组的时候">9.2 拿不到那个组的时候</a></h3>
+<p><code>main.rs:626-632</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if let Err(e) = give_to_group(socket, GROUP) {
+    // Not fatal, and said out loud with what it means: the socket exists, and
+    // only tofd and root can read it. On a board that is a broken install;
+    // on a laptop it is a machine with no `robot` group, which is ordinary.
+    tracing::warn!(...);
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;在板子上那是一次坏掉的安装；在笔记本上那只是一台没有 <code>robot</code> 组的机器，很正常。&quot;</strong></p>
+<h3 id="93--一次连接只订阅它要的那个流"><a class="header" href="#93--一次连接只订阅它要的那个流">9.3 ⭐ 一次连接只订阅它要的那个流</a></h3>
+<p>这是这个文件里<strong>最微妙的一处</strong>，而它有一段很长的注释（<code>main.rs:672-676</code>）：</p>
+<blockquote>
+<p>Takes the two <code>Sender</code>s and <strong>subscribes only in the arm that matched</strong>, so <strong>a receiver exists
+where the method is known and nowhere else.</strong> <strong>Subscribing on <code>accept</code> made
+<code>receiver_count()</code> count connections rather than interest</strong>: a client asking for
+<code>head_imu.stream</code> held a depth receiver, and one that connected and said nothing held both.</p>
+</blockquote>
+<p><strong>&quot;在 <code>accept</code> 里订阅，会让 <code>receiver_count()</code> 数的是连接数而不是兴趣。&quot;</strong></p>
+<p>而那个测试（<code>main.rs:827-830</code>）说了为什么这个数字重要：</p>
+<blockquote>
+<p><strong>A connection that has asked for nothing wants nothing</strong>, and one that asked for depth does not
+want the IMU. … <strong>which is the number anything gating a sensor on demand would have to trust.</strong></p>
+</blockquote>
+<p><strong>&quot;那个任何'按需启动传感器'的方案都必须信任的数字。&quot;</strong></p>
+<h3 id="94-一个订阅活在传感器之外"><a class="header" href="#94-一个订阅活在传感器之外">9.4 一个订阅活在传感器之外</a></h3>
+<p><code>status.rs:51-58</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn result(&amp;self) -&gt; proto::TofStreamResult {
+    proto::TofStreamResult {
+        // Accepted either way: the subscription is valid and frames will
+        // arrive if a sensor appears. Refusing would make a client that
+        // subscribed one second early give up for good.
+        accepted: true,
+        ...
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;拒绝会让一个早订阅了一秒的客户端永久放弃。&quot;</strong></p>
+<h3 id="95-三种状态三句不同的话"><a class="header" href="#95-三种状态三句不同的话">9.5 三种状态，三句不同的话</a></h3>
+<p><code>status.rs:1-5</code> 讲了这个模块存在的全部理由：</p>
+<blockquote>
+<p>What the daemon says about its sensor, for a subscriber that has just asked.</p>
+<p>It answers <strong>the question a viewer must not have to guess at: is there no sensor, or has it
+simply not produced a frame yet?</strong></p>
+</blockquote>
+<p>而初始状态是一个<strong>句子而不是 <code>None</code></strong>（<code>status.rs:28-33</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Before the first attempt finishes, &quot;starting&quot; is the honest
+// answer: the firmware upload takes seconds, and a viewer that
+// opened in that window should see a reason rather than nothing.
+unavailable: Some(&quot;bringing the sensor up&quot;.to_owned()),
+<span class="boring">}</span></code></pre></pre>
+<p><code>status.rs:78</code> 的测试给这三种状态起了名字：<strong>&quot;coming up, ranging, gone&quot;</strong>。</p>
+<h3 id="96-一个不会-panic-的锁"><a class="header" href="#96-一个不会-panic-的锁">9.6 一个不会 panic 的锁</a></h3>
+<p><code>status.rs:67-71</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// A poisoned lock cannot happen — nothing here panics while holding it — and
+/// treating one as fatal would take the daemon down over a status field.
+fn lock(&amp;self) -&gt; std::sync::MutexGuard&lt;'_, Inner&gt; {
+    self.inner.lock().unwrap_or_else(|e| e.into_inner())
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;把一个中毒的锁当成致命的，会因为一个状态字段而把守护进程干掉。&quot;</strong></p>
+<h3 id="97-那个什么都不服务的运行时"><a class="header" href="#97-那个什么都不服务的运行时">9.7 那个&quot;什么都不服务&quot;的运行时</a></h3>
+<p><code>main.rs:180-182</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// One thread is plenty: the sensor is on its own std thread, and everything here
+// is a socket doing nothing between frames.
+#[tokio::main(flavor = &quot;current_thread&quot;)]
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>main.rs:204-206</code> 讲了为什么传感器<strong>不在</strong> tokio 里：</p>
+<blockquote>
+<p>The sensor runs on a <strong>plain thread, not a tokio task</strong>: every call into the driver blocks on
+I²C — the firmware upload for seconds — and <strong>none of it is cancellation-safe.</strong></p>
+</blockquote>
+<h3 id="98-那个不是个-bug-的重启"><a class="header" href="#98-那个不是个-bug-的重启">9.8 那个不是个 bug 的&quot;重启&quot;</a></h3>
+<p><code>tof/systemd/tofd.service:8-10</code>：</p>
+<blockquote>
+<p><strong>Nothing depends on this unit.</strong> <code>robotd</code> does not read depth, and <code>robotctl monitor</code> says
+<strong>&quot;no depth stream&quot;</strong> and carries on when the socket is absent, so <strong>a board with no ToF simply
+runs one more quiet daemon.</strong></p>
+</blockquote>
+<h3 id="99-两个谁在看着它的名单它都只在一半上"><a class="header" href="#99-两个谁在看着它的名单它都只在一半上">9.9 两个&quot;谁在看着它&quot;的名单，它都只在一半上</a></h3>
+<p><strong>它不在恢复网里。</strong> <code>scripts/robot-boot-check:32</code>：</p>
+<pre><code class="language-sh">MEMBERS=&quot;updaterd.service robotd.service configd.service btd.service&quot;
+</code></pre>
+<p><strong><code>tofd</code> 不在这个名单上</strong> —— 所以一个<strong>反复崩溃的 ToF 不会触发回滚</strong>
+（见 <a href="scripts-primer.html"><code>scripts-primer.md</code></a> 的 <code>robot-boot-check</code> 一节：
+判据是 <code>ActiveState=failed</code> <strong>或</strong> <code>NRestarts &gt;= 3</code>）。</p>
+<p>这是<strong>有意的</strong>，而且是 <code>tofd.service:8-10</code> 那句的自然推论：<em>&quot;没有任何东西依赖这个单元。&quot;</em>
+<strong>一个不是任何人的依赖的守护进程，不该有权把一个好发布换掉。</strong></p>
+<p><strong>但它在另一份名单上。</strong> <code>configd/src/units.rs:42-50</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub const MANAGED: [&amp;str; 7] = [
+    &quot;updaterd.service&quot;, &quot;robotd.service&quot;, &quot;configd.service&quot;, &quot;btd.service&quot;,
+    &quot;padd.service&quot;, &quot;mediad.service&quot;, &quot;tofd.service&quot;,
+];
+<span class="boring">}</span></code></pre></pre>
+<p>这是 <code>configd</code> 在<strong>更新之后</strong>报告&quot;哪个守护进程还跑在旧发布上&quot;的那份名单。
+而它上面有一句关于<strong>漏掉一个</strong>的代价（<code>units.rs:39-41</code>）：</p>
+<blockquote>
+<p>It has already cost once: <strong><code>mediad</code> and <code>tofd</code> shipped units two releases before they were
+named here</strong>, so the block a person reads after an update — the one that exists to say which
+daemon is still on the old release — <strong>could not report either of them at all.</strong></p>
+</blockquote>
+<p><strong>&quot;那个存在的意义就是告诉你哪个守护进程还在旧发布上的区块，根本无法报告它们两个。&quot;</strong></p>
+<p><strong>所以 <code>tofd</code> 在两个名单上的位置不一样，而两个都是有意的</strong>：
+<strong>它在&quot;谁的健康决定回滚&quot;里缺席，在&quot;谁需要被报告&quot;里在场。</strong></p>
+<h3 id="910-那条故意不设的加固"><a class="header" href="#910-那条故意不设的加固">9.10 那条<strong>故意不设</strong>的加固</a></h3>
+<p><code>tofd.service:32-34</code>：</p>
+<pre><code># Same hardening as `padd`, minus the parts that would take the bus away.
+# `PrivateDevices=` is deliberately NOT set: it would replace /dev with a minimal
+# one that has no i2c node, and the failure would read as &quot;no sensor fitted&quot;.
+</code></pre>
+<p><strong>&quot;那个失败读起来会像'没有装传感器'。&quot;</strong> —— 一句在别处见过很多次的话：
+<strong>加固和硬件访问冲突的时候，失败会伪装成硬件不存在。</strong></p>
+<h3 id="911-那条身份"><a class="header" href="#911-那条身份">9.11 那条身份</a></h3>
+<p><code>main.rs:191-196</code>：</p>
+<blockquote>
+<p>The shared one, not a private copy: as well as the journal line, it publishes
+<code>/run/tofd/identity.json</code>, <strong>which is where <code>robotctl health</code> and <code>scripts/dev-push.sh</code> read
+the release a daemon is actually running from.</strong> <strong><code>tofd</code> was the one daemon that published
+nothing, so both reported it as silent — the exact gap the macro was written for, one daemon
+later.</strong></p>
+</blockquote>
+<p><strong>&quot;正是那个宏为之而写的缺口，只是晚了一个守护进程。&quot;</strong></p>
+<hr />
+<h2 id="10-头-imu为什么它在-tofd-里"><a class="header" href="#10-头-imu为什么它在-tofd-里">10. 头 IMU：为什么它在 <code>tofd</code> 里</a></h2>
+<h3 id="101-为什么默认关"><a class="header" href="#101-为什么默认关">10.1 为什么默认关</a></h3>
+<p>这是整个目录里<strong>最有教育意义的一段测量</strong>。<code>deploy/robotd.toml:386-392</code>：</p>
+<blockquote>
+<p><strong>Off by default, and this is the whole section.</strong> Reading it at 100 Hz costs <strong>~3.5-4.5% of a
+core</strong> on this SoC, and a bench that takes the loop apart says <strong>none of that is fixable</strong>: the
+wakeups are <strong>0.7 points</strong> of it, the fusion <strong>0.3</strong>, and <strong>the rest is the two I²C transactions
+a sample takes — which is what a gyro and an accelerometer sample <em>is</em>.</strong> <strong>Nothing subscribes
+to the stream yet, so every duck was paying it from boot for nobody.</strong></p>
+</blockquote>
+<p>完整的表在 <a href="project/tof-on-demand.html"><code>project/tof-on-demand.md</code></a>：</p>
+<pre><code>  睡觉        (0 次读)   cpu 0.69 %
+  只跑滤波器  (0 次读)   cpu 1.00 %
+  update      (2 次读)   cpu 3.35 %
+  update_all  (2 次读)   cpu 3.86 %
+  三次读      (3 次读)   cpu 4.20 %
+</code></pre>
+<p><strong>被唤醒一百次是 0.69 个点；Madgwick 更新加 0.31；两个 I²C 事务是剩下的约 2.4–2.9。</strong></p>
+<p>而那份文档<strong>诚实地说出了自己数字的噪音底</strong>：</p>
+<blockquote>
+<p><code>update</code> and <code>update_all</code> do identical work (one delegates to the other) and came out <strong>0.51
+points apart</strong>, so <strong>the noise floor is around half a point</strong> — CPU frequency scaling on an
+A55, most likely.</p>
+</blockquote>
+<p><strong>&quot;噪音底大约是半个点。&quot;</strong></p>
+<h3 id="102-结论一个开关而不是一个状态机"><a class="header" href="#102-结论一个开关而不是一个状态机">10.2 结论：一个开关，而不是一个状态机</a></h3>
+<p><code>tof-on-demand.md</code> 的 &quot;What was decided&quot;：</p>
+<blockquote>
+<p><strong><code>[head_imu] enabled</code>, default off.</strong> Nothing in the loop paid off, so <strong>the switch is the
+answer: a stream nothing subscribes to should not cost ~4% of a core from boot.</strong></p>
+</blockquote>
+<p>而<strong>为什么不是&quot;按需启动&quot;</strong>，那份文档给了三条，最漂亮的是最后一条：</p>
+<blockquote>
+<p><strong>The bring-up is seconds, and it is per process.</strong> … <strong>A <code>monitor</code> that started the unit on <code>t</code>
+would show an empty grid for seconds.</strong></p>
+<p><strong>Nothing owns the &quot;off&quot;.</strong> Two clients can want depth at once, so stopping on exit needs
+<strong>a reference count that survives a client being <code>SIGKILL</code>ed</strong>, and systemd has none for
+manually started units. <strong>A <code>monitor</code> killed with Ctrl-\ would leave the sensor ranging
+forever.</strong></p>
+</blockquote>
+<p><strong>&quot;一个被 Ctrl-\ 杀掉的 <code>monitor</code> 会让传感器永远测下去。&quot;</strong></p>
+<h3 id="103--关掉了和没装必须是两句不同的话"><a class="header" href="#103--关掉了和没装必须是两句不同的话">10.3 ⭐ &quot;关掉了&quot;和&quot;没装&quot;必须是两句不同的话</a></h3>
+<p><code>imu.rs:93-103</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Switched off in the config, rather than absent or broken.
+///
+/// A separate sentence from `Self::lost` on purpose: **every other reason this stream has
+/// nothing is a board to go and look at, and this one is a line in `robotd.toml`.** A
+/// subscriber that cannot tell them apart **sends somebody to check a cable.**
+<span class="boring">}</span></code></pre></pre>
+<p>而那句理由<strong>点名了那个键</strong>：</p>
+<pre><code>the head IMU is off — `[head_imu] enabled = true` in robotd.toml, then restart tofd
+</code></pre>
+<p><code>imu.rs:277</code> 的测试把它钉住了：<code>assert!(why.contains(&quot;[head_imu] enabled&quot;), &quot;{why}&quot;)</code>。</p>
+<h3 id="104-那个省掉的第三次读"><a class="header" href="#104-那个省掉的第三次读">10.4 那个省掉的第三次读</a></h3>
+<p><code>imu.rs:160-170</code>：</p>
+<blockquote>
+<p><code>update_all</code> rather than <code>update</code>: both read the accelerometer and the gyroscope, and <strong>only
+this one hands the accelerometer sample back.</strong> Asking for it afterwards — which is what this
+loop used to do — <strong>read the same six registers a second time.</strong></p>
+<p><strong>Not for the CPU.</strong> A transaction is worth about <strong>9 µs of the ~440 µs a sample costs</strong> on
+this board (<code>bench_imu</code> at 100 Hz: 4.53% for three reads against 4.46% for two), so <strong>this buys
+nothing measurable</strong> and the idle cost of this thread is somewhere else entirely. What it buys
+is that <strong>the published <code>accel</code> is the sample the quaternion was computed from</strong>, rather than
+one read ~200 µs later, and that <strong>a read can fail in one place instead of two</strong> — either chip
+failing reopens rather than <strong>publishing a zero acceleration, which a consumer cannot tell from
+free-fall.</strong></p>
+</blockquote>
+<p><strong>&quot;一次零加速度，消费者无法把它和自由落体区分开。&quot;</strong></p>
+<p><strong>注意这段的结构</strong>：它先说&quot;这不是为了 CPU&quot;，再给出 CPU 的数字，再说真正的原因。
+<strong>一种把&quot;我们量过了、结论是不是这个理由&quot;写下来的方式。</strong></p>
+<h3 id="105-那个共享总线的论证"><a class="header" href="#105-那个共享总线的论证">10.5 那个共享总线的论证</a></h3>
+<p><code>imu.rs:3-6</code> 回答了一个<strong>一定会被问</strong>的问题：</p>
+<blockquote>
+<p>The bus is accessed one transaction at a time (<strong>each carries its slave address</strong>), so
+<strong>a second <code>i2cdev</code> handle for the IMU coexists with the ToF driver's handle</strong>; the kernel
+serialises transactions at the adapter.</p>
+</blockquote>
+<p><strong>&quot;每次事务都带着自己的从机地址，所以第二个句柄可以和 ToF 驱动的句柄共存；内核在适配器那一层串行化事务。&quot;</strong></p>
+<h3 id="106-一个失败的读会重新走退避"><a class="header" href="#106-一个失败的读会重新走退避">10.6 一个失败的读会重新走退避</a></h3>
+<p><code>imu.rs:201-203</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A read failure fell straight back into `open_imu`: a chip that answers its ID but
+// cannot stream was reopened in a tight loop, warning each time, on the bus the audio
+// codec shares. Same backoff as the open-failure path above.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个能回答 ID 但不能推流的芯片，会在一个紧凑的循环里被反复重开、每次都警告 —— 而且在音频 codec 共用的那条总线上。&quot;</strong></p>
+<h3 id="107-configrs一个坏掉的文件不是停下来的理由"><a class="header" href="#107-configrs一个坏掉的文件不是停下来的理由">10.7 <code>config.rs</code>：一个坏掉的文件不是停下来的理由</a></h3>
+<p><code>config.rs:21-27</code>：</p>
+<blockquote>
+<p><strong>A file this daemon cannot read is not a reason to stop ranging.</strong> <strong><code>robotd</code> refuses to start
+on a broken params file, which is the loud signal and belongs to the daemon whose control loop
+the file configures; depth is what somebody looks at while sorting that out.</strong> So this warns,
+names the file, and carries on with the defaults — which for <code>[head_imu]</code> means off, <strong>the same
+answer an unprovisioned board gets.</strong></p>
+</blockquote>
+<p><strong>&quot;<code>robotd</code> 在一份坏掉的参数文件上拒绝启动 —— 那是响亮的信号，属于那个文件所配置的控制环的守护进程；
+而深度正是有人在排查这件事的时候会去看的东西。&quot;</strong></p>
+<p>而为什么单独一个文件（<code>config.rs:8-10</code>）：</p>
+<blockquote>
+<p>Its own module rather than four lines in <code>main</code>, for the reason <code>mediad</code>'s config is: <strong><code>main</code>
+here is largely Linux-only, so anything living in it is not compiled — let alone tested — on
+the machine it is written on.</strong></p>
+</blockquote>
+<p><strong>&quot;否则住在里面的东西，在写它的那台机器上根本不会被编译 —— 更不用说被测试。&quot;</strong></p>
+<hr />
+<h2 id="11-对外的形状"><a class="header" href="#11-对外的形状">11. 对外的形状</a></h2>
+<p><code>tofd</code> <strong>只服务两个方法</strong>（<code>main.rs:723-729</code>）：</p>
+<pre><code>tofd serves tof.stream and head_imu.stream and nothing else
+</code></pre>
+<p>而搞错方法名<strong>会被回答，而不是被断开</strong>（<code>main.rs:700-702</code>）：</p>
+<blockquote>
+<p>One request, and it must be <code>tof.stream</code>. <strong>Anything else is answered and the connection kept</strong>,
+so <strong>a client that spells a method wrong is told rather than dropped.</strong></p>
+</blockquote>
+<h3 id="111-tofstream-的答复"><a class="header" href="#111-tofstream-的答复">11.1 <code>tof.stream</code> 的答复</a></h3>
+<p><code>duck-ipc-proto/src/lib.rs:4620-4635</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct TofStreamResult {
+    pub accepted: bool,
+    /// 回答了的那一代，例如 `VL53L8CX`。没有时是 `None` —— 见 `unavailable`。
+    pub sensor: Option&lt;String&gt;,
+    /// 为什么没有传感器：没装、代不对、总线读不了。
+    pub unavailable: Option&lt;String&gt;,
+    /// 帧的几何，**这样视图可以在第一帧到达之前就排好版**。
+    pub rows: u8,
+    pub cols: u8,
+    pub hz: u8,
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="112-tofframe-的四个时间字段"><a class="header" href="#112-tofframe-的四个时间字段">11.2 <code>tof.frame</code> 的四个时间字段</a></h3>
+<p><code>duck-ipc-proto/src/lib.rs:4656-4672</code>：</p>
+<div class="table-wrapper"><table><thead><tr><th>字段</th><th>是什么</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>seq</code></td><td>这个 <code>tofd</code> 启动以来的帧号</td><td><strong>&quot;so a consumer can see a gap it did not cause&quot;</strong></td></tr>
+<tr><td><code>at_us</code></td><td>启动以来的微秒</td><td>发送方自己的单调钟</td></tr>
+<tr><td><code>t_ns</code></td><td><code>CLOCK_MONOTONIC</code> 纳秒</td><td><strong>和 <code>RobotState::t_ns</code> 共享的那个钟</strong>（v24）</td></tr>
+<tr><td><code>rows</code> <code>cols</code> <code>distance_mm</code> <code>status</code></td><td>帧本身</td><td>毫米 + 原始状态</td></tr>
+</tbody></table>
+</div>
+<p><strong><code>t_ns</code> 是唯一一个能和别的守护进程对齐的时间戳</strong> —— <code>at_us</code> 只在 <code>tofd</code> 内部有意义。
+这是一个很容易搞混的地方。</p>
+<h3 id="113-那个丢包的可见性"><a class="header" href="#113-那个丢包的可见性">11.3 那个丢包的可见性</a></h3>
+<p><code>main.rs:21-23</code>：</p>
+<blockquote>
+<p>A subscriber that stops reading is <strong>dropped rather than allowed to slow the sensor</strong>
+(<code>broadcast</code> gives that for free, and <strong>a lagging consumer's gap is visible in
+<code>proto::TofFrame::seq</code></strong>).</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// How many frames a slow subscriber may fall behind before it starts losing them.
+/// **Two seconds at 15 Hz — generous, bounded, and the loss is visible as a jump in `seq`
+/// rather than a silent hole.**
+const FRAME_BUFFER: usize = 32;
+<span class="boring">}</span></code></pre></pre>
+<p>而丢帧<strong>不是致命的</strong>（<code>main.rs:751-754</code>）：<code>Lagged</code> 只记一条 debug 日志，然后继续。</p>
+<h3 id="114-head_imuframe-的坐标系警告"><a class="header" href="#114-head_imuframe-的坐标系警告">11.4 <code>head_imu.frame</code> 的坐标系警告</a></h3>
+<p><code>duck-ipc-proto/src/lib.rs:4690-4696</code> —— 这一段很重要：</p>
+<blockquote>
+<p>All values are in <strong>the IMU's own axes, which are tilted relative to the head/camera — the
+mount is not axis-aligned.</strong> To place a sample in the trunk/camera frame, <strong>rotate it by
+<code>FramesState::head_imu</code></strong> (the sensor→trunk pose the kinematics compute for this tick). <strong>This
+is the head IMU, distinct from the body IMU that <code>RobotState::imu</code> carries on the motor bus.</strong></p>
+</blockquote>
+<p><strong>&quot;这是头部 IMU，和 <code>RobotState::imu</code> 在电机总线上携带的那个身体 IMU 不是一回事。&quot;</strong></p>
+<p>而 <code>imu.rs:18-20</code> 划了这条边界：</p>
+<blockquote>
+<p>Orientation is a Madgwick fusion (the <code>bmi088</code> crate's <code>Bmi088Ahrs</code>); <code>gyro</code>/<code>accel</code> are the
+raw sensor axes. <strong>Placing the sample in the head frame (the IMU is rigid to the camera) is a
+<code>kinematics</code> job for the consumer, not this daemon's.</strong></p>
+</blockquote>
+<p><strong>&quot;把样本放到头部坐标系里是消费者（<code>kinematics</code>）的活，不是这个守护进程的。&quot;</strong></p>
+<p>这一条<strong>和 ToF 那边是同一个原则</strong> —— 见下。</p>
+<h3 id="115--tof-那边不做重投影是同一个决定"><a class="header" href="#115--tof-那边不做重投影是同一个决定">11.5 ⭐ ToF 那边不做重投影，是同一个决定</a></h3>
+<p><code>lib.rs:34-41</code>：</p>
+<blockquote>
+<h2 id="what-a-frame-is-and-is-not"><a class="header" href="#what-a-frame-is-and-is-not">What a frame is, and is not</a></h2>
+<p>Raw zone distances and ST's per-zone status, <strong>in the sensor's own frame.</strong> <strong>There is no
+reprojection</strong>: turning zones into directions in the robot's frame <strong>needs the head's forward
+kinematics, which this daemon does not have and does not fake.</strong> Consumers that want geometry
+(mapping, obstacle avoidance) <strong>will combine <code>tof.frame</code> with joint state when the kinematics
+arrive</strong>; consumers that want to <em>look</em> at the sensor — <code>robotctl monitor</code> — <strong>need none of
+it.</strong></p>
+</blockquote>
+<p><strong>&quot;它没有、也不假装拥有头部的正运动学。&quot;</strong></p>
+<p><strong>两个传感器、同一条边界</strong>：<code>tofd</code> 交出<strong>传感器坐标系里的原始值</strong>，
+几何留给 <code>kinematics</code>（见 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a>）。</p>
+<hr />
+<h2 id="12-谁在读它"><a class="header" href="#12-谁在读它">12. 谁在读它</a></h2>
+<h3 id="121-tofstream-有一个订阅者"><a class="header" href="#121-tofstream-有一个订阅者">12.1 <code>tof.stream</code> 有一个订阅者</a></h3>
+<p><strong><code>robotd</code> 的特雷门</strong>（<code>robotd/src/theremin.rs:234-241</code>）——
+它连一次、然后一直持有：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn stream_frames(socket: &amp;Path, slot: &amp;ArcSwapOption&lt;Frame&gt;) -&gt; Result&lt;(), String&gt; {
+    let stream = UnixStream::connect(socket)...;
+    let request = proto::Request::call(proto::Id::Number(SUBSCRIBE_ID), &amp;proto::Call::TofStream);
+<span class="boring">}</span></code></pre></pre>
+<p>这就是 <code>tof-on-demand.md</code> 里那条论证的由来：</p>
+<blockquote>
+<p><strong><code>robotd</code>'s theremin can keep subscribing at startup.</strong> Its depth reader <strong>connects once and
+holds</strong>, which <strong>under a ranging gate would have pinned the laser on for exactly the ducks that
+play notes.</strong></p>
+</blockquote>
+<p><strong><code>robotctl monitor</code></strong> 也订阅（<code>robotctl/src/monitor.rs:574-591</code>），
+而且是<strong>唯一一个&quot;必须被告知才去读&quot;的读者</strong>（<code>monitor.rs:638</code>）。</p>
+<h3 id="122-head_imustream-没有本地订阅者"><a class="header" href="#122-head_imustream-没有本地订阅者">12.2 <code>head_imu.stream</code> 没有本地订阅者</a></h3>
+<p><code>tof-on-demand.md</code>：</p>
+<blockquote>
+<p><strong>Nothing subscribes to it.</strong> <code>head_imu.stream</code> has no consumer in this tree … It was added for
+<strong>the mapping work, which has not arrived.</strong> So <strong>the largest recurring cost in this daemon is a
+sensor read for nobody.</strong></p>
+</blockquote>
+<p>而<strong>远端的客户端可以订阅</strong> —— <code>mediad</code> 的路由允许它（<code>mediad/src/route.rs:214-215</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// The head IMU rides the same video path, for the same reason: it annotates the frames.
+HeadImuStream =&gt; true,
+<span class="boring">}</span></code></pre></pre>
+<p>对照 <code>btd/src/route.rs:486-491</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// `tofd`, which is not one of the sockets `btd` holds. When a phone has a …
+TofStream =&gt; false,
+// Same as the ToF: the head IMU is tofd's, reached over mediad's video path, not BLE.
+HeadImuStream =&gt; false,
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>updater/src/ipc.rs:862-869</code> 用一句<strong>说明地址</strong>的错拒绝了它们：</p>
+<pre><code>tof.stream and head_imu.stream are served by tofd itself, on /run/tofd/tof.sock
+</code></pre>
+<p><strong>所以「没有消费者」指的是没有<em>订阅者</em></strong> —— 三个守护进程都对&quot;要不要转发这个调用&quot;表了态，
+而只有 <code>mediad</code> 说可以。</p>
+<h3 id="123-一张表"><a class="header" href="#123-一张表">12.3 一张表</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>谁</th><th>对 <code>tof.stream</code></th><th>对 <code>head_imu.stream</code></th></tr></thead><tbody>
+<tr><td><strong><code>robotd</code>（特雷门）</strong></td><td><strong>订阅</strong>（且<strong>自己解释状态字节</strong>，见 §3.6）</td><td>不订阅</td></tr>
+<tr><td><strong><code>robotctl monitor</code></strong></td><td><strong>订阅</strong>（用户按了才连）</td><td>不订阅</td></tr>
+<tr><td><strong><code>mediad</code>（relay）</strong></td><td><strong>转发</strong></td><td><strong>转发</strong></td></tr>
+<tr><td><strong><code>btd</code>（BLE）</strong></td><td>拒绝（<code>route.rs:489</code>）</td><td>拒绝（<code>route.rs:491</code>）</td></tr>
+<tr><td><strong><code>updaterd</code></strong></td><td>拒绝（<code>ipc.rs:863</code>）</td><td>拒绝（<code>ipc.rs:863</code>）</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="13-几处读者会绊到的地方"><a class="header" href="#13-几处读者会绊到的地方">13. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="131--tof-on-demandmd-用现在时描述了一个第二天就被修掉的-bug"><a class="header" href="#131--tof-on-demandmd-用现在时描述了一个第二天就被修掉的-bug">13.1 ⚠️ <code>tof-on-demand.md</code> 用现在时描述了一个第二天就被修掉的 bug</a></h3>
+<p><code>docs/project/tof-on-demand.md</code> 的 &quot;§1. Make 'somebody wants this' true — a bug either way&quot; 写着：</p>
+<blockquote>
+<p><code>accept</code> subscribes a connection to <strong>both</strong> channels before it has read a byte of the request
+(<code>tof/src/main.rs:612</code>), so <code>receiver_count()</code> counts connections, not interest …
+<strong>Move the <code>subscribe()</code> calls inside the matched arms of <code>subscriber()</code></strong> …
+<strong>This is worth doing on its own</strong> … and it is the prerequisite for anything below.</p>
+</blockquote>
+<p><strong>但代码里已经做完了</strong>（<code>tof/src/main.rs:708-712</code>），而且带着一个专门的测试
+（<code>main.rs:831-875</code>），测试的注释甚至复述了同样的理由。</p>
+<p>时间线：</p>
+<pre><code>6944e8f  2026-09-09  The head IMU is off until something reads it   ← tof-on-demand.md 在这里写的
+0df8ea4  2026-09-10  tofd: only subscribe to the stream that was asked for   ← 第二天就修了
+</code></pre>
+<p>而 <code>tof/src/main.rs:612</code> 现在指的是一句关于 <code>RuntimeDirectory</code> 的注释，和订阅无关。</p>
+<p><strong>这本身不违反仓库的文档纪律</strong> —— <code>docs/README.md</code> 里 <code>project/</code> 那一节写着
+<em>&quot;Dated records rather than reference. They describe a moment, and <strong>go stale on purpose</strong>.&quot;</em>
+它是一份<strong>有日期的记录</strong>，不是参考文档。但按那个体例，<strong>读它的人应该知道
+§1 描述的是一个已经不存在、且当天就被修掉的形状</strong> —— 而它现在读起来像是在待办。</p>
+<h3 id="132-tof-on-demandmd-里另外两个指不到地方的引用"><a class="header" href="#132-tof-on-demandmd-里另外两个指不到地方的引用">13.2 <code>tof-on-demand.md</code> 里另外两个指不到地方的引用</a></h3>
+<p>同一份文档里：</p>
+<div class="table-wrapper"><table><thead><tr><th>文档里写的</th><th>实际在哪</th></tr></thead><tbody>
+<tr><td><code>btd</code> declines to proxy it (<code>btd/src/route.rs:412</code>)</td><td><code>btd/src/route.rs:491</code>（<code>:412</code> 是一段关于&quot;把机器人立起来&quot;的注释）</td></tr>
+<tr><td>the updater's degraded IPC declines it (<code>updater/src/ipc.rs:819</code>)</td><td><code>updater/src/ipc.rs:863</code>（<code>:819</code> 是 <code>net.*</code> 那个列表的开头）</td></tr>
+</tbody></table>
+</div>
+<p>两处的<strong>内容都是对的</strong>，只有行号漂了。</p>
+<h3 id="133-两份-shim-是逐字相同的"><a class="header" href="#133-两份-shim-是逐字相同的">13.3 两份 shim 是逐字相同的</a></h3>
+<pre><code>$ wc -c tof/vendor/vl53l5cx/shim.c tof/vendor/vl53l8cx/shim.c
+2770 tof/vendor/vl53l5cx/shim.c
+2770 tof/vendor/vl53l8cx/shim.c
+</code></pre>
+<p><strong>两个文件按字节数相同</strong>，而且把代号前缀互相替换之后 <code>diff</code> 为空 ——
+它们只在 <code>vl53l5cx</code>/<code>vl5</code>/<code>L5CX</code> 与 <code>vl53l8cx</code>/<code>vl8</code>/<code>L8CX</code> 这些名字上不同。</p>
+<p><code>build.rs:11-16</code> 把&quot;每个代编译自己那份&quot;讲成了一条有意的设计，而<strong>这两份文件现在由手工保持同步</strong> ——
+没有生成步骤，也没有测试会在它们漂开时报错。（<code>platform.c</code> 是<strong>真的</strong>一份实现，靠 define 分代；
+<code>shim.c</code> 不是。）</p>
+<h3 id="134-cargotoml-的头一句话只提了一代"><a class="header" href="#134-cargotoml-的头一句话只提了一代">13.4 <code>Cargo.toml</code> 的头一句话只提了一代</a></h3>
+<p><code>tof/Cargo.toml:1</code>：</p>
+<blockquote>
+<p>The head ToF sensor: an 8x8 depth matrix from <strong>a VL53L8CX</strong>, and the daemon that serves it.</p>
+</blockquote>
+<p>而 <code>sensor.rs:76</code> 说 <strong><code>L5cx</code> 是&quot;the older sensor, and the one most ducks in the field have&quot;</strong>，
+<code>lib.rs:8-11</code> 也说两代都要支持。</p>
+<p><strong>头一句话只提 L8CX，和&quot;场上大多数是 L5CX&quot;并排读起来会让人以为装错了。</strong></p>
+<h3 id="135---fake-和---sim-是互斥的但错误信息来自-clap"><a class="header" href="#135---fake-和---sim-是互斥的但错误信息来自-clap">13.5 <code>--fake</code> 和 <code>--sim</code> 是互斥的，但错误信息来自 clap</a></h3>
+<p><code>main.rs:168</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[arg(long, conflicts_with = &quot;fake&quot;)]
+sim: Option&lt;String&gt;,
+<span class="boring">}</span></code></pre></pre>
+<p>这是<strong>对的方向</strong>（<code>--fake</code> 和 <code>--sim</code> 不可能同时有意义），但如果你两个都传，
+报错会是 clap 的标准措辞，<strong>不会告诉你&quot;<code>--sim</code> 是 <code>--fake</code> 之上再加一层模拟身体&quot;这个区别</strong> ——
+而那个区别写在 <code>main.rs:159-169</code> 的文档注释里，命令行上看不到。</p>
+<h3 id="136-一处小的librs56-的注释说的是只有状态说了算"><a class="header" href="#136-一处小的librs56-的注释说的是只有状态说了算">13.6 一处小的：<code>lib.rs:56</code> 的注释说的是「只有状态说了算」</a></h3>
+<p><code>lib.rs:55-56</code>：</p>
+<blockquote>
+<p><code>distance_mm</code> and <code>status</code> are parallel, row-major, <code>ZONES</code> long. <strong>A distance is only meaningful
+where the status says so</strong> — see [<code>Zone</code>].</p>
+</blockquote>
+<p>准确，但<strong>不完整</strong>：状态说了算之后，<code>zone()</code> 还会再检查距离是否为正（<code>lib.rs:94-99</code>）。
+一个只读这句注释的人会以为&quot;状态 5 ⇒ 一定有范围&quot;。</p>
+<p>而 §3.6 是它的<strong>另一个</strong>方向的不完整：<code>[5, 9]</code> 也只是 <code>tof</code> 自己的答案，
+下游的特雷门故意用了一个更宽的集合。</p>
+<h3 id="137--architecturemd-里有两行在说没人读-tofd"><a class="header" href="#137--architecturemd-里有两行在说没人读-tofd">13.7 ⚠️ <code>architecture.md</code> 里有两行在说&quot;没人读 <code>tofd</code>&quot;</a></h3>
+<p><code>docs/design/architecture.md</code> 的服务表里，<code>tofd</code> 那一行（<code>:88</code>）写的是：</p>
+<blockquote>
+<p>| <code>tofd</code> | the head's ToF sensor: an 8×8 depth matrix <strong>it publishes and nobody else reads</strong> |
+<code>/run/tofd/tof.sock</code> (<code>tof.stream</code>) | the HAT's I²C bus |</p>
+</blockquote>
+<p><strong>而这是不准确的</strong>：<code>robotd</code> 的特雷门订阅它（<code>robotd/src/theremin.rs:234</code>），
+<code>robotctl monitor</code> 订阅它（<code>robotctl/src/monitor.rs:579</code>），
+<code>mediad</code> 转发它（<code>mediad/src/route.rs:213</code>）。</p>
+<p>同一份文件的行内文字（<code>:134</code>）说的是 <em>&quot;Owns one sensor and publishes frames; <strong>reads
+nothing</strong>&quot;</em> —— <strong>那一句是对的</strong>（是它在读传感器、不读别人），
+而 <code>:88</code> 那句把&quot;<strong>它不读别人</strong>&quot;写成了&quot;<strong>别人不读它</strong>&quot;，方向反了。</p>
+<p><strong>两行的差别是主客颠倒</strong>，而按仓库的规矩（<code>CLAUDE.md</code>：<em>&quot;当行为和一份设计文档不一致时，
+文档是 bug&quot;</em>），<code>:88</code> 是需要改的那一个。</p>
+<hr />
+<h2 id="14-阅读路线"><a class="header" href="#14-阅读路线">14. 阅读路线</a></h2>
+<p><strong>2,191 行，是仓库里最小的 crate 之一。可以一次读完。</strong></p>
+<h3 id="如果只有十分钟"><a class="header" href="#如果只有十分钟">如果只有十分钟</a></h3>
+<p>读 §3 那三种状态，然后读 <code>tof/src/lib.rs:65-116</code>（<code>Zone</code> 和 <code>Frame::zone</code>）。
+<strong>那 50 行是这个目录最核心的东西。</strong></p>
+<h3 id="路径-a我想理解这一帧数据约-20-分钟"><a class="header" href="#路径-a我想理解这一帧数据约-20-分钟">路径 A：我想理解这一帧数据（约 20 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>tof/src/lib.rs:1-51</code>（crate 的论点 + 那个常量）</td></tr>
+<tr><td>2</td><td><code>tof/src/lib.rs:53-116</code>（<code>Frame</code>、<code>Zone</code>、<code>zone()</code>、<code>valid_count()</code>）</td></tr>
+<tr><td>3</td><td><code>tof/src/lib.rs:132-146</code>（那个三态测试）</td></tr>
+<tr><td>4</td><td><code>duck-ipc-proto/src/lib.rs:4656-4690</code>（线格式为什么带状态字节）</td></tr>
+<tr><td>5</td><td><code>robotctl/src/monitor.rs:762</code> 起（网格怎么画这三态）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-b我想加一个传感器约-1-小时"><a class="header" href="#路径-b我想加一个传感器约-1-小时">路径 B：我想加一个传感器（约 1 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>tof/build.rs</code> 全文（118 行，只有一件事：六次重命名）</td></tr>
+<tr><td>2</td><td><code>tof/vendor/platform.c:1-45</code>（一份实现怎么被编译两次）</td></tr>
+<tr><td>3</td><td><code>tof/vendor/probe.c</code> 全文（60 行，那个先有鸡还是先有蛋）</td></tr>
+<tr><td>4</td><td><code>tof/src/sensor.rs:1-19</code> + <code>:224-286</code>（边界和 open 的顺序）</td></tr>
+<tr><td>5</td><td><code>tof/src/sensor.rs:342-380</code>（<strong>非 Linux 上那个不可构造的类型</strong>）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-c我在乎那颗-cpu约-40-分钟"><a class="header" href="#路径-c我在乎那颗-cpu约-40-分钟">路径 C：我在乎那颗 CPU（约 40 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="project/tof-on-demand.html"><code>project/tof-on-demand.md</code></a> 全文（那张表 + 那次&quot;不做什么&quot;）</td></tr>
+<tr><td>2</td><td><code>tof/src/main.rs:60-91</code>（<code>POLL</code>、<code>POLL_GUARD</code>、退避）</td></tr>
+<tr><td>3</td><td><code>tof/src/main.rs:899-926</code>（<strong>四个把节省量写成算术的测试</strong>）</td></tr>
+<tr><td>4</td><td><code>tof/src/imu.rs:43-60</code>（<code>BETA</code>、退避、<code>TEMP_EVERY</code>）</td></tr>
+<tr><td>5</td><td><a href="project/idle-cpu.html"><code>project/idle-cpu.md</code></a>（它的前一篇）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-d我在排查没有深度"><a class="header" href="#路径-d我在排查没有深度">路径 D：我在排查&quot;没有深度&quot;</a></h3>
+<ol>
+<li><code>tof/src/status.rs:1-5</code>（&quot;没有传感器&quot;和&quot;还没有帧&quot;是两句不同的话）</li>
+<li><code>tof/src/main.rs:570-573</code>（缺总线 ≠ 没人应答）</li>
+<li><code>tof/src/main.rs:93-107</code>（两条兼容旧板子的候选列表）</li>
+<li><code>tof/src/sensor.rs:250-279</code>（五个阶段的五句话）</li>
+<li><code>tof/systemd/tofd.service:32-34</code>（<strong>为什么 <code>PrivateDevices=</code> 没设</strong>）</li>
+</ol>
+<h3 id="路径-e我想理解特雷门为什么看得见手约-25-分钟"><a class="header" href="#路径-e我想理解特雷门为什么看得见手约-25-分钟">路径 E：我想理解特雷门为什么&quot;看得见手&quot;（约 25 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td>§3.6（<strong>为什么它不用 <code>Zone</code></strong>）</td></tr>
+<tr><td>2</td><td><code>kinematics/src/hand.rs:1-35</code>（那个&quot;聪明版本&quot;为什么死了）</td></tr>
+<tr><td>3</td><td><code>kinematics/src/hand.rs:60-85</code>（<code>Config</code> 的默认值，含那七个状态码）</td></tr>
+<tr><td>4</td><td><code>kinematics/src/hand.rs:217-243</code>（那个把 bug 钉住的测试）</td></tr>
+<tr><td>5</td><td><code>robotd/src/theremin.rs:55-70</code>（为什么帧被原样留着）</td></tr>
+<tr><td>6</td><td><a href="../deploy/robotd.toml"><code>deploy/robotd.toml</code></a> 的 <code>[theremin] statuses</code> 一段</td></tr>
+</tbody></table>
+</div>
+<h3 id="三条贯穿全文的主线"><a class="header" href="#三条贯穿全文的主线">三条贯穿全文的主线</a></h3>
+<ol>
+<li>
+<p><strong>交出原始值，把几何留给别人。</strong> ToF 不重投影（<code>lib.rs:34-41</code>），
+IMU 不放进头部坐标系（<code>imu.rs:18-20</code>）。<strong>同一个决定，在两个传感器上各说了一遍。</strong></p>
+</li>
+<li>
+<p><strong>&quot;我不知道&quot;必须是一个可以说出口的答案。</strong> 三种状态而不是一个数字；
+&quot;关掉了&quot;和&quot;没装&quot;是两句话；&quot;正在启动&quot;是一个句子而不是 <code>None</code>；
+未知的传感器代<strong>绝不猜</strong>（&quot;上传错的 blob 就是你搞砖一个探头的方式&quot;）。
+<strong>这个目录里几乎每一处设计问题，最后都归结成&quot;这句沉默会被读成什么&quot;。</strong></p>
+</li>
+<li>
+<p><strong>量过之后再决定，而且把&quot;没量出来&quot;也写下来。</strong>
+<code>1.00% / 3.35% / 3.86% / 4.20%</code>、<code>0.69</code> 个点的唤醒、<strong>&quot;噪音底大约是半个点&quot;</strong>、
+<strong>&quot;这不是为了 CPU&quot;</strong> —— 那份测量记录里有一节专门叫
+&quot;What is left for a board&quot;，列的是<strong>还没量、但不值得为它再上板子</strong>的东西。
+<strong>这种诚实比数字本身更值得学。</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="15-术语表"><a class="header" href="#15-术语表">15. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>ToF</strong></td><td>Time of Flight，飞行时间测距。发出一束光，量它多久回来</td></tr>
+<tr><td><strong>VL53L8CX / VL53L5CX</strong></td><td>ST 的两代 ToF 传感器。<strong>这里都支持，运行时按 ID 选</strong></td></tr>
+<tr><td><strong>ULD</strong></td><td>Ultra Lite Driver，ST 给这些传感器的官方 C 驱动</td></tr>
+<tr><td><strong>固件上传</strong></td><td>每次启动往传感器里灌 ~90 KB 的 blob。<strong>几秒钟</strong></td></tr>
+<tr><td><strong>zone / 区</strong></td><td>8×8 矩阵里的一格</td></tr>
+<tr><td><strong>8×8</strong></td><td>分辨率。64 个区（<code>ROWS * COLS</code>）</td></tr>
+<tr><td><strong>status / 状态字节</strong></td><td>ST 的每区结论。<strong>5/9 = 有效，255 = 那里什么都没有，其它 = 失败</strong></td></tr>
+<tr><td><strong><code>Range</code> / <code>NoTarget</code> / <code>Unusable</code></strong></td><td>那三态的 Rust 名字</td></tr>
+<tr><td><strong><code>valid_count()</code></strong></td><td>有多少区给出了可用范围。<strong>唯一那个&quot;它到底看见东西没有&quot;的数</strong></td></tr>
+<tr><td><strong><code>statuses</code>（<code>hand::Config</code>）</strong></td><td>特雷门信的<strong>七个</strong>状态码。<strong>和 <code>Zone</code> 的 <code>[5,9]</code> 不是同一个集合</strong>，见 §3.6</td></tr>
+<tr><td><strong>重投影 / reprojection</strong></td><td>把&quot;哪个区&quot;变成&quot;哪个方向&quot;。<strong>这个 crate 不做</strong></td></tr>
+<tr><td><strong>正运动学 / forward kinematics</strong></td><td>从关节角算出某个部位在哪。做重投影需要它</td></tr>
+<tr><td><strong>I²C</strong></td><td>两根线的低速总线。<strong>一次事务带一个从机地址</strong></td></tr>
+<tr><td><strong>i2c-dev / <code>I2C_RDWR</code></strong></td><td>Linux 暴露 I²C 的方式：一个设备文件 + 一个 ioctl</td></tr>
+<tr><td><strong><code>/dev/i2c-3</code> / <code>/dev/i2c-pihat</code></strong></td><td>同一条总线。后者是 udev 装的符号链接</td></tr>
+<tr><td><strong>overlay</strong></td><td>设备树的一段，描述&quot;板子上有什么&quot;。<strong>没有它就没有 i2c3</strong></td></tr>
+<tr><td><strong>HAT</strong></td><td>扣在板子上的那块扩展板。ToF、IMU、codec 都在上面</td></tr>
+<tr><td><strong>BMI088</strong></td><td>那个头部 IMU：三轴陀螺仪 + 三轴加速度计，两个从机地址</td></tr>
+<tr><td><strong>陀螺仪 / 加速度计</strong></td><td>角速度 / 比力（m/s²）</td></tr>
+<tr><td><strong>Madgwick</strong></td><td>一种姿态融合算法。<strong>从陀螺仪和加速度计估计朝向</strong></td></tr>
+<tr><td><strong><code>BETA</code></strong></td><td>Madgwick 的收敛率。0.1</td></tr>
+<tr><td><strong>四元数 / quaternion</strong></td><td>表示旋转的四个数。这里标量在前 <code>[w,x,y,z]</code></td></tr>
+<tr><td><strong>姿态 / orientation</strong></td><td>哪个方向是上</td></tr>
+<tr><td><strong><code>i2cdev</code></strong></td><td>Rust 的 <code>embedded-hal</code> I²C 实现</td></tr>
+<tr><td><strong><code>repr(C)</code></strong></td><td>让 Rust 结构体的内存布局和 C 一致。<strong>这里刻意避免</strong></td></tr>
+<tr><td><strong>shim</strong></td><td>一层薄薄的 C，把复杂的 C 接口变成几个标量函数</td></tr>
+<tr><td><strong>ULD status</strong></td><td>驱动返回的错误码。<strong>0 是成功</strong></td></tr>
+<tr><td><strong>libc / ioctl</strong></td><td>直接调 C 库和内核接口</td></tr>
+<tr><td><strong>udev</strong></td><td>Linux 的设备管理器。<code>/dev/</code> 下的名字由它管</td></tr>
+<tr><td><strong><code>uninhabited</code> / 不可构造</strong></td><td>一个没有任何值的类型。<strong>编译器因此可以排除它的所有方法</strong></td></tr>
+<tr><td><strong>broadcast（tokio）</strong></td><td>一对多频道。<strong>慢的订阅者会丢帧而不是拖慢发送方</strong></td></tr>
+<tr><td><strong><code>Lagged</code></strong></td><td>&quot;你跟丢了 N 条&quot;。<strong>丢帧不是错误</strong></td></tr>
+<tr><td><strong><code>seq</code></strong></td><td>帧号。<strong>用它看出你没造成的一个缺口</strong></td></tr>
+<tr><td><strong><code>t_ns</code> / <code>CLOCK_MONOTONIC</code></strong></td><td>那个和别的守护进程共享的钟。<strong><code>at_us</code> 不能跨进程比</strong></td></tr>
+<tr><td><strong>退避 / backoff</strong></td><td>失败后越等越久。这里 1 秒翻倍到 60 秒</td></tr>
+<tr><td><strong>poll</strong></td><td>反复问&quot;好了吗&quot;</td></tr>
+<tr><td><strong><code>POLL</code> / <code>POLL_GUARD</code></strong></td><td>每 10 毫秒问一次 / 帧到期前 20 毫秒才开始问</td></tr>
+<tr><td><strong><code>RuntimeDirectory=</code></strong></td><td>systemd 帮你建的 <code>/run/&lt;服务&gt;</code>，停了就删</td></tr>
+<tr><td><strong><code>Sysusers.d</code></strong></td><td>声明&quot;这个服务需要一个用户和组&quot;的文件</td></tr>
+<tr><td><strong><code>SupplementaryGroups=</code></strong></td><td>给守护进程额外加的组。<strong>这里是 <code>i2c</code> 和 <code>robot</code></strong></td></tr>
+<tr><td><strong><code>PrivateDevices=</code></strong></td><td>一个 systemd 加固项，<strong>这里故意没设</strong>（会把 i2c 节点藏掉）</td></tr>
+<tr><td><strong><code>CapabilityBoundingSet=</code></strong></td><td>清空 —— 一点特权都不给</td></tr>
+<tr><td><strong>degraded IPC</strong></td><td>更新期间那个只能回答一小部分的兜底接口</td></tr>
+<tr><td><strong><code>robotctl monitor</code></strong></td><td>那个把帧画成网格的终端界面</td></tr>
+<tr><td><strong>特雷门 / theremin</strong></td><td>手在鸭子前面的距离变成音高。<strong>唯一的本地 <code>tof.stream</code> 订阅者</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>为什么感知是自己的守护进程</strong>（本导读的依据）</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a> §1</td></tr>
+<tr><td><strong>那 5% CPU 的完整测量记录</strong></td><td><a href="project/tof-on-demand.html"><code>project/tof-on-demand.md</code></a></td></tr>
+<tr><td>它的前一篇：守护进程空闲时在干什么</td><td><a href="project/idle-cpu.html"><code>project/idle-cpu.md</code></a></td></tr>
+<tr><td>那个唯一的消费者（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a> · <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>把帧变成几何（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td><code>tof.stream</code> 的线上契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 里那个网格（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>那条 I²C 总线是怎么来的（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a> · <a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>深度矩阵怎么用来避障（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>里程计里那个 <code>trunk_height_m</code>（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>特雷门那门乐器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td><code>[head_imu]</code> 的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a> · <a href="../deploy/robotd.toml"><code>../deploy/robotd.toml</code></a></td></tr>
+<tr><td>仿真的身体协议（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>摄像头那条感知通道（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>更新时在这块板子上跑的那两个脚本（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>麦克斯韦那只鸭子的&quot;耳朵&quot;（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>装完之后你用的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/spaces-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/updater-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/spaces-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/updater-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

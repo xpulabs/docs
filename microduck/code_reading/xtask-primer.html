@@ -1,0 +1,1325 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>xtask/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html" class="active"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="xtask-新手导读"><a class="header" href="#xtask-新手导读"><code>xtask/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是<strong>发布侧的一半</strong>：把一次提交变成一台机器人能装的东西，签名，推出去。
+而它同时是这个仓库<strong>检查自己</strong>的地方 —— 有一半的代码是哨兵，
+专门盯住那些&quot;两个列表本来应该一致、但只有人记得&quot;的地方。
+更新系统的那一半（机器人怎么装）由 <a href="updater-primer.html"><code>updater-primer.md</code></a> 拥有，
+完整设计由 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §16.3 拥有；
+密钥托管由 <a href="project/ci-setup.html"><code>project/ci-setup.md</code></a> 拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="updater-primer.html"><code>updater-primer.md</code></a>（<strong>另一半</strong>：机器人怎么装）、
+<a href="scripts-primer.html"><code>scripts-primer.md</code></a>（装机与运维的那些工具）、
+<a href="hooks-primer.html"><code>hooks-primer.md</code></a>（<strong>§9.1 那条规则</strong>的另一端）、
+<a href="deploy-primer.html"><code>deploy-primer.md</code></a>（配置内容）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E5%85%88%E7%90%86%E6%B8%85%E5%AE%83%E6%98%AF%E4%B8%A4%E6%A0%B7%E4%B8%9C%E8%A5%BF">⚠️ 先理清：它是<strong>两样东西</strong></a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E4%B8%AA%E4%BC%9A%E6%A3%80%E6%9F%A5%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%93%E5%BA%93">⭐ 核心心智模型：一个会检查自己的仓库</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%9C%B0%E5%9B%BE">目录地图</a></li>
+<li><a href="#5-%E4%BA%94%E4%B8%AA%E5%AD%90%E5%91%BD%E4%BB%A4">五个子命令</a></li>
+<li><a href="#6-package%E4%B8%80%E6%AC%A1%E5%8F%91%E5%B8%83%E6%98%AF%E6%80%8E%E4%B9%88%E8%A2%AB%E6%89%93%E5%8C%85%E5%87%BA%E6%9D%A5%E7%9A%84"><code>package</code>：一次发布是怎么被打包出来的</a></li>
+<li><a href="#7--%E9%82%A3%E4%B8%83%E7%BB%84%E5%93%A8%E5%85%B5">⭐ 那七组哨兵</a></li>
+<li><a href="#8-%E5%AF%86%E9%92%A5%E7%9A%84%E4%B8%A4%E6%9D%A1%E7%BA%AA%E5%BE%8B">密钥的两条纪律</a></li>
+<li><a href="#9-promote%E6%99%8B%E5%8D%87%E6%98%AF%E9%87%8D%E7%AD%BE%E4%B8%8D%E6%98%AF%E9%87%8D%E5%BB%BA"><code>promote</code>：晋升是<strong>重签</strong>，不是重建</a></li>
+<li><a href="#10-%E8%B0%81%E5%9C%A8%E8%B0%83%E7%94%A8%E5%AE%83">谁在调用它</a></li>
+<li><a href="#11-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#12-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#13-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>xtask/</code> 回答两个问题：</p>
+<blockquote>
+<p><strong>① 一次提交，怎么变成一台机器人能装的东西？</strong>
+<strong>② 这个仓库里那些&quot;本来应该一致&quot;的东西，怎么保证它们真的一致？</strong></p>
+</blockquote>
+<p>而它的形状就是这两个答案：</p>
+<pre><code>   xtask/
+   ├── src/main.rs  2,315 行
+   │   ├──  :1–848    工具：5 个子命令          ← 回答问题 ①
+   │   └──  :849–2315 测试：39 个哨兵           ← 回答问题 ②
+   └── tests/       1,127 行
+       ├── artifact.rs  409  打开真的 tarball，看里面有什么
+       ├── rescue.rs    602  跑真的 robot-rescue
+       └── sideload.rs  116  真的走一遍旁载
+</code></pre>
+<p><strong>三分之二的代码是测试</strong>，而这正是这个 crate 最值得学的地方 ——
+而且那些测试分成<strong>两层</strong>：一层读源文件，一层把产物拆开（§3.3）。</p>
+<pre><code>   一次提交
+      │
+      ▼
+   cargo xtask package ──► daemon-1.2.3.tar.zst + manifest.json（未签名）
+      │
+      ▼
+   cargo xtask sign ─────► 两份 .minisig
+      │
+      ▼
+   GitHub Releases ──────► 机器人 updaterd 去拉
+                              （见 updater-primer.md）
+</code></pre>
+<p><strong>如果只记一句话</strong>：<em>&quot;两个列表本来应该一致&quot;是这个仓库反复犯的错，
+而 <code>xtask</code> 的答案是<strong>让它们不一致时，构建就红</strong>。</em></p>
+<hr />
+<h2 id="2--先理清它是两样东西"><a class="header" href="#2--先理清它是两样东西">2. ⚠️ 先理清：它是<strong>两样东西</strong></a></h2>
+<h3 id="21-第一件一个不上机器人的二进制"><a class="header" href="#21-第一件一个不上机器人的二进制">2.1 第一件：一个<strong>不上机器人</strong>的二进制</a></h3>
+<p><code>xtask/Cargo.toml:6</code>：</p>
+<pre><code class="language-toml">publish = false
+</code></pre>
+<p>而 <code>Cargo.toml:9-12</code> 解释了为什么它必须是一个<strong>独立的 crate</strong>：</p>
+<blockquote>
+<p>Deliberately a separate crate, not a subcommand of <code>updater</code>: <strong>this never ships to a robot.</strong>
+In particular <strong>it links the <em>full</em> <code>minisign</code> crate (which can sign), while the updater links
+only <code>minisign-verify</code> (which cannot)</strong> — <strong>the daemon has no business being able to sign
+anything.</strong></p>
+</blockquote>
+<p><strong>&quot;守护进程没有理由拥有签名的能力。&quot;</strong></p>
+<p>这是 <a href="updater-primer.html"><code>updater-primer.md</code></a> §7.5 那条纪律的另一半：
+在那边是&quot;<strong>我能验证，但我不该链接能签名的代码</strong>&quot;，
+在这里是&quot;<strong>我能签名，所以我绝不上机器人</strong>&quot;。</p>
+<p><strong>一次决定，两个方向，两个 crate。</strong></p>
+<h3 id="22-第二件一堆读别的文件的测试"><a class="header" href="#22-第二件一堆读别的文件的测试">2.2 第二件：一堆<strong>读别的文件</strong>的测试</a></h3>
+<p><code>xtask/src/main.rs</code> 的后三分之二是一个 <code>#[cfg(test)] mod tests</code>，
+<strong>39 个测试，几乎全是读仓库里其它文件的文本然后断言</strong>。</p>
+<p>它们<strong>不编译任何东西、不需要网络、不需要板子</strong> —— 全是字符串和正则。</p>
+<p>而它们的名字自己就说明了性质：</p>
+<pre><code>every_unit_install_sh_expects_is_packaged
+every_script_the_hooks_run_is_packaged
+every_hook_in_the_repo_is_packaged
+every_sysusers_file_in_the_repo_is_packaged
+every_binary_a_packaged_unit_execs_is_staged
+every_install_sh_step_reaches_an_updated_board
+setup_board_pins_the_same_onnx_target
+the_rkaiq_shim_travels_with_its_script
+</code></pre>
+<p><strong>读一遍这些名字，你就知道这个仓库在怕什么。</strong></p>
+<hr />
+<h2 id="3--核心心智模型一个会检查自己的仓库"><a class="header" href="#3--核心心智模型一个会检查自己的仓库">3. ⭐ 核心心智模型：一个会检查自己的仓库</a></h2>
+<h3 id="31-病灶两个列表"><a class="header" href="#31-病灶两个列表">3.1 病灶：两个列表</a></h3>
+<p>这个仓库反复出现同一类 bug，而 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9.1 把它总结成了一条规则。
+形状是这样的：</p>
+<pre><code>   A 文件里有一个列表          B 文件里有一个应该和它一致的列表
+        │                                  │
+        └────────── 没有任何东西绑住它们 ───┘
+
+   它们第一次分开的时候，就是出问题的时候。
+</code></pre>
+<p><code>_build-release.yml:4-7</code> 说得很直白：</p>
+<blockquote>
+<p>The one place the release recipe lives, so the staging and stable paths cannot drift apart in
+what they ship — <strong>this repository has been bitten more than once by two lists that were
+supposed to agree.</strong></p>
+</blockquote>
+<h3 id="32--那个把答案说透了的注释"><a class="header" href="#32--那个把答案说透了的注释">3.2 ⭐ 那个把答案说透了的注释</a></h3>
+<p><code>xtask/src/main.rs:851-863</code> —— <strong><code>PACKAGING_SITES</code> 的文档，是整个 crate 的论点</strong>：</p>
+<blockquote>
+<p>Every file that packages a release, which is where the <code>--include</code> list and the staged binaries
+live. Repository paths, because one of them is not a workflow.</p>
+<p><strong>Named once, because the tests below all read the same files and the recipe has moved before</strong>:
+it used to sit in <code>release.yml</code>, and now lives in the reusable <code>_build-release.yml</code> that both the
+staging and stable paths call. <strong>A test that kept reading the old name would pass while guarding
+nothing, which is worse than failing.</strong></p>
+<p><code>scripts/dev-push.sh</code> is the third because <strong>it assembles the same artifact from its own copy of
+the same lists</strong> — a laptop build a board actually runs.</p>
+</blockquote>
+<p><strong>&quot;一个继续读旧名字的测试会在什么都守护不到的情况下通过 —— 那比失败更糟。&quot;</strong></p>
+<p><strong>这一句话就是整个 crate 存在的理由。</strong> 一个坏掉的测试会响；
+<strong>一个守护着空气的测试看起来像覆盖率</strong>，而它比没有测试更危险。</p>
+<p>而这个论点在测试里被<strong>反复执行</strong>（<code>main.rs:915</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(units.len() &gt;= 4, &quot;expected several units, found {units:?}&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p>几乎每一个&quot;从仓库里发现&quot;的测试都有一个这样的下界断言，
+配套的措辞通常是 <em><strong>&quot;this test is watching nothing&quot;</strong></em>。</p>
+<h3 id="33--而且它有两层哨兵第二层更硬"><a class="header" href="#33--而且它有两层哨兵第二层更硬">3.3 ⭐ 而且它有<strong>两层</strong>哨兵，第二层更硬</a></h3>
+<p><strong>这是读完 <code>xtask/</code> 之后最值得带走的一件事。</strong></p>
+<p><code>xtask/src/main.rs</code> 里那 39 个测试<strong>全部是字符串匹配</strong> ——
+读两个源文件，断言它们说的是一回事。</p>
+<p>而 <code>xtask/tests/artifact.rs:1-7</code> 对这个做法有一句很准确的评价：</p>
+<blockquote>
+<p>Every other packaging test in this repository asserts that two <em>source files</em> agree —
+<code>.github/workflows/*.yml</code> against <code>scripts/install.sh</code>, or a unit's <code>ExecStart</code> against a <code>cp</code>
+line. <strong>Those are worth having and they are the weaker form: they describe packaging without
+observing it, so they pass whenever the description is self-consistent, including when the
+description is wrong.</strong></p>
+</blockquote>
+<p><strong>&quot;它们描述打包，但没有<em>观察</em>打包 —— 所以只要那份描述自洽，它们就通过，包括描述是错的时候。&quot;</strong></p>
+<p>于是有两层：</p>
+<pre><code>   第一层：字符串哨兵（xtask/src/main.rs，39 个测试）
+      「A 文件说的和 B 文件说的一致吗？」        ← 便宜，0.4 秒，但只是描述
+
+   第二层：真的打开 tarball（xtask/tests/artifact.rs，5 个测试）
+      「真的跑一次 xtask package，然后把产物拆开看里面有什么」   ← 这是观察
+</code></pre>
+<p><code>artifact.rs:9-12</code> 记着<strong>为什么需要第二层</strong>：</p>
+<blockquote>
+<p><strong>Two bugs reached a board through that gap on the same afternoon.</strong> A release shipped units its
+artifact did not contain, and then — <strong>two commits after a test was added to stop the first one
+recurring</strong> — binaries its units tried to exec. <code>btd.service</code> failed with <code>203/EXEC</code>, which reads
+on a board <strong>as a broken daemon rather than as an incomplete release.</strong></p>
+</blockquote>
+<p><strong>&quot;两个 bug 在同一个下午通过那个缺口到达了一块板子 —— 而第二个是在'阻止第一个重演'的测试加上去之后两个提交。&quot;</strong></p>
+<h4 id="-第二层能看见而第一层结构上看不见的四件事"><a class="header" href="#-第二层能看见而第一层结构上看不见的四件事">⭐ 第二层能看见、而第一层<strong>结构上</strong>看不见的四件事</a></h4>
+<p><code>artifact.rs:14-28</code> 逐条列了，而它们<strong>每一条都是被验证过的</strong>（<code>:14-15</code>：
+<em>&quot;verified by breaking each one and watching the old suite stay green&quot;</em>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>什么</th><th>为什么第一层看不见</th></tr></thead><tbody>
+<tr><td><strong>①</strong></td><td><strong>一个没有 unit 执行它的二进制</strong></td><td>第一层的列表<strong>从 <code>ExecStart=</code> 推导</strong>，所以它<strong>结构上</strong>看不见 <code>robotctl</code> —— 没有任何东西 exec 它，是 <code>install.sh</code> 把它符号链接到操作员的 <code>PATH</code> 上</td></tr>
+<tr><td><strong>②</strong></td><td><strong>文件的权限位</strong></td><td><em>&quot;Nothing else in the tree looks at a mode&quot;</em></td></tr>
+<tr><td><strong>③</strong></td><td><strong>那个生成出来的钩子</strong></td><td><code>hooks/preinstall</code> 是 <code>package</code> 渲染的，不是 <code>--include</code> 的；而钩子测试<strong>跳过 <code>.in</code> 模板</strong></td></tr>
+<tr><td><strong>④</strong></td><td><strong><code>package</code> 本身能不能跑</strong></td><td><code>src=dest</code> 的切分、权限赋值、版本漂移守卫、写进 <code>version.toml</code> 的 <code>binaries</code> 列表 —— 这些<strong>只有切一次发布才能碰到</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>① 的具体后果</strong>（<code>artifact.rs:18-21</code>）：</p>
+<blockquote>
+<p>Dropping it from the workflow's staging <strong>passes all six existing tests</strong> and yields an artifact
+where <strong><code>/usr/local/bin/robotctl</code> points at nothing.</strong></p>
+</blockquote>
+<p><strong>&quot;把它从 workflow 的 staging 里删掉，会让已有的六个测试全部通过，
+而产出一个 <code>/usr/local/bin/robotctl</code> 指向空气的归档。&quot;</strong></p>
+<h4 id="而第二层不复制那份列表"><a class="header" href="#而第二层不复制那份列表">而第二层<strong>不</strong>复制那份列表</a></h4>
+<p><code>artifact.rs:35-37</code>：</p>
+<blockquote>
+<p>The inputs still come from the workflow YAML, <strong>because those files <em>are</em> the production
+packaging recipe</strong> — <strong>reproducing the list here by hand would recreate exactly the drift these
+tests exist to catch.</strong> <strong>What is no longer taken on trust is the result.</strong></p>
+</blockquote>
+<p><strong>&quot;在这里手工复制那份列表，会正好重建这些测试存在的意义就是要抓住的那种漂移。
+现在不再被信任的是<em>结果</em>。&quot;</strong></p>
+<p><strong>这一句是整件事的关键</strong>：
+<strong>输入仍然来自生产的那份配方（否则就是第三份要漂移的副本），
+变的只是&quot;我不再相信它的结果，我要把产物拆开看&quot;。</strong></p>
+<h3 id="34-所以它有三个打包站点"><a class="header" href="#34-所以它有三个打包站点">3.4 所以它有<strong>三个</strong>打包站点</a></h3>
+<pre><code>   .github/workflows/_build-release.yml      31 条 --include   ← 真正的配方
+   .github/workflows/dev.yml                 31 条 --include   ← 每次 push
+   scripts/dev-push.sh                       31 条 --include   ← 笔记本构建
+        └──────────────────────────────────────────┘
+                   三份**完全相同**的列表
+</code></pre>
+<p><code>PACKAGING_SITES</code>（<code>main.rs:864-868</code>）就是这三个路径，
+而<strong>每一个覆盖性测试都会把三个站点全查一遍</strong>。</p>
+<p>⚠️ 我验证过：<strong>三份列表今天逐字相同</strong>（各 31 条），而且<strong>三份都被测试盯着</strong>。
+所以这不是&quot;已知的不一致&quot;，而是&quot;<strong>已知的重复，用测试兜住</strong>&quot;。</p>
+<p><strong>这个仓库选择了&quot;三份副本 + 一个哨兵&quot;，而不是&quot;一份被三处引用&quot;。</strong>
+理由是那些站点一个是 YAML、一个是 YAML、一个是 shell，
+<strong>抽出一份共享的列表本身就要引入一个新机制</strong>；而一个测试是现成的。</p>
+<hr />
+<h2 id="4-目录地图"><a class="header" href="#4-目录地图">4. 目录地图</a></h2>
+<pre><code>xtask/
+├── Cargo.toml          31 行  ← 注意 `publish = false` 和那段关于 minisign 的话
+├── src/main.rs      2,315 行
+│   ├──  :1–38    模块文档：为什么是 Rust 而不是 shell
+│   ├──  :40–58   两个常量（VERSION_FILE、SIG_SUFFIX）+ KeyKind
+│   ├──  :60–202  `Command` —— 五个子命令，每个参数都有注释
+│   ├──  :204–272 main / run
+│   ├──  :287–467 `package`  ⭐
+│   ├──  :469–589 `keygen`   ⭐
+│   ├──  :590–652 `keycheck`
+│   ├──  :653–699 `sign_dir`
+│   ├──  :700–766 `promote`  ⭐
+│   ├──  :768–847 辅助（onnxruntime_versions、render_preinstall_hook、workspace_version、sha256_hex）
+│   └──  :849–2315 **测试模块：39 个哨兵** ⭐⭐
+└── tests/
+    ├── artifact.rs  409  ← 打开打包出来的 tarball，看里面到底有什么
+    ├── rescue.rs    602  ← 真的跑 robot-rescue
+    └── sideload.rs  116  ← 真的走一遍旁载
+</code></pre>
+<hr />
+<h2 id="5-五个子命令"><a class="header" href="#5-五个子命令">5. 五个子命令</a></h2>
+<p><code>xtask/src/main.rs:60-202</code>。<strong>每一个参数的文档都在解释一件具体的事。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>子命令</th><th>一句话</th><th>什么时候用</th></tr></thead><tbody>
+<tr><td><strong><code>package</code></strong></td><td>组装 <code>.tar.zst</code> + 未签名的清单</td><td>CI，每次发布</td></tr>
+<tr><td><strong><code>sign</code></strong></td><td>给目录里的东西签名</td><td>CI，紧跟 package</td></tr>
+<tr><td><strong><code>keygen</code></strong></td><td>生成一对密钥</td><td><strong>一次性</strong>，见 §8</td></tr>
+<tr><td><strong><code>keycheck</code></strong></td><td>证明一对密钥能用、而且是一对</td><td>依赖一把钥匙<strong>之前</strong></td></tr>
+<tr><td><strong><code>promote</code></strong></td><td>从 staging 造一份 stable 清单</td><td>晋升，见 §9</td></tr>
+</tbody></table>
+</div>
+<h3 id="51-keycheck-的那句理由"><a class="header" href="#51-keycheck-的那句理由">5.1 <code>keycheck</code> 的那句理由</a></h3>
+<p><code>main.rs:180-184</code>：</p>
+<blockquote>
+<p>Worth doing <strong>before</strong> relying on a key. <strong>A key that turns out to be unusable — bad passphrase,
+mismatched pair, truncated file — is discovered either now, or at the moment you need to sign a
+fix for a fleet of robots.</strong></p>
+</blockquote>
+<p><strong>&quot;一把结果不能用的钥匙 —— 密码错了、两半对不上、文件被截断 ——
+要么现在发现，要么在你需要为一整队机器人签一个修复的时候发现。&quot;</strong></p>
+<p>而它做的是<strong>真的签一次再验一次</strong>（<code>main.rs:622-635</code>）：</p>
+<blockquote>
+<p>Does a <strong>real sign-and-verify round trip</strong> rather than inspecting the files: <strong>a key that parses
+is not necessarily a key that works, and a <code>.pub</code> sitting next to a <code>.key</code> is not necessarily
+<em>its</em> <code>.pub</code>.</strong></p>
+</blockquote>
+<p><strong>&quot;一把能解析的钥匙不一定是一把能用的钥匙，而一个放在 <code>.key</code> 旁边的 <code>.pub</code> 不一定是<em>它</em>的 <code>.pub</code>。&quot;</strong></p>
+<h3 id="52-package-的那条版本检查"><a class="header" href="#52-package-的那条版本检查">5.2 <code>package</code> 的那条版本检查</a></h3>
+<p><code>main.rs:288-313</code> —— <strong>它拦的是&quot;打了 tag 但忘了改 <code>Cargo.toml</code>&quot;</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Catch the classic mistake: tagging a release without bumping Cargo.toml, so the
+// robot reports a version that doesn't match what it's running.
+<span class="boring">}</span></code></pre></pre>
+<p>而那个 <code>is_prerelease_of_it</code> 的例外有一段很好的论证（<code>main.rs:294-301</code>）：</p>
+<blockquote>
+<p>A dev build is the crate version plus a prerelease tag — <code>0.2.0-dev.17.abc1234</code> against a crate
+at <code>0.2.0</code> — so its release triple must match while its prerelease component is free.
+<strong>Accepted without <code>--allow-version-drift</code> because every branch build would otherwise need the
+escape hatch, and a flag documented as &quot;only for testing the tool itself&quot; would become part of
+the normal path, where it would stop catching the mistake it exists for.</strong></p>
+</blockquote>
+<p><strong>&quot;一个被文档写成'只用于测试工具本身'的开关，会变成正常路径的一部分，
+而在那里它就不再能抓住它存在的理由了。&quot;</strong></p>
+<hr />
+<h2 id="6-package一次发布是怎么被打包出来的"><a class="header" href="#6-package一次发布是怎么被打包出来的">6. <code>package</code>：一次发布是怎么被打包出来的</a></h2>
+<p><code>main.rs:287-466</code>。<strong>八步</strong>，而每一步都有它的理由。</p>
+<h3 id="61-那八步"><a class="header" href="#61-那八步">6.1 那八步</a></h3>
+<pre><code>   ① 版本对得上吗            ← 拦住&quot;打 tag 没改 Cargo.toml&quot;
+   ② bin/ 里的可执行文件      ← 0o755，机器人直接从发布目录里跑它们
+   ③ --include 的额外文件     ← hooks/ 和 scripts/ 是 0o755，其它 0o644
+   ④ **总是**生成 hooks/preinstall  ← 从模板，见下
+   ⑤ version.toml            ← 让机器人在没网没清单时也知道自己在跑什么
+   ⑥ 关掉 zstd 的帧
+   ⑦ sha256 + 清单
+   ⑧ **第二份**清单（旁载用）
+</code></pre>
+<h3 id="62--那份钩子不是---include"><a class="header" href="#62--那份钩子不是---include">6.2 ⭐ 那份钩子<strong>不是</strong> <code>--include</code></a></h3>
+<p><code>main.rs:365-368</code>：</p>
+<blockquote>
+<p>The preinstall hook, <strong>always</strong>, generated from its template.</p>
+<p><strong>Not an <code>--include</code> the release workflow has to remember</strong>: the board prerequisites it asserts
+<strong>are a property of every release</strong>, and <strong>a check that ships only when someone adds a flag is a
+check that will one day be missing from the release that needed it.</strong></p>
+</blockquote>
+<p><strong>&quot;一个只有某个人加了开关才会随发布走的东西，就是某一天会从最需要它的那个发布里缺失的东西。&quot;</strong></p>
+<p>⚠️ <strong>而且如果 <code>--include</code> 里已经有它，<code>package</code> 会直接报错</strong>（<code>main.rs:369-374</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if args.includes.iter().any(|i| i.ends_with(&quot;=hooks/preinstall&quot;)) {
+    return Err(&quot;hooks/preinstall is generated; remove the --include for it&quot;.into());
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>把&quot;你不该做这件事&quot;写成了构建错误，而不是注释。</strong></p>
+<h3 id="63-那个模板是怎么被渲染的"><a class="header" href="#63-那个模板是怎么被渲染的">6.3 那个模板是怎么被渲染的</a></h3>
+<p><code>hooks/preinstall.in</code> 是一个<strong>模板</strong>，里面有 <code>@ONNX_FLOOR@</code> 和 <code>@ONNX_TARGET@</code> 两个占位符。
+<code>render_preinstall_hook</code>（<code>main.rs:786-798</code>）从 <code>Cargo.toml</code> 的
+<code>[workspace.metadata.onnxruntime]</code> 读出来替换，然后：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if rendered.contains(&quot;@ONNX_&quot;) {
+    return Err(&quot;preinstall template still has unsubstituted @ONNX_...@ placeholders&quot;.into());
+}
+<span class="boring">}</span></code></pre></pre>
+<p>而它的理由（<code>main.rs:783-785</code>）：</p>
+<blockquote>
+<p><strong>Generated rather than committed so the hook cannot disagree with the release it ships inside:
+both come from the same <code>Cargo.toml</code> in the same build.</strong></p>
+</blockquote>
+<p><strong>&quot;生成而不是提交，这样这个钩子不可能和它随行的那个发布不一致：两者来自同一次构建里的同一份 <code>Cargo.toml</code>。&quot;</strong></p>
+<p>⚠️ <strong>而那条检查有一个测试</strong>（<code>main.rs:2205-2206</code>）：</p>
+<blockquote>
+<p><strong>The shipped hook must be fully substituted.</strong> A placeholder reaching a board would be
+<strong>compared against a version number and silently fail every board the same way.</strong></p>
+</blockquote>
+<p><strong>&quot;一个到达板子的占位符会被拿去和一个版本号比较，并且在每一块板子上以同样的方式静默失败。&quot;</strong></p>
+<h3 id="64--zstd-等级一个解释得很清楚的默认值"><a class="header" href="#64--zstd-等级一个解释得很清楚的默认值">6.4 ⭐ zstd 等级：一个解释得很清楚的默认值</a></h3>
+<p><code>main.rs:322-327</code>：</p>
+<blockquote>
+<p>Level 19 by default: <strong>publishing is a one-off, download bandwidth is not.</strong></p>
+<p>But this is single-threaded, and the cost is set by what you feed it. <strong>A release packs stripped
+aarch64 binaries in ~15s; CI's smoke test packs unstripped debug ones and took ~400s at the same
+level</strong> — over half of that job, for an artifact it deletes. Hence <code>--zstd-level</code>, so the
+throwaway case can pay level 1.</p>
+</blockquote>
+<p><strong>&quot;发布是一次性的，下载带宽不是。&quot;</strong>
+而&quot;~15 秒 vs ~400 秒&quot;的差别<strong>不是压缩等级，是喂进去的东西</strong>（strip 过的发布 vs 没 strip 的调试版）。</p>
+<h3 id="65--那个必须-drop-的-encoder"><a class="header" href="#65--那个必须-drop-的-encoder">6.5 ⚠️ 那个必须 <code>drop</code> 的 encoder</a></h3>
+<p><code>main.rs:395-398</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>builder.finish()?;
+// Dropping the builder finishes the zstd frame; without this the archive is
+// truncated and only fails when someone tries to read it.
+drop(builder);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;不写这一行，归档就是被截断的 —— 而它只在有人试图读它的时候才失败。&quot;</strong></p>
+<p>（这个坑在 <code>updater</code> 那边也出现过一次：<code>updater/src/verify.rs:490-494</code> 的测试里同样要显式 <code>drop</code>。）</p>
+<h3 id="66-为什么要两份清单"><a class="header" href="#66-为什么要两份清单">6.6 为什么要<strong>两份</strong>清单</a></h3>
+<p><code>main.rs:428-437</code>：</p>
+<blockquote>
+<p>A second manifest whose <code>url</code> is a bare filename, which is what <code>LocalDir</code> expects. <strong>Emitted here
+so both variants are signed in the same pass:</strong></p>
+<ul>
+<li><strong>CI verifies the release through the robot's own code path without needing the signing key a
+second time</strong> (fewer places the key is handled is worth more than one fewer file);</li>
+<li><strong>a developer can drop artifact + this manifest into a directory and sideload it.</strong></li>
+</ul>
+</blockquote>
+<p><strong>&quot;少一个处理密钥的地方，比少一个文件更值钱。&quot;</strong></p>
+<hr />
+<h2 id="7--那七组哨兵"><a class="header" href="#7--那七组哨兵">7. ⭐ 那七组哨兵</a></h2>
+<p><strong>这是这个 crate 最值得读的部分。</strong> <code>main.rs:849-2315</code>，39 个测试，
+按它们盯的东西分成七组 —— 而 §7.7 是<strong>另一层</strong>（<code>tests/</code> 里那 26 个，真的观察而不是描述）。</p>
+<h3 id="71-覆盖性东西在产物里吗5-个"><a class="header" href="#71-覆盖性东西在产物里吗5-个">7.1 覆盖性：东西<strong>在</strong>产物里吗（5 个）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>盯什么</th><th>它防的那次事故</th></tr></thead><tbody>
+<tr><td><code>every_unit_install_sh_expects_is_packaged</code>（<code>:888</code>）</td><td><code>install.sh</code> 装的每个 unit</td><td><strong>见 §11.1</strong></td></tr>
+<tr><td><code>every_script_the_hooks_run_is_packaged</code>（<code>:935</code>）</td><td>钩子 <code>script=scripts/…</code> 引用的每个脚本</td><td>钩子跳过一个没打包的脚本，然后 <code>mediad</code> 因为缺插件起不来</td></tr>
+<tr><td><code>every_sysusers_file_in_the_repo_is_packaged</code>（<code>:1915</code>）</td><td><code>*/systemd/sysusers.d/*.conf</code>（<strong>从仓库里发现</strong>）</td><td><em>&quot;a unit naming a <code>User=</code> that does not exist does not start, and the error reads as a broken daemon rather than as a missing account&quot;</em></td></tr>
+<tr><td><code>every_hook_in_the_repo_is_packaged</code>（<code>:1961</code>）</td><td><code>hooks/</code> 下除 <code>.in</code> 外的每个文件</td><td>没有 <code>hooks/postinstall</code> 的发布，<strong>悄悄回到&quot;每块板子都要手动一步&quot;</strong></td></tr>
+<tr><td><code>every_binary_a_packaged_unit_execs_is_staged</code>（<code>:1999</code>）</td><td>每个 unit 的 <code>ExecStart=</code> 指的那个二进制</td><td>⭐ 见下</td></tr>
+</tbody></table>
+</div>
+<h4 id="-那第五个和它记着的事故"><a class="header" href="#-那第五个和它记着的事故">⭐ 那第五个，和它记着的事故</a></h4>
+<p><code>main.rs:1987-1997</code>：</p>
+<blockquote>
+<p>Every binary a packaged unit tries to exec must be staged into the artifact.</p>
+<p><strong>The sibling of the test above, and the case it missed.</strong> The units were packaged and <strong>the
+binaries were not</strong>, so <code>btd.service</code> failed with <strong><code>203/EXEC</code></strong> — systemd could not execute
+<code>/opt/robot/daemon/current/bin/btd</code> <strong>because the release did not contain it.</strong> <strong>That reads on
+the board as a broken daemon rather than as an incomplete artifact</strong>, and <strong>it cost a second
+install cycle to find.</strong></p>
+<p><strong>Derived from the units rather than from a list kept by hand</strong>: each unit names its binary in
+<code>ExecStart</code>, so <strong>adding a service and forgetting to stage it fails here. A hand-kept list would
+have exactly the drift this exists to catch.</strong></p>
+</blockquote>
+<p><strong>&quot;一份手工维护的列表，会正好带上这个测试存在的意义就是要抓住的那种漂移。&quot;</strong></p>
+<p><strong>注意这五个测试的共同结构</strong>：
+<strong>它们不读一份清单，它们从别的地方<em>推导</em>出应该是什么</strong> ——
+从 <code>install.sh</code> 的调用、从钩子的 <code>script=</code> 行、从仓库的目录结构、从 unit 的 <code>ExecStart=</code>。</p>
+<p><strong>这是这一整组的设计原则</strong>：一份手工维护的&quot;应该打包什么&quot;的列表，
+<strong>会带上它要防的那种漂移</strong>。</p>
+<h3 id="72--91-那条规则的执行者1-个两张表"><a class="header" href="#72--91-那条规则的执行者1-个两张表">7.2 ⭐ §9.1 那条规则的<strong>执行者</strong>（1 个，两张表）</a></h3>
+<p>§9.1 的规则是：<strong>&quot;<code>install.sh</code> 对一块板子做的任何事，钩子也要做&quot;</strong>
+（见 <a href="hooks-primer.html"><code>hooks-primer.md</code></a> 和 <a href="scripts-primer.html"><code>scripts-primer.md</code></a>）。</p>
+<p><strong>而它一直是靠人记着的 —— 直到这个测试。</strong></p>
+<p><code>main.rs:1013-1031</code>，<code>every_install_sh_step_reaches_an_updated_board</code> 的文档：</p>
+<blockquote>
+<p>This is the direction <code>docs/design/updater-design.md</code> §9.1 is about, <strong>and the one nothing
+watched.</strong> <code>every_script_the_hooks_run_is_packaged</code> above checks that a script a hook <em>already
+names</em> ships; <strong>it cannot notice a step no hook names at all.</strong></p>
+<p><strong>That is the mistake, four times</strong>: units left where systemd never looks, a GStreamer stack only
+provisioning installed, a <code>setup-npu.sh</code> packaged beside its model and never called, and a
+<code>/etc/profile.d</code> snippet that sat in <code>install.sh</code> alone <strong>while every board in the fleet updated
+past it.</strong> <strong>The fourth went unnoticed for a month because it is cosmetic</strong> — the robot works, the
+prompt is just wrong — <strong>which is the argument for a test rather than for a rule people are
+supposed to remember.</strong></p>
+</blockquote>
+<p><strong>&quot;第四个月才被发现，因为它是外观问题 —— 机器人能用，只是提示符不对 ——
+而这正是'要一个测试'而不是'要一条人们应该记住的规则'的理由。&quot;</strong></p>
+<h4 id="它是怎么做的两张必须写明理由的表"><a class="header" href="#它是怎么做的两张必须写明理由的表">它是怎么做的：两张<strong>必须写明理由</strong>的表</a></h4>
+<pre><code>   install.sh 里每一个 install_* 调用
+        │
+        ├──► 在 ALSO_ON_UPDATE 里？    → 好，钩子也做（1 条）
+        ├──► 在 FIRST_INSTALL_ONLY 里？ → 好，但**你得写下为什么**
+        └──► 都不在？                   → ❌ 测试失败
+</code></pre>
+<p><code>FIRST_INSTALL_ONLY</code>（<code>main.rs:995-1011</code>）的三条，每条都是一个<strong>理由</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>步骤</th><th>为什么只有全新安装需要</th></tr></thead><tbody>
+<tr><td><code>install_config</code></td><td><em>&quot;<code>/etc/robot/*.toml</code> belongs to the board：<code>install.sh</code> will not overwrite an existing <code>updater.toml</code>, and an update must not either&quot;</em></td></tr>
+<tr><td><code>install_dev_key</code></td><td><em>&quot;a trust anchor is the operator's decision. <strong>A release that installed trusted keys would be granting itself trust</strong>&quot;</em></td></tr>
+<tr><td><code>install_token_dropin</code></td><td><em>&quot;the fetch credential is supplied by whoever runs the install and is <strong>never in an artifact</strong>&quot;</em></td></tr>
+</tbody></table>
+</div>
+<p><strong>&quot;一个给自己安装信任锚的发布，就是在给自己授权。&quot;</strong></p>
+<h4 id="-而它诚实地说了自己不是证明"><a class="header" href="#-而它诚实地说了自己不是证明">⭐ 而它诚实地说了自己不是证明</a></h4>
+<p><code>main.rs:1028-1031</code>：</p>
+<blockquote>
+<p><strong>This is a forcing function, not a proof.</strong> An author <strong>can</strong> satisfy it by adding a name to
+<code>FIRST_INSTALL_ONLY</code> — <strong>but they have to write down why an already-provisioned board does not
+need the thing they just added, and every one of the four would have failed at that sentence.</strong></p>
+</blockquote>
+<p><strong>&quot;这是一个强制函数，不是一个证明。&quot;</strong>
+<strong>&quot;作者可以把名字加进 <code>FIRST_INSTALL_ONLY</code> —— 但他必须写下'一块已经装好的板子为什么不需要他刚加的这个东西'，而那四次里有哪一次能写出这句话？&quot;</strong></p>
+<p><strong>这是这个仓库里关于&quot;测试能做什么、不能做什么&quot;最诚实的一段。</strong></p>
+<h3 id="73-版本钉cargotoml-是唯一真相5-个"><a class="header" href="#73-版本钉cargotoml-是唯一真相5-个">7.3 版本钉：<code>Cargo.toml</code> 是唯一真相（5 个）</a></h3>
+<p><strong>同一个陷阱，出现了五次</strong>：</p>
+<pre><code>   Cargo.toml 里有一个版本号
+        │
+        └──► 某个脚本里有一个**字面量**，因为那个脚本是 `curl` 单独抓下来的，
+              **读不到 Cargo.toml**
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>钉的是什么</th></tr></thead><tbody>
+<tr><td><code>setup_board_pins_the_same_onnx_target</code>（<code>:2075</code>）</td><td>ONNX Runtime 的 target</td></tr>
+<tr><td><code>setup_npu_pins_the_same_runtime</code>（<code>:2164</code>）</td><td>NPU runtime</td></tr>
+<tr><td><code>setup_gstreamer_pins_the_same_plugin_version</code>（<code>:2185</code>）</td><td>GStreamer 插件版本</td></tr>
+<tr><td><code>seed_policies_pins_the_same_policy_set</code>（<code>:1193</code>）</td><td>策略集的 repo + 版本</td></tr>
+<tr><td><code>seed_detector_pins_the_same_detector</code>（<code>:1216</code>）</td><td>检测器的 repo + 版本</td></tr>
+</tbody></table>
+</div>
+<p>而每一次都记着<strong>漂移的代价</strong>。最具体的是 ONNX 那个（<code>main.rs:2070-2073</code>）：</p>
+<blockquote>
+<p><code>scripts/setup-board.sh</code> is fetched standalone with <code>curl</code>, so <strong>it cannot read Cargo.toml and
+has to carry a literal version.</strong> This is what stops that literal drifting from the value the
+preinstall hook is generated with — <strong>the exact failure that left 1.20.1 on a board against an
+<code>ort</code> that requires 1.23 and panics below it.</strong></p>
+</blockquote>
+<p><strong>&quot;正是那个把 1.20.1 留在一块板子上、去面对一个要求 1.23、低于它就 panic 的 <code>ort</code> 的失败。&quot;</strong></p>
+<p><strong>注意这五条为什么不能靠&quot;抽出一份共享的配置&quot;解决</strong>：
+那些脚本<strong>是独立下载的</strong>，它们运行的时候根本不在仓库里。
+<strong>所以唯一的办法就是把两份东西绑在一个测试里。</strong></p>
+<h3 id="74-东西跟着它的脚本走2-个"><a class="header" href="#74-东西跟着它的脚本走2-个">7.4 「东西跟着它的脚本走」（2 个）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>什么必须跟着</th></tr></thead><tbody>
+<tr><td><code>the_rkaiq_shim_travels_with_its_script</code>（<code>:2100</code>）</td><td><code>scripts/rkaiq-modinfo-shim.c</code></td></tr>
+<tr><td><code>the_npu_overlay_travels_with_its_script</code>（<code>:2133</code>）</td><td><code>deploy/overlays/rk3568-npu-enable.dts</code></td></tr>
+</tbody></table>
+</div>
+<p>而它们<strong>为什么不被 §7.1 那个脚本测试覆盖</strong>（<code>main.rs:2093-2098</code>）：</p>
+<blockquote>
+<p><strong>Not covered by <code>every_script_the_hooks_run_is_packaged</code></strong>, which watches <code>script=scripts/…</code>
+assignments in the hooks: <strong>the shim is not a script anything runs, it is a source file the script
+compiles.</strong> Packaged without it, <strong>the engine is installed and then segfaults on this kernel</strong> —
+which <strong>looks like a broken camera rather than a missing file.</strong></p>
+</blockquote>
+<p><strong>&quot;它不是一个被运行的脚本，它是一个被脚本编译的源文件。&quot;</strong>
+而失败的样子是 <em><strong>&quot;看起来像摄像头坏了，而不是一个文件没打包&quot;</strong></em>。</p>
+<p>NPU 那个的版本（<code>main.rs:2129-2131</code>）：</p>
+<blockquote>
+<p>Packaged without it, the hook installs the runtime, cannot find the <code>.dts</code>, and <strong>leaves the NPU
+node disabled</strong> — so the detector runs on the CPU for ever and <strong>the log line saying why is one
+warning in an update that succeeded.</strong></p>
+</blockquote>
+<h3 id="75-播种器那些交班规则15-个"><a class="header" href="#75-播种器那些交班规则15-个">7.5 播种器：那些&quot;交班&quot;规则（~15 个）</a></h3>
+<p>这一组是<strong>最多</strong>的，全部在跑真的 <code>scripts/seed-policies.sh</code> / <code>seed-detector.sh</code>，
+把 Hub 换成一个临时目录（<code>seed()</code> 在 <code>main.rs:1151</code>）。</p>
+<p>核心是几条<strong>交班规则</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>规则</th></tr></thead><tbody>
+<tr><td><code>policies_this_script_did_not_install_are_left_alone</code>（<code>:1765</code>）</td><td>⭐ <strong>不是这个脚本装的集合，永远不碰</strong></td></tr>
+<tr><td><code>a_set_past_the_pin_is_left_alone</code>（<code>:1639</code>）</td><td>pin 是<strong>下限</strong>不是上限</td></tr>
+<tr><td><code>a_set_below_the_pin_is_moved_up_to_it</code>（<code>:1662</code>）</td><td>但低于下限要被抬上来</td></tr>
+<tr><td><code>an_unreachable_hub_installs_nothing_and_does_not_fail</code>（<code>:1751</code>）</td><td>网络不通<strong>不能让更新失败</strong></td></tr>
+<tr><td><code>a_partial_download_does_not_replace_a_working_set</code>（<code>:1787</code>）</td><td>半个下载不替换一个能用的集</td></tr>
+<tr><td><code>a_manifest_file_name_that_climbs_out_is_ignored</code>（<code>:1531</code>）</td><td><code>../../</code> 不下载</td></tr>
+</tbody></table>
+</div>
+<h4 id="-那个过去是陷阱的规则"><a class="header" href="#-那个过去是陷阱的规则">⭐ 那个&quot;过去是陷阱&quot;的规则</a></h4>
+<p><code>main.rs:1629-1637</code>，<code>a_set_past_the_pin_is_left_alone</code>：</p>
+<blockquote>
+<p><strong>A set past the pin is never moved back to it.</strong></p>
+<p>The pin is <strong>a minimum</strong> — what a board with nothing gets, and the oldest set the daemon runs
+with — <strong>and not a ceiling.</strong> This <strong>used to</strong> replace any older set on the reasoning that a
+daemon update was still how a retrained gait reached a board; <code>robotctl policy update</code> is now how,
+and <strong>that rule was a trap.</strong> A board moved forward to v2 by hand had <code>current -&gt; releases/seed-v2</code>,
+which <strong>matches the <code>seed-*</code> the seeder called its own</strong>, so <strong>the next unrelated daemon update
+would have put v1 back — silently reverting somebody's gait as a side effect of a binary update.</strong></p>
+</blockquote>
+<p><strong>&quot;下一次无关的守护进程更新会把 v1 放回去 —— 作为一次二进制更新的副作用，静默地回退掉某个人的步态。&quot;</strong></p>
+<h4 id="那个-sed-解析器的测试"><a class="header" href="#那个-sed-解析器的测试">那个 <code>sed</code> 解析器的测试</a></h4>
+<p><code>main.rs:1432-1437</code>：</p>
+<blockquote>
+<p><strong>The seeder's <code>sed</code> must match what the manifest actually says.</strong></p>
+<p><strong>There is no JSON parser where that script runs</strong> — a release on a board with <code>curl</code> and a POSIX
+shell — so the file list is extracted with <strong>one pattern</strong> over a file whose shape is ours.
+<strong>That is fine exactly as long as the two agree, and silently downloads nothing the moment they
+do not.</strong></p>
+</blockquote>
+<p><strong>&quot;它在两者一致的时候完全没问题，而在它们不一致的那一刻静默地什么都不下载。&quot;</strong></p>
+<p>而那个测试的做法很漂亮：<strong>它把 <code>sed</code> 表达式从脚本里<em>抠出来</em>，拿它当子进程跑</strong>，
+喂一个手工写的 <code>manifest.json</code>，断言四个文件名按顺序回来。</p>
+<h3 id="76-那些仓库全局的检查4-个"><a class="header" href="#76-那些仓库全局的检查4-个">7.6 那些&quot;仓库全局&quot;的检查（4 个）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>盯什么</th></tr></thead><tbody>
+<tr><td><code>the_preinstall_template_renders_completely</code>（<code>:2208</code>）</td><td>没有 <code>@ONNX_</code> 漏网</td></tr>
+<tr><td><strong><code>the_board_test_container_script_contains_no_single_quotes</code></strong>（<code>:2240</code>）</td><td>⭐ 见下</td></tr>
+<tr><td><code>printed_commands_name_absolute_paths</code>（<code>:2282</code>）</td><td>打印给操作员的命令必须是绝对路径</td></tr>
+<tr><td><code>the_detector_file_list_is_the_same_everywhere</code>（<code>:1241</code>）</td><td>一份文件列表在<strong>三个</strong>地方必须一致</td></tr>
+</tbody></table>
+</div>
+<h4 id="-那个单引号的测试和它记的那次事故"><a class="header" href="#-那个单引号的测试和它记的那次事故">⭐ 那个单引号的测试，和它记的那次事故</a></h4>
+<p><code>main.rs:2227-2238</code>：</p>
+<blockquote>
+<p><code>board-test.sh</code> hands its whole container script to <code>sh -c</code> inside <strong>one single-quoted string</strong>,
+so <strong>a single quote anywhere in it ends that string early.</strong></p>
+<p><strong>Both ways this fails are quiet.</strong> An apostrophe in a comment — <em>&quot;the oneshot's job&quot;</em> — leaves
+the file syntactically broken, <strong>which at least fails loudly.</strong> <strong>Worse is a quoted argument:</strong>
+<code>grep -q '^\[Install\]'</code> arrives at the container as <code>grep -q ^\[Install\]</code>, and the shell there
+strips the backslashes, so grep is handed <code>^[Install]</code> — <strong>a bracket expression matching one
+character from <code>I n s t a l</code>.</strong> It runs, <strong>it exits 0 or 1 for the wrong reason</strong>, and <strong>the
+assertion built on it reports something that was never checked.</strong> That is how this test came to
+exist, and <strong>finding it took a CI round trip and a while.</strong></p>
+</blockquote>
+<p><strong>&quot;它跑了，它因为错误的原因退出 0 或 1，而建立在它之上的那个断言报告了一件从来没有被检查过的事情。&quot;</strong></p>
+<p>（这也是我在 <a href="scripts-primer.html"><code>scripts-primer.md</code></a> 里记过的那条 CI 注释的另一端 ——
+那边是&quot;两个撇号是配平的，所以语法合法，而内容被静默地搞坏了&quot;。）</p>
+<h4 id="那个绝对路径的测试和它承认的局限"><a class="header" href="#那个绝对路径的测试和它承认的局限">那个绝对路径的测试，和它<strong>承认</strong>的局限</a></h4>
+<p><code>main.rs:2270-2280</code>：</p>
+<blockquote>
+<p>Advice the provisioning scripts print must be <strong>runnable from where the operator is standing</strong>,
+which is their home directory and not wherever the file was downloaded to.</p>
+<p><code>setup-board.sh</code> told people to run <code>sudo sh migrate-network.sh</code> — <strong>a bare relative name for a
+sibling script that a fresh board has not fetched at all.</strong> Both halves of that were wrong, and
+<strong>neither is the kind of thing anyone re-reads once their own board works.</strong> Comment lines are
+exempt: <strong>explaining the trap requires quoting it.</strong></p>
+<p><strong>It catches literals only.</strong> A <code>sh $VAR</code> holding a relative path passes, because the value is not
+knowable here — so <strong>this narrows the failure rather than closing it.</strong></p>
+</blockquote>
+<p><strong>&quot;它只抓字面量……所以这缩小了失败，而不是关掉了它。&quot;</strong></p>
+<p><strong>这种&quot;说清楚我的测试抓不到什么&quot;的写法，和 §7.2 的&quot;这是一个强制函数，不是一个证明&quot;是同一种诚实。</strong></p>
+<h3 id="77--第二层xtasktests-那-26-个真的观察"><a class="header" href="#77--第二层xtasktests-那-26-个真的观察">7.7 ⭐ 第二层：<code>xtask/tests/</code> 那 26 个（真的<strong>观察</strong>）</a></h3>
+<p><strong>这一组和上面六组有本质区别：它们跑真的东西。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>测试</th><th>它跑什么</th></tr></thead><tbody>
+<tr><td><strong><code>artifact.rs</code></strong></td><td><strong>5</strong></td><td><strong>真的 <code>cargo xtask package</code></strong>，然后把产出的 <code>.tar.zst</code> <strong>拆开</strong></td></tr>
+<tr><td><strong><code>rescue.rs</code></strong></td><td><strong>18</strong></td><td><strong>真的 <code>sh scripts/robot-rescue</code></strong> 和 <code>robot-boot-check</code>，配一个<strong>假的 <code>systemctl</code></strong></td></tr>
+<tr><td><strong><code>sideload.rs</code></strong></td><td><strong>3</strong></td><td>纯文本分析，但它检查的是<strong>两个文件之间</strong>的约定</td></tr>
+</tbody></table>
+</div>
+<h4 id="artifactrs那五条"><a class="header" href="#artifactrs那五条"><code>artifact.rs</code>：那五条</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>断言</th></tr></thead><tbody>
+<tr><td><code>the_artifact_carries_what_install_sh_reads</code>（<code>:208</code>）</td><td><code>systemd/updaterd.service</code>、<code>systemd/robotd.service</code>、<code>bin/robotctl</code>、<code>scripts/robot-rescue</code><strong>且可执行</strong>、≥4 个 <code>.service</code></td></tr>
+<tr><td><code>every_unit_in_the_artifact_can_exec_what_it_names</code>（<code>:272</code>）</td><td>⭐ 产物里每个 unit 的 <code>ExecStart=</code> 指的东西<strong>真的在里面</strong></td></tr>
+<tr><td><code>the_boot_recovery_net_is_packaged_whole</code>（<code>:320</code>）</td><td>恢复网的四件套齐全；<strong><code>robot-boot-check.service</code> 里没有 <code>[Install]</code> 段</strong></td></tr>
+<tr><td><code>hooks_are_packaged_executable</code>（<code>:356</code>）</td><td>两个钩子都在，<strong>且都有可执行位</strong></td></tr>
+<tr><td><code>every_include_lands_where_the_workflow_says</code>（<code>:391</code>）</td><td>每条 <code>--include</code> 的 <code>dest</code> 真的落到了那个位置</td></tr>
+</tbody></table>
+</div>
+<p><strong>每一个断言都点名 <code>install.sh</code> 里的某一行</strong>，理由（<code>artifact.rs:203-205</code>）：</p>
+<blockquote>
+<p>Each assertion names a line of that script rather than a general principle, <strong>because the script is
+the consumer and its failure modes are what this is defending.</strong></p>
+</blockquote>
+<h5 id="那个没有-install-段的检查"><a class="header" href="#那个没有-install-段的检查">那个&quot;没有 <code>[Install]</code> 段&quot;的检查</a></h5>
+<p><code>artifact.rs:337-339</code>：</p>
+<blockquote>
+<p>Both installers <code>enable --now</code> every unit that has one, and <strong>doing that here runs a rollback check
+in the middle of the update that installed it — with daemons legitimately mid-restart, which is
+what it reads as a broken release.</strong></p>
+</blockquote>
+<p><strong>&quot;两个安装程序都会 <code>enable --now</code> 每一个带 <code>[Install]</code> 的 unit ——
+而在这里做那件事，会在'刚把它装上的那次更新'中途跑一次回滚检查，
+那时守护进程正在合法地重启 —— 而那读起来就是一次坏掉的发布。&quot;</strong></p>
+<p>而那个解析规则也是承重的（<code>:342-344</code>）：</p>
+<blockquote>
+<p>A section header at the <strong>start of a line</strong>, which is what systemd parses and what
+<code>hooks/postinstall</code> greps for. <strong>Matching the word anywhere would fire on the comment in the unit
+that explains why the section is absent.</strong></p>
+</blockquote>
+<p><strong>&quot;匹配这个词出现在任何地方，都会在'解释这一节为什么不存在'的那句注释上误报。&quot;</strong></p>
+<h4 id="-rescuers给一段只在别的东西坏掉时才跑的代码写测试"><a class="header" href="#-rescuers给一段只在别的东西坏掉时才跑的代码写测试">⭐ <code>rescue.rs</code>：给一段&quot;只在别的东西坏掉时才跑&quot;的代码写测试</a></h4>
+<p><code>rescue.rs:1-9</code>：</p>
+<blockquote>
+<p>This is <strong>the code that has to work when everything else does not</strong>, and <strong>the code least amenable
+to a test</strong>: on a real board it runs <strong>only when a release cannot start.</strong> So both halves are
+written to be askable without a board — <strong>the rescue's decision is a pure function of two symlinks
+and a breadcrumb, and the check's is a pure function of what <code>systemctl show</code> answers.</strong></p>
+</blockquote>
+<p><strong>&quot;这段代码必须在别的一切都不工作的时候工作，而它也是最难测的代码：
+在真板子上它只在一个发布起不来的时候才跑。&quot;</strong></p>
+<p>它的做法：四个环境变量把树、状态目录、脚本路径、uptime 来源挪到临时目录
+（<code>ROBOT_INSTALL_DIR</code> / <code>ROBOT_STATE_DIR</code> / <code>ROBOT_RESCUE</code> / <code>ROBOT_UPTIME_FILE</code>），
+再加一个<strong>放在 <code>PATH</code> 上的假 <code>systemctl</code></strong>。</p>
+<p>那个假 <code>systemctl</code> 有一个很妙的设计（<code>rescue.rs:106-108</code>）：</p>
+<blockquote>
+<p><code>systemctl show -p &lt;Property&gt; --value &lt;unit&gt;</code>, so the property is <code>$3</code> and the unit is <code>$5</code>.
+<strong>Anything that is not a <code>show</code> is recorded instead</strong>, which is how a test asserts on <code>reboot</code> —
+and, <strong>more often, on the absence of one.</strong></p>
+</blockquote>
+<p><strong>&quot;任何不是 <code>show</code> 的调用会被记录下来 —— 测试用它断言发生过一次 <code>reboot</code>，
+而更常见的是断言<em>没有</em>发生。&quot;</strong></p>
+<h5 id="-那-11-条决策里最值得读的三条"><a class="header" href="#-那-11-条决策里最值得读的三条">⭐ 那 11 条决策里最值得读的三条</a></h5>
+<p><strong>① 已经指着 golden 就什么都不做</strong>（<code>rescue.rs:226-228</code>）：</p>
+<blockquote>
+<p><strong>The check that keeps a hardware fault from becoming a reboot loop</strong>: if the daemons are down
+<strong>on the release carrying the standing guarantee</strong>, this is not a release fault and a swap changes
+nothing except adding a reboot.</p>
+</blockquote>
+<p><strong>&quot;如果守护进程在'那个承载着长期保证的发布'上倒下了，这就不是发布的问题。&quot;</strong></p>
+<p><strong>② 面包屑：一次只能有一次尝试</strong>（<code>rescue.rs:395-397</code>）：</p>
+<blockquote>
+<p>The breadcrumb is read by <code>updaterd</code> (<code>journal::Breadcrumb</code>) <strong>as well as by a person, so its shape
+is a contract.</strong> <strong>Overwritten rather than appended</strong>: one attempt at a time, with the history that
+must survive going into the update log instead.</p>
+</blockquote>
+<p><strong>③ 那个&quot;远在开机之后&quot;的检查</strong>（<code>rescue.rs:562-564</code>）：</p>
+<blockquote>
+<p>Invoked long after boot, <strong>something other than the timer started it</strong> — most likely an installer
+running <code>enable --now</code> over the units it just wrote, <strong>mid-update, with daemons legitimately
+restarting.</strong> <strong>Rolling back there would be the worst thing this could do.</strong></p>
+</blockquote>
+<p><strong>⚠️ 而它自己说清楚了没覆盖什么</strong>（<code>rescue.rs:11-16</code>）：</p>
+<blockquote>
+<p>What that leaves uncovered is <strong>real and worth naming: systemd itself.</strong> Whether the timer fires at
+<code>OnBootSec=180</code>, whether the oneshot's <code>Conflicts=shutdown.target</code> keeps it off the way down, and
+whether <code>NRestarts</code> reads the way this assumes on a crash-looping unit — <strong>none of that is here.</strong>
+It needs real systemd — <code>systemd-nspawn</code>, or a privileged container with it as pid 1.</p>
+</blockquote>
+<p>（那一份在 <a href="scripts-primer.html"><code>scripts-primer.md</code></a> 里的 <code>systemd-test.sh</code>。）</p>
+<h4 id="-sideloadrs一个只有第三个文件能检查的约定"><a class="header" href="#-sideloadrs一个只有第三个文件能检查的约定">⭐ <code>sideload.rs</code>：一个<strong>只有第三个文件</strong>能检查的约定</a></h4>
+<p><strong>只有 116 行，三个测试，而它的结构很值得学。</strong></p>
+<p>它检查的是 <code>scripts/dev-push.sh</code> 和 <code>updaterd.service</code> 之间那个<strong>靠约定维持的路径</strong>。
+而那个约定坏掉的方式，<strong>从两边单独看都是看不见的</strong>（<code>sideload.rs:5-11</code>）：</p>
+<blockquote>
+<p><code>updaterd.service</code> sets <code>PrivateTmp=yes</code>, which gives the unit <strong>its own <code>/tmp</code> <em>and</em> its own
+<code>/var/tmp</code></strong>, so a directory under either <strong>is not the one the daemon reads.</strong> The push succeeds,
+<strong>every file is demonstrably in place</strong>, and the apply fails with <em>&quot;no manifest for version ... in
+<code>/var/tmp/duck-sideload</code>&quot;</em> — <strong>a sentence that cannot be reconciled with <code>ls</code>.</strong></p>
+<p><code>updater/src/preflight.rs</code> makes that failure say so <strong>when it happens</strong>. This file is the other
+half: <strong>the default path must not be one the unit hides in the first place.</strong> <strong>Neither file can
+check it</strong> — the script does not read the unit, the unit does not know the script — <strong>so it is
+checked here, where the whole repository is readable.</strong></p>
+</blockquote>
+<p><strong>&quot;这句话无法和 <code>ls</code> 的输出对上。&quot;</strong>
+<strong>&quot;两个文件都检查不了它 —— 脚本不读 unit，unit 不知道脚本 —— 所以它在这里被检查，在这里整个仓库都是可读的。&quot;</strong></p>
+<p>（这正是 <a href="updater-primer.html"><code>updater-primer.md</code></a> §5.2 那个 mount namespace 的坑的<strong>另一半</strong>：
+那边是&quot;发生的时候说清楚为什么&quot;，这边是&quot;默认路径就不该是那个会被藏起来的地方&quot;。）</p>
+<h5 id="-而它的第三个测试是给前两个测试写的测试"><a class="header" href="#-而它的第三个测试是给前两个测试写的测试">⭐ 而它的第三个测试，是给前两个测试写的测试</a></h5>
+<p>两个主测试都是<strong>条件性的</strong>（<code>sideload.rs:66</code>、<code>:84</code> 都在不适用时提前返回）。所以：</p>
+<p><code>sideload.rs:105-108</code>：</p>
+<blockquote>
+<p><strong>Named here rather than left implicit because both tests above are conditional, and a conditional
+test that stops applying is indistinguishable from one that passes.</strong></p>
+</blockquote>
+<p><strong>&quot;一个不再适用的条件测试，和一个通过的测试，是无法区分的。&quot;</strong></p>
+<p><strong>这一句话又回到了整个 crate 的论点</strong>（§3.2）：<strong>测试必须知道自己有没有在守空气。</strong></p>
+<p>而 <code>sideload.rs:34-40</code> 那个&quot;去掉注释&quot;的辅助函数也记着它自己的局限：</p>
+<blockquote>
+<p>Cuts at the first <code>#</code>, which is wrong for a <code>#</code> inside quotes. The only such line here is a <code>sed</code>
+expression with no path in it, and <strong>a mangled line can at worst hide a match, which the assertions
+below would report as a pass</strong> — so <strong>the failure mode is a weaker test, never a false alarm.</strong></p>
+</blockquote>
+<p><strong>&quot;失败模式是一个更弱的测试，永远不是一次误报。&quot;</strong></p>
+<hr />
+<h2 id="8-密钥的两条纪律"><a class="header" href="#8-密钥的两条纪律">8. 密钥的两条纪律</a></h2>
+<h3 id="81--那条现在就要做以后做不了的事"><a class="header" href="#81--那条现在就要做以后做不了的事">8.1 ⭐ 那条<strong>现在就要做，以后做不了</strong>的事</a></h3>
+<p><code>main.rs:469-481</code>，<code>keygen</code> 的文档：</p>
+<blockquote>
+<p><strong>Why the release <em>spare</em> must exist now.</strong> <strong>A robot verifies against the <em>set</em> of public keys
+baked into its image.</strong> If only one release key is baked in and it is later lost or compromised,
+<strong>there is no way to introduce a replacement over the air</strong> — the robot would have to be
+<strong>re-flashed by hand.</strong> Generating a second release key today and shipping both public keys from
+the first image means <strong>rotation is later just &quot;sign with the other key&quot;. Cheap now, impossible
+to retrofit.</strong></p>
+<p><strong>Refuses to write a secret key inside the repository. Committing a signing key is the one mistake
+here that cannot be undone by deleting the file.</strong></p>
+</blockquote>
+<p><strong>&quot;现在很便宜，以后无法补上。&quot;</strong>
+<strong>&quot;提交一把签名密钥，是这里唯一一个删掉文件也无法撤销的错误。&quot;</strong></p>
+<p>而它<strong>真的拒绝了</strong>（<code>main.rs:481-490</code>）：</p>
+<pre><code>refusing to write keys inside the repository (…).
+A committed signing key cannot be un-leaked by deleting it later.
+Pick a path outside the working tree, e.g. --out ~/robot-keys
+</code></pre>
+<p><strong>&quot;一把被提交过的签名密钥，无法靠以后删掉它来解除泄露。&quot;</strong></p>
+<h3 id="82-两种钥匙两种威胁模型"><a class="header" href="#82-两种钥匙两种威胁模型">8.2 两种钥匙，两种威胁模型</a></h3>
+<p><code>main.rs:44-52</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum KeyKind {
+    /// Long-lived, encrypted at rest, trusted by every robot including customers'.
+    Release,
+    /// For signing branch builds. Unencrypted so CI needs no passphrase, and present
+    /// only in the trusted set of *developer* boards.
+    Dev,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>而<strong>dev key 不加密是有理由的</strong>（<code>main.rs:526-528</code>）：</p>
+<blockquote>
+<p>Unencrypted on purpose: <strong>CI signs non-interactively, and the secret store is what protects it.
+An encrypted key plus its passphrase in the same secret store buys little.</strong></p>
+</blockquote>
+<p><strong>&quot;一把加密的钥匙，加上放在同一个 secret store 里的它的密码，买到的保障很有限。&quot;</strong></p>
+<p>而 <code>.dev.</code> 那个中缀是<strong>承重的</strong>（<code>main.rs:500-501</code>）：</p>
+<blockquote>
+<p>The <code>.dev.</code> infix is <strong>load-bearing, not decoration</strong>: <code>verify::KeyRing</code> treats a key whose
+filename ends in <code>.dev.pub</code> as usable <strong>only when <code>allow_dev_keys</code> is set.</strong></p>
+</blockquote>
+<p>⚠️ 所以 <strong><code>keygen</code> 自己决定文件名</strong> —— 这样那个门就自动生效了。
+而 <code>~/.keys/team.dev.pub</code> 和 <code>~/.keys/team.pub</code> 是<strong>两把不同的钥匙</strong>，名字就是策略。</p>
+<p>详见 <a href="updater-primer.html"><code>updater-primer.md</code></a> §7.2 和 <a href="project/ci-setup.html"><code>project/ci-setup.md</code></a>：
+<strong>分支用 <code>team.dev</code>，发布用 <code>release-1</code>，两把都在 CI 里，而客户机器人只信 <code>release-1</code>。</strong></p>
+<h3 id="83-一个很小的但值得学的细节"><a class="header" href="#83-一个很小的但值得学的细节">8.3 一个很小的、但值得学的细节</a></h3>
+<p><code>main.rs:571-580</code>，<code>write_private</code>：</p>
+<blockquote>
+<p>Write a secret key readable only by its owner.</p>
+<p><strong>Set before the bytes are written, not after: a key that is briefly world-readable on a shared
+machine has already leaked.</strong></p>
+</blockquote>
+<p><strong>&quot;在写入字节<em>之前</em>设置，而不是之后：一把在共享机器上短暂地全局可读的钥匙，已经泄露了。&quot;</strong></p>
+<p>实现上就是 <code>OpenOptions::new().mode(0o600).create_new(true)</code> ——
+<strong>权限是 <code>open(2)</code> 的一个参数，所以没有那个窗口。</strong>
+而 <code>create_new(true)</code> 还顺手保证了<strong>永不覆盖</strong>（<code>keygen</code> 在更上面也显式检查了一遍）。</p>
+<hr />
+<h2 id="9-promote晋升是重签不是重建"><a class="header" href="#9-promote晋升是重签不是重建">9. <code>promote</code>：晋升是<strong>重签</strong>，不是重建</a></h2>
+<h3 id="91-那句话"><a class="header" href="#91-那句话">9.1 那句话</a></h3>
+<p><code>main.rs:23-27</code>：</p>
+<blockquote>
+<p><code>promote</code> is what makes §16.3's <code>staging → stable</code> real: <strong>it emits a <em>stable</em> manifest carrying
+the <strong>same artifact bytes</strong> already validated in staging — same sha256 — rather than rebuilding.</strong>
+<strong>Promotion is therefore a re-signing, and what ships is provably what was tested.</strong></p>
+</blockquote>
+<p><strong>&quot;晋升因此是一次重签，而发出去的东西可证明就是被测试过的那个。&quot;</strong></p>
+<h3 id="92--而它记着一次真实的事故"><a class="header" href="#92--而它记着一次真实的事故">9.2 ⚠️ 而它记着一次真实的事故</a></h3>
+<p><code>main.rs:29-38</code>：</p>
+<blockquote>
+<p>The stable manifest points at the artifact on the <em>stable</em> release, which <code>promote.yml</code> uploads
+alongside it. <strong>It used to point back at the staging release instead, to avoid a second copy of
+the bytes.</strong> That made <strong>every stable release depend on a tag named as if it were disposable</strong> —
+and <strong>it was duly disposed of: deleting the <code>daemon-staging-v0.1.x</code> releases left three stable
+releases pointing at nothing.</strong></p>
+<p>The sha256 in the manifest is verified on the robot before install, so <strong>a copy that diverged
+could never install silently, which is what the single-copy rule was protecting against.</strong></p>
+</blockquote>
+<p><strong>&quot;那个被命名得像是用完就扔的 tag&quot;</strong> —— 而它确实被扔了。</p>
+<p><strong>注意这段论证的形状</strong>：它先说旧方案省了什么，再说那个&quot;省&quot;换来了什么，
+最后说<strong>当初担心的那个风险其实被另一层保护着</strong>（机器人会验 sha256）。
+<strong>一次&quot;我们想省一份拷贝，结果让三个发布指向了空气&quot;的复盘。</strong></p>
+<h3 id="93-那个不继承的字段"><a class="header" href="#93-那个不继承的字段">9.3 那个<strong>不继承</strong>的字段</a></h3>
+<p><code>main.rs:737-743</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match min_supported {
+    Some(floor) =&gt; manifest[&quot;min_supported&quot;] = serde_json::json!(floor),
+    // Not inherited: a floor set to remediate a bad staging build should not
+    // silently become a fleet-wide forced upgrade.
+    None =&gt; { manifest.as_object_mut().map(|m| m.remove(&quot;min_supported&quot;)); }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;为了补救一个坏的 staging 构建而设的下限，不应该悄悄变成一次全队强制升级。&quot;</strong></p>
+<p>⚠️ 注意它是 <strong><code>remove</code> 而不是&quot;不动&quot;</strong> ——
+因为 <code>manifest</code> 是从 staging 清单 <code>clone()</code> 来的（<code>main.rs:731</code>），
+<strong>所以不删掉就等于继承。</strong> 这是个很容易写错的地方。</p>
+<hr />
+<h2 id="10-谁在调用它"><a class="header" href="#10-谁在调用它">10. 谁在调用它</a></h2>
+<h3 id="101-三个打包站点"><a class="header" href="#101-三个打包站点">10.1 三个打包站点</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>站点</th><th>什么时候跑</th><th>为什么它有自己的一份列表</th></tr></thead><tbody>
+<tr><td><code>.github/workflows/_build-release.yml</code></td><td><strong>发布</strong>（staging 和 stable 都走它）</td><td>真正的配方</td></tr>
+<tr><td><code>.github/workflows/dev.yml</code></td><td><strong>每次 push 到任何分支</strong></td><td>见下</td></tr>
+<tr><td><code>scripts/dev-push.sh</code></td><td>开发者手工</td><td>见下</td></tr>
+</tbody></table>
+</div>
+<p><code>dev.yml:142-144</code> 说了为什么 dev 构建要用<strong>同一份</strong>内容：</p>
+<blockquote>
+<p><strong>Same contents as a real release</strong>: a dev build that omitted the units or <code>robotd</code> would
+<strong>fail its own restart step on the board and roll itself back</strong>, which is a confusing way to
+learn that the packaging differed.</p>
+</blockquote>
+<p><strong>&quot;一个 dev 构建如果漏了那些 unit，会在板子上让自己的重启步骤失败、然后把自己回滚掉 ——
+那是一种很令人困惑的、发现'打包不一样'的方式。&quot;</strong></p>
+<h3 id="102-那张流程图"><a class="header" href="#102-那张流程图">10.2 那张流程图</a></h3>
+<pre><code>   你在 GitHub 上点 &quot;Create release&quot;
+        │
+        ├── pre-release，tag `daemon-staging-v1.2.3`
+        │       └──► release.yml ──► _build-release.yml
+        │                            构建 → 打包 → 签名 → **用机器人自己的代码路径验证** → 发到 staging
+        │
+        └── release，tag `daemon-v1.2.3`
+                └──► release.yml ──► _promote-release.yml（若 staging 存在）
+                                       └─ xtask promote → 重签 → 把**同一份字节**传到 stable
+</code></pre>
+<p><code>CONTRIBUTING.md:166-171</code> 的表就是这张图，而它补了一句：</p>
+<blockquote>
+<p>The canaried path is <strong>two steps on purpose</strong>: publish the pre-release, install it on a robot,
+then create the release. <strong>Creating a release with no staging build to promote is allowed and says
+so in its own notes</strong> — verified in CI, never run on a robot.</p>
+</blockquote>
+<p><strong>&quot;直接构建一个 stable 发布是允许的，而它会在自己的发布说明里说出来。&quot;</strong></p>
+<h3 id="103-那个移走的-tag"><a class="header" href="#103-那个移走的-tag">10.3 那个&quot;移走的 tag&quot;</a></h3>
+<p><code>.github/workflows/prune-dev-releases.yml:8-12</code> —— 一个很值得读的理由：</p>
+<blockquote>
+<p>Tidiness is the least of it. <strong>A dead tag stays installable</strong>: months later
+<code>robotctl update apply daemon --ref some-old-branch</code> still resolves, verifies and installs,
+<strong>because the artifact is genuinely signed with the team dev key.</strong> <strong>It looks like a valid
+install and it is arbitrary stale code from a branch nobody remembers.</strong></p>
+</blockquote>
+<p><strong>&quot;它看起来像一次合法的安装，而它是一个没人记得的分支上的、任意过时的代码。&quot;</strong></p>
+<hr />
+<h2 id="11-几处读者会绊到的地方"><a class="header" href="#11-几处读者会绊到的地方">11. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="111--every_unit_install_sh_expects_is_packaged-不覆盖-mediadservice"><a class="header" href="#111--every_unit_install_sh_expects_is_packaged-不覆盖-mediadservice">11.1 ⚠️ <code>every_unit_install_sh_expects_is_packaged</code> 不覆盖 <code>mediad.service</code></a></h3>
+<p><strong>这是本导读我最想让你知道的一处，因为它正好是这个 crate 自己说的那种失败。</strong></p>
+<p><code>main.rs:879-881</code> 的文档说：</p>
+<blockquote>
+<p><strong>Every unit <code>install.sh</code> installs</strong> must actually be in the artifact.</p>
+</blockquote>
+<p>而测试的收集方式（<code>main.rs:899-908</code>）是：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut units: Vec&lt;String&gt; = install
+    .lines()
+    .filter(|l| l.contains(&quot;for unit in&quot;))
+    .flat_map(|l| l.split_whitespace())
+    .map(|w| w.trim_end_matches(';').to_owned())
+    .filter(|w| w.ends_with(&quot;.service&quot;))
+    .collect();
+<span class="boring">}</span></code></pre></pre>
+<p><strong>它只看 <code>for unit in</code> 那一行里写死的名字。</strong> 而 <code>scripts/install.sh</code> 里的那些行是：</p>
+<pre><code>:386  for unit in padd.service tofd.service btd.service configd.service robotd.service updaterd.service; do
+:635  for unit in padd.service tofd.service btd.service configd.service robotd.service updaterd.service; do
+:668  for unit in updaterd.service robotd.service; do
+:823  for unit in $shipped; do          ← 变量，不以 .service 结尾 → 被过滤掉
+:861  for unit in updaterd robotd; do   ← 没带 .service → 被过滤掉
+</code></pre>
+<p><strong>所以它收集到的是这六个</strong>：<code>padd</code> <code>tofd</code> <code>btd</code> <code>configd</code> <code>robotd</code> <code>updaterd</code>。</p>
+<p><strong>而 <code>mediad.service</code> 不在里面。</strong> 但 <code>install.sh</code> 确实装它、也确实启用它：</p>
+<pre><code>:683  for src in &quot;${unit_src}&quot;/*.service &quot;${unit_src}&quot;/*.timer; do   ← 通配符装**全部**
+:796  enable_unit mediad.service                                      ← 按名字启用
+:826  mediad.service) ;;                                              ← $shipped 循环里专门有一条
+</code></pre>
+<p><strong>今天 <code>mediad.service</code> 在三个站点里都被打包了</strong>（§3.3 验证过），
+<strong>但如果有人把那一行从三个 <code>--include</code> 里删掉，这个测试仍然会通过。</strong></p>
+<p><strong>这就是这个 crate 自己那句&quot;a test that ... would pass while guarding nothing&quot;的例子</strong> ——
+只不过它守的不是一个旧文件名，而是一个<strong>它从来没有收集到的名字</strong>。</p>
+<p>值得留意：<strong>测试内部的行内注释是准确的</strong>（<code>main.rs:894-898</code>：<em>&quot;Every <code>for unit in …</code> loop in
+the script, unioned&quot;</em>），而且它甚至记着自己第一次为什么没看见 <code>updaterd.service</code>（尾部的 <code>;</code>）。
+<strong>只有那句放在最上面的文档说明把范围说大了。</strong></p>
+<h3 id="112-testsapplyrs-那句most-of-these-tests--同样的形状"><a class="header" href="#112-testsapplyrs-那句most-of-these-tests--同样的形状">11.2 <code>tests/apply.rs</code> 那句&quot;most of these tests&quot; —— 同样的形状</a></h3>
+<p>（这一条在 <a href="updater-primer.html"><code>updater-primer.md</code></a> §14.11 里记过，这里只提一句：
+<strong>这个仓库的&quot;文档说明比代码说得多&quot;的毛病，在两个 crate 里都出现过。</strong>）</p>
+<h3 id="113--promote_yml_uploads_the_artifact_it_points_at-的名字已经过期"><a class="header" href="#113--promote_yml_uploads_the_artifact_it_points_at-的名字已经过期">11.3 ⚠️ <code>promote_yml_uploads_the_artifact_it_points_at</code> 的名字已经过期</a></h3>
+<p><code>main.rs:1874</code> 这个测试<strong>不再读 <code>promote.yml</code></strong> —— 它用的是 <code>PROMOTE_WORKFLOW</code>（<code>main.rs:871</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const PROMOTE_WORKFLOW: &amp;str = &quot;_promote-release.yml&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>.github/workflows/promote.yml</code> 现在只是一个<strong>派发器</strong>（<code>promote.yml:29</code> 是
+<code>uses: ./.github/workflows/_promote-release.yml</code>）。</p>
+<p><strong>测试本身是对的</strong>，只有<strong>名字</strong>在误导。而这恰恰是 <code>PACKAGING_SITES</code> 的文档警告过的那件事
+（<code>main.rs:854-857</code>）：<em>&quot;A test that kept reading the old name would pass while guarding nothing,
+which is worse than failing.&quot;</em></p>
+<h3 id="114-every_install_sh_step_reaches_an_updated_board-的后半段没有守空的断言"><a class="header" href="#114-every_install_sh_step_reaches_an_updated_board-的后半段没有守空的断言">11.4 <code>every_install_sh_step_reaches_an_updated_board</code> 的后半段没有&quot;守空&quot;的断言</a></h3>
+<p><code>main.rs:1087-1121</code> 那半段从 <code>install.sh</code> 里抠 <code>current/scripts/setup-*.sh</code> 的字面量。
+而<strong>同一个模块里每一个同类的测试都有一个下界断言</strong>（§3.2）：</p>
+<ul>
+<li>前半段有（<code>main.rs:1057-1060</code>：<em>&quot;no <code>install_*</code> call sites found in install.sh; this test is watching nothing&quot;</em>）</li>
+<li><code>every_script_the_hooks_run_is_packaged</code> 有（<code>main.rs:961-964</code>，同样的措辞）</li>
+<li><code>every_sysusers_file_in_the_repo_is_packaged</code> 有（<code>main.rs:1950</code>，<code>found &gt;= 2</code>）</li>
+</ul>
+<p><strong>而这一半没有。</strong> 如果 <code>install.sh</code> 改成用变量拼那个路径，它收集到的集合会变成空的，
+<strong>而它会安静地什么都不检查。</strong></p>
+<p>它现在找到两个（<code>setup-login.sh</code> 和 <code>setup-quiet-boot.sh</code>），两个都是靠赋值行里的字面量找到的
+（<code>scripts/install.sh:732</code>、<code>:744</code>）—— <strong>而那正是最可能被改掉的那个字符串。</strong></p>
+<h3 id="115-两处已自报的收窄"><a class="header" href="#115-两处已自报的收窄">11.5 两处<strong>已自报</strong>的收窄</a></h3>
+<p>不是缺陷（源码里都写明了），但值得各记一句：</p>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>抓不到什么</th></tr></thead><tbody>
+<tr><td><code>every_binary_a_packaged_unit_execs_is_staged</code>（<code>main.rs:2054-2059</code>）</td><td>它要求 <code>cp … staged/</code> 那一行<strong>正好以 <code> staged/</code> 结尾</strong>。<code>cp … staged/ &amp;&amp; chmod …</code> 这样的行会看不见</td></tr>
+<tr><td><code>printed_commands_name_absolute_paths</code>（<code>main.rs:2284-2292</code>）</td><td>只覆盖<strong>七个</strong>脚本，而同一类里还有 <code>setup-npu.sh</code>、<code>setup-login.sh</code>、<code>setup-quiet-boot.sh</code>、<code>seed-policies.sh</code>、<code>seed-detector.sh</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="116-一处小的mainrs1093-1098-的死构造"><a class="header" href="#116-一处小的mainrs1093-1098-的死构造">11.6 一处小的：<code>main.rs:1093-1098</code> 的死构造</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>for (_, rest) in install
+    .split(&quot;current/scripts/setup-&quot;)
+    .skip(1)
+    .map(|r| (&quot;&quot;, r))
+{
+<span class="boring">}</span></code></pre></pre>
+<p>那个 <code>.map(|r| (&quot;&quot;, r))</code> 造了一个第一个元素永远是空串的元组，然后解构时立刻丢掉它。
+<code>for rest in install.split(&quot;current/scripts/setup-&quot;).skip(1)</code> 是同一个程序。</p>
+<h3 id="117--有三个二进制三个站点都在打包而没有任何测试断言它们"><a class="header" href="#117--有三个二进制三个站点都在打包而没有任何测试断言它们">11.7 ⚠️ 有三个二进制<strong>三个站点都在打包，而没有任何测试断言它们</strong></a></h3>
+<p>这是第 11.1 条的同类，而且更值得知道，因为它有一句<strong>写在源码里的反向断言</strong>。</p>
+<p><code>scripts/dev-push.sh:336-338</code> 说：</p>
+<blockquote>
+<p>The same list as the <code>cp</code> block in <code>dev.yml</code> and <code>release.yml</code>, deliberately: this pushes the same
+artifact a release does, and <strong><code>xtask/tests/artifact.rs</code> packages all three lists and checks the
+tarball, so a binary added to one and not the others fails there.</strong></p>
+</blockquote>
+<p><strong>&quot;<code>xtask/tests/artifact.rs</code> 会打包全部三份列表并检查 tarball，所以只加进其中一个的二进制会在那里失败。&quot;</strong></p>
+<p><strong>而它不会。</strong> 我读过那五个测试，它们断言的是：</p>
+<ul>
+<li>至少 4 个 staged 的名字</li>
+<li><code>bin/robotctl</code> 在</li>
+<li><code>scripts/robot-rescue</code> 在且可执行</li>
+<li>至少 4 个 <code>.service</code></li>
+<li>每个 unit 的 <code>ExecStart=</code> 指的那个二进制在</li>
+<li>恢复网的四件套</li>
+<li>两个钩子</li>
+<li><strong>每个站点自己的 <code>--include</code> 落到自己产物的正确位置</strong></li>
+</ul>
+<p><strong>没有任何一条拿一个站点的列表去和另一个站点的比。</strong></p>
+<p>所以这些二进制<strong>只被&quot;至少 4 个&quot;那个下界兜着</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>二进制</th><th>谁需要它</th><th>三个站点都 stage 吗</th></tr></thead><tbody>
+<tr><td><code>sounds</code></td><td><code>hooks/postinstall</code> 渲染声音库</td><td>✅</td></tr>
+<tr><td><code>pet-detect</code></td><td>摸头检测</td><td>✅</td></tr>
+<tr><td><code>pet-features</code></td><td>训练特征提取</td><td>✅</td></tr>
+</tbody></table>
+</div>
+<p><strong>从任意一个站点删掉其中任何一行，整个测试套件仍然是绿的。</strong></p>
+<p><strong>而 <code>sounds</code> 是最尖锐的那个</strong>：<code>hooks/postinstall:79-82</code> 用
+<code>if [ -x bin/sounds ]</code> 把它包起来，而且<strong>没有 <code>else</code></strong> ——
+<strong>一个丢了它的发布会静默地跳过声音库渲染。</strong></p>
+<p><strong>这正是这个文件存在的意义要消灭的那一类失败。</strong></p>
+<p>（有 9 个二进制<strong>是</strong>被覆盖的：8 个 unit 的 <code>ExecStart</code>，加上 <code>robotctl</code> ——
+而 <code>robotctl</code> 只有 <code>artifact.rs</code> 抓得住，因为它没有 unit。）</p>
+<h3 id="118--artifactrs-的头说它覆盖-versiontoml而它没碰过"><a class="header" href="#118--artifactrs-的头说它覆盖-versiontoml而它没碰过">11.8 ⚠️ <code>artifact.rs</code> 的头说它覆盖 <code>version.toml</code>，而它没碰过</a></h3>
+<p><code>artifact.rs:26-28</code> 把 <em>&quot;the <code>binaries</code> list written into <code>version.toml</code>&quot;</em>
+列在&quot;这个文件比字符串测试多出来的东西&quot;里。</p>
+<p><strong>而整个文件里 <code>version.toml</code> 只出现在那两行</strong> —— 也就是头自己。
+tarball 被拆成一个 <code>BTreeMap</code>，每个测试索引的是 <code>systemd/…</code>、<code>hooks/…</code>、<code>bin/…</code>、<code>scripts/…</code>。
+<strong><code>version.toml</code> 从来没被打开过</strong>，manifest 也是（channel / version / sha256 / sig_url）。</p>
+<p><strong>真正被覆盖的，是&quot;<code>package</code> 在那条路径上没有崩&quot;。</strong>
+这是那个四项列表里<strong>唯一一条说过头了的</strong>。</p>
+<h3 id="119-artifactrs32-33-的04-秒是旧账"><a class="header" href="#119-artifactrs32-33-的04-秒是旧账">11.9 <code>artifact.rs:32-33</code> 的&quot;0.4 秒&quot;是旧账</a></h3>
+<p>那句话是在这个文件只覆盖<strong>一个</strong>站点（<code>release.yml</code>）的时候写的。
+现在 <code>PACKAGING_SITES</code> 有三个，而五个测试<strong>每一个都遍历三个</strong> ——
+所以一次 <code>cargo test</code> 会跑 <strong>15 次 <code>xtask package</code></strong>，每次一个新 tempdir，
+而且 <code>packaged_release</code> <strong>没有记忆化</strong>，所以同三个 tarball 被重建五遍。</p>
+<p>（这是算术，不是实测 —— 我没有跑它。但那个数字至少是没有被验证过的，
+而且很可能差 3 到 5 倍。）</p>
+<h3 id="1110-artifactrs7-引用了一节已经不存在的文档"><a class="header" href="#1110-artifactrs7-引用了一节已经不存在的文档">11.10 <code>artifact.rs:7</code> 引用了一节已经不存在的文档</a></h3>
+<blockquote>
+<p><code>docs/project/install-path-gap.md</code> <strong>option A</strong> is this file.</p>
+</blockquote>
+<p><code>install-path-gap.md</code> 里<strong>没有 &quot;option A&quot; 了</strong> —— 一次只改那个文件的 commit
+把字母列表换成了编号小节。所以那个引用悬空了。</p>
+<h3 id="1111-the_preinstall_template_renders_completely-写死了它替换的值"><a class="header" href="#1111-the_preinstall_template_renders_completely-写死了它替换的值">11.11 <code>the_preinstall_template_renders_completely</code> 写死了它替换的值</a></h3>
+<p><code>main.rs:2217-2218</code> 把 <code>&quot;1.23&quot;</code> 和 <code>&quot;1.28.0&quot;</code> 直接写在测试里 ——
+正好等于今天 <code>Cargo.toml:31-32</code> 的值，但<strong>它不读 <code>Cargo.toml</code></strong>，
+所以它注意不到那个钉移动了。</p>
+<p>它只检查两件事：两个占位符<strong>存在</strong>，以及渲染完之后<strong>没有 <code>@ONNX_</code> 残留</strong>。
+<strong>那两个<em>值</em>由别处守着</strong>（§7.3 的 <code>setup_board_pins_the_same_onnx_target</code>，
+以及 <code>render_preinstall_hook</code> 自己）—— 所以这不是漏洞，
+但<strong>测试里那两个字面量是自由漂移的</strong>。</p>
+<hr />
+<h2 id="12-阅读路线"><a class="header" href="#12-阅读路线">12. 阅读路线</a></h2>
+<p><strong>3,473 行，但可以分成两条独立的路。</strong></p>
+<h3 id="如果只有十分钟"><a class="header" href="#如果只有十分钟">如果只有十分钟</a></h3>
+<p>读**§3.2 那段 <code>PACKAGING_SITES</code> 的注释**（<code>main.rs:851-863</code>）。</p>
+<p><strong>那是整个 crate 的论点</strong>：<em>&quot;一个继续读旧名字的测试会在什么都守护不到的情况下通过 ——
+那比失败更糟。&quot;</em> 读完它，剩下的 2,300 行都是在执行这一句话。</p>
+<h3 id="路径-a我要发一次版本约-40-分钟"><a class="header" href="#路径-a我要发一次版本约-40-分钟">路径 A：我要发一次版本（约 40 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="../CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a> §Releasing（<strong>操作者视角，先读这个</strong>）</td></tr>
+<tr><td>2</td><td><code>xtask/src/main.rs:60-202</code>（五个子命令，每个参数的注释都是一条经验）</td></tr>
+<tr><td>3</td><td><code>xtask/src/main.rs:287-466</code>（<code>package</code> 的八步）</td></tr>
+<tr><td>4</td><td><code>xtask/src/main.rs:700-766</code>（<code>promote</code>）</td></tr>
+<tr><td>5</td><td><a href="project/ci-setup.html"><code>project/ci-setup.md</code></a>（密钥托管与那条流水线）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-b我想理解仓库怎么检查自己约-15-小时"><a class="header" href="#路径-b我想理解仓库怎么检查自己约-15-小时">路径 B：我想理解&quot;仓库怎么检查自己&quot;（约 1.5 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>xtask/src/main.rs:851-878</code>（三个常量：站点、晋升工作流、<code>RELEASE_BIN_DIR</code>）</td></tr>
+<tr><td>2</td><td><code>xtask/src/main.rs:879-935</code>（两个覆盖性测试 <strong>+ 它们记的事故</strong>）</td></tr>
+<tr><td>3</td><td><code>xtask/src/main.rs:1013-1031</code>（§9.1 那个强制函数，<strong>这一段最值得读</strong>）</td></tr>
+<tr><td>4</td><td><code>xtask/src/main.rs:992-1011</code>（两张表：<code>ALSO_ON_UPDATE</code> / <code>FIRST_INSTALL_ONLY</code>）</td></tr>
+<tr><td>5</td><td><code>xtask/src/main.rs:2227-2238</code>（那个单引号的事故）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-c我要加一个守护进程约-20-分钟"><a class="header" href="#路径-c我要加一个守护进程约-20-分钟">路径 C：我要加一个守护进程（约 20 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td>§7.1 那五个覆盖性测试（<strong>它们会告诉你漏了什么</strong>）</td></tr>
+<tr><td>2</td><td><code>.github/workflows/_build-release.yml:160-193</code>（31 条 <code>--include</code>，照着抄）</td></tr>
+<tr><td>3</td><td><code>.github/workflows/dev.yml</code> 里同样的列表（<strong>别只改一个</strong>）</td></tr>
+<tr><td>4</td><td><code>scripts/dev-push.sh:370</code> 起（<strong>第三个</strong>）</td></tr>
+<tr><td>5</td><td>跑 <code>cargo test -p xtask</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>顺序很重要</strong>：先让测试告诉你缺什么，比你读三份列表然后漏掉一份要快。</p>
+<h3 id="三条贯穿全文的主线"><a class="header" href="#三条贯穿全文的主线">三条贯穿全文的主线</a></h3>
+<ol>
+<li>
+<p><strong>重复的列表怎么办？用一个哨兵兜住。</strong>
+三份 <code>--include</code>、两份版本钉、一份文件列表在三个地方 ——
+<strong>这个仓库没有把它们抽成一份共享配置</strong>（那些脚本是独立下载的、跑的时候根本不在仓库里），
+<strong>而是写了一个测试把它们绑在一起。</strong> 这是一个可以带走的模式：
+<strong>当你无法消除重复时，就让不一致变得响。</strong></p>
+</li>
+<li>
+<p><strong>测试必须知道自己有没有在守空气。</strong>
+<code>assert!(units.len() &gt;= 4)</code>、<em>&quot;this test is watching nothing&quot;</em>、
+<em>&quot;a test that kept reading the old name would pass while guarding nothing, which is worse than
+failing&quot;</em> —— <strong>这个 crate 反复在给测试本身加安全网。</strong>
+而 §11.1 和 §11.4 说明这件事<strong>很难做全</strong>。</p>
+</li>
+<li>
+<p><strong>每一次事故都写下来，而且写&quot;当时在想什么&quot;。</strong>
+没有打包的 unit、<code>203/EXEC</code>、被删掉的 staging release、<code>1.20.1</code> 对上要 <code>1.23</code> 的 <code>ort</code>、
+<code>^[Install]</code> 被当成字符类、九条规则的 pin 被当成上限 ——
+<strong>每一条都在它对应的测试旁边。</strong>
+<strong>这个目录里没有一个数字是猜的，也没有一次失败是白费的。</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="13-术语表"><a class="header" href="#13-术语表">13. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>xtask</strong></td><td>Rust 项目里&quot;用 Rust 写的构建脚本&quot;的惯例。这里是 <code>cargo xtask</code></td></tr>
+<tr><td><strong>artifact / 产物</strong></td><td>那个 <code>.tar.zst</code>。机器人下载并安装的东西</td></tr>
+<tr><td><strong>manifest / 清单</strong></td><td>描述产物的签名 JSON：版本、url、sha256、要求</td></tr>
+<tr><td><strong><code>--include src=dest</code></strong></td><td>把仓库里的一个文件放进产物里的某个路径</td></tr>
+<tr><td><strong>打包站点 / packaging site</strong></td><td>有 <code>--include</code> 列表的三个文件之一</td></tr>
+<tr><td><strong>tripwire / 哨兵</strong></td><td>一个<strong>读别的文件然后断言</strong>的测试</td></tr>
+<tr><td><strong>forcing function / 强制函数</strong></td><td>一个不证明正确、但让&quot;绕过它&quot;必须先写下一句话的东西</td></tr>
+<tr><td><strong><code>PACKAGING_SITES</code></strong></td><td>那三个站点的路径。<strong>&quot;命名一次&quot;</strong></td></tr>
+<tr><td><strong>staging / stable</strong></td><td>两条通道。先发 staging 当候选，再晋升到 stable</td></tr>
+<tr><td><strong>晋升 / promote</strong></td><td><strong>重签</strong>同一份字节，不是重建</td></tr>
+<tr><td><strong>canary / 金丝雀</strong></td><td>先装到少数实验机器人上跑一遍的发布</td></tr>
+<tr><td><strong>minisign</strong></td><td>签名格式。<strong><code>xtask</code> 链接完整版（能签），<code>updaterd</code> 只链接验证版</strong></td></tr>
+<tr><td><strong>信任锚 / trust anchor</strong></td><td>烤进机器人镜像里的那组公钥</td></tr>
+<tr><td><strong>备用密钥 / spare</strong></td><td>现在就生成的第二把 release key。<strong>以后无法补上</strong></td></tr>
+<tr><td><strong><code>release</code> / <code>dev</code> key</strong></td><td>两把钥匙，两种威胁模型。dev 不加密、只给开发板</td></tr>
+<tr><td><strong><code>.dev.pub</code> 中缀</strong></td><td>承重的：<code>KeyRing</code> 靠文件名决定这把钥匙要不要 <code>allow_dev_keys</code></td></tr>
+<tr><td><strong><code>@ONNX_FLOOR@</code> / <code>@ONNX_TARGET@</code></strong></td><td>钩子模板里的占位符，<code>package</code> 时替换</td></tr>
+<tr><td><strong>pin / 版本钉</strong></td><td>一份&quot;必须一致&quot;的版本号。<code>Cargo.toml</code> 是真相，脚本带字面量</td></tr>
+<tr><td><strong><code>FIRST_INSTALL_ONLY</code></strong></td><td>只有全新安装才做的步骤，<strong>每条都必须写明理由</strong></td></tr>
+<tr><td><strong><code>ALSO_ON_UPDATE</code></strong></td><td><code>install.sh</code> 和钩子<strong>都</strong>做的步骤</td></tr>
+<tr><td><strong>§9.1</strong></td><td><em>&quot;凡 <code>install.sh</code> 做的，钩子也要做&quot;</em>。这条规则的执行者是 §7.2</td></tr>
+<tr><td><strong><code>203/EXEC</code></strong></td><td>systemd 的&quot;这个文件没法执行&quot;。<strong>unit 打包了、二进制没打包</strong>的样子</td></tr>
+<tr><td><strong>seed / 播种</strong></td><td>从 Hub 下载一套策略/检测器，装到板子上</td></tr>
+<tr><td><strong><code>.source</code> 记录</strong></td><td>一个集合的出处。<strong>交班靠它</strong>：不是这个脚本装的不碰</td></tr>
+<tr><td><strong>交班 / handover</strong></td><td>从&quot;发布 seeding&quot;交给&quot;<code>robotctl policy update</code>&quot;</td></tr>
+<tr><td><strong><code>sed</code> 解析器</strong></td><td>板子上没有 JSON parser，所以用一个正则从清单里抠文件名</td></tr>
+<tr><td><strong><code>shipped</code></strong></td><td><code>install.sh</code> 里那个&quot;这个发布带了哪些 unit&quot;的变量</td></tr>
+<tr><td><strong><code>install_*</code></strong></td><td><code>install.sh</code> 里的步骤函数。<strong>测试数的是调用点，不是定义</strong></td></tr>
+<tr><td><strong><code>--allow-version-drift</code></strong></td><td>跳过&quot;版本和 <code>Cargo.toml</code> 对得上吗&quot;。<strong>只用于测试工具本身</strong></td></tr>
+<tr><td><strong><code>zstd-level</code></strong></td><td>压缩等级。默认 19；一次性产物用 1</td></tr>
+<tr><td><strong>CI 冒烟测试</strong></td><td>每次 PR 跑一次 <code>xtask package</code>，只为证明它能跑</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>另一半：机器人怎么装（姊妹篇）</strong></td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td><strong>§9.1 那条规则的来源（姊妹篇）</strong></td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a> · <a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>发布、签名、晋升的完整设计</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a> §16.3</td></tr>
+<tr><td>密钥托管、秘密、轮换</td><td><a href="project/ci-setup.html"><code>project/ci-setup.md</code></a></td></tr>
+<tr><td>那四个 bug 是怎么到达板子的</td><td><a href="project/install-path-gap.html"><code>project/install-path-gap.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>更新时在板子上跑的那两个脚本（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>那个 50 Hz 的控制环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>那份配置 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>装完之后你用的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>公共线上契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>深度矩阵与障碍检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>里程计与那张地图（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>摸头检测（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/uyvy-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../offical_docs/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/uyvy-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../offical_docs/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

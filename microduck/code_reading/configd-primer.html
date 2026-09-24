@@ -1,0 +1,852 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>configd/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html" class="active"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="configd-新手导读"><a class="header" href="#configd-新手导读"><code>configd</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p><code>configd</code> 的机制由 <a href="design/app-path-design.html"><code>design/app-path-design.md</code></a> 拥有（英文，和 <code>btd</code> 共用一页 —— 因为它们是<strong>同一个功能</strong>）。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="btd-primer.html"><code>btd-primer.md</code></a>（蓝牙门房）、<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（控制循环）、
+<a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>（配置）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E6%98%AF%E7%AC%AC%E4%BA%94%E4%B8%AA%E6%9C%8D%E5%8A%A1">为什么它是第五个服务</a></li>
+<li><a href="#3-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#4-%E4%B8%80%E6%AC%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%85%E7%A8%8B">一次请求的旅程</a></li>
+<li><a href="#5-%E5%AE%83%E4%B8%8D%E5%AD%98%E5%AF%86%E7%A0%81wifi-%E7%9A%84%E5%88%86%E5%B1%82">它不存密码（wifi 的分层）</a></li>
+<li><a href="#6-wifi-%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%AE%9E%E6%B5%8B%E6%95%99%E8%AE%AD">wifi 的四个实测教训</a></li>
+<li><a href="#7-%E6%89%8B%E6%9F%84%E9%85%8D%E5%AF%B9%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E8%BF%99%E9%87%8C%E4%B8%8D%E5%9C%A8-padd">手柄配对：为什么在这里，不在 padd</a></li>
+<li><a href="#8-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BA%AB%E4%BB%BD%E4%B8%8E%E5%90%8D%E5%AD%97">机器人的身份与名字</a></li>
+<li><a href="#9-%E9%85%8D%E7%BD%AE%E5%AD%98%E5%82%A8">配置存储</a></li>
+<li><a href="#10-%E5%8F%A6%E5%A4%96%E4%B8%89%E4%B8%AA-system-%E6%96%B9%E6%B3%95">另外三个 <code>system.*</code> 方法</a></li>
+<li><a href="#11-%E9%83%A8%E7%BD%B2%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E8%B7%91-root">部署：为什么它跑 root</a></li>
+<li><a href="#12-%E6%B5%8B%E8%AF%95">测试</a></li>
+<li><a href="#13-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#14-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>configd</code> 管<strong>机器人的配置</strong>：wifi、名字、配对 PIN、手柄绑定、重启。</p>
+<pre><code class="language-text">   手机 ──BLE──▸ btd ──┐
+  robotctl ──unix──────┼──▸ configd ──D-Bus──▸ NetworkManager  (wifi)
+   (mediad) ──WebSocket┘                     └──▸ logind          (重启)
+                                             └──▸ BlueZ           (手柄配对)
+                                             └──▸ 一个 JSON 文件   (名字、PIN)
+</code></pre>
+<p>它提供三个命名空间的方法：</p>
+<div class="table-wrapper"><table><thead><tr><th>命名空间</th><th>管什么</th><th>底层是谁</th></tr></thead><tbody>
+<tr><td><code>net.*</code></td><td><code>status</code> / <code>scan</code> / <code>connect</code> / <code>forget</code></td><td>NetworkManager（经 D-Bus）</td></tr>
+<tr><td><code>pad.*</code></td><td><code>status</code> / <code>pair</code> / <code>forget</code></td><td>BlueZ（经 D-Bus）</td></tr>
+<tr><td><code>system.*</code></td><td><code>info</code> / <code>setName</code> / <code>pairingPin</code> / <code>services</code> / <code>logs</code> / <code>reboot</code></td><td>一个 JSON 文件 + systemd + logind</td></tr>
+</tbody></table>
+</div>
+<p><strong>它不拥有任何凭据。</strong> wifi 密码交给 NetworkManager 就忘了 —— lib.rs 的原文：</p>
+<blockquote>
+<p>NetworkManager 拥有那些凭据，以 root-only 持久化，并<strong>自己重连</strong>；<code>configd</code> 把密码递过去然后忘掉。
+它真正拥有的只是一个小小的配置文件和机器人的名字。</p>
+</blockquote>
+<p>规模：约 5000 行，11 个模块，<strong>60 个测试</strong>。</p>
+<hr />
+<h2 id="2-为什么它是第五个服务"><a class="header" href="#2-为什么它是第五个服务">2. 为什么它是第五个服务</a></h2>
+<p><code>configd</code> 的存在是两个已定的规则<strong>推导出来</strong>的，不是谁想加一个服务：</p>
+<p><strong>规则一：<code>btd</code> 不拥有任何东西。</strong> 如果配置住在 BLE 服务里，那么一个 SDK 竟然要<strong>通过蓝牙去设置机器人的名字</strong>。</p>
+<p><strong>规则二：<code>robotd</code> 死掉的时候，配置必须还能到达。</strong> 配 wifi 恰恰是<strong>机器人坏了的时候</strong>最需要做的事，所以它不能住在控制守护进程里。</p>
+<p>两条规则一夹，<code>net.*</code> 和 <code>system.*</code> 就<strong>没有地方可放了</strong> —— 于是有了第五个服务。</p>
+<blockquote>
+<p>💡 设计文档里有一句话值得记住：<strong>&quot;这项工作的大部分都不是蓝牙。&quot;</strong>
+手机 App、SDK、<code>robotctl</code>、<code>mediad</code> 的远端网关<strong>需要的是同一套 API</strong>；
+<code>btd</code> 只是它上面的一层薄管道 —— 而&quot;薄&quot;的证据是：加那七个 <code>net.*</code>/<code>system.*</code> 方法，
+在 <code>btd</code> 里只花了<strong>路由表里各一行</strong>。</p>
+</blockquote>
+<h3 id="21-pad-为什么也在这里"><a class="header" href="#21-pad-为什么也在这里">2.1 <code>pad.*</code> 为什么也在这里</a></h3>
+<p>因为<strong>给手柄配对是一个关于射频的配置问题，需要 root</strong>。</p>
+<p>而真正<strong>读</strong>手柄的那个进程（<code>padd</code>）<strong>故意没有任何特权</strong> —— 因为它要演练的正是手机 App 将来会用的那套意图 API。让它去碰 BlueZ 会毁掉这个性质。</p>
+<p>理由和 wifi 完全一样：需要 root，而且要能在机器人本身坏掉时仍然回答。顺带的好处是：通过 <code>btd</code> 转发 <code>pad.*</code>，配对对手机也可达。</p>
+<hr />
+<h2 id="3-目录导览"><a class="header" href="#3-目录导览">3. 目录导览</a></h2>
+<pre><code class="language-text">configd/
+├── Cargo.toml                     依赖清单（解释了为什么用 zbus 而不是 dbus crate）
+├── src/
+│   ├── lib.rs             37 行   ★ crate 级文档（很短，先读这个）
+│   ├── main.rs           633 行   ★ socket、两层权限、dispatch 表
+│   ├── net.rs            411 行   ★ Net trait + FakeNet + UnavailableNet
+│   ├── nm.rs             871 行   NetworkManager 的真实实现（zbus）
+│   ├── bluez.rs         1122 行   手柄配对（zbus，文件头是一份长设计说明）
+│   ├── pad.rs            534 行   Pads trait + 手柄识别的启发式
+│   ├── store.rs          339 行   名字和 PIN 的 JSON 文件
+│   ├── identity.rs       152 行   SoC 序列号 → 默认名字
+│   ├── units.rs          256 行   查询 systemd 单元状态（zbus）
+│   ├── logs.rs           407 行   `system.logs` —— 读 journal
+│   └── power.rs           59 行   重启（logind，不是 reboot(2)）
+└── systemd/
+    ├── configd.service   116 行   单元文件（注释解释了每一条加固）
+    └── sysusers.d/README          &quot;configd 跑 root，所以不需要自己的用户&quot;
+</code></pre>
+<p><strong>建议的阅读顺序：</strong> <code>lib.rs</code> → <code>main.rs</code> 的 <code>dispatch</code> → <code>net.rs</code> → <code>store.rs</code> → <code>identity.rs</code> → <code>power.rs</code>
+→ <code>units.rs</code> / <code>logs.rs</code> → <code>nm.rs</code> / <code>bluez.rs</code>。</p>
+<p>两个大文件（<code>nm.rs</code>、<code>bluez.rs</code>）放最后，因为它们是&quot;跟外部世界说话&quot;的那一层，而对外部世界的每一次妥协都在它们的文件头里写着。</p>
+<blockquote>
+<p>💡 注意 <code>sysusers.d/</code> 里那个 <strong>README 而不是 <code>.conf</code></strong> —— 这个仓库用它标记&quot;这个文件<strong>故意</strong>不存在&quot;。
+它写着：configd 跑 root 所以不需要自己的用户；如果将来有了 polkit 让它能降权，
+它的 sysusers 条目<strong>属于这里</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="4-一次请求的旅程"><a class="header" href="#4-一次请求的旅程">4. 一次请求的旅程</a></h2>
+<h3 id="41-进门"><a class="header" href="#41-进门">4.1 进门</a></h3>
+<pre><code class="language-text">   ① 客户端连上 /run/configd.sock（模式 0660 —— 组 `robot` 才连得上）
+              │
+   ② handle()：读一次 socket 对端的凭据（SO_PEERCRED）
+              │  ← 每条连接只读一次：凭据不会在连接活着的时候改变
+              ▼
+   ③ 逐行读 NDJSON，解析成 JSON-RPC
+              │
+   ④ 如果这条调用会改变东西 → 查权限
+              │     通过 → 记一条 INFO（&quot;谁让这台机器人重启&quot;是 support 第一个问的）
+              │     拒绝 → PERMISSION_DENIED，并把理由写清楚
+              ▼
+   ⑤ dispatch()：查表，交给对应的后端
+              │
+   ⑥ 后端异步做完，把结果包成 JSON-RPC 响应写回去
+</code></pre>
+<h3 id="42-两层权限"><a class="header" href="#42-两层权限">4.2 两层权限</a></h3>
+<p>和 <code>updaterd</code> 一样的分法（<code>lib.rs</code> 的 <code>PeerPolicy</code>）：</p>
+<pre><code class="language-text">   第 1 层：socket 模式 0660 + 组 `robot`    → 谁可以**连上并说话**
+   第 2 层：--allow-user / --allow-group     → 谁可以**改变东西**
+</code></pre>
+<p><strong>只读调用完全跳过第 2 层</strong>，而且是刻意的：这样 support 能检查一台它无权重新配置的机器人 —— 也这样 <code>btd</code> 才能报告 wifi 状态<strong>而不被信任去加入一个网络</strong>。</p>
+<p>判定用的是一个<strong>共享的</strong>函数：<code>call.is_mutating()</code>（定义在 <code>duck-ipc-proto</code> 里，<code>updaterd</code> 用的是同一个）。它明确列出哪些是&quot;会改变东西&quot;的调用：</p>
+<pre><code class="language-text">   update.* 的写操作 · net.connect/forget · system.setName/setReboot/setPairingPin
+   robot.shutdown · pad.pair/forget · policy.install/fetch · detector.install
+</code></pre>
+<blockquote>
+<p>注释里每一行都有理由。比如 <code>pad.pair</code>：<strong>&quot;把一个手柄绑定到这台机器人，改变的是<em>什么可以驱动它</em>，
+这是这个命名空间里最有后果的事 —— 一个配好的手柄能启用策略。&quot;</strong>
+而 <code>pad.status</code> 是读，保持不设防。</p>
+</blockquote>
+<p><strong>按名字授予，绝不按 uid</strong>：<code>systemd-sysusers</code> 动态分配 uid，所以写进发布单元文件里的数字<strong>写在为它准备的那块板子上是对的，下一块就错了</strong>。名字在启动时解析一次（<code>getpwnam</code>/<code>getgrnam</code>）。</p>
+<blockquote>
+<p>⚠️ 两个陷阱，都写在单元文件里：</p>
+<p><strong>一、<code>SO_PEERCRED</code> 只报告对端的<em>主</em> gid。</strong> 这就是 <code>configd.service</code> 里 <code>--allow-user btd</code> <strong>是承重的而不是整洁</strong>的原因：
+没有它，<strong>每一个会改变东西的调用经蓝牙过来都被拒绝</strong>，因为 <code>btd</code> 的主组是它自己。
+<code>SupplementaryGroups=robot</code> 让 <code>btd</code> 穿过 socket 的 0660 模式，<strong>但到此为止</strong> —— 而这正是正确的两层分法。</p>
+<p><strong>二、权限错误必须点名正确的参数。</strong> 错误信息里曾经写 <code>--allow-uid</code>，而真正的参数是 <code>--allow-user</code>（而且收的是<strong>名字</strong>）——
+照做的人会直接撞上 &quot;unexpected argument&quot;，<strong>比原来的错误更糟</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="5-它不存密码wifi-的分层"><a class="header" href="#5-它不存密码wifi-的分层">5. 它不存密码（wifi 的分层）</a></h2>
+<p>这是整个 wifi 部分的组织原则，值得先理解：</p>
+<pre><code class="language-text">   ┌──────────────────────────────────────────────────────┐
+   │  main.rs  dispatch                                   │
+   │    net.connect(ssid, psk) ──┐                        │
+   └─────────────────────────────┼────────────────────────┘
+                                 ▼
+   ┌──────────────────────────────────────────────────────┐
+   │  net.rs   trait Net  ← 接缝（seam）                   │
+   │    status() · scan() · connect() · forget()          │
+   │                                                      │
+   │    ┌────────────────┬────────────────┬────────────┐  │
+   │    │  FakeNet       │ UnavailableNet │ NetworkMgr │  │
+   │    │  内存里的假实现 │  没有 wifi 栈  │  真的 NM   │  │
+   │    └────────────────┴────────────────┴────────────┘  │
+   └──────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>三个实现，各有各的理由：</strong></p>
+<p><strong><code>FakeNet</code></strong> —— 测试接缝，也是 <code>--fake-net</code>。它能模拟真实 AP 上<strong>很难制造</strong>的失败：密码错、需要密码却没给、企业级网络（不支持）、SSID 看不见。所以整条 <code>net.*</code> 表面能在<strong>没有板子、没有无线电</strong>的笔记本上被测。</p>
+<blockquote>
+<p>但它<strong>不能模拟 <code>Timeout</code></strong> —— 它瞬时返回，没有&quot;关联上了但 DHCP 拿不到地址&quot;这条路径。</p>
+</blockquote>
+<p><strong><code>UnavailableNet</code></strong> —— 没有 wifi 栈时的兜底。它<strong>不是错误</strong>：<code>status</code> 返回&quot;不可用&quot;，<code>scan</code> 返回空，只有 <code>connect</code> / <code>forget</code> 才报错。</p>
+<blockquote>
+<p>为什么不让 <code>configd</code> 在没有 wifi 栈的时候干脆退出？因为 <code>system.pin</code> 正是 <code>btd</code> 拿 PIN 的地方 ——
+<strong>一个因为依赖缺失就退出的 <code>configd</code>，会把&quot;wifi 不可用&quot;变成&quot;机器人完全联系不上&quot;</strong>，
+而这块板子上手机是唯一的入口。</p>
+<p>这<strong>也是 <code>configd</code> 有资格进启动恢复机制（boot recovery net）的条件</strong>：
+一个单元只有在<strong>等它的依赖而不是退出</strong>的时候才能加入那个集合 ——
+这样一个 <code>failed</code> 的单元才意味着<strong>发布坏了</strong>，而不是板子坏了。</p>
+</blockquote>
+<p><strong><code>NetworkManager</code></strong> —— 真实实现，见下。</p>
+<h3 id="51-为什么不存密码是个安全收益"><a class="header" href="#51-为什么不存密码是个安全收益">5.1 为什么&quot;不存密码&quot;是个安全收益</a></h3>
+<blockquote>
+<p>NetworkManager 拥有它，以 root-only 持久化，<strong>自己重连</strong>。
+<code>configd</code> 把密码递过去然后忘掉。</p>
+</blockquote>
+<p>这样做换来四件事：代码更少、更安全、<strong>少一处需要迁移的东西</strong>，而且凭据<strong>熬得过 <code>configd</code> 自己的重启、升级和回滚</strong>。</p>
+<p>代价是：<code>net.status</code> 要<strong>去问</strong> NM，而不是读自己的内存。</p>
+<h3 id="52--一个读代码时会撞上的矛盾"><a class="header" href="#52--一个读代码时会撞上的矛盾">5.2 ⚠️ 一个读代码时会撞上的矛盾</a></h3>
+<p><code>nm.rs</code> 的文件头写着：</p>
+<blockquote>
+<p><strong>Untested against a real NetworkManager.</strong> It type-checks for aarch64; every claim here is intent
+until it runs on the board.</p>
+</blockquote>
+<p>但设计文档 <a href="design/app-path-design.html"><code>app-path-design.md</code></a> §2.4 记录了一次<strong>真机运行</strong>：</p>
+<blockquote>
+<p>从 Mac 作为客户端，在一块 Radxa Zero 3 上端到端验证过：发现、连接、版本读、PIN 认证、<code>system.info</code>、
+<code>net.status</code>、<code>net.scan</code>、拒绝边界……<strong>以及一个机器人从未见过的网络，经 BLE 配好、加入、
+并且在重启之后自己重新加入</strong> —— 这正是整条路径存在的场景。</p>
+<p><code>net.forget</code> 清掉了某个 SSID 的所有 profile：五个重复的 <code>kek</code> profile（修复前的二进制留下的）一次调用全清。
+<strong>整个 <code>net.*</code> 表面现在都跑过真实的 NetworkManager 了。</strong></p>
+</blockquote>
+<p>而同一份文档的 §6.1 又说：</p>
+<blockquote>
+<p>Neither service has met a <strong>real radio</strong> or a <strong>real NetworkManager</strong>.</p>
+</blockquote>
+<p><strong>这三处不能同时为真。</strong> 设计文档的两段是<strong>同一次提交</strong>（<code>ef9162b</code>，2026-08-10）进来的，
+所以 git 分不出先后；<code>nm.rs</code> 的那句更早（<code>471b2dd</code>，2026-08-04）。</p>
+<p>§2.4 写得很具体、有日期，而且它自己的开场白是**&quot;记录下来，因为在这份文档里 'built' 和 'works' 曾经是同一个词太久&quot;** ——
+所以 §2.4 读起来像是<strong>修正</strong>，而另外两处像是没跟上的旧话。但这不是我能定的，留给你判断。</p>
+<p>（这也是本仓库的一条规矩的反面教材：<code>CLAUDE.md</code> 说&quot;当一个事实属于某一页时，其他每页只用一句话并链接&quot;。这里同一个事实写了三遍。）</p>
+<hr />
+<h2 id="6-wifi-的四个实测教训"><a class="header" href="#6-wifi-的四个实测教训">6. wifi 的四个实测教训</a></h2>
+<p><code>nm.rs</code> 和设计文档 §2 里的每一段都来自<strong>板上真实踩过的坑</strong>。四个最值得看的：</p>
+<h3 id="61-扫描requestscan-返回--扫完了"><a class="header" href="#61-扫描requestscan-返回--扫完了">6.1 扫描：<code>RequestScan</code> 返回 ≠ 扫完了</a></h3>
+<p><code>RequestScan</code> 返回的是 NM <strong>受理了</strong>这个请求，<strong>不是无线电扫完了频道</strong>。而 NM 会<strong>剪掉</strong>它最近没见过的 AP —— 所以已经关联上某个网络时，缓存里常常<strong>只有它正连着的那个</strong>。</p>
+<blockquote>
+<p>原文实测：<strong>第一次调用列出 1 个网络，第二次同样的调用列出 8 个。</strong></p>
+</blockquote>
+<p>修法是等 <code>LastScan</code> 属性<strong>前进</strong>（上限 10 秒）。而且<strong>限流不算错</strong>：NM 拒绝一个扫描请求通常意味着&quot;刚扫过、缓存正新鲜&quot;，那就直接返回它。</p>
+<blockquote>
+<p>对客户端来说这是必须的：一个&quot;在不熟悉的地方挑网络&quot;的人，<strong>&quot;再问一次&quot;不是一个可以发布的契约</strong>。</p>
+</blockquote>
+<h3 id="62-连接为什么看-activation不看-device"><a class="header" href="#62-连接为什么看-activation不看-device">6.2 连接：为什么看 activation，不看 device</a></h3>
+<p><strong>这是这条路径上最糟的一个 bug。</strong></p>
+<p><code>connect</code> 原本轮询的是<strong>设备</strong>状态。而一个设备在<strong>它已经在用的那个网络</strong>上会一直保持 <code>ACTIVATED</code>，与此同时旁边一个新的激活正在失败。结果是：</p>
+<pre><code class="language-text">   connect(&quot;Tehaupoo&quot;, psk: &quot;lol&quot;)     ← 这个网络甚至不在范围内
+   → {&quot;outcome&quot;:&quot;connected&quot;,&quot;ssid&quot;:&quot;SFR-e994&quot;}   ← 报的是机器人一直在用的那个网络
+</code></pre>
+<blockquote>
+<p><strong>为一个从未发生的连接报告成功，是能给出的最糟的答案</strong> —— 手机会得出结论&quot;机器人配好了&quot;，然后走开。</p>
+</blockquote>
+<p>现在是轮询 <code>AddAndActivateConnection</code> <strong>返回的那个 active-connection 对象</strong>，而且成功时返回<strong>请求的那个 SSID</strong>，而不是 <code>status</code> 说什么。</p>
+<p>顺带三条同源的处理：</p>
+<ul>
+<li><strong>无线电看不见的 SSID，当场以 <code>NotFound</code> 拒绝。</strong></li>
+<li><strong>失败的激活会删掉 NM 刚加的那个 profile</strong> —— 否则 autoconnect 会永远重试一个已知错误的密码，而 <code>net.status</code> 还声称这个网络是 <code>saved</code>。</li>
+<li><strong>隐藏 SSID 也被这个预检拒绝。</strong> 加入它需要 profile 里的 <code>802-11-wireless.hidden</code> 和客户端&quot;这是隐藏网络&quot;的标志，而 API 现在还没有这个形状。</li>
+</ul>
+<h3 id="63-重新配置先删后加"><a class="header" href="#63-重新配置先删后加">6.3 重新配置：先删后加</a></h3>
+<p><code>AddAndActivateConnection</code> <strong>只会新增</strong>，而且 NM 允许两条 profile 用同一个 id。</p>
+<p>于是最普通的一条路径 —— 手机上一个密码打错、<code>BadKey</code>、然后重发正确的 —— 会让机器人<strong>同时留着两条</strong>，而且<strong>不保证下次重启后 NM 会拿哪条自动连</strong>。</p>
+<p><code>net.forget</code> 原本更糟：它删掉两条中的一条然后报告成功。</p>
+<p>现在：某个 SSID 的已保存 profile 被当作<strong>一个集合</strong>枚举，连接前<strong>全部删除</strong>。</p>
+<blockquote>
+<p><strong>先删后加，而不是先加后删</strong> —— 因为反过来会在&quot;add 成功、清理失败&quot;的时候留下重复。
+如果 add 之后失败了，那个 SSID 会<strong>没有任何 profile</strong>，而这对于一个正在被替换的配置是<strong>诚实的结果</strong>，并且会报给客户端。</p>
+</blockquote>
+<p>代价：如果被替换的正是当前活跃的那条 profile，<strong>这会断开机器人</strong>。不可避免 —— 换密码就意味着重新关联 —— 而 <strong>BLE 上的客户端不受影响</strong>，这正是整个设计所依赖的性质。</p>
+<h3 id="64-badkey-是值得为它做一次迁移的理由"><a class="header" href="#64-badkey-是值得为它做一次迁移的理由">6.4 <code>BadKey</code> 是值得为它做一次迁移的理由</a></h3>
+<p><code>ConnectFailure</code> 有五个变体：<code>BadKey</code> / <code>NotFound</code> / <code>Timeout</code> / <code>Unsupported</code> / <code>Other</code>。</p>
+<p><strong>映射规则里最重要的一条是&quot;其它一律 <code>Other</code>&quot;</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>NM 的 reason</th><th>变成</th></tr></thead><tbody>
+<tr><td><code>REASON_NO_SECRETS</code> (7)</td><td><code>BadKey</code></td></tr>
+<tr><td><code>REASON_SSID_NOT_FOUND</code> (53)</td><td><code>NotFound</code></td></tr>
+<tr><td>supplicant timeout (11) / disconnect (8) / IP config unavailable (5)</td><td><code>Timeout</code></td></tr>
+<tr><td><strong>其余全部</strong></td><td><strong><code>Other</code></strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>一个没有被映射的 reason 绝不能变成 <code>BadKey</code></strong> ——
+那会把人送进一个<strong>反复重打一个本来就正确的密码</strong>的循环。有一个测试专门钉住这件事。</p>
+</blockquote>
+<p>而 <code>BadKey</code> 之所以重要，是因为它是<strong>从 netplan 迁移到 NetworkManager 的整个理由</strong>：被拒绝的密码是配网中最常见的失败，<strong>而一个说不出来的客户端让用户无事可做</strong>。</p>
+<blockquote>
+<p>顺带一个反直觉的坑：<strong>失败之后再读 <code>StateReason</code> 属性会得到 0</strong>（NM 已经把设备挪走了），
+所以 reason <strong>只能从 <code>StateChanged</code> 信号里拿</strong>。这个 proxy 的函数被特意命名成
+<code>device_state_changed</code>，就是为了避开属性自动生成的 <code>receive_state_changed</code>。</p>
+</blockquote>
+<hr />
+<h2 id="7-手柄配对为什么在这里不在-padd"><a class="header" href="#7-手柄配对为什么在这里不在-padd">7. 手柄配对：为什么在这里，不在 padd</a></h2>
+<h3 id="71-最长的那段agent-为什么要抢-default-角色"><a class="header" href="#71-最长的那段agent-为什么要抢-default-角色">7.1 最长的那段：agent 为什么要&quot;抢 default 角色&quot;</a></h3>
+<p><code>bluez.rs</code> 的文件头是一份六节的长设计说明，其中最不显然的一条是：</p>
+<blockquote>
+<p><strong><code>configd</code> 在配对窗口内不仅注册自己的 agent，还调用 <code>request_default_agent</code> 去抢 default 角色；窗口结束再交还。</strong></p>
+</blockquote>
+<p>为什么？因为 <strong><code>bluetoothd</code> 只从 default agent 往下推 IO capability</strong>。</p>
+<p>一个<strong>非 default</strong> 的 <code>NoInputNoOutput</code> agent，会让适配器<strong>仍然声明自己有输入和显示能力</strong>。后果是：</p>
+<pre><code class="language-text">   MITM 保护被启用 → SMP 选 numeric comparison 而不是 just-works
+        → RequestConfirmation 落到一个没有 agent 的地方
+        → 手柄等到 link supervision 超时
+        → BlueZ 报 AuthenticationCanceled（实测约 17 秒）
+</code></pre>
+<p>所以 <code>configd</code> 的 agent 是<strong>短命、按设备收窄</strong>的（<code>permit()</code> 只放行正在配的那一个设备，其余 <code>AccessDenied</code>）：它只在自己发起的配对窗口里抢 default，之后交还。</p>
+<blockquote>
+<p>对比 <code>btd</code>：<code>btd</code> 用 <code>bluer</code> 注册一个<strong>长期持有</strong>的 default agent（所有 handler 留 <code>None</code>，等价 <code>NoInputNoOutput</code>），服务手机路径。
+这样 <strong><code>configd</code> 为它发起的配对作答，<code>btd</code> 继续为其它一切作答</strong>。</p>
+</blockquote>
+<h3 id="72-三个-bluez-行为各造成过一个-bug"><a class="header" href="#72-三个-bluez-行为各造成过一个-bug">7.2 三个 BlueZ 行为，各造成过一个 bug</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>BlueZ 的行为</th><th>后果</th></tr></thead><tbody>
+<tr><td><code>Connect()</code> 对一个<strong>未绑定</strong>设备会回 <code>br-connection-profile-unavailable</code></td><td>所以它必须被当作<strong>软失败</strong> —— 硬拒会否掉一个马上就能绑上的手柄</td></tr>
+<tr><td><code>Connect()</code> 会在绑定<strong>落地之前</strong>就返回</td><td>所以不能靠它判断成功</td></tr>
+<tr><td>对一个<strong>正在绑定中</strong>的设备调 <code>Pair()</code> <strong>永不返回</strong></td><td><strong>这就是&quot;第一次配对超时、第二次秒成&quot;这个已发布 bug 的成因</strong></td></tr>
+</tbody></table>
+</div>
+<p>对策：<strong><code>Paired</code> 属性是唯一的事实来源</strong> —— <code>wait_until_paired()</code> 一直轮询到它为 true。</p>
+<p>还有一个必须记住的操作细节：<strong>连接之前先 <code>stop_discovery()</code></strong>。因为<strong>扫描进行中，BlueZ 会接受 <code>Connect()</code> 但间歇性失败</strong> —— 表现为&quot;第二次才配上&quot;这种<strong>看起来像硬件故障</strong>的东西。</p>
+<h3 id="73-trusted--true-是重连能工作的唯一原因"><a class="header" href="#73-trusted--true-是重连能工作的唯一原因">7.3 <code>Trusted = true</code> 是重连能工作的唯一原因</a></h3>
+<p>绑定结束时会把设备设成 trusted。文件里的注释说得很直接：这是**&quot;昨天还好好的、今天什么都不做&quot;**那种故障的成因 —— 少的那一行就是它。</p>
+<blockquote>
+<p>全仓库<strong>没有</strong> <code>pad-reconnect</code> 这样的单元：重连是 BlueZ / 内核自己做的，靠的就是这个标志。</p>
+</blockquote>
+<h3 id="74-pro-controller-克隆柄是两个设备"><a class="header" href="#74-pro-controller-克隆柄是两个设备">7.4 Pro Controller 克隆柄是<strong>两个</strong>设备</a></h3>
+<p>一个便宜的 Switch Pro 克隆柄会以两个设备出现：</p>
+<pre><code class="language-text">   LE 面：      &quot;BLE Controller_280609&quot;      ← 只有名字匹配，先被报告
+   BR/EDR 面：  98:B6:E9:...                 ← 带 Class，能配对
+</code></pre>
+<p><strong>先停就会挂 30 秒，而且拿到的是一个已经死掉的对象。</strong></p>
+<p>对策是两道：<code>find()</code> 只对<strong>被射频分类过的</strong>匹配提前结束，然后 <code>one_face_per_pad()</code> 按 unit octets 把两面合并，保留 classic 面。</p>
+<p>还有一条省电的：<code>UserspaceHID=false</code> —— 否则经典手柄约 200 包/秒的 IMU 数据经 <code>bluetoothd</code> + <code>uhid</code> 会<strong>烧掉 16% 的一个核</strong>。</p>
+<h3 id="75-状态存在哪里"><a class="header" href="#75-状态存在哪里">7.5 状态存在哪里</a></h3>
+<p><strong>不在 <code>configd</code> 里。</strong> 真值在 BlueZ（<code>/var/lib/bluetooth/&lt;适配器&gt;/&lt;手柄&gt;/info</code>），每次调用现场读一遍，<strong>没有缓存</strong>。</p>
+<h3 id="76-为什么手柄连上了和padd-在跑是两个问题"><a class="header" href="#76-为什么手柄连上了和padd-在跑是两个问题">7.6 为什么&quot;手柄连上了&quot;和&quot;padd 在跑&quot;是<strong>两个</strong>问题</a></h3>
+<p><code>pad.status</code> 返回<strong>两个</strong>字段：<code>pads</code> 和 <code>driver</code>。</p>
+<blockquote>
+<p>因为<strong>两者会各自失败</strong>：手柄连上了但 <code>padd</code> 死了 → 按键没反应；<code>padd</code> 在跑但没手柄 → 同样没反应。
+<strong>一个已连接的手柄配一个死掉的 driver，看起来和没有手柄一模一样。</strong></p>
+</blockquote>
+<p>而 systemd 管理的 <code>padd.service</code> 状态<strong>只有 systemd 知道</strong> —— <code>configd</code> 不能冒充回答，所以它去问（见第 10 节）。</p>
+<h3 id="77-配对窗口有多长"><a class="header" href="#77-配对窗口有多长">7.7 配对窗口有多长</a></h3>
+<p><strong>不是 BlueZ 的 <code>Pairable</code> 窗口</strong>，而是<strong>调用者给的那段发现期</strong>：期间才注册 agent、抢 default 角色，结束后交还。</p>
+<div class="table-wrapper"><table><thead><tr><th>常量</th><th>值</th><th>为什么是这个数</th></tr></thead><tbody>
+<tr><td><code>DEFAULT_PAIR_TIMEOUT</code></td><td>15 s</td><td>有人正按着 sync 键站着 —— 这是人放弃前大概会等的时间。够 BlueZ 报出几秒才广播一次的设备，又短到手机拿到答案而不是转圈</td></tr>
+<tr><td><code>MAX_PAIR_TIMEOUT</code></td><td>120 s</td><td>上限是<strong>礼貌</strong>：整个窗口发现都开着，问一小时的人早走了，适配器还在扫</td></tr>
+<tr><td><code>BOND_TIMEOUT</code></td><td>30 s</td><td><strong>手柄已找到之后</strong>射频能用的时间，和调用者的发现窗口量的是两件不同的事。BlueZ 自己的配对超时是 60 s，30 s 留在它<strong>之内</strong>，好让答案来自这里而不是一个被丢掉的 D-Bus 调用</td></tr>
+<tr><td><code>BOND_SETTLE</code></td><td>5 s</td><td><code>Connect()</code> 触发的绑定自行落地的时间窗（实测 Xbox 1 秒内完成，5 秒是余量）</td></tr>
+<tr><td><code>BOND_POLL</code></td><td>200 ms</td><td>轮询 <code>Paired</code> 的间隔</td></tr>
+<tr><td><code>SIBLING_GRACE</code></td><td>1 s</td><td>见到第一个候选后再多扫一会儿，等同一手柄的另一面</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="8-机器人的身份与名字"><a class="header" href="#8-机器人的身份与名字">8. 机器人的身份与名字</a></h2>
+<p><strong>身份来自 SoC 序列号</strong>，读 <code>/proc/device-tree/serial-number</code>。</p>
+<p>为什么不用别的东西：</p>
+<ul>
+<li><strong>不用 <code>/proc/cpuinfo</code></strong> —— devicetree 是通用 binding。</li>
+<li><strong>不用蓝牙适配器地址</strong> —— 因为实测<strong>它不稳定</strong>：一块板子在 16 次启动之间报了两个不同的地址（<code>…2B:EC</code> → <code>…1B:92</code>）。而 BlueZ 把每个绑定存在 <code>/var/lib/bluetooth/&lt;地址&gt;/</code> 下，<strong>地址一变，所有绑定都成了孤儿</strong>。</li>
+</ul>
+<p>序列号的好处是它<strong>烧在芯片里</strong>：刷机后还在、换掉无线电模块后还在、<strong>而且不需要任何 provisioning 步骤</strong>。</p>
+<h3 id="81-默认名字"><a class="header" href="#81-默认名字">8.1 默认名字</a></h3>
+<pre><code class="language-text">   duck- + SHA-256(序列号) 的前两个字节的十六进制
+        = duck-c51b
+</code></pre>
+<p><strong>为什么用哈希而不是切片？</strong> 因为<strong>没有任何东西保证芯片 ID 的哪一部分在芯片之间会变化</strong>。</p>
+<p><strong>为什么是 SHA-256，不是 Rust 标准库的 hasher？</strong> 因为 <code>DefaultHasher</code> 的输出<strong>明确不保证跨 Rust 版本稳定</strong> —— 一次 <code>rustup update</code> 会<strong>静默地重命名现场所有机器人</strong>，而且<strong>没有人会把这两件事联系起来</strong>。</p>
+<p>四个十六进制字符是 65536 种可能，所以三个人一个房间大约<strong>两万二千次里撞一次</strong>。而<strong>为什么是四个而不是更多</strong>：长度受 BLE 广播预算约束（见 <code>btd-primer.md</code> §11.2）。</p>
+<blockquote>
+<p>🧪 有一个测试把 <code>default_name(&quot;bb7b734a7717ac41&quot;) == &quot;duck-c51b&quot;</code> 钉死了 ——
+这样将来改算法会<strong>立刻失败</strong>，而不是悄悄给现场所有机器人改名。</p>
+</blockquote>
+<p><strong>读不到序列号怎么办？</strong> 退回 <code>/etc/hostname</code>，并且打一条 warn 说明后果：<strong>同一镜像刷出来的板子无法区分</strong>。</p>
+<h3 id="82-模拟的鸭子"><a class="header" href="#82-模拟的鸭子">8.2 模拟的鸭子</a></h3>
+<p><code>--simulated &lt;serial&gt;</code> 给 MuJoCo 里的鸭子一个身份。</p>
+<p><strong>为什么模拟的机器人也需要身份？</strong> 因为它<strong>没有地方可读</strong>：没有 SoC、没有 devicetree，<code>/etc/machine-id</code> 一台机器只有一个（一场景四只鸭子会共用），macOS 上根本没有。</p>
+<p>而且这个身份是<strong>承重的两次</strong>：默认名字由它派生（所以孪生里的鸭子叫 <code>duck-3f9c</code> 而不是退回笔记本的 hostname），而且它是 <code>mediad</code> 向 rendezvous 注册的 <code>hardware_id</code> —— <strong>重启的模拟鸭子会在列表里替换掉自己，而不是出现两次</strong>。</p>
+<hr />
+<h2 id="9-配置存储"><a class="header" href="#9-配置存储">9. 配置存储</a></h2>
+<p>只有一个文件：<code>/var/lib/robot/config/config.json</code>，装两个字段：</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Ducky&quot;,
+  &quot;pairing_pin&quot;: &quot;042042&quot;
+}
+</code></pre>
+<p><strong>它在发布目录之外</strong>，所以它<strong>熬得过更新，也熬得过回滚</strong>。</p>
+<h3 id="91-写入的纪律"><a class="header" href="#91-写入的纪律">9.1 写入的纪律</a></h3>
+<pre><code class="language-text">   写临时文件 config.tmp
+     → sync_all()              ← 确保内容真的落盘
+     → rename(2)               ← 原子替换
+     → 打开目录再 sync_all()    ← ★ 这一步最常被忘记 ★
+</code></pre>
+<blockquote>
+<p>目录 fsync 是通常被忘掉的那一步：<strong>没有它，rename 可能熬不过一次断电</strong> ——
+而对一台机器人来说，<strong>被人在墙上拔掉电源是常态而不是例外</strong>。
+和更新日志用的是同一套纪律。</p>
+</blockquote>
+<p><code>flock</code> 加在一个<strong>独立的 <code>config.lock</code> 文件</strong>上，不是加在配置本身上 —— 注释说明了原因：<strong>锁必须活得比那次 rename 长</strong>（rename 会把配置文件的 inode 换掉）。</p>
+<h3 id="92-字段的规则"><a class="header" href="#92-字段的规则">9.2 字段的规则</a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>规则</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>MAX_NAME</code></td><td>24 个字符</td><td>受 BLE 广播的 31 字节预算约束</td></tr>
+<tr><td><code>DEFAULT_PIN</code></td><td><code>&quot;000000&quot;</code></td><td><strong>众数而不是每板随机</strong> —— 所以它只证明物理在场，仅此而已</td></tr>
+<tr><td><code>PIN_DIGITS</code></td><td>正好 6 位 ASCII 数字</td><td>因为 BlueZ 的 passkey 就是六位；五位就要补零，而两端会对 <code>&quot;12345&quot;</code> 还是 <code>&quot;012345&quot;</code> 产生分歧</td></tr>
+</tbody></table>
+</div>
+<p>名字会被清洗（<code>sanitise</code>）：trim → <strong>去掉控制字符</strong> → 按<strong>字符边界</strong>截断 → 再 trim。</p>
+<blockquote>
+<p>控制字符是重点：这个字符串会走到 BLE 广播、日志行、最后是 App 的界面，
+而名字里的一个换行<strong>能让它劈开一条 journal 记录</strong>。</p>
+</blockquote>
+<h3 id="93-一个已知的竞态"><a class="header" href="#93-一个已知的竞态">9.3 一个已知的竞态</a></h3>
+<p><code>set_name</code> 和 <code>set_pairing_pin</code> 都是这个形状：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut config = self.read()...;   // ← 在锁外面读
+config.name = Some(name);
+self.write(&amp;config)?;              // ← 锁在 write 内部才拿
+<span class="boring">}</span></code></pre></pre>
+<p><code>flock</code> 只序列化了<strong>写</strong>，没有覆盖<strong>读-改-写</strong>。所以两个并发的写者（比如手机在改名、同时 ssh 上有人在设 PIN）可以都读到旧配置，然后<strong>各自写出一份完整副本，后写的覆盖先写的</strong> —— 丢掉一个字段。</p>
+<p>名字丢了是小事；<strong>PIN 丢了意味着用户以为设好了每板 PIN，而机器人还在接受公开的 <code>000000</code>。</strong></p>
+<p>修法是把锁提到 <code>read</code> 之前（一个 <code>with_lock(|config| …)</code> 之类的形状），也就是 <code>write</code> 里那句注释 <em>&quot;flock serialises writers&quot;</em> 本来想表达的意思。</p>
+<hr />
+<h2 id="10-另外三个-system-方法"><a class="header" href="#10-另外三个-system-方法">10. 另外三个 <code>system.*</code> 方法</a></h2>
+<h3 id="101-systemservices--哪个-daemon-在跑"><a class="header" href="#101-systemservices--哪个-daemon-在跑">10.1 <code>system.services</code> —— 哪个 daemon 在跑</a></h3>
+<p><strong>走 D-Bus，不是 <code>systemctl</code> 子进程。</strong> 用一个 <code>LoadUnit</code> 调用，而不是 <code>GetUnit</code> —— 因为<strong>后者对尚未加载的单元会失败，与&quot;不存在&quot;无法区分</strong>。</p>
+<p>监控七个单元：<code>updaterd</code> / <code>robotd</code> / <code>configd</code> / <code>btd</code> / <code>padd</code> / <code>mediad</code> / <code>tofd</code>。</p>
+<p><strong>版本号不靠猜</strong>（不问 systemd、不看 <code>/proc</code>），而是读 <code>/run/&lt;服务&gt;/identity.json</code>。</p>
+<blockquote>
+<p>⚠️ 一个很值钱的细节：判定状态时<strong>先看 <code>SubState</code></strong> —— <code>auto-restart*</code> 前缀 → 报告为 <code>Restarting</code>。
+因为<strong>崩溃重启循环和首次启动在 <code>ActiveState</code> 上都是 <code>activating</code></strong>。
+这正是让 <code>mediad</code> 在摄像头排线没插时崩溃循环、而 <code>robotctl health</code> 却报 active 的那个坑。</p>
+</blockquote>
+<p><strong>为什么需要这个方法？</strong> 因为<strong>手柄灯亮着、而 <code>padd</code> 已经死了，看起来和正常硬件一模一样</strong>。</p>
+<h3 id="102-systemlogs--读-journal"><a class="header" href="#102-systemlogs--读-journal">10.2 <code>system.logs</code> —— 读 journal</a></h3>
+<p><strong>spawn 一个 <code>journalctl</code> 子进程</strong>，不是链接 libsystemd —— 后者等于<strong>为一个只读查询在交叉编译里塞进 vendored C</strong>。</p>
+<p>两个安全/健壮性设计：</p>
+<p><strong>一、单元名先对着固定表匹配，才交给 <code>journalctl</code>。</strong> 这挡住了绝对路径注入。有一个测试钉住 <code>--directory=...</code>、<code>_PID=1</code>、<code>*</code>、<code>&quot;robotd.service extra&quot;</code> 全部被拒 —— 而拒绝信息里<strong>列出它会接受哪些</strong>。</p>
+<p><strong>二、字节上限有两层</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>上限</th><th>值</th><th>管什么</th></tr></thead><tbody>
+<tr><td><code>MAX_LINE_BYTES</code></td><td>2 KiB</td><td><strong>单行</strong>截断 —— journald 自己的 <code>LineMax</code> 是 48 KiB，一条序列化的 blob 能挤掉整条尾巴</td></tr>
+<tr><td><code>MAX_LOG_BYTES</code></td><td>48 KiB</td><td><strong>整条回复</strong>（序列化后的 JSON），超了从<strong>头部</strong>删最旧的行并置 <code>truncated</code></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>48 KiB 的由来是<strong>传输层</strong>：BLE 把回复拼成一行，而客户端缓冲 64 KiB（见 <code>btd-primer.md</code> §10.2）。</p>
+</blockquote>
+<p>还有一个贴心的功能：<code>assemble</code> 会在日志里插入 <code>-- new robotd process, pid N --</code> 这样的<strong>重启标记</strong>。</p>
+<p><strong>关于脱敏</strong>：<code>logs.rs</code> <strong>自己不做任何过滤</strong> —— 它是原始 journal 尾巴。防线在上游：</p>
+<ul>
+<li><code>NetConnectParams</code> 的 <code>Debug</code> 是<strong>手写的</strong>，把 <code>psk</code> 变成 <code>&lt;redacted&gt;</code>（但<strong>保留&quot;有没有给密码&quot;这个信息</strong> —— &quot;密码错&quot;和&quot;安全网络没给密码&quot;是两个不同的 bug）。</li>
+<li><code>net.connect</code> 的日志用 <code>?params</code>，所以是安全的；PIN <strong>故意不打日志</strong>。</li>
+</ul>
+<blockquote>
+<p>⚠️ 但要注意：<strong>NetworkManager 自己在 journal 里回显的 passphrase 会原样出现在 <code>system.logs NetworkManager</code> 的输出里</strong> —— 那条路径没有脱敏。</p>
+</blockquote>
+<h3 id="103-systemreboot--3-秒后重启"><a class="header" href="#103-systemreboot--3-秒后重启">10.3 <code>system.reboot</code> —— 3 秒后重启</a></h3>
+<p><strong>不是 <code>reboot(2)</code>。</strong> 文件头解释了为什么：</p>
+<blockquote>
+<p><code>reboot(2)</code> 是一个 syscall，但它会<strong>不停服务直接切电</strong>：<code>robotd</code> 永远不会放掉舵机的扭矩，
+更新 journal 永远不会落盘。<strong>用摔倒来实现重启是不可接受的。</strong></p>
+</blockquote>
+<p>实现是 <strong>logind 的 D-Bus <code>Reboot(false)</code></strong>（<code>false</code> = 非交互，logind 不弹询问）。</p>
+<p><strong>这也解释了 <code>configd</code> 为什么跑 root</strong>：logind 的 <code>Reboot</code> 受 polkit 管，板上<strong>没有 polkit</strong>，session-less 的非 root 直接被拒。</p>
+<blockquote>
+<p>而 <code>CapabilityBoundingSet=</code> 是<strong>空的</strong>，并且<strong>特意不给 <code>CAP_SYS_BOOT</code></strong> ——
+因为一旦有了这个 capability，就能直接调 <code>reboot(2)</code>，<strong>正是这个模块要避免的不干净关机</strong>。</p>
+</blockquote>
+<p>非 Linux 上它直接返回错误 —— 免得测试把开发者的笔记本重启了。</p>
+<hr />
+<h2 id="11-部署为什么它跑-root"><a class="header" href="#11-部署为什么它跑-root">11. 部署：为什么它跑 root</a></h2>
+<p>这看起来是本仓库里最反常的一件事：<strong>解析无线电字节的那个进程（<code>btd</code>）不跑 root，而 <code>configd</code> 跑。</strong></p>
+<h3 id="111-理由是窄的"><a class="header" href="#111-理由是窄的">11.1 理由是窄的</a></h3>
+<p><code>configd</code> 只需要<strong>两</strong>个特权：NetworkManager 的 D-Bus API（改连接需要 polkit 或 root）、以及 logind 的 <code>Reboot</code>（同理）。</p>
+<p><strong>这块镜像上没有 polkit</strong>，而没有 polkit 时 systemd 会把这两样都拒绝给任何<strong>无会话的非 root</strong>调用者。</p>
+<blockquote>
+<p>所以选择是：<strong>root，或者装一个 JS 策略引擎来授权两个调用。</strong></p>
+</blockquote>
+<p><strong>信任边界仍然在正确的位置</strong>：<code>btd</code> 解析来自无线电范围内任何人的字节，它是非特权的；而 <code>configd</code> 只见到从有 peer 凭据的本地 socket 上来的、已经成型的 JSON。</p>
+<blockquote>
+<p>单元文件的原话：<strong>&quot;让解析器非特权，比让分发器非特权更重要。&quot;</strong></p>
+</blockquote>
+<p>如果将来因为别的原因有了 polkit，这个服务应该降到一个专用用户加两条 polkit 规则。而那个用户的 sysusers 条目<strong>已经预留了位置</strong>（<code>sysusers.d/README</code>）。</p>
+<h3 id="112-那个窄-root"><a class="header" href="#112-那个窄-root">11.2 那个&quot;窄 root&quot;</a></h3>
+<p>和 <code>robotd</code> 不同 —— <code>robotd</code> 需要裸设备访问所以加固有限 —— <strong><code>configd</code> 不碰任何硬件，所以能被正确地关起来</strong>：</p>
+<pre><code class="language-ini">User=root
+Group=robot                      ← socket 要能被 robot 组读
+ProtectSystem=strict             ← 整个文件系统只读，除了 ReadWritePaths
+ReadWritePaths=/var/lib/robot/config /run
+StateDirectory=robot/config
+RestrictAddressFamilies=AF_UNIX  ← 它从不自己碰网络接口，只通过 D-Bus 问 NM
+CapabilityBoundingSet=           ← 空
+</code></pre>
+<p>单元文件里逐条说明了为什么：</p>
+<ul>
+<li><strong><code>AF_NETLINK</code> 不在列表里</strong>：<code>configd</code> 通过 D-Bus（一个 unix socket）问 NetworkManager，<strong>从不自己碰接口</strong>。</li>
+<li><strong><code>CAP_SYS_BOOT</code> 特意不给</strong>：logind 执行重启，<code>configd</code> 只是<strong>请求</strong>。</li>
+<li><strong><code>system.logs</code> 不需要额外开权限</strong>，这一点特意写下来，免得有人为它放宽这个文件：<code>ProtectSystem=strict</code> 下 <code>/usr</code> 仍是可执行的，而 journal 文件是 <code>0640 root:systemd-journal</code> —— 所以 uid 0 作为属主读得到，<strong>capability 集合仍然是空的</strong>。如果将来内核或 journald 改了这一点，修法是 <code>SupplementaryGroups=systemd-journal</code>，<strong>不是一个 capability</strong>。</li>
+</ul>
+<h3 id="113-单元文件里那三条必须保持的性质"><a class="header" href="#113-单元文件里那三条必须保持的性质">11.3 单元文件里那三条必须保持的性质</a></h3>
+<pre><code class="language-text">   ① 和 robotd 双向无依赖    ← 机器人死掉时配置必须够得着，这是整个服务存在的理由
+   ② 和 btd 也无依赖         ← BLE 只是几个前门之一，SDK 不该被迫走蓝牙
+   ③ socket 必须能被 `robot` 组读  ← btd / robotctl / 将来的 mediad 就是这样够到它的
+</code></pre>
+<p>NetworkManager 用 <code>Wants</code> 而不是 <code>Requires</code>：NM 缺失时 <code>configd</code> 照常启动并报告 <code>net.state=unavailable</code> —— 那是一个<strong>可诊断的答案</strong>，并且告诉你这块板子还在 netplan 上。</p>
+<hr />
+<h2 id="12-测试"><a class="header" href="#12-测试">12. 测试</a></h2>
+<p><strong>60 个测试</strong>，全部在笔记本上跑，<strong>没有 wifi、没有蓝牙、没有 D-Bus、没有板子</strong>。</p>
+<p>靠的是两个 trait 和它们的内存假实现：<code>net::Net</code> → <code>FakeNet</code>，<code>pad::Pads</code> → <code>FakePads</code>（就像 <code>duck-control</code> 有 <code>RobotIo</code>）。</p>
+<p>测试分布说明重心：</p>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th style="text-align: right">测试数</th></tr></thead><tbody>
+<tr><td><code>pad.rs</code></td><td style="text-align: right"><strong>13</strong></td></tr>
+<tr><td><code>logs.rs</code></td><td style="text-align: right"><strong>13</strong></td></tr>
+<tr><td><code>store.rs</code></td><td style="text-align: right"><strong>12</strong></td></tr>
+<tr><td><code>net.rs</code></td><td style="text-align: right">8</td></tr>
+<tr><td><code>identity.rs</code></td><td style="text-align: right">6</td></tr>
+<tr><td><code>units.rs</code></td><td style="text-align: right">4</td></tr>
+<tr><td><code>bluez.rs</code> / <code>nm.rs</code></td><td style="text-align: right">2 / 2</td></tr>
+</tbody></table>
+</div>
+<p>测试名字本身就是规格说明：</p>
+<pre><code class="language-text">   a_pin_keeps_its_leading_zeros
+   a_pin_must_be_exactly_six_digits
+   a_corrupt_file_yields_the_fallback_rather_than_an_error
+   control_characters_are_stripped
+   an_empty_name_is_refused
+   a_wrong_key_is_reported_as_a_wrong_key
+   a_missing_key_is_not_a_wrong_key          ← 这两个必须不同！
+   an_unknown_ssid_is_not_found
+   two_pads_in_pairing_mode_are_refused_not_guessed
+   two_faces_of_one_pad_share_their_unit_octets
+   a_name_alone_is_weak_evidence
+   keyboards_and_mice_are_not_gamepads
+   auto_restart_is_not_active
+   a_restart_is_marked_where_it_happened
+   an_oversized_tail_keeps_the_end_and_says_it_was_cut
+   a_line_is_cut_on_a_character_boundary
+   a_config_robotd_would_reject                   (属于 robotd-params)
+</code></pre>
+<h3 id="121--但测试有一个方向性问题"><a class="header" href="#121--但测试有一个方向性问题">12.1 ⚠️ 但测试有一个方向性问题</a></h3>
+<p>设计文档 §2.3 说得很直白，而且它描述的<strong>不是一个 bug，是三个</strong>：</p>
+<blockquote>
+<p>在板上发现的<strong>每一个</strong> wifi bug 里，<strong><code>FakeNet</code> 早就有正确的行为，而 NetworkManager 的实现从它漂移了出去</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>行为</th><th><code>FakeNet</code></th><th>实装的 NM 路径</th></tr></thead><tbody>
+<tr><td>无线电看不见的 SSID</td><td><code>NotFound</code></td><td>报告 <code>connected</code>，还报了另一个网络的名字</td></tr>
+<tr><td>一次失败的尝试</td><td>什么都不存</td><td>留下一条带着错误密钥的已保存 profile</td></tr>
+<tr><td>重新配置一个 SSID</td><td>替换</td><td>又叠了一条 profile</td></tr>
+</tbody></table>
+</div></blockquote>
+<blockquote>
+<p><strong>所以这个 trait 不只是一个测试接缝；它是这份契约唯一被写下来的形式。</strong>
+问题在于<strong>校验的方向</strong>：测试套件验证的是<strong>假实现符合契约</strong>，而<strong>没有任何东西验证 NM 符合它</strong>。</p>
+</blockquote>
+<p>两个实现都实现了 <code>Net</code>，所以同一批断言<strong>本来也可以</strong>跑在真实现上；挡住它的是 NM 那侧需要真的 NetworkManager 和真的无线电，也就是需要一块板子而不是 CI。</p>
+<p><strong>所以诚实的总结是：<code>configd</code> 的 wifi 行为被测过，而跑在机器人上的那份代码没有。</strong></p>
+<hr />
+<h2 id="13-阅读路线"><a class="header" href="#13-阅读路线">13. 阅读路线</a></h2>
+<p><strong>第 1 步 —— 建立直觉（20 分钟）</strong></p>
+<ol>
+<li>读 <code>configd/src/lib.rs</code>（<strong>只有 37 行</strong>，但把&quot;为什么是第五个服务&quot;说完了）。</li>
+<li>读设计文档 <a href="design/app-path-design.html"><code>app-path-design.md</code></a> §1（形状）和 §2（wifi）。</li>
+<li>读 <code>docs/robot/cheatsheet.md</code> 的 <code>### Wifi (configd)</code> 和 <code>### Identity and power (configd)</code> 两节 —— 看看<strong>用</strong>它是什么样。</li>
+</ol>
+<p><strong>第 2 步 —— 骨架（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>main.rs:96–171</code>（<code>PeerPolicy</code> + <code>resolve_uid</code>/<code>resolve_gid</code>）—— 两层权限。</li>
+<li>读 <code>main.rs:193–287</code>（<code>main()</code>）—— 注意<strong>每个后端失败时都不退出</strong>。</li>
+<li>读 <code>main.rs:419–582</code>（<code>dispatch</code>）—— 一张表，每一行都有理由。</li>
+</ol>
+<p><strong>第 3 步 —— 三个&quot;东西&quot;（1 小时）</strong></p>
+<ol start="7">
+<li>读 <code>net.rs</code> 的 <code>Net</code> trait 和 <code>FakeNet</code>。</li>
+<li>读 <code>store.rs</code> 全文（339 行）—— 写入纪律和字段规则。</li>
+<li>读 <code>identity.rs</code> 全文（152 行）—— 为什么是 SHA-256。</li>
+</ol>
+<p><strong>第 4 步 —— 外面那一层（1.5 小时）</strong></p>
+<ol start="10">
+<li>读 <code>nm.rs</code> 的模块头 + <code>failure_of()</code> + <code>scan()</code> + <code>connect()</code> —— 就是第 6 节那四个教训。</li>
+<li>读 <code>bluez.rs</code> 的<strong>文件头</strong>（前 187 行，本身就是一份设计文档）。</li>
+<li>读 <code>logs.rs</code> 的 <code>resolve()</code>（安全边界的那几行）。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p configd                         # 60 个测试，不需要硬件
+
+# 笔记本上跑一个&quot;假 wifi + 假手柄&quot;的 configd
+cargo run -p configd -- --fake-net --fake-pads --socket /tmp/configd.sock
+</code></pre>
+<p>然后另开一个终端问它：</p>
+<pre><code class="language-bash">echo '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;net.status&quot;}' | socat - UNIX-CONNECT:/tmp/configd.sock
+echo '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;method&quot;:&quot;system.info&quot;}' | socat - UNIX-CONNECT:/tmp/configd.sock
+</code></pre>
+<p><code>FakeNet</code> 预置了两个网络（一个 WPA2 的 <code>Pollen</code>，密码是 <code>correct-key</code>，一个开放的 <code>Cafe</code>），
+所以可以试一次成功的连接和一次 <code>BadKey</code>：</p>
+<pre><code class="language-bash">echo '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3,&quot;method&quot;:&quot;net.connect&quot;,&quot;params&quot;:{&quot;ssid&quot;:&quot;Pollen&quot;,&quot;psk&quot;:&quot;wrong&quot;}}' \
+  | socat - UNIX-CONNECT:/tmp/configd.sock      # ← 应该回 BadKey
+</code></pre>
+<hr />
+<h2 id="14-术语表"><a class="header" href="#14-术语表">14. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>NetworkManager (NM)</strong></td><td>Linux 上管网络连接的服务。<strong>它才是拥有 wifi 凭据的那个</strong></td></tr>
+<tr><td><strong>netplan</strong></td><td>Ubuntu/Armbian 上的网络配置生成器。本仓库<strong>从它迁移到了 NM</strong>，因为 netplan 回答不了&quot;密码错了吗&quot;</td></tr>
+<tr><td><strong>supplicant</strong></td><td>真正跟 AP 协商加密的那层软件（<code>wpa_supplicant</code>）。NM 在它上面</td></tr>
+<tr><td><strong>SSID / PSK</strong></td><td>网络名 / 预共享密钥（也就是 wifi 密码）</td></tr>
+<tr><td><strong>AP</strong></td><td>Access Point，接入点</td></tr>
+<tr><td><strong>关联 / association</strong></td><td>无线链路建立起来。<strong>关联成功 ≠ 拿到 IP</strong></td></tr>
+<tr><td><strong><code>BadKey</code></strong></td><td>一个自定义的错误分类：<strong>密码错</strong>。值得单独分出来，因为它是用户唯一能自己修的错误</td></tr>
+<tr><td><strong>D-Bus</strong></td><td>Linux 上的进程间通信总线。有&quot;系统总线&quot;（本程序用的）和&quot;会话总线&quot;</td></tr>
+<tr><td><strong><code>zbus</code></strong></td><td>一个<strong>纯 Rust</strong> 的 D-Bus 客户端库。configd 用它（NM、BlueZ、logind、systemd 都走它）</td></tr>
+<tr><td><strong>polkit</strong></td><td>Linux 的&quot;谁被允许做特权操作&quot;的策略引擎。<strong>这块板子上没有它</strong> —— 这就是 configd 跑 root 的原因</td></tr>
+<tr><td><strong>logind</strong></td><td>systemd 里管登录/关机/重启的那个组件</td></tr>
+<tr><td><strong><code>reboot(2)</code></strong></td><td>直接切电的内核调用。<strong>本仓库故意不用它</strong></td></tr>
+<tr><td><strong>BlueZ</strong></td><td>Linux 的蓝牙协议栈</td></tr>
+<tr><td><strong>bonding / 绑定</strong></td><td>把配对产生的密钥存下来，下次不用重配</td></tr>
+<tr><td><strong>agent</strong></td><td>向 BlueZ 提供&quot;配对时该问用户什么&quot;的代理。<code>NoInputNoOutput</code> = 没有键盘也没有屏幕</td></tr>
+<tr><td><strong>default agent</strong></td><td>BlueZ <strong>只从它</strong>往下推 IO capability —— 这决定了 MITM 保护开不开（§7.1）</td></tr>
+<tr><td><strong><code>Trusted</code></strong></td><td>BlueZ 的一个设备属性。置 true 是<strong>重启后能自动重连的唯一原因</strong></td></tr>
+<tr><td><strong><code>Paired</code></strong></td><td>另一个属性。这里被当作&quot;绑定成功了没有&quot;的<strong>唯一事实来源</strong></td></tr>
+<tr><td><strong>BR/EDR vs LE</strong></td><td>经典蓝牙 vs 低功耗蓝牙。同一个手柄可能<strong>两个都有</strong>（§7.4）</td></tr>
+<tr><td><strong>flock</strong></td><td>Linux 的文件锁。用来让多个写者排队</td></tr>
+<tr><td><strong>原子替换</strong></td><td>先写临时文件再 <code>rename</code>。中途失败不会留下半个文件</td></tr>
+<tr><td><strong>fsync</strong></td><td>强制把数据真正写到磁盘。<strong>目录也要 fsync</strong>，否则 rename 熬不过断电</td></tr>
+<tr><td><strong>journal / journald</strong></td><td>systemd 的日志系统</td></tr>
+<tr><td><strong>单元 / unit</strong></td><td>systemd 眼里的一个服务（比如 <code>robotd.service</code>）</td></tr>
+<tr><td><strong><code>SO_PEERCRED</code></strong></td><td>Linux 让你查出&quot;这条 unix socket 对面是谁&quot;的机制</td></tr>
+<tr><td><strong>主 gid</strong></td><td>进程的主组 ID。<strong><code>SupplementaryGroups</code> 不算</strong> —— 这是这里的陷阱</td></tr>
+<tr><td><strong>provisioning</strong></td><td>给一块新板子配置 wifi、名字等的过程</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><code>btd</code> 和 <code>configd</code> 的权威设计（英文，写得很好）</td><td><a href="design/app-path-design.html"><code>design/app-path-design.md</code></a></td></tr>
+<tr><td>蓝牙那边（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>手机和机器人之间的协议（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>服务拆分、IPC 契约、权限模型</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a></td></tr>
+<tr><td>怎么配 wifi、怎么改名、怎么配手柄</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a> · <a href="robot/pair-a-gamepad.html"><code>robot/pair-a-gamepad.md</code></a></td></tr>
+<tr><td>手机 App 本身</td><td><a href="design/mobile-app.html"><code>design/mobile-app.md</code></a></td></tr>
+<tr><td>从笔记本操作机器人的每条命令</td><td><a href="robot/duckctl.html"><code>robot/duckctl.md</code></a></td></tr>
+<tr><td>控制循环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>配置文件的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程可达（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄的 IMU 姿态怎么来的（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄配对归 configd，驱动归 padd（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>robotctl net</code> / <code>system</code> 的对面（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/btd-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/deploy-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/btd-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/deploy-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>duck-detect/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html" class="active"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="duck-detect-新手导读"><a class="header" href="#duck-detect-新手导读"><code>duck-detect</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>感知的定位与帧路径由 <a href="design/architecture.html"><code>design/architecture.md</code></a> §2/§5.3 和
+<a href="project/npu-bringup.html"><code>project/npu-bringup.md</code></a>（NPU 的实录）拥有。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="duck-control-primer.html"><code>duck-control-primer.md</code></a>（另一个也用神经网络的地方）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在系统里的位置</a></li>
+<li><a href="#3-%E4%B8%89%E4%BB%B6%E4%BA%8Bletterbox--%E8%BF%90%E8%A1%8C%E6%97%B6--decode">三件事：letterbox → 运行时 → decode</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-%E4%B8%80%E6%AC%A1%E6%A3%80%E6%B5%8B%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次检测的完整旅程</a></li>
+<li><a href="#6-%E4%B8%A4%E4%B8%AA%E5%90%8E%E7%AB%AFnpu-%E5%92%8C-cpu">两个后端：NPU 和 CPU</a></li>
+<li><a href="#7-decode%E9%82%A3%E4%B8%AA%E7%9C%8B%E8%B5%B7%E6%9D%A5%E5%87%A0%E4%B9%8E%E5%90%88%E7%90%86%E7%9A%84%E9%99%B7%E9%98%B1"><code>decode</code>：那个&quot;看起来几乎合理&quot;的陷阱</a></li>
+<li><a href="#8-%EF%B8%8F-%E4%B8%89%E4%B8%AA%E5%BF%85%E9%A1%BB%E5%92%8C%E8%AE%AD%E7%BB%83%E4%B8%80%E8%87%B4%E7%9A%84%E7%BA%A6%E5%AE%9A">⚠️ 三个必须和训练一致的约定</a></li>
+<li><a href="#9-%E6%89%8B%E5%86%99%E7%9A%84-abi">手写的 ABI</a></li>
+<li><a href="#10-duck-bench%E6%80%8E%E4%B9%88%E5%9C%A8%E7%9C%9F%E6%9D%BF%E4%B8%8A%E9%87%8F"><code>duck-bench</code>：怎么在真板上量</a></li>
+<li><a href="#11-%E6%B5%8B%E8%AF%95">测试</a></li>
+<li><a href="#12-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#13-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>duck-detect</code> 回答一个问题：<strong>这台机器人的摄像头里，有没有别的 Microduck？</strong></p>
+<p>模型在另一个仓库（<a href="https://github.com/pollen-robotics/duck_detector"><code>duck_detector</code></a>）训练，到这里是一个 <strong>INT8 的 <code>.rknn</code></strong>：</p>
+<pre><code class="language-text">   一个类别 · 输入 320×320 · 输出 2100 个候选框
+</code></pre>
+<p>整个 crate 就是<strong>一帧画面到一个边界框之间的三件事</strong> —— 缩放填充、运行时、解码 —— 外加 <code>duck-bench</code>，一个在真板上量它们的小工具。</p>
+<p><strong>⚠️ 它最容易出的故障不是崩溃，而是&quot;悄悄变差&quot;。</strong> 模块头的原话：</p>
+<blockquote>
+<p><strong>这里的一切都必须和模型训练时一致</strong>，而跨两个仓库<strong>没有任何东西强制这一点</strong>，
+除了这段注释和下面那些数字。</p>
+<p>弄错其中一条，检测器<strong>不会失败</strong> —— 它只是<strong>悄悄地变差</strong>，
+而这正是这个 crate 最容易暴露的失败模式。</p>
+</blockquote>
+<p>规模：<strong>1144 行，5 个文件</strong>。</p>
+<hr />
+<h2 id="2-它在系统里的位置"><a class="header" href="#2-它在系统里的位置">2. 它在系统里的位置</a></h2>
+<pre><code class="language-text">   摄像头 ──▸ mediad ──┬──▸ WebRTC（视频）
+                       │
+                       └──▸ 「raw tee 分支」──▸ duck-detect ──▸ 检测结果
+                                                              │
+                                                              ▼
+                                                    mediad 的 detect.rs
+                                                    （一个线程，2 Hz）
+</code></pre>
+<p><strong>消费者只有一个：<code>mediad</code>。</strong> 而在 <code>mediad</code> 那边，它跑在一个<strong>独立线程</strong>上，理由值得记：</p>
+<blockquote>
+<p><strong>是线程，不是 task。</strong> 推理是每帧 60 ms 的<strong>阻塞</strong>工作，
+而这里的 tokio 运行时是在服务 WebRTC 信令的 ——
+一个检测器占据了它十分之一秒里的一整个 worker，会让会话建立<strong>毫无理由地卡顿</strong>，
+而且没人找得到原因。</p>
+</blockquote>
+<h3 id="21--有两个兄弟-crate-容易搞混"><a class="header" href="#21--有两个兄弟-crate-容易搞混">2.1 ⚠️ 有两个&quot;兄弟&quot; crate 容易搞混</a></h3>
+<pre><code class="language-text">   duck-detect   ← 检测器本身（带 NPU 和 ONNX 运行时）
+   uyvy          ← 摄像头像素：安装转角 + UYVY 采样（**零依赖**）
+</code></pre>
+<p><strong><code>uyvy</code> 是从 <code>duck-detect</code> 里抽出来的</strong>，和 <code>duck-ble</code> 从 <code>btd</code> 抽出来是同一个故事。原话：</p>
+<blockquote>
+<p>三个进程必须对&quot;一帧摄像头画面长什么样&quot;达成一致：<code>mediad</code> 要服务并编码它、
+<code>duck-detect</code> 要喂给模型、<code>robotctl monitor</code> 要在终端里画它。
+这些算术原来住在 <code>duck-detect</code> 里，<strong>而它的依赖树拖着 NPU 和 ONNX 运行时以及 <code>image</code> crate</strong> ——
+<strong>一个在恢复路径上的 CLI 绝不能链接那些东西。</strong></p>
+<p>把四十行采样代码抄进 CLI 是另一个选项，而<strong>一份已经被弄错过一次的旋转的第二份拷贝</strong>，
+正是&quot;一张图在一个消费者里是正的、在另一个里是躺着的&quot;的由来。</p>
+</blockquote>
+<p>所以 <code>robotctl</code> 依赖 <code>uyvy</code>（零依赖），<strong>刻意不依赖 <code>duck-detect</code></strong>。</p>
+<hr />
+<h2 id="3-三件事letterbox--运行时--decode"><a class="header" href="#3-三件事letterbox--运行时--decode">3. 三件事：letterbox → 运行时 → decode</a></h2>
+<pre><code class="language-text">   ┌────────────────────────────────────────────────────────────┐
+   │  ① letterbox_rgb()   把任意尺寸的画面**缩放并填充**成 320×320│
+   │                       填 114 灰；**不是拉伸**               │
+   ├────────────────────────────────────────────────────────────┤
+   │  ② rknn::Model 或 onnx::Model                              │
+   │                       一个走 NPU，一个走 CPU                │
+   │                       两边返回**同样布局**的原始输出        │
+   ├────────────────────────────────────────────────────────────┤
+   │  ③ decode()          2100 个候选 → 过滤 → 抑制重叠 → 映射回 │
+   │                       原帧坐标                              │
+   └────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>关键：第 ② 步的两个后端返回同样的东西</strong>，所以第 ③ 步<strong>不关心</strong>是哪个产生的。</p>
+<blockquote>
+<p><code>onnx.rs</code> 的 <code>infer</code> 注释原话：&quot;……和 NPU 路径返回的布局一样，
+所以 <code>decode()</code> 不关心是哪一个产生的。&quot;</p>
+</blockquote>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code class="language-text">duck-detect/
+├── Cargo.toml              28 行   依赖（注释解释了每个不显然的选择）
+├── src/
+│   ├── lib.rs             254 行   ★ letterbox + decode + Detection
+│   ├── rknn.rs            462 行   ★ NPU 后端（**手写 ABI**）
+│   ├── onnx.rs             92 行   CPU 后端
+│   └── bin/duck-bench.rs  308 行   在真板上量它
+</code></pre>
+<p><strong>建议的阅读顺序：</strong> <code>lib.rs</code> 的模块头 → <code>lib.rs</code> 的 <code>decode()</code> → <code>lib.rs</code> 的 <code>letterbox_rgb()</code> → <code>rknn.rs</code> → <code>onnx.rs</code> → <code>duck-bench.rs</code>。</p>
+<hr />
+<h2 id="5-一次检测的完整旅程"><a class="header" href="#5-一次检测的完整旅程">5. 一次检测的完整旅程</a></h2>
+<pre><code class="language-text">   ① mediad 从 raw tee 拿到一帧 UYVY（1280×720，而且是躺着的）
+              │
+   ② uyvy::letterbox_from_uyvy()
+      · 边采样边转 90°（不是先转再采样）
+      · 输出 320×320×3 的 RGB 字节
+      · 记下 scale / pad_x / pad_y → 一个 Letterbox
+              │
+              ▼
+   ③ rknn::Model::infer(&amp;frame, &amp;mut out)
+      · rknn_inputs_set（uint8，NHWC）
+      · rknn_run
+      · rknn_outputs_get（**要浮点**，运行时自己反量化）
+      · out = 2100 × 5 = 10500 个 f32
+              │
+              ▼
+   ④ decode(&amp;out, letterbox, threshold, iou_limit)
+      · 读 score，低于阈值跳过
+      · 解出 cx, cy, w, h（★ 注意是**平面布局**）
+      · 反填充、反缩放 → 原帧坐标
+      · 按 score 降序，NMS 抑制重叠
+              │
+              ▼
+   ⑤ Vec&lt;Detection&gt;  →  mediad 广播出去
+      · box_：[x0, y0, x1, y1] 像素
+      · bearing()：-1 最左，0 正前，1 最右
+</code></pre>
+<h3 id="51-bearing行为真正想要的那个数"><a class="header" href="#51-bearing行为真正想要的那个数">5.1 <code>bearing()</code>：行为真正想要的那个数</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 鸭子在画面的什么位置：−1 最左，0 正前，1 最右。
+///
+/// **一个行为真正想要的那一个数** —— &quot;朝它转过去&quot;需要一个方位角，不是一个框。
+pub fn bearing(&amp;self, frame_width: f32) -&gt; f32
+<span class="boring">}</span></code></pre></pre>
+<h3 id="52-为什么用最近邻缩放"><a class="header" href="#52-为什么用最近邻缩放">5.2 为什么用最近邻缩放</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 故意用最近邻：这段代码每帧都要跑在一个 50 Hz 控制循环旁边，
+/// 输入是一张模糊的 720×1280 的室内照片，
+/// 而双线性缩放要花**三倍**的代价，只为把一个框挪动一个像素。
+/// 如果将来有测量说精度值这个价，RGA 可以免费做。
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="6-两个后端npu-和-cpu"><a class="header" href="#6-两个后端npu-和-cpu">6. 两个后端：NPU 和 CPU</a></h2>
+<h3 id="61-为什么会有-cpu-后端"><a class="header" href="#61-为什么会有-cpu-后端">6.1 为什么会有 CPU 后端</a></h3>
+<p>模块头说得非常直接：</p>
+<blockquote>
+<p><strong>RK3566 有 NPU，厂商内核有驱动 —— 而在这块板子上，设备树把 <code>npu@fde40000</code> 发成 <code>disabled</code></strong>，
+而 Armbian 提供的唯一一个 overlay 是<strong>进一步禁用它</strong>的。</p>
+<p><strong>启用它是一个 overlay 加一次重启，那是关于&quot;某个人的机器人&quot;的决定，不是一个检测器的细节。</strong>
+所以在那之前，检测器跑在四个 A55 核上，而<strong>改一个配置值就能搬到 NPU</strong>。</p>
+</blockquote>
+<p>而它不带来新依赖：</p>
+<blockquote>
+<p>ONNX Runtime <strong>已经</strong>在每一块 provisioned 过的板子上了（<code>setup-board.sh</code> 为 <code>robotd</code> 的策略装它），
+而 <code>ort</code> 是 dlopen 它的。</p>
+</blockquote>
+<h3 id="62-cpu-后端的一个细节只给两个线程"><a class="header" href="#62-cpu-后端的一个细节只给两个线程">6.2 CPU 后端的一个细节：只给两个线程</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// **两个线程，不是四个。** 另外两个属于 `robotd` 的控制循环和 GStreamer；
+// 一个为了看见 3 米外的鸭子就占满整个 SoC 的检测器，
+// **拿走的东西比它给的多。**
+.with_intra_threads(2)
+<span class="boring">}</span></code></pre></pre>
+<p>而它自己做两件 NPU 那边由运行时做的事：<strong>HWC → NCHW 的重排</strong>，以及 <strong>÷255 归一化</strong>。</p>
+<blockquote>
+<p>NPU 那边不用做，因为 <code>.rknn</code> 里烘焙了 mean/std 和布局。</p>
+</blockquote>
+<h3 id="63-为什么-npu-那边是-dlopen"><a class="header" href="#63-为什么-npu-那边是-dlopen">6.3 为什么 NPU 那边是 <code>dlopen</code></a></h3>
+<p><code>rknn.rs</code> 的模块头：</p>
+<blockquote>
+<p><strong><code>dlopen</code>，不是链接。</strong> <code>librknnrt.so</code> 是一个<strong>厂商 blob</strong>：
+它不在任何 Debian 套件里、不在笔记本上、<strong>也不需要用来<em>构建</em></strong> ——
+<strong>一个链接了它的守护进程在 CI 里根本没法交叉编译。</strong></p>
+<p><code>robotd</code> 用同样的方式够到 ONNX Runtime，理由也一样。
+<strong>代价是这一个文件；好处是 <code>cargo board --bins</code> 在一台没有任何 Rockchip 东西的机器上照常工作。</strong></p>
+</blockquote>
+<p>搜索路径是<strong>四个候选</strong>（<code>CANDIDATES</code>），因为&quot;一块手工 provision 的板子仍然要能用&quot;。</p>
+<hr />
+<h2 id="7-decode那个看起来几乎合理的陷阱"><a class="header" href="#7-decode那个看起来几乎合理的陷阱">7. <code>decode</code>：那个&quot;看起来几乎合理&quot;的陷阱</a></h2>
+<h3 id="71--输出张量是平面的不是交错的"><a class="header" href="#71--输出张量是平面的不是交错的">7.1 ⭐ 输出张量是<strong>平面</strong>的，不是交错的</a></h3>
+<pre><code class="language-text">   raw 有 2100 × 5 = 10500 个浮点。
+
+   它长这样：    [cx₀ cx₁ … cx₂₀₉₉ | cy₀ … | w₀ … | h₀ … | score₀ … ]
+                 └────── 全部 cx ──┘
+
+   而不是这样：  [cx₀ cy₀ w₀ h₀ score₀ | cx₁ … ]
+</code></pre>
+<blockquote>
+<p>把它读成交错的，得到的是<strong>几乎说得通的框</strong> —— <strong>这是最糟的一种错。</strong></p>
+</blockquote>
+<p>有一个测试专门钉这件事（<code>the_head_is_planar_not_interleaved</code>），注释说：</p>
+<blockquote>
+<p>读成&quot;每个框五个数&quot;会产出<strong>几乎说得通的框</strong> —— 最糟的一种错，
+<strong>因为它看起来像一个坏模型，而不是一个坏的读取者。</strong></p>
+</blockquote>
+<h3 id="72-头部不抑制任何东西"><a class="header" href="#72-头部不抑制任何东西">7.2 头部不抑制任何东西</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// **头部不做任何抑制。** 2100 个候选意味着**一只鸭子会变成二十个重叠的框**，
+/// 而如果不处理，这个 crate 的**每一个**消费者都得知道这件事。
+<span class="boring">}</span></code></pre></pre>
+<p>所以 <code>decode()</code> 做 NMS（非极大值抑制）：按 score 降序，逐个保留&quot;和已保留的框重叠度 &lt; <code>iou_limit</code>&quot;的。</p>
+<h3 id="73-阈值是这个模型的属性"><a class="header" href="#73-阈值是这个模型的属性">7.3 阈值是<strong>这个模型</strong>的属性</a></h3>
+<blockquote>
+<p>阈值是<strong>这个</strong>模型的属性，而且是<strong>量化过的</strong>：
+一个 INT8 输出张量<strong>自带 scale</strong>，所以在浮点模型上意味着 0.9 的值，<strong>在这里不是 0.9</strong>。
+<strong>拿板子去调它。</strong></p>
+</blockquote>
+<p>（<code>deploy/robotd.toml</code> 里也写了同一件事：出厂模型的分数<strong>不是概率</strong> —— 每个真实检测都在 1.3 左右，别的什么都不读出来，因为输出张量和框坐标<strong>共用一个量化 scale</strong>。所以它是<strong>一个是/否的阈值，不是一个旋钮</strong>。）</p>
+<hr />
+<h2 id="8--三个必须和训练一致的约定"><a class="header" href="#8--三个必须和训练一致的约定">8. ⚠️ 三个必须和训练一致的约定</a></h2>
+<p><code>lib.rs</code> 的模块头列了三条，而且<strong>没有任何东西跨两个仓库强制它们</strong>：</p>
+<pre><code class="language-text">   ① 画面是**填充（letterbox）**成正方形的，不是拉伸；用 **114 灰**填充
+   ② **RGB，不是 BGR**
+   ③ 送进去的是 `mediad` **已经转正过**的那张图（`--rotate`，默认 90°），
+      因为数据集就是透过那个朝向拍的
+</code></pre>
+<blockquote>
+<p><strong>弄错其中一条，检测器不会失败 —— 它只是悄悄地变差。</strong></p>
+</blockquote>
+<p><strong>第 ③ 条解释了一个看起来奇怪的设计</strong>：为什么 <code>duck-detect</code> <strong>不自己转画面</strong>？</p>
+<p>因为它拿到的已经不是原始帧 —— 它走的是 <code>mediad</code> 的 tee，而那张图<strong>已经是转正的</strong>。这是刻意的：见第 2.1 节，转角的算术在 <code>uyvy</code> 里，<strong>而且是在采样的同一次循环里做的</strong>。</p>
+<blockquote>
+<p><code>uyvy</code> 的 <code>Turn</code> 文档讲了这个决定为什么是性能决定而不是审美：
+管线里曾经用 GStreamer 的 <code>videoflip</code> 转过，<strong>代价是 145% 的一个核</strong> ——
+<code>mpph264enc</code> 本来免费把 UYVY→NV12 交给 SoC 的 2D 引擎，
+而 flip 的 buffer 是 RGA <strong>拒绝</strong>的（<code>RGA_BLIT fail: Bad address</code>），
+于是 MPP 退回软件转换每一帧：<strong>97 °C、CPU 降到 408 MHz、30 fps 的摄像头出 8 fps。</strong></p>
+<p>而采样器<strong>本来就在重采样到 320×320</strong>，所以<strong>在同一次循环里转角一分钱都不花</strong>。</p>
+</blockquote>
+<h3 id="81-pad--114-的来历"><a class="header" href="#81-pad--114-的来历">8.1 <code>PAD = 114</code> 的来历</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// ultralytics 给 letterbox 填充用的灰色，**因此也是标定和训练看到的那种灰**。
+pub const PAD: u8 = 114;
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="9-手写的-abi"><a class="header" href="#9-手写的-abi">9. 手写的 ABI</a></h2>
+<p><code>rknn.rs</code> 是这个 crate 里最长、也最&quot;底层&quot;的部分。它把 Rockchip 的 C 头文件<strong>逐字段转写</strong>成 Rust：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[repr(C)]
+struct RknnTensorAttr {
+    index: c_uint, n_dims: c_uint, dims: [c_uint; 16],
+    name: [c_char; 256], n_elems: c_uint, size: c_uint,
+    fmt: c_uint, type_: c_uint, qnt_type: c_uint,
+    fl: i8, zp: i32, scale: f32, w_stride: c_uint, …
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="91-为什么这很危险以及怎么防"><a class="header" href="#91-为什么这很危险以及怎么防">9.1 为什么这很危险，以及怎么防</a></h3>
+<blockquote>
+<p><strong><code>rknn_query</code> 用固定大小的结构体回答，而它们的布局<em>就是</em> ABI。</strong>
+它们被逐字段复现在下面；<strong>一个错位是静默的胡说，而不是一个错误</strong> ——
+这就是为什么<strong>尺寸（和偏移）在启动时就断言，而不是被信任</strong>。</p>
+</blockquote>
+<p>测试断言的不是总大小，<strong>而是偏移</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// **偏移，不只是总大小。** 两个字段互换会保持总大小却改变含义，
+// 而这条边界的另一边是一个本地没有任何编译器能检查的 blob。
+// 这些数字是手数出来的 `rknn_tensor_attr` 的 C 布局：
+//   index 0, n_dims 4, dims[16] 8..72, name[256] 72..328, n_elems 328, …
+assert_eq!(std::mem::offset_of!(RknnTensorAttr, dims), 8);
+assert_eq!(std::mem::offset_of!(RknnTensorAttr, zp), 352);
+assert_eq!(std::mem::offset_of!(RknnTensorAttr, scale), 356);
+assert_eq!(std::mem::size_of::&lt;RknnTensorAttr&gt;(), 376);
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>测试注释：<strong>&quot;这不是厂商头文件的替代品 —— 它是一根绊线，
+用来绊住一次把字段加错位置的编辑，而这里没有任何编译器能抓到它，
+因为这条边界的另一边是一个没人链接的 blob。&quot;</strong></p>
+</blockquote>
+<h3 id="92-两个猜错了会静默出事的地方"><a class="header" href="#92-两个猜错了会静默出事的地方">9.2 两个&quot;猜错了会静默出事&quot;的地方</a></h3>
+<p><strong>一、<code>RKNN_QUERY_*</code> 的编号顺序就是 ABI。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// **顺序就是 ABI。** 它们曾经被猜过一次，输入和输出换了个位，
+/// 而症状是 `rknn_query(INPUT_ATTR)` 拿着**输出**张量回答 ——
+/// &quot;cannot make sense of the input shape [1, 5, 2100]&quot;，
+&gt; 一个**针对错误问题的、完全合理的抱怨**。
+<span class="boring">}</span></code></pre></pre>
+<p><strong>二、NCHW 是 0、NHWC 是 1 —— 弄反不会失败。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 值得强调，因为弄反**不会失败**。运行时会记一行
+/// &quot;Meet unsupported src layout for normalize: NCHW, only support NHWC src layout&quot; ——
+/// 然后 `rknn_inputs_set` **照样返回成功**，
+/// 于是推理跑在输入缓冲区里随便什么内容上，而检测器**每一帧都报恰好两个自信的框，永远如此**。
+/// 从外面看，&quot;每帧两个一模一样的检测&quot;就是那个样子。
+<span class="boring">}</span></code></pre></pre>
+<h3 id="93-反量化交给运行时的理由"><a class="header" href="#93-反量化交给运行时的理由">9.3 反量化交给运行时的理由</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>want_float: 1,   // ← **由运行时反量化**
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>一个量化模型的输出是 <strong>int8 加上一个 scale 和 zero point</strong>；
+在这里要浮点，就把那套算术<strong>留在一个地方 —— 厂商的</strong>，
+而不是留在一个&quot;会弄错一次、然后被相信&quot;的解码器里。</p>
+</blockquote>
+<h3 id="94-rknn_init-失败时说什么"><a class="header" href="#94-rknn_init-失败时说什么">9.4 <code>rknn_init</code> 失败时说什么</a></h3>
+<p><code>why_init_failed()</code> <strong>先查设备树</strong>，理由写得很实在：</p>
+<blockquote>
+<p><strong>设备树排第一，因为那是每块板子起步时的状态。</strong>
+Armbian 把 <code>npu@fde40000</code> 发成 <code>status = &quot;disabled&quot;</code>，
+所以一台没人跑过 <code>setup-npu.sh</code> 的机器人<strong>有硬件、有内核、有驱动、有运行时，而仍然没有 NPU</strong> ——
+而运行时自己那行日志是 <em>&quot;failed to open rknpu module, need to insmod rknpu dirver!&quot;</em>，
+它把人送去<strong>找一个已经编进内核的模块</strong>。</p>
+</blockquote>
+<p>于是三档诊断：设备树里禁用了（告诉你跑哪个脚本）→ 设备树里根本没有这个节点（内核不是 Armbian 那个）→ 节点是启用的（那就是模型或驱动）。</p>
+<hr />
+<h2 id="10-duck-bench怎么在真板上量"><a class="header" href="#10-duck-bench怎么在真板上量">10. <code>duck-bench</code>：怎么在真板上量</a></h2>
+<pre><code class="language-bash">sudo duck-bench --model duck.rknn --frames /var/tmp/frames
+</code></pre>
+<p>它按<strong>重要性排序</strong>回答三个问题：</p>
+<pre><code class="language-text">   ① 它能跑吗？       运行时加载不了、模型是给别的平台构建的、
+                      驱动比运行时老 —— 都**在这里**失败，而不是在一个守护进程里。
+
+   ② 它还看得见鸭子吗？**量化正是检测器停止工作的地方**，
+                      而一个&quot;能跑但什么都检测不到&quot;的模型
+                      **看起来和一个能工作的模型一模一样**。
+                      所以它报的是**每帧检测数**，不只是毫秒。
+
+   ③ 它的代价是多少？  延迟分位数，**以及这个进程烧掉的 CPU** ——
+                      因为把它放上 NPU 的理由就是别打扰 `robotd` 的 50 Hz 循环，
+                      而&quot;NPU 在做&quot;是一个**要检查而不是假定**的说法。
+</code></pre>
+<h3 id="101-两个不是礼貌的默认值"><a class="header" href="#101-两个不是礼貌的默认值">10.1 两个&quot;不是礼貌&quot;的默认值</a></h3>
+<p><strong>⚠️ 默认按 2 Hz 限速，而这不是客气：</strong></p>
+<blockquote>
+<p><strong>全速跑，它把一块 Radxa Zero 3 带到 95 °C、CPU 降到 408 MHz</strong> ——
+所以一次全速运行报出的数字，是<strong>一块已经太热、给不出这些数字的板子</strong>的数字。
+2 Hz 是检测器实际会跑的频率。<code>--hz 0</code> 取消限速，用于在一块有风扇或散热片的板子上找天花板。</p>
+</blockquote>
+<p><strong>它读 JPEG，而不是打开摄像头：</strong></p>
+<blockquote>
+<p>因为 <code>mediad</code> 占着摄像头，而一次采集会话出来的帧<strong>本来就是对的东西</strong>，
+而且<strong>一个必须先停掉守护进程的基准测试，是一个没人会跑第二次的基准测试。</strong></p>
+</blockquote>
+<h3 id="102-实测数字来自-projectnpu-bringupmd"><a class="header" href="#102-实测数字来自-projectnpu-bringupmd">10.2 实测数字（来自 <a href="project/npu-bringup.html"><code>project/npu-bringup.md</code></a>）</a></h3>
+<p>板上 2 Hz、30 帧 3 轮：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>实测</th><th>备注</th></tr></thead><tbody>
+<tr><td>驱动 / 运行时</td><td>0.9.8 / 2.3.2</td><td><code>setup-npu.sh</code> 会打印两个</td></tr>
+<tr><td>延迟 p50 / p95</td><td><strong>25.7 ms / 58.4 ms</strong></td><td>推理 + 解码，不含 JPEG 解码</td></tr>
+<tr><td>每帧 CPU</td><td>20.7 ms</td><td><strong>见下 —— 这不全是推理</strong></td></tr>
+<tr><td>SoC 温度</td><td>63 °C</td><td>一次限速运行结束时</td></tr>
+</tbody></table>
+</div>
+<p>而那份文档对 CPU 那个数字有一个<strong>很诚实的说明</strong>，值得抄下来：</p>
+<blockquote>
+<p><strong>那个 CPU 数字不是 NPU 的代价，而它的报法会诱使人那样读它。</strong>
+延迟那一列计的是 <code>infer</code> + <code>decode</code>；CPU 那一列是<strong>整个循环</strong>的进程 CPU 除以帧数，
+所以它<strong>还捎带了 <code>letterbox_rgb</code></strong> —— 一次 1280×720 → 320×320 的重采样，
+<strong>跑在 CPU 上，而且完全不在延迟里</strong>。
+剩下那部分是不是 <code>rknn_run</code> 在忙等（把等 NPU 的时间算到 CPU 头上）<strong>目前还不知道</strong>。
+2 Hz 下无论如何是 4% 的一个核；<strong>但在有人把它当成&quot;感知的代价&quot;引用之前，这两者应该分开量。</strong></p>
+</blockquote>
+<h3 id="103-模型的来头"><a class="header" href="#103-模型的来头">10.3 模型的来头</a></h3>
+<p>同那份文档：<code>yolo11n</code> 320×320，一个类别，三个会话的 150 帧，
+<strong>留出会话上 mAP50 0.976</strong>，INT8 量化后 <strong>3.9 MB</strong>，
+在桌上对浮点模型保持了 <strong>2/2 个检测、95% 框重叠</strong>。</p>
+<hr />
+<h2 id="11-测试"><a class="header" href="#11-测试">11. 测试</a></h2>
+<p><strong>只有 6 个测试</strong> —— <code>lib.rs</code> 4 个、<code>rknn.rs</code> 2 个。</p>
+<p>这个数字小得值得说明一下：<strong>这个 crate 的大部分逻辑是几何和 ABI，而两者都是&quot;要么对要么错、错了就静默&quot;的东西</strong>。所以它不是靠测试数量取胜，而是靠<strong>测试挑得准</strong>：四个钉住解码的几何，两个钉住那条<strong>本地没有任何编译器能检查的边界</strong>。</p>
+<p>全部在笔记本上跑 —— <strong>不需要 NPU、不需要模型、不需要板子</strong>。</p>
+<h3 id="111-librs-的四个几何"><a class="header" href="#111-librs-的四个几何">11.1 <code>lib.rs</code> 的四个：几何</a></h3>
+<pre><code class="language-text">   a_portrait_frame_is_padded_left_and_right     ← 竖构图是**唯一实际发生**的情况
+   the_head_is_planar_not_interleaved            ← ★ 第 7.1 节那个陷阱
+   overlapping_candidates_collapse_and_map_back_to_the_frame
+   two_ducks_stay_two
+</code></pre>
+<p>第一个的注释说明了为什么它重要：</p>
+<blockquote>
+<p>摄像头在守护进程转了四分之一圈之后是<strong>竖的 —— 720×1280</strong>，
+所以这是<strong>唯一真正发生</strong>的情况，而<strong>填充弄错会让每一个框偏移一个常数</strong>，
+谁都不会注意到，<strong>直到机器人伸手去够一只不在那里的鸭子</strong>。</p>
+</blockquote>
+<h3 id="112-rknnrs-的两个"><a class="header" href="#112-rknnrs-的两个">11.2 <code>rknn.rs</code> 的两个</a></h3>
+<pre><code class="language-text">   the_query_structs_are_laid_out_as_the_abi_says   ← 第 9.1 节
+   a_missing_runtime_names_the_setup_script
+</code></pre>
+<p>第二个测的是：<strong>一个缺失的运行时必须说出该跑什么，而不是 &quot;cannot open shared object file&quot;</strong>。</p>
+<hr />
+<h2 id="12-阅读路线"><a class="header" href="#12-阅读路线">12. 阅读路线</a></h2>
+<p><strong>第 1 步（20 分钟）</strong></p>
+<ol>
+<li>读 <code>lib.rs</code> 的模块头（前 22 行）—— 它把&quot;三件事&quot;和&quot;三个约定&quot;说完了。</li>
+<li>读 <a href="project/npu-bringup.html"><code>project/npu-bringup.md</code></a>（182 行）——
+NPU 那件事的<strong>实录</strong>，包括实测数字和一个很诚实的&quot;这份文档哪里还没说清&quot;。</li>
+</ol>
+<p><strong>第 2 步 —— 几何（40 分钟）</strong></p>
+<ol start="3">
+<li>读 <code>lib.rs</code> 的 <code>letterbox_rgb()</code>（<code>:65</code>）和 <code>Detection</code>（<code>:36</code>）。</li>
+<li>读 <code>lib.rs</code> 的 <code>decode()</code>（<code>:105</code>）—— <strong>第 7.1 节那个陷阱</strong>。</li>
+<li>读 <code>uyvy/src/lib.rs</code> 的模块头和 <code>Turn</code>（<code>:35</code>）—— 为什么转角在采样里做。</li>
+</ol>
+<p><strong>第 3 步 —— 运行时（1 小时）</strong></p>
+<ol start="6">
+<li>读 <code>onnx.rs</code> <strong>全文</strong>（92 行）—— 简单的那一半，先读。</li>
+<li>读 <code>rknn.rs</code> 的模块头 + <code>CANDIDATES</code> + <code>RKNN_QUERY_*</code> 常量。</li>
+<li>读 <code>rknn.rs</code> 的 <code>Model::open()</code>（<code>:182</code>）和 <code>infer()</code>（<code>:336</code>）。</li>
+<li>读 <code>rknn.rs</code> 的 <code>why_init_failed()</code>（<code>:161</code>）—— 三档诊断。</li>
+</ol>
+<p><strong>第 4 步 —— 看它怎么被用（30 分钟）</strong></p>
+<ol start="10">
+<li>读 <code>mediad/src/detect.rs</code> 的模块头（前 15 行）—— 消费者那边。</li>
+<li>读 <code>duck-bench.rs</code> 的模块头（前 20 行）。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p duck-detect        # 20 个测试，不需要 NPU
+
+# 在真板上量（需要一块有 NPU 的板子）
+sudo duck-bench --model duck.rknn --frames /var/tmp/frames --verbose
+</code></pre>
+<p>试试自己喂一个&quot;两个候选&quot;的平面张量给 <code>decode()</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use duck_detect::{decode, Letterbox};
+
+// frame: 2 个候选。平面布局：[cx₀ cx₁ | cy₀ cy₁ | w₀ w₁ | h₀ h₁ | score₀ score₁]
+let raw = vec![10.0, 100.0, 20.0, 200.0, 4.0, 40.0, 6.0, 60.0, 0.9, 0.1];
+let identity = Letterbox { scale: 1.0, pad_x: 0.0, pad_y: 0.0 };
+
+let found = decode(&amp;raw, identity, 0.5, 0.5);
+assert_eq!(found.len(), 1);              // 只有第一个过 0.5
+assert_eq!(found[0].box_, [8.0, 17.0, 12.0, 23.0]);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>然后把那个 <code>raw</code> 按交错布局重读一遍</strong> —— 你会得到&quot;几乎说得通&quot;的框，这就是第 7.1 节那个陷阱的手感。</p>
+<hr />
+<h2 id="13-术语表"><a class="header" href="#13-术语表">13. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>NPU</strong></td><td>神经网络专用处理器。RK3566 上那个是 0.8 TOPS、单核</td></tr>
+<tr><td><strong>RKNN</strong></td><td>Rockchip 的神经网络格式和运行时（<code>librknnrt.so</code>）</td></tr>
+<tr><td><strong>ONNX</strong></td><td>通用的神经网络交换格式。CPU 后端用它</td></tr>
+<tr><td><strong>INT8 量化</strong></td><td>把模型权重从浮点压成 8 位整数。<strong>小四倍，但精度要重新确认</strong></td></tr>
+<tr><td><strong>反量化 / dequantise</strong></td><td>把 int8 输出变回浮点。需要 model 自带的 scale 和 zero point</td></tr>
+<tr><td><strong>letterbox</strong></td><td>等比缩放 + 填充成正方形。<strong>不是拉伸</strong></td></tr>
+<tr><td><strong><code>PAD = 114</code></strong></td><td>ultralytics 用的那种灰，所以也是训练时看到的那种灰</td></tr>
+<tr><td><strong>NHWC / NCHW</strong></td><td>张量的两种内存布局。<strong>弄反不会报错</strong></td></tr>
+<tr><td><strong>planar / 平面布局</strong></td><td>所有 cx 放一起、所有 cy 放一起……而不是每个框五个数挨着</td></tr>
+<tr><td><strong>stride</strong></td><td>每个候选占几个数（这里是 5：cx, cy, w, h, score）</td></tr>
+<tr><td><strong>NMS</strong></td><td>非极大值抑制：一堆重叠的框里只留最好的那个</td></tr>
+<tr><td><strong>IoU</strong></td><td>两个框的重叠度。NMS 用它判断&quot;这两个是不是同一只鸭子&quot;</td></tr>
+<tr><td><strong>confidence / 置信度</strong></td><td>模型对&quot;这里有个东西&quot;的把握。<strong>量化的模型上它不是概率</strong></td></tr>
+<tr><td><strong>mAP50</strong></td><td>一种目标检测的精度指标</td></tr>
+<tr><td><strong>bearing</strong></td><td>方位角。&quot;朝它转过去&quot;需要的那个数</td></tr>
+<tr><td><strong>dlopen</strong></td><td>运行时才去找库，而不是链接它。好处是构建时不要求它存在</td></tr>
+<tr><td><strong>ABI</strong></td><td>二进制层面的接口约定：结构体的字段顺序、大小、对齐</td></tr>
+<tr><td><strong><code>#[repr(C)]</code></strong></td><td>告诉 Rust&quot;按 C 的规则布局这个结构体&quot;</td></tr>
+<tr><td><strong><code>offset_of!</code></strong></td><td>编译期取一个字段的字节偏移</td></tr>
+<tr><td><strong>blob</strong></td><td>一个不透明、没有源代码的二进制（这里指厂商的运行时）</td></tr>
+<tr><td><strong>设备树 / device tree</strong></td><td>Linux 上描述硬件的那个数据结构。<strong>NPU 在这里可能是被禁用的</strong></td></tr>
+<tr><td><strong>overlay</strong></td><td>在设备树上叠一层修改。启用 NPU 就是一次 overlay + 重启</td></tr>
+<tr><td><strong>tee</strong></td><td>GStreamer 里把一个流分叉成多路的东西</td></tr>
+<tr><td><strong>UYVY</strong></td><td>一种摄像头像素格式</td></tr>
+<tr><td><strong>RGA</strong></td><td>Rockchip 的 2D 加速器</td></tr>
+<tr><td><strong>thermally paced / 限速</strong></td><td>故意跑慢，免得把板子烧到降频</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>NPU 那件事的实录（含实测数字）</td><td><a href="project/npu-bringup.html"><code>project/npu-bringup.md</code></a></td></tr>
+<tr><td>感知应该在哪里、帧路径是什么</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a> §2 · §5.3</td></tr>
+<tr><td>检测器怎么被 <code>mediad</code> 用起来</td><td><a href="design/remote-webrtc.html"><code>design/remote-webrtc.md</code></a></td></tr>
+<tr><td><code>[duck_detector]</code> 那些配置键</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>摄像头像素那件事（<code>uyvy</code>）</td><td><a href="project/media-bringup.html"><code>design/media-bringup.md</code></a></td></tr>
+<tr><td>控制核心：另一个用神经网络的地方（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>控制循环本身（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房：手机怎么连上机器人（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>检测器跑在谁的管线上（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>另一个检测器：听声音而不是看图像（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>robotctl duck-detector</code>（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/duck-control-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/duck-ether-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/duck-control-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/duck-ether-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

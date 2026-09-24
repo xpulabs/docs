@@ -1,0 +1,1097 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>kinematics/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html" class="active"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="kinematics-新手导读"><a class="header" href="#kinematics-新手导读"><code>kinematics</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个 crate 是纯库，没有自己的设计文档；正向运动学的<strong>几何真相</strong>是
+<a href="../kinematics/assets/alpha/robot_walk.xml"><code>../kinematics/assets/alpha/robot_walk.xml</code></a> 本身。
+用到它的机制分别由 <a href="design/robotd-design.html"><code>design/robotd-design.md</code></a>（头部姿态、ToF §4.4 里程计）
+拥有。若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：这份导读最该和 <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a> 一起读 —— 那篇讲<strong>关节角怎么变成扭矩</strong>，
+这篇讲<strong>关节角变成空间中的点</strong>。两者共用同一份 MJCF。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%9B%9B%E4%B8%AA%E6%B6%88%E8%B4%B9%E8%80%85">它在系统里的位置：四个消费者</a></li>
+<li><a href="#3-%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8Bmjcf-%E6%98%AF%E5%94%AF%E4%B8%80%E7%9C%9F%E7%9B%B8%E5%8A%A0%E8%BD%BD%E6%97%B6%E7%BC%96%E8%AF%91%E4%B8%80%E6%AC%A1">核心心智模型：MJCF 是唯一真相，加载时编译一次</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-mathrs%E6%89%8B%E6%90%93%E7%9A%84%E5%9B%9B%E5%85%83%E6%95%B0"><code>math.rs</code>：手搓的四元数</a></li>
+<li><a href="#6-%E8%BA%AB%E4%BD%93%E6%A0%9114-%E4%B8%AA%E5%85%B3%E8%8A%828-%E4%B8%AA-site">身体树：14 个关节、8 个 site</a></li>
+<li><a href="#7-librs%E4%B8%80%E6%AC%A1%E6%9F%A5%E8%AF%A2%E5%B0%B1%E6%98%AF%E4%B8%80%E6%AC%A1%E6%8A%98%E5%8F%A0"><code>lib.rs</code>：一次查询就是一次折叠</a></li>
+<li><a href="#8-mjcfrs%E8%A7%A3%E6%9E%90%E5%99%A8%E5%8F%AA%E8%AE%A4%E4%B8%89%E6%A0%B7%E4%B8%9C%E8%A5%BF"><code>mjcf.rs</code>：解析器只认三样东西</a></li>
+<li><a href="#9-headrs%E4%BB%8E%E7%9C%8B%E5%90%91%E9%82%A3%E4%B8%AA%E7%82%B9%E5%88%B0%E5%9B%9B%E4%B8%AA%E5%85%B3%E8%8A%82%E8%A7%92"><code>head.rs</code>：从&quot;看向那个点&quot;到四个关节角</a></li>
+<li><a href="#10-tofrs64-%E6%9D%A1%E6%96%9C%E8%B7%9D%E5%8F%98%E6%88%90%E7%A9%BA%E9%97%B4%E4%B8%AD%E7%9A%84%E7%82%B9"><code>tof.rs</code>：64 条斜距变成空间中的点</a></li>
+<li><a href="#11-handrs%E6%95%85%E6%84%8F%E5%81%9A%E7%AC%A8%E7%9A%84%E9%82%A3%E4%B8%80%E4%B8%AA"><code>hand.rs</code>：故意做笨的那一个</a></li>
+<li><a href="#12-%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%95%B0%E5%AD%97%E5%92%8C%E4%B8%A4%E4%B8%AA%E6%8E%A2%E9%92%88">测试：一个真数字和两个探针</a></li>
+<li><a href="#13-%E4%B8%A4%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">两处读者会绊到的地方</a></li>
+<li><a href="#14-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#15-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>kinematics</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>给定 14 个关节角，鸭子的各个部位现在在空间的哪个位置、朝哪个方向？</strong></p>
+</blockquote>
+<p>这就是<strong>正向运动学</strong>（forward kinematics，FK）。它是个<strong>纯计算库</strong>：</p>
+<ul>
+<li>没有 socket，没有线程，没有 <code>main</code>，不碰硬件。</li>
+<li>输入是 <code>&amp;[f64]</code> 关节角，输出是 <code>Pose</code>（位置 + 朝向）。</li>
+<li>唯一的&quot;输入文件&quot;是编译进二进制的 MJCF（<code>include_str!</code>），所以<strong>运行时不需要文件系统</strong>。</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let model = kinematics::Model::alpha();          // 静态单例，解析只发生一次
+let head  = model.site(&quot;head_camera&quot;).unwrap();  // 名字 → 索引，也是在加载时做掉的
+let pose  = model.site_pose(head, &amp;angles);      // 一次折叠，无哈希、无分配
+<span class="boring">}</span></code></pre></pre>
+<p>一句话说清它的定位：</p>
+<blockquote>
+<p><strong>它是&quot;鸭子的身体长什么样&quot;这件事的唯一存放处。</strong></p>
+</blockquote>
+<p>在它出现之前，每个需要知道&quot;脚底在哪&quot;&quot;摄像头朝哪&quot;的地方各自手抄一份骨骼尺寸表；
+改一次机械结构，要记得改 N 个地方。现在只有一份 <code>robot_walk.xml</code> —— <strong>而且那一份就是策略训练时用的那一份</strong>，
+所以控制策略眼里的身体和 <code>robotd</code> 眼里的身体<strong>不可能不一致</strong>。</p>
+<hr />
+<h2 id="2-它在系统里的位置四个消费者"><a class="header" href="#2-它在系统里的位置四个消费者">2. 它在系统里的位置：四个消费者</a></h2>
+<p><code>kinematics</code> 是 workspace 里最底层的库之一（只依赖 <code>roxmltree</code> 和 <code>thiserror</code>）。
+依赖它的有四个 crate：</p>
+<div class="table-wrapper"><table><thead><tr><th>消费者</th><th>用它的什么</th><th>代表作</th></tr></thead><tbody>
+<tr><td><strong><code>robotd</code></strong></td><td>头部 FK、ToF 重投影、整副骨架</td><td><code>robotd/src/main.rs:4751-4753</code>、<code>mapping</code> 模块</td></tr>
+<tr><td><strong><code>robotctl</code></strong></td><td>ToF 重投影（<code>monitor</code> 的点云视图）</td><td><code>robotctl/src/monitor.rs:1402</code> · <code>:2520</code></td></tr>
+<tr><td><strong><code>odometry</code></strong></td><td>脚底 site 的位置</td><td><code>odometry/src/lib.rs:37</code> · <code>:134-135</code></td></tr>
+<tr><td><strong><code>robotd-params</code></strong></td><td>只有 <code>hand::Config</code> 的默认值</td><td><code>robotd-params/src/lib.rs:684</code> · <code>:699</code></td></tr>
+</tbody></table>
+</div>
+<p>设计文档对&quot;为什么要有这个 crate&quot;的说法（<code>docs/design/robotd-design.md:132-136</code>）：</p>
+<blockquote>
+<p>They are separate crates for the same reason <code>duck-control</code> is — <strong>the compiler is what keeps
+daemon concerns out of them</strong>, and <code>kinematics</code> in particular has two consumers (<code>odometry</code>
+and <code>robotd</code>'s head FK) that would otherwise <strong>each grow a copy of the model</strong>.</p>
+</blockquote>
+<p><strong>&quot;否则每一个都会各自长出一份模型的副本。&quot;</strong> 这就是这个 crate 存在的全部理由。</p>
+<p>四个里最值得看的是 <code>robotd</code>，因为它把 FK 的结果<strong>发到线上</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:4821 — robot.model 这条调用返回的东西
+tof_beams: TOF.beams().to_vec(),
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:4810 — robot.state 里的 frames
+head_imu: FK.head_imu_in_trunk(head).map(pose),
+<span class="boring">}</span></code></pre></pre>
+<p>也就是说 <strong><code>Model::alpha()</code> 里的几何会经过 IPC 走到笔记本上</strong>：一个把照片和位姿配对的服务，
+问 <code>robot.model</code> 拿几何，而不是自己再抄一份。这正是一个&quot;唯一真相&quot;该有的样子。</p>
+<p><code>odometry</code> 那侧的理由写得最直白（<code>odometry/src/lib.rs:13-14</code>）：</p>
+<blockquote>
+<p>The foot chains come from the <code>kinematics</code> crate's MJCF model instead of hand-transcribed
+segment tables — the geometry has one source of truth.</p>
+</blockquote>
+<hr />
+<h2 id="3-核心心智模型mjcf-是唯一真相加载时编译一次"><a class="header" href="#3-核心心智模型mjcf-是唯一真相加载时编译一次">3. 核心心智模型：MJCF 是唯一真相，加载时编译一次</a></h2>
+<p>这是整个 crate 最重要的一件事，值得单独一节。</p>
+<h3 id="31-mjcf-是什么"><a class="header" href="#31-mjcf-是什么">3.1 MJCF 是什么</a></h3>
+<p><strong>MJCF</strong>（MuJoCo XML Format）是 MuJoCo 物理引擎的模型描述语言。一个机器人是一棵树：</p>
+<pre><code class="language-xml">&lt;body name=&quot;trunk_base&quot; pos=&quot;0 0 0.12&quot; quat=&quot;1 0 0 0&quot;&gt;
+  &lt;body name=&quot;neck&quot; pos=&quot;0.026 0.0145011 0.0324424&quot; quat=&quot;0 -0 -0.707107 0.707107&quot;&gt;
+    &lt;joint name=&quot;neck_pitch&quot; type=&quot;hinge&quot; axis=&quot;0 0 1&quot; range=&quot;...&quot;/&gt;
+    ...
+  &lt;/body&gt;
+&lt;/body&gt;
+</code></pre>
+<ul>
+<li><code>&lt;body&gt;</code> 是<strong>刚体</strong>（一段不会变形的骨头），<code>pos</code>/<code>quat</code> 是它<strong>相对于父亲</strong>的固定偏移 —— 这叫 <strong>rest pose</strong>（静止位姿）。</li>
+<li><code>&lt;joint&gt;</code> 是<strong>关节</strong>，装在某个 body 上，让这个 body 能相对父亲动。<code>type=&quot;hinge&quot;</code> 是&quot;只能绕一根轴转&quot;（铰链）。</li>
+<li><code>&lt;site&gt;</code> 是<strong>一个只有位置和朝向右没有质量的点</strong>，贴在某个 body 上。摄像头、ToF、IMU 都是 site。</li>
+</ul>
+<h3 id="32-它被编译进来不是读进来的"><a class="header" href="#32-它被编译进来不是读进来的">3.2 它被编译进来，不是读进来的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:36
+const ALPHA_MJCF: &amp;str = include_str!(&quot;../assets/alpha/robot_walk.xml&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p><code>include_str!</code> 是<strong>编译期</strong>宏：XML 的文本在 <code>cargo build</code> 时就被塞进二进制了。
+所以板上没有这个文件也能跑，也不存在&quot;XML 和二进制版本对不上&quot;这种事。</p>
+<h3 id="33-加载时做一次之后就只是查表"><a class="header" href="#33-加载时做一次之后就只是查表">3.3 加载时做一次，之后就只是查表</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:142
+pub fn alpha() -&gt; &amp;'static Model
+<span class="boring">}</span></code></pre></pre>
+<p><code>Model::parse</code> 在<strong>第一次调用时</strong>做完全部昂贵的工作：</p>
+<ol>
+<li>解析 XML，建出 <code>Vec&lt;Body&gt;</code> 和 <code>Vec&lt;Site&gt;</code>。</li>
+<li><strong>把名字换成索引</strong> —— <code>joint_index(&quot;left_knee&quot;) -&gt; 3</code>。之后查询里没有一次字符串比较。</li>
+<li><strong>给每个 site 预编译一条从根到它的链</strong>：</li>
+</ol>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:54（节选）
+pub struct Model {
+    ...
+    /// One chain per site, root → site, with names resolved to indices. A query walks
+    /// only the links the site hangs from.
+    chains: Vec&lt;Box&lt;[Link]&gt;&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>为什么要预编译？看注释里 <code>Cargo.toml:5-9</code> 的自述：</p>
+<blockquote>
+<p>Absorbed from the <code>microduck_kinematics_rs</code> satellite repo, reworked for the control-loop
+hot path: joints are indices into a slice rather than names in a <code>HashMap</code>, and a site
+query walks its own precompiled chain instead of recomputing every body in the tree.</p>
+</blockquote>
+<p>翻译一下这个改动值多少钱：控制环跑 50 Hz，如果一个 tick 里要问好几个 site，
+&quot;重算整棵树&quot;是每个 site 都走一遍 20 个 body，而&quot;走自己的链&quot;平均只走几个。
+<code>tests/perf_probe.rs</code> 就是拿来量这件事的（见 §12）。</p>
+<h3 id="34-查询是一次折叠"><a class="header" href="#34-查询是一次折叠">3.4 查询是一次折叠</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:191（节选）
+pub fn site_pose(&amp;self, site: SiteId, angles: &amp;[f64]) -&gt; Pose {
+    let mut t = Pose::IDENTITY;
+    for link in &amp;self.chains[site.0] {
+        t = t * link.rest;                              // 先吃下这段骨头的固定偏移
+        if let Some((idx, axis)) = link.joint {
+            t.quat = t.quat * Quat::from_axis_angle(axis, angles[idx]);  // 再吃下关节转的角度
+        }
+    }
+    t
+}
+<span class="boring">}</span></code></pre></pre>
+<p>三行，两个运算，<strong>没有分支（除了 <code>if let</code>）、没有分配、没有哈希</strong>。这就是全部的正向运动学。</p>
+<p>注意 <code>angles[idx]</code> 里那个 <code>idx</code> <strong>不是</strong> 你传进来的数组下标，而是 <code>Model</code> 在解析时解析出来的<strong>MJCF 关节序号</strong>。
+所以调用者传的角度切片必须按 <code>model.joint_names()</code> 的顺序排列 —— 乱序不会报错，只会算出一个安静地错的答案。
+<code>lib.rs</code> 对此有防守：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert_eq!(angles.len(), self.joint_names.len(), &quot;angle slice must cover every joint&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p>而且注释写明了为什么这里该 panic 而不是返回 0：</p>
+<blockquote>
+<p>a call-site bug, not a robot state, so it panics rather than silently reading zeros.</p>
+</blockquote>
+<p><strong>&quot;这是调用方的 bug，不是机器人的状态&quot;</strong> —— 这句话是整份代码的品味所在，值得记下来。
+长度不对只可能是程序员写错了；而一个全是 0 的关节角是<strong>物理上合法</strong>的姿势，静默地算出来会很难查。</p>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code>kinematics/
+├── Cargo.toml                  9 行注释解释&quot;为什么有这个 crate&quot;
+├── assets/alpha/
+│   └── robot_walk.xml          109 行 —— 唯一的真相（也是策略训练用的那份）
+├── src/
+│   ├── lib.rs      369 行      Model、SiteId、site_pose、body_poses
+│   ├── math.rs     180 行      Quat / Pose，手搓
+│   ├── mjcf.rs     231 行      XML → 树，只认 body / hinge joint / site
+│   ├── head.rs     366 行      头部 FK + look_at（逆运动学）
+│   ├── tof.rs      386 行      64 条斜距 → 空间中的点
+│   └── hand.rs     373 行      &quot;那是不是一只手&quot; —— 故意最笨的那个
+└── tests/
+    ├── fk_against_mujoco.rs   90 行    对 MuJoCo 的 64 组姿势奇偶校验
+    ├── fixtures/fk_alpha.json           基准数据
+    └── perf_probe.rs          68 行    两个 #[ignore] 的性能探针
+</code></pre>
+<p><code>src/lib.rs</code> 顶部是这样导出子模块的（<code>lib.rs:21-29</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>mod math;
+mod mjcf;
+
+pub mod hand;
+pub mod head;
+pub mod tof;
+
+pub use math::{Pose, Quat};
+pub use mjcf::ParseError;
+<span class="boring">}</span></code></pre></pre>
+<p>注意 <code>math</code> 和 <code>mjcf</code> 是<strong>私有</strong>的：<code>Pose</code>/<code>Quat</code> 被重导出成公共类型，但解析器不外露。
+外面的人不需要知道 XML 是怎么读的。</p>
+<hr />
+<h2 id="5-mathrs手搓的四元数"><a class="header" href="#5-mathrs手搓的四元数">5. <code>math.rs</code>：手搓的四元数</a></h2>
+<p>180 行，实现两个类型：<code>Quat</code>（旋转）和 <code>Pose</code>（位置 + 旋转）。
+没有 <code>nalgebra</code>，没有 <code>glam</code>，什么都没有。</p>
+<h3 id="51-它是怎么自我辩护的"><a class="header" href="#51-它是怎么自我辩护的">5.1 它是怎么自我辩护的</a></h3>
+<p>模块文档写得很直白（<code>math.rs</code> 开头）：</p>
+<blockquote>
+<p>Hand-rolled rather than pulled from nalgebra deliberately... the MuJoCo fixtures in <code>tests/</code>
+pin every one of them to 1e-6, which is a stronger correctness argument than a dependency's
+name. What nalgebra would add is compile time, not confidence.</p>
+</blockquote>
+<p>翻译：<strong>&quot;依赖库的名字&quot;不是正确性论据，&quot;和 MuJoCo 对到 1e-6&quot;才是。</strong>
+nalgebra 能给的只有更长的编译时间。这是这个仓库里很典型的一种论辩风格：
+不要用&quot;这是最佳实践&quot;来结束讨论，要用&quot;它能解决什么这里真实存在的问题&quot;。</p>
+<h3 id="52-约定这是最容易搞错的部分"><a class="header" href="#52-约定这是最容易搞错的部分">5.2 约定（这是最容易搞错的部分）</a></h3>
+<p><strong>四元数是 Hamilton 约定，标量在前，存成 <code>[w, x, y, z]</code>。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// math.rs:19
+pub struct Quat {
+    pub w: f64,
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>⚠️ 这是<strong>第一号陷阱</strong>。ROS 的 <code>geometry_msgs/Quaternion</code> 也是 <code>x,y,z,w</code> 顺序，
+但<strong>存的顺序</strong>和<strong>构造参数的顺序</strong>在别的库里经常反着。这里 <code>Quat::new(w, x, y, z)</code>（<code>math.rs:34</code>）
+和结构体字段顺序一致，而且 <code>wxyz()</code>（<code>math.rs:76</code>）是明确的转换出口 —— 说明作者知道这会咬人。</p>
+</blockquote>
+<p><strong>乘法是&quot;父乘子&quot;，<code>a * b</code> 的意思是&quot;先做 b，再做 a&quot;。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// math.rs:127（Pose 的 Mul）
+impl Mul for Pose {
+    type Output = Pose;
+    fn mul(self, rhs: Pose) -&gt; Pose { ... }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>math.rs:162</code> 的测试名直接就是这条约定：</p>
+<pre><code>pose_composition_applies_the_right_operand_first
+</code></pre>
+<p>对应到 §3.4 的折叠代码 <code>t = t * link.rest</code>：<code>t</code> 是&quot;从根走到父亲&quot;的变换，
+<code>link.rest</code> 是&quot;从父亲走到我&quot;的偏移。左乘把新的变换<strong>接在右边</strong>，正好就是&quot;再往外走一段&quot;。
+所以整条链是从根往外一路乘出去的 —— 这就是为什么它能只用一行循环写完。</p>
+<h3 id="53-角落里的小心思"><a class="header" href="#53-角落里的小心思">5.3 角落里的小心思</a></h3>
+<p><code>math.rs:176</code>：</p>
+<pre><code>a_broken_quat_normalizes_to_identity_not_nan
+</code></pre>
+<p>一个退化的（零长度的）四元数，<code>normalized()</code> 返回单位四元数而不是 <code>NaN</code>。
+这是防御性的：<code>NaN</code> 会顺着乘法污染整棵树的每一个位姿，而&quot;没转&quot;至少是个能看的结果。</p>
+<hr />
+<h2 id="6-身体树14-个关节8-个-site"><a class="header" href="#6-身体树14-个关节8-个-site">6. 身体树：14 个关节、8 个 site</a></h2>
+<p>把 <code>robot_walk.xml</code> 画出来：</p>
+<pre><code>trunk_base  pos=&quot;0 0 0.12&quot;
+│           ↑ 这就是 trunk_height_m() 返回的 0.12
+│  ● site: imu_bno        躯干上的 BMI088
+│  ● site: imu            躯干上的另一颗
+│
+├─ yaw2roll ──── joint: left_hip_yaw
+│  └─ hip_l ──── joint: left_hip_roll
+│     └─ left_upper_leg ── joint: left_hip_pitch
+│        └─ leg ────────── joint: left_knee
+│           └─ ankle_left ─ joint: left_ankle
+│              ● site: left_foot
+│
+├─ neck ───────── joint: neck_pitch
+│  └─ neck_pitch ─ joint: head_pitch
+│     └─ yaw_roll_motion ─ joint: head_yaw
+│        └─ bottom_head_shell ─ joint: head_roll
+│           ● site: head_camera
+│           ● site: mouth_tip
+│           ● site: tof
+│           ● site: head_imu
+│
+└─ bearing_roll ─ joint: right_hip_yaw
+   └─ hip_l_2 ─── joint: right_hip_roll
+      └─ right_upper_leg ─ joint: right_hip_pitch
+         └─ leg_2 ───────── joint: right_knee
+            └─ ankle_right ─ joint: right_ankle
+               ● site: right_foot
+</code></pre>
+<p>数一下：<strong>14 个 hinge joint，8 个 site</strong>。</p>
+<h3 id="61-为什么是-14-而不是-15"><a class="header" href="#61-为什么是-14-而不是-15">6.1 为什么是 14 而不是 15？</a></h3>
+<p>因为<strong>嘴没有关节</strong>。<code>mouth_tip</code> 是一个 site，挂在 <code>bottom_head_shell</code> 上，
+它跟着头动，但它自己不会动 —— 张合是另一套机制（<code>duck-ipc-proto</code> 的 <code>JOINT_NAMES</code> 里嘴那一路
+在策略的 14 维动作向量里被排除，见 <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a>）。</p>
+<blockquote>
+<p>💡 这是读这个 crate 时<strong>最容易数错</strong>的地方：<code>JOINT_NAMES</code> 有 15 个名字，
+<code>robot_walk.xml</code> 有 14 个 <code>&lt;joint&gt;</code>。<strong>两个数字都对，它们数的不是同一件事。</strong></p>
+</blockquote>
+<h3 id="62-名字有点乱的右腿"><a class="header" href="#62-名字有点乱的右腿">6.2 名字有点乱的右腿</a></h3>
+<p>右腿的 body 叫 <code>hip_l_2</code> 和 <code>leg_2</code>（<code>robot_walk.xml:82</code> · <code>:92</code>）——
+带 <code>_l_</code> 前缀的右腿骨。这是从 MuJoCo 建模工具里导出来时留下的，
+<strong>关节名是对的</strong>（<code>right_hip_roll</code>、<code>right_knee</code>），body 名只是没人用的内部标签。
+<code>body_names()</code> 会把它们发到线上（<code>robot.model</code> 的骨架），所以你在 <code>robotctl</code> 里会看到这两个名字。</p>
+<h3 id="63-躯干被焊住了"><a class="header" href="#63-躯干被焊住了">6.3 躯干被&quot;焊&quot;住了</a></h3>
+<p>MJCF 里 <code>trunk_base</code> 挂着一个 <code>&lt;freejoint&gt;</code>（<code>robot_walk.xml:7</code>）——
+在 MuJoCo 里这意味着&quot;这块可以自由漂浮，由物理决定它在哪&quot;。</p>
+<p>但 <code>mjcf.rs</code> <strong>不认 <code>freejoint</code></strong>，所以对它来说根永远是固定的。这是<strong>故意的</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:290
+fn the_trunk_frame_ignores_where_mujoco_drops_the_robot
+<span class="boring">}</span></code></pre></pre>
+<p><strong>这个 crate 的所有输出都在&quot;躯干坐标系&quot;里</strong>，不是世界坐标系。
+躯干在地面上的真实位置和倾斜，是 IMU 和里程计的事（<code>odometry</code>），不是 FK 的事。
+<code>trunk_height_m()</code> 只是把 XML 里那个 <code>0.12</code> 记下来备用（<code>lib.rs:173</code>），
+用来回答&quot;如果鸭子站直了，躯干离地多高&quot;。</p>
+<p>这个分工很干净：<strong>FK 只管身体内部的相对几何，世界在哪由别人负责。</strong></p>
+<hr />
+<h2 id="7-librs一次查询就是一次折叠"><a class="header" href="#7-librs一次查询就是一次折叠">7. <code>lib.rs</code>：一次查询就是一次折叠</a></h2>
+<p>除了 §3.4 的 <code>site_pose</code>，<code>lib.rs</code> 还提供两样东西。</p>
+<h3 id="71-body_poses整副骨架"><a class="header" href="#71-body_poses整副骨架">7.1 <code>body_poses</code>：整副骨架</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:216
+pub fn body_poses(&amp;self, angles: &amp;[f64]) -&gt; Vec&lt;Pose&gt;
+<span class="boring">}</span></code></pre></pre>
+<p>返回<strong>每一个 body</strong> 的位姿，按树的顺序（也就是 <code>body_names()</code> / <code>body_parents()</code> 的顺序）。
+<code>robotd</code> 用它渲染一副完整骨架发给客户端（<code>robotd/src/main.rs:4778</code> 的 <code>skeleton_at</code>）。</p>
+<p>和 <code>site_pose</code> 的差别：这个<strong>要分配</strong>（<code>Vec</code>），而且是全树遍历。
+所以它在&quot;给人看&quot;的路径上（一条 <code>robot.state</code> 一个 tick 发一次），
+不在控制环的内层。</p>
+<h3 id="72-siteid一个不能被伪造的索引"><a class="header" href="#72-siteid一个不能被伪造的索引">7.2 <code>SiteId</code>：一个不能被伪造的索引</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/lib.rs:41
+pub struct SiteId(usize);
+<span class="boring">}</span></code></pre></pre>
+<p><code>SiteId</code> 的字段是<strong>私有</strong>的 —— 外面拿不到里面的 <code>usize</code>，只能从 <code>model.site(&quot;名字&quot;)</code> 拿。
+这意味着<strong>一个 <code>SiteId</code> 一定属于某个 <code>Model</code></strong>，你没法手搓一个越界的下标出来。</p>
+<p>这是 Rust 里所谓 <strong>newtype</strong> 模式的一个好例子：用一个单字段结构体把裸 <code>usize</code> 包起来，
+就免费得到了&quot;类型不同 = 不能混用&quot;的保证。<code>odometry</code> 里
+<code>feet: [SiteId; 2]</code>（<code>odometry/src/lib.rs:54</code>）存的就是它 —— 左脚和右脚，
+不可能哪天有人把关节序号填进去。</p>
+<hr />
+<h2 id="8-mjcfrs解析器只认三样东西"><a class="header" href="#8-mjcfrs解析器只认三样东西">8. <code>mjcf.rs</code>：解析器只认三样东西</a></h2>
+<p>231 行，一个手写的 MJCF 子集解析器，基于 <code>roxmltree</code>。</p>
+<p><strong>它只认 <code>&lt;body&gt;</code>、<code>type=&quot;hinge&quot;</code> 的 <code>&lt;joint&gt;</code>、<code>&lt;site&gt;</code>。</strong>
+geom、inertial、actuator、sensor、<code>&lt;asset&gt;</code>（网格文件）<strong>全部忽略</strong>。</p>
+<p>为什么够用？因为这三种东西正好拼出运动学树：
+骨头（body）、能动的连接（joint）、感兴趣的参考点（site）。
+质量、碰撞形状、电机、传感器 —— 那些是 MuJoCo 训练时才需要的，FK 不问。</p>
+<h3 id="81-输出"><a class="header" href="#81-输出">8.1 输出</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/mjcf.rs:63-71
+pub(crate) struct Tree {
+    pub bodies: Vec&lt;Body&gt;,
+    pub sites: Vec&lt;Site&gt;,
+    pub trunk_pos: [f64; 3],
+}
+<span class="boring">}</span></code></pre></pre>
+<p>注意 <code>trunk_pos</code> 是<strong>单独拎出来</strong>的（<code>mjcf.rs:70</code>）。
+躯干的 <code>pos</code> 没有被放进任何 <code>Pose</code> 里 —— 因为如上文所说，躯干是原点，
+它的位置只是&quot;离地多远&quot;这个数字。</p>
+<h3 id="82-两个已知的窄边界"><a class="header" href="#82-两个已知的窄边界">8.2 两个已知的窄边界</a></h3>
+<p>解析器有两条明确的取舍，写在 <code>mjcf.rs</code> 的注释里，值得知道：</p>
+<ol>
+<li>
+<p><strong>一个 body 只取第一个 <code>&lt;joint&gt;</code></strong>（用 <code>.find()</code>）。真 MJCF 允许一个 body 挂多个关节
+（比如一个球铰拆成三个 hinge）。鸭子身上每个 body 只有一个，所以够用 ——
+但如果哪天真要加一个&quot;两自由度的脚踝&quot;，这里是静默地丢掉第二个的地方。</p>
+</li>
+<li>
+<p><strong><code>freejoint</code> 不被识别</strong>（见 §6.3）—— 这是有意的，不是遗漏。</p>
+</li>
+</ol>
+<p>两条都记在 <code>mjcf.rs</code> 里，不是藏起来的坑。</p>
+<hr />
+<h2 id="9-headrs从看向那个点到四个关节角"><a class="header" href="#9-headrs从看向那个点到四个关节角">9. <code>head.rs</code>：从&quot;看向那个点&quot;到四个关节角</a></h2>
+<p><code>lib.rs</code> 解决的是<strong>正</strong>问题（给角度，求位置）。<code>head.rs</code> 里有一半解决的是<strong>反</strong>问题：
+<strong>给一个想看的点，求四个头部关节该转到哪</strong>（逆运动学，IK）。</p>
+<h3 id="91-为什么鸭子需要这个"><a class="header" href="#91-为什么鸭子需要这个">9.1 为什么鸭子需要这个</a></h3>
+<p>因为 <code>robot.look</code> 这条 IPC 调用是这么用的：</p>
+<blockquote>
+<p>客户端说&quot;看 <code>(x, y, z)</code>&quot;，机器人回四个关节角。</p>
+</blockquote>
+<p>为什么回关节角而不是自己闷头转？<code>robotd/src/main.rs:4295-4298</code> 的注释说得很清楚：</p>
+<blockquote>
+<p>so a client can hold the gaze by resending them as <code>robot.head</code>, or notice <code>clamped</code> and
+move the robot instead. Never refused: an aim is an intent like <code>robot.head</code>, and the
+closest-possible gaze at a clamped target is still the most useful thing the head can do.</p>
+</blockquote>
+<p><strong>&quot;永远不会被拒绝&quot;</strong> —— 够不着就给你够得着的最近的那个，并且告诉你够不着。
+这和仓库里&quot;版本差异只记录不拒绝&quot;是同一个世界观。</p>
+<h3 id="92-四个关节和它们的顺序"><a class="header" href="#92-四个关节和它们的顺序">9.2 四个关节和它们的顺序</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/head.rs:23
+const HEAD_JOINTS: [&amp;str; 4] = [&quot;neck_pitch&quot;, &quot;head_pitch&quot;, &quot;head_yaw&quot;, &quot;head_roll&quot;];
+<span class="boring">}</span></code></pre></pre>
+<p><code>HeadFk</code> 在构造时（<code>head.rs:43</code>）把这四个名字解析成 <code>Model</code> 的关节索引，
+存进 <code>joints: [usize; 4]</code>。之后所有操作都在索引上做。</p>
+<h3 id="93-look_at一个真的优化器"><a class="header" href="#93-look_at一个真的优化器">9.3 <code>look_at</code>：一个真的优化器</a></h3>
+<p>这里是整个 crate 里最&quot;算法&quot;的一段。<code>head.rs:132</code> 的 <code>look_at</code> 不是
+&quot;分别算 yaw 和 pitch 该转多少&quot;的朴素解法，而是一个<strong>带阻尼的高斯-牛顿迭代</strong>。</p>
+<p>为什么不能分轴算？注释在 <code>head.rs:120-124</code> 解释了：</p>
+<blockquote>
+<p><code>head_yaw</code> in the chain, so pitching tilts the plane yaw pans in, and near ±90° of yaw the
+pitch joint loses elevation authority entirely (its axis aligns with the camera's forward).
+A per-axis update stalls there, so this solves the 2×2 system properly: damped Gauss-Newton
+against the real FK, Jacobian by finite differences — FK is ~50 ns, so the whole solve is a
+couple of microseconds.</p>
+</blockquote>
+<p>翻译：<strong>两个轴不独立</strong>。yaw 转多了以后，pitch 轴会逐渐和摄像头的朝向对齐，
+这时候&quot;抬高&quot;这个动作就没有权限了（万向节死锁）。
+分轴更新会在这里卡死，所以老老实实解一个 2×2 方程组。</p>
+<p>关键参数（<code>head.rs:133-137</code>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>参数</th><th>值</th><th>意思</th></tr></thead><tbody>
+<tr><td><code>TOLERANCE</code></td><td><code>1e-4</code></td><td>收敛判据：比任何舵机能跟踪的都紧，又不至于迭代太久</td></tr>
+<tr><td><code>STEP_H</code></td><td><code>1e-5</code></td><td>有限差分的步长（雅可比是数值算的，不是解析的）</td></tr>
+<tr><td><code>LAMBDA</code></td><td><code>1e-3</code></td><td>Levenberg 阻尼。<strong>专治 yaw 90° 那个奇点</strong>，其他地方多花一次迭代</td></tr>
+<tr><td><code>MAX_STEP</code></td><td><code>0.7</code> rad</td><td>单步上限，防止在远处一次跳过头</td></tr>
+<tr><td>迭代次数</td><td>≤ 30</td><td></td></tr>
+</tbody></table>
+</div>
+<p>每一步都把关节角 <strong>clamp 到 MJCF 的 <code>range</code> 里</strong>（<code>head.rs:146</code> 的 <code>clamp</code> 闭包）。
+理由（<code>head.rs:127-129</code>）：</p>
+<blockquote>
+<p>the servos enforce those mechanically, so an unclamped answer would be a pose the
+robot cannot hold.</p>
+</blockquote>
+<p><strong>算出一个机器人摆不出来的姿势是没有意义的</strong> —— 舵机的机械限位不会听你的。</p>
+<h3 id="94-gazeclamped-的确切含义"><a class="header" href="#94-gazeclamped-的确切含义">9.4 <code>Gaze::clamped</code> 的确切含义</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/head.rs:209
+pub struct Gaze {
+    pub joints: [f64; 4],
+    pub clamped: bool,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>⚠️ <strong>第二号陷阱：<code>clamped</code> 不是&quot;撞到限位了&quot;。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>clamped: residual &gt;= TOLERANCE
+<span class="boring">}</span></code></pre></pre>
+<p>它说的是 <strong>&quot;解算完了，但还没对准目标&quot;</strong> —— 不管是撞了行程限位，还是纯粹因为几何上顾不过来。
+文档原话（<code>head.rs:130-131</code>）：</p>
+<blockquote>
+<p>it is the caller's &quot;the robot is looking as close as it can&quot;.</p>
+</blockquote>
+<p>所以 <code>clamped == true</code> 的正确读法是 <strong>&quot;尽力了&quot;</strong>，不是 <strong>&quot;坏了&quot;</strong>。</p>
+<h3 id="95-neck_pitch-是姿势不是解"><a class="header" href="#95-neck_pitch-是姿势不是解">9.5 <code>neck_pitch</code> 是姿势，不是解</a></h3>
+<p><code>look_at(target, neck_pitch)</code> 的第二个参数是<strong>调用方给的</strong>，求解器不碰它：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut joints = [clamp(neck_pitch, range(0)), 0.0, 0.0, 0.0];
+<span class="boring">}</span></code></pre></pre>
+<p><code>head.rs:303</code> 的测试名就是这条契约：</p>
+<pre><code>look_at_keeps_the_neck_it_was_given
+</code></pre>
+<p><code>head_roll</code> 同理，被固定在 <code>0.0</code>。<strong>只有 <code>head_pitch</code> 和 <code>head_yaw</code> 是解出来的</strong> ——
+所以是 2 个未知数、2 个方程的那个 &quot;2×2&quot;。</p>
+<h3 id="96-摄像头坐标cv2"><a class="header" href="#96-摄像头坐标cv2">9.6 摄像头坐标：<code>cv2</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/head.rs:16
+pub const SITE_TO_CV2: Quat = Quat::new(0.5, -0.5, 0.5, -0.5);
+<span class="boring">}</span></code></pre></pre>
+<p><code>cv2</code> 是 OpenCV 的相机坐标系：<strong>+x 向右，+y 向下，+z 向前</strong>（沿光轴）。
+MJCF 里那个 site 的朝向是建模工具给的，和这个不一样，所以要转一次。</p>
+<p><code>look_at</code> 里的误差函数（<code>head.rs:149</code>）就是在这个系里算的：
+把&quot;目标 − 摄像头位置&quot;这个向量用 <code>cam.quat.conjugate().rotate(v)</code> 转到相机系，
+然后在 (yaw, pitch) 两个方向上各取一个 <code>atan2</code>。</p>
+<p><code>head.rs:252</code> 的 <code>alpha_head_axis_conventions</code> 把符号钉死了 ——
+<strong><code>+head_yaw</code> → <code>+y</code>，<code>+head_pitch</code> → <code>−z</code></strong>。这个测试存在的原因是：
+符号错误算出来的姿态看起来&quot;也像那么回事&quot;，只有对着一个已知的答案才能发现。</p>
+<hr />
+<h2 id="10-tofrs64-条斜距变成空间中的点"><a class="header" href="#10-tofrs64-条斜距变成空间中的点">10. <code>tof.rs</code>：64 条斜距变成空间中的点</a></h2>
+<p>ToF（Time of Flight，飞行时间）传感器返回一个 <strong>8×8 = 64 格</strong>的距离网格 ——
+每一格是&quot;沿着这个方向，最近的障碍物有多远&quot;。</p>
+<p>但这 64 个数字<strong>单独看没什么用</strong>：你要知道的是<strong>东西在哪</strong>。
+<code>tof.rs</code> 干的活叫<strong>重投影</strong>（reprojection）：把每一格的&quot;多远&quot;变成躯干坐标系里的一个点。</p>
+<h3 id="101-64-条光线是怎么摆的"><a class="header" href="#101-64-条光线是怎么摆的">10.1 64 条光线是怎么摆的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:28-34
+pub const ROWS: usize = 8;
+pub const COLS: usize = 8;
+const N_ZONES: usize = ROWS * COLS;      // 64
+pub const FOV_DEG: f64 = 45.0;
+<span class="boring">}</span></code></pre></pre>
+<p>视场 45°，排成 8×8。算术在 <code>tof.rs:108-109</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let half = (FOV_DEG / 2.0 - FOV_DEG / (COLS as f64) / 2.0).to_radians();
+let step = 2.0 * half / (COLS as f64 - 1.0);
+<span class="boring">}</span></code></pre></pre>
+<p>读出来是：</p>
+<ul>
+<li><code>half</code> = 22.5° − (45°/8)/2 = 22.5° − 2.8125° = <strong>19.6875°</strong> —— 这是最边上那一条光线的角度。</li>
+<li><code>step</code> = 2 × 19.6875° / 7 = <strong>5.625°</strong> —— 相邻两条的间隔。</li>
+</ul>
+<p><strong>注释里那句 &quot;an 8-zone row has 8 centres, not 9 fenceposts&quot;</strong> 是关键：
+8 条光线把 45° 分成 8 份（每份 5.625°），每条光线在<strong>自己那一份的中心</strong>，
+所以最外两条不是正好在 ±22.5° 的边界上，而是往里缩了半个格子。
+这是个很容易搞错一格的细节。</p>
+<p>顺序是 <strong>row-major</strong>，row 0 在最上面，col 0 在传感器自己的左边 ——
+和线上协议里 zone 的排列一致。</p>
+<h3 id="102-三个分类zone"><a class="header" href="#102-三个分类zone">10.2 三个分类：<code>Zone</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:38
+pub enum Zone {
+    Empty,                          // 这一格什么也没测到
+    TooClose { .. },                // 太近了，不可信
+    Floor { point },                // 打在地板上
+    Hit { point, range },           // 打在某个东西上
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li><strong><code>Empty</code></strong> —— 没读数。</li>
+<li><strong><code>TooClose</code></strong> —— 水平距离小于 <code>MIN_RANGE_M = 0.10</code> m（<code>tof.rs:101</code>）。
+这不是&quot;东西很近&quot;，而是<strong>传感器自己的串扰</strong>（cover-glass crosstalk）会凭空造出很近的假读数，
+所以这个门槛是&quot;可信度下限&quot;，不是&quot;口味下限&quot;。</li>
+<li><strong><code>Floor</code></strong> —— 这条光线打到了地板。</li>
+<li><strong><code>Hit</code></strong> —— 打到了别的东西。<code>range</code> 是<strong>水平</strong>距离（见下）。</li>
+</ul>
+<h3 id="103-判地板为什么要在重力水平系里做"><a class="header" href="#103-判地板为什么要在重力水平系里做">10.3 判地板：为什么要在&quot;重力水平系&quot;里做</a></h3>
+<p>这是 <code>tof.rs</code> 最精妙的一处。</p>
+<p><code>project</code> 的输出点<strong>在躯干坐标系里</strong>（和别处一致）。但是**&quot;这是不是地板&quot;这个判断，
+不能在躯干坐标系里做** —— 因为鸭子可能正低着头或者歪着身子，
+躯干的&quot;下&quot;和世界的&quot;下&quot;根本不是一回事。</p>
+<p>所以判断在一个<strong>用重力摆平的坐标系</strong>里做：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:203
+fn level_from_gravity(gravity: [f64; 3]) -&gt; Quat
+<span class="boring">}</span></code></pre></pre>
+<p>它算出一个旋转，把<strong>测到的重力方向</strong>转到正下方 <code>[0, 0, -1]</code>。
+然后：</p>
+<ul>
+<li>点用 <code>sensor.quat</code> 算（躯干系，给人看）；</li>
+<li><strong>判断</strong>用 <code>level.rotate(...)</code> 算（水平系，给规则用）。</li>
+</ul>
+<p>注释一句话点题（<code>tof.rs:153-155</code>）：</p>
+<blockquote>
+<p>Points come out in the trunk frame; the floor and range <em>verdicts</em> are computed in the
+gravity-levelled frame, because &quot;down&quot; is the IMU's to say, not the trunk's.</p>
+</blockquote>
+<p><strong>&quot;下&quot;这件事归 IMU 管，不归躯干管。</strong></p>
+<p>判据本身（<code>tof.rs:167-168</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let above_floor = sensor_level[2] + posture.trunk_height_m.unwrap_or(self.trunk_height_m);
+let floor_threshold = above_floor * Self::FLOOR_SAFETY;   // 0.85
+<span class="boring">}</span></code></pre></pre>
+<p>传感器离地多高，乘以 0.85 —— 也就是说<strong>光线竖直方向走过的距离达到&quot;传感器到地板&quot;的 85%，
+就认为它到地板了</strong>。留 15% 是给噪声和地形起伏的余量。
+<code>above_floor</code> 那行 <code>unwrap_or(self.trunk_height_m)</code> 是兜底：IMU 没给躯干高度时用 MJCF 里的静态值。</p>
+<p>还有个前提：<code>downward &gt; 0.0</code> —— <strong>朝上的光线永远不可能是地板</strong>
+（<code>tof.rs:308</code> 的测试名：<code>an_upward_beam_is_never_the_floor</code>）。</p>
+<h3 id="104-imu-没收敛时的保护"><a class="header" href="#104-imu-没收敛时的保护">10.4 IMU 没收敛时的保护</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:204-206
+let n = (gravity[0]*gravity[0] + gravity[1]*gravity[1] + gravity[2]*gravity[2]).sqrt();
+if n &lt; 0.5 {
+    return Quat::IDENTITY;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>注释（<code>tof.rs:200-202</code>）：</p>
+<blockquote>
+<p>Identity for a gravity too small to trust — an IMU that has not converged should level
+nothing rather than something random.</p>
+</blockquote>
+<p><strong>没收敛的 IMU 应该&quot;什么也不摆平&quot;，而不是&quot;随便摆平一下&quot;。</strong>
+这是同一个品味的第三次出现（前两次是 §5.3 的 <code>NaN</code> 和 §3.4 的 panic）：
+<strong>宁可退化成&quot;没做&quot;，也不要退化成&quot;做错了&quot;。</strong></p>
+<h3 id="105-beams-是给谁用的"><a class="header" href="#105-beams-是给谁用的">10.5 <code>beams()</code> 是给谁用的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:135
+pub fn beams(&amp;self) -&gt; &amp;[[f64; 3]; N_ZONES]
+<span class="boring">}</span></code></pre></pre>
+<p>返回 64 条光线的<strong>单位方向向量</strong>（传感器自身坐标系）。<code>robotd</code> 把它原样发到线上
+（<code>robotd/src/main.rs:4821</code>），好让客户端<strong>不必自己重算这套排布</strong>就能画出光线的方向。</p>
+<blockquote>
+<p>📌 这段函数的文档注释说它暴露给 &quot;[<code>crate::hand</code>]'s plane fit&quot;。
+那是<strong>过期的说法</strong> —— <code>hand.rs</code> 里的平面拟合已经删掉了（见 §11），
+而且 <code>hand.rs</code> 里一次都没出现过 <code>beams</code>。真正的消费者是 <code>robotd</code>。
+详见 §13。</p>
+</blockquote>
+<hr />
+<h2 id="11-handrs故意做笨的那一个"><a class="header" href="#11-handrs故意做笨的那一个">11. <code>hand.rs</code>：故意做笨的那一个</a></h2>
+<p><code>hand.rs</code> 回答一个问题：<strong>鸭子嘴前面那是不是一只手？</strong>
+它是&quot;ToF 特雷门琴&quot;（theremin）的输入 —— 手离得越近，音越高。</p>
+<h3 id="111-它曾经很聪明然后被删掉了"><a class="header" href="#111-它曾经很聪明然后被删掉了">11.1 它曾经很聪明，然后被删掉了</a></h3>
+<p>模块文档（<code>hand.rs:3-10</code>）是整份代码里最值得读完的一段：</p>
+<blockquote>
+<p>This started out clever. It carried a background captured when the theremin armed, so that
+a duck facing a wall could still tell a hand from the wall; a plane fit to exempt walls from
+being mistaken for one enormous hand; a slow drift so the room could be rearranged. <strong>All of
+it worked in tests and none of it survived a duck</strong>, for one reason worth writing down:
+<strong>the sensor's input is not stable enough to reason that hard about.</strong></p>
+</blockquote>
+<p>翻译：</p>
+<blockquote>
+<p>它一开始很聪明。它记了一张&quot;启动时拍下的背景&quot;，这样面对墙的鸭子也能把手和墙分开；
+一个平面拟合，好让墙不至于被当成一只巨大的手；还有缓慢漂移，好让房间可以被重新布置。
+<strong>这些东西在测试里全都工作，但没有一个活过一只真鸭子。</strong>
+原因值得写下来：<strong>这个传感器的输入不够稳，经不起这么用力的推理。</strong></p>
+</blockquote>
+<p>接着是那句结论：</p>
+<blockquote>
+<p>Cleverness on top of a noisy input multiplies the noise; it does not filter it.</p>
+</blockquote>
+<p><strong>建立在噪声输入上的聪明是放大噪声，不是过滤噪声。</strong></p>
+<h3 id="112-现在它做什么"><a class="header" href="#112-现在它做什么">11.2 现在它做什么</a></h3>
+<p>就三件事：</p>
+<p><strong>① 哪些 status 字节值得相信。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/hand.rs:73（Config::default 节选）
+statuses: vec![4, 5, 6, 9, 10, 12, 13],
+<span class="boring">}</span></code></pre></pre>
+<p>ST（STMicroelectronics，传感器厂商）官方把 5 和 9 叫作 &quot;valid&quot;。
+但实测（<code>hand.rs:22-26</code>）：</p>
+<blockquote>
+<p>on this sensor at 15 Hz a hand past ~30 cm routinely comes back as 4 or 13 —
+<em>consistency failed</em>, sigma too high — carrying a distance perfectly good enough for a pitch.
+<strong>Accepting only 5 and 9 is why the first version died at 30 cm.</strong></p>
+</blockquote>
+<p><strong>只信 5 和 9，就是第一版在 30 cm 处死掉的原因。</strong>
+每个字节的含义注释里都写了（<code>hand.rs:68-72</code>），其中 12 号（&quot;目标被锐利边缘模糊&quot;）
+的注解是全场最佳：</p>
+<blockquote>
+<p>12 a target blurred by a sharp edge — <strong>which is what the edge of a hand <em>is</em></strong>.</p>
+</blockquote>
+<p>这个集合是 <strong>config 而不是常量</strong>，理由（<code>hand.rs:25-26</code>）：</p>
+<blockquote>
+<p>because it is the one number a bench session needs to move.</p>
+</blockquote>
+<p><strong>&quot;这是台架调试唯一需要动的那个数字。&quot;</strong> 于是它被接到了 <code>robotd.toml</code> 上（<code>robotd-params/src/lib.rs:699</code>）。</p>
+<p><strong>② 取一个低百分位数，不是最小值。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/hand.rs:162 · :165
+in_band.sort_by(...);
+let range_m = in_band[in_band.len() / 5];      // 第 20 百分位
+<span class="boring">}</span></code></pre></pre>
+<p>注释（<code>hand.rs:163-164</code>）：</p>
+<blockquote>
+<p>A low percentile, not the minimum: <strong>single-zone fliers a few centimetres short of the
+truth are routine here</strong>, and as the pitch input one would be a chirp.</p>
+</blockquote>
+<p><strong>孤立的&quot;飞点&quot;是常态</strong>，用最小值当音高输入会变成一声鸟叫（chirp）。</p>
+<p><strong>③ 一个 hold（保持）。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>hold: Duration::from_millis(250),
+<span class="boring">}</span></code></pre></pre>
+<p>15 Hz 下，一格在&quot;可用&quot;和&quot;不可用&quot;之间抖动会把一个音符切成砂砾声。
+<code>hold</code> 让最后一次的手在丢帧时<strong>多留一会儿</strong>（<code>hand.rs:149-157</code>），
+于是丢帧听不出来，而手真的拿开时音符还是及时停。</p>
+<h3 id="113-它不做的事也是故意的"><a class="header" href="#113-它不做的事也是故意的">11.3 它<strong>不</strong>做的事（也是故意的）</a></h3>
+<p><code>hand.rs:32-35</code>：</p>
+<blockquote>
+<p>There is no floor filter and no reprojection here, on purpose. Both need the head's forward
+kinematics and the IMU, and both were another way for a note to disappear for a reason the
+player cannot see. An instrument that plays the raw beam is one you can predict.</p>
+</blockquote>
+<p><strong>没有地板过滤，没有重投影，故意的。</strong> 两者都需要头部 FK 和 IMU，
+而两者都是&quot;音符因为演奏者看不见的原因消失&quot;的又一种方式。
+<strong>一个直接演奏原始光线的乐器，是你预测得了的乐器。</strong></p>
+<p>注意这跟 <code>tof.rs</code> 是<strong>刻意的分工</strong>：<code>tof.rs</code> 费那么大劲判地板、做重投影，
+<code>hand.rs</code> 却只要原始读数。这不是谁写错了 —— 而是<strong>两种消费者对&quot;稳&quot;的定义不同</strong>：
+一个给可视化用（错了看得见），一个给实时演奏用（错了听得见，而且来不及解释）。</p>
+<h3 id="114-hand-的四个字段"><a class="header" href="#114-hand-的四个字段">11.4 <code>Hand</code> 的四个字段</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/hand.rs:88（节选）
+pub struct Hand {
+    pub range_m: f64,     // 稳健距离
+    pub closeness: f64,   // 0 = 最远，1 = 最近。越近越高
+    pub zones: usize,     // 覆盖了几格
+    pub held: bool,       // true = 这是&quot;记住的上一帧&quot;，不是这一帧测到的
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>held</code> 这个字段的存在理由（<code>hand.rs:99-101</code>）是：
+<strong>让读数能显示&quot;我在补一个丢帧&quot;，而不是假装自己真的看见了。</strong></p>
+<p><code>status_histogram</code>（<code>hand.rs:190</code>）是纯诊断，但它是最有用的那个诊断（<code>hand.rs:186-188</code>）：</p>
+<blockquote>
+<p>&quot;it stops working past 30 cm&quot; and &quot;status 4 covers 31 zones of the frame&quot; are the same
+sentence, but only the second tells you what to change.</p>
+</blockquote>
+<p><strong>&quot;它在 30 cm 外就不工作了&quot;和&quot;这一帧有 31 格是 status 4&quot;是同一句话，
+但只有第二句告诉你要改什么。</strong></p>
+<hr />
+<h2 id="12-测试一个真数字和两个探针"><a class="header" href="#12-测试一个真数字和两个探针">12. 测试：一个真数字和两个探针</a></h2>
+<p>测试一共 33 个：</p>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>数量</th><th>性质</th></tr></thead><tbody>
+<tr><td><code>src/lib.rs</code></td><td>6</td><td>单元测试</td></tr>
+<tr><td><code>src/head.rs</code></td><td>7</td><td>单元测试（含符号约定）</td></tr>
+<tr><td><code>src/tof.rs</code></td><td>6</td><td>单元测试</td></tr>
+<tr><td><code>src/hand.rs</code></td><td>8</td><td>单元测试（最多）</td></tr>
+<tr><td><code>src/math.rs</code></td><td>3</td><td>单元测试</td></tr>
+<tr><td><code>src/mjcf.rs</code></td><td>0</td><td>——</td></tr>
+<tr><td><code>tests/fk_against_mujoco.rs</code></td><td>1</td><td><strong>唯一的真数字</strong></td></tr>
+<tr><td><code>tests/perf_probe.rs</code></td><td>2</td><td><strong>两个 <code>#[ignore]</code> 探针</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="121-fk_against_mujoco那一个数字"><a class="header" href="#121-fk_against_mujoco那一个数字">12.1 <code>fk_against_mujoco</code>：那一个数字</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// tests/fk_against_mujoco.rs
+fn alpha_matches_mujoco_on_every_site_of_64_random_poses
+<span class="boring">}</span></code></pre></pre>
+<p>64 组随机姿势，逐 site 比对，容差 <code>POS_TOL</code> / <code>QUAT_TOL</code> = <strong>1e-6</strong>。</p>
+<p>基准数据是 <strong>MuJoCo 自己的 <code>mj_kinematics</code></strong> 生成的：</p>
+<blockquote>
+<p>The FK's ground truth: MuJoCo's own <code>mj_kinematics</code>... generated by <code>scripts/gen_fixtures.py</code>
+in the <code>microduck_kinematics_rs</code> repo (run via <code>uv</code>)... Regenerate it whenever the MJCF
+changes — <strong>the parity is exact (1e-6), so any real divergence fails loudly.</strong></p>
+</blockquote>
+<p><strong>这就是 §5.1 那句&quot;1e-6 才是正确性论据&quot;的兑现处。</strong>
+这也是为什么这个 crate 敢不用 nalgebra：它有一个比自己更强的裁判。</p>
+<p>四元数比对会接受 <strong>±q</strong>：因为 <code>q</code> 和 <code>-q</code> 表示同一个旋转
+（四元数是旋转的<strong>双重覆盖</strong>），不处理这个会得到假失败。</p>
+<blockquote>
+<p>⚠️ 这个 fixture 覆盖 <strong>6 个 site</strong>，而模型有 <strong>8 个</strong> —— <code>imu_bno</code> 和 <code>head_imu</code> 不在里面。
+详见 §13。</p>
+</blockquote>
+<h3 id="122-perf_probe两个探针不是两个测试"><a class="header" href="#122-perf_probe两个探针不是两个测试">12.2 <code>perf_probe</code>：两个探针，不是两个测试</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// tests/perf_probe.rs 的模块文档
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p><strong>Not a test — a probe... Numbers land in the terminal, not in an assertion:
+wall-clock thresholds in CI are flakiness, not coverage.</strong></p>
+</blockquote>
+<p><strong>&quot;不是测试，是探针。数字打在终端上，不是断言里：CI 里的墙上时钟阈值是脆弱性，不是覆盖率。&quot;</strong></p>
+<p>这条原则值得记下来。两个探针（都带 <code>#[ignore]</code>，要手动跑）：</p>
+<ul>
+<li><code>time_site_pose</code> —— 量 §3.4 那个折叠有多快。</li>
+<li><code>time_tof_reprojection</code> —— 量 64 格重投影有多快。</li>
+</ul>
+<p><strong>只有在你改了 <code>Model</code> 的编译策略、或者怀疑某处退化时，才手动跑一次看数字。</strong>
+平时不跑，因为一个忽快忽慢的 CI 只会教人学会忽略红色。</p>
+<hr />
+<h2 id="13-两处读者会绊到的地方"><a class="header" href="#13-两处读者会绊到的地方">13. 两处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档/自身不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="131-fixture-覆盖-6-个-site模型有-8-个"><a class="header" href="#131-fixture-覆盖-6-个-site模型有-8-个">13.1 fixture 覆盖 6 个 site，模型有 8 个</a></h3>
+<p><code>robot_walk.xml</code> 声明了 <strong>8 个 site</strong>：</p>
+<pre><code>imu_bno · imu · left_foot · head_camera · mouth_tip · tof · head_imu · right_foot
+</code></pre>
+<p><code>tests/fixtures/fk_alpha.json</code> 里的 <code>site_names</code> 只有 <strong>6 个</strong>：
+<code>head_camera</code>、<code>imu</code>、<code>left_foot</code>、<code>right_foot</code>、<code>mouth_tip</code>、<code>tof</code>。</p>
+<p>缺的两个是 <strong><code>imu_bno</code></strong> 和 <strong><code>head_imu</code></strong>。而 <code>head_imu</code> 是<strong>真的在用</strong>的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:4810 — 进 robot.state，发给客户端
+head_imu: FK.head_imu_in_trunk(head).map(pose),
+<span class="boring">}</span></code></pre></pre>
+<p>site 表和 fixture 是同一次提交引入的（<code>cc972c5</code>，2026-08-21）。
+fixture 自己的说法是 &quot;any real divergence fails loudly&quot; —— 对<strong>它覆盖的那 6 个</strong>成立。</p>
+<h3 id="132-beams-的文档注释指着一个已经删掉的东西"><a class="header" href="#132-beams-的文档注释指着一个已经删掉的东西">13.2 <code>beams()</code> 的文档注释指着一个已经删掉的东西</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// kinematics/src/tof.rs:131-134
+/// The unit beam directions, in the sensor's own frame, row-major like the wire's
+/// zones. Exposed for geometry that reasons about the beams themselves rather than
+/// about where they landed — [`crate::hand`]'s plane fit, which needs the direction a
+/// slant range was measured along.
+<span class="boring">}</span></code></pre></pre>
+<p>但 <code>hand.rs</code> 里的平面拟合在 §11.1 描述的那次简化里被删掉了：</p>
+<ul>
+<li><code>hand.rs:3-6</code> 把它列为<strong>被移除</strong>的做法之一；</li>
+<li><code>grep -c &quot;beams&quot; kinematics/src/hand.rs</code> 返回 <strong>0</strong> —— 这个文件一次都没提过它。</li>
+</ul>
+<p>真正调用 <code>beams()</code> 的是 <code>robotd</code>：</p>
+<pre><code>robotd/src/main.rs:4821:            tof_beams: TOF.beams().to_vec(),
+</code></pre>
+<hr />
+<h2 id="14-阅读路线"><a class="header" href="#14-阅读路线">14. 阅读路线</a></h2>
+<p>按这个顺序读，每一步都建立在前一步上：</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>1</td><td><code>kinematics/Cargo.toml</code>（1-9 行的注释）</td><td>九行说清了整个 crate 的来龙去脉</td></tr>
+<tr><td>2</td><td><code>assets/alpha/robot_walk.xml</code></td><td><strong>先看真相</strong>。109 行，对着 §6 的树状图读</td></tr>
+<tr><td>3</td><td><code>src/math.rs</code></td><td>最短的文件（180 行），且是所有别的东西的语言</td></tr>
+<tr><td>4</td><td><code>src/lib.rs</code></td><td><code>Model</code> + <code>site_pose</code>。<strong>§3.4 那 8 行是核心</strong></td></tr>
+<tr><td>5</td><td><code>src/mjcf.rs</code></td><td>回头看 XML 是怎么变成 <code>Model</code> 的</td></tr>
+<tr><td>6</td><td><code>src/head.rs</code></td><td>第一个有算法的模块：<code>look_at</code></td></tr>
+<tr><td>7</td><td><code>src/tof.rs</code></td><td>第二个：重投影 + 判地板</td></tr>
+<tr><td>8</td><td><code>src/hand.rs</code></td><td>最简单也最有人味的一个。<strong>模块文档必读</strong></td></tr>
+<tr><td>9</td><td><code>tests/fk_against_mujoco.rs</code></td><td>看正确性是怎么被钉死的</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读 §1、§3、§6 的树状图，然后读 <code>hand.rs</code> 的前 16 行。</p>
+<p>三条贯穿全文的主线，看到时留意一下 —— 它们比任何单个算法都更能说明这个 crate 的性格：</p>
+<ol>
+<li><strong>唯一真相</strong>：几何只写在 XML 里一处，连策略训练都用同一份。</li>
+<li><strong>加载时编译</strong>：名字→索引、链的展平，全在加载时做完，热路径上只剩算术。</li>
+<li><strong>宁可不做，不可做错</strong>：<code>NaN</code> → 单位四元数；IMU 没收敛 → 不摆平；角度切片短了 → panic。</li>
+</ol>
+<hr />
+<h2 id="15-术语表"><a class="header" href="#15-术语表">15. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>正向运动学（FK）</strong></td><td>给定关节角，算各部位在哪、朝哪。<strong>这个 crate 的主业</strong></td></tr>
+<tr><td><strong>逆运动学（IK）</strong></td><td>反过来：给定想要的位置，算关节角该多少。<code>look_at</code> 是</td></tr>
+<tr><td><strong>MJCF</strong></td><td>MuJoCo XML Format。MuJoCo 物理引擎的模型描述语言</td></tr>
+<tr><td><strong>body</strong></td><td>刚体，一段不会变形的骨头</td></tr>
+<tr><td><strong>joint</strong></td><td>关节。<code>type=&quot;hinge&quot;</code> = 只能绕一根轴转的铰链</td></tr>
+<tr><td><strong>site</strong></td><td>贴在 body 上的&quot;有名有向但没有质量的点&quot;。摄像头、ToF、脚底都是 site</td></tr>
+<tr><td><strong>rest pose</strong></td><td>关节角全为 0 时，一个 body 相对于父亲的固定偏移（<code>pos</code> + <code>quat</code>）</td></tr>
+<tr><td><strong>Pose</strong></td><td>位置 + 朝向。<code>math.rs</code> 里的一个结构体</td></tr>
+<tr><td><strong>四元数（Quat）</strong></td><td>表示旋转的四个数。这里用 Hamilton 约定、标量在前 <code>[w,x,y,z]</code></td></tr>
+<tr><td><strong>躯干坐标系（trunk frame）</strong></td><td>以躯干为原点的坐标系。<strong>这个 crate 的所有输出都在这里</strong></td></tr>
+<tr><td><strong>世界坐标系（world frame）</strong></td><td>以地面为基准的坐标系。归 IMU 和 <code>odometry</code> 管</td></tr>
+<tr><td><strong>site_pose</strong></td><td>从根折叠到某个 site，得到它的位姿。<strong>热路径上最重要的那个函数</strong></td></tr>
+<tr><td><strong>LazyLock / 静态单例</strong></td><td>第一次用到时初始化、之后一直复用。<code>Model::alpha()</code> 就是</td></tr>
+<tr><td><strong>Gauss-Newton（高斯-牛顿）</strong></td><td>一种迭代求根法。<code>look_at</code> 用它解 2×2 方程</td></tr>
+<tr><td><strong>Jacobian（雅可比）</strong></td><td>导数的矩阵形式：&quot;每个输入动一点，每个输出各动多少&quot;。这里是数值算的</td></tr>
+<tr><td><strong>阻尼 / Levenberg</strong></td><td>给迭代加一点点&quot;粘性&quot;，防止它在奇异点附近跳飞</td></tr>
+<tr><td><strong>奇异点 / 万向节死锁</strong></td><td>两个转轴对齐、丢掉一个自由度的姿态。head_yaw ≈ 90° 时出现</td></tr>
+<tr><td><strong>ToF</strong></td><td>Time of Flight，飞行时间测距。返回 8×8 的距离网格</td></tr>
+<tr><td><strong>重投影（reprojection）</strong></td><td>把&quot;某方向上的距离&quot;换算成&quot;空间中的点&quot;</td></tr>
+<tr><td><strong>斜距 / 水平距离</strong></td><td>斜距 = 沿光线量；水平距离 = 投到地平面上量。<code>Hit::range</code> 是后者</td></tr>
+<tr><td><strong>percentile（百分位）</strong></td><td>排序后取第 N% 个。这里取第 20 个，为了避开孤立飞点</td></tr>
+<tr><td><strong>fixture</strong></td><td>预先算好的基准数据，用来比对。这里是 MuJoCo 算的 64 组姿势</td></tr>
+<tr><td><strong>奇偶校验（parity）</strong></td><td>两套实现给同样的答案。这里指本 crate 与 MuJoCo</td></tr>
+<tr><td><strong><code>#[ignore]</code></strong></td><td>默认不跑，要 <code>--ignored</code> 手动跑。用于探针这类不该进 CI 的东西</td></tr>
+<tr><td><strong>newtype</strong></td><td>用单字段结构体包一个裸类型，换来类型安全。<code>SiteId(usize)</code> 就是</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>关节角怎么变成扭矩（姊妹篇，<strong>最该一起读</strong>）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>鸭子站在哪：接触点里程计</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.4 · <a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>头部姿态、ToF 在 <code>robotd</code> 里怎么用</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a></td></tr>
+<tr><td><code>robot.look</code> / <code>robot.model</code> / <code>robot.state</code> 的线上契约</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>ToF 重投影在笔记本上长什么样</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td><code>hand::Config</code> 怎么接到配置文件</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>控制环的 50 Hz 心跳</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>BLE 电台（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>模拟鸭子用的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>MuJoCo 孪生：策略怎么训练的</td><td><a href="design/simulation.html"><code>design/simulation.md</code></a></td></tr>
+<tr><td>ToF 重投影的另一个消费者：摄像头管线（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>谁的脚踩在地上：接触式里程计（姊妹篇，<strong>最该一起读</strong>）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>另一套四元数实现，用 <code>f32</code> 且没有外部基准（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>3D 视图那份自己烘焙的骨架（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/hooks-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/mediad-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/hooks-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/mediad-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

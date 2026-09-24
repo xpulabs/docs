@@ -1,0 +1,1212 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>robotctl/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html" class="active"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="robotctl-新手导读"><a class="header" href="#robotctl-新手导读"><code>robotctl</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>每个命令的操作者视角由 <a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a> 拥有 ——
+<a href="README.html"><code>docs/README.md</code></a> 说它是 <em>&quot;Every <code>robotctl</code> command.&quot;</em>，
+而且它的每一行都是从 <code>--help</code> 抄的，不是凭记忆写的。<strong>先读它，再读代码。</strong>
+开发板相关的命令在 <a href="robot/cheatsheet-dev.html"><code>robot/cheatsheet-dev.md</code></a>。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="duckctl-primer.html"><code>duckctl-primer.md</code></a>（<strong>笔记本上</strong>那个客户端，走蓝牙）、
+<a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>（<code>configure</code> 编辑的那份 schema）、
+<a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a>（它说的那门语言）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E5%AE%83%E8%B7%91%E5%9C%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%B8%8A%E4%B8%8D%E6%98%AF%E7%AC%94%E8%AE%B0%E6%9C%AC%E4%B8%8A">⚠️ 它跑在<strong>机器人上</strong>，不是笔记本上</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E4%B8%AA%E8%96%84%E5%AE%A2%E6%88%B7%E7%AB%AF">⭐ 核心心智模型：一个薄客户端</a></li>
+<li><a href="#4-%E5%91%BD%E4%BB%A4%E5%9C%B0%E5%9B%BE">命令地图</a></li>
+<li><a href="#5-%E9%80%80%E5%87%BA%E7%A0%81%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E4%B8%80%E4%B8%AA%E9%83%BD%E4%B8%8D%E4%B8%80%E6%A0%B7">退出码：为什么每一个都不一样</a></li>
+<li><a href="#6-monitor%E9%82%A3%E4%B8%AA%E5%B1%8F%E5%B9%95"><code>monitor</code>：那个屏幕</a></li>
+<li><a href="#7-configure%E9%82%A3%E4%B8%AA%E7%BC%96%E8%BE%91%E5%99%A8"><code>configure</code>：那个编辑器</a></li>
+<li><a href="#8-update-%E4%B8%8E-update-show"><code>update</code> 与 <code>update show</code></a></li>
+<li><a href="#9-%E9%82%A3%E4%B8%AA-3d-%E8%A7%86%E5%9B%BE">那个 3D 视图</a></li>
+<li><a href="#10--%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BE%9D%E8%B5%96%E8%A1%A8%E8%BF%99%E4%B9%88%E7%9F%AD">⭐ 为什么依赖表这么短</a></li>
+<li><a href="#11-%E6%B5%8B%E8%AF%95185-%E4%B8%AA">测试：185 个</a></li>
+<li><a href="#12-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#13-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#14-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>robotctl</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>这台机器人现在怎么样了，我该怎么让它做点什么？</strong></p>
+</blockquote>
+<p>它是一个<strong>单文件、依赖极少的命令行工具</strong>，通过 <strong>Unix socket</strong> 和机器人上的各个 daemon 说话。
+<code>main.rs:3-6</code> 说清了它的姿态：</p>
+<blockquote>
+<p>A <strong>thin client</strong> over <code>updaterd</code>'s unix socket: parse argv, send one JSON-RPC request, print the
+streamed notifications and result, map the outcome to an exit code. <strong>It contains no update
+logic</strong> — that lives in the engine inside <code>updaterd</code>.</p>
+</blockquote>
+<p><strong>&quot;薄客户端&quot;</strong>：解析命令行 → 发一个请求 → 打印 → 映射成一个退出码。就这么多。</p>
+<p>规模：<strong>15,929 行</strong>（10 个文件），185 个测试。</p>
+<pre><code>robotctl/
+├── Cargo.toml              57 行 —— 头 15 行讲清依赖规则
+├── assets/duck.bin     68,622 字节  ← 那个 3D 模型
+└── src/
+    ├── main.rs           6785 行  CLI、17 个命名空间、health/version、update
+    ├── monitor.rs        4850 行  实时 TUI
+    ├── configure.rs      1405 行  配置编辑器
+    ├── duck.rs            926 行  3D 视图
+    ├── show.rs            740 行  `update show`
+    ├── path_map.rs        353 行  里程计地图（盲文）
+    ├── camera.rs          305 行  摄像头块
+    ├── imu_view.rs        297 行  手柄线框
+    ├── frame.rs           167 行  本机快照
+    └── cells.rs            44 行  半格像素助手
+</code></pre>
+<hr />
+<h2 id="2--它跑在机器人上不是笔记本上"><a class="header" href="#2--它跑在机器人上不是笔记本上">2. ⚠️ 它跑在<strong>机器人上</strong>，不是笔记本上</a></h2>
+<p><strong>这是最容易搞反的一件事。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th></th><th><code>robotctl</code></th><th><a href="duckctl-primer.html"><code>duckctl</code></a></th></tr></thead><tbody>
+<tr><td><strong>在哪跑</strong></td><td><strong>机器人上</strong>（ssh 进去）</td><td><strong>开发者的笔记本上</strong></td></tr>
+<tr><td><strong>怎么连</strong></td><td>本机 Unix socket（<code>/run/*.sock</code>）</td><td>蓝牙 BLE</td></tr>
+<tr><td><strong>会随发布安装吗</strong></td><td><strong>会</strong> —— 它是&quot;会出货的那个工具&quot;</td><td><strong>不会</strong> —— 排除在 <code>default-members</code> 之外</td></tr>
+<tr><td><strong>干什么</strong></td><td>本机控制与恢复面</td><td>手机 app 的替身</td></tr>
+</tbody></table>
+</div>
+<p><code>docs/robot/duckctl.md</code> 说得最直白：</p>
+<blockquote>
+<p><strong>Never on a robot.</strong> Nothing in a release depends on it — <strong><code>robotctl</code> is the tool that ships</strong>,
+and <a href="robot/cheatsheet.html"><code>cheatsheet.md</code></a> has its commands.</p>
+</blockquote>
+<p>可以用 <code>Cargo.toml</code> 的 workspace 配置验证这一点：</p>
+<pre><code class="language-toml"># 根 Cargo.toml:21
+default-members = [..., &quot;robotctl&quot;, &quot;robotd&quot;, &quot;robotd-params&quot;, ...]   # ← robotctl 在
+#                    ... 没有 duckctl ...
+</code></pre>
+<blockquote>
+<p>💡 它<strong>也</strong>能从笔记本上跑 —— 把 socket 转发过去就行：
+<code>ssh -L /tmp/robotd.sock:/run/robotd.sock duck</code>，然后 <code>--socket /tmp/robotd.sock</code>。
+但它<strong>家</strong>在机器人上。</p>
+</blockquote>
+<hr />
+<h2 id="3--核心心智模型一个薄客户端"><a class="header" href="#3--核心心智模型一个薄客户端">3. ⭐ 核心心智模型：一个薄客户端</a></h2>
+<h3 id="31-一句话"><a class="header" href="#31-一句话">3.1 一句话</a></h3>
+<blockquote>
+<p><strong>它自己不做什么，它只是把话带到，再把回答带回来。</strong></p>
+</blockquote>
+<p>没有 daemon 逻辑在里面。所有的智慧——更新引擎、控制环、配置校验——都在 socket 的另一头。</p>
+<h3 id="32-client-那个结构体"><a class="header" href="#32-client-那个结构体">3.2 <code>Client</code> 那个结构体</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/main.rs:1261-1264
+// Deliberately `std::os::unix::net`, not tokio: this is a short-lived CLI issuing one request.
+// An async runtime would add a dependency and a concept for nothing.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个短命的 CLI 发一个请求 —— 引入 async runtime 只会加一个依赖和一个概念，换不来任何东西。&quot;</strong></p>
+<p><code>Client::call</code>（<code>:1319</code>）写一个请求然后循环读：</p>
+<ul>
+<li><strong>通知</strong>（没有 <code>id</code>）→ 写到 <strong>stderr</strong>（<code>:1316-1318</code>）</li>
+<li><strong>回答</strong>（<code>id</code> 对得上）→ 返回</li>
+<li>对不上的 <code>id</code> → 忽略</li>
+</ul>
+<blockquote>
+<p>💡 <strong>结果走 stdout，通知走 stderr。</strong> 这是 <code>main.rs:19-31</code> 那五条设计规则之一，
+为的是 <code>robotctl update watch | grep</code> 这种用法能工作。</p>
+</blockquote>
+<h3 id="33--hello-是活性检查不是门"><a class="header" href="#33--hello-是活性检查不是门">3.3 ⭐ <code>hello</code> 是活性检查，<strong>不是门</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/main.rs:1363-1367
+/// **A liveness check, not a gate.** It used to be one: a daemon whose `API_VERSION` differed
+/// refused the handshake and every command failed here, including the `update apply` that ends
+/// the skew. **No daemon refuses on that number now** — see [`proto::API_VERSION`] — so what
+/// remains is worth keeping for its own sake, because it turns a socket that accepts and then
+/// says nothing into a failure before the real call goes out.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个版本号不同的 daemon 会拒绝握手，于是每条命令都失败在这里 —— 包括那条本来能结束这个
+skew 的 <code>update apply</code>。&quot;</strong></p>
+<p>这就是仓库那条规矩（<em>&quot;版本差异只记录不拒绝&quot;</em>）在这个 crate 里的样子。
+现在改成了 <code>warn_once_about_skew</code>（<code>:1407</code>）：<strong>stderr 上警告一次</strong>，一个 run 只一次。</p>
+<h3 id="34-连接失败时要问对问题"><a class="header" href="#34-连接失败时要问对问题">3.4 连接失败时要问对问题</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/main.rs:1218-1226
+/// Every kind used to get `Is the service running?  systemctl status …`, which is the right
+/// question for **exactly one of them**. On a freshly provisioned board the usual answer is
+/// `EACCES`, and there the service is running fine — **the caller is simply not in the `robot`
+/// group yet**…
+///
+/// `EACCES` from `connect` means **something was found and refused us**, never that it was absent
+/// — that is `ENOENT` — so the two cases can be told apart without stat'ing anything.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;<code>EACCES</code> 意味着有东西在那儿并且拒绝了我们，从来不是它不存在。&quot;</strong>
+所以权限错误给的是 <code>newgrp robot</code> / <code>id -nG</code> / <code>usermod -aG</code> 的建议，
+而不是让人去查一个运行得好好的服务。</p>
+<h3 id="35-五个服务七条-socket"><a class="header" href="#35-五个服务七条-socket">3.5 五个服务，七条 socket</a></h3>
+<p>所有 socket 路径都是 <code>#[arg(long, global = true)]</code>，所以可以写在命令行的任何位置：</p>
+<div class="table-wrapper"><table><thead><tr><th>旗标</th><th>默认值</th></tr></thead><tbody>
+<tr><td><code>--socket</code></td><td><code>/run/updaterd.sock</code></td></tr>
+<tr><td><code>--robot-socket</code></td><td><code>/run/robotd.sock</code></td></tr>
+<tr><td><code>--config-socket</code></td><td><code>/run/configd.sock</code></td></tr>
+<tr><td><code>--pad-socket</code></td><td><code>/run/padd/pad.sock</code></td></tr>
+<tr><td><code>--tof-socket</code></td><td><code>/run/tofd/tof.sock</code></td></tr>
+<tr><td><code>--media-socket</code></td><td><code>/run/mediad/media.sock</code></td></tr>
+<tr><td><code>--pad-config</code></td><td><code>/etc/robot/robotd.toml</code>（<strong>文件</strong>，不是 socket）</td></tr>
+</tbody></table>
+</div>
+<p>⚠️ 注意 <code>--robot-socket</code> 用的是<strong>写死的字面量</strong>而不是 proto 的常量 —— 见 §12。</p>
+<hr />
+<h2 id="4-命令地图"><a class="header" href="#4-命令地图">4. 命令地图</a></h2>
+<p><strong>17 个顶层命名空间</strong>（<code>enum Namespace</code>，<code>main.rs:124</code>）：</p>
+<pre><code>frame            存一帧原始摄像头画面
+net              wifi（configd 服务）      status · scan · connect · forget
+system           名字、身份、电源          info · set-name · pin · set-pin · reboot
+robot            给关节通电                init · enable · relax · reboot-motors · do · mode · look
+quack            让它叫一声
+chorale          和其他鸭子合唱
+theremin         把头部深度传感器当特雷门琴
+configure        编辑 robotd.toml
+pad              手柄                      status · bindings · bind · reset · pair · forget
+update           更新与发布管理             （见 §8）
+account          Hugging Face 账号         login · status · logout
+policy           哪个 .onnx 跑在哪个槽      list · load · add · remove · search · check · update · reset
+duck-detector    找鸭子的模型              check · update
+monitor          控制环实时视图
+health           硬件 + 软件一份报告
+version          在跑什么 vs 装了什么
+completions      打印 shell 补全脚本
+</code></pre>
+<h3 id="41--quack最响的辨认方式"><a class="header" href="#41--quack最响的辨认方式">4.1 ⭐ <code>quack</code>：最响的辨认方式</a></h3>
+<p><code>main.rs:154-156</code>：</p>
+<blockquote>
+<p>Play this robot's quack. <strong>The loudest way to tell ducks apart</strong>: every robot's voice is generated
+from its SoC serial, so <strong>the one that answers — in a voice that is only its own — is the one
+you're SSH'd into.</strong></p>
+</blockquote>
+<p><strong>&quot;用只属于它自己的声音回答的那一只，就是你 ssh 进去的那一只。&quot;</strong></p>
+<p>（它还会 <code>println!(&quot;🦆&quot;)</code>。）</p>
+<h3 id="42-pad-的两半住在不同的地方"><a class="header" href="#42-pad-的两半住在不同的地方">4.2 <code>pad</code> 的两半住在不同的地方</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:4601-4608（节选）
+bindings | bind | reset  →  run_pad_bindings(&amp;cli.robot_socket, &amp;cli.pad_config, …)
+其他                     →  run_pad(&amp;cli.config_socket, …)
+<span class="boring">}</span></code></pre></pre>
+<p><strong>配对归 <code>configd</code>（需要 root 和 BlueZ），按键绑定是改文件</strong>（还要问 <code>robotd</code> 有哪些技能）。
+所以一个 <code>pad</code> 命名空间下面挂着两个不同的后端。</p>
+<h3 id="43-两个命令会先问你一遍"><a class="header" href="#43-两个命令会先问你一遍">4.3 两个命令会<strong>先问你一遍</strong></a></h3>
+<p><code>system reboot</code> 和 <code>robot relax</code> 不带 <code>--yes</code> 时返回 <code>USAGE</code>（<code>main.rs:2624-2628</code>、<code>:2705-2712</code>）。
+理由在 <code>robot relax</code> 那条：把机器人弄瘫是一个<strong>没有回头路</strong>的动作。</p>
+<hr />
+<h2 id="5-退出码为什么每一个都不一样"><a class="header" href="#5-退出码为什么每一个都不一样">5. 退出码：为什么每一个都不一样</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/main.rs:53
+/// Exit codes. Stable — CI asserts on these.
+<span class="boring">}</span></code></pre></pre>
+<div class="table-wrapper"><table><thead><tr><th>码</th><th>名字</th><th>什么时候</th></tr></thead><tbody>
+<tr><td>0</td><td><code>OK</code></td><td></td></tr>
+<tr><td>1</td><td><code>FAILED</code></td><td>其他一切</td></tr>
+<tr><td>2</td><td><code>USAGE</code></td><td>用法错。<strong>对齐 clap 自己的约定</strong></td></tr>
+<tr><td>3</td><td><code>UNREACHABLE</code></td><td>够不到 daemon</td></tr>
+<tr><td>4</td><td><code>BUSY</code></td><td><strong>另一个更新正在进行 —— 脚本应该重试</strong></td></tr>
+<tr><td>5</td><td><code>REFUSED</code></td><td>被拒绝了：不兼容，或者 preflight 失败</td></tr>
+<tr><td>6</td><td><code>DENIED</code></td><td><strong>没权限改这台机器人</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>每一条的&quot;为什么是单独的&quot;都写在注释里</strong>，值得逐个读：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:60
+/// `updaterd` unreachable — a different problem from a rejected command.
+
+// main.rs:62
+/// Another update is in flight. **Distinct so scripts retry rather than fail.**
+
+// main.rs:66
+/// Refused: incompatible, or preflight failed. **Distinct so a test can assert &quot;correctly
+/// rejected&quot; rather than &quot;something broke&quot;** — needed for the bad-signature and wrong-hardware
+/// cases.
+
+// main.rs:70
+/// Not permitted to change this robot. **Distinct from REFUSED**: the request was well-formed and
+/// applicable, the caller just isn't allowed — so the fix is **&quot;run as root / ask an
+/// administrator&quot;, not &quot;try something else&quot;**.
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>REFUSED</code> 和 <code>DENIED</code> 的区别是&quot;你不能&quot;和&quot;你不许&quot;。</strong>
+前者换一条命令，后者换一个身份。</p>
+<h3 id="51-daemon-的错误码怎么映射"><a class="header" href="#51-daemon-的错误码怎么映射">5.1 daemon 的错误码怎么映射</a></h3>
+<p>集中在 <code>Failure::from_rpc</code>（<code>:2369-2384</code>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>daemon 码</th><th>退出码</th></tr></thead><tbody>
+<tr><td><code>BUSY</code></td><td>4</td></tr>
+<tr><td><code>INCOMPATIBLE</code> · <code>PREFLIGHT_FAILED</code> · <code>VERIFICATION_FAILED</code> · <code>WOULD_DOWNGRADE</code> · <code>NOT_INSTALLED</code> · <code>ARCHIVE_TOO_LARGE</code></td><td>5</td></tr>
+<tr><td><code>PERMISSION_DENIED</code></td><td>6</td></tr>
+<tr><td><code>PROTOCOL_MISMATCH</code></td><td>2</td></tr>
+<tr><td>其他</td><td>1</td></tr>
+</tbody></table>
+</div>
+<h3 id="52-health-的退出码是个判决"><a class="header" href="#52-health-的退出码是个判决">5.2 <code>health</code> 的退出码是个&quot;判决&quot;</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1564-1571
+Some(true)  =&gt; Ok(())
+Some(false) =&gt; Err(Failure::silent(exit::REFUSED))
+//   &quot;REFUSED, not FAILED: **the robot answered correctly and the answer was &quot;no&quot;. That is a
+//    verdict, not a malfunction**, and a script should be able to tell them apart.&quot;
+None        =&gt; Err(Failure::silent(exit::UNREACHABLE))
+//   &quot;Nothing answered. Distinct again: **there is no verdict to act on.**&quot;
+<span class="boring">}</span></code></pre></pre>
+<p><code>install.sh</code> 靠这个当门（<code>:1525</code>）。</p>
+<p>⚠️ <strong>注意 <code>Failure::silent</code></strong>（<code>:2360</code>）：它带一个退出码和<strong>空消息</strong>。
+因为 <code>health</code> 已经把答案打在 stdout 上了，再在 stderr 上打一行 <code>error: …</code> 是重复。</p>
+<p><strong>而且只有&quot;机器人不健康&quot;才影响退出码</strong> —— 电量低、电机烫、组件被 pin 都只是<strong>报告，不判决</strong>
+（<code>main.rs:1524-1527</code>）。</p>
+<hr />
+<h2 id="6-monitor那个屏幕"><a class="header" href="#6-monitor那个屏幕">6. <code>monitor</code>：那个屏幕</a></h2>
+<h3 id="61-它为什么存在"><a class="header" href="#61-它为什么存在">6.1 它为什么存在</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/monitor.rs:6-8
+// Joint tracking lives here, which is the reason this exists: **fifteen measured angles beside
+// fifteen commanded ones is unreadable as text at 10 Hz, and is obvious as fifteen bars.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;十五个实测角度挨着十五个指令角度，用文字看是读不下去的；画成十五根条就一目了然。&quot;</strong></p>
+<h3 id="62-一份流两种渲染"><a class="header" href="#62-一份流两种渲染">6.2 一份流，两种渲染</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// monitor.rs:9-11
+// a screen-painting CLI that writes escape codes into a log file is a CLI nobody can script
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li><strong>stdout 是终端</strong> → ratatui 界面，原地重画</li>
+<li><strong>stdout 是管道 / 文件 / <code>--json</code></strong> → 每 tick 一行，<code>git log</code> 那样可以 grep</li>
+</ul>
+<h3 id="63-屏幕长什么样"><a class="header" href="#63-屏幕长什么样">6.3 屏幕长什么样</a></h3>
+<pre><code>┌─ policy walk · t 12s · 50.0 Hz ──────────── q quit · p pad · t tof · c cam ─┐
+│  move   asked/applied            │  imu   gravity, upright                   │
+│  limits · head · odom            │                                           │
+│  power  battery · hottest servo  │                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ pad · cadence ──────────────────────────────────────────────────────────────┐
+│  报告间隔的 sparkline + 摇杆格子 + 按住的键                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ joints ─────────────────────────────────────────────────────────────────────┐
+│  left_hip_pitch    -0.52   -0.52   0.001  ▏                                  │
+│  …每个关节一行：名字 / 实测 / 指令 / 误差 / 偏差条                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+   loop rate sparkline
+</code></pre>
+<p>右列是那个 <strong>3D 视图</strong>，下面挂一张<strong>里程计地图</strong>。</p>
+<h3 id="64--每一块的高度都是编译期常数"><a class="header" href="#64--每一块的高度都是编译期常数">6.4 ⭐ 每一块的高度都是<strong>编译期常数</strong></a></h3>
+<p>这是这个文件里最反复出现的一条设计：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// monitor.rs:59-62
+/// Rows the robot block occupies: two borders, a four-row half for the command and the IMU side
+/// by side, then the limits, the head, the odometry and the power row.
+/// **Fixed, because a header that grows when a limit appears would shift every joint row down at
+/// the moment the reader is staring at one.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个在限制出现时长高的表头，会在读者正盯着某一行的时候把每个关节行都往下推。&quot;</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>常数</th><th>值</th><th>哪一块</th></tr></thead><tbody>
+<tr><td><code>HEADER_HEIGHT</code></td><td>10</td><td>表头</td></tr>
+<tr><td><code>PAD_HEIGHT</code></td><td>8</td><td>手柄</td></tr>
+<tr><td><code>IMU_HEIGHT</code></td><td>12</td><td>手柄的 IMU 面板</td></tr>
+<tr><td><code>TOF_HEIGHT</code></td><td>10</td><td>深度矩阵</td></tr>
+<tr><td><code>CAMERA_HEIGHT</code></td><td>16</td><td>摄像头</td></tr>
+<tr><td><code>PATH_HEIGHT</code></td><td>12</td><td>里程计地图</td></tr>
+</tbody></table>
+</div>
+<p>而那三个&quot;开关才出现&quot;的块（<code>:71-72</code>）：</p>
+<blockquote>
+<p>Fixed, like the header and for the same reason — <strong>but <em>only while open</em>. Toggling it is a
+deliberate act, and everything below moving then is what the reader asked for.</strong></p>
+</blockquote>
+<p><strong>&quot;打开它是一次刻意的动作，那时下面的一切移动是读者自己要求的。&quot;</strong></p>
+<h3 id="65--那些刷新的节流都是热量账"><a class="header" href="#65--那些刷新的节流都是热量账">6.5 ⭐ 那些刷新的节流，都是热量账</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>常数</th><th>值</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>IDLE_REDRAW</code></td><td>250 ms</td><td>没有新数据也重画，<strong>这样卡住的流看起来就是卡住的</strong></td></tr>
+<tr><td><code>IMU_REPAINT</code></td><td>33 ms</td><td>手柄每秒发 600 个采样，而&quot;每秒重画 600 次的终端是一个别的什么都做不了的终端&quot;（<code>:85-87</code>）</td></tr>
+<tr><td><code>CAMERA_PERIOD</code></td><td>500 ms</td><td>&quot;<strong>每次请求都让 <code>mediad</code> 从那条本来会直接丢掉的采集支路上拷 1.84 MiB</strong>，而一个房间的画面不会比人看一眼变得更快&quot;（<code>:111-114</code>）</td></tr>
+<tr><td><code>RASTER_INTERVAL</code></td><td>80 ms</td><td>3D 视图约 12 fps，中间帧 blit 缓存</td></tr>
+</tbody></table>
+</div>
+<p><code>duck.rs:311-318</code> 那句是整份代码里最该记住的一条工具伦理：</p>
+<blockquote>
+<p><strong>A tool that measurably slows what it measures is a bad tool</strong>, so motion is re-rendered at
+~12 fps and the frames in between blit the cached pixels, which costs nothing.</p>
+</blockquote>
+<p><strong>&quot;一个能被测量出拖慢了它所测量之物的工具，是一个坏工具。&quot;</strong>
+—— 而这个视图画的是<strong>控制环</strong>，跑在<strong>同一块板子上</strong>。</p>
+<h3 id="66--只有摄像头那一条要被要求才读"><a class="header" href="#66--只有摄像头那一条要被要求才读">6.6 ⭐ 只有摄像头那一条要<strong>被要求</strong>才读</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// monitor.rs:638-643
+/// **The only reader here that has to be told to read.** The pad tap and the depth stream are
+/// subscriptions: they cost the daemon at the other end nothing extra while nobody is looking, so
+/// they run whether or not their block is open.
+<span class="boring">}</span></code></pre></pre>
+<p>而摄像头不一样（<code>camera.rs:8-12</code>）：</p>
+<blockquote>
+<p><strong>It asks <code>mediad</code> for a frame rather than subscribing to one</strong>, because <code>media.frame</code> is a
+rendezvous: the capture branch copies a 1.84 MiB buffer <strong>only when a reader has asked for one</strong>,
+and drops every other frame unread. So this asks twice a second while the block is open, and —
+the part that matters — <strong>not at all while it is closed. A monitor left running all day with the
+block shut costs the camera nothing.</strong></p>
+</blockquote>
+<p><strong>块关着的时候，摄像头一点开销都没有。</strong></p>
+<h3 id="67--没有机器人也能开"><a class="header" href="#67--没有机器人也能开">6.7 ⭐ 没有机器人<strong>也</strong>能开</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// monitor.rs:342-347
+/// The live view does **not** require a robot. … the pad is worth watching on a board whose servos
+/// are unpowered, whose `robotd` is stopped, or which is being bisected — **exactly the boards
+/// someone reaches for this on. Refusing to open at all made the pad block reachable only where
+/// it was least needed.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;恰恰是有人会掏出这个工具的那些板子。&quot;</strong></p>
+<p>而 <code>robot.health</code> 那条路<strong>在没机器人时最重要</strong>（<code>monitor.rs:389-394</code>）：</p>
+<blockquote>
+<p>a board whose servo power is off never completes a control tick, so no state ever arrives, and
+<strong>the reason why is on this answer and nowhere else.</strong></p>
+</blockquote>
+<h3 id="68--它不画的东西"><a class="header" href="#68--它不画的东西">6.8 ⚠️ 它<strong>不</strong>画的东西</a></h3>
+<p><code>monitor.rs:1338-1343</code> 讲了&quot;量一条手柄链路&quot;最难的地方：</p>
+<blockquote>
+<p>The distinction between the last two is <strong>the whole difficulty of measuring a pad link</strong>, and
+getting it wrong is <strong>not hypothetical</strong>: counting quiet as a stall is how the first measurement
+on this robot reported <strong>three breaches of the deadman — the longest 75 seconds — on a link that
+never faltered</strong>. <strong>A pad on a table sends nothing, and nothing is what a dead radio sends too.</strong></p>
+</blockquote>
+<p><strong>&quot;桌上的一只手柄什么都不发，而一个死掉的电台也什么都不发。&quot;</strong></p>
+<p>还有一条关于<strong>自动缩放</strong>的（<code>monitor.rs:2920-2925</code>）：</p>
+<blockquote>
+<p>Drawn to a fixed scale rather than to the tallest gap on screen: <strong>an auto-scaled trace moves its
+own baseline as the window slides, so a link stalling every second draws exactly like a healthy
+one.</strong></p>
+</blockquote>
+<p><strong>&quot;一条自动缩放的曲线会随窗口滑动移动自己的基线，于是每秒卡一次的链路画出来和健康的一模一样。&quot;</strong></p>
+<h3 id="69-按键"><a class="header" href="#69-按键">6.9 按键</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>键</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>q</code> / <code>Esc</code></td><td>退出</td></tr>
+<tr><td><code>↑</code> <code>↓</code> / <code>k</code> <code>j</code></td><td>关节表滚动</td></tr>
+<tr><td><code>PageUp</code> / <code>PageDown</code> / <code>Home</code></td><td>翻页 / 回顶</td></tr>
+<tr><td><strong><code>u</code></strong></td><td>角度在<strong>度 ↔ 弧度</strong>之间切换（默认度）</td></tr>
+<tr><td><code>p</code> / <code>t</code> / <code>c</code> / <code>d</code></td><td>开关 手柄 / 深度 / 摄像头 / 3D 视图</td></tr>
+<tr><td><code>[</code> <code>]</code> / <code>←</code> <code>→</code></td><td>绕 3D 视图转视角</td></tr>
+</tbody></table>
+</div>
+<p><strong>默认是度</strong>，但<strong>线上的那份流永远是弧度</strong>（<code>:209-211</code>）：</p>
+<blockquote>
+<p>The wire is radians and stays radians … <strong>a script parsing that output must not have its numbers
+change under it.</strong> This is a reading aid for the live view alone.</p>
+</blockquote>
+<p><strong>&quot;解析那份输出的脚本，它的数字不能在它底下变。&quot;</strong></p>
+<hr />
+<h2 id="7-configure那个编辑器"><a class="header" href="#7-configure那个编辑器">7. <code>configure</code>：那个编辑器</a></h2>
+<h3 id="71-它解决什么问题"><a class="header" href="#71-它解决什么问题">7.1 它解决什么问题</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// configure.rs:3-5
+/// The shipped `deploy/robotd.toml` is **deliberately exhaustive**: every key, documented at
+/// paragraph length, all of it commented out. That is the right *reference* and **a poor *editing
+/// surface*** — finding the one switch you want means scrolling four hundred lines of prose.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;那是正确的参考资料，却是一个糟糕的编辑界面。&quot;</strong></p>
+<h3 id="72----list支持人员问的第一个问题"><a class="header" href="#72----list支持人员问的第一个问题">7.2 ⭐ <code>--list</code>：支持人员问的第一个问题</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// configure.rs:243-246
+/// **&quot;What has been changed on this robot&quot; is the first question support asks** … until now the
+/// only way to answer it was the editor — a full-screen TUI, **over ssh, on a robot somebody is
+/// already having trouble with**. The comparison was there all along; **it was just unreachable
+/// without taking over the terminal.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>robotctl configure --list</code> 只打印这台机器人</strong>和默认值不一样<strong>的键。
+一台没人碰过的机器人什么都不打印 —— 而那本身就是答案。</strong></p>
+<h3 id="73--三个它做不到的保证"><a class="header" href="#73--三个它做不到的保证">7.3 ⭐ 三个&quot;它做不到&quot;的保证</a></h3>
+<p><code>docs/robot/cheatsheet.md</code> 用操作者的语言把这三条列了出来，而它们在代码里各自有对应：</p>
+<p><strong>① 它不能和 daemon 有分歧。</strong> <code>configure.rs:12-15</code>：</p>
+<blockquote>
+<p><strong>Nothing here defines a key.</strong> The schema, the defaults, the validation and the one-line docs
+all come from <code>robotd-params</code> — <strong>the same crate <code>robotd</code> itself parses the file with</strong> — and its
+registry is pinned complete by a test over <code>Params</code>'s own serialization. When a section is added
+to the daemon, <strong>this editor learns it at compile time or the build fails; it can be wrong about
+nothing.</strong></p>
+</blockquote>
+<p>那个测试（<code>robotd-params/src/registry.rs:535</code>）的手法值得一提：因为序列化 <code>Params::default()</code>
+会<strong>省略</strong>值为 <code>None</code> 的字段，它改为去读 serde 自己的 <code>deny_unknown_fields</code> <strong>拒绝消息</strong>，
+从中取出每个段的完整字段表 —— 然后证明注册表里的每个键都真的能解析，而且没有重复。</p>
+<p><strong>② 它不能吃掉你的文件。</strong> <code>robotd-params/src/edit.rs:4-6</code>：</p>
+<blockquote>
+<p><strong>Comments, ordering and keys from releases this build does not know all survive.</strong></p>
+</blockquote>
+<p>用的是 <code>toml_edit</code> 而不是 <code>toml</code>，因为后者会<strong>重新序列化整个文件、毁掉每一条注释</strong>。</p>
+<p>⚠️ <strong>但这第一条承诺在实践中够不到</strong> —— 见 §12。</p>
+<p><strong>③ 它不能写出一个 <code>robotd</code> 拒绝启动的文件。</strong> <code>edit.rs:453-457</code>：</p>
+<blockquote>
+<p>Validation goes through a real file and [<code>Params::load</code>] rather than a bare parse, because
+<strong><code>load</code> is what <code>robotd</code> runs at startup</strong> — range checks included. <strong>What this tool writes, the
+daemon starts on.</strong></p>
+</blockquote>
+<p>流程：先把内容写到 <code>&lt;file&gt;.toml.new</code>，<strong>用 daemon 自己的加载器验一遍</strong>，通过了才 <code>rename</code> 就位，
+然后 fsync 父目录 —— 注释说 <em>&quot;A robot switched off at the wall is the normal case here, not the
+exceptional one.&quot;</em>（<strong>&quot;在墙上被关掉电源，在这里是常态而不是例外。&quot;</strong>）</p>
+<h3 id="74--那个哪个-daemon-要重启的表"><a class="header" href="#74--那个哪个-daemon-要重启的表">7.4 ⭐ 那个&quot;哪个 daemon 要重启&quot;的表</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// configure.rs:89-93
+/// **Every section is listed, and there is no fallback.** `[head_imu]` shipped reading as `robotd`
+/// because a `_ =&gt; &quot;robotd&quot;` arm answered for it: enabling the head IMU **restarted the daemon
+/// that does not read the key** and left `tofd` on the old value, **so the switch did nothing and
+/// said nothing.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>一个兜底分支让一个开关&quot;什么都没做，也什么都没说&quot;。</strong> 现在没有兜底了，
+而且有一个测试（<code>every_registry_key_says_how_it_applies</code>，<code>configure.rs:1220</code>）
+<strong>对任何一个没有对应分支的键让构建失败</strong>。</p>
+<div class="table-wrapper"><table><thead><tr><th>哪些键</th><th>要做什么</th></tr></thead><tbody>
+<tr><td><code>media.*</code> · <code>duck_detector.*</code></td><td><strong>重启 <code>mediad</code></strong></td></tr>
+<tr><td><code>head_imu.*</code></td><td><strong>重启 <code>tofd</code></strong></td></tr>
+<tr><td><code>pad.*</code> · <code>pad_imu_head_control.*</code></td><td><strong>什么都不做</strong> —— <code>padd</code> 一秒内自己读</td></tr>
+<tr><td><code>policy.*</code>（除 <code>mode</code>/<code>enabled</code>）</td><td><strong>reload <code>robotd</code></strong> —— <strong>电机保持通电</strong></td></tr>
+<tr><td><code>bus</code> · <code>control</code> · <code>safety</code> · <code>audio</code> · …</td><td>重启 <code>robotd</code></td></tr>
+</tbody></table>
+</div>
+<p>而&quot;什么都不做&quot;那一条本身是有理由的（<code>configure.rs:104-106</code>）：</p>
+<blockquote>
+<p>there is nothing to offer, and <strong>offering a restart anyway is not free: the pad session goes with
+it, and robotd's deadman zeroes the velocity of whatever was walking.</strong></p>
+</blockquote>
+<h3 id="75--四个写入者共用一份文件"><a class="header" href="#75--四个写入者共用一份文件">7.5 ⭐ 四个写入者共用一份文件</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd-params/src/edit.rs:523-529
+/// **Four writers share `robotd.toml`**: `robotctl configure`, `robotctl policy`, `robotctl pad`,
+/// and **`robotd` itself**, which writes it serving `robot.loadPolicy`, `robot.setSkill` and
+/// `pad.bind` from a phone. Two of them staging into the same `robotd.toml.new` at the same moment
+/// is a file with one writer's half of the work, renamed into place by the other.
+///
+/// On a lock file beside the config rather than on the config itself, **so the hold outlives the
+/// rename that replaces it**.
+<span class="boring">}</span></code></pre></pre>
+<p>而保存时的做法是（<code>edit.rs:459-462</code>）：</p>
+<blockquote>
+<p><strong>The pending edits are re-applied to the file as it is now</strong>, under the lock, rather than to the
+copy read when this model was loaded. A model can be open for as long as somebody leaves
+<code>robotctl configure</code> on screen, and <code>robotd</code> writes the same file for <code>pad.bind</code> while they do —
+<strong>saving the old document back would silently revert that.</strong></p>
+</blockquote>
+<p><strong>&quot;把一个旧文档存回去，会静默地撤销那件事。&quot;</strong></p>
+<h3 id="76-那三个标记"><a class="header" href="#76-那三个标记">7.6 那三个标记</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// configure.rs:799-802
+/// Two markers, both meaning what they look like: `*` you changed it this session and have not
+/// saved; `•` this robot diverges from the default. **A key merely *written* in the file at its
+/// default value gets no mark** — that distinction confused everyone it was shown to, **starting
+/// with the author's own demo file**.
+<span class="boring">}</span></code></pre></pre>
+<p>而<strong>打字打回默认值等于&quot;清除这个覆盖&quot;，而不是&quot;把默认值钉在文件里&quot;</strong>（<code>edit.rs:232-234</code>）：</p>
+<blockquote>
+<p>a file full of explicitly-written defaults <strong>is the unreadable thing this tool exists to avoid</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="8-update-与-update-show"><a class="header" href="#8-update-与-update-show">8. <code>update</code> 与 <code>update show</code></a></h2>
+<p><code>update</code> 是 <code>robotctl</code> 最初的、也是唯一被 <code>Cargo.toml:6</code> 提到的命名空间。</p>
+<div class="table-wrapper"><table><thead><tr><th>子命令</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>check [component]</code></td><td>有没有新版本。什么都不改</td></tr>
+<tr><td><code>apply &lt;component&gt;</code></td><td>装最新版或指定版本</td></tr>
+<tr><td><code>rollback</code> / <code>reset-to-golden</code></td><td>退回上一个 / 已知good</td></tr>
+<tr><td><code>select &lt;component&gt; &lt;version&gt;</code></td><td>启动一个<strong>已经装好</strong>的版本（不下载）</td></tr>
+<tr><td><code>pin</code></td><td>钉住版本，拒绝其他</td></tr>
+<tr><td><code>status</code> / <code>log</code> / <code>show</code> / <code>watch</code></td><td>看</td></tr>
+</tbody></table>
+</div>
+<h3 id="81----version-和---ref-是互斥的而且要说出来"><a class="header" href="#81----version-和---ref-是互斥的而且要说出来">8.1 ⭐ <code>--version</code> 和 <code>--ref</code> 是<strong>互斥</strong>的，而且要说出来</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1095-1096
+// `conflicts_with` version rather than a silent precedence: **asking for both a ref and a version
+// is a mistake worth reporting, not one to resolve by guessing.**
+<span class="boring">}</span></code></pre></pre>
+<p><code>--from</code> 和 <code>--staging</code> 也互斥，因为 <em>&quot;a directory has no channels&quot;</em>（<code>:1135-1136</code>）。</p>
+<h3 id="82---from-会警告别放在-tmp"><a class="header" href="#82---from-会警告别放在-tmp">8.2 <code>--from</code> 会警告&quot;别放在 <code>/tmp</code></a></h3>
+<p>因为 <code>updaterd.service</code> 设了 <code>PrivateTmp=yes</code> —— 两个进程看到的 <code>/tmp</code> 不是同一个（<code>:1130-1136</code>）。</p>
+<p>而 <code>--from</code> 的相对路径<strong>在客户端就被绝对化</strong>了（<code>:4544-4548</code>）：</p>
+<blockquote>
+<p><code>updaterd</code> runs with <code>/</code> as its working directory, so <strong>a relative path means something different
+at each end</strong>.</p>
+</blockquote>
+<h3 id="83--update-show一次更新运行的全文"><a class="header" href="#83--update-show一次更新运行的全文">8.3 ⭐ <code>update show</code>：一次更新运行的全文</a></h3>
+<p><code>show.rs:3-6</code>：</p>
+<blockquote>
+<p><code>update log</code> says an update happened and how it ended. This says <strong>what it <em>did</em></strong>: every phase
+with the time it took, the manifest that was verified, the hook output that was collected, the
+units that were restarted, the gate's verdict — <strong>and then the journal for the same window</strong>, so
+the account includes the daemons the update restarted and not only <code>updaterd</code>'s side of it.</p>
+</blockquote>
+<p><strong>两个理由值得抄：</strong></p>
+<p><strong>① 为什么全是 UTC</strong>（<code>show.rs:8-11</code>）：</p>
+<blockquote>
+<p><strong>Times are UTC, and so is the spliced journal. Two clocks on one screen is the way to make a
+timeline unreadable</strong>, and <code>journalctl --utc</code> makes the halves agree for free. The alternative —
+local time — would <strong>put a timezone database in the one crate whose dependency tree is kept small
+on purpose, for the recovery path</strong>.</p>
+</blockquote>
+<p><strong>② 为什么日期是手写的</strong>（<code>show.rs:321-324</code>）：</p>
+<blockquote>
+<p>Hand-written, and deliberately: <strong>what must never be hand-rolled is a <em>timezone</em> database, and
+this does not touch one</strong> — it is the fixed proleptic-Gregorian arithmetic (Howard Hinnant's
+<code>civil_from_days</code>), which is why the whole rendering is in UTC. Adding a date crate to <code>robotctl</code>
+for it would put <strong>a tz database on the recovery path</strong> to save fifteen lines of pure arithmetic
+with tests under it.</p>
+</blockquote>
+<p><strong>&quot;绝不能手搓的是时区数据库 —— 而这个不碰它。&quot;</strong> 这个区分很精确。</p>
+<p><strong>③ 那个&quot;缺失&quot;的判定</strong>（<code>show.rs:214-216</code>）：</p>
+<blockquote>
+<p><strong>Passing and being healthy are not the same fact</strong>, and rounding one to the other is how a
+transcript ends up saying 'healthy' about a board whose own journal says 'degraded' at the same
+second.</p>
+</blockquote>
+<hr />
+<h2 id="9-那个-3d-视图"><a class="header" href="#9-那个-3d-视图">9. 那个 3D 视图</a></h2>
+<h3 id="91-它为什么存在"><a class="header" href="#91-它为什么存在">9.1 它为什么存在</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/duck.rs:3-8
+// A joints table says *how far* each servo is from its target; it cannot say what the robot looks
+// like. **A leg folded the wrong way, a head pitched into the ground and a robot lying on its side
+// are all just numbers there, and every one of them is obvious the moment the pose is drawn.**
+<span class="boring">}</span></code></pre></pre>
+<h3 id="92-那个-bin-是什么"><a class="header" href="#92-那个-bin-是什么">9.2 那个 <code>.bin</code> 是什么</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// duck.rs:10-16
+// The geometry is **baked by `scripts/bake-duck-mesh.py`** from the app repository's MJCF and
+// **compiled in** — `robotctl` stays a single binary with no assets directory, and **the board
+// never parses CAD**. The bake decimates **~330k CAD triangles to the few thousand a terminal can
+// even express**; the renderer here is a plain z-buffered rasterizer over them, **orthographic,
+// flat-shaded**, drawing two pixels per cell with the half-block glyph so pixels come out square.
+// **No GPU, no dependency — a frame is a few milliseconds of arithmetic on the board's own CPU.**
+<span class="boring">}</span></code></pre></pre>
+<p>实测 <code>assets/duck.bin</code>：<strong>68,622 字节</strong>，magic <code>DUCK</code>，<strong>28 个 mesh、15 个 body、58 个 part</strong>，
+2,622 个唯一顶点、5,714 个唯一三角形 —— <strong>每帧实际光栅化 10,847 个三角形</strong>。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// duck.rs:21-23
+/// Committed rather than built, **because building it needs the app repository and numpy, and CI
+/// has neither.**
+<span class="boring">}</span></code></pre></pre>
+<p>那个烘焙脚本的一个细节值得看（<code>scripts/bake-duck-mesh.py:39-41</code>）：</p>
+<blockquote>
+<p>Parts that exist in the CAD but are enclosed by shells: batteries, PCBs, brackets.
+<strong>Invisible from outside, and at this decimation level their triangles would poke through the
+shell that hides them</strong> — dropping them is both lighter and more correct.</p>
+</blockquote>
+<p><strong>&quot;在这个简化程度下，它们的三角形会从外壳里戳出来。&quot;</strong></p>
+<h3 id="93-渲染管线"><a class="header" href="#93-渲染管线">9.3 渲染管线</a></h3>
+<pre><code>烘焙的三角形 ──► 正向运动学（一次左到右遍历）
+                    │  根（躯干）由 **IMU 的重力**摆姿势
+                    │  其余各 body 继承父节点 + 自己的静止偏移 + 关节角
+                    ▼
+               每个顶点转一次世界坐标
+                    │  （同时找出最低点，把机器人&quot;站&quot;在 z=0 上）
+                    ▼
+               正交投影（azimuth 可转，elevation 固定 0.32 rad）
+                    ▼
+               z-buffer + 平面着色（双面）
+                    ▼
+               半格像素 blit
+</code></pre>
+<p><strong>为什么是正交而不是透视</strong>（<code>duck.rs:495-496</code>）：</p>
+<blockquote>
+<p><strong>at 100 pixels, perspective is affectation.</strong></p>
+</blockquote>
+<p><strong>&quot;在 100 个像素上，透视是装腔作势。&quot;</strong></p>
+<p><strong>为什么是双面光照</strong>（<code>duck.rs:530-531</code>）：</p>
+<blockquote>
+<p><strong>Two-sided: decimation does not guarantee winding, and a hole where a triangle flipped is worse
+than the lighting being symmetric.</strong></p>
+</blockquote>
+<h3 id="94-它不画偏航"><a class="header" href="#94-它不画偏航">9.4 它不画偏航</a></h3>
+<p>躯干由 <code>state.safety.gravity</code> 摆姿势，<strong>不是</strong> <code>state.imu.quat</code> —— 因为
+<strong>重力观察不到偏航</strong>（<code>duck.rs:285-287</code>）。所以&quot;机器人朝向哪里&quot;是由相机的方位角决定的。</p>
+<p><strong>它也是 <code>odometry</code> 那个&quot;没有磁力计&quot;的同一个事实</strong> —— 见 <a href="odometry-primer.html"><code>odometry-primer.md</code></a>。</p>
+<h3 id="95-那两个面板用不同的像素密度"><a class="header" href="#95-那两个面板用不同的像素密度">9.5 那两个面板用<strong>不同的</strong>像素密度</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>面板</th><th>用什么</th><th>一格几个像素</th></tr></thead><tbody>
+<tr><td>3D 视图 · 摄像头 · 手柄线框</td><td><strong>半格</strong> <code>▀</code>/<code>▄</code></td><td>2（上下）</td></tr>
+<tr><td><strong>里程计地图</strong></td><td><strong>盲文</strong></td><td><strong>2×4 = 8</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>cells.rs:3-9</code> 解释了半格，还点出了那个<strong>容易搞错</strong>的地方：</p>
+<blockquote>
+<p>where only one pixel of a pair is lit, <strong>the other must stay the terminal's own background rather
+than being painted black</strong>, so a drawing sits on whatever theme is running.</p>
+</blockquote>
+<p>而盲文（<code>path_map.rs:4-7</code>）：</p>
+<blockquote>
+<p>Drawn in braille (2×4 dots per cell), <strong>which is the finest resolution a terminal offers for a
+line that curves.</strong></p>
+</blockquote>
+<p><strong>&quot;对一条会拐弯的线来说，这是终端能给的最细分辨率。&quot;</strong></p>
+<hr />
+<h2 id="10--为什么依赖表这么短"><a class="header" href="#10--为什么依赖表这么短">10. ⭐ 为什么依赖表这么短</a></h2>
+<p><code>Cargo.toml:12-15</code> 是整份 manifest 的核心：</p>
+<blockquote>
+<p>Depends on <code>duck-ipc-proto</code> alone, not on <code>updater</code>. <strong>That was the point of extracting the
+protocol</strong>: a support tool <strong>on the recovery path</strong> should not link the update engine's
+http/tar/zstd/crypto tree, and <strong>structurally cannot now reach into engine internals</strong> instead of
+going through the socket.</p>
+</blockquote>
+<p><strong>&quot;结构性上再也不可能伸手进引擎内部，而不走 socket。&quot;</strong></p>
+<p>这条规则被<strong>逐条应用</strong>到后来每一个依赖上：</p>
+<div class="table-wrapper"><table><thead><tr><th>依赖</th><th>为什么<strong>不</strong>用那个更自然的</th></tr></thead><tbody>
+<tr><td><code>kinematics</code></td><td><em>&quot;deliberately NOT the <code>tof</code> crate, whose vendored C driver would drag <strong>a cross C toolchain into every robotctl build</strong>&quot;</em>（<code>:27-29</code>）</td></tr>
+<tr><td><code>uyvy</code></td><td><em>&quot;Deliberately NOT <code>duck-detect</code> itself … that crate <strong>carries the NPU and ONNX runtimes</strong>, and this one has no dependencies at all&quot;</em>（<code>:30-33</code>）</td></tr>
+<tr><td><code>robotd-params</code></td><td><em>&quot;what makes <strong>the editor unable to disagree with the daemon</strong>&quot;</em>（<code>:35-38</code>），且是纯 serde + toml</td></tr>
+<tr><td><code>ratatui</code></td><td><em>&quot;<strong>Terminal only — no http, no crypto, no async runtime</strong>&quot;</em>（<code>:43-46</code>）</td></tr>
+<tr><td><code>toml_edit</code></td><td>因为 <code>toml</code> 会<strong>毁掉每一条注释</strong></td></tr>
+<tr><td><code>clap_complete</code></td><td><em>&quot;nothing on the recovery path depends on it&quot;</em>（<code>:20-23</code>）</td></tr>
+</tbody></table>
+</div>
+<p>而这一条在别处被反复重申：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:2401-2403
+/// `updaterd`'s, for `policy.*`'s reason: it is the daemon with a network stack, and **this binary
+/// deliberately does not link one — it is on the recovery path.**
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:4583-4585
+// Pure codegen: no socket, no daemon, no root. **It must keep working on a robot where nothing is
+// running, since that is where an operator most wants to type less.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>验证一下它守住了</strong>：<code>Cargo.toml</code> 的依赖表里<strong>没有</strong> <code>updater</code>、<code>duck-detect</code>、<code>tof</code>、
+<code>reqwest</code>、<code>tokio</code>。✓</p>
+<hr />
+<h2 id="11-测试185-个"><a class="header" href="#11-测试185-个">11. 测试：185 个</a></h2>
+<pre><code class="language-bash">cargo test -p robotctl
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>测试</th><th>都在测什么</th></tr></thead><tbody>
+<tr><td><code>main.rs</code></td><td><strong>83</strong></td><td>CLI 定义、socket 提示、<code>health</code> 渲染、<code>status</code> 判决、<code>version</code> 警告引擎</td></tr>
+<tr><td><code>monitor.rs</code></td><td><strong>58</strong></td><td>几乎全是<strong>渲染出来的屏幕文本</strong>的断言</td></tr>
+<tr><td><code>configure.rs</code></td><td>13</td><td>哪个 daemon 重启、搜索排序、首屏渲染</td></tr>
+<tr><td><code>show.rs</code></td><td>10</td><td>时间线渲染、journal 拼接线、判决措辞</td></tr>
+<tr><td><code>duck.rs</code></td><td>6</td><td>blob 能解析、站着能画、缩放迟滞、标记</td></tr>
+<tr><td><code>path_map.rs</code></td><td>6</td><td>站着是一个点、前进朝上、长走会变稀</td></tr>
+<tr><td><code>camera.rs</code></td><td>4</td><td>图片装得下、保持形状、采样不填充</td></tr>
+<tr><td><code>frame.rs</code></td><td>3</td><td>只保存完整的帧</td></tr>
+<tr><td><code>imu_view.rs</code></td><td>2</td><td>画出来且跟着姿态动</td></tr>
+<tr><td><code>cells.rs</code></td><td>0</td><td>——</td></tr>
+</tbody></table>
+</div>
+<h3 id="111--monitor-的测试是渲染出来再断言文字"><a class="header" href="#111--monitor-的测试是渲染出来再断言文字">11.1 ⭐ <code>monitor</code> 的测试是<strong>渲染出来再断言文字</strong></a></h3>
+<p><code>render_to</code>（<code>monitor.rs:3617</code>）把界面画进一个 <code>TestBackend</code>，再把缓冲区拍平成字符串，
+所以大多数断言长这样：<code>assert!(screen.contains(&quot;...&quot;))</code>。</p>
+<p>而 <code>configure</code> 那边的理由写得最清楚（<code>configure.rs:1236-1237</code>）：</p>
+<blockquote>
+<p><strong>Rendered rather than asserted on the <code>Plan</code>, because what went wrong on the board was what the
+screen <em>said</em>.</strong></p>
+</blockquote>
+<p><strong>&quot;在板子上出错的，是屏幕'说'了什么。&quot;</strong></p>
+<h3 id="112-那些没有机器人也能测的"><a class="header" href="#112-那些没有机器人也能测的">11.2 那些&quot;没有机器人也能测&quot;的</a></h3>
+<p><code>health</code> 的渲染是一个<strong>纯函数</strong>（<code>render_health</code>，<code>main.rs:1578</code>）：</p>
+<blockquote>
+<p><strong>Pure, so the cases that matter are testable without a robot — and the cases that matter are the
+missing ones, which a live test on a working robot never produces.</strong></p>
+</blockquote>
+<p><strong>&quot;而真正要紧的那些用例是'缺失'的用例 —— 那是一个在正常机器人上跑的实测永远产生不出来的。&quot;</strong></p>
+<h3 id="113-那些-ignore-是给人看的工具"><a class="header" href="#113-那些-ignore-是给人看的工具">11.3 那些 <code>#[ignore]</code> 是给人看的工具</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>文件</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>dump_the_listing</code></td><td><code>main.rs:5017</code></td><td>用眼睛看那份列表</td></tr>
+<tr><td><code>show_the_pad_block</code></td><td><code>monitor.rs:4710</code></td><td>打印手柄块</td></tr>
+<tr><td><code>show_me_the_pad</code></td><td><code>imu_view.rs:283</code></td><td>打印四种姿态下的线框</td></tr>
+<tr><td><code>show_me_a_loop_walk</code></td><td><code>path_map.rs:281</code></td><td>打印走一圈的地图</td></tr>
+<tr><td><code>time_the_map</code></td><td><code>path_map.rs:259</code></td><td>性能探针</td></tr>
+<tr><td><code>dump_for_eyeballs</code></td><td><code>duck.rs:809</code></td><td>把 3D 画面写成 PPM</td></tr>
+</tbody></table>
+</div>
+<p><code>dump_for_eyeballs</code> 除非设了 <code>DUCK_DUMP</code> 环境变量否则什么都不做 —— 它有几个旋钮
+（<code>DUCK_AZ</code>、<code>DUCK_JOINTS</code>、<code>DUCK_MARKERS=demo</code>）。</p>
+<hr />
+<h2 id="12-几处读者会绊到的地方"><a class="header" href="#12-几处读者会绊到的地方">12. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="121--3d-视图没有用那条为它而设的-skeleton-路由"><a class="header" href="#121--3d-视图没有用那条为它而设的-skeleton-路由">12.1 ⭐ 3D 视图<strong>没有用</strong>那条为它而设的 skeleton 路由</a></h3>
+<p>协议 v25 加了一条路由（<code>duck-ipc-proto/src/lib.rs:296-303</code>）：</p>
+<blockquote>
+<h1 id="v25--the-whole-skeletons-pose-for-a-viewer"><a class="header" href="#v25--the-whole-skeletons-pose-for-a-viewer">v25 — the whole skeleton's pose, <strong>for a viewer</strong></a></h1>
+<p>[<code>RobotState::skeleton</code>] carries every body's pose in the trunk frame this tick, and
+[<code>ModelResult::skeleton</code>] the matching static tree. Together they let <strong>a viewer draw the robot
+moving for real — the full kinematics</strong> … <strong>without carrying a copy of the kinematics</strong>, the same
+reason <code>frames</code> and <code>tof_beams</code> come from the robot.</p>
+</blockquote>
+<p><strong>而这条路由存在的理由，逐字就是 <code>robotctl</code> 那个 3D 视图在做的事。</strong></p>
+<p>实际上：</p>
+<pre><code>robotctl 里出现 &quot;skeleton&quot; 的地方：只有一处
+    robotctl/src/monitor.rs:4847           skeleton: Vec::new(),      ← 是个测试夹具
+
+全仓库消费 .skeleton 的地方：只有一处
+    robotd/src/main.rs:4859                ← 是**提供**它的那一侧，不是消费者
+</code></pre>
+<p><code>duck.rs</code> 用的是<strong>它自己烘焙在 <code>duck.bin</code> 里的那棵树</strong>（15 个 body + 自己的正向运动学）。</p>
+<p>时间上说得通，<strong>视图比路由早</strong>：</p>
+<pre><code>370d86f  2026-08-19  robotctl monitor draws the robot: the sim model, live, in terminal cells
+9da3905  2026-09-07  proto+robotd: serve the whole skeleton's pose per tick (v26)
+</code></pre>
+<p>所以这个视图<strong>不可能</strong>用过那条路由。两份骨架共享的是<strong>来源</strong>（同一份 alpha MJCF），不是数据通路。
+而且视图那份为了终端做了简化、还带着渲染数据（三角形、颜色、实例化），
+是线上格式不适合装的 —— 但<strong>正向运动学那段算术确实是重复的</strong>。</p>
+<h3 id="122--编辑器比-daemon-更严于是那条承诺够不到"><a class="header" href="#122--编辑器比-daemon-更严于是那条承诺够不到">12.2 ⭐ 编辑器比 daemon <strong>更严</strong>，于是那条承诺够不到</a></h3>
+<p><code>configure</code> 的 <code>--help</code> 承诺（<code>main.rs:200-201</code>）：</p>
+<blockquote>
+<p><strong>Comments and anything this build does not know survive untouched</strong>, and nothing is written that
+robotd's own validation would reject.</p>
+</blockquote>
+<p>而打开一个文件的路径是：</p>
+<pre><code>configure / configure --list
+   → Model::load        (robotd-params/src/edit.rs:99)
+   → Model::from_text   (edit.rs:112)
+   → toml::from_str::&lt;Params&gt;(text)      ← **严格解析**
+</code></pre>
+<p><code>Params</code> 是 <code>#[serde(deny_unknown_fields, default)]</code>（<code>robotd-params/src/lib.rs:64</code>）。</p>
+<p>而 <strong><code>robotd</code> 自己启动时走的是另一条路</strong> —— <code>Params::load</code>（<code>lib.rs:1953-1978</code>）：
+<strong>先严格试一次，失败了再走一条宽松的路</strong>，把不认识的键剪掉并 <code>warn</code>。
+那条宽松路径是有意加的，理由写在 <code>lib.rs:2019-2031</code>：一块板子因为一个别的发布留下的
+<code>[chorale]</code> 段而<strong>连续回滚了四次</strong>，白白搭进去一次台架时间。</p>
+<p><strong>结果是</strong>：一份带着别版本遗留键的 <code>robotd.toml</code></p>
+<ul>
+<li><strong><code>robotd</code> 正常启动</strong>，只在 journal 里警告一句；</li>
+<li><strong><code>robotctl configure</code> 打不开它</strong>；</li>
+<li><strong><code>robotctl configure --list</code> 也报错</strong> —— 而 <code>--list</code> 正是 <code>configure.rs:243</code> 说的
+<em>&quot;支持人员问的第一个问题&quot;</em>。</li>
+</ul>
+<p>于是 <code>--help</code> 承诺的后半句（&quot;不认识的键原样保留&quot;）在实践中<strong>到达不了</strong>：
+这样一份文件根本进不到&quot;编辑&quot;那一步。
+（write 那一半是真的做到了 —— writer 只碰注册表里的键。）</p>
+<h3 id="123--六处被合并事故切断的文档注释"><a class="header" href="#123--六处被合并事故切断的文档注释">12.3 ⚠️ 六处被&quot;合并事故&quot;切断的文档注释</a></h3>
+<p>同一个形状，我在这份导读的各个 crate 里一共找到了<strong>六处</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>症状</th></tr></thead><tbody>
+<tr><td><code>robotd/src/intents.rs:468-490</code></td><td><code>request_reboot_motors</code> 插进了 <code>request_relax</code> 的注释中间</td></tr>
+<tr><td><code>mediad/src/session.rs:625-630</code></td><td><code>media.video</code> 的注释粘在了 <code>media.stream</code> 的测试上</td></tr>
+<tr><td><code>mediad/src/route.rs:465-467</code></td><td>拼出 <em>&quot;…<code>mediad</code> will hold <strong>A peer watching the video</strong>…&quot;</em></td></tr>
+<tr><td><strong><code>robotctl/src/main.rs:1982-2009</code></strong></td><td><strong>三段注释合并到了 <code>render_units</code> 上</strong></td></tr>
+<tr><td><strong><code>robotctl/src/monitor.rs:3096-3113</code></strong></td><td><strong><code>brief</code> 的注释挂在了 <code>explain_limit</code> 上</strong></td></tr>
+<tr><td><strong><code>robotctl/src/configure.rs:1344-1350</code></strong></td><td><strong>一句话断在 &quot;Restarting the&quot;，下一行接了另一段</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>main.rs</code> 那一处最严重：<code>version_warnings</code>（<code>:2173</code>）和 <code>is_behind</code>（<code>:2144</code>）——
+两个函数<strong>一句文档都没有</strong>，而 <code>render_units</code>（<code>:2010</code>）扛着三段互不相干的说明。
+其中 <code>is_behind</code> 那段讲的是&quot;dev 构建要按 revision 比而不是按 version 比&quot;，
+内容很好，但它渲染在错误的函数下面。</p>
+<p><code>configure.rs:1381</code> 那一处的孤儿尾巴单独一行：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>    /// wrong daemon is how somebody edits a value three times and swears it does nothing.
+    #[test]
+    fn the_section_decides_which_daemon_restarts() {
+<span class="boring">}</span></code></pre></pre>
+<h3 id="124-cargotoml-的-description-和两处模块文档都过期了"><a class="header" href="#124-cargotoml-的-description-和两处模块文档都过期了">12.4 <code>Cargo.toml</code> 的 description 和两处模块文档都过期了</a></h3>
+<pre><code class="language-toml"># robotctl/Cargo.toml:6
+description = &quot;Local CLI for the robot — currently the `update` namespace only&quot;
+</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:13-15
+//! Scope: **only the `update` namespace is implemented.** The `robotctl` name is
+//! kept for the eventual general-purpose robot CLI …
+//! Only `update` exists today, plus `version`. The namespace layer is here so adding
+//! `robotctl motors` later is additive rather than a restructure.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>实际有 17 个顶层命名空间。</strong> 三处说法要一起改。
+（<code>Cargo.toml:8-9</code> 的前半句 <em>&quot;its role is broader: it will front <code>robotd</code> and other services
+too&quot;</em> 倒是<strong>已经实现了</strong>。）</p>
+<h3 id="125---robot-socket-没有用共享常量"><a class="header" href="#125---robot-socket-没有用共享常量">12.5 <code>--robot-socket</code> 没有用共享常量</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:88
+#[arg(long, global = true, default_value = &quot;/run/robotd.sock&quot;)]   // ← 字面量
+<span class="boring">}</span></code></pre></pre>
+<p>而<strong>其他每一个</strong> socket 旗标都用 proto 的常量（<code>:83</code>、<code>:96</code>、<code>:103</code>、<code>:110</code>、<code>:114</code>），
+且 proto 里<strong>有</strong>那个常量：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// duck-ipc-proto/src/lib.rs:440
+pub const ROBOT: &amp;str = &quot;/run/robotd.sock&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>那个 proto 模块自己的文档解释了这些常量为什么存在（<code>duck-ipc-proto/src/lib.rs:431-436</code>）：</p>
+<blockquote>
+<p>because <strong>more than one client needs them</strong>: <code>robotctl</code> and <code>btd</code> both connect to all three, and
+<strong>a path duplicated per client is a path that drifts per client.</strong></p>
+</blockquote>
+<p>所以这里是一个<strong>活的漂移风险</strong>，不只是风格问题。</p>
+<h3 id="126-update-check-的-help-和代码说的不是一回事"><a class="header" href="#126-update-check-的-help-和代码说的不是一回事">12.6 <code>update check</code> 的 help 和代码说的不是一回事</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:1074-1075
+Check {
+    /// Component to check; **omit for all**.
+    component: Option&lt;String&gt;,
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// main.rs:4657
+proto::Call::Check(component(name.as_deref().unwrap_or(&quot;daemon&quot;)))
+<span class="boring">}</span></code></pre></pre>
+<p><strong>省略时实际检查的是 <code>&quot;daemon&quot;</code>，不是&quot;全部&quot;。</strong></p>
+<h3 id="127-三处---json-会静默地失败"><a class="header" href="#127-三处---json-会静默地失败">12.7 三处 <code>--json</code> 会<strong>静默地</strong>失败</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>序列化失败时</th></tr></thead><tbody>
+<tr><td><code>main.rs:1558</code>（<code>health --json</code>）</td><td>打印 <code>{}</code>，退出码 0</td></tr>
+<tr><td><code>main.rs:1809</code>（<code>version --json</code>）</td><td>打印<strong>一个空行</strong>，退出码 0</td></tr>
+<tr><td><code>main.rs:4887</code>（<code>compact</code>）</td><td>返回空串</td></tr>
+</tbody></table>
+</div>
+<p>在一个自己声称&quot;退出码是有意义的&quot;（<code>main.rs:53</code>）的文件里，
+这是<strong>机器可读输出可以既空又成功</strong>的地方。</p>
+<h3 id="128-一个什么都没改的编辑也会提议重启"><a class="header" href="#128-一个什么都没改的编辑也会提议重启">12.8 一个&quot;什么都没改&quot;的编辑也会提议重启</a></h3>
+<p>在 <code>configure</code> 里对一个<strong>本来就在默认值</strong>的键按 <code>u</code>/<code>d</code>，会无条件排入一个清除操作
+（<code>configure.rs:443-447</code> 没有检查这个键是否真的被覆盖过）。
+确认屏把它算作一次改动，<code>Model::save</code> 也会无条件把它记进 <code>written</code>（<code>edit.rs:477-482</code>）——
+<code>save</code> 没有&quot;这会不会改变什么&quot;的比较，而 <code>set_slots</code>（<code>edit.rs:683-686</code>）是有的。</p>
+<p>于是退出流程会为一个<strong>磁盘上什么都没变</strong>的编辑提议 <code>sudo systemctl restart robotd</code>。</p>
+<h3 id="129-d-是一个没有写出来的按键"><a class="header" href="#129-d-是一个没有写出来的按键">12.9 <code>d</code> 是一个没有写出来的按键</a></h3>
+<p><code>u</code> 和 <code>d</code> 是同一个分支（<code>configure.rs:443</code>），但页脚只列了 <code>u</code>（<code>:904</code>）。</p>
+<h3 id="1210-那个机器人先重启的顺序有两套理由"><a class="header" href="#1210-那个机器人先重启的顺序有两套理由">12.10 那个&quot;机器人先重启&quot;的顺序有两套理由</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// configure.rs:180-181
+// `mediad.service` is `After=robotd.service`: restarting in the other order means mediad
+// reconnects to a robotd that is about to go away
+<span class="boring">}</span></code></pre></pre>
+<p>而测试里的理由是（<code>configure.rs:1391-1394</code>）：</p>
+<pre><code>// the order they are least disruptive to restart: the control loop first, then the camera —
+// a robot that is standing up should not be waiting on a WebRTC teardown.
+</code></pre>
+<p>两套理由<strong>不能同时是承重的那一套</strong>。</p>
+<h3 id="1211-几处小的"><a class="header" href="#1211-几处小的">12.11 几处小的</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>什么</th></tr></thead><tbody>
+<tr><td><code>duck.rs:170</code></td><td>硬编码 <code>b.joint &lt; 15</code>，而同一个文件的文档指向 <code>JOINT_NAMES</code> 作为契约</td></tr>
+<tr><td><code>duck.rs:685-687</code></td><td><code>pose_key</code> 会哈希<strong>全部 15 个关节</strong>，包括视图从来不画的嘴 —— 于是张嘴会让光栅缓存失效</td></tr>
+<tr><td><code>duck.rs:251-263</code></td><td><code>axis_pose</code> 在轴退化为零向量时返回 <code>cos(θ)·I</code>（一个<strong>缩放</strong>，不是恒等）。提交的 blob 到不了这里，但它在一句&quot;渲染循环不可能越界&quot;的注释后面</td></tr>
+<tr><td><code>monitor.rs:586</code></td><td><code>read_tof</code> 复用了 <code>PAD_RETRY</code>（<code>:151</code>）这个手柄命名的时间常数</td></tr>
+<tr><td><code>path_map.rs:4</code></td><td>模块文档说面板&quot;尺寸永远不变&quot;，但终端太矮时它会<strong>整个消失</strong>（不是缩小）—— 那个推论只写在 <code>monitor.rs:1770</code></td></tr>
+<tr><td><code>show.rs:277-279</code></td><td>那个 unit 列表&quot;取自这次运行本身而不是一个硬编码列表&quot;，很好 —— 但 <code>id = 999</code> 是 <code>watch</code> 里写死的（<code>main.rs:4711</code>）</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="13-阅读路线"><a class="header" href="#13-阅读路线">13. 阅读路线</a></h2>
+<p><strong>15,929 行不可能一次读完。</strong> 按这个顺序，每次读一段：</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>0</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td><td><strong>命令的操作者视角</strong>，而且是从 <code>--help</code> 抄的</td></tr>
+<tr><td>1</td><td><code>robotctl/Cargo.toml</code>（1-15 行）</td><td>依赖规则，整份 crate 的性格都在这</td></tr>
+<tr><td>2</td><td><code>robotctl/src/main.rs:1-70</code></td><td>模块文档 + 五条设计规则 + 退出码</td></tr>
+<tr><td>3</td><td><code>robotctl/src/main.rs:124-362</code></td><td>那 17 个命名空间 —— <strong>对着 §4 读</strong></td></tr>
+<tr><td>4</td><td><code>robotctl/src/main.rs:1218-1290</code></td><td><code>unreachable_hint</code> + <code>Client</code> —— 薄客户端的核心</td></tr>
+<tr><td>5</td><td><code>robotctl/src/main.rs:1513-1600</code></td><td><code>run_health</code> + <code>render_health</code></td></tr>
+<tr><td>6</td><td><code>robotctl/src/monitor.rs:1-200</code></td><td>常数和它们的理由（<strong>§6.4/6.5 就是这里</strong>）</td></tr>
+<tr><td>7</td><td><code>robotctl/src/monitor.rs:640-700</code> 起</td><td>四个 reader 线程的模板</td></tr>
+<tr><td>8</td><td><code>robotctl/src/configure.rs:1-130</code></td><td><code>Apply</code> 那张表和它的理由</td></tr>
+<tr><td>9</td><td><code>robotctl/src/duck.rs:1-30</code></td><td>那个烘焙模型是怎么来的</td></tr>
+<tr><td>10</td><td><code>robotctl/src/show.rs:1-60</code></td><td>UTC、手写日期、拼接</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读 §2（它跑在哪）、§5（退出码），然后读 <code>main.rs:53-71</code>。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>薄。</strong> 它自己不做决定 —— 决定在 daemon 里。而依赖表短到可以在脑子里过一遍，
+因为<strong>它是恢复路径上的工具</strong>。</li>
+<li><strong>不许静默。</strong> 每个退出码都要能和另一个区分开（&quot;正确拒绝&quot; vs &quot;东西坏了&quot;，
+&quot;你不许&quot; vs &quot;你不能&quot;）；缺失的服务永远变成一句<strong>话</strong>，不是一块空白；
+表头永远直说它截断了什么。</li>
+<li><strong>不许悄悄变慢。</strong> 3D 视图画的是控制环，跑在同一个 CPU 上 ——
+所以有 12 fps 的光栅、80 ms 的缓存、500 ms 的摄像头、33 ms 的 IMU 重画。
+<strong>&quot;一个能被测量出拖慢了它所测量之物的工具，是一个坏工具。&quot;</strong></li>
+</ol>
+<hr />
+<h2 id="14-术语表"><a class="header" href="#14-术语表">14. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong><code>robotctl</code></strong></td><td><strong>这台</strong>工具。跑在机器人上，走 Unix socket</td></tr>
+<tr><td><strong><code>duckctl</code></strong></td><td>另一个工具。跑在笔记本上，走蓝牙。<strong>一个发布都不含它</strong></td></tr>
+<tr><td><strong>薄客户端（thin client）</strong></td><td>只转发请求和回答，不含业务逻辑</td></tr>
+<tr><td><strong>JSON-RPC</strong></td><td>它说的那门语言。见 <a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td><strong>通知 vs 回答</strong></td><td>通知没有 <code>id</code>、不等回复（走 stderr）；回答有 <code>id</code>（走 stdout）</td></tr>
+<tr><td><strong>退出码</strong></td><td>进程的返回值。<strong>这里有七个，每一个都有自己的意思</strong></td></tr>
+<tr><td><strong><code>REFUSED</code> vs <code>DENIED</code></strong></td><td>&quot;你不能&quot; vs &quot;你不许&quot;。一个换命令，一个换身份</td></tr>
+<tr><td><strong><code>BUSY</code></strong></td><td>唯一一个&quot;重试就好&quot;的码</td></tr>
+<tr><td><strong>skew（版本偏差）</strong></td><td>在跑的版本和装着的版本不一致。<strong>只警告不拒绝</strong></td></tr>
+<tr><td><strong>ratatui</strong></td><td>终端 UI 库。<code>monitor</code> 和 <code>configure</code> 用它</td></tr>
+<tr><td><strong>crossterm</strong></td><td>ratatui 的后端。交叉平台的终端控制</td></tr>
+<tr><td><strong>半格 <code>▀</code>/<code>▄</code></strong></td><td>一个字符格放两个像素（上下）。<strong>一格大约两倍高</strong></td></tr>
+<tr><td><strong>盲文（braille）</strong></td><td>一个字符格放 2×4=8 个点。<strong>画曲线最细</strong></td></tr>
+<tr><td><strong>sparkline</strong></td><td>一行高的小折线图</td></tr>
+<tr><td><strong>正交投影</strong></td><td>没有近大远小。<strong>&quot;在 100 像素上，透视是装腔作势&quot;</strong></td></tr>
+<tr><td><strong>z-buffer</strong></td><td>每个像素记一个深度，用来决定谁挡住谁</td></tr>
+<tr><td><strong>正向运动学（FK）</strong></td><td>给关节角，算各部位在哪。见 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td><strong>烘焙（bake）</strong></td><td>离线把数据算好、存成文件、编译进二进制</td></tr>
+<tr><td><strong>顶点聚类（vertex clustering）</strong></td><td>一种简化网格的办法：把附近的顶点合成一个</td></tr>
+<tr><td><strong><code>toml_edit</code></strong></td><td>保留注释和排版的 TOML 编辑器。<code>toml</code> 会毁掉它们</td></tr>
+<tr><td><strong>原子写</strong></td><td>先写临时文件、再 <code>rename</code> 就位。中途断电不会留下半个文件</td></tr>
+<tr><td><strong>flock</strong></td><td>文件锁。四个写入者共用一个 <code>robotd.toml</code></td></tr>
+<tr><td><strong><code>deny_unknown_fields</code></strong></td><td>serde 的严格模式：不认识的字<strong>报错</strong>而不是忽略</td></tr>
+<tr><td><strong>preflight</strong></td><td>更新前的检查。失败就是 <code>REFUSED</code></td></tr>
+<tr><td><strong>revision vs version</strong></td><td>dev 构建要按 commit 比，因为 <code>CARGO_PKG_VERSION</code> 不带 dev 后缀</td></tr>
+<tr><td><strong><code>civil_from_days</code></strong></td><td>Howard Hinnant 的日期算法。<strong>手写，因为&quot;绝不能手搓的是时区数据库&quot;</strong></td></tr>
+<tr><td><strong><code>#[ignore]</code></strong></td><td>默认不跑的测试。<strong>这里的几个是给人看的工具，不是断言</strong></td></tr>
+<tr><td><strong><code>TestBackend</code></strong></td><td>ratatui 的假终端，测试用它渲染再断言文字</td></tr>
+<tr><td><strong><code>--json</code></strong></td><td>机器可读输出。<strong><code>monitor</code> 的那一份被刻意冻结了</strong></td></tr>
+<tr><td><strong>deadman（死手）</strong></td><td>intent 不再到达就把速度归零。见 <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td><strong>回滚（rollback）</strong></td><td>退回上一个发布。见 <a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>每一个命令</strong>（操作者视角）</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td></tr>
+<tr><td>需要开发板的那些命令</td><td><a href="robot/cheatsheet-dev.html"><code>robot/cheatsheet-dev.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td><code>configure</code> 编辑的那份 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>它说的那门语言（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>它监控的那个控制环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a> · <a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>3D 视图用的那套关节几何（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>那张地图画的是什么（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄那一块的数据源（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a> · <a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>摄像头那一块的数据源（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>深度矩阵那一块</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>更新与发布的设计</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>那个听麦克风的分类器（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/pet-detect-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/robotd-params-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/pet-detect-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/robotd-params-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

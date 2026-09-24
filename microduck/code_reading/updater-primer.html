@@ -1,0 +1,1963 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>updater/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html" class="active"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="updater-新手导读"><a class="header" href="#updater-新手导读"><code>updater/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是**&quot;永不砖机&quot;这条承诺的实现**：一台已经发出去的机器人，
+怎么在没有人在场的情况下把自己换成新版本，并且在换坏的时候自己换回来。
+完整的机制由 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> 拥有（1,485 行，
+每一节都被本文引用）；重启顺序由 <a href="design/restart-order.html"><code>design/restart-order.md</code></a> 拥有；
+掉到 golden 的那条网由 <a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a> 拥有；
+策略（不是二进制）那条通道由 <a href="design/policy-channel-design.html"><code>design/policy-channel-design.md</code></a> 拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="hooks-primer.html"><code>hooks-primer.md</code></a>（<strong>更新时</strong>在这块板子上跑的东西）、
+<a href="scripts-primer.html"><code>scripts-primer.md</code></a>（装机和发布的工具）、
+<a href="deploy-primer.html"><code>deploy-primer.md</code></a>（<code>updater.toml</code> 铺到哪里）、
+<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（被更新的那个东西）、
+<a href="robotctl-primer.html"><code>robotctl-primer.md</code></a>（你按的那个按钮）、
+<a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a>（<code>update.*</code> 那门语言）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E5%85%88%E7%90%86%E6%B8%85%E8%BF%99%E4%B8%AA-crate-%E9%87%8C%E6%9C%89%E4%B8%A4%E6%A0%B7%E4%B8%9C%E8%A5%BF">⚠️ 先理清：这个 crate 里有两样东西</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%89%E4%BB%BD%E7%8A%B6%E6%80%81%E4%BA%94%E9%81%93%E9%97%A8">⭐ 核心心智模型：三份状态，五道门</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%9C%B0%E5%9B%BE">目录地图</a></li>
+<li><a href="#5-%E4%B8%80%E6%AC%A1%E6%9B%B4%E6%96%B0%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次更新的完整旅程</a></li>
+<li><a href="#6-%E7%A3%81%E7%9B%98%E4%B8%8A%E6%9C%89%E4%BB%80%E4%B9%88">磁盘上有什么</a></li>
+<li><a href="#7-%E4%BF%A1%E4%BB%BB%E7%AD%BE%E5%90%8D%E4%B9%B0%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%E6%B2%A1%E4%B9%B0%E5%88%B0%E4%BB%80%E4%B9%88">信任：签名买到了什么，没买到什么</a></li>
+<li><a href="#8-%E5%81%A5%E5%BA%B7%E9%97%A8%E4%B8%89%E6%80%81%E4%B8%8D%E6%98%AF%E4%BA%8C%E6%80%81">健康门：三态，不是二态</a></li>
+<li><a href="#9--%E5%A4%B1%E8%B4%A5%E4%B8%8E%E5%9B%9E%E6%BB%9A%E4%BA%94%E6%9D%A1%E8%B7%AF%E4%B8%80%E4%B8%AA%E5%87%BA%E5%8F%A3">⭐ 失败与回滚：五条路，一个出口</a></li>
+<li><a href="#10-%E5%90%AF%E5%8A%A8%E6%97%B6%E5%9B%9B%E6%9D%A1%E6%81%A2%E5%A4%8D%E8%B7%AF%E5%BE%84">启动时：四条恢复路径</a></li>
+<li><a href="#11-hooks%E6%9B%B4%E6%96%B0%E6%97%B6%E5%9C%A8%E8%BF%99%E5%9D%97%E6%9D%BF%E5%AD%90%E4%B8%8A%E8%B7%91%E7%9A%84%E4%B8%9C%E8%A5%BF">hooks：更新时在这块板子上跑的东西</a></li>
+<li><a href="#12-%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B-vs-%E5%87%BA%E8%B4%A7%E5%B7%AE%E5%BC%82%E5%B0%B1%E6%98%AF%E9%87%8D%E7%82%B9">配置：示例 vs 出货，差异就是重点</a></li>
+<li><a href="#13-%E8%B0%81%E5%9C%A8%E8%B7%9F%E5%AE%83%E8%AF%B4%E8%AF%9D">谁在跟它说话</a></li>
+<li><a href="#14-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#15-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#16-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>updater/</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>一台装在别人家里的机器人，怎么安全地把自己换掉？</strong></p>
+</blockquote>
+<p><strong>&quot;安全&quot;这里有一个非常具体的定义</strong>，<code>updater/Cargo.toml:5</code> 的 crate 描述只有一行：</p>
+<blockquote>
+<p>Signed, health-gated, rollback-safe updates for the robot daemon</p>
+</blockquote>
+<p>而整个 crate 的骨架就是这三个形容词：</p>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意味着什么</th><th>在哪</th></tr></thead><tbody>
+<tr><td><strong>Signed</strong></td><td>机器人只装它验过签名的东西</td><td>§7</td></tr>
+<tr><td><strong>Health-gated</strong></td><td>换完之后<strong>要证明它能跑</strong>，才算数</td><td>§8</td></tr>
+<tr><td><strong>Rollback-safe</strong></td><td><strong>任何一步失败，都回到换之前</strong></td><td>§9</td></tr>
+</tbody></table>
+</div>
+<p>规模：<strong>约 15,000 行源码 + 约 5,000 行测试</strong>，26 个源文件。</p>
+<pre><code>   GitHub Releases ──┐
+   Hugging Face Hub ─┼──► updaterd ──► /opt/robot/daemon/releases/1.4.2/
+   本地目录 ──────────┘        │              current → releases/1.4.2   （一个 rename）
+                              │              golden  → releases/1.4.1   （永不删除）
+                              │
+                              ├── 起一个 systemd transient timer（5 秒后重启自己和 btd）
+                              └── 在 /var/lib/robot/updater/ 里留下：锁、更新日志、boot counter、transcript
+</code></pre>
+<p><strong>如果只记一件事</strong>：这个系统的核心不是&quot;下载&quot;，也不是&quot;解压&quot;，
+而是<strong>一个符号链接的 <code>rename(2)</code></strong> —— 而围绕它的全部复杂度，
+都是为了让那个 rename <strong>要么完全不发生，要么可以被撤销</strong>。</p>
+<hr />
+<h2 id="2--先理清这个-crate-里有两样东西"><a class="header" href="#2--先理清这个-crate-里有两样东西">2. ⚠️ 先理清：这个 crate 里有两样东西</a></h2>
+<p><code>lib.rs:1</code> 只有四个字：<em>&quot;Config-driven update engine.&quot;</em></p>
+<p>而这个 crate 同时是<strong>一个库</strong>和一个<strong>守护进程</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>是什么</th><th>在哪</th><th>谁用</th></tr></thead><tbody>
+<tr><td><strong><code>updater</code>（库）</strong></td><td>引擎：状态机、验证、存储、journal</td><td><code>src/*.rs</code></td><td>测试、<code>updaterd</code></td></tr>
+<tr><td><strong><code>updaterd</code>（二进制）</strong></td><td>外壳：解析参数、加载配置、恢复、服务 socket</td><td><code>src/main.rs</code>（901 行）</td><td>systemd</td></tr>
+</tbody></table>
+</div>
+<p><code>main.rs:3-5</code> 讲了为什么这么分：</p>
+<blockquote>
+<p><strong>Deliberately thin</strong>: parse args, load config, recover from any interrupted run, then serve.
+<strong>All logic lives in the library so it can be tested without a socket or a robot.</strong></p>
+</blockquote>
+<p><strong>&quot;所有逻辑都住在库里，这样测试它就不需要一个 socket 或者一台机器人。&quot;</strong></p>
+<h3 id="21--而且常驻和安装不是一回事"><a class="header" href="#21--而且常驻和安装不是一回事">2.1 ⚠️ 而且&quot;常驻&quot;和&quot;安装&quot;不是一回事</a></h3>
+<p><code>main.rs:14-20</code> 有一段很容易被误读的话：</p>
+<blockquote>
+<p><strong>Resident is about triggers, not about applying.</strong> Applying an update is <strong>a library call</strong>,
+and mutual exclusion is <strong>a file lock in <code>state_dir</code></strong> rather than a property of there being one
+process. What needs a daemon is everything <em>around</em> an update: <strong>a socket for the app to trigger
+through, progress to stream back, a timer so a mandatory release can pull a robot forward with
+nobody present, and a process at boot for the boot counter to recover through.</strong>
+<strong>None of that applies to a robot's first install</strong>, which is what the <code>install</code> subcommand is for.</p>
+</blockquote>
+<p><strong>&quot;常驻说的是触发，不是说执行。&quot;</strong></p>
+<h3 id="22-那个必须常驻的结构性理由"><a class="header" href="#22-那个必须常驻的结构性理由">2.2 那个&quot;必须常驻&quot;的结构性理由</a></h3>
+<p><code>updater/systemd/updaterd.service:5-15</code>：</p>
+<blockquote>
+<p>Two properties this unit must preserve, from <code>docs/updater-design.md</code> §4 and
+<code>docs/architecture.md</code> §1.1:</p>
+<p><strong>1. NO dependency on robotd.</strong> <code>updaterd</code> is <strong>the recovery path</strong> — if it only ran when the
+robot was healthy, it would be unavailable <strong>in exactly the situation a client needs it.</strong>
+<strong>2. <code>updaterd</code> is never in the restart set of an update it applies</strong>: restarting itself
+mid-swap would <strong>kill the executor at the most dangerous moment.</strong></p>
+</blockquote>
+<p>第二条有一个很微妙的后果 —— <code>updaterd.service:11-15</code>：</p>
+<blockquote>
+<p>It is <strong>not left on the old binary either</strong> — the engine schedules its restart through
+<strong>a systemd transient unit 5s after the outcome is on the wire</strong>, which is <strong>a transient unit
+precisely so it outlives this one's cgroup.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 transient 单元，正是为了让它活得比这个 cgroup 更久。&quot;</strong></p>
+<hr />
+<h2 id="3--核心心智模型三份状态五道门"><a class="header" href="#3--核心心智模型三份状态五道门">3. ⭐ 核心心智模型：三份状态，五道门</a></h2>
+<h3 id="31-三份状态分别住在哪里"><a class="header" href="#31-三份状态分别住在哪里">3.1 三份状态，分别住在哪里</a></h3>
+<p>这是理解整个 crate 最重要的一张图。<strong>三份状态各有各的家，而&quot;分开&quot;本身是设计。</strong></p>
+<pre><code>  ①  发布树（每次更新都被换掉）
+      /opt/robot/daemon/releases/&lt;版本&gt;/          ← 真正的文件
+      /opt/robot/daemon/current → releases/&lt;版本&gt;  ← 那个符号链接
+
+  ②  引擎状态（必须活过每一次更新和回滚）
+      /var/lib/robot/updater/
+      ├── lock              单飞锁
+      ├── log               更新日志（200 条）
+      ├── runs/NNNNNN.jsonl 每次运行的 transcript（20 份）
+      ├── pending           boot counter（一个&quot;试用中&quot;的发布）
+      └── rescue            robot-rescue 留下的面包屑
+
+  ③  机器人自己的状态（更新的东西之外的）
+      校准、学到的偏好、配对的手柄 …
+</code></pre>
+<p><strong>为什么 ② 必须和 ① 分开</strong>，<code>updater.example.toml:21-23</code> 一句话说完：</p>
+<blockquote>
+<p>Engine-owned state: lock, update log, boot counter.
+<strong>MUST NOT live inside any component's <code>install_dir</code> — a swap or a rollback would otherwise
+destroy the record of what happened</strong> (§5.7).</p>
+</blockquote>
+<p><strong>&quot;一次 swap 或者 rollback 会毁掉'发生过什么'的记录。&quot;</strong>
+想一想就明白：如果日志住在被换掉的那棵树里，那么<strong>唯一需要日志的那次更新，正好是把它删掉的那次</strong>。</p>
+<h3 id="32-五道门"><a class="header" href="#32-五道门">3.2 五道门</a></h3>
+<pre><code>   ①  环境预检 ──────── 时钟、机器人停着、没有远程会话      ← 在**碰网络之前**
+        │
+   ②  清单 + 签名 ───── 版本、兼容性、降级、pin
+        │
+   ③  下载 + 校验 ───── sha256 → 签名                       ← 在**解压之前**
+        │
+   ④  解压 + 预检孤儿 ── 会不会让某个已装的 unit 没东西可执行
+        │
+   ───────  ★ 原子交换：current → releases/&lt;新版本&gt;  ★ ───────
+        │
+   ⑤  post hook → 重启 → 自检 → 健康门
+        │
+   ┌────┴────┐
+ 健康       不健康
+   │           │
+ 提交 + 清理   回滚
+</code></pre>
+<p><strong>&quot;任何一步失败都回到换之前&quot;</strong> 这句话的形状，就是这张图：
+<strong>门 ①–④ 的失败根本不发生 swap，门 ⑤ 的失败把 swap 撤回去。</strong></p>
+<h3 id="33-那三条塑造一切的规则"><a class="header" href="#33-那三条塑造一切的规则">3.3 那三条塑造一切的规则</a></h3>
+<p><code>engine.rs:10-18</code> 把整个 crate 的规则说成三条：</p>
+<blockquote>
+<p>Full description in <code>docs/design/updater-design.md</code> §7. Three rules shape everything here:</p>
+<ul>
+<li><strong>Any failure at or after the swap rolls back.</strong> Hook failure, health failure and timeout are
+all the same outcome — <strong>there is no &quot;mostly applied&quot;.</strong></li>
+<li><strong>Nothing is extracted to a live path before signature and hash both pass.</strong></li>
+<li><strong>The boot counter is armed before the swap</strong>, so a crash between swap and health check is
+still recoverable. <strong>The reverse order would leave an unrecorded bad release live.</strong></li>
+</ul>
+</blockquote>
+<p><strong>&quot;没有'大部分装上了'这回事。&quot;</strong></p>
+<hr />
+<h2 id="4-目录地图"><a class="header" href="#4-目录地图">4. 目录地图</a></h2>
+<pre><code>updater/
+├── Cargo.toml          ← 库 + 一个二进制 updaterd
+├── updater.example.toml  ← 带注释的参考（**不是**出货的那份）
+├── src/
+│   ├── lib.rs       334  ← ⭐ 门面：Error 枚举 + JSON-RPC 错误码映射
+│   ├── main.rs      901  ← updaterd：参数、配置、启动顺序、install 子命令
+│   ├── engine.rs   3988  ← ⭐⭐ 状态机本体（**先读这个**）
+│   ├── config.rs    986  ← updater.toml 的 schema
+│   ├── ipc.rs      1133  ← unix socket 服务 + 访问控制
+│   ├── journal.rs   761  ← 更新日志、单飞锁、boot counter、面包屑
+│   ├── store.rs     467  ← 发布树：releases/ · current · golden · prune
+│   ├── verify.rs    634  ← sha256、minisign、解压（带限额）
+│   ├── manifest.rs  275  ← 清单的解析与兼容性判断
+│   ├── source/           ← 四个&quot;从哪拿&quot;：github · hf_hub · http · local
+│   ├── hooks.rs     603  ← pre/post install 钩子
+│   ├── preflight.rs 474  ← 五道预检
+│   ├── robot.rs     529  ← 引擎眼里的 robotd（一个 trait）
+│   ├── orphan.rs    352  ← &quot;这次降级会不会让某个 unit 没东西可执行&quot;
+│   ├── reconcile.rs 373  ← 启动时：重启该重启而没重启的
+│   ├── transcript.rs 479 ← 每次运行&quot;做了什么&quot;
+│   ├── policy.rs   1662  ← 策略（不是二进制）那条通道
+│   ├── account.rs   181  ← 这个机器人属于哪个 HF 账号
+│   ├── faults.rs    126  ← 故意注入故障（回滚是唯一会悄悄坏掉的功能）
+│   ├── spawn.rs     119  ← ⭐ 一个函数，但它存在的理由比代码值钱
+│   ├── fsutil.rs · unix.rs · transcript.rs
+└── tests/
+    ├── apply.rs    2867  ← 端到端：真的下载、验证、交换、回滚
+    ├── ipc.rs      1481  ← 线上的形状 + 访问控制
+    ├── install.rs   452  ← 首次安装
+    └── download.rs  322  ← 下载与重试
+</code></pre>
+<h3 id="41--那-126-个集成测试"><a class="header" href="#41--那-126-个集成测试">4.1 ⭐ 那 126 个集成测试</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>测试数</th><th>在测什么</th></tr></thead><tbody>
+<tr><td><strong><code>apply.rs</code></strong></td><td><strong>81</strong></td><td>端到端状态机，<strong>跑真的引擎代码路径，没有网络也没有机器人</strong></td></tr>
+<tr><td><code>ipc.rs</code></td><td>26</td><td>真的 <code>Server</code> 在真的 unix socket 上，用手写的 JSON-RPC 客户端</td></tr>
+<tr><td><code>install.rs</code></td><td>12</td><td><strong>真的 <code>updaterd</code> 二进制</strong></td></tr>
+<tr><td><code>download.rs</code></td><td>7</td><td>本地 axum 服务器，测重试与续传</td></tr>
+</tbody></table>
+</div>
+<p><code>apply.rs:1-10</code> 说了这一套是为<strong>什么</strong>存在的：</p>
+<blockquote>
+<p>These are the <strong>Tier-1 mechanism tests</strong> from <code>docs/design/updater-design.md</code> §16.2: they drive
+<strong>the real engine code path with no network and no robot, so they cannot drift from production
+behaviour.</strong> <strong>This is the suite that replaces manually reverting a robot, applying an update, and
+eyeballing the result.</strong></p>
+<p>Rollback is the thing most likely to be quietly broken, because it only runs when something else
+already went wrong — <strong>so most of these tests deliberately break something.</strong></p>
+</blockquote>
+<p><strong>&quot;这一套测试，取代了'手动回滚一台机器人、装一次更新、然后用眼睛看结果'。&quot;</strong></p>
+<h4 id="-那个-regressions-段"><a class="header" href="#-那个-regressions-段">⭐ 那个 <code>regressions</code> 段</a></h4>
+<p><code>apply.rs:1457-1460</code> 有一整段，每个测试对应一个 review 里发现的 bug：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// ── regressions ──────────────────────────────────────────────────────────────
+//
+// One test per bug found in review. Each reproduces the original failure, so a
+// regression shows up as a specific named failure rather than a vague one.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个 bug 一个测试。每个都复现原来的失败，所以一次回归会以一个具名的、具体的失败出现，
+而不是一个含糊的失败。&quot;</strong></p>
+<p>而那些 bug 正好就是我 §9 里讲的每一条：</p>
+<div class="table-wrapper"><table><thead><tr><th>编号</th><th>它钉住的是什么</th></tr></thead><tbody>
+<tr><td><code>#1</code>（<code>apply.rs:1462</code>）</td><td><strong><code>rollback</code> 曾经往<em>前</em>走</strong>，走到刚刚失败的那个发布上</td></tr>
+<tr><td><code>#1b</code>（<code>:1498</code>）</td><td>rollback 跳过 journal 记录过&quot;已回滚&quot;的发布</td></tr>
+<tr><td><code>#3</code>（<code>:1530</code>）</td><td>一个无法恢复的试用<strong>每开机一次就重报一次</strong></td></tr>
+<tr><td><code>#4</code>（<code>:1580</code>）</td><td>boot counter 曾经是<strong>一个全局槽</strong>，任何组件的迁移都会毁掉另一个的试用</td></tr>
+<tr><td><code>#5</code>（<code>:1641</code>）</td><td><code>transition_to</code> 在<strong>校验目标之前</strong>就武装了 boot counter</td></tr>
+<tr><td><code>#9</code>（<code>:1674</code>）</td><td><code>select</code> 的 apply action 失败后<strong>提前返回</strong>，板子留在未验证的发布上</td></tr>
+<tr><td><code>#7</code>（<code>:1916</code>）</td><td><code>select</code> 一个没装的版本，报的是 <code>UNKNOWN_COMPONENT</code></td></tr>
+<tr><td><code>#8</code>（<code>:1940</code>）</td><td>没有任何东西拒绝降级</td></tr>
+<tr><td><code>#8b</code>（<code>:1971</code>）</td><td><strong>显式</strong>点名一个更老的版本仍然允许</td></tr>
+</tbody></table>
+</div>
+<p>⚠️ 编号有洞，而且不是文件顺序 —— 见 §14.10。</p>
+<h4 id="fakehub-里一处自报的偏差"><a class="header" href="#fakehub-里一处自报的偏差"><code>FakeHub</code> 里一处<strong>自报</strong>的偏差</a></h4>
+<p><code>tests/ipc.rs:1182-1185</code> —— 假 Hub 发了真 HF 不会发的字段，而且说明白了：</p>
+<blockquote>
+<p>It <em>does</em> send an <code>interval</code> HF omits, <strong>and only to keep the suite quick</strong>: the robot sleeps one
+interval before its first poll, so <strong>the real five seconds would make every login test five seconds
+long.</strong> That HF's omission falls back to five is pinned in <code>hf_robot_account</code>'s own tests, where it
+costs nothing.</p>
+</blockquote>
+<p><strong>&quot;它<em>确实</em>发了一个 HF 会省略的 <code>interval</code>，只是为了不让测试套件变慢。&quot;</strong></p>
+<hr />
+<h2 id="5-一次更新的完整旅程"><a class="header" href="#5-一次更新的完整旅程">5. 一次更新的完整旅程</a></h2>
+<p>以 <code>robotctl update apply daemon</code>（或手机上按&quot;更新&quot;）为例。<strong>每一步都标了代码位置。</strong></p>
+<h3 id="50-拿到锁在任何事之前"><a class="header" href="#50-拿到锁在任何事之前">5.0 拿到锁（在任何事之前）</a></h3>
+<p><code>engine.rs:624-625</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Single-flight. Busy is a normal answer, not a failure.
+let lock = UpdateLock::try_acquire(&amp;self.config.state_dir)?.ok_or(Error::Busy)?;
+<span class="boring">}</span></code></pre></pre>
+<p><code>preflight.rs:6-9</code> 特意说明它<strong>不</strong>在预检清单里：</p>
+<blockquote>
+<p>Single-flight is <strong>not</strong> one of these checks: it is enforced by <strong>the on-disk lock</strong>
+<code>crate::journal::UpdateLock</code>, taken <strong>before any of this runs</strong>, and surfaces as <code>Error::Busy</code>.
+<strong>Listing it here as well would imply a second, redundant mechanism.</strong></p>
+</blockquote>
+<h3 id="51-开一份-transcript"><a class="header" href="#51-开一份-transcript">5.1 开一份 transcript</a></h3>
+<p><code>engine.rs:628-642</code> —— 在<strong>任何</strong>拒绝之前就打开，理由写在 <code>:706-708</code>：</p>
+<blockquote>
+<p>Recorded here rather than at the end, and <strong>before any of the refusals below</strong>: a run that was
+<em>refused</em> is <strong>one of the two runs anyone reads</strong>, and &quot;which release, from where, signed by
+which key&quot; is what the refusal has to be read against.</p>
+</blockquote>
+<p><strong>&quot;被拒绝的那次运行，是任何人会读的两种运行之一。&quot;</strong></p>
+<h3 id="52-门①环境预检在碰网络之前"><a class="header" href="#52-门①环境预检在碰网络之前">5.2 门①：环境预检（<strong>在碰网络之前</strong>）</a></h3>
+<p><code>engine.rs:684-689</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 0. Environment preflight, *before* touching the network. The manifest
+//    fetch is HTTPS, and on a board with no battery-backed RTC it fails
+//    certificate-date validation with an opaque TLS error — the clock check
+//    exists precisely to diagnose that, so it has to run first.
+<span class="boring">}</span></code></pre></pre>
+<p>五项检查（<code>preflight.rs:102-112</code>）：<strong>时钟 · 磁盘 · 旁载目录 · 机器人停着 · 没有远程会话</strong>。</p>
+<p><strong>它们故意不短路</strong>（<code>preflight.rs:99-101</code>）：</p>
+<blockquote>
+<p><strong>Deliberately does not short-circuit</strong>: telling the user <strong>&quot;clock is wrong AND disk is full&quot;</strong>
+in one round beats making them fix one, retry, and discover the next.</p>
+</blockquote>
+<h4 id="那五项里最有意思的三项"><a class="header" href="#那五项里最有意思的三项">那五项里最有意思的三项</a></h4>
+<p><strong>① 时钟</strong>（<code>preflight.rs:24-30</code>）：</p>
+<blockquote>
+<p>A board with no battery-backed RTC boots with <strong>a wrong clock</strong>, and HTTPS then fails
+cert-date validation before any download can start. <strong>minisign itself is time-independent,
+but TLS is not.</strong></p>
+</blockquote>
+<p>判据是一个写死的下限 <code>CLOCK_FLOOR_UNIX = 1_735_689_600</code>（2025-01-01），
+理由是 <em>&quot;不需要跟 <code>timedatectl</code> 说话&quot;</em>。</p>
+<p><strong>② 旁载目录 —— 一个 mount namespace 的坑</strong>（<code>preflight.rs:36-49</code>，整个文件里最长的一段注释）：</p>
+<blockquote>
+<p><code>updaterd.service</code> sets <strong><code>PrivateTmp=yes</code></strong>, which gives the unit <strong>its own <code>/tmp</code> <em>and</em> its own
+<code>/var/tmp</code></strong>. A release copied to either from a shell — <strong>the obvious place to put one, and where
+<code>scripts/dev-push.sh</code> used to put it</strong> — is therefore <strong>not the one this process sees</strong>, and
+<strong>every message downstream is a lie</strong>: &quot;no manifest for version X in <code>/var/tmp/duck-sideload</code>&quot;,
+<strong>against a directory whose <code>ls</code> shows that exact manifest</strong>, its signature and the artifact.
+<strong>Nothing in that output points at the namespace, and the caller has done nothing wrong.</strong></p>
+<p>So it is <strong>a named check rather than a better error message further down</strong>: it fails before any
+lookup, <strong>it says which mount namespace is responsible</strong>, and a board that does not privatise
+<code>/var/tmp</code> <strong>passes it without noticing it exists.</strong></p>
+</blockquote>
+<p><strong>③ &quot;机器人停着吗&quot; —— 一个不对称</strong>（<code>preflight.rs:187-189</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Unreachable counts as safe: if the control loop isn't running, nothing is
+// moving — and that is precisely the case where an update is the fix. An answer
+// that arrived and could not be read does not, because the loop *is* running.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;沉默 = 安全；一个读不懂的回答 ≠ 安全。&quot;</strong>
+而这一条<strong>曾经做错过</strong>，测试里记着（<code>preflight.rs:381-386</code>）：</p>
+<blockquote>
+<p>it used to be made the wrong way: <strong>an unreadable reply was mapped to <code>Unreachable</code>, which
+permits a restart, so a <code>robotd</code> answering &quot;I am walking&quot; in a shape one field newer was read as
+&quot;go ahead&quot;.</strong> <strong>Silence means the control loop is not running. An answer means it is.</strong>
+<strong>Those must not share a verdict, whatever else changes here.</strong></p>
+</blockquote>
+<h3 id="53-门②清单和它的签名"><a class="header" href="#53-门②清单和它的签名">5.3 门②：清单和它的签名</a></h3>
+<p><code>engine.rs:691-699</code> —— 五种目标：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let signed = match &amp;target {
+    Target::Latest        =&gt; source.latest_manifest().await?,
+    Target::Exact(v)      =&gt; source.manifest_for(v).await?,
+    Target::Ref(git_ref)  =&gt; source.manifest_at_ref(git_ref).await?,
+    Target::Staging       =&gt; source.staging_manifest().await?,
+    Target::StagingExact(v) =&gt; source.staging_manifest_for(v).await?,
+};
+<span class="boring">}</span></code></pre></pre>
+<p>然后是四个<strong>拒绝</strong>，每一个都有它自己的理由：</p>
+<div class="table-wrapper"><table><thead><tr><th>拒绝</th><th>什么时候</th><th>为什么（原文）</th></tr></thead><tbody>
+<tr><td><strong>Pin</strong></td><td>组件被钉在一个版本上</td><td>运维的显式选择</td></tr>
+<tr><td><strong>Already current</strong></td><td>已经装的就是这个版本</td><td>⭐ <strong>见下</strong></td></tr>
+<tr><td><strong>Downgrade</strong></td><td><code>Latest</code> 解析出的版本比装的旧</td><td><strong>降级攻击</strong>，见 §7.3</td></tr>
+<tr><td><strong>StagingBehind</strong></td><td><code>--staging</code> 拿到的比装的旧</td><td>见下</td></tr>
+<tr><td><strong>Incompatible</strong></td><td><code>hw_rev</code> / <code>model_api</code> 不满足</td><td></td></tr>
+</tbody></table>
+</div>
+<h4 id="-已经是最新的曾经是错的答案"><a class="header" href="#-已经是最新的曾经是错的答案">⭐ &quot;已经是最新的&quot;曾经是错的答案</a></h4>
+<p><code>engine.rs:726-737</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if Some(&amp;manifest.version) == installed.as_ref() {
+    // Correct, and for years the whole answer. It is the wrong *question* in one case: the
+    // release is installed and a daemon is serving from a different one. That is what an
+    // operator reaching for `apply` is usually trying to fix, and answering &quot;already current&quot;
+    // told them there was nothing to fix. The units are named here and restarted after the
+    // reply — see `restarts_owed`.
+    let stale = self.stale_units(&amp;manifest.version, cfg, store);
+    return Ok(ApplyResult::AlreadyCurrent { version: manifest.version, stale });
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;这说明的是对的，而且多年来就是全部答案。但在一种情况下它回答的是错的问题：
+发布装上了，而某个守护进程正从另一个发布提供服务。&quot;</strong></p>
+<h4 id="stagingbehind一条为一个人写的错误信息"><a class="header" href="#stagingbehind一条为一个人写的错误信息"><code>StagingBehind</code>：一条为一个人写的错误信息</a></h4>
+<p><code>lib.rs:84-102</code> 的 doc comment 是一整段：</p>
+<blockquote>
+<p><code>--staging</code> resolved to a candidate older than what the board is running, which means the staging
+channel has nothing newer to offer.</p>
+<p><strong>Distinct from <code>WouldDowngrade</code> because the operator's next move is different.</strong> That one is a
+<strong>rollback-attack guard</strong>: it says a <em>mirror</em> may have gone backwards, and the right response is
+<strong>to distrust the source</strong>. This one says <strong>the source is fine and the channel is simply behind</strong>
+… <strong>Answering &quot;refusing to downgrade&quot; sent the one person who hit it looking for a broken mirror.</strong></p>
+</blockquote>
+<p>而它的错误信息<strong>本身就是一份操作指南</strong>（<code>lib.rs:96-102</code>）：</p>
+<pre><code>the newest release candidate is {candidate}, and this board is already on {installed} —
+nothing more recent is available on the staging channel. A release promoted straight to
+stable publishes no candidate, so staging stays at the last version that had one. There is
+nothing here to test. To install this older candidate anyway, name it:
+  robotctl update apply {component} --staging --version {candidate}
+</code></pre>
+<p><strong>&quot;这里没有东西可测。如果要装这个更老的候选版本，就点名它。&quot;</strong></p>
+<h3 id="54-门③下载校验解压"><a class="header" href="#54-门③下载校验解压">5.4 门③：下载、校验、解压</a></h3>
+<p><code>engine.rs:850-905</code> —— 下载时<strong>顺手把进度报告合并</strong>（见 §5.4.1），
+然后在<strong>解压之前</strong>做两件事，顺序是<strong>先哈希、再签名</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 4. Integrity, then authenticity. Both before anything is extracted.
+<span class="boring">}</span></code></pre></pre>
+<p><code>engine.rs:892-894</code> 讲了为什么它们要走 <code>spawn_blocking</code>：</p>
+<blockquote>
+<p>Hashing and signature verification stream hundreds of megabytes and take <strong>seconds on this class
+of board</strong>. Run on the async worker they would <strong>stall the IPC tasks that are meant to keep
+answering <code>status</code>/<code>subscribe</code> while the update runs.</strong></p>
+</blockquote>
+<h4 id="541--那个进度条为什么不能一次一条"><a class="header" href="#541--那个进度条为什么不能一次一条">5.4.1 ⭐ 那个进度条为什么不能一次一条</a></h4>
+<p><code>engine.rs:71-80</code>：</p>
+<blockquote>
+<p>Shortest gap between two download-progress notifications.</p>
+<p>The source reports <strong>every HTTP chunk</strong> it writes, which for a release artifact is <strong>thousands of
+events</strong>, and every subscriber pays for all of them. <strong>Over BLE that is fatal rather than
+wasteful</strong>: a progress line is around a hundred bytes, which is <strong>five or six notifications at the
+20-byte floor <code>btd</code> frames to</strong>, and <strong><code>btd</code> drops lines when the client falls behind</strong> — so <strong>a
+phone saw an arbitrary subset of the percentages and a bar that jumped 12 → 61 → 34.</strong>
+<strong>Four a second, each a different whole percent, is a bar that moves smoothly and a stream a
+20-byte pipe can carry.</strong></p>
+</blockquote>
+<p>而那个 250 毫秒的闸门<strong>是一个类型而不是三个变量</strong>，理由（<code>engine.rs:83-86</code>）：</p>
+<blockquote>
+<p>Two rules, and <strong>the third method is why it is a type rather than three variables</strong>: a percent
+held back by the gap <strong>has to be published when the download ends</strong>, or <strong>a download whose last
+change lands inside the gap visibly finishes at 97%</strong>.</p>
+</blockquote>
+<p>那个&quot;第三个方法&quot;就是 <code>flush()</code>（<code>engine.rs:133-136</code>）。而 pump 的收尾也记着同一个教训
+（<code>engine.rs:894-896</code>）：</p>
+<blockquote>
+<p>Drop the sender so the pump sees end-of-stream and forwards everything it has; <strong><code>abort()</code> here
+would discard the last few updates, so a download could visibly stall at 97%.</strong></p>
+</blockquote>
+<h3 id="55-门④孤儿检查"><a class="header" href="#55-门④孤儿检查">5.5 门④：孤儿检查</a></h3>
+<p>解压之后、换之前，有一个<strong>只有降级才会触发</strong>的检查（<code>engine.rs:930-945</code>）：</p>
+<blockquote>
+<p><strong>5b. Would this release leave an installed unit with nothing to exec?</strong> See <code>crate::orphan</code> — <strong>a
+downgrade past the release that introduced a daemon leaves that daemon's unit behind</strong>, and it then
+fails with <strong><code>203/EXEC</code></strong>, which fails the restart, which reverts the update.</p>
+</blockquote>
+<p>而它为什么在这里而不是在预检里：</p>
+<blockquote>
+<p>Here rather than in <code>preflight</code> because <strong>the candidate's file list does not exist until now</strong>, and
+before the dry run returns because <strong>&quot;will this downgrade work?&quot; is exactly what a dry run is
+asked.</strong> <strong>Nothing has moved yet</strong>: staging is disposable, the boot counter is unarmed, <code>current</code>
+still points where it did.</p>
+</blockquote>
+<p><strong>&quot;还没有任何东西动过。&quot;</strong></p>
+<h3 id="56--原子交换"><a class="header" href="#56--原子交换">5.6 ★ 原子交换</a></h3>
+<p>这是整个系统的中心。<code>engine.rs:1024-1057</code>，四步，顺序是<strong>承重的</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 7. Publish the release directory with one rename, then arm the boot
+//    counter *before* the symlink swap so a crash in between is recoverable.
+let release_dir = store.release_dir(&amp;manifest.version);
+let _ = std::fs::remove_dir_all(&amp;release_dir);
+std::fs::create_dir_all(parent)?;
+std::fs::rename(extract_dir, &amp;release_dir)?;      // ① 解压好的树就位
+
+self.boot_counter.arm(&amp;PendingUpdate { … })?;      // ② **先**武装 boot counter
+
+rec.phase(Phase::Swapping, …);
+store.swap_to(&amp;manifest.version)?;                 // ③ 一个 rename 换掉 current
+<span class="boring">}</span></code></pre></pre>
+<p><strong>为什么 ② 必须在 ③ 之前</strong>，<code>engine.rs:16-18</code> 说了：</p>
+<blockquote>
+<p><strong>The boot counter is armed before the swap</strong>, so a crash between swap and health check is still
+recoverable. <strong>The reverse order would leave an unrecorded bad release live.</strong></p>
+</blockquote>
+<p><strong>&quot;反过来，会留下一个没被记录的坏发布在生产里跑着。&quot;</strong></p>
+<p>设计文档里的那句更短（§7.1）：</p>
+<blockquote>
+<p>Atomicity is <strong>a single <code>rename(2)</code> of the symlink on the same filesystem.</strong> <strong>No half-written
+state is ever live.</strong></p>
+</blockquote>
+<h4 id="那个-dry_run-出口"><a class="header" href="#那个-dry_run-出口">那个 <code>dry_run</code> 出口</a></h4>
+<p><code>engine.rs:945-949</code> —— 在预检钩子<strong>之前</strong>返回：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if options.dry_run {
+    return Ok(ApplyResult::DryRunPassed { candidate: manifest.version.clone() });
+}
+<span class="boring">}</span></code></pre></pre>
+<p>所以 <code>--dry-run</code> 走到这里，<strong>已经验证了签名、哈希、兼容性、和孤儿</strong>，而<strong>没有动任何东西</strong>。</p>
+<h3 id="57-门⑤换之后的三件事"><a class="header" href="#57-门⑤换之后的三件事">5.7 门⑤：换之后的三件事</a></h3>
+<p><code>post_swap</code>（<code>engine.rs:1124-1180</code>）依次做三件事，<strong>任何一件失败都回滚</strong>：</p>
+<pre><code>   ①  post-install hook      （120 秒上限）
+   ②  apply action           （重启 units / 发信号）
+   ③  updaterd 自检          ← ⭐ 见下
+   ④  health gate
+</code></pre>
+<h4 id="-那个自检以及它防的是什么"><a class="header" href="#-那个自检以及它防的是什么">⭐ 那个自检，以及它防的是什么</a></h4>
+<p><code>engine.rs:2578-2582</code>：</p>
+<blockquote>
+<p>Prove the release's <code>updaterd</code> can start, before committing to it.</p>
+<p><code>updaterd</code> does not restart itself during an update, so <strong>without this a replacement binary that
+cannot start is discovered at the <em>next boot</em> — after the commit, with nobody watching, and with
+recovery living inside the very process failing to start.</strong> systemd retries it a few times and
+gives up, <strong>leaving a robot that cannot update its way out.</strong></p>
+</blockquote>
+<p><strong>&quot;留下一台没法把自己更新出去（update its way out）的机器人。&quot;</strong></p>
+<p>而那个探针<strong>必须用本次引擎加载的那份配置</strong>（<code>engine.rs:2595-2598</code>）：</p>
+<blockquote>
+<p>The config <em>this</em> engine was loaded from, not the flag's default. Without it the probe reads
+<code>/etc/robot/updater.toml</code> whatever the running daemon was started with, so <strong>on any board using
+<code>--config</code> it validates a file that is not in use — and reports the release as broken when that
+file does not exist.</strong> <strong>Found by <code>scripts/systemd-test.sh</code> on its first run.</strong></p>
+</blockquote>
+<h3 id="58-提交或回滚"><a class="header" href="#58-提交或回滚">5.8 提交或回滚</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match gate {
+    Ok(()) =&gt; {
+        rec.phase(Phase::Committing, None);
+        self.boot_counter.confirm(component)?;      // 试用结束
+        match store.prune(cfg.keep_previous, cfg.golden.as_ref()) { … }
+        Ok(ApplyResult::Applied { from: previous, to: manifest.version })
+    }
+    Err(reason) =&gt; { … rollback … }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>清理是&quot;尽力而为&quot;，但失败必须可见</strong>（<code>engine.rs:1063-1064</code>）：</p>
+<blockquote>
+<p>Pruning is best-effort — the update has already succeeded — but <strong>a failure must be visible, or a
+robot slowly filling its eMMC looks perfectly healthy.</strong></p>
+</blockquote>
+<h3 id="59-那个被推迟的重启和那个锁必须在-fork-之前放掉"><a class="header" href="#59-那个被推迟的重启和那个锁必须在-fork-之前放掉">5.9 那个被推迟的重启，和那个&quot;锁必须在 fork 之前放掉&quot;</a></h3>
+<p><code>engine.rs:650-658</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// The lock is released before anything is spawned, and that ordering is load-bearing: a
+// fork duplicates every open descriptor in the process, so spawning while holding the
+// update lock hands a copy of it to the child — and in a test binary running engines in
+// parallel, copies of *other* engines' locks too. It surfaced as unrelated operations
+// failing with `Busy`. Nothing below this point touches the store.
+drop(lock);
+schedule_restarts_if_needed(self.deferred_restarts, &amp;outcome, &amp;rec).await;
+<span class="boring">}</span></code></pre></pre>
+<p>而那两个被推迟的单元（<code>engine.rs:2555-2568</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const RESTART_AFTER_REPLYING: [&amp;str; 2] = [&quot;updaterd&quot;, &quot;btd&quot;];
+/// How long to wait before those restarts, so the reply is on the wire first.
+/// The engine runs *inside* the `update.apply` call, so restarting `updaterd` synchronously would
+/// hand the client a broken pipe instead of the outcome it waited minutes for. A response is a
+/// single write; five seconds is far more than it needs and still faster than any human reaction.
+const DEFERRED_RESTART_DELAY: &amp;str = &quot;5s&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个响应就是一次 write；五秒远远超过它需要的，而且仍然比任何人的反应快。&quot;</strong></p>
+<h3 id="510-一句已经是最新的里藏着的修复"><a class="header" href="#510-一句已经是最新的里藏着的修复">5.10 一句&quot;已经是最新的&quot;里藏着的修复</a></h3>
+<p><code>engine.rs:2831-2850</code> 的 <code>restarts_owed</code> 是<strong>纯函数</strong>，而它的 doc 讲了为什么单独拆出来：</p>
+<blockquote>
+<p><strong><code>AlreadyCurrent</code> with stale units</strong> owes exactly those. Nothing was installed because nothing
+needed to be, and <strong>a daemon is still running something else</strong> … <strong>A stale <code>updaterd</code> will not
+restart itself from its own startup path</strong>, so the only thing that ever looks at it is an operator
+running <code>apply</code>, <strong>who until now got <code>already_current</code>, no restart, and a robot still on the old
+binary.</strong></p>
+<p>Pure, and separated from the scheduling below <strong>for the reason <code>reconcile::verdict_for</code> is: which
+outcomes owe what is the part that can be wrong, and arranging each of them on a board costs an
+afternoon apiece.</strong></p>
+</blockquote>
+<p><strong>&quot;哪个结果欠哪个重启，是那个可能出错的部分；而在板子上把每一种安排一遍，各要一个下午。&quot;</strong></p>
+<hr />
+<h2 id="6-磁盘上有什么"><a class="header" href="#6-磁盘上有什么">6. 磁盘上有什么</a></h2>
+<blockquote>
+<p>⚠️ 这一节和 §10 的<strong>机制</strong>由 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §7.1 拥有，
+实现在 <code>updater/src/store.rs</code> 和 <code>updater/src/journal.rs</code>。</p>
+</blockquote>
+<h3 id="61-发布树"><a class="header" href="#61-发布树">6.1 发布树</a></h3>
+<pre><code>/opt/robot/daemon/                    ← install_dir（每个组件一个）
+├── releases/                         ← 全是**目录**
+│   ├── 1.4.1/                        ← 上一个（为回滚留着）
+│   ├── 1.4.2/                        ← 新的
+│   └── .staging-1.4.3/               ← 正在装的：dl/ 下载的产物 · root/ 解压出来的树
+│                                         （装完 root/ 被 rename 成 releases/1.4.3/）
+├── current → releases/1.4.2          ← 符号链接（**相对目标**）
+├── golden  → releases/1.4.1          ← 符号链接；**永不清理**；robot-rescue 读的那个
+├── .current.tmp                      ← 只在一次 rename(2) 期间存在
+└── .golden.tmp
+</code></pre>
+<p><strong><code>.staging-</code> 这个前缀是有意的</strong>（<code>store.rs:23-26</code>）：</p>
+<blockquote>
+<p>Marks an in-progress install. <strong>Chosen so it can never parse as a semver version</strong>, which is what
+keeps <code>Store::list</code> from ever seeing a staging dir as a real release.</p>
+</blockquote>
+<p><strong>&quot;选它，是为了它永远不可能被解析成一个 semver 版本。&quot;</strong></p>
+<p><strong><code>golden</code> 是一个符号链接，而这是一个有意的选择</strong>（<code>engine.rs:2118-2124</code>）：</p>
+<blockquote>
+<p><code>scripts/robot-rescue</code> runs when <code>updaterd</code> does not, so <strong>it cannot ask this process for golden
+and must not parse <code>updater.toml</code> to find it</strong> — <strong>a release whose <code>updaterd</code> rejects that file is
+the likeliest thing the rescue exists for.</strong> <strong>The link is how the answer survives the daemon.</strong></p>
+</blockquote>
+<p>而它在<strong>每次启动</strong>时重新发布（<code>refresh_golden_links</code>，<code>engine.rs:2125</code>），
+并且<strong>配置了一个没装的 golden 会大声警告</strong>（<code>engine.rs:2140-2147</code>）：</p>
+<blockquote>
+<p>A configured golden that is not installed is not a rollback target, and <strong>a dangling link would
+make the rescue believe otherwise.</strong> <strong>Loud, because it means the never-brick guarantee is
+currently void on this board.</strong></p>
+</blockquote>
+<p><strong>&quot;大声（警告），因为它意味着'永不砖机'的保证在这块板子上目前是失效的。&quot;</strong></p>
+<h4 id="两个符号链接的两条规则"><a class="header" href="#两个符号链接的两条规则">两个符号链接的两条规则</a></h4>
+<p><strong>① 目标是相对的</strong>（<code>store.rs:174-175</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Store a relative target so the tree stays valid if the mount point
+// moves (and so it reads sensibly in a shell).
+<span class="boring">}</span></code></pre></pre>
+<p><strong>② 先写一个临时链接，再 <code>rename</code> 覆盖上去</strong>（<code>store.rs:159-164</code>）：</p>
+<blockquote>
+<p>Writes a temporary symlink beside the real one and <code>rename</code>s it over the top: <strong><code>rename(2)</code> on the
+same directory is atomic, so a concurrent reader sees either the old target or the new one, never a
+missing link.</strong> <strong>Removing and recreating the symlink would open exactly that window.</strong></p>
+</blockquote>
+<p><strong>&quot;先把链接删掉再建一个新的，正好会打开那个窗口。&quot;</strong></p>
+<p>而<strong>一个指向不存在发布的链接会被拒绝</strong>（<code>store.rs:166-172</code>）：<code>&quot;refusing to link missing release&quot;</code>，
+理由是（<code>store.rs:360-362</code> 的测试）：</p>
+<blockquote>
+<p>A <strong>dangling <code>golden</code></strong> would tell the rescue it has a target when it does not, and <strong>swapping onto
+it leaves a board that can exec nothing at all.</strong></p>
+</blockquote>
+<h3 id="62--rename-是原子的但不是持久的"><a class="header" href="#62--rename-是原子的但不是持久的">6.2 ⭐ <code>rename</code> 是原子的，但<strong>不</strong>是持久的</a></h3>
+<p>这是整份文档里最容易被跳过、而最不该被跳过的一处。<code>fsutil.rs:3-7</code>：</p>
+<blockquote>
+<p>The design's crash guarantees rest on two renames being <strong>both durable and ordered</strong>: <strong>the
+boot-counter record must survive a power cut that also made the symlink swap visible</strong> (§7).
+<strong><code>rename(2)</code> is atomic but not durable — the directory entry can still be in page cache — so
+every rename we depend on is followed by an fsync of the containing directory.</strong></p>
+</blockquote>
+<p><strong>&quot;<code>rename(2)</code> 是原子的，但不是持久的 —— 目录项可能还在 page cache 里。&quot;</strong></p>
+<p>于是 <code>fsutil.rs:14-17</code>：</p>
+<blockquote>
+<p>fsync the directory containing <code>path</code>, making a rename into it durable. <strong>Without this, a power cut
+can leave the swap visible and the pending record gone — precisely the state §7 says cannot
+happen.</strong></p>
+</blockquote>
+<p><strong>&quot;没有它，一次断电会让 swap 可见而 pending 记录消失 —— 正是 §7 说不可能发生的那种状态。&quot;</strong></p>
+<p>而 <code>write_atomic</code> 的顺序也是承重的（<code>fsutil.rs:51-53</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Contents first: a durable rename to a file whose data is still in cache
+// would leave a correctly-named empty file.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;先写内容：一次指向'数据还在缓存里'的文件的持久 rename，会留下一个名字正确但内容为空的文件。&quot;</strong></p>
+<h3 id="63-引擎状态"><a class="header" href="#63-引擎状态">6.3 引擎状态</a></h3>
+<pre><code>/var/lib/robot/updater/                ← state_dir（config.rs:789）
+├── update.lock                        ← 单飞锁。**一个 OS 锁，不是 PID 文件**
+├── update-log.jsonl                   ← 更新日志，追加式，保留 200 条
+├── pins.json                          ← 运行时版本钉（{&quot;组件&quot;: &quot;x.y.z&quot;}）
+├── pending.json                       ← boot counter：哪个发布正在&quot;试用&quot;
+├── rescued                            ← robot-rescue 写的面包屑
+└── runs/000001.jsonl                  ← 每次运行的 transcript，保留 20 份
+</code></pre>
+<p><strong>为什么用 OS 锁而不是 PID 文件</strong>（<code>journal.rs:166-168</code>）：</p>
+<blockquote>
+<p>An OS lock rather than a PID file so <strong>the kernel releases it if <code>updaterd</code> is killed</strong> — <strong>a stale
+PID file would leave the robot permanently unable to update</strong>, which is a worse failure than a race.</p>
+</blockquote>
+<p><strong>&quot;一个陈旧的 PID 文件会让这台机器人</strong>永远<strong>无法更新 —— 那比一次竞态更糟。&quot;</strong></p>
+<p><strong>为什么 pin 住在 <code>state_dir</code> 而不是写回 <code>updater.toml</code></strong>（<code>journal.rs:205-209</code>）：</p>
+<blockquote>
+<p>Kept in <code>state_dir</code> rather than written back into <code>updater.toml</code>: <strong>a pin is <em>device state</em>, so it
+belongs outside the shipped config</strong> (§5.7), and <strong>rewriting a human-edited TOML file in place
+would lose comments and formatting.</strong></p>
+</blockquote>
+<p><strong>日志容忍</strong>（<code>journal.rs:50-53</code>）：</p>
+<blockquote>
+<p>Durable enough to survive the power loss a failed update can itself provoke: newline-delimited
+JSON, then <code>sync_data</code>. <strong>A torn final line is tolerated on read rather than treated as
+corruption</strong> — <strong>losing the last entry is acceptable; refusing to read the log because of it is
+not.</strong></p>
+</blockquote>
+<p><strong>&quot;丢掉最后一条可以接受；因为它而拒绝读整份日志则不可以。&quot;</strong></p>
+<p><strong>而 <code>known_bad</code> 记的是&quot;最近一次的结果&quot;，不是&quot;曾经失败过&quot;</strong>（<code>journal.rs:134-138</code>）：</p>
+<blockquote>
+<p>Used to keep <code>rollback</code> from landing back on a release that already failed its gate. <strong>Latest-outcome
+rather than ever-failed, so a version that failed once and later succeeded is not blacklisted
+forever.</strong></p>
+</blockquote>
+<p><strong>面包屑是 <code>key=value</code>，而理由很实在</strong>（<code>journal.rs:275-280</code>）：</p>
+<blockquote>
+<p><code>key=value</code> rather than JSON because <strong>the writer is a shell script running on a board where things
+are already going wrong, and quoting JSON correctly in <code>sh</code> is a way to produce a record nothing
+can read.</strong> Which makes this the reader for it — and <strong>a lenient one on purpose: every field is
+optional.</strong></p>
+</blockquote>
+<p><strong>&quot;在一个已经有东西出错、而且是在 <code>sh</code> 里正确引用 JSON 的板子上，
+那是一种'产生一个没人读得了的记录'的方式。&quot;</strong></p>
+<h3 id="64-transcript为什么它不写进-systemd-journal"><a class="header" href="#64-transcript为什么它不写进-systemd-journal">6.4 transcript：为什么它不写进 systemd journal</a></h3>
+<p><strong>为什么 transcript 不写进 journal</strong>（<code>transcript.rs:11-15</code>）：
+<strong>为什么 transcript 不写进 journal</strong>（<code>transcript.rs:11-15</code>）：</p>
+<blockquote>
+<p><code>/var/log</code> on this board is <strong>a zram device</strong> (<code>deploy/README.md</code>), so <code>Storage=persistent</code> buys
+<strong>survival of a clean reboot and not of a power cut</strong> — and <strong>the updates anyone needs a
+transcript for are disproportionately the ones that end in a power cut.</strong></p>
+</blockquote>
+<p><strong>&quot;任何人需要一份 transcript 的那些更新，不成比例地，正是以断电告终的那些。&quot;</strong></p>
+<p>而<strong>记录永远不会让一次更新失败</strong>（<code>transcript.rs:17-20</code>）：</p>
+<blockquote>
+<p><strong>Recording never fails an update.</strong> Every write here is best-effort and reports failure to the
+journal, because <strong>an update that completed and lost its diary is strictly better than one that
+was abandoned to keep the diary honest.</strong></p>
+</blockquote>
+<hr />
+<h2 id="7-信任签名买到了什么没买到什么"><a class="header" href="#7-信任签名买到了什么没买到什么">7. 信任：签名买到了什么，没买到什么</a></h2>
+<h3 id="71-三件事两个签名"><a class="header" href="#71-三件事两个签名">7.1 三件事，两个签名</a></h3>
+<p><code>design/updater-design.md</code> §5.4 的验证顺序：</p>
+<blockquote>
+<p>verify manifest signature → download artifact → verify sha256 → verify artifact signature.
+<strong>No unsigned bytes are ever executed or extracted to a live path.</strong></p>
+</blockquote>
+<p><strong>为什么清单和产物都签名</strong>（<code>xtask/src/main.rs:653-656</code>）：</p>
+<blockquote>
+<p>Both are signed: <strong>the manifest so a robot can trust what it says</strong>, and <strong>the artifact so the
+bytes can be verified independently of it.</strong></p>
+</blockquote>
+<h3 id="72-信任锚是一组密钥不是一个"><a class="header" href="#72-信任锚是一组密钥不是一个">7.2 信任锚是一<strong>组</strong>密钥，不是一个</a></h3>
+<p><code>updater.example.toml:11-15</code>：</p>
+<blockquote>
+<p>Trusted minisign public keys. <strong>A signature is valid if it verifies against ANY key here.</strong>
+A <em>set</em> rather than one key so <strong>a lost or compromised key is survivable</strong> (§5.4).
+<strong>An empty directory is a fatal error, not an empty allow-list.</strong></p>
+</blockquote>
+<p>⚠️ <strong>而&quot;从第一张镜像就带上备用密钥&quot;是一条只能做一次的决定</strong>（<code>deploy/updater.toml:12-15</code>）：</p>
+<blockquote>
+<p>All three release public keys go in here <strong>at install time</strong>, even though only <code>release-1</code> signs
+today: <strong>a robot can verify only against the set baked into it, so shipping the spares is the one
+chance to make key rotation possible without physically re-flashing.</strong></p>
+</blockquote>
+<p><strong>&quot;一台机器人只能对烤进它的那一组密钥验证，所以把备用的发出去，
+是让密钥轮换不需要物理刷机的唯一一次机会。&quot;</strong></p>
+<h3 id="73--签名买不到的两件事"><a class="header" href="#73--签名买不到的两件事">7.3 ⭐ 签名买不到的两件事</a></h3>
+<p>这一节值得整段抄下来（<code>design/updater-design.md</code> §8.4）：</p>
+<blockquote>
+<p>A minisign signature proves an artifact <strong>came from us and wasn't modified</strong>. <strong>It says nothing
+about <em>when</em> it was published or whether it is still current.</strong> Two attacks survive a perfectly
+valid signature, and they are <strong>the standard pair for any signed-artifact scheme</strong>:</p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th></th><th>是什么</th><th>状态</th></tr></thead><tbody>
+<tr><td><strong>Downgrade / 回滚</strong></td><td>提供一个<strong>更旧的、真的签过名的</strong>清单，让机器人走回一个我们撤回的版本</td><td><strong>已修</strong></td></tr>
+<tr><td><strong>Freeze / 冻结</strong></td><td>永远提供<strong>当前</strong>那份清单，让机器人永远不知道有修复</td><td><strong>未修</strong>（§8.4.2）</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>Both are reachable by <strong>anyone who controls what the robot fetches</strong>: a stale or reverted
+CDN/mirror, a cached proxy, DNS interception, or a hostile local network.
+<strong>Neither requires a stolen key.</strong></p>
+</blockquote>
+<h4 id="降级守卫的不对称而那个不对称就是重点"><a class="header" href="#降级守卫的不对称而那个不对称就是重点">降级守卫的<strong>不对称</strong>，而那个不对称就是重点</a></h4>
+<p><code>engine.rs:745-758</code> 的注释把每一种目标都过了一遍。结论（§8.4.1）：</p>
+<blockquote>
+<p><strong>The asymmetry is the point: the guard blocks what an <em>attacker</em> can cause while leaving what an
+<em>operator</em> can choose.</strong></p>
+</blockquote>
+<p>具体地：</p>
+<div class="table-wrapper"><table><thead><tr><th>目标</th><th>被守卫吗</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>Latest</code></td><td><strong>是</strong></td><td>攻击者能造成的</td></tr>
+<tr><td><code>Exact</code></td><td>否</td><td><strong>运维的显式动作</strong>，镜像诱导不出来</td></tr>
+<tr><td><code>Ref</code></td><td>否</td><td><strong>dev 构建永远是预发布版本，排在它之前的发布下面</strong> —— 守卫它会拒绝每一次分支安装</td></tr>
+<tr><td><code>Staging</code></td><td>是（但由另一个函数）</td><td>见 §5.3</td></tr>
+<tr><td><code>from_dir</code></td><td>否</td><td><strong>&quot;一个由 root 在命令行上点名的目录不是镜像&quot;</strong></td></tr>
+<tr><td><code>rollback</code> / <code>reset-to-golden</code></td><td>不适用</td><td><strong>根本不看清单</strong>，用的是已装的发布</td></tr>
+</tbody></table>
+</div>
+<h4 id="-那条明确接受的风险"><a class="header" href="#-那条明确接受的风险">⭐ 那条<strong>明确接受</strong>的风险</a></h4>
+<p>§8.4.2 的结尾：</p>
+<blockquote>
+<p><strong>Explicitly accepted for v1:</strong> <strong>a robot whose network is hostile can be prevented from
+updating.</strong> It <strong>cannot</strong> be made to <em>downgrade</em>, install an artifact we did not sign, or install
+one that fails its health gate. <strong>Those are the properties we actually rely on.</strong></p>
+</blockquote>
+<p><strong>&quot;一台网络环境恶劣的机器人可以被阻止更新。它不能被弄成降级、装上我们没签名的东西、
+或者装上一个过不了健康门的。&quot;</strong></p>
+<p><strong>这种&quot;说清楚哪条防线不存在&quot;的写法，比多写一条防线更值得学。</strong></p>
+<h3 id="74-从哪拿一个-trait三个后端"><a class="header" href="#74-从哪拿一个-trait三个后端">7.4 从哪拿：一个 trait，三个后端</a></h3>
+<p><code>source/mod.rs:1-6</code>：</p>
+<blockquote>
+<p>One trait, three backends: <strong>GitHub Releases (daemon), HF Hub (models), and a local directory.</strong>
+<strong>The local backend is not a toy</strong> — it is how the engine gets tested against <strong>its real code
+path with no network.</strong></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>后端</th><th>干什么</th><th>一个值得知道的细节</th></tr></thead><tbody>
+<tr><td><strong><code>github_releases</code></strong></td><td>daemon 通道</td><td>见下</td></tr>
+<tr><td><strong><code>hf_hub</code></strong></td><td>模型通道</td><td><strong>&quot;HF signs nothing for us&quot;</strong> —— 所以签名是我们自己发的</td></tr>
+<tr><td><strong><code>local_dir</code></strong></td><td>CI 和旁载</td><td>⭐ <strong>验证一点都不放宽</strong>，见下</td></tr>
+</tbody></table>
+</div>
+<h4 id="-local_dir-的验证不放宽"><a class="header" href="#-local_dir-的验证不放宽">⭐ <code>local_dir</code> 的验证不放宽</a></h4>
+<p><code>source/local.rs:9-11</code>：</p>
+<blockquote>
+<p><strong>Signature verification is <em>not</em> relaxed here.</strong> A local artifact is verified <strong>exactly like a
+downloaded one</strong>; <strong>sideloading works because the dev key is in the trusted set, not because
+checks are skipped.</strong></p>
+</blockquote>
+<p><strong>&quot;旁载能工作，是因为开发密钥在信任集里，而不是因为检查被跳过了。&quot;</strong></p>
+<h4 id="-github-那边两个不要用现成的"><a class="header" href="#-github-那边两个不要用现成的">⭐ GitHub 那边两个&quot;不要用现成的&quot;</a></h4>
+<p><strong>① 不要用 <code>/releases/latest</code></strong>（<code>source/github.rs:3-8</code>）：</p>
+<blockquote>
+<p>&quot;Latest&quot; is resolved **by listing releases and taking the highest <em>semver</em> among tags matching
+<code>tag_prefix</code>, not by using <code>/releases/latest</code>: <strong>that endpoint is repo-wide, so it breaks the
+moment a second channel shares the repo</strong>, and <strong>it answers &quot;most recently published&quot; rather than
+&quot;highest version&quot; — which differ as soon as you publish a patch to an older line.</strong></p>
+</blockquote>
+<p><strong>&quot;它回答的是'最近发布的'，而不是'版本最高的' —— 而你一旦给一条老的线上发一个补丁，这两者就不一样了。&quot;</strong></p>
+<p><strong>② 不要用 <code>browser_download_url</code></strong>（<code>source/github.rs:60-64</code>）：</p>
+<blockquote>
+<p>Used in preference to <code>browser_download_url</code> because <strong>that one 404s on a private repository,
+with or without a token — verified against this repo.</strong> The API endpoint serves the bytes with a
+token and <code>Accept: application/octet-stream</code>, and <strong>works for public repos too, so there is one
+path rather than two.</strong></p>
+</blockquote>
+<h4 id="那两道独立的守卫"><a class="header" href="#那两道独立的守卫">那两道<strong>独立</strong>的守卫</a></h4>
+<p><code>source/github.rs:123-127</code> —— 一个直接针对&quot;信任一个复选框&quot;的写法：</p>
+<blockquote>
+<p><strong>Two independent reasons a build is skipped</strong> — GitHub's <code>prerelease</code> flag <em><strong>and</strong></em> a semver
+prerelease component — because <strong>dev builds (<code>0.2.0-dev.5.abc1234</code>) must never become <code>latest</code> for
+the fleet, and relying on someone remembering a checkbox is not a safeguard.</strong></p>
+</blockquote>
+<h4 id="http-层的三条"><a class="header" href="#http-层的三条">HTTP 层的三条</a></h4>
+<p><code>source/http.rs:3-15</code>：</p>
+<blockquote>
+<ul>
+<li><strong>TLS is rustls via <code>rustls-platform-verifier</code>, so certificate roots come from the <em>OS trust
+store</em> rather than a bundled copy.</strong> That matters for a robot: <strong>roots then follow Debian's
+security updates instead of needing a daemon release</strong>, and <strong>an operator-installed CA works
+without a rebuild.</strong></li>
+<li><strong>Bounded.</strong> Every request has a connect timeout, and every download has a <strong>per-chunk</strong> stall
+timeout. A hung mirror must not hold an update open forever — <strong>but a slow one on a big artifact
+must not be killed by a total deadline either</strong>, which is why the timeout is <strong>per-chunk rather
+than overall.</strong></li>
+<li><strong>Resumable.</strong> A dropped connection on a large artifact retries with a <strong><code>Range</code> header instead
+of starting over. Robots are on domestic wifi.</strong></li>
+</ul>
+</blockquote>
+<p>而重试<strong>只对值得重试的东西重试</strong>（<code>source/http.rs:44-52</code>）：</p>
+<blockquote>
+<p>A wrong repo, tag or asset name (404) <strong>will be just as wrong in half a second</strong>, so retrying only
+<strong>delays a clear error by the whole backoff budget.</strong> Transport errors and server-side faults are
+the opposite: <strong>domestic wifi drops connections and mirrors have bad minutes.</strong></p>
+</blockquote>
+<h4 id="-那个-404-其实是你需要一个-token"><a class="header" href="#-那个-404-其实是你需要一个-token">⭐ 那个 404 其实是&quot;你需要一个 token&quot;</a></h4>
+<p><code>source/http.rs:364-368</code> —— 一段真实事故记录：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// GitHub answers 404 — not 403 — for a private resource the caller cannot see, so
+// as not to disclose that it exists. So the one status that most often means &quot;you
+// need a token&quot; was the one suggesting a typo. That cost a real debugging round
+// trip on the first board: the repo name was right and the message said it was not.
+<span class="boring">}</span></code></pre></pre>
+<p>**&quot;那个最可能意味着'你需要一个 token'的状态码，恰恰是那个在暗示'你打错了'的。&quot;</p>
+<h3 id="75-验证层四个值得学的细节"><a class="header" href="#75-验证层四个值得学的细节">7.5 验证层：四个值得学的细节</a></h3>
+<p><strong>① 只用能验证的那个 crate。</strong> <code>verify.rs:11-13</code>：</p>
+<blockquote>
+<p>We depend on <code>minisign-verify</code> (<strong>zero dependencies, verify-only</strong>) rather than the full <code>minisign</code>
+crate: <strong>this process has no business being able to sign, so it shouldn't link the code that can.</strong></p>
+</blockquote>
+<p>前半句是常识，<strong>后半句是纪律</strong>。（完整的 <code>minisign</code> 只作为 dev-dependency 存在，
+用来在测试里签出<strong>真的</strong>签名而不是手写的 fixture。）</p>
+<p><strong>② 空的信任目录是错误，不是空允许列表。</strong> <code>verify.rs:80-83</code>：</p>
+<blockquote>
+<p>An empty keyring is <strong>an error</strong>, not an empty allow-list: <strong>silently trusting nothing looks
+identical to a misconfigured path</strong>, and <strong>guessing wrong here is catastrophic in either
+direction.</strong></p>
+</blockquote>
+<p><strong>③ 验证会告诉你</strong>哪把<strong>钥匙放它进来的。</strong> <code>verify.rs:175-177</code>：</p>
+<blockquote>
+<p>Returns the key that matched, so <strong>the update log can record which key admitted the artifact</strong> —
+<strong>useful for spotting a robot still relying on a key we meant to retire.</strong></p>
+</blockquote>
+<p><strong>④ 一个被拒绝的条目要大声，不能跳过。</strong> <code>verify.rs:343-346</code>：</p>
+<blockquote>
+<p><code>unpack_in</code> returns <code>Ok(false)</code> when the entry path is unsafe (absolute, or escaping <code>dest</code>).
+<strong>Treat that as tampering, not something to skip</strong>: <strong>we have already verified the signature, so a
+hostile entry means one of our own keys signed it, which we must surface loudly.</strong></p>
+</blockquote>
+<p><strong>&quot;我们已经验过签名了 —— 所以一个恶意的条目意味着是我们自己的某把钥匙签的，那必须被大声说出来。&quot;</strong></p>
+<p>而路径穿越的安全性<strong>是委托出去的</strong>（<code>verify.rs:282-286</code>）：</p>
+<blockquote>
+<p>Path-traversal safety comes from <strong><code>tar</code>'s own <code>unpack_in</code></strong>, which refuses absolute paths and
+entries that would escape the destination, <strong>rather than from a hand-rolled check.</strong> On top of
+that we cap total uncompressed size and entry count, <strong>which the library does not do — a zip bomb
+would otherwise fill the eMMC.</strong></p>
+</blockquote>
+<h3 id="76--schema_version-不是一道门--而-enginers-说它是"><a class="header" href="#76--schema_version-不是一道门--而-enginers-说它是">7.6 ⚠️ <code>schema_version</code> 不是一道门 —— 而 <code>engine.rs</code> 说它是</a></h3>
+<p><code>manifest.rs:37-46</code>：</p>
+<blockquote>
+<p>On-disk/config schema this release expects.</p>
+<p><strong>Not a compatibility gate.</strong> It is <strong>context handed to the post-install hook</strong>, which performs the
+migration (§9). <strong>Gating on it would be self-defeating: the engine evaluating a manifest is always
+the <em>previous</em> release's engine, so refusing <code>schema_version &gt; supported</code> would make every schema
+bump undeliverable — including the release that brings the engine which understands it.</strong></p>
+</blockquote>
+<p><strong>&quot;对 <code>schema_version</code> 设门会自我挫败：评估一份清单的引擎永远是<em>上一个</em>发布的引擎，
+所以拒绝 <code>schema_version &gt; supported</code> 会让每一次 schema 升级都无法投递 ——
+包括那个带来能理解它的引擎的发布。&quot;</strong></p>
+<p><strong>而 <code>engine.rs:155-160</code> 说的是相反的：</strong></p>
+<blockquote>
+<p>Highest on-disk/config schema this build understands.</p>
+<p>A release declaring a higher <code>schema_version</code> expects migrations this engine has never heard of,
+<strong>so it is refused rather than installed and hoped for.</strong> Bump this in the same change that
+teaches the engine the new layout.</p>
+</blockquote>
+<p><strong>代码站在 <code>manifest.rs</code> 这一边。</strong> <code>SUPPORTED_SCHEMA_VERSION</code> 在全 crate 里只出现两次：
+定义处（<code>engine.rs:161</code>），和填进 <code>Capabilities</code> 时（<code>engine.rs:1987</code>）——
+<strong>而 <code>Capabilities.schema_version</code> 的文档（<code>manifest.rs:82-84</code>）自己写着
+&quot;deliberately <em>not</em> compared against the manifest&quot;</strong>，<code>Manifest::compatibility()</code> 也从不读它。</p>
+<p><strong>所以 <code>engine.rs:155-160</code> 描述的是一道被有意地</strong>没有<strong>建出来的门。</strong>
+详见 §14.9。</p>
+<hr />
+<h2 id="8-健康门三态不是二态"><a class="header" href="#8-健康门三态不是二态">8. 健康门：三态，不是二态</a></h2>
+<h3 id="81-三种判决"><a class="header" href="#81-三种判决">8.1 三种判决</a></h3>
+<p><code>robot.rs:52-79</code> 的 <code>Health</code> 有<strong>五个</strong>变体，但对门来说重要的是三个：</p>
+<div class="table-wrapper"><table><thead><tr><th>判决</th><th>门的动作</th><th>为什么</th></tr></thead><tbody>
+<tr><td><strong><code>Healthy</code></strong></td><td><strong>提交</strong></td><td></td></tr>
+<tr><td><strong><code>Degraded(reason)</code></strong></td><td><strong>也提交</strong> ⭐</td><td>见下</td></tr>
+<tr><td><strong><code>Unhealthy</code></strong> / <code>Unreachable</code> / <code>Incompatible</code></td><td><strong>回滚</strong></td><td></td></tr>
+</tbody></table>
+</div>
+<h3 id="82--为什么-degraded-要通过"><a class="header" href="#82--为什么-degraded-要通过">8.2 ⭐ 为什么 <code>Degraded</code> 要通过</a></h3>
+<p><code>deploy/updater.toml:163-166</code>：</p>
+<blockquote>
+<p>The gate rolls back on <em>unhealthy</em>, not on <em>degraded</em>. <strong>A robot that cannot see its servos reports
+degraded, and passes</strong>: <strong>it said the same thing before the swap, so reverting cannot fix it and
+would revert every release ever shipped to a bench board.</strong> A release that broke the control loop
+still reverts.</p>
+</blockquote>
+<p>而引擎那边（<code>engine.rs:2285-2293</code>）<strong>在提交时大声说出来</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>Some(crate::robot::Health::Degraded(reason)) =&gt; {
+    tracing::warn!(
+        reason = %reason,
+        &quot;committing: the robot is degraded for a reason this release \
+         cannot have caused and a rollback cannot fix&quot;
+    );
+    return Ok(GatePassed::Degraded(reason));
+}
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>Passes. <strong>Logged at warn, not swallowed</strong>: committing a release onto a robot that cannot move is
+the right call, but <strong>nobody should have to guess afterwards that that is what happened.</strong></p>
+</blockquote>
+<h3 id="83-incompatible一个花了某人一小时的-bug"><a class="header" href="#83-incompatible一个花了某人一小时的-bug">8.3 <code>Incompatible</code>：一个花了某人一小时的 bug</a></h3>
+<p><code>robot.rs:68-71</code>：</p>
+<blockquote>
+<p>Reusing <code>Unreachable</code> for it <strong>cost an hour</strong>: the gate reported <strong>&quot;not healthy within 30s:
+unreachable&quot;</strong> about a <code>robotd</code> that was <strong>serving its socket and running its loop at 50 Hz</strong>,
+and had merely <strong>omitted one JSON field a newer parser required.</strong></p>
+</blockquote>
+<p>而 <code>engine.rs:2297-2302</code> 的措辞是为此写的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>Some(crate::robot::Health::Incompatible(reason)) =&gt; format!(
+    &quot;answered in a shape this updaterd cannot read ({reason}) — \
+     the robot may be fine and the contract is what disagrees&quot;
+),
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;机器人可能是好的，是契约不一致。&quot;</strong></p>
+<h3 id="84-门是轮询的不是问一次"><a class="header" href="#84-门是轮询的不是问一次">8.4 门是<strong>轮询</strong>的，不是问一次</a></h3>
+<p><code>engine.rs:2230-2237</code>：</p>
+<blockquote>
+<p>Because <code>robotd</code> says so. Between its socket opening and its first tick <strong>it answers &quot;control loop
+has not completed a cycle yet&quot;</strong>, and the comment on that line reads: <strong><code>&quot;Starting&quot; is not &quot;started&quot;. The gate polls, so it will see the transition.</code></strong> <strong>Anything that decides on this answer
+has to be that gate, or a robot that is merely late is a robot that failed.</strong></p>
+</blockquote>
+<p>轮询间隔 <code>HEALTH_POLL_INTERVAL = 500ms</code>（<code>engine.rs:69</code>），总时限来自配置
+（<code>probe = &quot;socket&quot;, timeout = &quot;30s&quot;</code>）。</p>
+<hr />
+<h2 id="9--失败与回滚五条路一个出口"><a class="header" href="#9--失败与回滚五条路一个出口">9. ⭐ 失败与回滚：五条路，一个出口</a></h2>
+<h3 id="91-一切都在-transition_to-里汇合"><a class="header" href="#91-一切都在-transition_to-里汇合">9.1 一切都在 <code>transition_to</code> 里汇合</a></h3>
+<p><code>engine.rs:1505-1509</code>：</p>
+<blockquote>
+<p>Shared tail of <strong>rollback / reset-to-golden / select</strong>: swap, apply, gate, and revert on failure.</p>
+</blockquote>
+<p>而 <code>apply</code> 那条路是 <code>stage_and_swap</code>。<strong>四个入口，一套尾巴。</strong></p>
+<h3 id="92--但是预检钩子不在这里面"><a class="header" href="#92--但是预检钩子不在这里面">9.2 ⚠️ 但是<strong>预检钩子</strong>不在这里面</a></h3>
+<p><strong>这是本导读最想让你记住的一处，因为代码自己的注释在这里是错的。</strong></p>
+<p><code>hooks.rs:11-12</code> 说：</p>
+<blockquote>
+<p>A non-zero exit is <strong>a failed update and triggers rollback</strong>, identically to a failed health probe.
+<strong>Hooks are part of the gate, not fire-and-forget.</strong></p>
+</blockquote>
+<p><strong>这句话对 post-install 钩子是对的，对 pre-install 钩子是错的。</strong>
+证据在钩子模板自己的头部（<code>hooks/preinstall.in:9-13</code>）：</p>
+<blockquote>
+<p>Runs after the artifact is downloaded, verified and extracted, but <strong><em>before</em> the swap</strong>. <strong>That
+placement is the whole value: failing here aborts the update with the old release still live,
+no rollback, and no boot-counter churn.</strong> Compare the alternative, which is what actually happened
+on a board — full download, swap, restart, a 30s health gate, a rollback, and <strong><code>control loop has not completed a cycle yet</code> as the only explanation.</strong></p>
+</blockquote>
+<p>而四步的顺序在代码里是明摆着的（<code>engine.rs:999-1060</code>）：</p>
+<pre><code>:999   rec.phase(Phase::RunningPreHook, None);
+:1013  hooks::run(extract_dir, HookKind::PreInstall, …)
+:1021  hook?;                        ← 在这里返回
+:1034  std::fs::rename(extract_dir, &amp;release_dir)   ← 还没发生
+:1039  self.boot_counter.arm(…)                     ← 还没发生
+:1057  store.swap_to(&amp;manifest.version)             ← 还没发生
+</code></pre>
+<p><strong>所以 <code>hook?</code> 返回的时候，<code>current</code> 还指着老发布，boot counter 还没武装，
+而&quot;回滚&quot;这个概念根本不适用 —— 没有任何东西需要被回滚。</strong></p>
+<p><strong>为什么这件事重要</strong>：一个新手读 <code>hooks.rs</code> 的开头，会得到一个
+<strong>&quot;钩子失败 = 回滚&quot;</strong> 的心智模型，而那个模型在<strong>最安全的那条路径上</strong>是错的。
+正确的模型是：</p>
+<div class="table-wrapper"><table><thead><tr><th>钩子</th><th>在 swap 的</th><th>失败时</th></tr></thead><tbody>
+<tr><td><strong><code>preinstall</code></strong></td><td><strong>之前</strong></td><td><strong>中止更新，老发布继续跑，没有回滚，没有 boot counter 消耗</strong></td></tr>
+<tr><td><strong><code>postinstall</code></strong></td><td><strong>之后</strong></td><td><strong>回滚</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>这正是&quot;在 swap 之前失败&quot;比&quot;在 swap 之后失败&quot;便宜得多的地方</strong> —— 也是为什么
+<code>PRE_INSTALL_HOOK_TIMEOUT</code> 可以有十分钟，而 <code>HOOK_TIMEOUT</code> 只有两分钟（见 §11.2）。</p>
+<h3 id="93-回滚落点两条用血换来的约束"><a class="header" href="#93-回滚落点两条用血换来的约束">9.3 回滚落点：两条&quot;用血换来的&quot;约束</a></h3>
+<p><code>engine.rs:1182-1189</code>：</p>
+<blockquote>
+<p>Highest installed release strictly <em>older</em> than <code>current</code>, skipping any whose most recent recorded
+outcome was a rollback.</p>
+<p><strong>Two constraints, both learned the hard way:</strong></p>
+<ul>
+<li><strong>Strictly older.</strong> A plain &quot;newest that isn't current&quot; <strong>walks <em>forward</em> after an
+auto-rollback</strong>, because the release that just failed is still on disk (the failure path
+deliberately doesn't prune). That would make <strong><code>rollback</code> — the one command a support engineer
+reaches for after a bad update — reinstall the bad update.</strong></li>
+<li><strong>Not known-bad.</strong> A release the journal recorded as rolled back is not a safe landing spot,
+even if it is the newest older one.</li>
+</ul>
+</blockquote>
+<p><strong>&quot;那会让 <code>rollback</code> —— 一个支持工程师在一次坏更新之后唯一会去按的那个命令 —— 重新装上那个坏更新。&quot;</strong></p>
+<h3 id="94-那个什么都没得回滚的结果"><a class="header" href="#94-那个什么都没得回滚的结果">9.4 那个&quot;什么都没得回滚&quot;的结果</a></h3>
+<p><code>engine.rs:1104-1117</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Nothing was reverted, so saying &quot;rolled back&quot; would be a lie.
+None =&gt; Ok(ApplyResult::Stuck {
+    version: manifest.version.clone(),
+    reason: format!(&quot;{reason}; no previous release and no golden configured, so there \
+                     was nothing to revert to&quot;),
+}),
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;没有任何东西被回滚，所以声称'已回滚'会是一句谎话。&quot;</strong></p>
+<h3 id="95-最严重的那个结果"><a class="header" href="#95-最严重的那个结果">9.5 最严重的那个结果</a></h3>
+<p><code>lib.rs:201-205</code>：</p>
+<blockquote>
+<p>The update failed <em>and</em> the rollback failed. <strong>The most serious outcome — surfaced distinctly so
+support sees it immediately rather than reading it as an ordinary failure.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[error(&quot;rollback failed after a failed update: {0}&quot;)]
+RollbackFailed(String),
+<span class="boring">}</span></code></pre></pre>
+<h3 id="96-而回滚本身是可以被测试的"><a class="header" href="#96-而回滚本身是可以被测试的">9.6 而回滚本身<strong>是可以被测试的</strong></a></h3>
+<p><code>faults.rs:1-10</code>：</p>
+<blockquote>
+<p>Deliberate failure injection.</p>
+<p><strong>Rollback is the feature most likely to be quietly broken, because it only runs when something
+else already went wrong.</strong> Making failures injectable turns <strong>&quot;rollback presumably works&quot; into a
+CI assertion.</strong></p>
+</blockquote>
+<p><strong>&quot;回滚是最可能被悄悄弄坏的功能，因为它只在别的东西已经出错的时候才跑。&quot;</strong></p>
+<p>九个故障（<code>faults.rs:13-45</code>），每一个都写了<strong>它必须导致什么结果</strong>。最巧的两个：</p>
+<div class="table-wrapper"><table><thead><tr><th>故障</th><th>必须的结果</th></tr></thead><tbody>
+<tr><td><code>abort_after_swap</code></td><td><em>&quot;Abort the process immediately after the symlink swap, to prove a <code>kill -9</code> mid-swap leaves a consistent state.&quot;</em></td></tr>
+<tr><td><code>fail_rollback_apply</code></td><td><em>&quot;Make the apply action fail <strong>while rolling back</strong> … A different outcome from <code>fail_rollback</code>, and <strong>the distinction is the point: the robot is back on the known-good release and one unit did not restart.</strong>&quot;</em></td></tr>
+</tbody></table>
+</div>
+<p>而那个开关<strong>双重关闭</strong>（<code>faults.rs:56-70</code>）：配置里的 <code>allow_fault_injection</code> 必须为真，
+<strong>而且未知的故障名也是一个错误</strong> ——</p>
+<blockquote>
+<p>Fails closed on an unknown name too: <strong>silently ignoring a typo would make a test look like it
+passed when the fault it meant to inject never fired.</strong></p>
+</blockquote>
+<hr />
+<h2 id="10-启动时四条恢复路径"><a class="header" href="#10-启动时四条恢复路径">10. 启动时：四条恢复路径</a></h2>
+<p><code>updaterd</code> 每次启动，<strong>在服务 socket 之前</strong>，走四条路。顺序是承重的。</p>
+<pre><code>   updaterd 启动
+      │
+      ①  clean_staging()                          清掉上次留下的半成品
+      │
+      ②  record_rescue()                          ⭐ 上一次是被 robot-rescue 救的吗？
+      │
+      ③  refresh_golden_links()                   把 golden 符号链接发布出去
+      │
+      ④  boot_counter.record_boot()               ⭐ 试用中的发布，还撑得住吗？
+      │
+      ⑤  reconcile_running_units()                ⭐ 该重启而没重启的
+      ▼
+   开始服务 socket
+</code></pre>
+<p><code>main.rs:7-9</code> 讲了为什么这一整套必须在监听之前：</p>
+<blockquote>
+<p><strong>Startup order matters.</strong> <code>Engine::recover_on_start</code> runs <em>before</em> the socket is served, so <strong>a
+robot that booted into a bad release has already begun reverting by the time anything can ask it
+to do something else.</strong></p>
+</blockquote>
+<h3 id="101--②-必须在-④-之前"><a class="header" href="#101--②-必须在-④-之前">10.1 ⭐ ② 必须在 ④ 之前</a></h3>
+<p><code>engine.rs:1779-1783</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Before the boot counter, and that ordering is load-bearing: a rescue has already made the
+// decision an armed trial was going to make, and further than the trial would have gone.
+// Left in place, `record_boot` below would advance that trial and eventually revert to
+// `previous` — moving `current` off the golden release the rescue just chose.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一次 rescue 已经做出了那个武装中的试用本来要做的决定，而且做得更远。&quot;</strong></p>
+<h3 id="102--boot-counter预算决定何时问机器人决定是否回滚"><a class="header" href="#102--boot-counter预算决定何时问机器人决定是否回滚">10.2 ⭐ boot counter：预算决定<strong>何时问</strong>，机器人决定<strong>是否回滚</strong></a></h3>
+<p>这是整个恢复网里最精妙的一处。<code>engine.rs:1817-1840</code>：</p>
+<blockquote>
+<p><strong>The budget decides when to ask; the robot decides whether to revert.</strong></p>
+<p>A trial reaching this point means <strong>no apply ever confirmed it</strong> — the usual cause being <strong>an
+apply that was killed before its gate ran</strong>, which is what happens when <strong>the release's own
+<code>hooks/postinstall</code> restarts <code>updaterd</code> mid-apply.</strong> It does <em>not</em> mean the release is bad, and
+<strong>reverting one that is working replaces the code under whoever is looking at the robot, having
+told them nothing.</strong></p>
+<p>So the same three-way question <code>health_gate</code> asks, in the same words, because the reasoning is
+identical:</p>
+<ul>
+<li><strong>healthy</strong>: the release works. <strong>Confirm it.</strong> The budget was spent counting boots on a release
+that was fine all along.</li>
+<li><strong>degraded</strong>: the robot is not working <em>for a reason a rollback cannot fix</em> … <strong>Reverting hides
+a hardware fault behind a software change, and the next release will be reverted too.</strong></li>
+<li><strong>anything else</strong>: revert, as before.</li>
+</ul>
+</blockquote>
+<p>设计文档 §8 里有一个<strong>真实发生的</strong>例子：</p>
+<blockquote>
+<p>a board that had installed a branch build and <strong>paired a gamepad on it</strong> came back two boots later
+<strong>running the stable release</strong>, and <strong>every command afterwards ran against code nobody had
+asked for.</strong></p>
+</blockquote>
+<p>预算本身是 <code>MAX_BOOT_ATTEMPTS = 2</code>（<code>engine.rs:38</code>），<strong>每个组件独立</strong> ——</p>
+<blockquote>
+<p>Every component's trial advances, independently. <strong>A model transition must not consume or clear a
+daemon update's budget.</strong></p>
+</blockquote>
+<h3 id="103--reconcile日程排上了--它发生了"><a class="header" href="#103--reconcile日程排上了--它发生了">10.3 ⭐ reconcile：日程排上了 ≠ 它发生了</a></h3>
+<p><code>reconcile.rs:3-12</code>：</p>
+<blockquote>
+<p>An update restarts the units a release ships, then — five seconds after its reply is on the wire —
+restarts the two it could not touch while running: itself, and <code>btd</code>. Both are scheduled through
+<code>systemd-run</code>, and <strong>scheduling is all that is checked today.</strong> <code>systemd-run</code> succeeding means
+<strong>a transient timer was created, not that the restart ran, and not that the new binary started.</strong>
+Failures are <strong>logged and swallowed on purpose</strong>, because <strong>an update that worked must not report
+failure over a restart it could not arrange.</strong></p>
+<p><strong>That leaves one way for a robot to end up running a release it did not install, and it is
+silent.</strong> This closes it.</p>
+</blockquote>
+<p>它是怎么知道的 —— <strong>每个守护进程自己发布自己的身份</strong>：</p>
+<blockquote>
+<p>Each daemon publishes its own identity at startup — see <code>duck_ipc_proto::Identity</code> — so this
+<strong>reads a file rather than interrogating a process.</strong> A daemon that published nothing is <strong><em>not</em>
+treated as stale</strong>: it is either stopped, or too old to publish, and <strong>restarting a robot's
+daemons because they are old is a decision nobody asked for.</strong></p>
+</blockquote>
+<p>五个判决（<code>restart-order.md</code> §5）：</p>
+<div class="table-wrapper"><table><thead><tr><th>判决</th><th>何时</th><th>动作</th></tr></thead><tbody>
+<tr><td><code>Current</code></td><td>发布版本 == 活跃版本</td><td>什么都不做</td></tr>
+<tr><td><code>Restarted</code></td><td>两者不同</td><td><code>systemctl restart</code>，warn</td></tr>
+<tr><td><strong><code>ReportedOnly</code></strong></td><td>两者不同<strong>且这个单元是 <code>updaterd</code></strong></td><td><strong>只记日志，绝不动手</strong></td></tr>
+<tr><td><code>RestartFailed</code></td><td>试过重启但失败</td><td>error</td></tr>
+<tr><td><code>Unknown</code></td><td>没有身份文件</td><td>什么都不做</td></tr>
+</tbody></table>
+</div>
+<p><strong><code>ReportedOnly</code> 是那个&quot;进程不能从自己的启动路径里重启自己&quot;的直接后果</strong>，
+而它的理由值得整段读（<code>reconcile.rs:37-43</code>）：</p>
+<blockquote>
+<p><strong>Except this one.</strong> <code>updaterd</code> restarting itself here would be <strong>a loop</strong> if the new binary ever
+disagreed about what &quot;current&quot; is, and <strong>a loop in the process that owns recovery is the one
+failure with no way out.</strong> It is <strong>reported and left alone</strong>, which is safe: it has just started,
+so anything stale about it was decided before this code ran.</p>
+<p>That exception used to be the end of the story, <strong>and it left one skew nothing repaired.</strong> It is
+now reached from the other side: <code>stale_units</code> is <strong>the same reading without the acting</strong>, and
+<code>Engine::apply</code> calls it when a release turns out to be already installed …</p>
+</blockquote>
+<p><strong>&quot;一个拥有恢复能力的进程里的死循环，是唯一一种没有出路的失败。&quot;</strong></p>
+<p>而决策函数被单独拆出来，理由和 §5.10 那个 <code>restarts_owed</code> 一模一样（<code>reconcile.rs:78-81</code>）：</p>
+<blockquote>
+<p><strong>Pure, and separated from every syscall in this file for one reason: the decisions are the part
+that can be wrong, and they are impossible to arrange on a real board</strong> — a unit running a release
+that is not the active one is <strong>precisely the state that requires a broken update to produce.</strong></p>
+</blockquote>
+<p><strong>&quot;单元跑着一个不是活跃版本的发布 —— 恰恰是需要一次坏掉的更新才能造出来的状态。&quot;</strong></p>
+<p>而它<strong>读文件就能回答</strong>，不需要 <code>systemctl</code>、不需要 D-Bus、不需要 <code>/proc</code>（<code>reconcile.rs:168-172</code>）：</p>
+<blockquote>
+<p>From the identity the daemon published, so <strong>the answer comes from the process rather than from a
+path someone inferred</strong> — and needs no privilege, no D-Bus and no <code>/proc</code> read.</p>
+</blockquote>
+<p>而它为什么在<strong>启动时</strong>做（<code>reconcile.rs:21-23</code>）：</p>
+<blockquote>
+<p>It is <strong>the first moment the answer can be trusted.</strong> <code>updaterd</code> cannot watch its own restart land.</p>
+</blockquote>
+<hr />
+<h2 id="11-hooks更新时在这块板子上跑的东西"><a class="header" href="#11-hooks更新时在这块板子上跑的东西">11. hooks：更新时在这块板子上跑的东西</a></h2>
+<blockquote>
+<p>完整的机制和那条&quot;凡 <code>install.sh</code> 做的，hook 也要做&quot;的规则，由
+<a href="hooks-primer.html"><code>hooks-primer.md</code></a> 和 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9.1 拥有。
+这里只讲<strong>从更新引擎的角度</strong>看它是什么。</p>
+</blockquote>
+<h3 id="111-契约"><a class="header" href="#111-契约">11.1 契约</a></h3>
+<p><code>hooks.rs:3-9</code>：</p>
+<blockquote>
+<p>Hooks <strong>ship <em>inside</em> the signed artifact, so no unsigned code ever runs.</strong> Same idea as dpkg's
+<code>postinst</code> …</p>
+<pre><code>extract → [pre_install] → symlink swap → [post_install] → apply → health gate
+</code></pre>
+</blockquote>
+<p>四个结果（<code>hooks.rs:108-111</code>）：</p>
+<blockquote>
+<p><strong>A missing hook is success</strong> (<code>ran: false</code>) — most releases won't have one. <strong>A
+present-but-failing hook is an error, and so is a timeout</strong>: a hook that hangs must not wedge the
+updater forever, and <strong>an unfinished migration is not a successful one.</strong></p>
+</blockquote>
+<p>⚠️ <strong>一个不可执行的钩子会被当作&quot;存在&quot;</strong>（<code>hooks.rs:584-585</code> 的测试注释）：</p>
+<blockquote>
+<p>A hook that isn't executable is <strong>a packaging mistake</strong>; it must <strong>fail loudly rather than be
+silently skipped.</strong></p>
+</blockquote>
+<h3 id="112-两个预算差五倍理由在在哪里失败"><a class="header" href="#112-两个预算差五倍理由在在哪里失败">11.2 两个预算，差五倍，理由在&quot;在哪里失败&quot;</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>钩子</th><th>上限</th><th>常量</th></tr></thead><tbody>
+<tr><td><strong>post-install</strong></td><td><strong>120 秒</strong></td><td><code>HOOK_TIMEOUT</code>（<code>engine.rs:48</code>）</td></tr>
+<tr><td><strong>pre-install</strong></td><td><strong>600 秒</strong></td><td><code>PRE_INSTALL_HOOK_TIMEOUT</code>（<code>engine.rs:62-66</code>）</td></tr>
+</tbody></table>
+</div>
+<p><code>engine.rs:50-66</code>：</p>
+<blockquote>
+<p><strong>Affordable precisely because of where it runs.</strong> <strong>Nothing has been swapped yet, the old release
+is still live and serving, and a hook that runs long is a slow update rather than a robot at
+risk</strong> — where <strong>the same minutes spent in the post-install hook would sit between the swap and
+the restart, with the board running neither release properly.</strong></p>
+<p>… <strong>The number lives in <code>duck-ipc-proto</code> because it is a contract with every client, not a private
+budget</strong>: the phase notification arrives before the hook, so <strong>this is the longest an apply can go
+silent, and a client with a shorter idle budget calls a working update a dead robot.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 idle 预算比它短的客户端，会把一次正常工作的更新叫做一台死掉的机器人。&quot;</strong></p>
+<h3 id="113-环境只有-path--上下文"><a class="header" href="#113-环境只有-path--上下文">11.3 环境只有 PATH + 上下文</a></h3>
+<p><code>hooks.rs:132-146</code>：<code>env_clear()</code>，然后一个固定的 PATH ——</p>
+<blockquote>
+<p>A minimal environment: hooks get what we pass plus PATH, so <strong>their behaviour doesn't depend on
+however systemd happened to invoke us.</strong></p>
+</blockquote>
+<p>上下文变量（<code>hooks.rs:59-90</code>），规则是：</p>
+<blockquote>
+<p><strong>Absent values are omitted rather than set empty, so a hook can distinguish &quot;first install&quot; from
+&quot;unknown&quot;.</strong></p>
+</blockquote>
+<h3 id="114--那个-pwd--update_release_dir-的坑"><a class="header" href="#114--那个-pwd--update_release_dir-的坑">11.4 ⚠️ 那个 <code>$PWD</code> / <code>UPDATE_RELEASE_DIR</code> 的坑</a></h3>
+<p><code>hooks.rs:67-69</code> 说：</p>
+<blockquote>
+<p>The component's <em>root</em> (e.g. <code>/opt/robot/daemon</code>), not the release directory.
+<strong>A hook's own location is its cwd, and <code>$PWD</code> is the release being installed.</strong></p>
+</blockquote>
+<p><strong>对 post-install 钩子，这是对的。对 pre-install 钩子，两半都不对：</strong></p>
+<ul>
+<li>引擎调用的是 <code>hooks::run(extract_dir, …)</code>，而 <code>extract_dir = staging.join(&quot;root&quot;)</code>
+（<code>engine.rs:820</code>）—— <strong>所以 pre-install 钩子的 cwd 是一个 staging 路径，不是发布路径</strong>；</li>
+<li><code>UPDATE_RELEASE_DIR</code> 来自 <code>store.release_dir(&amp;manifest.version)</code>（<code>engine.rs:1006</code>），
+<strong>而在 pre-install 钩子跑的时候，那个目录还不存在</strong> —— 它是钩子返回之后
+<code>engine.rs:1034</code> 那个 rename 创建的。</li>
+</ul>
+<p><strong>船载的 <code>preinstall.in</code> 不依赖这两件事</strong>（它用的是相对于 cwd 的 <code>scripts/…</code>），
+所以这是文档漂移而不是线上 bug。但它正好是那个 <code>.in</code> 模板的作者说自己避免了的东西 ——
+<code>hooks/preinstall.in:6-8</code>：<em>&quot;there is no copy of the version to keep in step.&quot;</em></p>
+<hr />
+<h2 id="12-配置示例-vs-出货差异就是重点"><a class="header" href="#12-配置示例-vs-出货差异就是重点">12. 配置：示例 vs 出货，差异就是重点</a></h2>
+<p><code>updater/updater.example.toml</code> 和 <code>deploy/updater.toml</code> <strong>是两个不同的文件，而这件事本身是设计</strong>。</p>
+<p><code>updater.example.toml:7-9</code>：</p>
+<blockquote>
+<p><strong>NOT what ships.</strong> <code>deploy/updater.toml</code> is the file <code>scripts/install.sh</code> installs on a robot;
+this one documents every option, <strong>including several deliberately absent there.</strong>
+<strong>Where the two differ, the difference is the point — read the comments in both.</strong></p>
+</blockquote>
+<p><code>deploy/updater.toml:7-10</code> 从另一头说同一件事：</p>
+<blockquote>
+<p><strong>The difference from the example is the point</strong>: the example shows <strong>what is possible</strong>, this
+shows <strong>what is true of a shipped robot.</strong> Every value below is <strong>either a decision or a fact</strong>,
+and where the two files disagree <strong>the example's comments explain the option while this file's
+comment explains the choice.</strong></p>
+</blockquote>
+<h3 id="121-那些故意不设的"><a class="header" href="#121-那些故意不设的">12.1 那些&quot;故意不设&quot;的</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>键</th><th>示例</th><th>出货</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>golden</code></td><td><code>&quot;1.0.0&quot;</code></td><td><strong>注释掉</strong></td><td>见下</td></tr>
+<tr><td><code>allow_dev_keys</code></td><td><code>false</code></td><td><code>false</code></td><td>出货文件<strong>就是</strong>让它为 false 的那个</td></tr>
+<tr><td><code>allow_fault_injection</code></td><td><code>false</code></td><td><code>false</code></td><td>同上</td></tr>
+<tr><td><strong><code>[component.model-*]</code></strong></td><td>配了两个</td><td><strong>整个不存在</strong></td><td>见下</td></tr>
+<tr><td><code>allow_uids</code> / <code>allow_gids</code></td><td>注释掉</td><td>用<strong>名字</strong></td><td>见下</td></tr>
+</tbody></table>
+</div>
+<p><strong><code>golden</code> 为什么注释掉</strong>（<code>deploy/updater.toml:87-94</code>）：</p>
+<blockquote>
+<p><code>golden</code> is deliberately unset until 1.0.0 exists.</p>
+<p>It names a never-pruned known-good release, and <code>robotctl update reset-to-golden</code> is the last link
+in the never-brick chain (§8.2). <strong>Naming a version the robot has never installed would make that
+command fail at exactly the moment it is needed</strong>, which is <strong>worse than it reporting honestly
+that no golden is configured.</strong></p>
+</blockquote>
+<p><strong>&quot;点名一个机器人从没装过的版本，会让那个命令恰好在最需要它的时候失败。&quot;</strong></p>
+<p><strong>模型组件为什么整个不存在</strong>（<code>deploy/updater.toml:172-179</code>）：</p>
+<blockquote>
+<p>Absent on purpose, and <strong>this is not an oversight to be fixed by copying the example.</strong></p>
+<p><code>updater.example.toml</code> configures <code>model-walk</code> and <code>model-jump</code> against <strong>HF repos that do not
+exist yet.</strong> <strong>A component whose source 404s makes every <code>check</code> — including the periodic one
+above — report a failure for a component nobody has shipped, which trains whoever reads robot
+status to ignore failures.</strong></p>
+</blockquote>
+<p><strong>&quot;这会让每一个 <code>check</code> 都为一个人人都没发布过的组件报错，
+从而训练读机器人状态的人去忽略错误。&quot;</strong></p>
+<p><strong>为什么用名字不用 uid</strong>（<code>deploy/updater.toml:71-78</code>）：</p>
+<blockquote>
+<p>By NAME, not by uid: <strong><code>systemd-sysusers</code> allocates dynamically, so a number written here would be
+right on one board and wrong on the next.</strong></p>
+<p><strong>What must never appear here is <code>allow_groups = [&quot;robot&quot;]</code>.</strong> Membership of <code>robot</code> is what gets a
+process as far as <em>talking</em> to updaterd; <strong>granting it change authority too would collapse the two
+layers into one, and anything that could read status could replace the firmware.</strong>
+<strong>There is a test for that as well.</strong></p>
+</blockquote>
+<h3 id="122-units-是追加的不是权威的--而那曾经是一个-bug"><a class="header" href="#122-units-是追加的不是权威的--而那曾经是一个-bug">12.2 <code>units</code> 是<strong>追加的</strong>，不是权威的 —— 而那曾经是一个 bug</a></h3>
+<p><code>deploy/updater.toml:148-156</code>：</p>
+<blockquote>
+<p><strong>The list is additive, not authoritative.</strong> Since the restart set is derived from the units a
+release actually ships, <strong>this only needs to name units the release does <em>not</em> ship.</strong> Both entries
+below are therefore <strong>redundant</strong>, and kept because <strong>a config that names what it expects is easier
+to read than an empty list that quietly means &quot;work it out&quot;.</strong></p>
+<p><strong>It used to be authoritative, and that is the bug this replaced</strong>: the file belongs to the
+operator and <code>install.sh</code> preserves it, so <strong>a board provisioned before <code>configd</code> existed kept
+<code>units = [&quot;robotd&quot;]</code> forever and every release swapped configd's binary while leaving the old
+process running.</strong> See <code>docs/project/install-path-gap.md</code> §4.</p>
+</blockquote>
+<p><strong>&quot;那个文件属于运维，而 <code>install.sh</code> 会保留它。&quot;</strong> —— 一条&quot;用户拥有的配置文件&quot;和
+&quot;发布需要改变的行为&quot;之间的经典冲突，而这里的解法是<strong>把权威性从配置里挪进代码</strong>。</p>
+<h3 id="123-auto_apply一个有序的设置而不是三个开关"><a class="header" href="#123-auto_apply一个有序的设置而不是三个开关">12.3 <code>auto_apply</code>：一个有序的设置，而不是三个开关</a></h3>
+<p><code>config.rs</code> 的 <code>AutoApply</code>：</p>
+<div class="table-wrapper"><table><thead><tr><th>值</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>off</code></td><td>永不自动；可用性照常记日志，<strong>强制发布大声记</strong></td></tr>
+<tr><td><strong><code>mandatory</code>（默认）</strong></td><td><strong>只有清单里的 <code>min_supported</code> 说当前版本不该再用时</strong></td></tr>
+<tr><td><code>all</code></td><td>每一个可用的发布（canary / 实验板）</td></tr>
+</tbody></table>
+</div>
+<p><code>updater.example.toml:78-80</code> 讲了为什么是一个有序的值：</p>
+<blockquote>
+<p><strong>One ordered setting rather than a flag per urgency</strong>, so <strong>a config cannot say &quot;apply ordinary
+updates automatically but not mandatory ones&quot;</strong> — auto-updating everything except the releases
+published to rescue a broken fleet.</p>
+</blockquote>
+<p>而那个&quot;永不重复&quot;的规则（<code>updater.example.toml:85-87</code>）：</p>
+<blockquote>
+<p><strong>a release that already failed its gate on this robot is never retried unattended, whatever the
+policy</strong> — that is what stops <strong>a bad release from becoming an endless apply/rollback loop that
+re-downloads and rewrites the eMMC every interval.</strong></p>
+</blockquote>
+<p><strong>&quot;一个坏发布变成一次无休止的 应用/回滚 循环，每隔一个周期就重新下载并重写 eMMC。&quot;</strong></p>
+<hr />
+<h2 id="13-谁在跟它说话"><a class="header" href="#13-谁在跟它说话">13. 谁在跟它说话</a></h2>
+<h3 id="131-四个方法组"><a class="header" href="#131-四个方法组">13.1 四个方法组</a></h3>
+<p><code>duck-ipc-proto/src/lib.rs:521-534</code>：</p>
+<pre><code>update.check  · apply · rollback · resetToGolden · select · pin
+update.status · listInstalled · log · show · subscribe
+update.progress          ← 通知
+policy.check · install · fetch · search
+account.login · status · logout
+</code></pre>
+<h3 id="132--两层访问控制"><a class="header" href="#132--两层访问控制">13.2 ⭐ 两层访问控制</a></h3>
+<p><code>updaterd.service:48-52</code>：</p>
+<blockquote>
+<p>Client access is then <strong>two layers</strong>:</p>
+<ol>
+<li><strong>socket group (0660)</strong> — who may <em>talk</em> to updaterd at all;</li>
+<li><strong>allow_uids/allow_gids</strong> — who may <em>change</em> the robot, enforced from <code>SO_PEERCRED</code>.
+<strong>Root always may; anyone else needs listing. Read-only calls need only layer 1.</strong></li>
+</ol>
+</blockquote>
+<p>而&quot;只读不设卡&quot;的理由（<code>updater.example.toml:50-52</code>）：</p>
+<blockquote>
+<p>Read-only requests (status, log, listInstalled, check, subscribe) are <strong>NOT</strong> gated: <strong>reaching the
+socket already requires its group (mode 0660), and support must be able to inspect a robot without
+being authorised to change it.</strong></p>
+</blockquote>
+<p><strong>&quot;支持人员必须能检查一台机器人，而无需被授权改变它。&quot;</strong></p>
+<h3 id="133-那个让-socket-长出正确-group-的细节"><a class="header" href="#133-那个让-socket-长出正确-group-的细节">13.3 那个让 socket 长出正确 group 的细节</a></h3>
+<p><code>updaterd.service:41-43</code>：</p>
+<blockquote>
+<p><strong><code>Group=robot</code> is load-bearing, not cosmetic</strong>: <strong>the socket inherits the process's primary
+group</strong>, so this is what makes the 0660 mode mean &quot;the robot group&quot; rather than &quot;root only&quot;.
+<strong>Verified: the socket comes up <code>srw-rw---- root:robot</code>.</strong></p>
+</blockquote>
+<h3 id="134-慢客户端不会拖慢更新"><a class="header" href="#134-慢客户端不会拖慢更新">13.4 慢客户端不会拖慢更新</a></h3>
+<p><code>ipc.rs:6-15</code>：</p>
+<blockquote>
+<p>Requirements that follow from <code>docs/design/architecture.md</code> §1.1:</p>
+<ul>
+<li><strong>Serving never depends on <code>robotd</code> being alive.</strong></li>
+<li><strong>A slow or vanished client must not delay an in-flight update.</strong></li>
+<li><strong>An update runs to completion even if every client disconnects</strong> — the robot pulls, so <strong>BLE
+dropping mid-update is normal, not an abort.</strong></li>
+</ul>
+<p>Structure: one task per connection, and the <code>Engine</code> behind a mutex. <strong>A long operation holds that
+mutex, so read-only requests use <code>try_lock</code> and fall back to a cached snapshot rather than
+blocking</strong> — that is what keeps <code>status</code>/<code>subscribe</code> answerable <em>during</em> an update.</p>
+</blockquote>
+<hr />
+<h2 id="14-几处读者会绊到的地方"><a class="header" href="#14-几处读者会绊到的地方">14. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="141--hooksrs-的模块文档把-pre-install-钩子的行为说反了"><a class="header" href="#141--hooksrs-的模块文档把-pre-install-钩子的行为说反了">14.1 ⚠️ <code>hooks.rs</code> 的模块文档把 pre-install 钩子的行为说反了</a></h3>
+<p>见 §9.2。<code>hooks.rs:11-12</code>：</p>
+<blockquote>
+<p>A non-zero exit is a failed update and <strong>triggers rollback</strong>, identically to a failed health probe.</p>
+</blockquote>
+<p><strong>对 pre-install 钩子，没有回滚</strong> —— 它在 swap 之前跑，<code>hook?</code>（<code>engine.rs:1021</code>）在
+<code>rename</code>（<code>:1034</code>）、<code>arm</code>（<code>:1039</code>）、<code>swap_to</code>（<code>:1057</code>）<strong>之前</strong>返回。</p>
+<p>而<strong>钩子模板自己说的正好相反</strong>（<code>hooks/preinstall.in:9-13</code>）：</p>
+<blockquote>
+<p>failing here aborts the update with <strong>the old release still live, no rollback, and no
+boot-counter churn.</strong></p>
+</blockquote>
+<p>设计文档 §9 也只说了 <em>&quot;Non-zero exit ⇒ failed update ⇒ rollback&quot;</em>，
+<strong>没有区分两个钩子</strong>。</p>
+<p><strong>这是这份文档里最可能误导新手的一处</strong>：一个读 <code>hooks.rs</code> 开头的人会得到
+&quot;钩子失败 = 回滚&quot;的模型，而在<strong>代价最低、最常发生</strong>的那条路径上，这个模型是错的。</p>
+<h3 id="142-hooksrs67-69-的-pwd-和-update_release_dir-只对-post-install-成立"><a class="header" href="#142-hooksrs67-69-的-pwd-和-update_release_dir-只对-post-install-成立">14.2 <code>hooks.rs:67-69</code> 的 <code>$PWD</code> 和 <code>UPDATE_RELEASE_DIR</code> 只对 post-install 成立</a></h3>
+<p>见 §11.4。对 pre-install 钩子：cwd 是 <strong>staging 目录</strong>，
+而 <code>UPDATE_RELEASE_DIR</code> 指向一个<strong>还不存在</strong>的路径。</p>
+<h3 id="143--hookspreinstallin34-35-点名的上限是错的"><a class="header" href="#143--hookspreinstallin34-35-点名的上限是错的">14.3 ⚠️ <code>hooks/preinstall.in:34-35</code> 点名的上限是错的</a></h3>
+<p>那条注释说：</p>
+<blockquote>
+<p>Below the updater's <strong>120s</strong> ceiling on a hook, so a slow network produces our message naming the
+fix rather than a bare &quot;timed out after 120s&quot;.</p>
+</blockquote>
+<p>而 <strong>pre-install 钩子的上限是 600 秒</strong>（<code>engine.rs:65-66</code> → <code>UPDATE_MAX_SILENCE_SECONDS</code>，<code>duck-ipc-proto/src/lib.rs:427</code>）。
+120 秒是 <strong>post</strong>-install 的预算（<code>engine.rs:48</code>）。</p>
+<p><code>CURL_MAX_TIME=90</code> 仍然低于 600，<strong>所以行为是对的</strong> ——
+但那条注释承诺了一个&quot;点名 120s&quot;的消息，而它已经不可能出现了。
+而这是一个<strong>模板文件</strong>，也就是文档告诉你&quot;改这里&quot;的那个文件。</p>
+<h3 id="144-hooksrs97-98-的whatever-the-outcome和代码不符"><a class="header" href="#144-hooksrs97-98-的whatever-the-outcome和代码不符">14.4 <code>hooks.rs:97-98</code> 的&quot;whatever the outcome&quot;和代码不符</a></h3>
+<p><code>HookOutcome.output</code> 的文档说它 <em>&quot;Logged by <code>run</code> whatever the outcome&quot;</em>。
+但非零退出在 <code>hooks.rs:188-201</code> <strong>提前返回 <code>Err</code></strong>，在成功才走的日志循环（<code>:211-215</code>）<strong>之前</strong>。
+<code>engine.rs:2819-2821</code> 说的是实际行为：</p>
+<blockquote>
+<p><code>hooks::run</code> logs its output to the journal <strong>either way</strong>, but a caller takes the outcome with <code>?</code>
+and drops it — <strong>so on the failure path the output survives only inside the error message.</strong></p>
+</blockquote>
+<p><strong>两句话不可能同时为真，而引擎那句是对的。</strong></p>
+<h3 id="145-robotrs3-5-引用了一节不存在的内容"><a class="header" href="#145-robotrs3-5-引用了一节不存在的内容">14.5 <code>robot.rs:3-5</code> 引用了一节不存在的内容</a></h3>
+<blockquote>
+<p>the engine is built before <code>robotd</code> exists (<code>docs/design/architecture.md</code> §9).</p>
+</blockquote>
+<p><code>architecture.md</code> §9 是 <strong>&quot;## 9. Open questions&quot;</strong>（<code>:580</code>）。
+构建顺序在 <strong>§10 Build order</strong>（<code>:604-612</code>），那里写着
+<em>&quot;<code>updaterd</code> is built against an <strong>interface</strong> to <code>robotd</code> … not an implementation&quot;</em>。</p>
+<h3 id="146-preflightrs57-说-detail-只在失败时有但有一个通过的检查会设它"><a class="header" href="#146-preflightrs57-说-detail-只在失败时有但有一个通过的检查会设它">14.6 <code>preflight.rs:57</code> 说 <code>detail</code> 只在失败时有，但有一个通过的检查会设它</a></h3>
+<p>字段的文档是 <em>&quot;Why it failed, safe to display.&quot;</em>，
+而 <code>check_no_remote_session</code> 返回 <code>passed: true, detail: Some(&quot;session check bypassed by request&quot;)</code>。
+引擎只读 <code>report.first_failure()</code>，<strong>所以那句旁路说明被构造出来然后掉在地上</strong>。</p>
+<h3 id="147-hooksrs121-124-给一个没跑过的钩子报-exit_code-some0"><a class="header" href="#147-hooksrs121-124-给一个没跑过的钩子报-exit_code-some0">14.7 <code>hooks.rs:121-124</code> 给一个没跑过的钩子报 <code>exit_code: Some(0)</code></a></h3>
+<p>缺失钩子的结果是 <code>ran: false</code> 配一个 <code>Some(0)</code>。
+<code>record_hook</code> 会正确地分支（<code>engine.rs:2823-2824</code>：<em>&quot;this release ships no {hook}&quot;</em>），
+<strong>所以今天没有任何东西读错</strong>；但 <code>exit_code</code> 是 <code>Option&lt;i32&gt;</code> 正是为了能表达&quot;没有退出码&quot;，
+而这里的 <code>Some(0)</code> 意思是&quot;那个缺席的钩子成功了&quot;。</p>
+<h3 id="148-cargotoml7-13-那段关于拆-crate-的注释两个条件都还没到"><a class="header" href="#148-cargotoml7-13-那段关于拆-crate-的注释两个条件都还没到">14.8 <code>Cargo.toml:7-13</code> 那段关于拆 crate 的注释，两个条件都还没到</a></h3>
+<blockquote>
+<p>The <code>proto</code> module (the IPC contract) is deliberately self-contained … <strong>Extract it into its own
+crate when either happens:</strong> <code>btd</code> needs to speak the protocol, <strong>or</strong> this crate gains heavy
+dependencies (http, tar, zstd, crypto).</p>
+<p><strong>Both are event-triggered, not guesses.</strong></p>
+</blockquote>
+<p>而 <code>proto</code> <strong>已经</strong>被拆出去了（<code>lib.rs:47-49</code> 是 <code>pub use duck_ipc_proto as proto;</code>），
+<code>duck-ipc-proto</code> 也已经存在。<strong>所以这段注释描述的是一个已经发生的事件，写在了现在时里。</strong></p>
+<p>（它记的<strong>理由</strong>仍然有效，而且比结论更值得读。）
+另外 <code>Cargo.toml:1-4</code> 还写着 <em>&quot;Library + the <code>updaterd</code> daemon binary&quot;</em>，
+而 <code>src/proto</code> 这个目录已经不存在了。</p>
+<h3 id="149--enginers155-160-描述的是一道没有被建出来的门"><a class="header" href="#149--enginers155-160-描述的是一道没有被建出来的门">14.9 ⚠️ <code>engine.rs:155-160</code> 描述的是一道<strong>没有被建出来</strong>的门</a></h3>
+<p>见 §7.6。三处互相矛盾：</p>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>说的是</th></tr></thead><tbody>
+<tr><td><code>engine.rs:157-159</code></td><td><em>&quot;A release declaring a higher <code>schema_version</code> … <strong>is refused</strong> rather than installed and hoped for.&quot;</em></td></tr>
+<tr><td><code>manifest.rs:39</code></td><td><em>&quot;<strong>Not a compatibility gate.</strong>&quot;</em></td></tr>
+<tr><td><code>manifest.rs:82-84</code></td><td><em>&quot;deliberately <strong>not</strong> compared against the manifest&quot;</em></td></tr>
+</tbody></table>
+</div>
+<p><strong>而代码站在 <code>manifest.rs</code> 一边</strong>：<code>SUPPORTED_SCHEMA_VERSION</code> 只出现在
+定义处（<code>engine.rs:161</code>）和填进 <code>Capabilities</code> 时（<code>engine.rs:1987</code>），
+<code>Manifest::compatibility()</code> 从不读 <code>schema_version</code>。</p>
+<p><strong>&quot;被拒绝&quot;这件事从来没有发生过。</strong> 而 <code>manifest.rs</code> 给出的理由
+（<em>&quot;评估一份清单的引擎永远是上一个发布的引擎&quot;</em>）<strong>正是不能建这道门的原因</strong> ——
+所以这是一处<strong>过期注释在描述一个被有意否决的设计</strong>，而不是一个未实现的计划。</p>
+<p>值得留意：一个新手如果先读 <code>engine.rs</code>（那是最该先读的文件），
+会得到一个和 <code>manifest.rs</code> 完全相反的模型。</p>
+<h3 id="1410-testsapplyrs-的回归编号有洞而且不是文件顺序"><a class="header" href="#1410-testsapplyrs-的回归编号有洞而且不是文件顺序">14.10 <code>tests/apply.rs</code> 的回归编号有洞，而且不是文件顺序</a></h3>
+<p><code>tests/apply.rs:1459</code> 承诺：</p>
+<blockquote>
+<p>One test per bug found in review. <strong>Each reproduces the original failure, so a regression shows up
+as a specific named failure rather than a vague one.</strong></p>
+</blockquote>
+<p>而编号是：<code>#1</code>（<code>:1462</code>）、<code>#1b</code>（<code>:1498</code>）、<code>#3</code>（<code>:1530</code>）、<code>#4</code>（<code>:1580</code>）、
+<code>#5</code>（<code>:1641</code>）、<strong><code>#9</code>（<code>:1674</code>）</strong>、<code>#7</code>（<code>:1916</code>）、<code>#8</code>（<code>:1940</code>）、<code>#8b</code>（<code>:1971</code>）。</p>
+<p><strong><code>#2</code> 和 <code>#6</code> 在整个仓库里都不存在</strong>，而且 <strong><code>#9</code> 排在 <code>#7</code> 和 <code>#8</code> 之前</strong> ——
+所以编号也不代表文件顺序。要么那份 review 清单住在这个仓库外面，
+要么有两个 bug 修了但没有对应的具名回归测试。</p>
+<p>（<strong>这不算错误</strong> —— 126 个测试没有一个被 <code>#[ignore]</code>，也没有一个失败。
+只是读到这里的人会去找 <code>#6</code>。）</p>
+<h3 id="1411-testsapplyrs9-10-的头一句话夸大了"><a class="header" href="#1411-testsapplyrs9-10-的头一句话夸大了">14.11 <code>tests/apply.rs:9-10</code> 的头一句话夸大了</a></h3>
+<p>文件头说：</p>
+<blockquote>
+<p>Rollback is the thing most likely to be quietly broken, because it only runs when something else
+already went wrong — <strong>so most of these tests deliberately break something.</strong></p>
+</blockquote>
+<p><strong>实际是 81 个测试里的 27 个</strong>（用了故障注入、<code>unhealthy()</code>、<code>DegradedRobot</code> 或 <code>AbsentRobot</code>），
+大约三分之一，不是&quot;大多数&quot;。而它在<strong>文件头</strong>，是读者看到的第一句话。</p>
+<h3 id="1412-一处小的testsapplyrs1455-的-fn-_unused_-path-"><a class="header" href="#1412-一处小的testsapplyrs1455-的-fn-_unused_-path-">14.12 一处小的：<code>tests/apply.rs:1455</code> 的 <code>fn _unused(_: &amp;Path) {}</code></a></h3>
+<p>这是个空函数，位置在最后一个 bookkeeping 测试和 &quot;regressions&quot; 横幅之间，
+<strong>唯一的用途是让 <code>apply.rs:12</code> 那个 <code>Path</code> 导入不产生警告</strong>
+（其它地方用的都是全限定写法）。它读起来像一次意外。</p>
+<h3 id="1413--storers85-说悬空的链接读作-none而代码返回-some"><a class="header" href="#1413--storers85-说悬空的链接读作-none而代码返回-some">14.13 ⚠️ <code>store.rs:85</code> 说&quot;悬空的链接读作 <code>None</code>&quot;，而代码返回 <code>Some</code></a></h3>
+<p><code>store.rs:85-86</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// `Ok(None)` when the link is absent (a fresh robot) or dangling — both are
+/// recoverable states, not errors.
+<span class="boring">}</span></code></pre></pre>
+<p>而 <code>link_version</code>（<code>store.rs:100</code>）用的是 <code>fs::read_link</code>，<strong><code>readlink(2)</code> 在一个悬空的符号链接上
+是成功的</strong> —— 它返回目标字符串，不管那个目标存不存在。所以：</p>
+<pre><code>current → releases/1.4.2      而 releases/1.4.2/ 不存在
+      → Ok(Some(1.4.2))       不是 Ok(None)
+</code></pre>
+<p><strong>只有链接的<em>名字</em>解析不出 semver 时才会返回 <code>None</code>。</strong>
+唯一的测试（<code>store.rs:314-318</code>）只覆盖了&quot;链接不存在&quot;那一种。</p>
+<p><code>golden()</code> 的文档（<code>store.rs:93-95</code>）做了同一个断言，而且把两者的等价说得很明确：</p>
+<blockquote>
+<p>the same answer as for a link that is absent, <strong>because the two are the same situation to anything
+that has to decide whether a rollback target exists.</strong></p>
+</blockquote>
+<p><strong>&quot;对任何必须判断'有没有回滚目标'的东西来说，这两种是同一个情况&quot;</strong> ——
+而代码里它们不是。</p>
+<h3 id="1414--fsutilrs-立的那条规则在最重要的一处-rename-上没有执行"><a class="header" href="#1414--fsutilrs-立的那条规则在最重要的一处-rename-上没有执行">14.14 ⚠️ <code>fsutil.rs</code> 立的那条规则，在最重要的一处 <code>rename</code> 上没有执行</a></h3>
+<p><code>fsutil.rs:5-7</code> 立了规则：</p>
+<blockquote>
+<p><strong>every rename we depend on is followed by an fsync of the containing directory.</strong></p>
+</blockquote>
+<p>而 <code>engine.rs:1034</code> 那个把解压树变成发布的 <code>rename</code> <strong>后面没有跟任何 fsync</strong>
+（<code>fsync_parent</code> 在整个 crate 里只出现在 <code>store.rs:202</code> 和 <code>engine.rs:2112</code>）。
+<code>store.rs:202</code> 那次 fsync 刷的是 <code>install_dir</code>（也就是 <code>current</code> 那个目录项），
+<strong>不是上一步创建的 <code>releases/</code> 那个目录项</strong>。</p>
+<p>所以代码里<strong>没有表达</strong>&quot;发布目录已经持久了&quot;和&quot;<code>current</code> 已经指向它&quot;之间的顺序。
+在那个窗口里断电：<code>current → releases/V</code> 可以是持久的，而 <code>releases/V</code> 不是 ——
+<strong>而按 §14.13，读回来的还是 <code>Some(V)</code> 而不是 <code>None</code>。</strong></p>
+<p>两条诚实的限定：（a）在 ext4 上，文件系统里任何一次 <code>fsync</code> 都会强制一次 journal commit，
+<strong>所以实践中这大概率被文件系统救了，而不是被代码救了</strong>；
+（b）解压出来的文件<strong>内容</strong>从来没有被 fsync 过 ——
+所以 <code>store.rs:11-12</code> 那句 <em>&quot;no partially written release is ever live&quot;</em>
+说的是<strong>目录项没有撕裂</strong>，不是<strong>内容扛得住断电</strong>。</p>
+<h3 id="1415--reconcilers114-的-reportedonly-分支是死的"><a class="header" href="#1415--reconcilers114-的-reportedonly-分支是死的">14.15 ⚠️ <code>reconcile.rs:114</code> 的 <code>ReportedOnly</code> 分支是死的</a></h3>
+<p><code>reconcile.rs:109-118</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn stale_units(expected: &amp;semver::Version, units: &amp;[String]) -&gt; Vec&lt;String&gt; {
+    units.iter().filter(|unit| {
+        let verdict = verdict_for(running_release(unit).as_ref(), expected, false);
+        matches!(verdict, Verdict::Restarted | Verdict::ReportedOnly)
+    })
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>is_self</code> 被写死成 <code>false</code></strong>，而 <code>verdict_for</code> 只在 <code>Some(_) if is_self</code> 那个分支里
+返回 <code>ReportedOnly</code>（<code>reconcile.rs:91</code>）。<strong>所以 <code>Verdict::ReportedOnly</code> 在这里永远不可能匹配。</strong></p>
+<p>而它上面两行的文档说：</p>
+<blockquote>
+<p><code>is_self</code> is false and both stale verdicts are accepted, <strong>because whether a unit may be restarted
+is the caller's question and not this one's.</strong></p>
+</blockquote>
+<p><strong>调用者做不了这个选择</strong> —— 参数是写死的。</p>
+<p><strong>行为仍然是对的</strong>（<code>updaterd</code> 确实在名单里，只是被判成 <code>Restarted</code> 而不是 <code>ReportedOnly</code>），
+而且这一条和 §10.3 那个&quot;启动路径上 <code>updaterd</code> 从不重启自己&quot;<strong>不冲突</strong>：
+<code>stale_units</code> 服务的是 <code>apply</code>/<code>select</code> 那条路，那里<strong>安排</strong>一次延后重启是允许的。
+<strong>错的只是那句注释给出的理由，和一个到不了的分支。</strong></p>
+<h3 id="1416-journalrs-里的-journal-和-reconcilers-里的-journal-不是同一个东西"><a class="header" href="#1416-journalrs-里的-journal-和-reconcilers-里的-journal-不是同一个东西">14.16 <code>journal.rs</code> 里的 &quot;journal&quot; 和 <code>reconcile.rs</code> 里的 &quot;journal&quot; 不是同一个东西</a></h3>
+<p><strong>这一条对中文读者尤其重要，因为中文里很容易都译成&quot;日志&quot;。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>在哪</th><th>指的是</th><th>建议的译法</th></tr></thead><tbody>
+<tr><td><code>journal.rs</code>、<code>update-log.jsonl</code></td><td><strong>更新日志</strong>：引擎自己写的那份</td><td><strong>更新日志</strong></td></tr>
+<tr><td><code>reconcile.rs:70</code></td><td><em>&quot;The <strong>journal</strong> has systemd's reason.&quot;</em> —— 实际是 <strong>systemd 的 journal</strong>（<code>journalctl</code>）</td><td><strong>系统日志 / <code>journalctl</code></strong></td></tr>
+</tbody></table>
+</div>
+<p><code>reconcile.rs</code> 什么都<strong>不写</strong> <code>update-log.jsonl</code> —— 它 <code>tracing::error!</code> 一条
+（<code>reconcile.rs:145</code>），而发现只被记进系统日志（<code>main.rs:598-608</code>）。</p>
+<p>设计文档是<strong>有意</strong>把两者分开的（<code>updater-design.md</code> §8.3 有一节就叫 <strong>&quot;Why not the journal.&quot;</strong>），
+<strong>但源码里的用词没有分开。</strong> 本导读里，前者一律写&quot;更新日志&quot;，后者写&quot;系统日志&quot;。</p>
+<h3 id="1417-一处小的更新日志叫-append-only但它会被重写"><a class="header" href="#1417-一处小的更新日志叫-append-only但它会被重写">14.17 一处小的：更新日志叫 &quot;append-only&quot;，但它会被重写</a></h3>
+<p><code>journal.rs:26</code> 说 <em>&quot;Append-only record of update attempts.&quot;</em>，
+而 <code>trim</code>（<code>journal.rs:82-96</code>）在超过上限时<strong>读出全部再重写整个文件</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Write-and-rename so a crash mid-trim can't leave a truncated log.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>记录本身从不被修改，但文件在超过 200 条时会被重写。</strong>
+一个画&quot;它只增不减&quot;箭头的读者会画错。</p>
+<hr />
+<h2 id="15-阅读路线"><a class="header" href="#15-阅读路线">15. 阅读路线</a></h2>
+<p><strong>约 15,000 行，但它是一条线，不是一个网。</strong> 按顺序读一遍是可行的。</p>
+<h3 id="如果只有十分钟"><a class="header" href="#如果只有十分钟">如果只有十分钟</a></h3>
+<p>读 §3 那两张图，然后读 <code>updater/src/engine.rs:2-18</code>（那三行规则）。
+<strong>这个 crate 的一切都是那三行的推论。</strong></p>
+<h3 id="路径-a我想理解一次更新会发生什么约-15-小时"><a class="header" href="#路径-a我想理解一次更新会发生什么约-15-小时">路径 A：我想理解&quot;一次更新会发生什么&quot;（约 1.5 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>docs/design/updater-design.md</code> §7（那张状态机图 + §7.1 §7.2 §7.3）</td></tr>
+<tr><td>2</td><td><code>updater/src/engine.rs:1-190</code>（模块文档 + 所有常量，每个都有理由）</td></tr>
+<tr><td>3</td><td><code>updater/src/engine.rs:666-845</code>（<code>apply_inner</code>：整条流水线）</td></tr>
+<tr><td>4</td><td><code>updater/src/engine.rs:846-1122</code>（<code>stage_and_swap</code>：危险的那一半）</td></tr>
+<tr><td>5</td><td><code>updater/src/engine.rs:1124-1180</code>（<code>post_swap</code>：换之后的三件事）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-b我想理解回滚约-1-小时"><a class="header" href="#路径-b我想理解回滚约-1-小时">路径 B：我想理解回滚（约 1 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td>§9 全文</td></tr>
+<tr><td>2</td><td><code>updater/src/engine.rs:1182-1310</code>（<code>rollback_target</code> + <code>rollback_to</code>）</td></tr>
+<tr><td>3</td><td><code>updater/src/engine.rs:1510-1632</code>（<code>transition_to</code>：三个入口共用的尾巴）</td></tr>
+<tr><td>4</td><td><code>updater/src/faults.rs</code> 全文（126 行，九个故障各有一句&quot;必须导致什么&quot;）</td></tr>
+<tr><td>5</td><td><code>updater/tests/apply.rs</code> 里带 <code>rollback</code> 的测试</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-c我在乎机器人起不来了约-1-小时"><a class="header" href="#路径-c我在乎机器人起不来了约-1-小时">路径 C：我在乎&quot;机器人起不来了&quot;（约 1 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>updater/src/main.rs:7-20</code> + <code>:575-600</code>（启动顺序）</td></tr>
+<tr><td>2</td><td><code>updater/src/engine.rs:1773-1985</code>（<code>recover_on_start</code>）</td></tr>
+<tr><td>3</td><td><code>docs/design/updater-design.md</code> §8.2（golden）</td></tr>
+<tr><td>4</td><td><a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a> + <code>scripts/robot-rescue</code></td></tr>
+<tr><td>5</td><td><code>updater/src/reconcile.rs</code> 全文</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-d我想加一个-source约-40-分钟"><a class="header" href="#路径-d我想加一个-source约-40-分钟">路径 D：我想加一个 source（约 40 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>updater/src/source/mod.rs</code>（<code>Source</code> trait 的形状）</td></tr>
+<tr><td>2</td><td><code>updater/src/source/local.rs</code>（最小的一个实现）</td></tr>
+<tr><td>3</td><td><code>updater/src/source/github.rs</code>（最常用的那个，以及 tag 前缀的两条流）</td></tr>
+<tr><td>4</td><td><code>updater/src/verify.rs</code>（不管哪个 source，验证只有一条路）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-e我想改这个引擎而不弄坏回滚约-2-小时"><a class="header" href="#路径-e我想改这个引擎而不弄坏回滚约-2-小时">路径 E：我想改这个引擎，而不弄坏回滚（约 2 小时）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>updater/tests/apply.rs:1-10</code>（这一套测试为什么存在）</td></tr>
+<tr><td>2</td><td><code>updater/tests/apply.rs:1457-1460</code> + 那九个 <code>#N</code> 测试（<strong>每个 bug 一个测试</strong>）</td></tr>
+<tr><td>3</td><td><code>updater/src/faults.rs</code> 全文（九个故障各自&quot;必须导致什么&quot;）</td></tr>
+<tr><td>4</td><td><code>updater/tests/apply.rs:23-402</code>（fixture：一个假发布、一块假板子）</td></tr>
+<tr><td>5</td><td>跑一次 <code>cargo test -p updater</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只改一处</strong>：改完先看 <code>apply.rs</code> 里有没有一个 <code>#N</code> 测试会因为你的改动而失败 ——
+<strong>那九条是别人已经踩过的坑</strong>。</p>
+<h3 id="三条贯穿全文的主线"><a class="header" href="#三条贯穿全文的主线">三条贯穿全文的主线</a></h3>
+<ol>
+<li>
+<p><strong>换之前失败是免费的，换之后失败是昂贵的。</strong> 这一条解释了预检为什么要跑两遍、
+两个钩子的预算为什么差五倍、<code>dry_run</code> 为什么在钩子之前返回、
+以及&quot;任何失败都回滚&quot;这句话为什么<strong>有一半是对的</strong>。</p>
+</li>
+<li>
+<p><strong>沉默必须被解释。</strong> <code>Degraded</code> 和 <code>Unhealthy</code> 分开，<code>Unreachable</code> 和 <code>Incompatible</code> 分开，
+&quot;关掉了&quot;和&quot;没装&quot;分开，&quot;没有 transcript&quot;和&quot;第一次&quot;分开 ——
+<strong>这个 crate 里几乎每一处 API 设计，最后都归结成&quot;这句沉默会被读成什么&quot;。</strong></p>
+</li>
+<li>
+<p><strong>写下来的理由，比写下来的规则活得久。</strong> <code>spawn.rs</code> 只有一个函数，
+而它的 119 行里有一半在解释<strong>为什么别的做法都不行</strong>。
+<code>hooks.rs:178-180</code> 记着一个 <code>truncate</code> 在多字节字符上 panic 的事故。
+<code>preflight.rs:36-49</code> 记着一个 mount namespace 的坑。
+<strong>这个目录里的每一段&quot;血泪注释&quot;，都是一个别人不需要再犯的错误。</strong></p>
+</li>
+</ol>
+<p><strong>如果只有十分钟</strong>：§3 那两张图，加上 <code>engine.rs:2-18</code>。</p>
+<hr />
+<h2 id="16-术语表"><a class="header" href="#16-术语表">16. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>component / 组件</strong></td><td>一个<strong>有自己版本线</strong>的东西：<code>daemon</code>、<code>model-walk</code>…</td></tr>
+<tr><td><strong>channel / 通道</strong></td><td>一个组件的版本线。这里通道名 = 组件名</td></tr>
+<tr><td><strong>manifest / 清单</strong></td><td>一份签过名的 JSON，说&quot;这个版本是什么、在哪、多大、要求什么&quot;</td></tr>
+<tr><td><strong>artifact / 产物</strong></td><td>那个 tarball。zstd 压缩的 tar</td></tr>
+<tr><td><strong>minisign</strong></td><td>签名格式。公钥一组放在 <code>/etc/robot/trusted_keys/</code></td></tr>
+<tr><td><strong>信任锚 / trust anchor</strong></td><td>烤进机器人的那组公钥。<strong>只能对它们验证</strong></td></tr>
+<tr><td><strong>sha256</strong></td><td>内容的哈希。<strong>先验哈希再验签名</strong></td></tr>
+<tr><td><strong>swap / 交换</strong></td><td><code>current</code> 符号链接指向新发布。<strong>一个 <code>rename(2)</code></strong></td></tr>
+<tr><td><strong><code>current</code></strong></td><td>指向当前活跃发布的符号链接</td></tr>
+<tr><td><strong><code>golden</code></strong></td><td>永不删除的已知good发布。<code>robot-rescue</code> 的后备</td></tr>
+<tr><td><strong><code>keep_previous</code></strong></td><td>保留几个旧发布。默认 1</td></tr>
+<tr><td><strong>prune / 清理</strong></td><td>删掉超出 <code>keep_previous</code> 的旧发布。<strong>golden 永不被删</strong></td></tr>
+<tr><td><strong>health gate / 健康门</strong></td><td>换完之后问机器人&quot;你能跑吗&quot;</td></tr>
+<tr><td><strong><code>Degraded</code></strong></td><td>&quot;我不能跑，但不是这次发布的错&quot; → <strong>通过</strong></td></tr>
+<tr><td><strong>rollback / 回滚</strong></td><td>把 <code>current</code> 换回去，再跑一次 apply action</td></tr>
+<tr><td><strong>boot counter</strong></td><td>一个持久化的&quot;这次试用还没被确认&quot;的标记</td></tr>
+<tr><td><strong>boot trial / 试用</strong></td><td>从 swap 到 confirm 之间的那段</td></tr>
+<tr><td><strong><code>MAX_BOOT_ATTEMPTS</code></strong></td><td>2。用完就问机器人，而不是直接回滚</td></tr>
+<tr><td><strong>rescue / 救援</strong></td><td><code>scripts/robot-rescue</code>：<strong>不经过 <code>updaterd</code></strong> 的一个 shell 脚本</td></tr>
+<tr><td><strong>breadcrumb / 面包屑</strong></td><td>rescue 留下的记录，下次启动时被 <code>updaterd</code> 读到</td></tr>
+<tr><td><strong><code>reconcile</code></strong></td><td>启动时：重启那些该重启而没重启的 unit</td></tr>
+<tr><td><strong>identity.json</strong></td><td>每个守护进程发布的&quot;我在跑哪个发布&quot;</td></tr>
+<tr><td><strong><code>ReportedOnly</code></strong></td><td>一个 reconcile 判决：<code>updaterd</code> 只被记录，从不被自己重启</td></tr>
+<tr><td><strong>hook</strong></td><td>发布自带的脚本，在 swap 前后运行</td></tr>
+<tr><td><strong><code>preinstall</code> / <code>postinstall</code></strong></td><td>两个钩子。<strong>前者在 swap 之前，没有回滚</strong></td></tr>
+<tr><td><strong>preflight / 预检</strong></td><td>五道检查。<strong>任何一道失败都没有副作用</strong></td></tr>
+<tr><td><strong>single-flight / 单飞</strong></td><td>一次只允许一个更新。用一个文件锁</td></tr>
+<tr><td><strong><code>Busy</code></strong></td><td>&quot;已经有一个更新在跑了&quot;。<strong>是一个正常答案，不是失败</strong></td></tr>
+<tr><td><strong>journal / 更新日志</strong></td><td><code>/var/lib/robot/updater/log</code>。200 条</td></tr>
+<tr><td><strong>transcript</strong></td><td>每次运行&quot;<strong>做了什么</strong>&quot;。<code>runs/NNNNNN.jsonl</code>，20 份</td></tr>
+<tr><td><strong><code>RunEvent</code></strong></td><td>transcript 里的一行</td></tr>
+<tr><td><strong>orphan / 孤儿</strong></td><td>一个已装的 unit 指向一个这次降级里不存在的二进制</td></tr>
+<tr><td><strong><code>203/EXEC</code></strong></td><td>systemd 的&quot;这个文件没法执行&quot;。孤儿的表现</td></tr>
+<tr><td><strong>upgrade / downgrade</strong></td><td>往新/往旧。<strong>降级只在显式点名时允许</strong></td></tr>
+<tr><td><strong>freeze / 冻结</strong></td><td>让机器人永远看不到新版本。<strong>未修的第二种攻击</strong></td></tr>
+<tr><td><strong><code>min_supported</code></strong></td><td>清单里的下限：低于它就该强制升级</td></tr>
+<tr><td><strong><code>auto_apply</code></strong></td><td>没人按按钮时允许装什么：<code>off</code> / <code>mandatory</code> / <code>all</code></td></tr>
+<tr><td><strong><code>on_apply</code></strong></td><td>换完之后做什么：<code>restart</code> / <code>reload</code> / <code>none</code></td></tr>
+<tr><td><strong><code>schema_version</code></strong></td><td>磁盘布局的版本。<strong>它不是一道门</strong> —— 是交给钩子的迁移上下文，见 §14.9</td></tr>
+<tr><td><strong><code>model_api</code></strong></td><td>模型和守护进程之间的兼容版本</td></tr>
+<tr><td><strong><code>hw_rev</code></strong></td><td>硬件版本。v1 只有一个值</td></tr>
+<tr><td><strong><code>SPACE_MULTIPLIER</code></strong></td><td>3。磁盘需求 = 产物体积 × 3</td></tr>
+<tr><td><strong><code>ETXTBSY</code></strong></td><td>&quot;文件正在被写&quot;。<code>spawn.rs</code> 那个重试要处理的东西</td></tr>
+<tr><td><strong>transient unit</strong></td><td><code>systemd-run</code> 起的一次性单元。<strong>活得比 <code>updaterd</code> 的 cgroup 久</strong></td></tr>
+<tr><td><strong><code>SO_PEERCRED</code></strong></td><td>内核告诉服务器&quot;连过来的这个进程是谁&quot;</td></tr>
+<tr><td><strong><code>PrivateTmp=</code></strong></td><td>systemd 给单元一个自己的 <code>/tmp</code> 和 <code>/var/tmp</code>。<strong>旁载目录的坑</strong></td></tr>
+<tr><td><strong><code>zram</code></strong></td><td>用内存当磁盘。<strong>所以 <code>/var/log</code> 活不过断电</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>更新系统的完整设计（本文每一节都在引用它）</strong></td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a></td></tr>
+<tr><td><strong>什么重启、什么时候重启</strong></td><td><a href="design/restart-order.html"><code>design/restart-order.md</code></a></td></tr>
+<tr><td>掉到 golden 的那条网</td><td><a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a></td></tr>
+<tr><td>策略（不是二进制）那条通道</td><td><a href="design/policy-channel-design.html"><code>design/policy-channel-design.md</code></a></td></tr>
+<tr><td><strong>更新时在这块板子上跑的东西（姊妹篇）</strong></td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>装机、发布、诊断的工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td><code>updater.toml</code> 铺到哪里（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>被更新的那个守护进程（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td><code>update.*</code> 那门语言（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>你按的那个按钮（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>那四个失败是怎么到达板子的（事故记录）</td><td><a href="project/install-path-gap.html"><code>project/install-path-gap.md</code></a></td></tr>
+<tr><td>空闲时守护进程在干什么</td><td><a href="project/idle-cpu.html"><code>project/idle-cpu.md</code></a></td></tr>
+<tr><td>密钥托管、发布流水线的一次性设置</td><td><a href="project/ci-setup.html"><code>project/ci-setup.md</code></a></td></tr>
+<tr><td>服务怎么切分、IPC 契约归谁</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>里程计与那张地图（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>深度矩阵与障碍检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>摸头检测（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>那份配置 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/tof-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/uyvy-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/tof-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/uyvy-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

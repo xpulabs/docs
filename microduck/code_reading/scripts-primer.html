@@ -1,0 +1,975 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>scripts/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html" class="active"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="scripts-新手导读"><a class="header" href="#scripts-新手导读"><code>scripts/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是<strong>工具</strong>而不是程序：30 个 shell / Python / C 文件，11,790 行。
+它们的分工由 <a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a> §仓库布局 拥有（<code>CONTRIBUTING.md:100-107</code>）；
+更新时那一半由 <a href="hooks-primer.html"><code>hooks-primer.md</code></a> 和 <a href="design/updater-design.html"><code>design/updater-design.md</code></a> §9 拥有；
+板子被配置成什么样由 <a href="deploy-primer.html"><code>deploy-primer.md</code></a> 拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="hooks-primer.html"><code>hooks-primer.md</code></a>（<strong>更新时</strong>在这块板子上跑的那两个脚本）、
+<a href="deploy-primer.html"><code>deploy-primer.md</code></a>（配置与硬件）、
+<a href="robotctl-primer.html"><code>robotctl-primer.md</code></a>（装完之后你用来操作它的工具）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E4%B8%89%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%89%E7%A7%8D%E6%97%B6%E9%97%B4%E5%B0%BA%E5%BA%A6">⚠️ 三个目录，三种时间尺度</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%98%AF%E6%80%8E%E4%B9%88%E8%A2%AB%E9%80%A0%E5%87%BA%E6%9D%A5%E7%9A%84">⭐ 核心心智模型：一台机器人是怎么被造出来的</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%9C%B0%E5%9B%BE">目录地图</a></li>
+<li><a href="#5-%E8%A3%85%E6%9C%BA%E4%B8%89%E5%85%84%E5%BC%9F">装机三兄弟</a></li>
+<li><a href="#6-%E6%9D%BF%E7%BA%A7-bring-up">板级 bring-up</a></li>
+<li><a href="#7-hooks-%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%93%AA%E4%BA%9B%E8%84%9A%E6%9C%AC%E5%9C%A8%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E6%97%B6%E4%B9%9F%E4%BC%9A%E8%B7%91"><code>hooks</code> 的接口：哪些脚本在<strong>每次更新</strong>时也会跑</a></li>
+<li><a href="#8-%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%AF%8A%E6%96%AD">测试与诊断</a></li>
+<li><a href="#9-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7">开发工具</a></li>
+<li><a href="#10--%E5%8F%AA%E5%B1%9E%E4%BA%8E-scripts-%E7%9A%84%E9%82%A3%E6%9D%A1%E7%BA%AA%E5%BE%8Bshellcheck">⭐ 只属于 <code>scripts/</code> 的那条纪律：shellcheck</a></li>
+<li><a href="#11-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#12-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#13-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>scripts/</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>一块空板子变成一只鸭子，中间那些手敲的命令是什么？</strong></p>
+</blockquote>
+<p>它们全部是<strong>幂等的、不交互的、能重复跑的</strong>工具。分三类：</p>
+<div class="table-wrapper"><table><thead><tr><th>类别</th><th>什么时候跑</th><th>例子</th></tr></thead><tbody>
+<tr><td><strong>装机</strong></td><td>一块板子的一生一次</td><td><code>provision.sh</code> · <code>install.sh</code> · <code>setup-board.sh</code></td></tr>
+<tr><td><strong>更新</strong></td><td><strong>每次发布</strong>（由 <code>hooks/</code> 调用）</td><td><code>setup-gstreamer.sh</code> · <code>setup-rkaiq.sh</code> · <code>seed-policies.sh</code></td></tr>
+<tr><td><strong>开发 / 诊断</strong></td><td>人手动跑</td><td><code>duck-sim</code> · <code>dev-push.sh</code> · <code>board-test.sh</code> · <code>pad-link-test.sh</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>它和 <code>hooks/</code> 的关系是这个目录里最重要的一件事</strong>，<code>CONTRIBUTING.md:100-107</code> 那段把它写成了一张图：</p>
+<pre><code>scripts/        provision-board.sh · dev-push.sh + dev-build.Dockerfile (from your machine) ·
+                provision.sh → setup-board.sh → setup-gstreamer.sh · setup-rkaiq.sh ·
+                migrate-network.sh · install.sh (on the board) ·
+                setup-login.sh · setup-quiet-boot.sh (install.sh and postinstall both run these) ·
+                robot-boot-check · robot-rescue (recovery, installed to /usr/local/sbin) ·
+                pad-link-test.sh · pad-stack-report.sh (gamepad radio, on the board) ·
+                board-test.sh · systemd-test.sh (CI) · cross-sysroot.sh (cross-builds) ·
+                bake-duck-mesh.py (the monitor's 3D model, run by hand)
+</code></pre>
+<p>⚠️ 那张图<strong>不是完整的</strong> —— 见 §11。</p>
+<hr />
+<h2 id="2--三个目录三种时间尺度"><a class="header" href="#2--三个目录三种时间尺度">2. ⚠️ 三个目录，三种时间尺度</a></h2>
+<p>读这个仓库的时候，很容易把 <code>scripts/</code>、<code>hooks/</code>、<code>deploy/</code> 混在一起。它们的分界<strong>不是按文件类型，是按寿命</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>目录</th><th>是什么</th><th>多久变一次</th><th>谁跑它</th></tr></thead><tbody>
+<tr><td><strong><code>deploy/</code></strong></td><td>配置<strong>内容</strong>：<code>updater.toml</code>、<code>robotd.toml</code>、信任锚、journald</td><td>每次发布</td><td><code>install.sh</code> 铺到 <code>/etc/</code></td></tr>
+<tr><td><strong><code>hooks/</code></strong></td><td>更新流程里的两个脚本</td><td>每次发布</td><td><strong><code>updaterd</code></strong>，在<strong>每一块</strong>板子上</td></tr>
+<tr><td><strong><code>scripts/</code></strong></td><td>装机、开发、诊断的工具</td><td>随时</td><td>人、CI、或者被上面两个调用</td></tr>
+</tbody></table>
+</div>
+<p>而那条把 <code>scripts/</code> 和 <code>hooks/</code> 绑在一起的规则，<code>CONTRIBUTING.md:97-100</code> 写得最直白：</p>
+<blockquote>
+<p><strong>the only thing that runs on every board on every update: anything <code>install.sh</code> does to a board
+belongs here too</strong> (<code>updater-design.md</code> §9.1)</p>
+</blockquote>
+<p><strong>&quot;<code>install.sh</code> 对一块板子做的任何事，这里也都要做。&quot;</strong></p>
+<p>这条规则被违反过四次，每一次的形状都一样（<a href="hooks-primer.html"><code>hooks-primer.md</code></a> §3.2 有完整表格）：
+<strong>活是干完了的，而&quot;让这个活到达板子&quot;的那一步被落下了。</strong></p>
+<h3 id="21-那两条分流"><a class="header" href="#21-那两条分流">2.1 那两条分流</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>脚本</th><th>谁调用</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>setup-login.sh</code></td><td><code>install.sh</code> <strong>和</strong> <code>hooks/postinstall</code></td><td><em>&quot;that second caller is the point&quot;</em></td></tr>
+<tr><td><code>setup-quiet-boot.sh</code></td><td><code>install.sh</code> <strong>和</strong> <code>hooks/postinstall</code></td><td>同上</td></tr>
+<tr><td><code>seed-policies.sh</code> · <code>seed-detector.sh</code></td><td><code>hooks/postinstall</code> 和 <code>install.sh</code></td><td>同上</td></tr>
+<tr><td><code>setup-gstreamer.sh</code> · <code>setup-rkaiq.sh</code> · <code>setup-npu.sh</code></td><td><strong><code>hooks/preinstall</code></strong></td><td>见 §7</td></tr>
+<tr><td><code>setup-board.sh</code></td><td><strong>只有 <code>provision.sh</code></strong></td><td><strong>不随发布走</strong> —— 它改设备树，属于板子</td></tr>
+<tr><td><code>migrate-network.sh</code></td><td><strong>只有 <code>provision.sh</code></strong></td><td>有意<strong>不</strong>进 hook（见下）</td></tr>
+</tbody></table>
+</div>
+<p><code>migrate-network.sh:5-14</code> 讲了为什么它不进 hook：</p>
+<blockquote>
+<p><strong>1. Different lifetime.</strong> … This script exists <em>only</em> because Armbian's stock image ships netplan</p>
+<ul>
+<li>systemd-networkd + wpa_supplicant. The day we build a robot image with NetworkManager already
+in it, <strong>this whole file is deleted and nothing else changes.</strong>
+<strong>2. Different risk.</strong> Everything in <code>setup-board.sh</code> is safe to run at any time. <strong>This is the
+one step that can make a headless board unreachable.</strong></li>
+</ul>
+</blockquote>
+<p><strong>&quot;这是唯一一个能让一块无头板子彻底够不到的一步。&quot;</strong> 所以它只能在有人看着的时候跑。</p>
+<hr />
+<h2 id="3--核心心智模型一台机器人是怎么被造出来的"><a class="header" href="#3--核心心智模型一台机器人是怎么被造出来的">3. ⭐ 核心心智模型：一台机器人是怎么被造出来的</a></h2>
+<p>一台鸭子的一生有三个阶段，每个阶段由不同的东西驱动：</p>
+<pre><code>   ①  一块刷好 Armbian 的空板子
+        │
+        │  scripts/provision-board.sh      ← 在**你的笔记本**上跑，全程 ssh
+        │      └─► scripts/provision.sh    ← 送到板上，root，**跨一次重启分两阶段**
+        │              ├─ phase 1: setup-board.sh → migrate-network.sh → 重启
+        │              └─ phase 2: setup-board.sh → setup-gstreamer.sh
+        │                            → setup-rkaiq.sh → migrate-network.sh
+        │                            → install.sh
+        ▼
+   ②  一块跑着 daemon 的机器人
+        │
+        │  scripts/install.sh 装的是**最后一个稳定发布**
+        │  然后它成为 **golden** —— 恢复网的后备
+        ▼
+   ③  之后每一次改动都走更新
+        │
+        │  updaterd 跑 hooks/preinstall → 换链接 → hooks/postinstall
+        │      hooks 调用 scripts/ 里的那些脚本
+        ▼
+   ④  一个能自愈的机器人
+        │
+        └─ robot-boot-check.timer（每次开机 3 分钟后）
+               失败 → robot-rescue → 换回 golden
+</code></pre>
+<h3 id="31-那三个设计决定"><a class="header" href="#31-那三个设计决定">3.1 那三个设计决定</a></h3>
+<p><strong>① 引导的循环是&quot;下载一个裸 <code>updaterd</code> 然后让它自己装&quot;</strong>（<code>install.sh:17-21</code>）：</p>
+<blockquote>
+<p>The circularity — &quot;an update needs the updater, which arrives in an update&quot; — <strong>is broken by
+downloading one bare <code>updaterd</code> binary and running its <code>install</code> subcommand.</strong> That runs the
+ordinary engine: signature verification, extraction, the atomic swap, the journal entry.
+<strong>There is no bootstrap-specific install logic, so nothing here can drift from how every later
+update behaves.</strong></p>
+</blockquote>
+<p><strong>&quot;没有任何专门用于引导的安装逻辑，所以这里不可能和之后每一次更新跑偏。&quot;</strong></p>
+<p><strong>② 它从不解析 manifest</strong>（<code>install.sh:23-25</code>）：</p>
+<blockquote>
+<p>Notably this script <strong>never parses a manifest.</strong> It hands <code>updaterd</code> the config and lets the
+configured source resolve <code>latest</code>, because <strong>a shell script picking the version out of a signed
+JSON document would be a second, weaker reader of that document.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 shell 脚本从一个签名过的 JSON 文档里挑版本号，会成为那份文档的第二个、更弱的读者。&quot;</strong></p>
+<p><strong>③ 第一个装上的发布成为 golden</strong>（<code>provision.sh:629-633</code>）：</p>
+<blockquote>
+<p>The first release installed becomes <strong>golden</strong>, the boot recovery net's fallback, and <strong>a branch
+build as golden would give a broken branch a broken fallback.</strong></p>
+</blockquote>
+<p><strong>&quot;一个分支构建当 golden，就是给一个坏掉的分支配了一个坏掉的后备。&quot;</strong></p>
+<hr />
+<h2 id="4-目录地图"><a class="header" href="#4-目录地图">4. 目录地图</a></h2>
+<p>按用途分成五组：</p>
+<h3 id="装机在板子上跑root"><a class="header" href="#装机在板子上跑root">装机（在板子上跑，root）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>一句话</th></tr></thead><tbody>
+<tr><td><code>provision-board.sh</code></td><td>894</td><td><strong>在笔记本上</strong>，全程 ssh，让装机变成一条命令</td></tr>
+<tr><td><code>provision.sh</code></td><td>808</td><td>板子上的编排者，<strong>跨一次重启分两阶段</strong></td></tr>
+<tr><td><code>install.sh</code></td><td>1054</td><td>装一个签名过的 daemon 发布</td></tr>
+<tr><td><code>setup-board.sh</code></td><td>1122</td><td>设备树 overlay、内核、蓝牙、音频、ToF、摄像头、ONNX Runtime</td></tr>
+<tr><td><code>migrate-network.sh</code></td><td>554</td><td>netplan → NetworkManager，<strong>一次性</strong>，带后备</td></tr>
+</tbody></table>
+</div>
+<h3 id="组件hookspreinstall-每次更新都跑"><a class="header" href="#组件hookspreinstall-每次更新都跑">组件（<code>hooks/preinstall</code> 每次更新都跑）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>一句话</th></tr></thead><tbody>
+<tr><td><code>setup-gstreamer.sh</code></td><td>653</td><td>GStreamer 栈 + 两个必须从源码构建的插件</td></tr>
+<tr><td><code>setup-rkaiq.sh</code></td><td>332</td><td>Rockchip 的 3A 引擎 + IMX219 调优</td></tr>
+<tr><td><code>setup-npu.sh</code></td><td>244</td><td>RK3566 的 NPU 运行时 + 设备树节点</td></tr>
+<tr><td><code>rkaiq-modinfo-shim.c</code></td><td>79</td><td><code>LD_PRELOAD</code> 垫片，<strong>不是脚本，是在板上编译的</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="收尾installsh-和-hookspostinstall-都跑"><a class="header" href="#收尾installsh-和-hookspostinstall-都跑">收尾（<code>install.sh</code> 和 <code>hooks/postinstall</code> 都跑）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>一句话</th></tr></thead><tbody>
+<tr><td><code>setup-login.sh</code></td><td>189</td><td>motd、提示符里的名字、<code>robotctl</code> 补全</td></tr>
+<tr><td><code>setup-quiet-boot.sh</code></td><td>87</td><td>把 apt 从启动路径上拿掉</td></tr>
+<tr><td><code>seed-policies.sh</code></td><td>216</td><td>从 HF Hub 下载官方策略集</td></tr>
+<tr><td><code>seed-detector.sh</code></td><td>126</td><td>同上，鸭子检测器</td></tr>
+</tbody></table>
+</div>
+<h3 id="恢复"><a class="header" href="#恢复">恢复</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>一句话</th></tr></thead><tbody>
+<tr><td><code>robot-boot-check</code></td><td>144</td><td><strong>每次开机</strong>跑一次，判断这个发布起来没有</td></tr>
+<tr><td><code>robot-rescue</code></td><td>203</td><td>换回 golden，<strong>不经过任何 daemon</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="测试--开发--诊断"><a class="header" href="#测试--开发--诊断">测试 / 开发 / 诊断</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>一句话</th></tr></thead><tbody>
+<tr><td><code>board-test.sh</code></td><td>1173</td><td>交叉编译 + 在容器里跑<strong>真的二进制</strong></td></tr>
+<tr><td><code>systemd-test.sh</code></td><td>364</td><td>真的 systemd 当 pid 1，真的更新</td></tr>
+<tr><td><code>pad-link-test.sh</code></td><td>455</td><td>手柄的链路可靠吗（<strong>在板子上跑</strong>）</td></tr>
+<tr><td><code>pad-stack-report.sh</code></td><td>700</td><td>两块板子的手柄栈一样吗（<strong>在板子上跑</strong>）</td></tr>
+<tr><td><code>duck-sim</code></td><td>1105</td><td>一条命令跑一只 MuJoCo 里的鸭子</td></tr>
+<tr><td><code>dev-push.sh</code></td><td>559</td><td>不走 CI 的推送路径</td></tr>
+<tr><td><code>cross-sysroot.sh</code></td><td>204</td><td><code>mediad</code> 交叉编译要的 aarch64 sysroot</td></tr>
+<tr><td><code>bake-duck-mesh.py</code></td><td>217</td><td>把 CAD 烘焙成 <code>robotctl/assets/duck.bin</code></td></tr>
+<tr><td><code>publish-console.sh</code> · <code>publish-space.sh</code></td><td>200</td><td>把页面推到 Hugging Face Space</td></tr>
+<tr><td><code>ci-release-notes.sh</code></td><td>56</td><td>发布说明</td></tr>
+<tr><td><code>dev-build.Dockerfile</code> · <code>systemd-test.Dockerfile</code></td><td>52</td><td>两个镜像</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="5-装机三兄弟"><a class="header" href="#5-装机三兄弟">5. 装机三兄弟</a></h2>
+<h3 id="51-provision-boardsh唯一在笔记本上跑的那个"><a class="header" href="#51-provision-boardsh唯一在笔记本上跑的那个">5.1 <code>provision-board.sh</code>：<strong>唯一在笔记本上跑的那个</strong></a></h3>
+<p><code>provision-board.sh:10-12</code> 说得很清楚，而它存在的理由是一个<strong>缝隙</strong>：</p>
+<blockquote>
+<p>What it is for is <strong>the seam in the middle</strong>. <code>provision.sh</code> reboots the board and finishes on its
+own, which is right, but <strong>from the outside that looks like an ssh session dying followed by an
+unknown interval and a guess about when to log back in.</strong></p>
+</blockquote>
+<p><strong>&quot;从外面看，那就像一次 ssh 会话死掉，然后是一段未知长度的等待，再加上一个'什么时候该重新登录'的猜测。&quot;</strong></p>
+<p>它做的事：一次四向诊断的 ssh 探测 → 把 <code>provision.sh</code> 送过去 → <code>ssh -t … sudo env DUCK_TOKEN='…' sh /tmp/provision.sh</code>
+→ <strong>先等板子消失，再等它回来</strong> → 轮询把 <code>/var/lib/robot/provision.log</code> 拷过来直到状态文件消失 → <code>robotctl health</code>。</p>
+<p>里面有两处<strong>疤痕式</strong>的注释值得读：</p>
+<p><strong>① 为什么按 pidfile 而不是按名字杀进程</strong>（<code>duck-sim:99-101</code>）：</p>
+<blockquote>
+<p>By pidfile, <strong>never by name.</strong> <code>pkill -f robotd</code> also matches the shell that is about to start one,
+which is a good way to kill your own terminal — <strong>three times in one afternoon</strong>, in this case.</p>
+</blockquote>
+<p><strong>② 为什么&quot;一个 pid 不是身份&quot;</strong>（<code>duck-sim:111-117</code>）：</p>
+<blockquote>
+<p><strong>A pid is not an identity.</strong> … The result was <code>kill -TERM -&lt;recycled pid&gt;</code> <strong>as root</strong>, which took
+out an unrelated process group: <strong>it killed a login session, and the machine had to be rebooted to
+get it back.</strong></p>
+</blockquote>
+<h3 id="52-provisionsh两阶段中间一次重启"><a class="header" href="#52-provisionsh两阶段中间一次重启">5.2 <code>provision.sh</code>：两阶段，中间一次重启</a></h3>
+<p><code>main</code>（<code>:770-806</code>）只有三条路：</p>
+<pre><code>状态文件存在，且是同一次开机  → **die**，让操作者去重启
+状态文件存在，且开机号不同    → phase_two
+否则                          → phase_one
+</code></pre>
+<p><strong>为什么它总是重启</strong>（<code>provision.sh:26-35</code>）：</p>
+<blockquote>
+<p><strong>Not because it always needs one, but because <em>deciding</em> would mean either re-deriving what the
+two scripts already decided or parsing their output, and both drift.</strong> A reboot on a board being
+provisioned costs thirty seconds.</p>
+</blockquote>
+<p><strong>&quot;不是因为它总是需要重启，而是因为<em>判断</em>需不需要意味着要么重新推导那两个脚本已经决定过的事，
+要么解析它们的输出 —— 而两者都会漂。&quot;</strong></p>
+<p><strong>为什么&quot;哪次开机&quot;用的是 <code>boot_id</code> 而不是时间戳</strong>（<code>provision.sh:314-317</code>）：</p>
+<blockquote>
+<p>Deliberately not the state file's timestamp against uptime, which was the first attempt and is
+<strong>wrong on this hardware</strong>: the board has <strong>no battery-backed RTC, starts at 1970</strong>, and NTP steps
+the clock <em>during</em> provisioning … File-time arithmetic would be <strong>comparing two clocks that
+disagree by decades.</strong> There is no clock in this.</p>
+</blockquote>
+<p>⚠️ 这一节有<strong>一个真实的问题</strong> —— 见 §11。</p>
+<h3 id="53-installsh只装发布不碰板子"><a class="header" href="#53-installsh只装发布不碰板子">5.3 <code>install.sh</code>：只装发布，不碰板子</a></h3>
+<p>它的边界写在自己的注释里（<code>install.sh:968-973</code>）：</p>
+<blockquote>
+<p>Board bring-up is <code>setup-board.sh</code>'s job — <strong>device-tree overlays need a reboot and belong to the
+board, not to a daemon release.</strong> But installing a robot daemon onto a board with no bus is worth
+saying out loud: <strong>the install will succeed, <code>robotd</code> will start, fail to open the bus, and report
+unhealthy.</strong> That is honest behaviour, and an easy thing to stare past.</p>
+</blockquote>
+<p><strong>&quot;装会成功，<code>robotd</code> 会起来，打不开总线，然后报告不健康。那是诚实的行为，也是很容易盯过去的一件事。&quot;</strong></p>
+<p>两个值得知道的细节：</p>
+<p><strong>① 为什么 <code>robotctl</code> 是符号链接而单元文件是拷贝</strong>（<code>install.sh:605-609</code> 和 <code>:707-710</code>）：</p>
+<blockquote>
+<p>They are <em>copied</em> rather than symlinked through <code>current</code>: <strong>a unit file read through the symlink
+would change under systemd's feet on every update</strong>, and after a rollback systemd's view of the
+world would depend on which release happened to be live at the last <code>daemon-reload</code>.</p>
+</blockquote>
+<blockquote>
+<p>The recovery scripts on root's PATH, and <em>copied</em> — <strong>the opposite decision to <code>robotctl</code> above</strong> …
+<strong>They exist for boards whose release cannot start, so reading them through <code>current</code> would route
+the recovery through the thing being recovered.</strong></p>
+</blockquote>
+<p><strong>&quot;它们是为'发布起不来'的板子存在的，所以通过 <code>current</code> 读它们，就是把恢复路由到那个正在被恢复的东西上。&quot;</strong></p>
+<p><strong>② 为什么单元清单是读目录而不是写死的</strong>（<code>install.sh:676-682</code>）：</p>
+<blockquote>
+<p>Read the directory rather than assert a list. <strong>A hardcoded set makes this script fail on any
+release that is not exactly its contemporary</strong> — which is every fresh install, because the scripts
+come from a branch and the release is the last stable one. <code>configd.service</code> was the case that
+proved it: <strong>added on main, absent from 0.2.0, and provisioning died at &quot;the installed release has
+no systemd/configd.service&quot; on a board that was fine.</strong></p>
+</blockquote>
+<hr />
+<h2 id="6-板级-bring-up"><a class="header" href="#6-板级-bring-up">6. 板级 bring-up</a></h2>
+<h3 id="61-setup-boardsh设备树的那两个静默陷阱"><a class="header" href="#61-setup-boardsh设备树的那两个静默陷阱">6.1 <code>setup-board.sh</code>：设备树的那两个静默陷阱</a></h3>
+<p>这是整个目录里最长的一个（1122 行），而它开头就把&quot;为什么是脚本而不是一张清单&quot;写清楚了
+（<code>setup-board.sh:227-228</code>）：</p>
+<blockquote>
+<p><strong>Two traps here, both of which fail <em>silently</em></strong> — which is why this is scripted rather than
+written up as a checklist:</p>
+</blockquote>
+<p>那两条（<code>:229-235</code>）：</p>
+<pre><code>1. Armbian 发的是 `overlay_prefix=rk35xx`，但 RK3566 和 RK3568 共用设备树 overlay，
+   而它们的文件名是 `rk3568-*.dtbo`。前缀错了，加载器什么都找不到，**开开心心启动，
+   然后没有 /dev/ttyS2**。
+2. `armbian-config` 的 overlay 编辑器在这块板子上会因为同样的原因崩掉
+   （`Invalid overlay_prefix rk35xx`），所以直接改文件。
+</code></pre>
+<p><strong>&quot;前缀错了，加载器什么都找不到，开开心心启动，然后没有 <code>/dev/ttyS2</code>。&quot;</strong>
+没有那个 UART 就没有舵机总线 —— 而<strong>启动日志里一个字都不会说</strong>。</p>
+<h3 id="62-setup-rkaiqsh--那个-c-垫片"><a class="header" href="#62-setup-rkaiqsh--那个-c-垫片">6.2 <code>setup-rkaiq.sh</code> + 那个 C 垫片</a></h3>
+<p><strong>rkaiq</strong> 是 Rockchip 的 ISP 用户态：<code>rkaiq_3A_server</code> 加 <code>librkaiq</code>。
+<strong>3A</strong> 是自动曝光 / 自动白平衡 / 自动对焦。</p>
+<p>为什么用厂商的（<code>setup-rkaiq.sh:34-39</code>）：</p>
+<blockquote>
+<p><strong>There is no other 3A on this platform.</strong> libcamera's rkisp1 IPA drives the <em>mainline</em> rkisp1
+driver; this board runs Rockchip's vendor rkisp on the vendor kernel, <strong>which is also where the
+hardware encoder <code>mediad</code> depends on lives</strong>… <strong>Choosing mainline to get an open 3A would cost
+the VPU.</strong></p>
+</blockquote>
+<p><strong>&quot;选主线来换一个开放的 3A，代价是丢掉 VPU。&quot;</strong></p>
+<h4 id="那个-c-垫片为什么存在"><a class="header" href="#那个-c-垫片为什么存在">那个 C 垫片为什么存在</a></h4>
+<p><code>rkaiq-modinfo-shim.c:1-31</code> 讲了一个很具体的 bug：</p>
+<blockquote>
+<p>the Radxa camera-engine-rkaiq deb was built against different headers than the Armbian vendor
+kernel (<strong>5203 vs 5207 bytes on 6.1.115</strong>), so <strong>the ioctl fails with ENOTTY, librkaiq silently
+ends up with an empty IQ file name (&quot;/etc/iqfiles//&quot;) and segfaults.</strong></p>
+</blockquote>
+<p><strong>&quot;ioctl 数字里编码了结构体的大小。&quot;</strong> 而那个结构体在不同 BSP 内核之间漂了 4 个字节。
+垫片做的事是<strong>暴力探测</strong>内核期望的大小，然后用<strong>内核自己的 ioctl 号</strong>调一次，再把结果拷回来。</p>
+<p>两句值得抄的（<code>rkaiq-modinfo-shim.c:28-30</code>）：</p>
+<blockquote>
+<p>Carried here from the prototype unchanged in substance: <strong>it is the only thing that makes the
+Radxa engine deb run on the Armbian vendor kernel, and it was arrived at by finding the byte
+count.</strong></p>
+</blockquote>
+<p><strong>&quot;它是靠找出那个字节数才被搞出来的。&quot;</strong></p>
+<h3 id="63-setup-npush三件事不是一个"><a class="header" href="#63-setup-npush三件事不是一个">6.3 <code>setup-npu.sh</code>：三件事，不是一个</a></h3>
+<p>RK3566 有一个 0.8 TOPS 的 INT8 NPU。用它需要<strong>两半</strong>（<code>setup-npu.sh:4-7</code>）：</p>
+<blockquote>
+<p>the <strong>driver</strong>, which is part of the vendor kernel and is either there or is not, and the
+<strong>runtime</strong> <code>librknnrt.so</code>, which is a vendor blob in no Debian suite.</p>
+</blockquote>
+<p><strong>而第三件是最容易漏的</strong>（<code>:19-23</code>）：</p>
+<blockquote>
+<p>Armbian's <code>rk3566-radxa-zero3.dtb</code> ships <code>npu@fde40000</code> as <code>status = &quot;disabled&quot;</code> <strong>on <em>every</em>
+Radxa Zero 3</strong> — so <strong>a runtime installed without it can never run anything.</strong></p>
+</blockquote>
+<p><strong>&quot;一个没有它的运行时，永远跑不了任何东西。&quot;</strong></p>
+<p>它<strong>不重启</strong>（<code>:120-121</code>）：</p>
+<blockquote>
+<p>It still never reboots: the change lands on the next boot, and <strong>rebooting somebody's robot is not
+a thing a setup script decides.</strong></p>
+</blockquote>
+<h3 id="64-migrate-networksh那个够不到的风险"><a class="header" href="#64-migrate-networksh那个够不到的风险">6.4 <code>migrate-network.sh</code>：那个&quot;够不到&quot;的风险</a></h3>
+<p>一次性的 netplan → NetworkManager 迁移。为什么（<code>:16-19</code>）：</p>
+<blockquote>
+<p>netplan is a config <em>generator</em>, not a runtime network manager. <strong>It has no scan API</strong>, and
+<code>netplan apply</code> reports &quot;config applied&quot; rather than whether association actually succeeded.</p>
+</blockquote>
+<p>它带<strong>后备</strong>（backstop），而这是整份导读里最值得记住的一个模式（<code>:350-354</code>）：</p>
+<blockquote>
+<p>Same principle as the update system's boot counter: <strong>the change that could make the board
+unreachable verifies itself after the reboot and undoes itself if it did not work.</strong>
+Without this, <strong>a wrong key or a missed step costs a serial cable or a card reader.</strong></p>
+</blockquote>
+<p><strong>&quot;没有它，一个错的密码或者漏掉的一步，代价是一根串口线或者一个读卡器。&quot;</strong></p>
+<hr />
+<h2 id="7-hooks-的接口哪些脚本在每次更新时也会跑"><a class="header" href="#7-hooks-的接口哪些脚本在每次更新时也会跑">7. <code>hooks</code> 的接口：哪些脚本在<strong>每次更新</strong>时也会跑</a></h2>
+<p>这一节是 <code>scripts/</code> 和 <code>hooks/</code> 之间的全部接口。</p>
+<div class="table-wrapper"><table><thead><tr><th>hook</th><th>调用的脚本</th><th>失败会怎样</th></tr></thead><tbody>
+<tr><td><strong><code>preinstall</code></strong>（换链接<strong>之前</strong>）</td><td><code>setup-gstreamer.sh</code> · <code>setup-rkaiq.sh</code> · <code>setup-npu.sh</code></td><td><strong>只警告</strong>，更新继续</td></tr>
+<tr><td><strong><code>postinstall</code></strong>（换链接<strong>之后</strong>）</td><td><code>setup-login.sh</code> · <code>setup-quiet-boot.sh</code> · <code>seed-policies.sh</code> · <code>seed-detector.sh</code> · 拷 <code>robot-rescue</code>/<code>robot-boot-check</code></td><td>单元装不上才致命</td></tr>
+</tbody></table>
+</div>
+<p>⚠️ <strong>注意 <code>preinstall</code> 从来不碰 <code>setup-board.sh</code></strong> —— 它改设备树，那是 <code>provision.sh</code> 的事。</p>
+<p><code>setup-npu.sh:29-35</code> 把&quot;为什么一个装机脚本要住在 hook 里&quot;说得最好：</p>
+<blockquote>
+<p><strong>Run by <code>hooks/preinstall</code> on every update</strong>, beside <code>setup-gstreamer.sh</code> and <code>setup-rkaiq.sh</code>
+and on the same terms: never fatally, with its report in the update log. <strong>That is what the split
+between provisioning and updating is for — a board provisioned before the NPU existed is fixed by
+an ordinary update rather than by somebody remembering a command</strong>, and a release that ships a
+model should not also ship a manual step before the model can run.</p>
+<p><strong>Running it by hand is then a retry, not the mechanism.</strong></p>
+</blockquote>
+<p><strong>&quot;手动跑它只是重试，不是机制本身。&quot;</strong></p>
+<p><code>setup-rkaiq.sh:204-208</code> 讲了一条 hook 脚本的<strong>成本纪律</strong>：</p>
+<blockquote>
+<p>Only when there is something to build. <strong><code>hooks/preinstall</code> runs this script on every update</strong>, so
+an unconditional <code>gcc</code> is a compile on every release for ever on a board that already has the
+shim — <strong>the cost <code>updater-design.md</code> §9.1 says a hook step may not have.</strong></p>
+</blockquote>
+<hr />
+<h2 id="8-测试与诊断"><a class="header" href="#8-测试与诊断">8. 测试与诊断</a></h2>
+<h3 id="81-board-testsh名字骗人它不碰板子"><a class="header" href="#81-board-testsh名字骗人它不碰板子">8.1 <code>board-test.sh</code>：名字骗人，它<strong>不碰板子</strong></a></h3>
+<p><code>:14-18</code>：</p>
+<blockquote>
+<p><strong>Not a substitute for hardware</strong>, but it catches everything that only appears off the dev
+machine: cross-linking (notably <code>zstd</code>'s C code), glibc floors, unix-socket and file-permission
+semantics, and anything that quietly depended on macOS.</p>
+</blockquote>
+<p>它做的事：交叉编译 → 在一个 <code>debian:trixie-slim</code> 的 arm64 容器里跑<strong>真的二进制</strong>。
+<strong>没有一个测试需要真硬件</strong> —— 但它需要<strong>真的 Linux 内核</strong>，因为那些 uid/group/socket 的检查
+<em>&quot;Only meaningful on Linux, so this is the only place it can be tested&quot;</em>（<code>:295</code>）。</p>
+<p>一个很聪明的做法（<code>:106-137</code>）：<strong>它从 CI 的 workflow 文件里解析出产物清单</strong>，
+所以被测的就是生产真的会产出的那个东西。</p>
+<p><code>:104-105</code> 记了为什么这一步要自己检查：</p>
+<blockquote>
+<p>Parsing the entry point instead produced <strong>an empty list and a failure two hundred lines later</strong>
+— &quot;the installed release has no systemd/updaterd.service&quot; — so <strong>the emptiness is now checked
+here, where it can name its own cause.</strong></p>
+</blockquote>
+<h3 id="82-systemd-testsh为什么必须真的-pid-1"><a class="header" href="#82-systemd-testsh为什么必须真的-pid-1">8.2 <code>systemd-test.sh</code>：为什么必须真的 pid 1</a></h3>
+<p><code>systemd-test.sh:8-18</code>：</p>
+<blockquote>
+<p>None of it <strong>can see whether a restart <em>happened</em></strong>, because none of it has systemd. …
+<strong>really replaces <code>updaterd</code> — a child process could not, because it would sit in the cgroup being
+killed.</strong></p>
+</blockquote>
+<p>它<strong>故意不进 CI</strong>（<code>:30-33</code>）：</p>
+<blockquote>
+<p>It needs <code>--privileged</code> and the host's cgroup filesystem, <strong>which is a much larger thing to hand a
+workflow than any check here is worth</strong>… <strong>This is the one to run when <code>on_apply</code>, the deferred
+restarts or the hook change — which is rarely, and is exactly when a stub stops being evidence.</strong></p>
+</blockquote>
+<p><strong>&quot;而这正是存根不再是证据的时候。&quot;</strong></p>
+<h3 id="83-那两个手柄脚本问的是不同的问题"><a class="header" href="#83-那两个手柄脚本问的是不同的问题">8.3 那两个手柄脚本问的是<strong>不同</strong>的问题</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>脚本</th><th>问题</th></tr></thead><tbody>
+<tr><td><code>pad-link-test.sh</code></td><td><strong>&quot;这条链路现在可靠吗？&quot;</strong></td></tr>
+<tr><td><code>pad-stack-report.sh</code></td><td><strong>&quot;这两块板子跑的是同一套栈吗？&quot;</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>pad-link-test.sh:9-18</code> 把两种失败分开了：</p>
+<blockquote>
+<p>a <strong>drop</strong>（设备消失，<code>padd</code> 记下来，死手停住机器人 —— <strong>响亮而且已经在 journal 里了</strong>）
+和 a <strong>stall</strong>（链路还在，报文停了几百毫秒，<code>padd</code> 继续以 50 Hz 重发上一次的摇杆值，
+死手永远不触发，<strong>而机器人在拿一个陈旧的命令走路</strong> —— <strong>哪里都没记</strong>）</p>
+</blockquote>
+<p>所以它读<strong>原始 evdev 流</strong>（<code>od -A n -t u8 -w24 -v</code>），量 <code>SYN_REPORT</code> 之间的间隔。</p>
+<p><code>:55-57</code> 记了第一次运行时的假警报：</p>
+<blockquote>
+<p>Counting those as stalls made the first real run report <strong>three breaches of the deadman on a link
+that never faltered</strong> — the longest of them <strong>75 seconds</strong>, which is <strong>a pad on a table, not a
+radio.</strong></p>
+</blockquote>
+<p><strong>&quot;那是桌上的一只手柄，不是电台。&quot;</strong></p>
+<p>而 <code>pad-stack-report.sh:13-14</code> 讲了它的第一条设计：</p>
+<blockquote>
+<p>None of that survives a <code>diff</code>, and <strong>a diff full of timestamps is a diff nobody reads.</strong></p>
+</blockquote>
+<h3 id="84-恢复的那一对"><a class="header" href="#84-恢复的那一对">8.4 恢复的那一对</a></h3>
+<pre><code>robot-boot-check.timer (OnBootSec=180)
+      │
+      ▼
+robot-boot-check          ← 每次开机一次，3 分钟后
+      │  成员：updaterd · robotd · configd · btd
+      │  判据：ActiveState=failed **或** NRestarts &gt;= 3
+      ▼
+robot-rescue --reboot     ← 把 current 换回 golden
+</code></pre>
+<p><strong>&quot;没起来&quot;的定义</strong>（<code>robot-boot-check:13-19</code>）：</p>
+<blockquote>
+<p>Everything else is left alone, and <strong>that asymmetry is the point.</strong> … A daemon still waiting for
+hardware is <code>active</code> — <strong>all four members wait rather than exit, which is what makes them members
+at all</strong> — and a single crash that recovered leaves one or two restarts, not three.
+<strong>A false negative here costs an operator a diagnosis; a false positive costs a good release.</strong></p>
+</blockquote>
+<p><strong>&quot;这里的一次假阴性代价是一次诊断；一次假阳性代价是一个好发布。&quot;</strong></p>
+<p><strong>为什么是 3 而不是 1</strong>（<code>:34-36</code>）：</p>
+<blockquote>
+<p>Three, not one. <code>Restart=always</code> plus a 2-5s <code>RestartSec</code> means <strong>a genuine loop passes three
+within the deadline several times over</strong>, while <strong>a daemon that died once on a transient and came
+back does not. One would fire on the latter.</strong></p>
+</blockquote>
+<p><strong>为什么 <code>robot-rescue</code> 是 shell 而不是二进制</strong>（<code>robot-rescue:11-19</code>）：</p>
+<blockquote>
+<p>A rescue that ships as a binary in the release payload <strong>is broken by exactly the releases it
+exists to survive</strong>: the wrong architecture, a missing shared library, a panic on startup.
+… A rescue that <strong>parses</strong> that same file <strong>dies of the disease it is treating.</strong></p>
+</blockquote>
+<p><strong>&quot;一个要解析那份文件的救援脚本，会死于它正在治的那种病。&quot;</strong></p>
+<hr />
+<h2 id="9-开发工具"><a class="header" href="#9-开发工具">9. 开发工具</a></h2>
+<h3 id="91-duck-sim两个模式不同的目的"><a class="header" href="#91-duck-sim两个模式不同的目的">9.1 <code>duck-sim</code>：两个模式，不同的目的</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>模式</th><th>是什么</th><th>能测到什么</th></tr></thead><tbody>
+<tr><td><strong><code>up</code></strong>（默认）</td><td>真 daemon 当普通进程跑</td><td>控制环、策略、IPC、<code>robotctl</code>、控制台</td></tr>
+<tr><td><strong><code>boot N</code></strong></td><td>每只鸭子一个 <code>systemd-nspawn</code> 容器</td><td><strong>加上</strong> <code>User=</code>/组/<code>RuntimeDirectory=</code>/加固、更新的 apply、健康门、回滚、重启顺序、<code>journalctl</code></td></tr>
+</tbody></table>
+</div>
+<pre><code>scripts/duck-sim              # 一个窗口打开，鸭子站起来，归你了
+DUCK_SIM_DUCKS=4 scripts/duck-sim up
+scripts/duck-sim boot 4       # 四只鸭子，四台真 systemd
+</code></pre>
+<p><code>duck-sim:532-537</code> 记了一个很实在的坑：</p>
+<blockquote>
+<p><strong><code>robot.enable</code>, not <code>robot init</code>.</strong> <code>init</code> enables torque and then position-ramps to the home
+pose over two seconds <strong>with nothing balancing</strong> — and this duck <strong>cannot hold any pose without a
+policy driving it, at any timestep, from any placement.</strong></p>
+</blockquote>
+<h3 id="92-dev-pushsh不走-ci-的那条路"><a class="header" href="#92-dev-pushsh不走-ci-的那条路">9.2 <code>dev-push.sh</code>：不走 CI 的那条路</a></h3>
+<p><code>:16-20</code>：</p>
+<blockquote>
+<p><strong>What this is for</strong>: the loop between &quot;I changed a line&quot; and &quot;the robot is running it&quot; was a
+push, a CI run and a <code>--ref</code> install. <strong>Everything CI does to make that artifact happens locally in
+well under a minute</strong>, so <strong>the only reason to involve CI is to publish something other people
+install.</strong></p>
+</blockquote>
+<p>而 <code>:22-27</code> 最重要的一句：</p>
+<blockquote>
+<p><strong>It is an ordinary update.</strong> … <strong>a local build that does not come up is reverted and the board is
+back on what it was running.</strong></p>
+</blockquote>
+<p>⚠️ 而它自己承认<strong>验证是有缺口的</strong>（<code>:458-465</code>）：</p>
+<blockquote>
+<p>The apply reporting success means the swap happened and the health gate passed. <strong>It does not mean
+the seven daemons are running the release that was swapped in</strong> … <strong>four wifi fixes were once
+verified as broken against a <code>configd</code> that had never restarted.</strong></p>
+</blockquote>
+<h3 id="93-bake-duck-meshpy"><a class="header" href="#93-bake-duck-meshpy">9.3 <code>bake-duck-mesh.py</code></a></h3>
+<p>把机器人的 MJCF + STL 视觉模型烘焙成 <code>robotctl/assets/duck.bin</code>（68,622 字节）。
+为什么要提交产物（<code>:6-9</code>）：</p>
+<blockquote>
+<p><code>robotctl</code> ships to the board as <strong>a single binary with no assets directory</strong>, and a terminal is a
+~100×100-pixel display <strong>for which 330k triangles of CAD export are pure waste.</strong></p>
+</blockquote>
+<hr />
+<h2 id="10--只属于-scripts-的那条纪律shellcheck"><a class="header" href="#10--只属于-scripts-的那条纪律shellcheck">10. ⭐ 只属于 <code>scripts/</code> 的那条纪律：shellcheck</a></h2>
+<p>这些脚本<strong>没有一个是被编译的</strong>，所以没有编译器能替你抓错别字。
+<code>.github/workflows/ci.yml:70-115</code> 里有一整段专门讲这件事：</p>
+<blockquote>
+<p>These are the pieces of this repo that <strong>run without being compiled</strong> — four on a robot, and
+<code>provision-board.sh</code> and <code>dev-push.sh</code> on a developer's machine — so <strong>nothing else would catch a
+typo in one until someone tried to provision a board.</strong></p>
+</blockquote>
+<p><strong>&quot;直到有人试图去装机，否则没有任何东西会发现它们里面的错别字。&quot;</strong></p>
+<h3 id="101-那段注释是一部事故史"><a class="header" href="#101-那段注释是一部事故史">10.1 那段注释是一部事故史</a></h3>
+<p>它逐条解释了<strong>为什么每一个脚本在这张清单上</strong>，而每一条都是一个疤：</p>
+<div class="table-wrapper"><table><thead><tr><th>脚本</th><th>那段注释怎么说</th></tr></thead><tbody>
+<tr><td><code>ci-release-notes.sh</code></td><td><em>&quot;it runs <strong>during a release</strong>, which is the worst moment to find a typo in a shell script.&quot;</em></td></tr>
+<tr><td><code>migrate-network.sh</code></td><td><em>&quot;was missing from this list <strong>while being the riskiest of them</strong> — it is the one step that can make a headless board unreachable, and <strong>the one nobody re-runs once their own board is migrated</strong>.&quot;</em></td></tr>
+<tr><td><code>robot-rescue</code></td><td><em>&quot;it is the script that runs when a board <strong>cannot start its update daemon</strong> — <strong>the worst possible moment to find a typo</strong>.&quot;</em></td></tr>
+<tr><td><code>pad-link-test.sh</code></td><td><em>&quot;it is typed by someone <strong>whose pad is already misbehaving</strong>, and <code>set -eu</code> turns a stray <code>[ x ] &amp;&amp; y</code> into <strong>an exit two minutes into a measurement</strong>.&quot;</em></td></tr>
+<tr><td><code>hooks/postinstall</code></td><td><em>&quot;was missing from this list while being <strong>the one file that runs on every board on every update</strong> — <strong>the argument this comment opens with, applied to itself</strong>.&quot;</em></td></tr>
+</tbody></table>
+</div>
+<p><strong>&quot;这段注释开头那个论证，被应用到了它自己身上。&quot;</strong></p>
+<p>而 <code>board-test.sh</code> 单独一个任务，因为那 980 行的检查体是<strong>一个巨大的单引号字符串</strong>
+（<code>.github/workflows/ci.yml:117-133</code>）：</p>
+<blockquote>
+<p>an apostrophe inside that string closes it early, and everything after it is then expanded by this
+shell instead of the container's. <strong>It cost a full <code>board</code> run twice in one afternoon</strong> — four QEMU
+minutes to be told <code>unexpected EOF</code>, when SC2211 names the line.
+<strong><code>sh -n</code> alone is not enough: two apostrophes balance, so the syntax is valid and the content is
+silently mangled.</strong></p>
+</blockquote>
+<p><strong>&quot;两个撇号是配平的，所以语法合法，而内容被静默地搞坏了。&quot;</strong></p>
+<h3 id="102-那条posix-sh不是-bash"><a class="header" href="#102-那条posix-sh不是-bash">10.2 那条&quot;POSIX sh，不是 bash&quot;</a></h3>
+<p>同一个任务里：</p>
+<blockquote>
+<p><strong>POSIX sh, not bash</strong>: the script is piped to <code>sh</code> by the documented one-liner, and <strong>a bashism
+would work on a dev box and fail on the board.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 bashism 会在开发机上工作，在板子上失败。&quot;</strong> —— 这就是为什么几乎所有脚本都是 <code>#!/bin/sh</code>。</p>
+<hr />
+<h2 id="11-几处读者会绊到的地方"><a class="header" href="#11-几处读者会绊到的地方">11. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="111--六个-posix-sh-脚本不在-shellcheck-清单上"><a class="header" href="#111--六个-posix-sh-脚本不在-shellcheck-清单上">11.1 ⚠️ 六个 POSIX <code>sh</code> 脚本不在 shellcheck 清单上</a></h3>
+<p>CI 的清单（<code>.github/workflows/ci.yml:105</code>）点了 15 个脚本。<strong><code>scripts/</code> 里另有六个 <code>sh</code> 脚本不在上面</strong>：</p>
+<p><code>scripts/</code> 里一共 <strong>22 个 <code>#!/bin/sh</code> 脚本</strong>。清单上是 15 个，<code>board-test.sh</code> 由第二个 job 单独 lint，
+<strong>剩下六个哪个 job 都不管</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>脚本</th><th>行数</th><th>为什么看起来该在清单上</th></tr></thead><tbody>
+<tr><td><strong><code>setup-rkaiq.sh</code></strong></td><td>332</td><td><strong><code>hooks/preinstall.in:164</code> 在每一块板子的每一次更新上跑它</strong></td></tr>
+<tr><td><strong><code>setup-npu.sh</code></strong></td><td>244</td><td><code>hooks/preinstall.in:195</code> 调用它</td></tr>
+<tr><td><strong><code>robot-boot-check</code></strong></td><td>144</td><td><code>hooks/postinstall:44</code> 安装它，<strong>每次开机由一个定时器跑</strong></td></tr>
+<tr><td><code>duck-sim</code></td><td>1105</td><td>这个目录里最大的脚本</td></tr>
+<tr><td><code>systemd-test.sh</code></td><td>364</td><td></td></tr>
+<tr><td><code>cross-sysroot.sh</code></td><td>204</td><td></td></tr>
+</tbody></table>
+</div>
+<p><strong>另外两个</strong> <code>publish-console.sh</code> / <code>publish-space.sh</code> 是 <code>bash</code>（<code>set -euo pipefail</code>），
+所以&quot;POSIX sh，不是 bash&quot;那条理由对它们不适用。</p>
+<p>对照一下：hooks 调用的<strong>其他五个</strong>脚本 —— <code>setup-gstreamer.sh</code>、<code>setup-login.sh</code>、
+<code>setup-quiet-boot.sh</code>、<code>seed-policies.sh</code>、<code>seed-detector.sh</code> —— <strong>都在清单上</strong>，
+<code>robot-rescue</code> 也在（而 <code>robot-boot-check</code> 不在）。</p>
+<p>而 CI 那段注释自己的论证是：<em>&quot;这些是不用编译就会运行的部分，所以直到有人试图装机，
+没有任何东西会发现它们里面的错别字。&quot;</em> 按这个论证，上面那三个<strong>在每块板子上运行</strong>的脚本属于这张清单。</p>
+<p><strong>顺带一处</strong>：<code>setup-npu.sh</code> 和 <code>setup-rkaiq.sh</code> 恰好也是<strong>仅有的两个用 <code>set -e</code> 而不是 <code>set -eu</code></strong> 的脚本
+（其余 20 个都是 <code>set -eu</code>）。所以它们既不在 lint 清单上，运行时的严格程度也和其余的不同。</p>
+<h3 id="112-contributingmd-的-scripts-地图缺了-9-个文件"><a class="header" href="#112-contributingmd-的-scripts-地图缺了-9-个文件">11.2 <code>CONTRIBUTING.md</code> 的 <code>scripts/</code> 地图缺了 9 个文件</a></h3>
+<p><code>CONTRIBUTING.md:100-107</code> 那张图列了 19 项，而 <code>scripts/</code> 里有 28 个文件。
+<strong>没被提到的九个</strong>：</p>
+<pre><code>ci-release-notes.sh     duck-sim              publish-console.sh
+publish-space.sh        rkaiq-modinfo-shim.c  seed-detector.sh
+seed-policies.sh        setup-npu.sh          systemd-test.Dockerfile
+</code></pre>
+<p>其中 <strong><code>setup-npu.sh</code> 和 <code>duck-sim</code></strong> 是最显眼的两个 —— 前者在每块板子上跑，
+后者是这个目录里最大的脚本（1105 行）。</p>
+<h3 id="113----no-rkaiq-撑不过那次重启"><a class="header" href="#113----no-rkaiq-撑不过那次重启">11.3 ⚠️ <code>--no-rkaiq</code> 撑不过那次重启</a></h3>
+<p><code>provision.sh:139</code> 写着：</p>
+<pre><code># `DUCK_RKAIQ=0` turns it off — `--no-rkaiq` on `provision-board.sh`.
+</code></pre>
+<p>但存状态的时候（<code>provision.sh:275</code>）<strong>只写了 <code>DUCK_GSTREAMER</code></strong>：</p>
+<pre><code class="language-sh">kv DUCK_GSTREAMER &quot;$GSTREAMER&quot;
+</code></pre>
+<p>而恢复的时候（<code>:299</code>）<strong>也只恢复了 <code>GSTREAMER</code></strong>：</p>
+<pre><code class="language-sh">GSTREAMER=&quot;${ENV_GSTREAMER:-${DUCK_GSTREAMER:-1}}&quot;
+</code></pre>
+<p>于是 <code>RKAIQ=&quot;${ENV_RKAIQ:-1}&quot;</code>（<code>:141</code>）在 phase 2 里<strong>重新求值成 <code>1</code></strong> ——
+而 resume 单元（<code>:420-441</code>）什么都不提供 <code>Environment=</code>。
+<strong>phase 2 会照常跑 <code>setup-rkaiq.sh</code>（<code>:563-572</code>）。</strong></p>
+<p><code>--no-gstreamer</code> 是好的；<strong><code>--no-rkaiq</code> 在默认（要重启）的那条路上被静默忽略。</strong></p>
+<p>（同一类还有 <code>DUCK_PAUSE_BTD</code>：<code>provision-board.sh:698</code> 设了它，<code>provision.sh:274</code>/<code>:298</code> 也不带它。
+这个在实践中无害，因为 phase 1 已经跑过 <code>setup-board.sh</code> 了。）</p>
+<h3 id="114-board-testsh-的头部说测三个镜像代码只测一个"><a class="header" href="#114-board-testsh-的头部说测三个镜像代码只测一个">11.4 <code>board-test.sh</code> 的头部说测三个镜像，代码只测一个</a></h3>
+<p><code>board-test.sh:5-8</code>：</p>
+<blockquote>
+<p>Armbian 26.2 also offers Ubuntu Noble and a minimal Debian Bookworm, so we build against an older
+glibc than any of them and <strong>verify against all three</strong> — Trixie first, since that is what will be
+flashed.</p>
+</blockquote>
+<p>而实际（<code>:43</code>）：</p>
+<pre><code class="language-sh">IMAGES=&quot;${BOARD_IMAGES:-debian:trixie-slim}&quot;
+</code></pre>
+<p><strong>只有一个镜像</strong>。而且后面 <code>:37-39</code> 的注释解释了测多个是<strong>被有意砍掉的</strong>：</p>
+<blockquote>
+<p>The target userland, and only that one. … <strong>testing configurations nobody runs costs ~2x the job
+time to defend a claim we do not need.</strong></p>
+</blockquote>
+<p>所以<strong>代码是对的，头部那句话说错了</strong>。而它恰好断在一个括号没闭合的地方（<code>:30-33</code>），
+读起来像是被剪掉了一半。</p>
+<h3 id="115-setup-boardsh-里一段过期的注释"><a class="header" href="#115-setup-boardsh-里一段过期的注释">11.5 <code>setup-board.sh</code> 里一段过期的注释</a></h3>
+<p><code>setup-board.sh:112-114</code>：</p>
+<blockquote>
+<p>The prototype also enables <code>i2c-gpio-pihat</code>, <code>aic3104-pihat</code> and a camera overlay; <strong>none apply
+here</strong> — our IMU rides the Dynamixel bus rather than I²C, and <strong><code>robotd</code> owns no camera or
+audio.</strong></p>
+</blockquote>
+<p>而<strong>同一个文件往下就装了</strong> <code>i2c3-pihat</code>、<code>aic3104-i2c3</code>、一个音频 codec 的 DKMS 模块
+<strong>和</strong>那个摄像头 overlay（<code>:590</code>、<code>:744-772</code>）。那段注释是音频和摄像头被移植进来之前写的。</p>
+<h3 id="116-setup-rkaiqsh-的头部和它的代码说的不一样"><a class="header" href="#116-setup-rkaiqsh-的头部和它的代码说的不一样">11.6 <code>setup-rkaiq.sh</code> 的头部和它的代码说的不一样</a></h3>
+<p>头部（<code>:25-27</code>）：</p>
+<blockquote>
+<p>the shim is <strong>rebuilt each run</strong> because it is cheap and because the kernel it probes can change
+under it.</p>
+</blockquote>
+<p>而代码（<code>:215</code>）是用 <code>cmp -s</code> 比源码，<strong>一样就跳过编译</strong>：</p>
+<pre><code>the ioctl shim is current
+</code></pre>
+<p><code>:204-208</code> 的注释和代码是一致的（<em>&quot;an unconditional <code>gcc</code> is a compile on every release for ever&quot;</em>）——
+<strong>只有头部那一句是旧的</strong>。</p>
+<h3 id="117-两处小的"><a class="header" href="#117-两处小的">11.7 两处小的</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>什么</th></tr></thead><tbody>
+<tr><td><code>cross-sysroot.sh:4-5</code></td><td>一句话里插进了另一段：<em>&quot;…libudev, for <code>gilrs</code> in <code>padd</code> — and <strong>The multiarch script this replaced said plainly that it</strong> …&quot;</em>，引文没有归属了</td></tr>
+<tr><td><code>duck-sim:912</code></td><td><code>printf &quot;root:x:0:\n&quot; &gt;/dev/null</code> —— 写进 <code>/dev/null</code>，一个遗留的空操作</td></tr>
+<tr><td><code>duck-sim:1048</code></td><td><code>PORT_I=&quot;$(duck_port &quot;$i&quot;)&quot;</code> 赋给一个没人读的变量</td></tr>
+<tr><td><code>setup-npu.sh:220</code></td><td>裸调 <code>ldconfig</code>，而 <code>setup-board.sh:328-337</code> 专门处理了&quot;<code>/usr/sbin</code> 可能不在登录 PATH 上&quot;</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="12-阅读路线"><a class="header" href="#12-阅读路线">12. 阅读路线</a></h2>
+<p><strong>11,790 行不可能一次读完。</strong> 按目的选入口：</p>
+<h3 id="如果你想装一块板子"><a class="header" href="#如果你想装一块板子">如果你想装一块板子</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a> §仓库布局（<code>:92-106</code>）—— 那张地图</td></tr>
+<tr><td>2</td><td><a href="robot/install-dev.html"><code>robot/install-dev.md</code></a>（操作者视角）</td></tr>
+<tr><td>3</td><td><code>provision-board.sh:1-40</code>（模块文档 + 为什么它存在）</td></tr>
+<tr><td>4</td><td><code>provision.sh:1-60</code> + <code>:489-530</code>（两阶段）</td></tr>
+<tr><td>5</td><td><code>install.sh:1-40</code>（引导的循环）</td></tr>
+</tbody></table>
+</div>
+<h3 id="如果你想改板级的东西"><a class="header" href="#如果你想改板级的东西">如果你想改板级的东西</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>setup-board.sh:1-50</code>（边界 + 那两个静默陷阱）</td></tr>
+<tr><td>2</td><td><code>setup-board.sh:225-275</code>（overlay 前缀）</td></tr>
+<tr><td>3</td><td><code>setup-board.sh:386-425</code>（getty 那个疤）</td></tr>
+<tr><td>4</td><td><code>setup-rkaiq.sh:1-60</code>（为什么是厂商引擎）</td></tr>
+<tr><td>5</td><td><code>migrate-network.sh:1-40</code> + <code>:340-400</code>（后备）</td></tr>
+</tbody></table>
+</div>
+<h3 id="如果你想理解恢复"><a class="header" href="#如果你想理解恢复">如果你想理解恢复</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>robot-boot-check:1-45</code>（成员、阈值、那条不对称）</td></tr>
+<tr><td>2</td><td><code>robot-rescue:1-45</code>（为什么是 shell）</td></tr>
+<tr><td>3</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a> + <a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a></td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读 §2 那张表、§3 那张图，然后读 <code>robot-boot-check:13-19</code>。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>幂等，不交互，不重启。</strong> 每一个脚本都能重复跑；&quot;要不要重启&quot;是一个<strong>脚本不替你决定</strong>的问题
+（唯一的例外是 <code>provision.sh</code>，而它的理由写在 <code>:26-35</code>）。</li>
+<li><strong>静默的失败是这里最大的敌人。</strong> 错的前缀会&quot;开开心心启动然后没有 <code>/dev/ttyS2</code>&quot;；
+缺一个组会让 <code>robotctl health</code> 读起来像 daemon 崩了；一个过期的 token 会让更新
+&quot;on a timer, forever, with nothing in front of a human&quot;。
+<strong>所以这些东西被写成了脚本而不是清单。</strong></li>
+<li><strong>每一次改动都要能到达已经在场上的板子。</strong> 这就是 <code>hooks/</code> 存在的理由，
+而 <code>scripts/</code> 里一半的设计（<code>setup-login.sh</code>、<code>setup-quiet-boot.sh</code>、<code>seed-*.sh</code>、<code>setup-npu.sh</code>）
+都是在回答同一个问题：<strong>一块在我写这个之前就装好的板子，怎么拿到它？</strong></li>
+</ol>
+<hr />
+<h2 id="13-术语表"><a class="header" href="#13-术语表">13. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>provision</strong></td><td>让一块空板子具备运行条件。<strong>装机</strong></td></tr>
+<tr><td><strong>bring-up</strong></td><td>同上，偏&quot;让硬件活过来&quot;</td></tr>
+<tr><td><strong>设备树 / DTB / overlay</strong></td><td>描述板子上有什么硬件的树。overlay 是往树上加一段</td></tr>
+<tr><td><strong><code>overlay_prefix</code></strong></td><td>Armbian 找 overlay 文件时加的前缀。<strong>前缀错了会静默地什么都不加载</strong></td></tr>
+<tr><td><strong><code>armbianEnv.txt</code></strong></td><td>Armbian 的启动参数文件（在 <code>/boot</code>）</td></tr>
+<tr><td><strong>RK3566 / RK3568</strong></td><td>SoC 型号。<strong>两者共用设备树 overlay，但文件名前缀不同</strong> ← 那个陷阱</td></tr>
+<tr><td><strong>UART / ttyS2</strong></td><td>串口。这里跑 Dynamixel 舵机总线</td></tr>
+<tr><td><strong>getty</strong></td><td>串口上那个登录提示符。<strong>它会读端口，把舵机的回包吃掉</strong></td></tr>
+<tr><td><strong>rkaiq</strong></td><td>Rockchip 的 ISP 用户态。<code>3A</code> = 自动曝光/白平衡/对焦</td></tr>
+<tr><td><strong>ISP</strong></td><td>图像信号处理器</td></tr>
+<tr><td><strong>NPU</strong></td><td>神经网络加速器。RK3566 上是一个 0.8 TOPS 的 INT8 单元</td></tr>
+<tr><td><strong><code>librknnrt.so</code></strong></td><td>Rockchip 的 NPU 运行时，厂商二进制</td></tr>
+<tr><td><strong>DKMS</strong></td><td>内核模块的动态编译机制</td></tr>
+<tr><td><strong>vendor kernel</strong></td><td>厂商分支的内核（这里有 VPU 和摄像头驱动）</td></tr>
+<tr><td><strong>xenial / trixie / bookworm</strong></td><td>Debian 版本代号</td></tr>
+<tr><td><strong>netplan</strong></td><td>Ubuntu/Armbian 的网络<strong>配置生成器</strong>（不是运行时管理器）</td></tr>
+<tr><td><strong>NetworkManager</strong></td><td>真正的网络管理器，有扫描 API</td></tr>
+<tr><td><strong>supplicant</strong></td><td>管 wifi 关联的进程。<strong>两个同时在一个网卡上会掉线</strong></td></tr>
+<tr><td><strong>backstop（后备）</strong></td><td>一个&quot;改了会够不到&quot;的改动，重启后自己验证、不成功就自己撤销</td></tr>
+<tr><td><strong><code>systemd-nspawn</code></strong></td><td>systemd 的容器工具。<code>duck-sim boot</code> 用它跑真 systemd</td></tr>
+<tr><td><strong><code>mmdebstrap</code></strong></td><td>造 Debian rootfs 的工具</td></tr>
+<tr><td><strong>binfmt</strong></td><td>Linux 的&quot;这个二进制用什么解释器&quot;机制。x86 上跑 arm64 容器靠它</td></tr>
+<tr><td><strong>glibc floor</strong></td><td>二进制要求的最低 glibc 版本</td></tr>
+<tr><td><strong>sysroot</strong></td><td>交叉编译时假装成目标系统的那个目录树</td></tr>
+<tr><td><strong><code>PKG_CONFIG_LIBDIR</code></strong></td><td>pkg-config 的搜索路径。<strong>它是替换而不是追加</strong></td></tr>
+<tr><td><strong>shellcheck</strong></td><td>shell 脚本的静态检查器</td></tr>
+<tr><td><strong><code>set -eu</code></strong></td><td>出错就退出（<code>-e</code>）+ 用未定义变量就报错（<code>-u</code>）</td></tr>
+<tr><td><strong><code>pipefail</code></strong></td><td>管道里任何一段失败都算失败（bash 特性，<code>sh</code> 没有）</td></tr>
+<tr><td><strong>POSIX sh</strong></td><td>可移植的最小 shell 方言。<strong>bashism 在开发机上工作，在板子上失败</strong></td></tr>
+<tr><td><strong>idempotent（幂等）</strong></td><td>重复跑结果一样</td></tr>
+<tr><td><strong>golden</strong></td><td>那个已知good、永不删除的发布。恢复网的后备</td></tr>
+<tr><td><strong>boot counter</strong></td><td>启动计数器。开机几次都不健康就自动回滚</td></tr>
+<tr><td><strong><code>LD_PRELOAD</code></strong></td><td>在别的进程启动前塞进去一个 <code>.so</code>，可以拦截它的调用</td></tr>
+<tr><td><strong>ioctl</strong></td><td>设备驱动的一种系统调用。<strong>它的编号里编码了结构体大小</strong> ← 那个垫片</td></tr>
+<tr><td><strong>ENOTTY</strong></td><td>&quot;这个设备不认识这个 ioctl&quot;</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>更新时在这块板子上跑的那两个脚本（姊妹篇）</strong></td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>发布、签名、回滚的设计</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a></td></tr>
+<tr><td>启动恢复网</td><td><a href="design/boot-recovery-net.html"><code>design/boot-recovery-net.md</code></a></td></tr>
+<tr><td>怎么装一块开发板（操作者视角）</td><td><a href="robot/install-dev.html"><code>robot/install-dev.md</code></a></td></tr>
+<tr><td>怎么跑仿真（<code>duck-sim</code>）</td><td><a href="robot/simulation.html"><code>robot/simulation.md</code></a> · <a href="design/simulation.html"><code>design/simulation.md</code></a></td></tr>
+<tr><td>摄像头那套硬件是怎么 bring-up 的</td><td><a href="project/media-bringup.html"><code>project/media-bringup.md</code></a></td></tr>
+<tr><td>手柄的电台怎么诊断</td><td><a href="robot/pair-a-gamepad.html"><code>robot/pair-a-gamepad.md</code></a> · <a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>装完之后你用的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>那个被烘焙的 3D 模型画在哪（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a> §9</td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>深度矩阵与障碍检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>公共线上契约：它说的那门语言（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>里程计与那张地图（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态与零偏（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风与那个分类器（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>那份配置 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>那个 50 Hz 的控制环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/robotd-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/sounds-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/robotd-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/sounds-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

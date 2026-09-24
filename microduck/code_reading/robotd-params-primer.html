@@ -1,0 +1,846 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>robotd-params/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html" class="active"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="robotd-params-新手导读"><a class="header" href="#robotd-params-新手导读"><code>robotd-params</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>参数文件的机制由 <a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.2 拥有（英文）。本文只做一件事：
+带你把这个 crate 读一遍，讲清楚&quot;配置里的一个值，是怎么变成机器人身上的一个动作的&quot;。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="robotd-primer.html"><code>robotd-primer.md</code></a> —— 那个控制循环本身。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E8%BF%99%E4%B8%AA-crate">为什么要有这个 crate</a></li>
+<li><a href="#3-%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%89%E4%B8%AA%E9%97%AE%E9%A2%98">核心心智模型：三个问题</a></li>
+<li><a href="#4-%E6%96%87%E4%BB%B6%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B713-%E4%B8%AA-section">文件长什么样：13 个 section</a></li>
+<li><a href="#5-%E4%BD%A0%E5%AE%9E%E9%99%85%E4%BC%9A%E6%80%8E%E4%B9%88%E6%94%B9%E9%85%8D%E7%BD%AE">你实际会怎么改配置</a></li>
+<li><a href="#6-%E6%9C%80%E7%BB%95%E7%9A%84%E6%A6%82%E5%BF%B5resolved">最绕的概念：<code>resolved()</code></a></li>
+<li><a href="#7-%E4%B8%89%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%86%E5%B7%A5">三个文件的分工</a></li>
+<li><a href="#8-%E6%AF%8F%E4%B8%AA%E9%94%AE%E9%83%BD%E8%A6%81%E8%AF%B4%E6%98%8E%E6%80%8E%E4%B9%88%E7%94%9F%E6%95%88">每个键都要说明&quot;怎么生效&quot;</a></li>
+<li><a href="#9-%E7%83%AD%E9%87%8D%E8%BD%BD%E8%B0%81%E8%A2%AB%E7%9B%91%E5%90%AC%E8%B0%81%E5%BF%85%E9%A1%BB%E9%87%8D%E5%90%AF">热重载：谁被监听，谁必须重启</a></li>
+<li><a href="#10-%E5%86%99%E9%85%8D%E7%BD%AE%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7">写配置的安全性</a></li>
+<li><a href="#11-%E6%9C%AA%E7%9F%A5%E9%94%AE%E4%B8%8E%E6%8B%BC%E5%86%99%E9%94%99%E8%AF%AF">未知键与拼写错误</a></li>
+<li><a href="#12-update_gate-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AB%E8%BF%99%E4%B8%AA%E5%90%8D%E5%AD%97"><code>[update_gate]</code> 为什么叫这个名字</a></li>
+<li><a href="#13-%E6%B5%8B%E8%AF%95%E5%9B%9B%E4%B8%AA%E6%9C%80%E5%80%BC%E5%BE%97%E8%AE%B2%E7%9A%84">测试：四个最值得讲的</a></li>
+<li><a href="#14-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#15-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>robotd-params</code> 是<strong>机器人配置文件 <code>/etc/robot/robotd.toml</code> 的&quot;说明书 + 默认值 + 检查器 + 编辑器&quot;</strong>。</p>
+<p>它自己不控制任何东西，它只回答一个问题：</p>
+<blockquote>
+<p><strong>&quot;这个机器人的参数是什么？&quot;</strong></p>
+</blockquote>
+<pre><code class="language-text">   /etc/robot/robotd.toml  ← 一个纯文本文件，你可以用记事本改
+              │
+              │  由 robotd-params 解析、检查、填默认值
+              ▼
+   ┌─────────────────────────────────────────────────┐
+   │  robotd   ← 电机控制循环（读 bus/control/policy │
+   │             /safety/audio/theremin/chorale/     │
+   │             update_gate）                       │
+   │  mediad   ← 摄像头与视频（只读 [media] 和        │
+   │             [duck_detector]）                   │
+   │  padd     ← 手柄（只读 [pad] 和                  │
+   │             [pad_imu_head_control]）            │
+   │  tofd     ← 深度传感器（只读 [head_imu]）        │
+   └─────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>关键事实：一个文件，四个程序读，各读各的段。</strong> 这句话解释了后面一大半的设计 —— 包括&quot;为什么改一个设置有时要重启 <code>mediad</code> 而不是 <code>robotd</code>&quot;。</p>
+<p>这个 crate 只有三个源文件：</p>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th style="text-align: right">行数</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>lib.rs</code></td><td style="text-align: right">3349</td><td>schema、默认值、校验 —— <strong>值是什么</strong></td></tr>
+<tr><td><code>registry.rs</code></td><td style="text-align: right">683</td><td>77 个键的机器可读索引 —— <strong>有哪些键</strong></td></tr>
+<tr><td><code>edit.rs</code></td><td style="text-align: right">1430</td><td>无损编辑 TOML —— <strong>怎么写回去</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="2-为什么要有这个-crate"><a class="header" href="#2-为什么要有这个-crate">2. 为什么要有这个 crate</a></h2>
+<p><code>lib.rs</code> 开头的模块文档给了三条理由，都值得理解：</p>
+<p><strong>一、用一个文件代替 142 个命令行参数。</strong></p>
+<p>原型（<code>microduck_runtime</code>）是一个巨大的命令行程序：控制频率、增益、滤波系数、策略路径……全都是 flag。结果是启动命令长得没人能读，而且没有一个地方能回答&quot;这台机器人到底配成什么样了&quot;。</p>
+<p><strong>二、启动时读一次，平时不监听。</strong></p>
+<pre><code class="language-text">   启动时：读文件 → 解析 → 校验 → 变成 Params → 交给各个 daemon
+   之后：  不动了。改了文件？重启才生效（有两个例外，见第 9 节）
+</code></pre>
+<p>这是<strong>故意的</strong>。热重载一个正在跑的控制循环（比如改 <code>[safety]</code> 的摔倒阈值）是一个大得多的承诺，至今没有做。</p>
+<p><strong>三、文件放在 <code>releases/&lt;ver&gt;/</code> 之外。</strong></p>
+<p>机器人的软件是&quot;整目录替换&quot;式更新的：新版解压到 <code>/opt/robot/daemon/releases/&lt;版本&gt;/</code>，然后把 <code>current</code> 这个符号链接指过去。</p>
+<p>所以配置放在 <code>/etc/robot/robotd.toml</code>，<strong>在发布目录之外</strong> —— 这样它既活过更新，也活过回滚。这正是为什么<strong>安装脚本只写一次、之后永不覆盖</strong>。</p>
+<blockquote>
+<p>⚠️ 这条带来一个后果，是用血换来的教训（<code>deploy/robotd.toml</code> 里原话）：
+<strong>一旦你把某个值取消注释，它就在这块板子上被永远冻结了</strong>，而发布版本还在往前走。
+这就是&quot;整个机队的机器人站在 kP 120，而发布默认值写着 160&quot;的由来。</p>
+</blockquote>
+<p><strong>四、为什么是一个独立的 crate？</strong></p>
+<p>因为 <code>robotctl configure</code> 需要<strong>真正的 schema</strong> 来编辑这个文件。如果 <code>robotctl</code> 自己抄一份字段列表，那份拷贝<strong>必然</strong>会漂移 —— 然后&quot;编辑器里能改的键&quot;和&quot;daemon 认识的键&quot;就成了两回事。</p>
+<p>把类型放在一个共享 crate 里，编译器就能保证两边永远一致。</p>
+<hr />
+<h2 id="3-核心心智模型三个问题"><a class="header" href="#3-核心心智模型三个问题">3. 核心心智模型：三个问题</a></h2>
+<p>看这个 crate 时，头脑里要一直挂着三个问题。整份代码就是在分别回答它们：</p>
+<pre><code class="language-text">   ① 值从哪来？          ② 谁赢？              ③ 什么时候生效？
+   ─────────────         ─────────            ──────────────
+   文件写了？            文件 &gt; 内置默认        [pad]  → 1 秒内自动
+   没写 → 默认值         槽位 &gt; mode 预设       [policy] → 被要求时重载
+   &quot;none&quot; → 关掉         显式 &gt; 隐式           其余 → 重启对应 daemon
+</code></pre>
+<p><strong>问题 ①（值从哪来）</strong> 由 <code>Params::load</code> 回答 —— 第 5 节和第 11 节。
+<strong>问题 ②（谁赢）</strong> 由 <code>resolved()</code> 回答 —— 第 6 节。
+<strong>问题 ③（什么时候生效）</strong> 由 <code>apply_for()</code> 回答 —— 第 8、9 节。</p>
+<blockquote>
+<p>这三个问题不只是&quot;读代码的钥匙&quot;，它们也是<strong>用配置的钥匙</strong>。当有人问&quot;我改了这个怎么没反应&quot;，
+答案永远是这三条之一。</p>
+</blockquote>
+<hr />
+<h2 id="4-文件长什么样13-个-section"><a class="header" href="#4-文件长什么样13-个-section">4. 文件长什么样：13 个 section</a></h2>
+<p><code>Params</code> 结构体（<code>lib.rs:65</code>）有 13 个字段，每个对应 TOML 里的一段：</p>
+<div class="table-wrapper"><table><thead><tr><th>TOML 段</th><th>Rust 类型</th><th>谁读</th><th>管什么</th></tr></thead><tbody>
+<tr><td><code>[bus]</code></td><td><code>Bus</code></td><td>robotd</td><td>串口设备、<code>fast_sync_read</code> 开关</td></tr>
+<tr><td><code>[control]</code></td><td><code>Control</code></td><td>robotd</td><td>控制频率 <code>hz</code>、指令平滑 <code>cmd_alpha</code>/<code>head_alpha</code></td></tr>
+<tr><td><code>[update_gate]</code></td><td><code>UpdateGate</code></td><td>robotd</td><td><strong>决定 <code>healthy</code> 的三个阈值</strong> —— 也就是回滚的依据</td></tr>
+<tr><td><code>[policy]</code></td><td><code>PolicyParams</code></td><td>robotd</td><td>7 个策略槽的路径、增益、滤波、技能列表</td></tr>
+<tr><td><code>[safety]</code></td><td><code>SafetyParams</code></td><td>robotd</td><td>摔倒判定、死区超时、电池空关机、limp-fall</td></tr>
+<tr><td><code>[audio]</code></td><td><code>AudioParams</code></td><td>robotd</td><td>嗓子（音效库、ALSA 设备）、宠物检测</td></tr>
+<tr><td><code>[theremin]</code></td><td><code>ThereminParams</code></td><td>robotd</td><td>ToF 特雷门琴</td></tr>
+<tr><td><code>[chorale]</code></td><td><code>ChoraleParams</code></td><td>robotd</td><td>多鸭合唱（只有 <code>accept</code> 一个键）</td></tr>
+<tr><td><code>[media]</code></td><td><code>MediaParams</code></td><td><strong>mediad</strong></td><td>视频源、画质、码率、拥塞控制</td></tr>
+<tr><td><code>[duck_detector]</code></td><td><code>DuckDetectorParams</code></td><td><strong>mediad</strong></td><td>找其他鸭子的检测器（旧名 <code>[detect]</code>）</td></tr>
+<tr><td><code>[head_imu]</code></td><td><code>HeadImuParams</code></td><td><strong>tofd</strong></td><td>头模块的 BMI088 IMU</td></tr>
+<tr><td><code>[pad]</code></td><td><code>PadParams</code></td><td><strong>padd</strong></td><td>手柄按键 → 技能</td></tr>
+<tr><td><code>[pad_imu_head_control]</code></td><td><code>PadImuHeadControlParams</code></td><td><strong>padd</strong></td><td>手柄自己的 IMU 控制头部（旧名 <code>[imu_head]</code>）</td></tr>
+</tbody></table>
+</div>
+<p><strong>注意&quot;谁读&quot;这一列。</strong> 三个段不归 <code>robotd</code> 读 —— 这正是第 8、9 节要讲的那个坑的来源。</p>
+<blockquote>
+<p><code>[pad_imu_head_control]</code> 这个名字起得特别长是有原因的。它曾经叫 <code>[imu_head]</code>，而上面两行有个 <code>[head_imu]</code>（机器人<strong>头里面的</strong> IMU）。两个名字只差一个词序，但说的是完全不同的两件事。代码注释里原话是：<strong>&quot;a name apart, not a difference&quot;</strong>。</p>
+</blockquote>
+<h3 id="默认值"><a class="header" href="#默认值">默认值</a></h3>
+<p>每个 section 都有 <code>Default</code> 实现。几个值得记住的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>[control]      hz = 50              // 从原型继承，那时是树莓派 Zero 2W 上选的
+               cmd_alpha = 0.2       // 摇杆猛推 → 变成步态跟得上的斜坡
+[policy]       gain = 200           // 位置环 P 增益
+               action_scale = 0.9   // 走路模式；roller 模式是 0.8
+               head_lowpass = 0.5   // ⚠️ 这是策略训练时用的值，改不得
+               legs_lowpass = 0.7   // ⚠️ 同上
+               voltage_adapt = true // 按电池电压缩放动作
+               nominal_voltage = 7.4
+[update_gate]  min_achieved_hz = 45.0        // 默认 50 Hz 的 90%
+               stall_periods = 25            // 500 ms，超了算&quot;卡死&quot;
+               max_consecutive_errors = 10
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>💡 <code>head_lowpass = 0.5</code> 和 <code>legs_lowpass = 0.7</code> <strong>不是调参口味，是训练参数</strong>。alpha 系列策略是<strong>带着这两个滤波系数训练出来的</strong> —— 改了它们，就等于让策略面对一个它没见过的世界，效果变差但<strong>不会报错</strong>。<code>control.rs</code> 里有一个测试专门钉住它们。</p>
+</blockquote>
+<hr />
+<h2 id="5-你实际会怎么改配置"><a class="header" href="#5-你实际会怎么改配置">5. 你实际会怎么改配置</a></h2>
+<p>新手最需要的操作路径。有两条，用哪条取决于你在干什么：</p>
+<h3 id="51-日常改开关--robotctl-configure"><a class="header" href="#51-日常改开关--robotctl-configure">5.1 日常改开关 → <code>robotctl configure</code></a></h3>
+<pre><code class="language-bash">sudo robotctl configure          # 全屏交互式编辑器
+robotctl configure --list        # 只打印&quot;这台机器人改过什么&quot;，然后退出
+robotctl configure --list --json # 同上，输出 JSON（给 support 用）
+robotctl configure --file /tmp/bench.toml   # 编辑别的文件（台架副本）
+</code></pre>
+<p>第一个是 TUI（终端界面）：<strong>功能开关排在最前</strong>，每个键显示&quot;当前值 vs 默认值&quot;、一行说明，就地切换和输入。</p>
+<p>第二个<strong>不需要 root，也不需要终端界面</strong> —— 这是 support 第一个会问的问题，而且能通过 ssh 回答。</p>
+<blockquote>
+<p>⚠️ 注意 <code>--list</code> <strong>只列改过的键</strong>，不是列出全部。它的原话是
+&quot;Print what this robot <strong>changes from the defaults</strong>&quot;。
+<strong>一台从没被碰过的机器人会什么都不打印 —— 而这本身就是一个答案</strong>，
+而且比一百行默认值更短。</p>
+</blockquote>
+<p>它存在的理由很实在（<code>configure.rs</code> 模块文档原话）：</p>
+<blockquote>
+<p><code>deploy/robotd.toml</code> 故意写得极其详尽 —— 每个键、段落长度的文档，全部注释掉。
+那是<strong>正确的参考手册</strong>，但<strong>糟糕的编辑界面</strong> —— 找你想改的那一个开关，意味着翻四百行散文。</p>
+</blockquote>
+<p>改完之后它会<strong>告诉你需要做什么</strong>：</p>
+<pre><code class="language-text">   ⚠️  restart robotd        ← 必须重启才能生效
+   ⚠️  restart mediad        ← 注意：不是 robotd！
+   ✓  padd picks this up within a second
+</code></pre>
+<p>这一句&quot;重哪儿&quot;就是第 8 节的全部内容。</p>
+<h3 id="52-想读文档--手工改--deployrobotdtoml"><a class="header" href="#52-想读文档--手工改--deployrobotdtoml">5.2 想读文档 / 手工改 → <code>deploy/robotd.toml</code></a></h3>
+<p>仓库里的 <code>deploy/robotd.toml</code> 是<strong>出厂示例配置</strong>，也是一份极好的教材 —— 每个键都有一段说明&quot;为什么是这个数、什么时候该改&quot;。</p>
+<p>它顶部写着一条重要约定：</p>
+<blockquote>
+<p><strong>每一个被注释掉的值，显示的就是内置默认值。留着注释，除非这台机器人真的需要别的值。</strong>
+（<code>install.sh</code> 只把这份文件拷贝到 <code>/etc/robot/robotd.toml</code> 一次，之后永不覆盖，
+所以一个取消注释的值就在这块板子上被冻结了，而发布版本还在前进。）</p>
+</blockquote>
+<p>举个例子，这份文件里关于 <code>[update_gate] stall_periods</code> 的说明：</p>
+<blockquote>
+<p>这个值原本是 3（50 Hz 下 60 ms），而一块忙碌板子上普通的调度抖动就会超过它；
+<strong>一个会被抖动触发的健康检查会回滚好的发布。</strong> 25 个周期是 500 ms —— 循环沉默这么久是真的没了。</p>
+</blockquote>
+<p>这段话如果写在别处，就只是&quot;一个数字&quot;；写在这里，它是一段历史。</p>
+<h3 id="53-其他会写这个文件的命令"><a class="header" href="#53-其他会写这个文件的命令">5.3 其他会写这个文件的命令</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>命令</th><th>只碰哪一段</th></tr></thead><tbody>
+<tr><td><code>robotctl policy load/reset</code></td><td><code>[policy]</code></td></tr>
+<tr><td><code>robotctl pad bind/reset</code></td><td><code>[pad]</code></td></tr>
+<tr><td><code>robotd</code> 自己（通过 <code>pad.bind</code> IPC）</td><td><code>[pad]</code></td></tr>
+</tbody></table>
+</div>
+<p>它们<strong>都走同一个写入器</strong>（<code>edit.rs</code>），这是刻意的：第二份实现会漂移，而它漂移的地方会是<strong>校验</strong>。</p>
+<hr />
+<h2 id="6-最绕的概念resolved"><a class="header" href="#6-最绕的概念resolved">6. 最绕的概念：<code>resolved()</code></a></h2>
+<p>新手最容易困惑的地方：<strong>&quot;配置文件里写的东西&quot;和&quot;程序实际用的东西&quot;不是一回事。</strong></p>
+<pre><code class="language-text">   文件里写了什么                       实际会用什么
+   ─────────────                       ────────────
+   [policy]                              ResolvedPolicy
+   mode = &quot;walk&quot;          ──┐
+   action_scale = &lt;没写&gt;     │  ① 按 mode 填未设置的项
+   head_lowpass = &lt;没写&gt;     │     walk → action_scale 0.9, lowpass 0.5/0.7
+   walk = &lt;没写&gt;             │     roller → action_scale 0.8, ...
+   stand = &quot;none&quot;            │
+                         ────┤  ② 叠加技能列表
+                             │     从安装的策略集 manifest.json 读，
+                             │     按名字合并（同名覆盖、新名追加）
+                             │
+                             └─ ③ &quot;none&quot; 字面量 → None
+                                   → 这个槽不存在，或机器人没有这个能力
+                                                 │
+                                                 ▼
+                                         控制循环
+</code></pre>
+<p>调用是 <code>policy_params.resolved()</code>（<code>lib.rs:1556</code>），返回 <code>ResolvedPolicy</code>。</p>
+<p><strong>为什么要分成两层？</strong> 因为一层做不到两件事：</p>
+<ul>
+<li><strong><code>mode</code> 是预设，不是一个开关。</strong> 把机器人改成轮式（<code>mode = &quot;roller&quot;</code>）不只是换策略文件，还要同时换一整套调参默认值。如果每个值都必须显式写出来，改模式就意味着改十几行 —— 而且漏掉一行就是一个静默的怪异行为。</li>
+<li><strong>&quot;没写&quot;和&quot;写了默认值&quot;必须能区分。</strong> 你没写 <code>action_scale</code>，是&quot;跟随 mode&quot;；你写了 <code>0.9</code>，是&quot;我就要 0.9，别管 mode&quot;。用 <code>Option&lt;T&gt;</code> 就能表达这个区别。</li>
+</ul>
+<h3 id="61-三态没写--写了默认值--写了别的"><a class="header" href="#61-三态没写--写了默认值--写了别的">6.1 三态：<code>没写</code> / <code>写了默认值</code> / <code>写了别的</code></a></h3>
+<p>这是新手<strong>一定会混淆</strong>的地方，而且它有两个不同的判断函数（<code>edit.rs:53</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>impl Row {
+    /// 文件里设了这个键吗？（&quot;有没有被写出来&quot;）
+    pub fn overridden(&amp;self) -&gt; bool { self.set.is_some() }
+
+    /// 值和默认值不一样吗？（&quot;值本身是不是分歧&quot;）
+    pub fn differs(&amp;self) -&gt; bool {
+        self.set.as_deref().is_some_and(|set| set != self.default)
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>于是任何一个键处于三种状态之一：</p>
+<div class="table-wrapper"><table><thead><tr><th>状态</th><th style="text-align: center"><code>overridden</code></th><th style="text-align: center"><code>differs</code></th><th>含义</th></tr></thead><tbody>
+<tr><td><strong>没写</strong>（注释掉或不存在）</td><td style="text-align: center">✗</td><td style="text-align: center">✗</td><td>跟随默认值 / 跟随 mode 预设</td></tr>
+<tr><td><strong>写了，值等于默认值</strong></td><td style="text-align: center">✓</td><td style="text-align: center">✗</td><td>写法上&quot;覆盖&quot;了，但<strong>没有分歧</strong></td></tr>
+<tr><td><strong>写了，值不一样</strong></td><td style="text-align: center">✓</td><td style="text-align: center">✓</td><td>这是一次真正的定制</td></tr>
+</tbody></table>
+</div>
+<p><strong>为什么这个区分重要？</strong> 因为 <code>deploy/robotd.toml</code> 里就有几个<strong>未注释</strong>的行（<code>port</code>、<code>hz</code>、<code>mode</code>、<code>enabled</code>），它们写出来的<strong>正好就是默认值</strong>。</p>
+<blockquote>
+<p><code>differs()</code> 的注释原话说：一个把默认值<strong>显式写出来</strong>的文件（出厂示例就是这么干的）
+<strong>不是一次分歧</strong>。</p>
+<p>如果把&quot;写出来了&quot;当成&quot;改过了&quot;，那么 <code>robotctl configure --list</code> 会把真正重要的两行
+<strong>埋在一堆&quot;看起来像改动其实不是&quot;的行下面</strong>。</p>
+</blockquote>
+<p>顺着这条规矩，还有一个体贴的设计（<code>edit.rs:243</code>）：<strong>你在编辑器里把值设成默认值时，它会把这一行删掉，而不是把默认值写进文件。</strong> 这样文件永远保持是&quot;一份决策清单&quot;，而不是&quot;一份默认值副本&quot; —— 这也正是 <code>--list</code> 能有意义的前提。</p>
+<blockquote>
+<p>💡 记法：<strong><code>overridden</code> 问的是&quot;文件里有没有这一行&quot;，<code>differs</code> 问的是&quot;这一行有没有改变行为&quot;。</strong></p>
+</blockquote>
+<h3 id="62-三个具体的陷阱机制"><a class="header" href="#62-三个具体的陷阱机制">6.2 三个具体的&quot;陷阱&quot;机制</a></h3>
+<p><strong><code>&quot;none&quot;</code> 哨兵。</strong> 任何可选路径写字符串 <code>&quot;none&quot;</code>，意思是&quot;关掉这一项&quot;，映射成 <code>None</code>。判断函数是 <code>is_none_sentinel</code>（<code>lib.rs:903</code>），用的是<strong>大小写不敏感比较</strong> —— 所以 <code>&quot;None&quot;</code>、<code>&quot;NONE&quot;</code> 都算。</p>
+<blockquote>
+<p>⚠️ 这个哨兵的存在意味着：<strong>一个真的名字叫 <code>none.onnx</code> 的文件是打不开的。</strong> 这是取舍。</p>
+</blockquote>
+<p><strong><code>walk</code> 槽永远不为空。</strong> 代码注释记录了一次真实事故：早期版本在 <code>walk = &quot;none&quot;</code> 时用 <code>expect</code> 直接 panic，<strong>把控制线程打死了</strong>。现在它会退回这台机器人自己的走路策略，并且<strong>报一条 error 说清楚</strong>：<code>[policy] walk = &quot;none&quot; cannot be honoured</code>。有一个测试专门钉住这件事（<code>lib.rs:2676</code>）。</p>
+<p><strong>技能列表是&quot;按名字合并&quot;的。</strong> 内置的有三个（<code>roulade</code>、<code>kick_left</code>、<code>kick_right</code>），安装的策略集可以在自己的 <code>manifest.json</code> 里覆盖它们或追加新的。合并规则（<code>resolved_skills_with</code>，<code>lib.rs:1499</code>）：</p>
+<pre><code class="language-text">   同名  → 覆盖（改时长、改缩放系数）
+   新名  → 追加到末尾
+   没提  → 不会丢，保持原样
+</code></pre>
+<p>最后 <code>[policy]</code> 里那 7 个槽位键会覆盖到列表上，<code>&quot;none&quot;</code> 的条目被删掉。另外有一道闸门 <code>DAEMON_OWNED_SKILLS</code>：<strong>manifest 不许抢 <code>ground_pick</code> 和 <code>sit_toggle</code></strong> —— 这两个是 daemon 自己的机制，不是可配置的一次性技能。</p>
+<h3 id="63-slot7-个策略槽"><a class="header" href="#63-slot7-个策略槽">6.3 <code>Slot</code>：7 个策略槽</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>Slot::ALL    = [walk, stand, sitstand, ground_pick, kick_left, kick_right, roulade]
+Slot::SKILLS = [kick_left, kick_right, roulade]      // 三个&quot;一次性技能&quot;
+<span class="boring">}</span></code></pre></pre>
+<p><code>Slot</code> 是一个枚举，不是字符串。它有三个用途，都被测试钉住：</p>
+<ul>
+<li><code>as_str()</code> 必须<strong>正好等于</strong> TOML 里的键名（<code>lib.rs:2083</code>）。</li>
+<li><code>config_key()</code> 产出 <code>policy.&lt;slot&gt;</code>，给 <code>apply_for</code> 用。</li>
+<li>每个 <code>Slot</code> 都必须对应一个 <code>robotd</code> 真的会读的键（<code>edit.rs:1332</code>）。</li>
+</ul>
+<hr />
+<h2 id="7-三个文件的分工"><a class="header" href="#7-三个文件的分工">7. 三个文件的分工</a></h2>
+<pre><code class="language-text">   ┌──────────────────────────────────────────────────────────────┐
+   │  lib.rs — 值是什么                                           │
+   │    Params 结构体 · 每个 section 的 Default · validate()       │
+   │    resolved() · Slot · Mode · SkillDef · 策略路径常量         │
+   │    ↑ 这是唯一的真相（single source of truth）                 │
+   └───────────────┬──────────────────────────┬───────────────────┘
+                   │                          │
+                   ▼                          ▼
+   ┌───────────────────────────┐  ┌────────────────────────────────┐
+   │ registry.rs — 有哪些键     │  │ edit.rs — 怎么写回去           │
+   │  77 条 Entry{key, kind,   │  │  toml_edit 无损编辑            │
+   │  doc, feature}            │  │  写前用 Params::load 校验      │
+   │  给编辑器用                │  │  原子替换                      │
+   └───────────────────────────┘  └────────────────────────────────┘
+                   │                          │
+                   └────────────┬─────────────┘
+                                ▼
+                    robotctl/src/configure.rs
+                    （TUI + &quot;该重启谁&quot;）
+</code></pre>
+<h3 id="71-registryrs给编辑器看的表"><a class="header" href="#71-registryrs给编辑器看的表">7.1 <code>registry.rs</code>：给编辑器看的表</a></h3>
+<p><code>Entry</code> 只有四个字段：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Entry {
+    pub key: &amp;'static str,   // &quot;section.key&quot;，和 serde 的拼法完全一致
+    pub kind: Kind,          // 值是什么类型 → 编辑器该给什么控件
+    pub doc: &amp;'static str,   // 一行说明，显示在编辑器页脚
+    pub feature: bool,       // 是不是&quot;功能开关&quot;（编辑器把它们排最前）
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>Kind</code> 有 12 个变体，把&quot;编辑器需要知道什么&quot;这件事说清楚了：</p>
+<pre><code class="language-text">   Bool / TriBool          开关；三态是给 Option&lt;bool&gt; 用的
+   Integer / Float         数字
+   OptionalFloat/Integer   数字，或&quot;没写&quot;（跟随别的值）
+   Choice(&amp;[&quot;a&quot;,&quot;b&quot;])      从固定几个名字里选
+   Text                    自由文本（ALSA 设备名、socket 路径）
+   OptionalPath            文件路径，或 &quot;none&quot; 关掉
+   IntegerList             一串数字（逗号分隔编辑）
+   Table                   重复表 [[policy.skill]] —— 只登记，不就地编辑
+   Record(&amp;&quot;...&quot;)          嵌套表 [media.intrinsics] —— 同上
+</code></pre>
+<blockquote>
+<p><strong>为什么 <code>Table</code> 和 <code>Record</code> 也要登记，即使编辑器不能改？</strong>
+因为完整性测试要<strong>真的有完整性</strong>。一个编辑器改不了的 section 仍然是它必须知道存在的 section ——
+否则下一个加进 <code>Params</code> 的重复表就会<strong>悄无声息地</strong>漏掉。</p>
+</blockquote>
+<p><code>REGISTRY</code> 一共 <strong>77 条</strong>，其中 <strong>20 条</strong>标了 <code>feature</code>（= 有人打开编辑器就是为了翻的那种开关，而不是要读完文档才敢碰的调参）。</p>
+<h3 id="72-editrs无损写入"><a class="header" href="#72-editrs无损写入">7.2 <code>edit.rs</code>：无损写入</a></h3>
+<p>它<strong>不是</strong>&quot;把结构体重新序列化一遍&quot;。那样会丢掉所有注释 —— 而 <code>deploy/robotd.toml</code> 的注释就是这份文件的文档。</p>
+<p>用的是 <code>toml_edit::DocumentMut</code>：在<strong>原有文档</strong>上只改被指定的那几个键，<strong>注释、顺序、未知键全部原样保留</strong>。</p>
+<p>写盘的完整保证（<code>edit.rs:465</code> <code>save</code>）值得逐步看：</p>
+<pre><code class="language-text">   ①  取文件锁                     ← 并发写不会互相覆盖
+   ②  重读磁盘上的最新文档          ← 别人可能改过了
+       再&quot;变基&quot;：只把本模型改过的键
+       应用上去
+   ③  渲染
+   ④  写到 robotd.toml.new         ← 临时的
+   ⑤  Params::load(&amp;staged, true)  ← ★ 用真正的加载器验证 ★
+       失败 → 删掉临时文件，报
+       &quot;refusing to write a config robotd would reject&quot;
+   ⑥  rename（原子替换）
+   ⑦  父目录 sync_all              ← 确保真的落盘
+</code></pre>
+<p><strong>第 ⑤ 步是这里最值得学的设计。</strong> 编辑器不会写出一份 <code>robotd</code> 拒绝启动的配置 —— 不是&quot;尽量小心&quot;，而是<strong>写之前先拿真家伙试一遍</strong>。</p>
+<p>还有一个体贴的细节（<code>edit.rs:243</code>）：<strong>如果你设的值正好等于默认值，它会把这一行删掉，而不是把默认值写进文件。</strong> 这样文件永远保持是&quot;一份决策清单&quot;，而不是&quot;一份默认值副本&quot; —— 也正是这一点让 <code>robotctl configure --list</code> 的&quot;当前值 vs 默认值&quot;有意义。</p>
+<hr />
+<h2 id="8-每个键都要说明怎么生效"><a class="header" href="#8-每个键都要说明怎么生效">8. 每个键都要说明&quot;怎么生效&quot;</a></h2>
+<p>这是这份代码里最有意思的一个设计，也是新手最容易踩的坑。</p>
+<p><strong><code>robotd.toml</code> 是同一个文件被四个程序读，各读各的段。</strong> 所以&quot;改了这个键要重启谁&quot;<strong>不是</strong>一个常数。</p>
+<p><code>robotctl/src/configure.rs:63</code> 用三种答案表达这件事：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Apply {
+    Restart(&amp;'static str),   // 启动时读一次。必须重启，那一秒它什么都不干
+    Reload(&amp;'static str),    // 跑着的 daemon 会在被要求时重读。比重启便宜：电机不断电
+    Live(&amp;'static str),      // daemon 自己会重读文件。什么都不用做，只要告诉用户
+}
+<span class="boring">}</span></code></pre></pre>
+<p>映射函数 <code>apply_for(key)</code>（<code>configure.rs:108</code>）：</p>
+<pre><code class="language-text">   [media] · [duck_detector]          →  Restart(&quot;mediad&quot;)
+   [pad] · [pad_imu_head_control]     →  Live(&quot;padd&quot;)
+   [head_imu]                         →  Restart(&quot;tofd&quot;)
+   [policy] 除了 mode 和 enabled       →  Reload(&quot;robotd&quot;)
+   [bus] [control] [update_gate]      →  Restart(&quot;robotd&quot;)
+   [policy] [safety] [chorale]
+   [theremin] [audio]
+</code></pre>
+<h3 id="81-那个-head_imu-事故"><a class="header" href="#81-那个-head_imu-事故">8.1 那个 <code>[head_imu]</code> 事故</a></h3>
+<p><strong>这个函数曾经有一个 <code>_ =&gt; &quot;robotd&quot;</code> 的兜底分支。</strong> 后果是：</p>
+<blockquote>
+<p>打开头 IMU，<strong>重启了那个根本不读这个键的 daemon</strong>，而 <code>tofd</code> 还拿着旧值。
+于是开关什么也没做，<strong>而且什么也没说。</strong></p>
+</blockquote>
+<p>一个&quot;看起来生效了、实际没有、还不报错&quot;的配置项，是最难查的一类 bug。</p>
+<p>现在的规则是：<strong>没有兜底</strong>。<code>apply_for</code> 遇到不认识的 section 返回 <code>None</code>，而<strong>每个 registry 键都必须有答案</strong>由一个测试强制（<code>configure.rs:1217</code> <code>every_registry_key_says_how_it_applies</code>，遍历整个 <code>REGISTRY</code> 断言 <code>apply_for(key).is_some()</code>）。</p>
+<blockquote>
+<p>加一个新 section 而忘了在 <code>apply_for</code> 里加一条？<strong>构建会失败。</strong> 这正是要点。</p>
+</blockquote>
+<p><code>Apply</code> 的每个变体<strong>都带着 daemon 的名字</strong>，也不只是为了实现方便 —— 注释里说：一个只说 &quot;restart&quot; 而<strong>不说重启谁</strong>的提示，正是 <code>[head_imu]</code> 变成重启 <code>robotd</code> 的原因。所以给用户看的每一句话都点名。</p>
+<h3 id="82-plan多个键一起改怎么办"><a class="header" href="#82-plan多个键一起改怎么办">8.2 <code>Plan</code>：多个键一起改怎么办</a></h3>
+<p><code>robotctl configure</code> 一次可能改好几个键。<code>plan_for_keys</code>（<code>configure.rs:165</code>）把它们合成三个列表，并且做两件&quot;聪明&quot;的事：</p>
+<p><strong>降级吸收。</strong> 如果 <code>robotd</code> 已经在重启列表里了，那么它上面的 reload 和 live 就<strong>没必要单列</strong> —— 一个要下线的 daemon 重新起来时会读整个文件。</p>
+<blockquote>
+<p>注释里的例子很具体：<code>[policy] mode</code> 需要重启，<code>[policy] gain</code> 本来会是 reload。
+同时改这两个，提示 &quot;restart robotd, then reload robotd&quot; 意味着<strong>再打扰一次正在走路的机器人</strong>，
+去应用一个它已经应用了的值。</p>
+</blockquote>
+<p><strong>排序。</strong> <code>robotd</code> 排在第一个，因为 <code>mediad.service</code> 是 <code>After=robotd.service</code> —— 反过来的话，<code>mediad</code> 会连上一个马上要消失的 <code>robotd</code>。</p>
+<hr />
+<h2 id="9-热重载谁被监听谁必须重启"><a class="header" href="#9-热重载谁被监听谁必须重启">9. 热重载：谁被监听，谁必须重启</a></h2>
+<p><strong>全仓库没有 <code>SIGHUP</code> 处理器，没有文件监听器（inotify/notify）。</strong> 只有两处例外，而且都是&quot;挣来的&quot;，不是&quot;顺手加的&quot;：</p>
+<h3 id="例外一padd-每秒看一次文件时间戳"><a class="header" href="#例外一padd-每秒看一次文件时间戳">例外一：<code>padd</code> 每秒看一次文件时间戳</a></h3>
+<p><code>padd/src/main.rs</code> 里 <code>BINDINGS_POLL = 1s</code>：每秒 <code>stat</code> 一次 <code>robotd.toml</code>，<code>mtime</code> 变了就重读 <code>[pad]</code> 和 <code>[pad_imu_head_control]</code>。</p>
+<p><strong>为什么值得破例？</strong> 因为重启 <code>padd</code> 的代价不是&quot;一秒&quot;，而是：</p>
+<blockquote>
+<p>手柄会话断了 → <code>robotd</code> 的死区开关（deadman）把<strong>正在走路的机器人</strong>速度归零。</p>
+</blockquote>
+<p>对比一下：为了应用一个按键绑定，让机器人停下来 —— 不值。所以这里 <code>Apply::Live</code>，提示语是实话实说：<strong>&quot;padd picks this up within a second&quot;</strong>。</p>
+<p>细节上还有两点：解析失败会<strong>退回默认映射</strong>（半写状态不会让人失去手柄）；轮询是一秒一次而不是每 tick 一次，因为&quot;人工改文件一周几次，50 Hz 地 stat 是白做功&quot;。</p>
+<h3 id="例外二robotd-被要求时重读-policy"><a class="header" href="#例外二robotd-被要求时重读-policy">例外二：<code>robotd</code> 被要求时重读 <code>[policy]</code></a></h3>
+<p><code>PolicyChange::Reload</code>（<code>robotd/src/main.rs:1595</code>）：重新解析整个 <code>[policy]</code>，重建控制器。</p>
+<p><strong>为什么值得破例？</strong> 因为重启 <code>robotd</code> 会把电机控制权从一个<strong>站着的机器人</strong>手里拿走 —— 就为了改一个本来可以站着改完的数字。</p>
+<p>这就是 <code>robotctl policy add</code> 能在<strong>不打断一个站着的机器人</strong>的情况下装载技能的原因。</p>
+<p><strong>但有两个键不在这个承诺里</strong>，<code>apply_for</code> 里专门排除：</p>
+<div class="table-wrapper"><table><thead><tr><th>键</th><th>为什么不能 reload</th></tr></thead><tbody>
+<tr><td><code>mode</code></td><td>重载时<strong>故意保留</strong>当前 mode —— 因为 <code>robot.setMode</code> 不写配置文件，如果重载时采纳文件里的 mode，就会<strong>把一次热切换悄悄撤销掉</strong></td></tr>
+<tr><td><code>enabled</code></td><td>只读一次进 <code>RobotState</code>，而且 <code>enabled = false</code> 时这个重载调用本身是<strong>被拒绝</strong>的 —— 所以大家真正在意的那个方向（关→开）根本没法靠 reload 做到</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="10-写配置的安全性"><a class="header" href="#10-写配置的安全性">10. 写配置的安全性</a></h2>
+<p>除了第 7.2 节的&quot;写完前先验证&quot;，还有两条规矩：</p>
+<p><strong>权限：文件是 root 所有的。</strong> 要写它就得 <code>sudo</code>。错误提示会直接说清楚这一点（<code>edit.rs</code> <code>writable_hint</code>）。</p>
+<blockquote>
+<p>有个细节值得注意：这个提示<strong>不再</strong>说&quot;请运行 <code>sudo robotctl configure</code>&quot;。因为现在有四个调用者会写这个文件，<strong>而 <code>robotd</code> 就是其中之一</strong> —— 它本身就以 root 跑，所以对一个通过无线电来问的客户端说&quot;去终端跑 sudo&quot;，是把它指向一个 sudo 也到不了的地方。</p>
+</blockquote>
+<p><strong>并发：两个写者不会互相吃掉对方的修改。</strong> 取锁 → 重读最新文档 → 只把自己改过的键变基上去。有一个测试专门验证这件事（<code>edit.rs:1131</code>）。</p>
+<hr />
+<h2 id="11-未知键与拼写错误"><a class="header" href="#11-未知键与拼写错误">11. 未知键与拼写错误</a></h2>
+<p>这里有一个<strong>反直觉但正确</strong>的决定：<strong>不认识的键不会让机器人起不来。</strong></p>
+<p><code>Params::load</code>（<code>lib.rs:1935</code>）的流程：</p>
+<pre><code class="language-text">   读文件
+     │
+     ├─ 文件不存在？
+     │     · 是默认路径 → 用内置默认值 + 一条 warn   ← 没 provision 过的板子也能起来
+     │     · 是命令行点名的 → 报错（你说了它在这，它就得在）
+     │
+     ▼
+   严格解析 tomllib
+     │
+     ├─ 成功 → 完事（99% 的情况，一次过）
+     │
+     └─ 失败
+          │
+          ├─ 试着剪掉未知键再解析
+          │     ├─ 成功 → warn 列出被忽略的键名，继续跑
+          │     └─ 失败 → 报错（但报的是最初的严格错误，
+          │              因为它带着行号和列号）
+          ▼
+       validate()：hz 必须 1..=1000
+                    bitrate 必须 100_000..=20_000_000
+</code></pre>
+<p><strong>为什么对未知键这么宽容？</strong> 因为这台机器人上的软件是可以<strong>回滚</strong>的。</p>
+<blockquote>
+<p>一台跑着新版本的机器人被回滚到旧版本 —— 而配置文件里还留着新版本才认识的键。
+如果未知键是致命的，<strong>这台机器人就再也起不来了</strong>，只因为一个它根本不该关心的键。</p>
+</blockquote>
+<p>所以：<strong>不认识的键被忽略，并且明确地说出来</strong>（<code>this build has no such keys; they are ignored and their values do nothing</code>）。</p>
+<h3 id="两条方向相反的规矩"><a class="header" href="#两条方向相反的规矩">两条方向相反的规矩</a></h3>
+<p>这一对极容易记混，所以并排写出来：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>读（<code>Params::load</code>）</th><th>写（<code>edit.rs</code>）</th></tr></thead><tbody>
+<tr><td>遇到不认识的键</td><td><strong>容忍</strong> —— 剪掉、warn、继续跑</td><td><strong>拒绝</strong> —— 只写 registry 认识的键</td></tr>
+<tr><td>为什么</td><td>回滚/降级/分支切换时，旧文件里会留着新版本才认识的键。致命 = 机器人再也起不来</td><td>编辑器只知道 registry 里的键。放行一个它不认识的键，等于<strong>写出一个它没验证过的文件</strong></td></tr>
+</tbody></table>
+</div>
+<p>一句话记法：<strong>读要宽容，因为文件可能比程序新；写要严格，因为程序比文件清楚。</strong></p>
+<h3 id="校验只有两处而且位置是刻意的"><a class="header" href="#校验只有两处而且位置是刻意的">校验只有两处，而且位置是刻意的</a></h3>
+<p><code>validate()</code> 只检查两个值：<code>control.hz</code> 必须在 <code>1..=1000</code>，<code>media.bitrate</code> 必须在 10 万..=2000 万。</p>
+<p>第二处的注释值得读（<code>lib.rs:1995</code>）：</p>
+<blockquote>
+<p><strong>在这里查，而不是在 <code>mediad</code> 里，是为了让 <code>robotctl configure</code> 拒绝写出它。</strong>
+会因为这个值噎住的 daemon，并不是编辑器那道门所在的 daemon。</p>
+</blockquote>
+<p>也就是说：这个值最终是 <code>mediad</code> 用的，但<strong>校验放在 <code>robotd-params</code> 里</strong>，因为编辑器是通过这个 crate 写文件的。放在 <code>mediad</code> 里的话，编辑器会<strong>高高兴兴地写下一个会让 <code>mediad</code> 起不来的值</strong>。</p>
+<h3 id="但宽容是有代价的而且被明确处理了"><a class="header" href="#但宽容是有代价的而且被明确处理了">但宽容是有代价的，而且被明确处理了</a></h3>
+<p>宽容带来一个真问题：<strong>拼错一个键名，会被当成&quot;不认识的键&quot;静默忽略。</strong></p>
+<p>有一个测试专门钉住这个边界（<code>lib.rs:3250</code> <code>a_typo_is_ignored_and_leaves_the_real_key_alone</code>）：拼错的键被忽略，<strong>而真正的键保持默认值</strong>（不会被错误地改动）。</p>
+<p>还有一条更细的（<code>lib.rs:3312</code>）：如果一个<strong>真错误</strong>（比如 <code>hz = 0</code>）和一个无害的未知 section 出现在同一个文件里，<strong>报错必须点名那个真错误</strong>，而不是那个未知 section。</p>
+<blockquote>
+<p>注释里说得很清楚：把刚刚被这个版本声明为无害的键报成&quot;daemon 起不来的原因&quot;，
+会把读日志的人送去删一个从来不是问题的段落。</p>
+</blockquote>
+<h3 id="两个重命名过的-section"><a class="header" href="#两个重命名过的-section">两个重命名过的 section</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>旧名</th><th>新名</th><th>怎么处理</th></tr></thead><tbody>
+<tr><td><code>[detect]</code></td><td><code>[duck_detector]</code></td><td><code>serde(alias)</code> —— <strong>旧文件照常能读</strong>，编辑器下次保存时改名</td></tr>
+<tr><td><code>[imu_head]</code></td><td><code>[pad_imu_head_control]</code></td><td>同上</td></tr>
+<tr><td><code>[health]</code></td><td><code>[update_gate]</code></td><td><strong>故意不做别名</strong> ← 见下一节</td></tr>
+</tbody></table>
+</div>
+<p><strong>&quot;编辑器下次保存时改名&quot;</strong> 这件事比听起来复杂一点（<code>edit.rs:138</code> <code>migrate_renamed_sections</code>）：</p>
+<blockquote>
+<p>加载器通过 serde alias 接受旧名字，所以改名之前写的文件<strong>原封不动地继续工作</strong>。
+但如果编辑器往<strong>新名字</strong>下写一个键、而旧的段头还留着，那么文件里就会<strong>同时有两段</strong>
+—— 而加载器会把它当作重复字段<strong>拒绝掉</strong>。</p>
+<p>所以旧段头在这里被<strong>一次性改名</strong>，下次保存写出的文件里只有新名字。
+另外：<strong>在别的东西被保存之前，什么都不会写</strong> —— 只是浏览一遍不会改动任何文件。</p>
+</blockquote>
+<hr />
+<h2 id="12-update_gate-为什么叫这个名字"><a class="header" href="#12-update_gate-为什么叫这个名字">12. <code>[update_gate]</code> 为什么叫这个名字</a></h2>
+<p>它以前叫 <code>[health]</code>。改名了，而且<strong>故意不留别名</strong> —— 带旧名的板子会得到一条<strong>点名这个 section 的解析错误</strong>，这比&quot;静默地跑在没人选过的阈值上&quot;好。</p>
+<p>为什么非改不可（<code>lib.rs:1824</code>）：</p>
+<blockquote>
+<p><code>robot.health</code> 报告的东西<strong>远不止</strong>这些：还有电池、电机温度、循环和总线计数。
+<strong>这些一个都不许进入裁定</strong> —— 一个发布绝不能因为它落在的那块板子的状态而被回滚。
+所以它们在这里<strong>一个对应的键都没有</strong>。</p>
+<p>叫它 <code>[health]</code> 会让人读成&quot;机器人现在怎么样&quot;，而它实际配的是
+<strong>&quot;自动回滚唯一关心的那一个问题&quot;</strong>。</p>
+</blockquote>
+<p>而且注释特意点了下一步：<strong>这一切都是软件属性</strong>。将来如果真想要一个&quot;电机温度过高就限速&quot;的功能，那应该另开一个 <code>[thermal]</code> 段 —— 属于另一个名字。</p>
+<blockquote>
+<p>📌 这条和 <code>robotd-primer.md</code> 第 6.3 节的&quot;规矩三&quot;是同一件事的两面：
+健康判决里只允许出现<strong>发布能被责怪</strong>的东西，其余全部是<strong>描述</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="13-测试四个最值得讲的"><a class="header" href="#13-测试四个最值得讲的">13. 测试：四个最值得讲的</a></h2>
+<p><code>lib.rs</code> 里大约 60 个测试，<code>edit.rs</code> 32 个，<code>registry.rs</code> 3 个。挑四个最能说明这个 crate 的性格：</p>
+<h3 id="131-the_registry_covers_every_key_exactlyregistryrs535"><a class="header" href="#131-the_registry_covers_every_key_exactlyregistryrs535">13.1 <code>the_registry_covers_every_key_exactly</code>（<code>registry.rs:535</code>）</a></h3>
+<p><strong>手法非常巧，值得单独看。</strong> 它要证明&quot;registry 里的键和 <code>Params</code> 的字段<strong>恰好</strong>一一对应&quot;。</p>
+<p>问题是：<strong>直接序列化 <code>Params::default()</code> 会漏掉所有值为 <code>None</code> 的 <code>Option</code> 字段</strong> —— 静态遍历看不见新加的字段。</p>
+<p>它的解法：<strong>故意往每个 section 里塞一个不存在的键</strong>（<code>__no_such_key__ = 0</code>），然后<strong>从 serde <code>deny_unknown_fields</code> 的报错信息里读出真实字段名</strong>。</p>
+<p>读到字段名之后，断言三件事：</p>
+<ol>
+<li>每个真实字段<strong>都</strong>在 <code>REGISTRY</code> 里；</li>
+<li>每条 <code>REGISTRY</code> 记录都能被 <code>Params</code> 解析（按 <code>Kind</code> 生成一段探测 TOML；<code>Kind::Record</code> 用它自带的 body）；</li>
+<li>没有重复。</li>
+</ol>
+<p>还有一个前置断言（<code>registry.rs:524</code>）：<strong>serde 的报错格式没变</strong> —— 否则这个测试就&quot;瞎了&quot;，会静默地什么都读不到却依然通过。</p>
+<h3 id="132-the_shipped_example_matches_the_defaultslibrs3052"><a class="header" href="#132-the_shipped_example_matches_the_defaultslibrs3052">13.2 <code>the_shipped_example_matches_the_defaults</code>（<code>lib.rs:3052</code>）</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>include_str!(&quot;../../deploy/robotd.toml&quot;)
+<span class="boring">}</span></code></pre></pre>
+<p>它把出厂示例配置<strong>真的读进来解析</strong>，逐项断言每个值都等于内置默认值。</p>
+<p>为什么重要？因为 <code>deploy/robotd.toml</code> 是给人看的文档。<strong>如果它和实际默认值不一致，那这份文档描述的就是一个不存在的机器人。</strong></p>
+<blockquote>
+<p>⚠️ 注意这个测试的<strong>边界</strong>：它只能验证<strong>被解析到的值</strong>。<strong>注释掉的行不参与解析</strong> ——
+所以一条写错了默认值的注释，它是抓不住的。这条边界值得记住，因为这份文件的全部价值
+就在注释里。</p>
+</blockquote>
+<h3 id="133-disabling_the_walking_slot_falls_back_rather_than_panickinglibrs2676"><a class="header" href="#133-disabling_the_walking_slot_falls_back_rather_than_panickinglibrs2676">13.3 <code>disabling_the_walking_slot_falls_back_rather_than_panicking</code>（<code>lib.rs:2676</code>）</a></h3>
+<p>回归测试，钉住一次真实事故：<code>walk = &quot;none&quot;</code> 曾经让控制线程 panic。</p>
+<h3 id="134-a_config_robotd_would_reject_is_never_writteneditrs819"><a class="header" href="#134-a_config_robotd_would_reject_is_never_writteneditrs819">13.4 <code>a_config_robotd_would_reject_is_never_written</code>（<code>edit.rs:819</code>）</a></h3>
+<p>钉住第 7.2 节第 ⑤ 步：编辑器的输出<strong>必须</strong>能被真正的加载器接受。还有一个测试做<strong>真实往返</strong>（写出去、读回来、比对）。</p>
+<hr />
+<h2 id="14-阅读路线"><a class="header" href="#14-阅读路线">14. 阅读路线</a></h2>
+<p><strong>第 1 步 —— 先当用户（15 分钟）</strong></p>
+<ol>
+<li>读 <code>deploy/robotd.toml</code>。<strong>不要读代码，先读这份文件。</strong> 它是这个 crate 存在的理由，也是最好的入口。</li>
+<li>跑一下 <code>robotctl configure --list</code>（在一台机器人上）或只是想象一下它的输出。</li>
+<li>记下第 3 节那三个问题。</li>
+</ol>
+<p><strong>第 2 步 —— schema（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>lib.rs:1–100</code>（模块文档 + <code>Params</code> 结构体）。</li>
+<li>挑两个 section 读它们的字段和 <code>Default</code> 实现 —— 建议 <code>Control</code>（简单）和 <code>PolicyParams</code>（复杂）。</li>
+<li>读 <code>Slot</code>（<code>:1358</code>）和 <code>Mode</code>（<code>:812</code>）。</li>
+</ol>
+<p><strong>第 3 步 —— 解析与解析后（1 小时）</strong></p>
+<ol start="7">
+<li>读 <code>Params::load</code>（<code>:1935</code>）和 <code>validate</code>（<code>:1988</code>）—— 就是第 11 节那张图。</li>
+<li>读 <code>resolved()</code> / <code>resolved_with()</code>（<code>:1556</code>）—— 就是第 6 节那张图。<strong>这是全 crate 最需要读懂的一段。</strong></li>
+<li>读 <code>is_none_sentinel</code>（<code>:903</code>）和技能合并（<code>resolved_skills_with</code>，<code>:1499</code>）。</li>
+</ol>
+<p><strong>第 4 步 —— 编辑与生效（1 小时）</strong></p>
+<ol start="10">
+<li>读 <code>registry.rs</code> 的 <code>Kind</code> 枚举（<code>:20</code>）—— 它把&quot;编辑器需要知道什么&quot;讲得很清楚。</li>
+<li>读 <code>edit.rs</code> 的 <code>save</code>（<code>:465</code>）—— 七步保证。</li>
+<li>读 <code>robotctl/src/configure.rs</code> 的 <code>apply_for</code>（<code>:108</code>）和模块文档 —— 第 8 节那个事故。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p robotd-params        # 全部测试，不需要硬件
+</code></pre>
+<p>然后试试改一个键，观察它有没有被写出去：</p>
+<pre><code class="language-bash"># 这台机器人改过什么？（不需要 root，不用进全屏界面）
+robotctl configure --list
+
+# 改一个键 —— 需要 root，因为文件是 root 所有的
+sudo robotctl configure
+</code></pre>
+<p>改完注意看它打印的那句 <strong>&quot;该重启谁&quot;</strong> —— 那就是第 8、9 节的全部内容。</p>
+<hr />
+<h2 id="15-术语表"><a class="header" href="#15-术语表">15. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>schema</strong></td><td>数据的&quot;形状&quot;定义：有哪些字段、什么类型、什么范围</td></tr>
+<tr><td><strong>serde</strong></td><td>Rust 的序列化/反序列化框架。<code>Deserialize</code> 就是&quot;能从 TOML/JSON 读进来&quot;</td></tr>
+<tr><td><strong><code>deny_unknown_fields</code></strong></td><td>serde 的一个开关：出现不认识的字段就报错。本 crate 普遍打开它，但<strong>加载时会兜住</strong>（剪枝重试）</td></tr>
+<tr><td><strong>alias</strong></td><td><code>serde(alias = &quot;旧名&quot;)</code>：让旧名字也能被解析，用于重命名过的字段/section</td></tr>
+<tr><td><strong>Default 实现</strong></td><td>Rust 里&quot;这个类型没被指定时的标准值&quot;</td></tr>
+<tr><td><strong><code>Option&lt;T&gt;</code></strong></td><td>&quot;有值或没有&quot;。在这里，&quot;没有&quot;是一个<strong>有意义的状态</strong>（= 跟随 mode / 自动）</td></tr>
+<tr><td><strong>哨兵值 / sentinel</strong></td><td>用一个特殊的值表示特殊含义。这里的 <code>&quot;none&quot;</code> 字符串表示&quot;关掉这一项&quot;</td></tr>
+<tr><td><strong>resolved / 解析后</strong></td><td>把&quot;文件说的&quot;和&quot;预设的&quot;合起来之后，<strong>程序实际会用的</strong>那份值</td></tr>
+<tr><td><strong>manifest.json</strong></td><td>策略集自带的清单，声明这个集里有哪些技能、各自的时长和缩放</td></tr>
+<tr><td><strong>无损编辑</strong></td><td>编辑时保留原有的注释、顺序和未知内容 —— 不是重新生成整个文件</td></tr>
+<tr><td><strong><code>toml_edit</code></strong></td><td>支持无损编辑的 TOML 库（普通的 TOML 库读完再写会丢掉一切格式和注释）</td></tr>
+<tr><td><strong>原子替换</strong></td><td>先写临时文件、验证、再 <code>rename</code> 覆盖。中途失败不会留下半个文件</td></tr>
+<tr><td><strong>TUI</strong></td><td>终端里的全屏交互界面</td></tr>
+<tr><td><strong>registry / 注册表</strong></td><td>一张&quot;所有配置键&quot;的清单，附带类型和说明，供工具使用</td></tr>
+<tr><td><strong>feature 开关</strong></td><td>那 20 个&quot;有人打开编辑器就是为了翻它&quot;的键，编辑器把它们排在最前</td></tr>
+<tr><td><strong>热重载 / live reload</strong></td><td>改了配置不用重启就生效</td></tr>
+<tr><td><strong>mtime</strong></td><td>文件的&quot;最后修改时间&quot;。<code>padd</code> 就是靠比对它来发现文件被改了</td></tr>
+<tr><td><strong>deadman / 死区开关</strong></td><td>&quot;控制信号停了就自动归零&quot;的安全机制。这就是重启 <code>padd</code> 的代价</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>参数文件的机制（权威，英文）</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.2</td></tr>
+<tr><td>出厂示例配置 —— <strong>最好的入门读物</strong></td><td><a href="../deploy/robotd.toml"><code>../deploy/robotd.toml</code></a></td></tr>
+<tr><td>控制循环本身（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房：手机怎么连上机器人（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>健康判决为什么只允许某些东西进入</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §3.4</td></tr>
+<tr><td>策略文件从哪里来、怎么换</td><td><a href="design/policy-channel-design.html"><code>design/policy-channel-design.md</code></a></td></tr>
+<tr><td>每一条 <code>robotctl</code> 命令</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td></tr>
+<tr><td>手部检测参数的来源：几何库（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td><code>[media]</code> 和 <code>[duck_detector]</code> 的消费者（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td><code>[pad_imu_head_control]</code> 背后那个滤波器（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td><code>[audio] pet_detect</code> 背后那个分类器（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>configure</code> 是它的编辑界面（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/robotctl-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/robotd-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/robotctl-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/robotd-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

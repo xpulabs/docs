@@ -1,0 +1,955 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>odometry/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html" class="active"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="odometry-新手导读"><a class="header" href="#odometry-新手导读"><code>odometry</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>里程计的机制由 <a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.4 拥有（英文）。
+它脚下的几何来自 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a> —— <strong>这份导读最好和那篇一起读</strong>：
+那篇讲&quot;关节角变成空间中的点&quot;，这篇讲&quot;<strong>这些点里哪一个踩在地上</strong>&quot;。</p>
+<p>姊妹篇：<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（它是这个结构体唯一的调用者）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个系统里的位置</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E5%8F%AA%E8%84%9A%E8%B8%A9%E5%9C%A8%E5%9C%B0%E4%B8%8A%E8%BA%AF%E5%B9%B2%E4%BB%8E%E5%AE%83%E6%8E%A8%E5%87%BA%E6%9D%A5">⭐ 核心心智模型：一只脚踩在地上，躯干从它推出来</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-update%E4%B8%80%E6%AC%A1-tick-%E7%9A%84%E4%BA%94%E6%AD%A5"><code>update()</code>：一次 tick 的五步</a></li>
+<li><a href="#6--reproject%E9%82%A3%E4%B8%89%E8%A1%8C%E5%B0%B1%E6%98%AF%E5%85%A8%E9%83%A8">⭐ <code>reproject</code>：那三行就是全部</a></li>
+<li><a href="#7-lowest_corner%E8%B0%81%E5%9C%A8%E4%B8%8B%E5%A4%B4"><code>lowest_corner</code>：谁在下头</a></li>
+<li><a href="#8--%E4%B8%89%E4%B8%AA%E5%B8%B8%E6%95%B0%E4%B8%A4%E6%9D%A1%E9%98%B2%E6%8A%96%E8%A7%84%E5%88%99">⭐ 三个常数，两条防抖规则</a></li>
+<li><a href="#9-%E8%BF%9E%E7%BB%AD%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8D%A2%E9%94%9A%E7%82%B9%E4%B8%8D%E4%BC%9A%E8%B7%B3">连续性：为什么换锚点不会跳</a></li>
+<li><a href="#10-anchorsrs%E4%B8%89%E5%A5%97%E5%80%99%E9%80%89%E7%82%B9%E5%92%8C%E4%B8%80%E5%9C%BA-32-%E7%B1%B3%E7%9A%84%E5%AE%9E%E6%B5%8B"><code>anchors.rs</code>：三套候选点，和一场 3.2 米的实测</a></li>
+<li><a href="#11-%EF%B8%8F-%E5%AE%83%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B">⚠️ 它不知道的事</a></li>
+<li><a href="#12-%E8%B0%81%E5%9C%A8%E7%94%A8%E5%AE%83">谁在用它</a></li>
+<li><a href="#13-%E6%B5%8B%E8%AF%958-%E4%B8%AA%E5%85%B6%E4%B8%AD-2-%E4%B8%AA%E6%98%AF%E6%89%8B%E5%8A%A8%E5%B7%A5%E5%85%B7">测试：8 个，其中 2 个是手动工具</a></li>
+<li><a href="#14-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#15-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#16-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>odometry</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>机器人从开机到现在，走到哪儿了？</strong></p>
+</blockquote>
+<p>它是个<strong>纯结构体</strong>，554 行，没有 socket、没有线程、没有 <code>main</code>。<code>robotd</code> 在控制环里每个 tick 调它一次：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:2060-2062
+if safety.imu_ready() {
+    odometry.update(&amp;fresh.positions, fresh.imu.quat);
+}
+<span class="boring">}</span></code></pre></pre>
+<p>一句话说清它的定位：</p>
+<blockquote>
+<p><strong>它是&quot;机器人走到哪了&quot;的唯一答案，而它靠的是自己的脚和 IMU —— 没有任何外部定位。</strong></p>
+</blockquote>
+<p><code>Cargo.toml:6-8</code> 讲清了为什么它不是一个服务：</p>
+<blockquote>
+<p><strong>No dedicated service</strong>: it is a pure struct <code>robotd</code> ticks inside its control loop, because
+<strong>its inputs are exactly the sample the loop already holds.</strong></p>
+</blockquote>
+<p><strong>它的输入就是控制环本来就拿在手里的那个采样。</strong> 再加一个服务、一条 socket、一次序列化，
+只是为了把已经在那儿的数字搬个地方。</p>
+<hr />
+<h2 id="2-它在整个系统里的位置"><a class="header" href="#2-它在整个系统里的位置">2. 它在整个系统里的位置</a></h2>
+<p><code>odometry</code> 是个小 crate，只依赖两个东西：</p>
+<pre><code class="language-toml"># odometry/Cargo.toml:16-18
+[dependencies]
+duck-ipc-proto = { path = &quot;../duck-ipc-proto&quot; }   # JOINT_NAMES
+kinematics = { path = &quot;../kinematics&quot; }           # 脚底在哪（正向运动学）
+</code></pre>
+<p><strong>只有 <code>robotd</code> 依赖它</strong>（<code>robotd/Cargo.toml:13</code>）。</p>
+<pre><code>       robotd 的 50 Hz 控制环
+              │
+              ├─ 从总线读关节角 + 从 IMU 读姿态      ← 这一份采样本来就有
+              │
+              ▼
+       odometry.update(joints, quat)              ← 一次 update
+              │
+              ▼
+       odometry.position() / yaw()
+              │
+              ▼
+       robot.state 的 odom 字段 ──► robotctl monitor 的路径地图
+</code></pre>
+<h3 id="设计文档怎么说它"><a class="header" href="#设计文档怎么说它">设计文档怎么说它</a></h3>
+<p><code>design/robotd-design.md</code> §4.4：</p>
+<blockquote>
+<p><code>odometry::Odometry::alpha()</code> is stepped once per tick from the joint positions and the IMU
+quaternion the loop has just read, and its estimate goes out on the state stream as
+<code>odom: { position, yaw }</code>. <code>robotctl monitor</code> draws it as a path map under the 3D view.</p>
+<p>It costs the loop <strong>two chain evaluations per tick and no extra bus traffic</strong>, which is why it
+runs at the loop's own rate rather than the prototype's separate 100 Hz. That cost is the reason
+the &quot;no odometry&quot; decision in §7 was <strong>reversed rather than re-argued</strong>: the objection was never
+the arithmetic, <strong>it was that nothing read the answer</strong>.</p>
+</blockquote>
+<p><strong>&quot;当初反对的理由从来不是算术，而是没有人读那个答案。&quot;</strong></p>
+<p>设计文档 §7 那张表里，这一行的写法很说明问题：</p>
+<blockquote>
+<p>| <del>no odometry</del> — reversed | <code>monitor</code>'s path map reads it, and it is one <code>kinematics</code> pass on a sample the loop already took (§4.4) |</p>
+</blockquote>
+<p><strong>它是被划掉又翻回来的。</strong></p>
+<hr />
+<h2 id="3--核心心智模型一只脚踩在地上躯干从它推出来"><a class="header" href="#3--核心心智模型一只脚踩在地上躯干从它推出来">3. ⭐ 核心心智模型：一只脚踩在地上，躯干从它推出来</a></h2>
+<p>这是整份代码唯一的想法，值得慢慢讲。</p>
+<h3 id="31-一句话"><a class="header" href="#31-一句话">3.1 一句话</a></h3>
+<blockquote>
+<p><strong>任何时刻，总有一只脚的一个点是和地面接触的。</strong>
+<strong>把那个点钉在世界坐标上，躯干的位置就由它反推出来。</strong></p>
+</blockquote>
+<p>模块文档（<code>lib.rs:4-10</code>）：</p>
+<blockquote>
+<p>The idea: at any moment <strong>one point of one sole is the robot's contact with the ground</strong>. Anchor
+that point to the world (it is on flat ground, so <strong>its world Z is 0</strong> and its world X/Y are
+wherever it was when it became the anchor), orient the trunk by the IMU, and <strong>the trunk's world
+position follows by forward kinematics</strong>. When some other sole corner drops below the anchor — a
+step — the anchor moves there, at that corner's current world X/Y, <strong>so the estimate never jumps.</strong></p>
+</blockquote>
+<p>拆开来看就是四句话：</p>
+<ol>
+<li>地上那个接触点，<strong>世界 Z 一定是 0</strong>（地面是平的）。</li>
+<li>它的世界 X/Y 是<strong>它成为锚点那一刻的值</strong>，之后就钉住不动。</li>
+<li>躯干朝哪，<strong>IMU 说了算</strong>。</li>
+<li>于是躯干在世界里的位置 = 从锚点倒推出来 —— 因为<strong>从躯干到那只脚的向量</strong>是可以算的
+（这就是 <code>kinematics</code> 干的活）。</li>
+</ol>
+<h3 id="32-为什么这样能工作"><a class="header" href="#32-为什么这样能工作">3.2 为什么这样能工作</a></h3>
+<p>关键在于**&quot;脚在地上&quot;这件事把世界坐标系的某一部分免费给了你**。</p>
+<p>假设你只知道&quot;脚相对于躯干在哪&quot;（FK 能算）和&quot;躯干朝哪&quot;（IMU 能给），
+你仍然不知道<strong>机器人在世界的哪个位置</strong> —— 这是个自由变量。</p>
+<p>但如果你知道<strong>脚正踩在地面上</strong>，你就知道那只脚的<strong>世界 Z 是 0</strong>。
+这一个约束就消掉了那个自由变量：躯干的世界 Z 也就跟着确定了，X/Y 则由&quot;锚点钉住&quot;确定。</p>
+<blockquote>
+<p>💡 这就是所谓的<strong>接触式里程计</strong>（contact odometry）。
+它不是&quot;积分速度&quot;，而是&quot;<strong>每一刻重新从接触点解一次位置</strong>&quot;——
+所以它不会积累积分误差，但会积累<strong>接触判断</strong>的误差。</p>
+</blockquote>
+<h3 id="33-两个坐标系别搞混"><a class="header" href="#33-两个坐标系别搞混">3.3 两个坐标系，别搞混</a></h3>
+<p>这是读这份代码最容易乱的地方：</p>
+<div class="table-wrapper"><table><thead><tr><th>名字</th><th>是什么</th></tr></thead><tbody>
+<tr><td><strong>世界坐标系（world）</strong></td><td>Z 轴朝上，地面是 Z = 0。原点在<strong>机器人开机时脚下</strong></td></tr>
+<tr><td><strong>躯干坐标系（trunk）</strong></td><td>原点在躯干。<code>kinematics</code> 的所有输出都在这个系里</td></tr>
+</tbody></table>
+</div>
+<p>代码里到处在做这两者之间的转换，靠的就是那个<strong>IMU 四元数</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let in_world = rot.rotate(feet[foot].transform_point(corner));
+//              ↑ 躯干→世界（转）      ↑ 脚→躯干（FK）
+<span class="boring">}</span></code></pre></pre>
+<p><strong>从右往左读</strong>：先把候选点从<strong>脚的坐标系</strong>变到<strong>躯干坐标系</strong>（<code>transform_point</code>，这是 FK），
+再用 IMU 的姿态把它转到<strong>世界朝向</strong>（<code>rotate</code>）。</p>
+<h3 id="34-世界原点在哪"><a class="header" href="#34-世界原点在哪">3.4 世界原点在哪</a></h3>
+<p><strong>&quot;机器人开机时朝哪，那个方向就是世界的 +x；开机时脚下就是原点。&quot;</strong></p>
+<p>模块文档（<code>lib.rs:19-21</code>）：</p>
+<blockquote>
+<p>Heading is whatever the IMU's integrated yaw says — <strong>there is no magnetometer</strong>, so the world
+frame is <strong>&quot;wherever the robot was looking at boot&quot;</strong>, which is all a relative-motion consumer
+needs.</p>
+</blockquote>
+<p><strong>没有磁力计</strong>，所以没有绝对方向。这不是缺陷，是刻意的取舍 —— 见 §11。</p>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code>odometry/
+├── Cargo.toml     18 行  —— 头 8 行讲清&quot;为什么它不是一个服务&quot;
+└── src/
+    ├── lib.rs    441 行  全部算法（含 8 个测试）
+    └── anchors.rs 95 行  三套候选接触点（**生成的文件**）
+</code></pre>
+<p>两个文件，一件事。<code>Cargo.toml</code> 的头 8 行值得先读。</p>
+<hr />
+<h2 id="5-update一次-tick-的五步"><a class="header" href="#5-update一次-tick-的五步">5. <code>update()</code>：一次 tick 的五步</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/lib.rs:123
+pub fn update(&amp;mut self, joints: &amp;[f64; JOINT_NAMES.len()], quat_wxyz: [f64; 4])
+<span class="boring">}</span></code></pre></pre>
+<p>注意签名本身就在说一件事：<strong>关节角按 <code>JOINT_NAMES</code> 排序</strong>，而 <code>JOINT_NAMES</code> 有 <strong>15</strong> 个
+（含嘴）—— 而模型的关节只有 <strong>14</strong> 个。这个差在第一步就被处理掉了。</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>干什么</th><th>行</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>按名字重排关节角</strong>到模型顺序</td><td><code>:124-128</code></td></tr>
+<tr><td>2</td><td>归一化 IMU 四元数</td><td><code>:129-130</code></td></tr>
+<tr><td>3</td><td><strong>算两只脚的位姿，各一次</strong></td><td><code>:133-136</code></td></tr>
+<tr><td>4</td><td>首次 update：<strong>把锚点种在实际起始姿态上</strong></td><td><code>:138-142</code></td></tr>
+<tr><td>5</td><td><strong>重投影</strong>，然后看看要不要换锚点</td><td><code>:144-172</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="步-1那个-optionusize"><a class="header" href="#步-1那个-optionusize">步 1：那个 <code>Option&lt;usize&gt;</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:57-59
+/// `JOINT_NAMES` position → model joint index. `None` for the mouth, which
+/// moves no leg.
+joint_map: [Option&lt;usize&gt;; JOINT_NAMES.len()],
+<span class="boring">}</span></code></pre></pre>
+<p><code>robotd</code> 给的是<strong>线上顺序</strong>的 15 个关节角；模型要的是<strong>MJCF 顺序</strong>的 14 个。这张表在构造时建好一次：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:89
+joint_map: JOINT_NAMES.map(|name| model.joint_index(name)),
+<span class="boring">}</span></code></pre></pre>
+<p><strong>嘴那一路是 <code>None</code></strong> —— 因为 <code>joint_index(&quot;mouth&quot;)</code> 找不到（MJCF 里嘴不是关节）。
+测试 <code>the_mouth_moves_no_odometry</code>（<code>:356</code>）把这件事钉死了：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut open = quiet;
+open[9] = 42.0;          // 嘴张到 42 弧度
+// ... 断言：位置完全一样
+<span class="boring">}</span></code></pre></pre>
+<h3 id="步-3为什么是各一次"><a class="header" href="#步-3为什么是各一次">步 3：为什么是&quot;各一次&quot;</a></h3>
+<p>模块文档（<code>lib.rs:15-17</code>）：</p>
+<blockquote>
+<p>Each foot's chain is evaluated once per tick and its four corners are transformed through the
+result; <strong>the prototype re-walked a full leg chain per corner (9 chain evaluations per tick,
+now 2).</strong></p>
+</blockquote>
+<p><strong>原型对每个角点重走一遍整条腿链</strong> —— 9 次链求值一个 tick，现在是 <strong>2 次</strong>。
+走出来的角点再各自做一次便宜的坐标变换就够了。</p>
+<h3 id="步-4为什么要有-needs_init"><a class="header" href="#步-4为什么要有-needs_init">步 4：为什么要有 <code>needs_init</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:73-75
+/// True until the first update seeds `anchor_xy` from the actual startup
+/// pose, so the trunk starts at (0, 0) instead of offset by the foot.
+<span class="boring">}</span></code></pre></pre>
+<p>如果不种这一下，第一次 update 时锚点默认在 <code>(0, 0)</code>，而脚实际在别处 ——
+于是<strong>机器人一开机就&quot;站&quot;在一个偏移了的位置上</strong>。种下去之后，开机位置就是原点。</p>
+<hr />
+<h2 id="6--reproject那三行就是全部"><a class="header" href="#6--reproject那三行就是全部">6. ⭐ <code>reproject</code>：那三行就是全部</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/lib.rs:202-210
+/// Trunk position from the anchor: the contact point sits at
+/// (`anchor_xy`, 0), the trunk is minus the world-rotated trunk→contact
+/// vector away from it.
+fn reproject(&amp;mut self, rot: Quat, feet: &amp;[Pose; 2]) {
+    let contact_in_trunk = feet[self.anchor_foot].transform_point(self.anchor_local);
+    let contact = rot.rotate(contact_in_trunk);
+    self.position = [
+        self.anchor_xy[0] - contact[0],
+        self.anchor_xy[1] - contact[1],
+        -contact[2],
+    ];
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>整个估计器就是这三行。</strong> 逐行读：</p>
+<ol>
+<li>
+<p><code>feet[anchor_foot].transform_point(anchor_local)</code>
+—— 把&quot;接触点在我这只脚里的位置&quot;变成&quot;<strong>接触点在躯干里的位置</strong>&quot;。
+这是正向运动学，由 <code>kinematics</code> 完成。</p>
+</li>
+<li>
+<p><code>rot.rotate(...)</code>
+—— 把它从<strong>躯干朝向</strong>转到<strong>世界朝向</strong>。现在 <code>contact</code> 是
+&quot;<strong>从躯干指向接触点的向量，用世界的方向表示</strong>&quot;。</p>
+</li>
+<li>
+<p><code>position = anchor_xy − contact</code>（X/Y），<code>position[2] = −contact[2]</code>
+—— 因为接触点的世界位置是 <code>(anchor_xy, 0)</code>，而躯干在
+<strong>减去那个向量</strong>的地方。</p>
+</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Z 那一行最值得看</strong>：<code>-contact[2]</code>。
+接触点的世界 Z 是 <strong>0</strong>（定义如此），所以 <code>position[2] = 0 - contact[2]</code>。
+<strong>躯干的高度是&quot;接触点相对于躯干有多低&quot;直接取负</strong> —— 不需要任何额外信息。
+这就是 §3.2 说的那个&quot;免费拿到的约束&quot;。</p>
+</blockquote>
+<hr />
+<h2 id="7-lowest_corner谁在下头"><a class="header" href="#7-lowest_corner谁在下头">7. <code>lowest_corner</code>：谁在下头</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/lib.rs:214-232（节选）
+fn lowest_corner(&amp;self, rot: Quat, feet: &amp;[Pose; 2]) -&gt; Option&lt;(usize, [f64; 3], [f64; 2])&gt; {
+    let mut lowest = -SWITCH_MARGIN;
+    let mut best = None;
+    for foot in [LEFT, RIGHT] {
+        for &amp;corner in self.anchors.foot(foot) {
+            let in_world = rot.rotate(feet[foot].transform_point(corner));
+            let world = [
+                self.position[0] + in_world[0],   // ← 加上躯干自己的位置，
+                self.position[1] + in_world[1],   //   才是这个世界里的坐标
+                self.position[2] + in_world[2],
+            ];
+            if world[2] &lt; lowest {
+                lowest = world[2];
+                best = Some((foot, corner, [world[0], world[1]]));
+            }
+        }
+    }
+    best
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>它扫过两只脚的所有候选点，挑出世界里最低的那一个。</strong></p>
+<p>注意那个 <code>+ self.position</code>：前一步算出的是&quot;相对于躯干&quot;的向量，
+加上躯干自己的位置才是<strong>世界坐标</strong>。少了这一步，比较的就是一堆相对高度，没有意义。</p>
+<p>返回的是 <code>(哪只脚, 脚坐标系里的点, 它的世界 X/Y)</code> —— 正好是换锚点需要的三样东西。</p>
+<hr />
+<h2 id="8--三个常数两条防抖规则"><a class="header" href="#8--三个常数两条防抖规则">8. ⭐ 三个常数，两条防抖规则</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/lib.rs:39-50
+/// A candidate corner must sit below world Z = `-SWITCH_MARGIN` to bid for the
+/// anchor. The anchor itself sits at Z = 0, so the margin is slack for FK and
+/// IMU noise, not a physical depth.
+const SWITCH_MARGIN: f64 = -0.010;
+
+/// Ticks a candidate must stay the lowest point before the anchor moves. At
+/// the control loop's 50 Hz this is 40 ms — well inside a stance phase, well
+/// past a one-tick glitch.
+const SWITCH_CONFIRM_TICKS: u32 = 2;
+
+const LEFT: usize = 0;
+const RIGHT: usize = 1;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="81--那个双负号"><a class="header" href="#81--那个双负号">8.1 ⚠️ 那个双负号</a></h3>
+<p><code>SWITCH_MARGIN</code> 是 <strong>−0.010</strong>，而门槛用的是 <strong><code>-SWITCH_MARGIN</code> = +0.010</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut lowest = -SWITCH_MARGIN;      // = +0.010
+if world[2] &lt; lowest { ... }          // 世界 Z &lt; +0.010 就能竞选
+<span class="boring">}</span></code></pre></pre>
+<p>所以<strong>门槛是&quot;比其他候选低，而且低于 +1 厘米&quot;</strong>。
+注释说的 &quot;below world Z = <code>-SWITCH_MARGIN</code>&quot; 字面上是对的（门槛<strong>就是</strong> <code>-SWITCH_MARGIN</code> 这个值），
+但一个负的常数叫 <code>MARGIN</code>、然后取负当门槛用，很容易读反 —— 见 §14。</p>
+<p>那一厘米的余量的用途，注释写了：<strong>是给 FK 和 IMU 噪声的松弛，不是物理深度。</strong></p>
+<h3 id="82-时间确认为什么要等两个-tick"><a class="header" href="#82-时间确认为什么要等两个-tick">8.2 时间确认：为什么要等两个 tick</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:146-148
+// A corner below the anchor is a step landing — but only after it holds
+// the claim for SWITCH_CONFIRM_TICKS, so FK jitter cannot walk the
+// anchor around mid-stance.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;这样 FK 抖动就没法在支撑相中间把锚点拖着走。&quot;</strong></p>
+<p>而且注意那个计数器<strong>只在&quot;还是同一只脚&quot;的时候才累加</strong>（<code>:155-160</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if self.pending.is_some_and(|(pf, _, _)| pf == foot) {
+    self.pending_ticks += 1;
+} else {
+    self.pending = Some((foot, local, world_xy));
+    self.pending_ticks = 1;          // ← 换了一只脚就从头数
+}
+<span class="boring">}</span></code></pre></pre>
+<p>所以一次单 tick 的抖动把最低点挪到<strong>另一只脚</strong>上，是永远赢不了的 ——
+下一个 tick 最低点回到原处，计数就从 1 重新开始。</p>
+<p>测试 <code>the_anchor_switches_only_after_the_claim_holds</code>（<code>:372</code>）把两种情况都钉住了：
+<strong>抖一个 tick 偷不走锚点，稳定保持几 tick 就必须赢。</strong></p>
+<h3 id="83-那-40-ms-是怎么算的"><a class="header" href="#83-那-40-ms-是怎么算的">8.3 那 40 ms 是怎么算的</a></h3>
+<p><code>SWITCH_CONFIRM_TICKS = 2</code>，控制环 <strong>50 Hz</strong> → 一个 tick 20 ms → <strong>两个 tick 是 40 ms</strong>。</p>
+<p>注释：<em>&quot;well inside a stance phase, well past a one-tick glitch&quot;</em> ——
+<strong>远短于一个支撑相，又远长于一次单 tick 故障。</strong></p>
+<blockquote>
+<p>💡 这个常数<strong>绑在控制环的频率上</strong>，而 <code>robotd</code> 是 50 Hz。
+如果哪天环的频率变了，这 40 ms 会跟着变，而这里没有东西会发现。</p>
+</blockquote>
+<hr />
+<h2 id="9-连续性为什么换锚点不会跳"><a class="header" href="#9-连续性为什么换锚点不会跳">9. 连续性：为什么换锚点不会跳</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:161-170
+if self.pending_ticks &gt;= SWITCH_CONFIRM_TICKS {
+    let (foot, local, world_xy) = self.pending.take().expect(&quot;just matched&quot;);
+    self.anchor_foot = foot;
+    self.anchor_local = local;
+    // The corner keeps the world X/Y it already has, so the
+    // estimate is continuous across the switch.
+    self.anchor_xy = world_xy;
+    self.reproject(rot, &amp;feet);
+    self.pending_ticks = 0;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>新锚点保留它&quot;此刻已经算出来&quot;的世界 X/Y</strong>（<code>anchor_xy = world_xy</code>），
+而不是&quot;就地重新开始计数&quot;。所以：</p>
+<ul>
+<li>换锚点<strong>前一瞬间</strong>：躯干位置 = <code>旧anchor_xy − 旧contact</code></li>
+<li>换锚点<strong>后一瞬间</strong>：躯干位置 = <code>新anchor_xy − 新contact</code></li>
+<li>而 <code>新anchor_xy</code> 就是那个新角点<strong>在这个 tick 的世界坐标</strong>，
+<code>新contact</code> 也正是从躯干指向它的向量 —— 两者相减得到的<strong>就是同一个躯干位置</strong>。</li>
+</ul>
+<p><strong>数学上恒等，所以不跳。</strong> 这就是模块文档那句 &quot;so the estimate never jumps&quot; 的全部含义。</p>
+<p>测试 <code>stance_leg_motion_translates_the_trunk_continuously</code>（<code>:402</code>）用另一种方式验它：
+让髋关节扫 0.2 弧度，断言<strong>每个 tick 的位移都小于 2 厘米</strong>（<code>:431</code>），
+同时总位移大于 5 毫米（<code>:435</code>）—— 也就是<strong>动了，但没有瞬移</strong>。</p>
+<h3 id="一个容易忽略的推论"><a class="header" href="#一个容易忽略的推论">一个容易忽略的推论</a></h3>
+<p>因为 <code>pending_ticks</code> 在切换后被清 0，<strong>在静止站立时锚点其实每两个 tick 就重新锚一次</strong>
+（最低角点一直是同一个，所以每次都满足确认条件）。这没问题 ——
+那个角点没动，世界 X/Y 也就没变。</p>
+<p><strong>换锚点不是罕见事件，它是常态。</strong> <code>SWITCH_CONFIRM_TICKS</code> 保护的不是&quot;锚点被换&quot;，
+而是&quot;<strong>换到了一只刚才还在半空中的脚</strong>&quot;。</p>
+<hr />
+<h2 id="10-anchorsrs三套候选点和一场-32-米的实测"><a class="header" href="#10-anchorsrs三套候选点和一场-32-米的实测">10. <code>anchors.rs</code>：三套候选点，和一场 3.2 米的实测</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/anchors.rs:8-13
+pub struct AnchorSet {
+    pub name: &amp;'static str,
+    pub left: &amp;'static [[f64; 3]],
+    pub right: &amp;'static [[f64; 3]],
+}
+<span class="boring">}</span></code></pre></pre>
+<p>三套，都是为了回答&quot;脚上哪几个点可能踩到地&quot;：</p>
+<div class="table-wrapper"><table><thead><tr><th>名字</th><th>多少个点</th><th>是什么</th></tr></thead><tbody>
+<tr><td><code>V15</code></td><td>4</td><td><strong>旧的</strong>：v1.5 鞋底的包围盒，在 site 的 Z = 0 平面上</td></tr>
+<tr><td><code>ALPHA4</code></td><td>4</td><td>alpha 鞋底<strong>平接触面</strong>的四个角，<strong>在网格上</strong></td></tr>
+<tr><td><code>ALPHA16</code></td><td>16</td><td>alpha 整个脚印（<strong>含倒角</strong>）上的 4×4 网格，在网格上 ✅ <strong>现役</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="101-那场-32-米的实测"><a class="header" href="#101-那场-32-米的实测">10.1 那场 3.2 米的实测</a></h3>
+<p>模块文档（<code>lib.rs:27-31</code>）：</p>
+<blockquote>
+<p>[<code>Odometry::alpha</code>] uses [<code>ALPHA16</code>], a 4x4 grid over the whole sole on the mesh:
+<strong>in the MuJoCo twin over a 3.2 m walk it drifted 9 mm</strong> where the legacy v1.5 bbox ([<code>V15</code>])
+drifted <strong>17 mm</strong> and the flat patch's four corners ([<code>ALPHA4</code>]) <strong>16 mm</strong>, and <strong>it stands at
+the true height</strong> (V15 sat 3.7 mm high). <strong>The scan costs about half a microsecond more.</strong></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>集合</th><th>3.2 米走完漂了</th><th>站着的高度</th></tr></thead><tbody>
+<tr><td><code>ALPHA16</code></td><td><strong>9 mm</strong></td><td>正确</td></tr>
+<tr><td><code>ALPHA4</code></td><td>16 mm</td><td>—</td></tr>
+<tr><td><code>V15</code></td><td>17 mm</td><td>高了 3.7 mm</td></tr>
+</tbody></table>
+</div>
+<p><strong>多花半微秒，漂移减半，而且站对了高度。</strong> 这就是它成为默认值的全部理由
+（提交 <code>dd0f8c2</code>：<code>odometry: ALPHA16 is the default anchor set</code>）。</p>
+<blockquote>
+<p>💡 为什么点多了反而更准？因为**&quot;最低点&quot;这个判断本身依赖采样密度**：
+只有四个角的时候，脚侧倾一点点，&quot;最低的那个角&quot;就换人了，而真实的接触面可能还在中间。
+16 个点让&quot;最低点&quot;更接近真实的接触位置。<strong>V15 偏高的原因也是这个</strong> ——
+它的点在 Z = 0 平面上，而真实的鞋底是有厚度的、有倒角的。</p>
+</blockquote>
+<h3 id="102-它是生成的文件"><a class="header" href="#102-它是生成的文件">10.2 它是生成的文件</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/anchors.rs:4-6
+//! GENERATED by microduck_rl/scripts/odom_anchor_points.py — do not edit:
+//!   odom_anchor_points.py --rust /home/antoine/Pollen/microduck/odometry/src/anchors.rs
+//! from src/mjlab_microduck/robot/microduck/scene.xml.
+<span class="boring">}</span></code></pre></pre>
+<p>这些点是<strong>在鞋底的网格模型上采样</strong>出来的，采样脚本住在<strong>另一个仓库</strong>
+（<a href="https://github.com/pollen-robotics/microduck_rl"><code>microduck_rl</code></a>，见 §14）。</p>
+<p>测试 <code>alpha_anchor_sets_lie_on_the_sole</code>（<code>:251</code>）守着一堆几何不变量：</p>
+<ul>
+<li>每个点都在脚底脚印范围内（X ∈ [−0.021, 0.035]，Y ∈ [−0.022, 0.022]，Z ∈ [−0.002, 0.012]）；</li>
+<li><strong>右脚是左脚的镜像</strong>（在 Y 上取反，容差 3e-4）；</li>
+<li><code>ALPHA4</code> 有 4 个点，<code>ALPHA16</code> 有 16 个。</li>
+</ul>
+<p>那个镜像检查有个细节（<code>:259-260</code>）：</p>
+<blockquote>
+<p>Each foot is sampled on its own mesh, so the order differs; the right sole is the left one
+mirrored in Y (to the sampling step).</p>
+</blockquote>
+<p><strong>顺序不一样</strong> —— 所以它检查的是&quot;存在一个镜像&quot;，不是&quot;第 n 个对第 n 个&quot;。</p>
+<hr />
+<h2 id="11--它不知道的事"><a class="header" href="#11--它不知道的事">11. ⚠️ 它不知道的事</a></h2>
+<p>这一节比算法重要。<code>odometry</code> 是一个<strong>知道自己局限</strong>的估计器。</p>
+<h3 id="111-它会漂而且不修正"><a class="header" href="#111-它会漂而且不修正">11.1 它会漂，而且不修正</a></h3>
+<p><code>docs/robot/cheatsheet.md:85-87</code>：</p>
+<blockquote>
+<p>There is no magnetometer, so <strong>this is relative motion and it drifts</strong>; it answers
+<strong>&quot;did it walk in a circle&quot;</strong> and not <strong>&quot;where is it&quot;</strong>.</p>
+</blockquote>
+<p>设计文档 §4.4 说得更细：</p>
+<blockquote>
+<p><strong>There is no magnetometer and nothing corrects drift</strong>; this is relative motion, and <strong>every
+consumer has to treat it that way.</strong></p>
+</blockquote>
+<h3 id="112-它假设地面是平的"><a class="header" href="#112-它假设地面是平的">11.2 它假设地面是平的</a></h3>
+<p>整个算法建立在&quot;接触点的世界 Z 是 0&quot;上。<strong>上了台阶、踩到斜坡，这个假设就破了。</strong></p>
+<h3 id="113-yaw-只能是相对的"><a class="header" href="#113-yaw-只能是相对的">11.3 yaw 只能是相对的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/lib.rs:174
+self.yaw = rot.yaw();
+<span class="boring">}</span></code></pre></pre>
+<p><code>yaw</code> 直接来自 IMU 的积分。<code>kinematics/src/math.rs:81</code> 的 <code>Quat::yaw</code> 用的是
+旋转矩阵 <code>(1,0)</code> 对 <code>(0,0)</code> 元素的 <code>atan2</code>。</p>
+<p><strong>它不是&quot;机器人朝北&quot;，而是&quot;机器人相对于开机时那个方向转了多少&quot;。</strong></p>
+<h3 id="114-alpha-only"><a class="header" href="#114-alpha-only">11.4 alpha only</a></h3>
+<blockquote>
+<p>Alpha only, like the daemon: <strong>v1/v1.5 geometry stayed in the prototype.</strong>（<code>lib.rs:23</code>）</p>
+</blockquote>
+<p><code>V15</code> 那套点还在代码里，但<strong>只是为了对照和测试</strong>，没有哪只真机器人用它。</p>
+<h3 id="115-只在-imu-收敛后才开始"><a class="header" href="#115-只在-imu-收敛后才开始">11.5 只在 IMU 收敛后才开始</a></h3>
+<p><code>robotd</code> 那边的门：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:2057-2059
+// Only once the orientation filter has converged: seeding the anchor from a
+// quaternion that is still swinging would put the world origin somewhere the
+// robot never was. A coasted tick is skipped too — repeating a stale sample
+// into the estimator would tell it the robot froze, which it did not.
+if safety.imu_ready() {
+    odometry.update(&amp;fresh.positions, fresh.imu.quat);
+}
+<span class="boring">}</span></code></pre></pre>
+<p>两句理由都值得记：</p>
+<ul>
+<li><strong>四元数还在摆的时候种锚点，会把世界原点放在机器人从来没去过的地方。</strong></li>
+<li><strong>一个&quot;滑行&quot;的 tick（coasting）也要跳过</strong> —— 把过期采样重复喂进估计器，
+等于告诉它&quot;机器人冻住了&quot;，而它没有。</li>
+</ul>
+<hr />
+<h2 id="12-谁在用它"><a class="header" href="#12-谁在用它">12. 谁在用它</a></h2>
+<h3 id="121-线上robotstate-的-odom"><a class="header" href="#121-线上robotstate-的-odom">12.1 线上：<code>robot.state</code> 的 <code>odom</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotd/src/main.rs:3228-3231
+odom: proto::OdomState {
+    position: odometry.position(),
+    yaw: odometry.yaw(),
+},
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// duck-ipc-proto/src/lib.rs:3791-3797
+pub struct OdomState {
+    /// Trunk position, metres. Z is height above the ground plane.
+    pub position: [f64; 3],
+    /// Heading, radians.
+    pub yaw: f64,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>注意 Z 也被发出去了</strong> —— 而它有个消费者，见下。</p>
+<h3 id="122-robotctl-monitor两处"><a class="header" href="#122-robotctl-monitor两处">12.2 <code>robotctl monitor</code>：两处</a></h3>
+<p><strong>① 一行数字</strong>（<code>robotctl/src/monitor.rs:2103-2109</code>）：</p>
+<pre><code> odom    x  +0.42 m  y  -1.03 m  yaw 23.5°
+</code></pre>
+<p><strong>② 一张盲文地图</strong>（<code>robotctl/src/path_map.rs</code>，353 行）：</p>
+<blockquote>
+<p>A top-down map of where odometry says the robot has been. … The panel's size never changes —
+instead the <strong>world</strong> scales, zooming out as the track grows so the whole path is always in
+frame. <strong>Drawn in braille (2×4 dots per cell)</strong>, which is the finest resolution a terminal offers
+for a line that curves.</p>
+</blockquote>
+<p>约定（<code>path_map.rs:10-13</code>）：<strong>世界 +x（开机朝向）朝屏幕上方，世界 +y（左）朝屏幕左方</strong> ——
+也就是&quot;你站在机器人起始姿态上方往下看&quot;看到的样子。原点是 <code>+</code>，机器人是 <code>●</code> 加一条朝向射线。</p>
+<h3 id="123--一个不明显的消费者tof-的地板判断"><a class="header" href="#123--一个不明显的消费者tof-的地板判断">12.3 ⭐ 一个不明显的消费者：ToF 的地板判断</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// robotctl/src/monitor.rs:2533-2540
+// The trunk's own tilt and measured height, so a robot leaned by hand
+// still calls the floor the floor. Odometry Z of zero means &quot;no
+// estimate&quot; (an older robotd, or an unconverged IMU) — fall back to
+// the model's rest height rather than believing the trunk is buried.
+let posture = kinematics::tof::Posture {
+    gravity: state.safety.gravity,
+    trunk_height_m: (state.odom.position[2] &gt; 0.02).then_some(state.odom.position[2]),
+};
+<span class="boring">}</span></code></pre></pre>
+<p><strong>里程计测出来的躯干高度，被拿去当 ToF 判地板的&quot;传感器离地多高&quot;用了。</strong></p>
+<p>而且这里有个漂亮的细节：<code>position[2] &gt; 0.02</code> —— <strong>Z 接近 0 被当作&quot;没有估计&quot;</strong>，
+退回模型里的静态高度，而不是&quot;相信躯干埋在地下&quot;。</p>
+<blockquote>
+<p>💡 这条把 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a> §10.3 那个
+<code>above_floor = sensor_level[2] + posture.trunk_height_m</code> 补完了：
+那个 <code>trunk_height_m</code> 在生产里<strong>就是里程计给的</strong>。</p>
+</blockquote>
+<h3 id="124-两个还没有消费者的公开方法"><a class="header" href="#124-两个还没有消费者的公开方法">12.4 两个还没有消费者的公开方法</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>方法</th><th>文档怎么说</th></tr></thead><tbody>
+<tr><td><code>anchor_xy()</code>（<code>:190</code>）</td><td><em>&quot;For telemetry; <code>position</code> is the answer.&quot;</em></td></tr>
+<tr><td><code>anchors()</code>（<code>:114</code>）</td><td>返回这个估计器在用的锚点集</td></tr>
+</tbody></table>
+</div>
+<p>两个在 <code>odometry</code> 之外都没有调用者 —— 是<strong>故意公开的遥测口子</strong>，不是死代码。</p>
+<hr />
+<h2 id="13-测试8-个其中-2-个是手动工具"><a class="header" href="#13-测试8-个其中-2-个是手动工具">13. 测试：8 个，其中 2 个是手动工具</a></h2>
+<pre><code class="language-bash">cargo test -p odometry                              # 6 个
+cargo test -p odometry -- --ignored --nocapture      # 另外 2 个
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>行</th><th>验什么</th></tr></thead><tbody>
+<tr><td><code>alpha_anchor_sets_lie_on_the_sole</code></td><td><code>:251</code></td><td>几何不变量 + 左右镜像</td></tr>
+<tr><td><code>standing_still_stays_at_the_origin</code></td><td><code>:332</code></td><td>站着不动就<strong>精确地</strong>在原点上</td></tr>
+<tr><td><code>yaw_follows_the_imu</code></td><td><code>:345</code></td><td>yaw 就是 IMU 的 yaw</td></tr>
+<tr><td><code>the_mouth_moves_no_odometry</code></td><td><code>:356</code></td><td>嘴张 42 弧度也不动</td></tr>
+<tr><td><code>the_anchor_switches_only_after_the_claim_holds</code></td><td><code>:372</code></td><td>单 tick 抖动偷不走，稳定保持必须赢</td></tr>
+<tr><td><code>stance_leg_motion_translates_the_trunk_continuously</code></td><td><code>:402</code></td><td>动了，但每 tick 步长 &lt; 2 cm</td></tr>
+<tr><td><code>dump_reference_trajectory</code></td><td><code>:280</code></td><td><strong><code>#[ignore]</code></strong> —— 给 Python 复刻版的基准数据</td></tr>
+<tr><td><code>update_cost_per_anchor_set</code></td><td><code>:306</code></td><td><strong><code>#[ignore]</code></strong> —— 测三套锚点各花多少时间</td></tr>
+</tbody></table>
+</div>
+<h3 id="131-standing_still_stays_at_the_origin-断言的是精确相等"><a class="header" href="#131-standing_still_stays_at_the_origin-断言的是精确相等">13.1 <code>standing_still_stays_at_the_origin</code> 断言的是<strong>精确相等</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert!(x.abs() &lt; 1e-9 &amp;&amp; y.abs() &lt; 1e-9, &quot;drifted to ({x}, {y})&quot;);
+assert!(z &gt; 0.02, &quot;trunk should stand above the ground, z = {z}&quot;);
+assert_eq!(odo.yaw(), 0.0);
+<span class="boring">}</span></code></pre></pre>
+<p>容差是 <strong>1e-9</strong>，不是 1e-3。能这么严，是因为<strong>这里没有积分</strong> ——
+同样的输入喂 200 次，每次都是同一个确定性的重投影，不是累加。
+这正是 §3.2 说的&quot;每一刻重新解一次&quot;的好处。</p>
+<p>同时它检查 <code>z &gt; 0.02</code> —— <strong>躯干确实站在地面之上</strong>，而不是塌在 0。</p>
+<h3 id="132--那两个-ignore-不是测试是工具"><a class="header" href="#132--那两个-ignore-不是测试是工具">13.2 ⭐ 那两个 <code>#[ignore]</code> 不是测试，是<strong>工具</strong></a></h3>
+<p><strong>[1] <code>dump_reference_trajectory</code>（<code>:280</code>）—— 和另一个仓库的一致性锚点</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Reference trajectory for the Python replica in
+/// `microduck_rl/scripts/infer_policy.py` (`PyOdometry`): the same joint
+/// and IMU sequence fed to both must give the same positions.
+<span class="boring">}</span></code></pre></pre>
+<p>它给出一串定死的关节角和 IMU 序列（几条正弦），把每一步的位置打印成
+<code>REF &lt;set&gt; &lt;i&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;foot&gt;</code>。</p>
+<p><strong>为什么要有这个？</strong> 因为这套里程计的存在意义之一是<strong>训练时用的观测</strong>：
+策略在 MuJoCo 里训练时看到的位置，必须和真机器人上算出来的一致。
+所以有一个 Python 复刻版，而这个测试是<strong>两边对齐的凭证</strong>。</p>
+<p>它打印三种锚点集的轨迹（<code>V15</code>、<code>ALPHA4</code>、<code>ALPHA16</code>），所以换锚点的影响是可见的。</p>
+<p><strong>[2] <code>update_cost_per_anchor_set</code>（<code>:306</code>）—— 定尺寸用的</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Cost of one `update` per anchor set, for sizing the set the robot
+/// runs. `cargo test -p odometry --release -- --ignored --nocapture`.
+<span class="boring">}</span></code></pre></pre>
+<p>20 万次 update，打印每套的 <code>ns per update</code>。注释里的 <strong>&quot;for sizing the set the robot runs&quot;</strong>
+说明了它的用途 —— §10.1 那句&quot;多花半微秒&quot;就是从这里来的。</p>
+<blockquote>
+<p>💡 这和 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a> §12.2 的 <code>perf_probe</code> 是同一个做法：
+<strong>墙上时钟不进断言，数字打在终端上给人看。</strong> 一条忽快忽慢的 CI 只会教人学会忽略红色。</p>
+</blockquote>
+<p>两个都必须手动跑，而且第二个<strong>必须加 <code>--release</code></strong> —— debug 下的数字没有意义。</p>
+<hr />
+<h2 id="14-几处读者会绊到的地方"><a class="header" href="#14-几处读者会绊到的地方">14. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="141-那个负的-switch_margin"><a class="header" href="#141-那个负的-switch_margin">14.1 那个负的 <code>SWITCH_MARGIN</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const SWITCH_MARGIN: f64 = -0.010;      // lib.rs:42
+let mut lowest = -SWITCH_MARGIN;        // lib.rs:215 → +0.010
+<span class="boring">}</span></code></pre></pre>
+<p>语义上是对的（门槛就是 <code>-SWITCH_MARGIN</code>，注释也是这么写的），
+但一个<strong>负值</strong>的常数叫 <code>MARGIN</code>、然后<strong>取负</strong>当门槛用，读起来要绕一下。见 §8.1。</p>
+<h3 id="142-生成的文件里有一个开发者的家目录"><a class="header" href="#142-生成的文件里有一个开发者的家目录">14.2 生成的文件里有一个开发者的家目录</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// odometry/src/anchors.rs:5
+//!   odom_anchor_points.py --rust /home/antoine/Pollen/microduck/odometry/src/anchors.rs
+<span class="boring">}</span></code></pre></pre>
+<p>生成命令里带着<strong>绝对路径</strong>（<code>/home/antoine/...</code>）。它只是一条注释，不影响行为，
+但它记的是<strong>生成那一刻某台机器上的路径</strong>。</p>
+<h3 id="143-switch_confirm_ticks-的单位是-tick而注释按-50-hz-算"><a class="header" href="#143-switch_confirm_ticks-的单位是-tick而注释按-50-hz-算">14.3 <code>SWITCH_CONFIRM_TICKS</code> 的单位是 tick，而注释按 50 Hz 算</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:44-47
+/// Ticks a candidate must stay the lowest point before the anchor moves. At
+/// the control loop's 50 Hz this is 40 ms — well inside a stance phase, well
+/// past a one-tick glitch.
+const SWITCH_CONFIRM_TICKS: u32 = 2;
+<span class="boring">}</span></code></pre></pre>
+<p>常数本身是 tick 数，<strong>没有绑定频率的机制</strong>。<code>robotd</code> 改频率时这里不会报错，
+只会悄悄变成另一个时间窗口。</p>
+<h3 id="144-两份文档对几个消费者的说法不一致"><a class="header" href="#144-两份文档对几个消费者的说法不一致">14.4 两份文档对&quot;几个消费者&quot;的说法不一致</a></h3>
+<p><code>design/robotd-design.md:134</code> 说 <code>kinematics</code> 有 <strong>two</strong> consumers
+（<code>odometry</code> 和 <code>robotd</code> 的头部 FK），而实际有四个（还有 <code>robotctl</code> 和 <code>robotd-params</code>）。
+详见 <a href="kinematics-primer.html"><code>kinematics-primer.md</code></a> §2。</p>
+<hr />
+<h2 id="15-阅读路线"><a class="header" href="#15-阅读路线">15. 阅读路线</a></h2>
+<p>这个 crate 很小，可以一次读完。</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>1</td><td><code>odometry/Cargo.toml</code>（1-8 行）</td><td>讲清&quot;为什么它不是一个服务&quot;</td></tr>
+<tr><td>2</td><td><code>odometry/src/lib.rs:1-31</code></td><td>模块文档 = <strong>整个算法</strong>。读两遍</td></tr>
+<tr><td>3</td><td><code>odometry/src/lib.rs:39-50</code></td><td>三个常数，两条防抖规则</td></tr>
+<tr><td>4</td><td><code>odometry/src/lib.rs:52-101</code></td><td><code>Odometry</code> 的字段 + <code>new</code>。<strong>每个字段都有注释</strong></td></tr>
+<tr><td>5</td><td><code>odometry/src/lib.rs:123-175</code></td><td><code>update()</code>。<strong>§5 那张表就是它</strong></td></tr>
+<tr><td>6</td><td><code>odometry/src/lib.rs:202-210</code></td><td><code>reproject</code>。<strong>这三行是核心</strong></td></tr>
+<tr><td>7</td><td><code>odometry/src/lib.rs:214-232</code></td><td><code>lowest_corner</code></td></tr>
+<tr><td>8</td><td><code>odometry/src/anchors.rs</code></td><td>数据。对着 §10 的表读</td></tr>
+<tr><td>9</td><td><code>odometry/src/lib.rs:332-441</code></td><td>四个&quot;行为&quot;测试，比文档更能说明它想保证什么</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读模块文档（<code>lib.rs:1-31</code>），然后读 <code>reproject</code> 那三行，再读 §11。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>每一刻重新解一次，不积分</strong>。所以站着不动是 1e-9 级的精确，代价是<strong>接触判断错了就全错</strong>。</li>
+<li><strong>能省的都要省</strong>。它跑在 50 Hz 的环里，所以：脚链一次 tick 算两遍而不是九遍、
+名字→索引在构造时做掉、锚点集是编译进来的常量。<strong>&quot;两个链求值，零额外总线流量&quot;是它敢跑在环里的理由。</strong></li>
+<li><strong>知道自己不知道什么</strong>。没有磁力计就不假装有绝对方向；IMU 没收敛就不种锚点；
+滑行的 tick 就跳过；Z 接近 0 就当&quot;没有估计&quot;。<strong>每一条都在代码里写明了。</strong></li>
+</ol>
+<hr />
+<h2 id="16-术语表"><a class="header" href="#16-术语表">16. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>里程计（odometry）</strong></td><td>估计&quot;走了多远、朝哪&quot;。区别于&quot;定位&quot;（知道自己在地图上的绝对位置）</td></tr>
+<tr><td><strong>接触式里程计</strong></td><td>靠&quot;哪只脚踩在地上&quot;来推位置，而不是靠积分速度</td></tr>
+<tr><td><strong>锚点（anchor）</strong></td><td>那个被认为<strong>正踩在地面上</strong>的点。世界 Z 定义为 0</td></tr>
+<tr><td><strong><code>anchor_local</code></strong></td><td>锚点在<strong>那只脚自己的坐标系</strong>里的位置</td></tr>
+<tr><td><strong><code>anchor_xy</code></strong></td><td>锚点在<strong>世界</strong>里的 X/Y。成为锚点那一刻定下，之后钉住</td></tr>
+<tr><td><strong>重投影（reproject）</strong></td><td>从锚点倒推躯干位置。<strong>这个 crate 的核心动作</strong></td></tr>
+<tr><td><strong>正向运动学（FK）</strong></td><td>给关节角，算各部位在哪。<code>kinematics</code> 的活</td></tr>
+<tr><td><strong>world frame</strong></td><td>世界坐标系。原点在开机时的脚下，+x 是开机时的朝向</td></tr>
+<tr><td><strong>trunk frame</strong></td><td>躯干坐标系。<code>kinematics</code> 的所有输出都在这个系里</td></tr>
+<tr><td><strong>yaw</strong></td><td>绕垂直轴的旋转（&quot;朝哪&quot;）</td></tr>
+<tr><td><strong>四元数（quat）</strong></td><td>表示旋转的四个数，这里是 <code>[w, x, y, z]</code></td></tr>
+<tr><td><strong>IMU</strong></td><td>惯性测量单元：陀螺仪 + 加速度计</td></tr>
+<tr><td><strong>磁力计</strong></td><td>能测出绝对方向（&quot;北在哪&quot;）的传感器。<strong>这只鸭子没有</strong></td></tr>
+<tr><td><strong>支撑相（stance phase）</strong></td><td>走一步的过程中，脚踩在地上那一半</td></tr>
+<tr><td><strong>漂移（drift）</strong></td><td>误差随时间累积。<strong>这里累积的是接触判断的误差，不是积分误差</strong></td></tr>
+<tr><td><strong>滑行（coast）</strong></td><td>没读到新采样时，用上一条顶着。<strong>估计器要跳过这种 tick</strong></td></tr>
+<tr><td><strong>site</strong></td><td><code>kinematics</code> 里贴在刚体上的一个有名坐标点。脚底是两个 site</td></tr>
+<tr><td><strong>包围盒（bbox）</strong></td><td>把物体整个包住的最小方盒子。<code>V15</code> 用的是它</td></tr>
+<tr><td><strong>倒角（bevel）</strong></td><td>鞋底边缘的斜面。<code>ALPHA16</code> 采到了，<code>ALPHA4</code> 没有</td></tr>
+<tr><td><strong>MuJoCo 孪生（twin）</strong></td><td>仿真里那只鸭子。<strong>§10.1 那场 3.2 米的实测是在它上面跑的</strong></td></tr>
+<tr><td><strong><code>#[ignore]</code></strong></td><td>默认不跑，要 <code>--ignored</code> 手动跑</td></tr>
+<tr><td><strong>盲文（braille）</strong></td><td>终端里用 2×4 点阵画曲线的方式，比字符格细</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>里程计的权威设计（英文）</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.4</td></tr>
+<tr><td>脚底那些点是怎么来的</td><td><a href="design/robotd-design.html"><code>design/robotd-design.md</code></a> §4.4 · <code>microduck_rl</code> 的 <code>odom_anchor_points.py</code></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇，<strong>最该一起读</strong>）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>那个调用它的控制环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>操作者视角：<code>monitor</code> 那张地图怎么看</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a></td></tr>
+<tr><td><code>odom</code> 在线上长什么样（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端：<code>monitor</code>（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>仿真：<code>--sim-camera</code>、MuJoCo 孪生</td><td><a href="design/simulation.html"><code>design/simulation.md</code></a> · <a href="robot/simulation.html"><code>robot/simulation.md</code></a></td></tr>
+<tr><td>摄像头、ToF 的另一个消费者（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>配置文件的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 那张地图画的是什么（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/mediad-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/pad-imu-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/mediad-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/pad-imu-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

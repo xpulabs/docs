@@ -1,0 +1,772 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>uyvy/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html" class="active"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="uyvy-新手导读"><a class="header" href="#uyvy-新手导读"><code>uyvy/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是<strong>摄像头像素的公共算术</strong>：一个 crate，两个文件，<strong>351 行，零依赖</strong>。
+摄像头的格式和流水线由 <a href="mediad-primer.html"><code>mediad-primer.md</code></a> 拥有；
+检测模型要什么样的输入由 <a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a> 拥有；
+为什么 <code>robotctl</code> 不能链接重依赖，由 <a href="robotctl-primer.html"><code>robotctl-primer.md</code></a> 拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="mediad-primer.html"><code>mediad-primer.md</code></a>（最大的那个消费者）、
+<a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a>（借用它的两个类型）、
+<a href="robotctl-primer.html"><code>robotctl-primer.md</code></a>（<strong>必须能链接它</strong>的那个）、
+<a href="kinematics-primer.html"><code>kinematics-primer.md</code></a>（<strong>同一个模式的第一个实例</strong>）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E5%85%88%E7%90%86%E6%B8%85uyvy-%E6%98%AF%E4%B8%80%E4%B8%AA%E5%83%8F%E7%B4%A0%E6%A0%BC%E5%BC%8F">⚠️ 先理清：UYVY 是一个像素格式</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E8%BE%B9%E8%B5%B0%E8%BE%B9%E8%BD%AC">⭐ 核心心智模型：边走边转</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%9C%B0%E5%9B%BE">目录地图</a></li>
+<li><a href="#5-%E9%82%A3%E4%B8%89%E6%A0%B7%E4%B8%9C%E8%A5%BF">那三样东西</a></li>
+<li><a href="#6-%E9%82%A3%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0">那两个函数</a></li>
+<li><a href="#7--%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E5%80%BC%E5%BE%97%E5%8D%95%E7%8B%AC%E4%B8%80%E4%B8%AA-crate">⭐ 为什么它值得单独一个 crate</a></li>
+<li><a href="#8-%E4%B8%89%E4%B8%AA%E6%B6%88%E8%B4%B9%E8%80%85">三个消费者</a></li>
+<li><a href="#9-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#10-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#11-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>uyvy/</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>摄像头交给你的那串字节，怎么变成一张&quot;正着的、能用的&quot;图？</strong></p>
+</blockquote>
+<p>摄像头在头部，<strong>装歪了四分之一圈</strong>，所以每一个拿到帧的东西都要先做两件事：
+<strong>把它转正，然后缩到它真正想要的尺寸。</strong></p>
+<p><code>uyvy/</code> 就是<strong>那两件事的唯一一份实现</strong>：</p>
+<pre><code>   摄像头 ──UYVY 1280×720──►
+                              │
+                              ▼
+                    uyvy::Turn + 采样
+                              │
+              ┌───────────────┼───────────────┐
+              ▼               ▼               ▼
+           mediad         duck-detect    robotctl monitor
+        （编码 JPEG）    （喂给模型）     （画在终端里）
+</code></pre>
+<p>而整个 crate 只有 <strong>351 行</strong>、<strong>零依赖</strong>，其中一半是测试和注释。</p>
+<p><strong>如果只记一句话</strong>：<em>&quot;转&quot;不是一趟独立的处理，而是<strong>采样那个循环里的一次下标变换</strong></em>。</p>
+<hr />
+<h2 id="2--先理清uyvy-是一个像素格式"><a class="header" href="#2--先理清uyvy-是一个像素格式">2. ⚠️ 先理清：UYVY 是一个像素格式</a></h2>
+<p><strong>UYVY</strong> 是一种 <strong>YUV 4:2:2</strong> 的排布方式。四个字节一组，覆盖<strong>两个</strong>像素：</p>
+<pre><code>   字节:   [  U  ][ Y0 ][  V  ][ Y1  ]
+            └─┬─┘   │    └─┬─┘   │
+              │     │      │     └── 像素 1 的亮度
+              │     └──────┼──────── 像素 0 的亮度
+              └────────────┴──────── 两个像素**共用**的色度
+</code></pre>
+<p>两个关键点：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>事实</th><th>后果</th></tr></thead><tbody>
+<tr><td><strong>①</strong></td><td><strong>亮度每个像素一个，色度每两个像素一个</strong></td><td>一个像素的色度要去**它所在的那一&quot;对&quot;**里找</td></tr>
+<tr><td><strong>②</strong></td><td><strong>一行 1280 个像素 = 2560 字节</strong></td><td>所以 <code>stride = width * 2</code>（<code>lib.rs:115</code>）</td></tr>
+</tbody></table>
+</div>
+<p>人眼对亮度敏感、对色度不敏感 —— 这就是为什么视频都这么存。
+代价是：<strong>要拿到一个像素的完整颜色，你得先算清楚它落在哪一对里。</strong></p>
+<p>而 <code>lib.rs:130-134</code> 那三行就是这件事：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let pair = row + (source_x / 2) * 4;
+// U Y0 V Y1: the luma is the odd byte of the half this pixel falls in.
+let luma = uyvy[pair + 1 + 2 * (source_x &amp; 1)] as i32 - 16;
+let u = uyvy[pair] as i32 - 128;
+let v = uyvy[pair + 2] as i32 - 128;
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>source_x &amp; 1</code> 就是在问&quot;这个像素是这一对里的第一个还是第二个&quot;</strong> ——
+是第一个就取 <code>pair+1</code>，是第二个就取 <code>pair+3</code>。</p>
+<h3 id="21-那个---16-和---128"><a class="header" href="#21-那个---16-和---128">2.1 那个 <code>- 16</code> 和 <code>- 128</code></a></h3>
+<p>这是 <strong>BT.601 limited range（有限范围）</strong>：</p>
+<pre><code>   Y: 16 … 235     不是 0 … 255
+   U/V: 16 … 240   以 128 为中心，不是 0 为中心
+</code></pre>
+<p>所以先减掉偏置，再做矩阵乘法（<code>lib.rs:136-140</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// BT.601 limited range in fixed point — the ISP's convention, and the one every JPEG
+// the dataset was labelled from went through. Integer because this is the inner loop.
+let r = (298 * luma + 409 * v + 128) &gt;&gt; 8;
+let g = (298 * luma - 100 * u - 208 * v + 128) &gt;&gt; 8;
+let b = (298 * luma + 516 * u + 128) &gt;&gt; 8;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;ISP 的约定，也是数据集被标注时经过的每一个 JPEG 的约定。&quot;</strong></p>
+<p><code>&gt;&gt; 8</code> 是除以 256（用整数代替浮点），<code>+ 128</code> 是四舍五入。
+而<strong>为什么是整数</strong>：<em>&quot;因为这是内层循环。&quot;</em></p>
+<hr />
+<h2 id="3--核心心智模型边走边转"><a class="header" href="#3--核心心智模型边走边转">3. ⭐ 核心心智模型：边走边转</a></h2>
+<p>这是整个 crate 唯一的设计思想，而它写在 <code>lib.rs:10-13</code>：</p>
+<blockquote>
+<p><strong>The turn happens while sampling, not before it.</strong> Both samplers walk their <em>output</em> and pull
+the source pixel each one needs, so <strong>the rotation is a change of index inside a loop that was
+already running rather than a pass of its own.</strong></p>
+</blockquote>
+<p><strong>&quot;旋转是一个本来就在跑的循环里的一次下标变换，而不是它自己的一趟处理。&quot;</strong></p>
+<pre><code>   ❌ 两趟：先转正，再缩小
+      921,600 个像素 ──► 转 ──► 921,600 个像素 ──► 缩 ──► 102,400 个像素
+                                                            （丢掉 89%）
+
+   ✅ 一趟：遍历**输出**，每个输出像素直接去源头取它要的那一个
+      102,400 个像素 ──► 每个都从源里取一次
+</code></pre>
+<p><code>lib.rs:102-105</code> 说明了坐标系的选择：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Everything below is in *upright* coordinates — the picture the right way up, which is what
+// the model was trained on and what a detection has to be reported in. The turn is undone only
+// at the moment a source pixel is fetched.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;下面的一切都在<em>正着的</em>坐标系里 —— 转只在取源像素的那一刻被撤销。&quot;</strong></p>
+<p>而&quot;撤销&quot;就是那一个函数（<code>lib.rs:68</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Where a pixel of the *upright* picture is in the frame the camera took.
+///
+/// The inverse mapping, because the sampler walks the output and pulls from the input. Written
+/// as one function so the four cases are in one place rather than spread through a loop.
+fn source(self, ux: usize, uy: usize, width: usize, height: usize) -&gt; (usize, usize)
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;逆映射，因为采样器遍历的是输出、拉取的是输入。&quot;</strong></p>
+<hr />
+<h2 id="4-目录地图"><a class="header" href="#4-目录地图">4. 目录地图</a></h2>
+<pre><code>uyvy/
+├── Cargo.toml    17 行   ← `[dependencies]` 是**空的**，而那是重点
+└── src/lib.rs   351 行   ← 全部内容
+</code></pre>
+<p><strong>整个 crate 就这么大。</strong> <code>lib.rs</code> 的构成：</p>
+<div class="table-wrapper"><table><thead><tr><th>行</th><th>是什么</th></tr></thead><tbody>
+<tr><td><code>:1-13</code></td><td>模块文档：为什么存在、为什么转在采样里</td></tr>
+<tr><td><code>:15-16</code></td><td><code>PAD</code> —— 那个 114</td></tr>
+<tr><td><code>:18-24</code></td><td><code>Letterbox</code> —— 怎么把检测框映射回去</td></tr>
+<tr><td><code>:26-81</code></td><td><code>Turn</code> —— 四个方向 + 那个逆映射</td></tr>
+<tr><td><code>:83-154</code></td><td><code>letterbox_from_uyvy</code> —— 给模型的（正方形、带填充）</td></tr>
+<tr><td><code>:156-220</code></td><td><code>rgb_from_uyvy</code> —— 给人的/给别的模型的（保持比例、不填充）</td></tr>
+<tr><td><code>:222-351</code></td><td><strong>7 个测试</strong>，占了全文件 37%</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="5-那三样东西"><a class="header" href="#5-那三样东西">5. 那三样东西</a></h2>
+<h3 id="51-pad--114"><a class="header" href="#51-pad--114">5.1 <code>PAD = 114</code></a></h3>
+<p><code>lib.rs:15-16</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// The grey ultralytics pads a letterbox with, and therefore what calibration and training saw.
+pub const PAD: u8 = 114;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>一个写死的数字，而它必须和训练那边一致</strong> ——
+否则模型看到的填充色和它学会的填充色不一样，而<em>那不会让它报错，只会让它悄悄变差</em>。</p>
+<h3 id="52-letterbox怎么把框映射回去"><a class="header" href="#52-letterbox怎么把框映射回去">5.2 <code>Letterbox</code>：怎么把框映射回去</a></h3>
+<p><code>lib.rs:18-24</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// How a frame was fitted into the model's square, so detections can be mapped back out of it.
+pub struct Letterbox {
+    pub scale: f32,
+    pub pad_x: f32,
+    pub pad_y: f32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>模型在 320×320 的方图里给出框，而你要的是原图里的坐标</strong> ——
+所以缩小比例和两边的填充量必须一路带出去。三个数，一个都不能少。</p>
+<h3 id="53-turn四个方向一个逆变换"><a class="header" href="#53-turn四个方向一个逆变换">5.3 <code>Turn</code>：四个方向，一个逆变换</a></h3>
+<p><code>lib.rs:34-42</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Turn {
+    #[default]
+    None,
+    /// A quarter turn clockwise: what this robot's camera mount needs.
+    Right,
+    Half,
+    Left,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>而逆映射的四行（<code>lib.rs:69-79</code>）值得逐行看：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>match self {
+    Self::None =&gt; (ux, uy),
+    // A quarter turn clockwise sends source (x, y) to upright (h-1-y, x), so the inverse
+    // takes upright (ux, uy) from source (uy, h-1-ux).
+    Self::Right =&gt; (uy, height.saturating_sub(1).saturating_sub(ux)),
+    Self::Half =&gt; (
+        width.saturating_sub(1).saturating_sub(ux),
+        height.saturating_sub(1).saturating_sub(uy),
+    ),
+    Self::Left =&gt; (width.saturating_sub(1).saturating_sub(uy), ux),
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>注释把正变换和逆变换都写下来了</strong>，因为这是最容易搞反的地方 ——
+而这个函数<strong>故意做成一个函数而不是散在循环里</strong>：
+<em>&quot;这样四种情况就在一个地方，而不是散在一个循环里。&quot;</em></p>
+<p>而 <code>saturating_sub</code> 而不是 <code>-</code>：<strong>一个为 0 的尺寸不该 panic。</strong></p>
+<p><code>Turn</code> 还有第三个方法（<code>lib.rs:56-62</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// The frame's size once turned — a quarter turn swaps the axes.
+pub fn upright(self, width: usize, height: usize) -&gt; (usize, usize)
+<span class="boring">}</span></code></pre></pre>
+<p><strong>四分之一圈会交换长宽</strong> —— 1280×720 变成 720×1280。
+这是一件<strong>每个调用者都必须知道、而且很容易忘</strong>的事，
+所以它也是这个 crate 提供的。</p>
+<hr />
+<h2 id="6-那两个函数"><a class="header" href="#6-那两个函数">6. 那两个函数</a></h2>
+<p>它们几乎一样，<strong>而差别就是它们都存在的原因</strong>。</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th><code>letterbox_from_uyvy</code>（<code>:94</code>）</th><th><code>rgb_from_uyvy</code>（<code>:172</code>）</th></tr></thead><tbody>
+<tr><td><strong>给谁</strong></td><td><strong>模型</strong></td><td><strong>人或别的程序看</strong></td></tr>
+<tr><td><strong>输出形状</strong></td><td><strong>正方形</strong>，<code>size × size</code></td><td><strong>保持长宽比</strong>，不填充</td></tr>
+<tr><td><strong>填充</strong></td><td><code>PAD</code>（114 灰）</td><td>无</td></tr>
+<tr><td><strong>缩放</strong></td><td>塞进正方形</td><td><strong>按最长边</strong>，且<strong>只缩不放</strong></td></tr>
+<tr><td><strong>返回</strong></td><td><code>Letterbox</code>（映射回原图用）</td><td><code>(宽, 高)</code>（因为四分之一圈会交换它们）</td></tr>
+</tbody></table>
+</div>
+<p><code>lib.rs:156-160</code> 说了为什么需要第二个：</p>
+<blockquote>
+<p>[<code>letterbox_from_uyvy</code>] above is for the model: a square, padded, at whatever size the network
+wants. This is for a <em>person or a program looking at the picture</em> — <strong>a JPEG on its way to a
+Space that runs a model of its own</strong> — so <strong>it keeps the aspect ratio and pads nothing.</strong></p>
+</blockquote>
+<h3 id="61--那个只缩不放"><a class="header" href="#61--那个只缩不放">6.1 ⭐ 那个&quot;只缩不放&quot;</a></h3>
+<p><code>lib.rs:181-183</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Downscale only. Asking for a box bigger than the sensor would interpolate detail that was
+// never captured and cost the bandwidth of pretending.
+let scale = (longest as f32 / upright_w.max(upright_h) as f32).min(1.0);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;要求一个比传感器还大的框，会插值出从没被捕捉到的细节，并且付出'假装'的带宽。&quot;</strong></p>
+<p>而 <code>.min(1.0)</code> 就是那条规则本身。它有测试（<code>lib.rs:253-260</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Never upscales: a box larger than the sensor would interpolate detail nobody captured.
+#[test]
+fn the_rgb_scaler_only_ever_shrinks() {
+    assert_eq!(rgb_from_uyvy(&amp;uyvy, 8, 4, 64, Turn::None, &amp;mut out), (8, 4));
+    assert_eq!(rgb_from_uyvy(&amp;uyvy, 8, 4, 4, Turn::None, &amp;mut out), (4, 2));
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="62--一帧短了怎么办"><a class="header" href="#62--一帧短了怎么办">6.2 ⭐ 一帧短了怎么办</a></h3>
+<p>两个函数里各有一段一样的处理（<code>lib.rs:125-129</code> 和 <code>:196-201</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let row = source_y * stride;
+if row + stride &gt; uyvy.len() {
+    // A frame that arrives mid-teardown is short. What is missing stays padding rather
+    // than taking the daemon down over a picture.
+    continue;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一个在拆卸中途到达的帧是短的。缺的部分保持填充，而不是因为一张图把守护进程干掉。&quot;</strong></p>
+<p><strong>注意它是 <code>continue</code> 而不是 <code>break</code></strong> —— 剩下的行照样走完，
+所以<strong>输出缓冲区的长度永远是对的</strong>，只是缺的那些位置保持初始值（填充色或黑色）。</p>
+<h3 id="63-最近邻而且色度不插值"><a class="header" href="#63-最近邻而且色度不插值">6.3 最近邻，而且色度不插值</a></h3>
+<p><code>lib.rs:91-93</code>：</p>
+<blockquote>
+<p><strong>Nearest-neighbour, and chroma from the pair without interpolation</strong>: the input is <strong>a blurred
+photograph of a room being downscaled by four</strong>, and <strong>nothing in a bounding box survives at that
+precision.</strong></p>
+</blockquote>
+<p><strong>&quot;输入是一张被缩小四倍的、模糊的房间照片，而在那个精度上，一个边界框里的东西什么都剩不下。&quot;</strong></p>
+<p><code>duck-detect</code> 那边用同一句话给了同一个判断，还多一句成本（<code>duck-detect/src/lib.rs:61-64</code>）：</p>
+<blockquote>
+<p>Nearest-neighbour on purpose: this runs per frame beside a 50 Hz control loop, the input is a
+blurred 720×1280 photograph of a room, and <strong>a bilinear resize costs three times as much to move
+a box by a pixel.</strong></p>
+</blockquote>
+<hr />
+<h2 id="7--为什么它值得单独一个-crate"><a class="header" href="#7--为什么它值得单独一个-crate">7. ⭐ 为什么它值得单独一个 crate</a></h2>
+<p><code>Cargo.toml:9</code> 只有一句：</p>
+<blockquote>
+<p><strong>No dependencies, and that is the point of the crate existing.</strong></p>
+</blockquote>
+<p>而它下面那段解释了<strong>为什么零依赖是承重的</strong>（<code>Cargo.toml:11-16</code>）：</p>
+<blockquote>
+<p>Three processes have to agree about what a camera frame looks like: <code>mediad</code> serves and encodes
+one, <code>duck-detect</code> feeds one to a model, and <code>robotctl monitor</code> draws one in a terminal.
+<strong>The arithmetic lived in <code>duck-detect</code>, whose manifest drags the NPU and ONNX runtimes and the
+<code>image</code> crate — a tree a CLI on the recovery path must not link.</strong> Copying forty lines of sampler
+into the CLI was the alternative, and <strong>a second copy of a rotation that has already been got
+wrong once is how a picture ends up sideways in one consumer and upright in the other.</strong></p>
+</blockquote>
+<p><strong>&quot;这份算术原来住在 <code>duck-detect</code> 里，而它的依赖树拖着 NPU 和 ONNX 运行时 ——
+一棵处于恢复路径上的 CLI 绝不能链接的树。&quot;</strong></p>
+<p><strong>&quot;而一份已经搞错过一次的旋转的第二个副本，就是一张图在一个消费者那里横着、
+在另一个消费者那里正着的方式。&quot;</strong></p>
+<h3 id="71-这是同一个模式的第二个实例"><a class="header" href="#71-这是同一个模式的第二个实例">7.1 这是<strong>同一个模式的第二个实例</strong></a></h3>
+<p><code>robotctl/Cargo.toml:27-34</code> 把两件事写在了一起，而它们形状完全一样：</p>
+<pre><code class="language-toml"># Pure geometry (the ToF reprojection the monitor overlays) — deliberately NOT the `tof`
+# crate, whose vendored C driver would drag a cross C toolchain into every robotctl build.
+kinematics = { path = &quot;../kinematics&quot; }
+# The camera's pixels, for `monitor`'s camera block: the mount turn and the UYVY sampler, shared
+# with `mediad` and `duck-detect`. Deliberately NOT `duck-detect` itself, for the reason above —
+# that crate carries the NPU and ONNX runtimes, and this one has no dependencies at all.
+uyvy = { path = &quot;../uyvy&quot; }
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th></th><th>不链接</th><th>因为</th><th>链接</th></tr></thead><tbody>
+<tr><td><strong>几何</strong></td><td><code>tof</code></td><td>vendor 的 C 驱动会拖进一整套交叉编译工具链</td><td><code>kinematics</code></td></tr>
+<tr><td><strong>像素</strong></td><td><code>duck-detect</code></td><td>NPU 和 ONNX 运行时</td><td><strong><code>uyvy</code></strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>&quot;处于恢复路径上的 CLI 绝不能链接&quot;</strong> —— 这条规则在 <a href="robotctl-primer.html"><code>robotctl-primer.md</code></a> 里展开了；
+而 <code>uyvy</code> 和 <code>kinematics</code> 是它在代码里的两次落地。</p>
+<p><strong>一条规则，两处把纯算术抽成叶子 crate。</strong> 这是这个仓库里最值得学的一种重构：
+<strong>当你发现&quot;我需要 A 的一小部分，但 A 拖着一棵大树&quot;时，把那部分抽出来，而不是复制它。</strong></p>
+<h3 id="72-那次抽取只用了一个-commit"><a class="header" href="#72-那次抽取只用了一个-commit">7.2 那次抽取只用了<strong>一个 commit</strong></a></h3>
+<pre><code>a7728e5  uyvy: the camera's pixels move out of duck-detect, which nothing else can link
+</code></pre>
+<p>一次干净的抽取：<code>duck-detect</code> 那边留下 <code>pub use uyvy::{Letterbox, PAD};</code>（<code>duck-detect/src/lib.rs:29</code>），
+并附上一句关于为什么<strong>不</strong>把采样器也 re-export 的话（<code>:26-28</code>）：</p>
+<blockquote>
+<p>Its own signatures speak in these: <code>letterbox_rgb</code> returns a <code>Letterbox</code> and <code>decode</code> takes one
+back. <strong>The samplers themselves are not re-exported — a consumer that wants pixels wants
+<code>uyvy</code>, not a second name for it here.</strong></p>
+</blockquote>
+<p><strong>&quot;一个想要像素的消费者想要的是 <code>uyvy</code>，而不是在这里的第二个名字。&quot;</strong></p>
+<hr />
+<h2 id="8-三个消费者"><a class="header" href="#8-三个消费者">8. 三个消费者</a></h2>
+<h3 id="81-mediad编码-jpeg"><a class="header" href="#81-mediad编码-jpeg">8.1 <code>mediad</code>：编码 JPEG</a></h3>
+<p><code>mediad/src/stream.rs:636</code> —— 这个 crate 最大的用户，<strong>每帧一次</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let (width, height) = uyvy::rgb_from_uyvy(
+    &amp;frame.data,
+    frame.width as usize,
+    frame.height as usize,
+    config.longest as usize,
+    turn,
+    rgb,
+);
+<span class="boring">}</span></code></pre></pre>
+<p>而它复用缓冲区，理由写在 <code>mediad/src/stream.rs:616-618</code>：</p>
+<blockquote>
+<p>Reused across frames: <strong>at 640×480 the RGB buffer is 920 KB, and allocating that five times a
+second forever is a page fault storm for no reason.</strong></p>
+</blockquote>
+<p><strong>&quot;一秒五次、永远如此地分配它，是一场毫无理由的缺页风暴。&quot;</strong></p>
+<p>而 <code>mediad/src/main.rs:274-276</code> 说明了那个角度是从哪来的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// The same angle the detector needs, in its own vocabulary: it folds the turn into the
+// resampling it already does, which is why nothing in the pipeline has to.
+let turn = match uyvy::Turn::from_degrees(rotate) {
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;它把旋转折进它本来就在做的重采样里，所以流水线里没有任何东西需要做这件事。&quot;</strong></p>
+<h3 id="82-robotctl-monitor画在终端里"><a class="header" href="#82-robotctl-monitor画在终端里">8.2 <code>robotctl monitor</code>：画在终端里</a></h3>
+<p><code>robotctl/src/camera.rs:157</code> —— 和 <code>mediad</code> 调同一个函数，但<strong>自己算出那个 <code>longest</code></strong>，
+因为终端的块和它不一样（<code>robotctl/src/camera.rs:149-153</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// `rgb_from_uyvy` fits a box by its longest edge, so the longest edge is what this has to
+// work out: the scale that fits *both* ways, applied to whichever edge is longer.
+<span class="boring">}</span></code></pre></pre>
+<p>而这里有一条<strong>形状</strong>上的注释（<code>robotctl/src/camera.rs:131-136</code>）：</p>
+<blockquote>
+<p>Half-block cells hold two pixels each, so the pixel grid is as wide as the area and twice as
+tall. After the quarter turn this robot's camera needs, <strong>the picture is portrait — 720×1280 —
+so it is height-bound</strong> and leaves room either side, which is why it is centred rather than
+pinned to the left edge.</p>
+</blockquote>
+<p><strong>四分之一圈的后果一直传到了终端布局</strong>：图是竖的，所以两边留白。</p>
+<p>而它把这个算术<strong>钉成了一个测试</strong>（<code>robotctl/src/camera.rs:204-206</code>）：</p>
+<blockquote>
+<p>This is the arithmetic worth pinning: <code>rgb_from_uyvy</code> fits a box by its <strong>longest</strong> edge, and a
+block is far wider than it is tall in pixels, so <strong>passing it the width would draw a picture
+several times the height of the block — off the bottom of it, and off the frame.</strong></p>
+</blockquote>
+<h3 id="83-duck-detect-只用它的类型"><a class="header" href="#83-duck-detect-只用它的类型">8.3 <code>duck-detect</code>：⚠️ 只用它的<strong>类型</strong></a></h3>
+<p><strong><code>duck-detect</code> 不调用这两个采样函数</strong>，它只 <code>pub use uyvy::{Letterbox, PAD};</code>（<code>lib.rs:29</code>），
+然后用自己的 <code>letterbox_rgb</code>（<code>duck-detect/src/lib.rs:65</code>）处理<strong>已经是 RGB 的帧</strong> ——
+而那帧是 <code>mediad</code> 已经转正的（<code>duck-detect/src/lib.rs:17</code>）。</p>
+<p><strong>这条链是</strong>：</p>
+<pre><code>   摄像头 ──UYVY──► [uyvy::rgb_from_uyvy 转正] ──RGB──► duck-detect::letterbox_rgb ──► 模型
+                          （mediad 里）
+</code></pre>
+<p><strong>这不是错误</strong> —— <code>duck-detect</code> 和这个 crate <strong>一致</strong>（<code>PAD</code> 和 <code>Letterbox</code> 都来自这里）。
+只是&quot;三个消费者都做同样两件事&quot;这句话，对 <code>duck-detect</code> 不成立。见 §9.1。</p>
+<hr />
+<h2 id="9-几处读者会绊到的地方"><a class="header" href="#9-几处读者会绊到的地方">9. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="91-librs5-7-说三个消费者都做同样两件事而-duck-detect-不做"><a class="header" href="#91-librs5-7-说三个消费者都做同样两件事而-duck-detect-不做">9.1 <code>lib.rs:5-7</code> 说三个消费者都&quot;做同样两件事&quot;，而 <code>duck-detect</code> 不做</a></h3>
+<p><code>lib.rs:3-8</code>：</p>
+<blockquote>
+<p>The head camera hands out <code>UYVY</code> at 1280×720 and <strong>is mounted a quarter turn off</strong>, so <strong>every
+consumer of a frame does the same two things first: turn it the right way up, and sample it down
+to the size it actually wants. Three of them do — <code>mediad</code> encoding a JPEG or a PNG,
+<strong><code>duck-detect</code> feeding a model</strong>, and <code>robotctl monitor</code> drawing one in a terminal</strong> — and this
+is the one copy of that arithmetic.</p>
+</blockquote>
+<p><strong>而 <code>duck-detect</code> 两件事都不做：</strong></p>
+<ul>
+<li>它<strong>不调用</strong> <code>letterbox_from_uyvy</code> 或 <code>rgb_from_uyvy</code>（全文件只 <code>pub use</code> 了两个类型）；</li>
+<li>它<strong>不转</strong> —— 它的 <code>letterbox_rgb</code> 收的是 <code>mediad</code> 已经转正的 RGB 帧
+（它自己的文档在 <code>duck-detect/src/lib.rs:17</code> 说了这一点）。</li>
+</ul>
+<p>所以实际是<strong>两个</strong>消费者做那两件事（<code>mediad</code>、<code>robotctl</code>），
+而 <code>duck-detect</code> 是<strong>第三个同意&quot;一帧长什么样&quot;的</strong>（通过共享 <code>PAD</code> 和 <code>Letterbox</code>）。</p>
+<p>⚠️ <strong><code>Cargo.toml:11-13</code> 那段说的是准确的那个版本</strong> —— <em>&quot;Three processes have to <strong>agree about
+what a camera frame looks like</strong>&quot;</em> —— 而 <code>lib.rs</code> 的版本把&quot;同意&quot;说成了&quot;都做&quot;。</p>
+<p><strong>值得留意的地方</strong>：这个 crate 的<strong>存在理由</strong>正是&quot;三个消费者需要同一份算术&quot;，
+所以那句夸大正好落在最会被引用的一段话里。</p>
+<h3 id="92--工作区的-default-members-里-duck-ble-出现了两次"><a class="header" href="#92--工作区的-default-members-里-duck-ble-出现了两次">9.2 ⚠️ 工作区的 <code>default-members</code> 里 <code>&quot;duck-ble&quot;</code> 出现了两次</a></h3>
+<p><code>Cargo.toml:21</code>：</p>
+<pre><code class="language-toml">default-members = [&quot;btd&quot;, &quot;configd&quot;, &quot;duck-ble&quot;, &quot;duck-ble&quot;, &quot;duck-control&quot;, ...]
+</code></pre>
+<p><strong><code>&quot;duck-ble&quot;</code> 写了两遍</strong>（<code>members</code> 那一行只有一次）。
+实际后果是零 —— Cargo 会去重 —— 但它是同一条列表里唯一一个重复项。</p>
+<p>（这是我在写 <a href="scripts-primer.html"><code>scripts-primer.md</code></a> 时顺带发现的，记在这里因为这是它所在的文件。）</p>
+<h3 id="93-两个函数据说几乎一样而它们的相似部分没有被共享"><a class="header" href="#93-两个函数据说几乎一样而它们的相似部分没有被共享">9.3 两个函数据说几乎一样，而它们的相似部分<strong>没有被共享</strong></a></h3>
+<p><code>letterbox_from_uyvy</code>（<code>:94-154</code>）和 <code>rgb_from_uyvy</code>（<code>:172-220</code>）里，
+<strong>取源像素那六行是逐字相同的</strong>（<code>:123-134</code> 对 <code>:194-206</code>），
+YUV→RGB 那三行也是（<code>:138-140</code> 对 <code>:209-211</code>）。</p>
+<p><code>lib.rs:91-93</code> 和 <code>:208</code> 都把理由写成了指向对方的话（<em>&quot;as above&quot;</em>、<em>&quot;the same call … makes&quot;</em>），
+所以<strong>这份重复是被知道的</strong>，而不是漏掉的。</p>
+<p><strong>没有把它们抽成一个内层函数</strong>可以说得通 —— 那是个内层循环，
+而 <code>Turn::source</code> 已经被抽出来当成&quot;四种情况在一个地方&quot;了。
+只是读者会想知道为什么一处抽了、另一处没抽。</p>
+<hr />
+<h2 id="10-阅读路线"><a class="header" href="#10-阅读路线">10. 阅读路线</a></h2>
+<p><strong>351 行。整个读完大概 20 分钟。</strong></p>
+<h3 id="如果只有五分钟"><a class="header" href="#如果只有五分钟">如果只有五分钟</a></h3>
+<p>读 <code>lib.rs:10-13</code>（那句话）和 <code>lib.rs:68-80</code>（那个逆映射）。
+<strong>一个说为什么，一个说怎么做，而这就是全部。</strong></p>
+<h3 id="路径-a我想理解那一帧数据约-30-分钟"><a class="header" href="#路径-a我想理解那一帧数据约-30-分钟">路径 A：我想理解那一帧数据（约 30 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td>§2（UYVY 的排布 + BT.601）</td></tr>
+<tr><td>2</td><td><code>lib.rs:1-24</code>（模块文档 + 两个常量）</td></tr>
+<tr><td>3</td><td><code>lib.rs:94-147</code>（<code>letterbox_from_uyvy</code> 的内层循环）</td></tr>
+<tr><td>4</td><td><code>lib.rs:262-289</code>（那个&quot;灰色保持灰色、V 高是红&quot;的测试）</td></tr>
+<tr><td>5</td><td><code>lib.rs:291-298</code>（短帧不 panic）</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-b我想改旋转的算术约-40-分钟"><a class="header" href="#路径-b我想改旋转的算术约-40-分钟">路径 B：我想改旋转的算术（约 40 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>lib.rs:68-80</code>（<strong>先把四个方向背下来</strong>）</td></tr>
+<tr><td>2</td><td><code>lib.rs:300-324</code>（那些用逆映射表达的断言）</td></tr>
+<tr><td>3</td><td><code>lib.rs:326-350</code>（<strong>用像素</strong>验证旋转的测试）</td></tr>
+<tr><td>4</td><td>§3 那张两趟/一趟的对比图</td></tr>
+<tr><td>5</td><td>跑一次 <code>cargo test -p uyvy</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>改之前先看 <code>lib.rs:300-304</code></strong>：</p>
+<blockquote>
+<p>This is the arithmetic that replaced a <code>videoflip</code> costing <strong>145% of a core</strong>, so it had better be
+right: <strong>a mirrored or transposed picture would still detect <em>something</em>, on a model trained on
+neither.</strong></p>
+</blockquote>
+<p><strong>&quot;一张镜像或者转置的图仍然会检测出<em>某些东西</em> —— 在一个两者都没训练过的模型上。&quot;</strong></p>
+<h3 id="路径-c我想理解为什么要抽这个-crate约-25-分钟"><a class="header" href="#路径-c我想理解为什么要抽这个-crate约-25-分钟">路径 C：我想理解为什么要抽这个 crate（约 25 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th></tr></thead><tbody>
+<tr><td>1</td><td><code>Cargo.toml</code> 全文（17 行，注释比代码长）</td></tr>
+<tr><td>2</td><td><code>robotctl/Cargo.toml:27-34</code>（<strong>同一个模式的两个实例</strong>）</td></tr>
+<tr><td>3</td><td><code>duck-detect/src/lib.rs:1-30</code>（那边留下了什么）</td></tr>
+<tr><td>4</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a>（&quot;恢复路径上不能链接&quot;那条规则）</td></tr>
+<tr><td>5</td><td><code>git show a7728e5 --stat</code>（那次抽取的大小）</td></tr>
+</tbody></table>
+</div>
+<h3 id="三条贯穿全文的主线"><a class="header" href="#三条贯穿全文的主线">三条贯穿全文的主线</a></h3>
+<ol>
+<li>
+<p><strong>一趟，而不是两趟。</strong> 转在采样里、色度不插值、缓冲区复用、
+整数代替浮点 —— <strong>全是同一个判断在四个地方的表现</strong>：
+这是一条每帧都要跑、而且跑在 50 Hz 控制环旁边的路径。</p>
+</li>
+<li>
+<p><strong>一个数字要和别处一致，而没有任何东西强制它。</strong>
+<code>PAD = 114</code> 是训练那边的约定，<code>BT.601 limited range</code> 是 ISP 的约定，
+而 <code>duck-detect/src/lib.rs:12-14</code> 把这件事说得很清楚：
+<em><strong>&quot;Everything here has to agree with how the model was trained, and nothing enforces that
+across the two repositories except this comment and the numbers below.&quot;</strong></em>
+<strong>搞错一个不会让检测器失败 —— 它只会悄悄变差。</strong></p>
+</li>
+<li>
+<p><strong>纯算术应该是一个叶子。</strong> 零依赖不是洁癖，是一条规则：
+<strong>处于恢复路径上的东西，不能因为&quot;我想画一张图&quot;就链接一棵带着 NPU 运行时的树。</strong></p>
+</li>
+</ol>
+<hr />
+<h2 id="11-术语表"><a class="header" href="#11-术语表">11. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>UYVY</strong></td><td>一种像素排布：<code>U Y0 V Y1</code> 四个字节覆盖两个像素</td></tr>
+<tr><td><strong>YUV / YCbCr</strong></td><td>亮度 + 两个色度分量</td></tr>
+<tr><td><strong>亮度 / luma (Y)</strong></td><td>明暗。<strong>每个像素一个</strong></td></tr>
+<tr><td><strong>色度 / chroma (U, V)</strong></td><td>颜色。<strong>每两个像素共用一个</strong></td></tr>
+<tr><td><strong>4:2:2</strong></td><td>横向减半的色度采样。&quot;4:2:2&quot; 里的 2 说的是这个</td></tr>
+<tr><td><strong>stride</strong></td><td>一行占多少字节。这里 <code>width * 2</code></td></tr>
+<tr><td><strong>BT.601</strong></td><td>一组 YUV↔RGB 的转换系数</td></tr>
+<tr><td><strong>limited range</strong></td><td>Y 在 16…235 而不是 0…255</td></tr>
+<tr><td><strong>定点 / fixed point</strong></td><td>用整数和移位代替浮点。<code>&gt;&gt; 8</code> 就是 ÷256</td></tr>
+<tr><td><strong>最近邻 / nearest-neighbour</strong></td><td>缩放时直接取最近的那个源像素，不插值</td></tr>
+<tr><td><strong>双线性 / bilinear</strong></td><td>缩放时按距离加权四个源像素。<strong>这里不用</strong></td></tr>
+<tr><td><strong>letterbox</strong></td><td>保持比例缩放到框里，空白处填色。<strong>不拉伸</strong></td></tr>
+<tr><td><strong><code>PAD</code></strong></td><td>那个填充色，114 灰。<strong>必须和训练一致</strong></td></tr>
+<tr><td><strong><code>Letterbox</code></strong></td><td>三个数：缩放比 + 两个方向的填充量</td></tr>
+<tr><td><strong><code>Turn</code></strong></td><td>四个方向：<code>None</code> / <code>Right</code> / <code>Half</code> / <code>Left</code></td></tr>
+<tr><td><strong><code>source()</code></strong></td><td>逆映射：正着的图上的 (ux,uy) 在原始帧的哪里</td></tr>
+<tr><td><strong><code>upright()</code></strong></td><td>转完之后的长宽。<strong>四分之一圈会交换它们</strong></td></tr>
+<tr><td><strong>ISP</strong></td><td>图像信号处理器。它决定 YUV 的约定</td></tr>
+<tr><td><strong><code>videoflip</code></strong></td><td>GStreamer 的旋转元件。<strong>这里不用它</strong>，见下</td></tr>
+<tr><td><strong>RGA</strong></td><td>Rockchip 的 2D 加速器</td></tr>
+<tr><td><strong>MPP</strong></td><td>Rockchip 的媒体处理。硬件编解码走它</td></tr>
+<tr><td><strong>零拷贝 / zero-copy</strong></td><td>数据不经过 CPU 内存搬来搬去</td></tr>
+<tr><td><strong>NV12</strong></td><td>另一种 YUV 排布，硬件编码器要的</td></tr>
+<tr><td><strong>recovery path / 恢复路径</strong></td><td>一切坏掉时还得能用的那条路。<code>robotctl</code> 在上面</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>摄像头、流水线、编码（姊妹篇）</strong></td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td><strong>借用它的两个类型的那个 crate（姊妹篇）</strong></td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td><strong>&quot;恢复路径上不能链接&quot;那条规则（姊妹篇）</strong></td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td><strong>同一个模式的第一个实例（姊妹篇）</strong></td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头是怎么 bring-up 的（含 VPU 和那两个插件）</td><td><a href="project/media-bringup.html"><code>project/media-bringup.md</code></a></td></tr>
+<tr><td>远程访问、WebRTC、那条视频路径</td><td><a href="design/remote-access-design.html"><code>design/remote-access-design.md</code></a></td></tr>
+<tr><td>鸭子检测器的完整故事</td><td><a href="project/npu-bringup.html"><code>project/npu-bringup.md</code></a></td></tr>
+<tr><td>头部的两个传感器（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>控制核心：那个 50 Hz 的循环（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>那个 50 Hz 的控制环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>那些 JSON-RPC 方法（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>里程计与那张地图（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>更新时在这块板子上跑的那两个脚本（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>摸头检测（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>那份配置 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/updater-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/xtask-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/updater-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/xtask-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

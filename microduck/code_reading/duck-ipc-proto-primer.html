@@ -1,0 +1,1084 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>duck-ipc-proto/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html" class="active"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="duck-ipc-proto-新手导读"><a class="header" href="#duck-ipc-proto-新手导读"><code>duck-ipc-proto</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>IPC 契约的机制由 <a href="design/architecture.html"><code>design/architecture.md</code></a> §2 拥有（英文）。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）—— 不过本文 §11 记录了一处<strong>它们确实不一致</strong>的地方。</p>
+<p>姊妹篇：另外七份导读。<strong>这一份是它们的公共底层</strong> —— 前面每一份里出现的&quot;JSON-RPC 2.0&quot;、&quot;NDJSON&quot;、
+&quot;<code>robot.state</code>&quot;、&quot;<code>update.*</code>&quot;，定义的都在这里。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E4%B8%80%E4%B8%AA%E5%AE%9A%E4%B9%89%E5%A4%9A%E7%A7%8D%E4%BC%A0%E8%BE%93">一个定义，多种传输</a></li>
+<li><a href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-json-rpc--unix-socket">为什么是 JSON-RPC + unix socket</a></li>
+<li><a href="#4-%E6%96%87%E4%BB%B6%E5%AF%BC%E8%A7%88">文件导览</a></li>
+<li><a href="#5-%E4%B8%80%E6%9D%A1%E6%B6%88%E6%81%AF%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7">一条消息长什么样</a></li>
+<li><a href="#6-call%E6%96%B9%E6%B3%95%E4%B8%8E%E5%8F%82%E6%95%B0%E6%B0%B8%E8%BF%9C%E6%88%90%E5%AF%B9"><code>Call</code>：方法与参数永远成对</a></li>
+<li><a href="#7--%E7%89%88%E6%9C%AC%E7%AD%96%E7%95%A5%E4%B8%80%E4%B8%AA%E8%A2%AB%E6%8E%A8%E7%BF%BB%E7%9A%84%E8%AE%BE%E8%AE%A1">⭐ 版本策略：一个被推翻的设计</a></li>
+<li><a href="#8-%E4%B8%89%E4%B8%AA%E9%97%AE%E9%A2%98%E4%B8%89%E4%B8%AA%E7%AD%94%E6%A1%88">三个问题，三个答案</a></li>
+<li><a href="#9-%E7%8A%B6%E6%80%81%E6%B5%81%E5%87%BA%E5%8E%BB%E4%BA%86%E4%BB%80%E4%B9%88">状态流出去了什么</a></li>
+<li><a href="#10-%E5%81%A5%E5%BA%B7%E9%82%A3%E4%B8%80%E6%97%8F">健康那一族</a></li>
+<li><a href="#11-%EF%B8%8F-%E5%92%8C-architecturemd-%E7%9A%84%E4%B8%80%E5%A4%84%E4%B8%8D%E4%B8%80%E8%87%B4">⚠️ 和 <code>architecture.md</code> 的一处不一致</a></li>
+<li><a href="#12-choralebeacon%E5%94%AF%E4%B8%80%E4%B8%8D%E6%98%AF-json-%E7%9A%84%E7%BA%BF%E4%B8%8A%E5%A5%91%E7%BA%A6"><code>ChoraleBeacon</code>：唯一不是 JSON 的线上契约</a></li>
+<li><a href="#13-%E9%82%A3%E5%A5%97%E5%90%AF%E5%8A%A8%E8%BA%AB%E4%BB%BD%E6%9C%BA%E5%88%B6">那套&quot;启动身份&quot;机制</a></li>
+<li><a href="#14-%E6%B5%8B%E8%AF%95">测试</a></li>
+<li><a href="#15-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#16-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>duck-ipc-proto</code> 是<strong>机器人的线上契约</strong> —— 所有服务与客户端之间说话用的类型。</p>
+<pre><code class="language-text">   robotd · configd · updaterd · btd · padd · tofd · mediad
+        │
+        │  全部都 `use duck_ipc_proto as proto;`
+        ▼
+   ┌──────────────────────────────────────────────────────────┐
+   │  duck-ipc-proto                                          │
+   │    &quot;说什么&quot; —— 方法名、参数、返回值的形状                  │
+   │    &quot;怎么打包&quot; —— JSON-RPC 2.0，一行一个 JSON（NDJSON）     │
+   │    &quot;谁能问&quot; —— 每个方法归哪个服务、占多久、会不会改东西     │
+   └──────────────────────────────────────────────────────────┘
+        ▲
+        │  16 个 crate 依赖它
+        │
+   robotctl · duckctl · duck-control · duck-ether · robotd-params · odometry · pad-imu …
+</code></pre>
+<p><strong>它是被依赖最多的 crate 之一</strong> —— 整个 workspace 里 <strong>16 个 crate</strong> 依赖它。</p>
+<p>规模：<strong>6436 行，一个文件</strong>，<strong>51 个测试</strong>。</p>
+<h3 id="11-一条必须守住的规矩"><a class="header" href="#11-一条必须守住的规矩">1.1 一条必须守住的规矩</a></h3>
+<p><code>Cargo.toml</code> 里写着：</p>
+<blockquote>
+<p><strong>刻意做到几乎零依赖。</strong> 每个服务和客户端都说这些类型，所以<strong>加在这里的任何东西都加给了它们全部</strong> ——
+包括 <code>btd</code>，而它必须保持小，因为<strong>它在恢复路径上</strong>。</p>
+<p>具体地说：<strong>没有 http、没有 tar、没有 crypto、没有 tokio。</strong>
+如果一个类型需要其中之一，它属于拥有那个行为的 crate，不属于这里。</p>
+</blockquote>
+<p>实际依赖只有四个：<code>serde</code>、<code>serde_json</code>、<code>semver</code>，以及 <code>libc</code>（为了 <code>clock</code>）。</p>
+<hr />
+<h2 id="2-一个定义多种传输"><a class="header" href="#2-一个定义多种传输">2. 一个定义，多种传输</a></h2>
+<p>这是设计文档 §4.1 的图，也是<strong>为什么要有一个独立的 proto crate</strong> 的答案：</p>
+<pre><code class="language-text">        ┌──────── 一份 API 定义（共享的 crate：类型 + 操作）
+        │
+   ┌────┴─────┬────────────┬──────────────┬────────────────┐
+  BLE       unix socket   WebSocket     WebRTC datachannel
+ (btd)      robotctl,     server-side   telepresence,
+  子集       on-robot SDK  agents/LLM    full fidelity
+</code></pre>
+<p><strong>每个传输都只是同一份 API 上的一层薄适配器。</strong></p>
+<p>而 <code>btd</code> 暴露的是<strong>子集</strong>（配网、状态、触发更新、进度）—— 因为 BLE 对这个完整表面来说太慢、太受限。</p>
+<blockquote>
+<p>💡 这正是 <code>btd-primer.md</code> §7 那张&quot;允许清单&quot;存在的理由：
+<strong>哪些方法能走 BLE，是一个传输层的决定，不是协议层的决定。</strong></p>
+</blockquote>
+<hr />
+<h2 id="3-为什么是-json-rpc--unix-socket"><a class="header" href="#3-为什么是-json-rpc--unix-socket">3. 为什么是 JSON-RPC + unix socket</a></h2>
+<p>设计文档 §2.2 把这件事量过了 —— 一张<strong>实测依赖数</strong>的表（ARM-Linux 目标，只算独占依赖）：</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th style="text-align: right">依赖数</th><th>为什么不</th></tr></thead><tbody>
+<tr><td><strong>JSON-RPC/NDJSON + tokio</strong></td><td style="text-align: right"><strong>30</strong></td><td><strong>选它</strong></td></tr>
+<tr><td><code>jsonrpsee-types</code>（只用类型，传输自己写）</td><td style="text-align: right">36</td><td>合理；放弃 —— 用冻结的规范代码换一个 <code>0.x</code> 依赖</td></tr>
+<tr><td><code>varlink</code></td><td style="text-align: right">24</td><td>精神上接近；但更不熟悉，相比 JSON-RPC 没什么收获</td></tr>
+<tr><td><code>zbus</code>（D-Bus，p2p）</td><td style="text-align: right">66</td><td>见下</td></tr>
+<tr><td><code>axum</code> over UDS</td><td style="text-align: right">66</td><td>可行；见下</td></tr>
+<tr><td><code>tarpc</code></td><td style="text-align: right">71</td><td>Rust↔Rust 很舒服，但不可读，而且服务端推送很别扭</td></tr>
+<tr><td><code>tonic</code>（gRPC）</td><td style="text-align: right">81</td><td><code>.proto</code> + 代码生成，就为了几个方法</td></tr>
+<tr><td><code>jsonrpsee-server</code></td><td style="text-align: right">112</td><td><strong>它不能服务 unix socket</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="31-为什么是-unix-socket-而不是-localhost-端口"><a class="header" href="#31-为什么是-unix-socket-而不是-localhost-端口">3.1 为什么是 unix socket 而不是 localhost 端口</a></h3>
+<p>这一条<strong>比省依赖重要得多</strong>：</p>
+<p><strong>一、文件系统权限是免费的授权。</strong> 一个 0660 的 socket + 一个专用组，只有被允许的进程够得着。
+而一个 TCP 端口<strong>机器上每个进程、每个用户都够得着</strong> —— 想要追平，就得自己造一层认证。</p>
+<p><strong>二、<code>SO_PEERCRED</code></strong> 给出调用者的 uid/gid/pid，<strong>既用于审计日志</strong>（&quot;谁触发的这次回滚&quot;是 support 第一个问的）
+<strong>又用于强制</strong>。</p>
+<p><strong>三、⭐「绑错接口」这一整类 bug 不再存在。</strong></p>
+<blockquote>
+<p>因为一个笔误、一个配置、或者一个&quot;让它从我的笔记本也能用&quot;的补丁而绑到 <code>0.0.0.0</code>，
+<strong>会把<em>固件更新控制</em>暴露到网络上</strong>。而在 unix socket 上，<strong>这个错误是不可表示的</strong>。</p>
+<p>设计文档说这是<strong>权重最高</strong>的一条 —— <strong>不是今天的威胁模型，而是那个失败模式</strong>。</p>
+</blockquote>
+<h3 id="32-为什么不是-httpwebsocket"><a class="header" href="#32-为什么不是-httpwebsocket">3.2 为什么不是 HTTP/WebSocket</a></h3>
+<blockquote>
+<p>协议需要<strong>服务端→客户端推送</strong>（进度）。在 HTTP 上那意味着 POST 发调用 <strong>+</strong> WebSocket/SSE 收通知 ——
+<strong>两套机制</strong>，而且 <code>curl</code> 消费不了流式的那一半。</p>
+<p>全部走 WebSocket 能恢复成一套机制，但<strong>为了到达&quot;带帧的 JSON&quot;要先加一次握手</strong>，<code>curl</code> 又没了。</p>
+<p>在一条常驻的 NDJSON 连接上，调用和通知<strong>就是一套机制、没有握手</strong> ——
+<strong>概念更少，而那才是真正的目标。</strong></p>
+</blockquote>
+<h3 id="33-为什么不是-d-bus"><a class="header" href="#33-为什么不是-d-bus">3.3 为什么不是 D-Bus</a></h3>
+<blockquote>
+<p>消息类型还必须能走 <strong>BLE 和 WebRTC/WebSocket</strong>，那里<strong>朴素的 serde 结构体能用，而 D-Bus 类型不能</strong>。
+「一个定义、多种传输」才是目标，而 <strong>JSON 是让它免费的那个东西</strong>。</p>
+<p>我们只在操作系统要求的地方用 D-Bus（BlueZ、NetworkManager）。</p>
+</blockquote>
+<hr />
+<h2 id="4-文件导览"><a class="header" href="#4-文件导览">4. 文件导览</a></h2>
+<p><strong>只有一个文件，6436 行。</strong> 它的分区（左边是行号）：</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">行号</th><th>内容</th></tr></thead><tbody>
+<tr><td style="text-align: right">1–395</td><td>模块头 + <code>API_VERSION</code> 的<strong>完整版本策略</strong>（很长，值得整段读）</td></tr>
+<tr><td style="text-align: right">396–511</td><td>常量 + <code>socket</code> 路径 + <code>JOINT_NAMES</code></td></tr>
+<tr><td style="text-align: right">512–878</td><td><code>method</code> 模块 —— 所有方法名的字符串常量</td></tr>
+<tr><td style="text-align: right">879–920</td><td><code>code</code> 模块 —— 错误码</td></tr>
+<tr><td style="text-align: right">921–1126</td><td><code>Id</code> / <code>Call</code> / <code>Service</code> / <code>Lane</code></td></tr>
+<tr><td style="text-align: right"><strong>1127–1621</strong></td><td><strong><code>impl Call</code>：<code>method()</code> / <code>is_mutating()</code> / <code>destination()</code></strong></td></tr>
+<tr><td style="text-align: right">1622–1800</td><td><code>test_support</code> —— 共享的测试夹具</td></tr>
+<tr><td style="text-align: right">1801–2016</td><td><code>Request</code> / <code>Response</code> / <code>Error</code></td></tr>
+<tr><td style="text-align: right">2017–3010</td><td>各命名空间的参数与结果类型</td></tr>
+<tr><td style="text-align: right">3057–3341</td><td><code>update.*</code> 那一族</td></tr>
+<tr><td style="text-align: right">3342–3730</td><td>健康族 + <code>IntentResult</code> + <code>RobotState</code></td></tr>
+<tr><td style="text-align: right">3730–4974</td><td>其余领域类型 + <strong><code>ChoraleBeacon</code></strong></td></tr>
+<tr><td style="text-align: right">4975–5246</td><td><code>BuildInfo</code> / <code>Identity</code> / <code>clock</code></td></tr>
+<tr><td style="text-align: right">5247–6436</td><td>测试（51 个）</td></tr>
+</tbody></table>
+</div>
+<p><strong>建议的阅读顺序：</strong> 模块头 → <code>API_VERSION</code> 的文档 → <code>Call</code> + <code>impl Call</code> 的三个函数 → <code>Request</code>/<code>Response</code> → <code>RobotState</code> → 其余按需。</p>
+<hr />
+<h2 id="5-一条消息长什么样"><a class="header" href="#5-一条消息长什么样">5. 一条消息长什么样</a></h2>
+<p><strong>线上格式：JSON-RPC 2.0，一行一个 JSON 对象（NDJSON），走 unix socket。</strong> 帧分隔符就是一个换行。</p>
+<pre><code class="language-text">→ {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;update.apply&quot;,&quot;params&quot;:{...}}
+← {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;update.progress&quot;,&quot;params&quot;:{...}}   ← 没有 id = 通知
+← {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;update.progress&quot;,&quot;params&quot;:{...}}
+← {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;result&quot;:{...}}                       ← 有 id = 回复
+</code></pre>
+<h3 id="51-id两种身份"><a class="header" href="#51-id两种身份">5.1 <code>Id</code>：两种身份</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[serde(untagged)]
+pub enum Id { Number(u64), Text(String) }
+<span class="boring">}</span></code></pre></pre>
+<p><code>untagged</code> 意味着线上就是一个裸数字或裸字符串，没有包装。</p>
+<h3 id="52-request四个字段"><a class="header" href="#52-request四个字段">5.2 <code>Request</code>：四个字段</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Request {
+    pub jsonrpc: String,
+    #[serde(default, skip_serializing_if = &quot;Option::is_none&quot;)]
+    pub id: Option&lt;Id&gt;,          // ← **通知就是没有这个字段**
+    pub method: String,
+    #[serde(default, skip_serializing_if = &quot;Option::is_none&quot;)]
+    pub params: Option&lt;Value&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>id</code> 有没有，就是 JSON-RPC 里&quot;请求&quot;和&quot;通知&quot;的全部区别。</strong> 而这一条恰好是这个系统最需要的区分：</p>
+<blockquote>
+<p>[<code>Request::notify</code>] 是这个意思：调用作为通知发出 —— <strong>没有 <code>id</code>，所以不期待回复</strong>。</p>
+<p><strong>连续意图就是这样走的。</strong> 50 Hz 下每条消息一个回复是纯粹的开销，
+而且<strong>对一个 20 ms 后就被取代的速度来说，没有任何有用的话可说</strong>。</p>
+<p>离散意图用 [<code>Request::call</code>]，因为**&quot;被拒绝了，原因如下&quot;是调用者需要的答案**。</p>
+</blockquote>
+<p>对应到 <code>robotd</code>：</p>
+<pre><code class="language-text">   robot.move / robot.head / robot.pose / robot.mouth   →  通知（无 id）
+   robot.stop / robot.enable / robot.do / robot.init…    →  请求（有 id）
+</code></pre>
+<h3 id="53--单位与坐标系写在类型旁边只写一次"><a class="header" href="#53--单位与坐标系写在类型旁边只写一次">5.3 ⭐ 单位与坐标系：写在<strong>类型旁边</strong>，只写一次</a></h3>
+<p>这一条值得单独讲，因为它<strong>曾经是一整类 bug 的来源</strong>。</p>
+<p>所有这些类型里的数字，约定是：</p>
+<pre><code class="language-text">   角度   →  弧度（不是度）
+   速度   →  m/s、rad/s
+   坐标系 →  **trunk 系**（躯干坐标系）、右手系
+             x 前 · y 左 · z 上
+   vyaw   →  正值 = 左转（逆时针）
+</code></pre>
+<p>而<strong>为什么这件事值得写在协议里</strong>（注释原话）：</p>
+<blockquote>
+<p>原型因为<strong>这个约定从没被写下来</strong>，攒了 <code>--laser-track-yaw-sign</code>、<code>--laser-track-pitch-sign</code>、
+<code>--laser-fk-pitch-sign</code>、<code>--laser-fk-neck-sign</code> 和 <code>--imu-z-rotation-deg</code> 这些 flag ——
+<strong>每一个消费者自己实测一遍，然后互相不一致</strong>。</p>
+<p><strong>把它写进协议，就删掉了这一整类问题。</strong></p>
+</blockquote>
+<p>同样的道理也解释了另外两个看起来&quot;多余&quot;的说明：</p>
+<ul>
+<li><strong><code>HeadParams</code> 是关节空间，不是注视方向</strong> —— 因为手柄和标定产出的是关节角，而策略的观测里带的也是关节角。</li>
+<li><strong><code>LookParams</code> 里的 <code>z</code> 不是&quot;离地高度&quot;</strong> —— 注释特意说明地面在它下面约 0.12 m。</li>
+</ul>
+<h3 id="54-那些故意不是-call-的方法名"><a class="header" href="#54-那些故意不是-call-的方法名">5.4 那些<strong>故意不是</strong> <code>Call</code> 的方法名</a></h3>
+<p><code>method</code> 模块里有几个名字<strong>没有</strong>对应的 <code>Call</code> 变体：</p>
+<pre><code class="language-text">   MEDIA_FRAME · ROBOT_STATE · PROGRESS · PAD_REPORT · TOF_FRAME · HEAD_IMU_FRAME
+</code></pre>
+<p>这是<strong>刻意的</strong>：它们全部是<strong>服务端单向推送的通知</strong>，而且好几个带着<strong>二进制尾巴</strong>（一帧原始画面约 1.8 MiB）。
+<strong>它们绝不能进入 <code>Service</code>/<code>Lane</code> 路由，也绝不能进入 WebRTC 的 data channel</strong> ——
+而&quot;不在 <code>Call</code> 里&quot;就是从类型上保证了这件事。</p>
+<h3 id="55-code错误码"><a class="header" href="#55-code错误码">5.5 <code>code</code>：错误码</a></h3>
+<pre><code class="language-text">   规范保留的：                     应用自己的：
+   -32700  PARSE_ERROR              1   BUSY
+   -32600  INVALID_REQUEST          2   UNKNOWN_COMPONENT
+   -32601  METHOD_NOT_FOUND         3   PROTOCOL_MISMATCH  ← ⚠️ 已退役
+   -32602  INVALID_PARAMS           4   PREFLIGHT_FAILED
+   -32603  INTERNAL_ERROR           …   
+                                   10  ROLLBACK_FAILED     ← &quot;更新失败而且回滚也失败&quot;
+                                   11  NOT_INSTALLED
+                                   12  WOULD_DOWNGRADE
+                                   13  ARCHIVE_TOO_LARGE
+                                   14  PERMISSION_DENIED
+</code></pre>
+<p>两个注释值得抄下来：</p>
+<ul>
+<li><strong><code>ROLLBACK_FAILED</code></strong> 单独分出来，是为了<strong>让 support 一眼看到最严重的那个结果</strong>。</li>
+<li><strong><code>NOT_INSTALLED</code> 和 <code>UNKNOWN_COMPONENT</code> 是两回事</strong>：前者是&quot;这个零件有这个版本吗&quot;，后者是&quot;根本没有这个零件&quot;。</li>
+</ul>
+<p>而 <code>PROTOCOL_MISMATCH = 3</code> 是个<strong>退役的常量</strong> —— 见第 7 节，它恰好是理解整个版本策略的钥匙。</p>
+<hr />
+<h2 id="6-call方法与参数永远成对"><a class="header" href="#6-call方法与参数永远成对">6. <code>Call</code>：方法与参数永远成对</a></h2>
+<p>这是整个 crate 的核心设计：</p>
+<blockquote>
+<p><strong>一个方法连同它的参数。</strong></p>
+<p>每个请求都由其中之一构造、也作为其中之一读回，<strong>所以一个方法永远不可能配上另一个方法的参数</strong>
+—— 那正是这个 crate 存在的意义。**</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let request = proto::Request::call(proto::Id::Number(1), &amp;proto::Call::RobotStop);
+//                                                                  ^^^^^^^^^^^^^^^
+//                                         方法名和参数**绑在同一个枚举变体里**
+let call: Result&lt;proto::Call, proto::Error&gt; = request.as_call();
+<span class="boring">}</span></code></pre></pre>
+<h3 id="61-method-模块-vs-call-枚举"><a class="header" href="#61-method-模块-vs-call-枚举">6.1 <code>method</code> 模块 vs <code>Call</code> 枚举</a></h3>
+<pre><code class="language-text">   method::ROBOT_MOVE  = &quot;robot.move&quot;     ← 字符串常量（:512）
+   Call::RobotMove(MoveParams)            ← 类型化的形式（:933）
+
+   Call::RobotMove(_) =&gt; method::ROBOT_MOVE      ← 两者靠一个穷尽 match 绑在一起（:1129）
+</code></pre>
+<p><strong>为什么两者都要？</strong> 因为<strong>字符串是线上真实存在的东西</strong>：
+一个客户端（比如手机 App）可能只知道方法名这个字符串，而服务端需要一个类型化的东西来 <code>match</code>。
+而那个把它们绑起来的 <code>method()</code> 是<strong>穷尽 match</strong> —— 加一个变体就编译失败，直到有人给它一个名字。</p>
+<h3 id="62-未知方法怎么被拒"><a class="header" href="#62-未知方法怎么被拒">6.2 未知方法怎么被拒</a></h3>
+<p><code>Call::parse(method, params)</code>：不认识的方法名 →</p>
+<pre><code class="language-text">   code::METHOD_NOT_FOUND，**而且消息里带着那个方法名**
+</code></pre>
+<p><code>params</code> 里有一个这个版本不认识的成员 →</p>
+<pre><code class="language-text">   code::INVALID_PARAMS，**而且消息里带着那个成员名**
+</code></pre>
+<blockquote>
+<p>第二条来自每一个 params 类型上的 <code>deny_unknown_fields</code>。
+而这<strong>正是当年那个握手门控想达到的严格性，只是搬到了一个能区分&quot;变了的调用&quot;和&quot;没变的调用&quot;的地方</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="7--版本策略一个被推翻的设计"><a class="header" href="#7--版本策略一个被推翻的设计">7. ⭐ 版本策略：一个被推翻的设计</a></h2>
+<p><strong>这一节是整个 crate 里最值得读的一段</strong>，因为它记录的是一次<strong>有意的反转</strong>。</p>
+<h3 id="71-现在的规则"><a class="header" href="#71-现在的规则">7.1 现在的规则</a></h3>
+<p><code>API_VERSION</code>（当前 = <strong>34</strong>）的文档写得非常明确：</p>
+<blockquote>
+<p><strong>一次 bump 在哪个方向上都不承诺任何东西。</strong>
+它不是&quot;除非特别说明否则是增量的&quot;：v5 是增量的、v4 不是，<strong>而这个常量不区分它们</strong>。
+板上每一个二进制都期望来自同一次发布，而<strong>安装路径就是交付这件事的东西</strong>。</p>
+<p><strong>⭐ 没有任何 daemon 因为这个数字不同而拒绝一个调用。</strong></p>
+<p><code>updaterd</code> 曾经在一个精确的 <code>!=</code> 上拒绝 <code>hello</code>。<strong>前提是成立的</strong> —— 一次 bump 什么都不承诺 ——
+<strong>但结论推不出来</strong>：真正弄坏一个不匹配的 peer 的，是一个<strong>它够不到的路由</strong>，
+或者一个<strong>挪了位置的参数形状</strong>，而这两者各自会<strong>在那一个无法服务的调用上、按名字拒绝自己</strong>。
+一个握手上的门控反而在<strong>所有</strong>调用上触发，包括那些完全能服务的，
+<strong>包括 <code>update apply</code> —— 而版本偏差正是靠它结束的。</strong></p>
+<p>现在这个差异<strong>被报告</strong>（在 <code>updaterd</code> 的 journal 里，以及在 <code>HelloResult::api_version</code> 里让客户端自己比较），
+<strong>在任何地方都不被拒绝。</strong></p>
+</blockquote>
+<h3 id="72-那个退役的常量就是证据"><a class="header" href="#72-那个退役的常量就是证据">7.2 那个退役的常量就是证据</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 已退役：没有任何东西再发出它。版本**差异**被记录并服务，
+/// 而真正拒绝的是那个确实缺失的路由 —— 见 [`super::API_VERSION`]。
+///
+/// 这个常量留着、这个数字也不复用，是因为一块跑着 0.5.1 或更早的 `updaterd` 的板子
+/// **仍然会用 `hello` 回答它**，而 `robotctl` 仍然把它映射成一个退出码。
+/// 删掉它会让那块板子的拒绝读起来像一个泛泛的失败。
+pub const PROTOCOL_MISMATCH: i32 = 3;
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p><strong>代码不只是&quot;不按版本拒绝&quot; —— 它有一个专门为此退役的错误码，还留着做向后兼容。</strong></p>
+</blockquote>
+<h3 id="73-那它承诺什么"><a class="header" href="#73-那它承诺什么">7.3 那它承诺什么</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>情况</th><th>结果</th></tr></thead><tbody>
+<tr><td>版本号不同</td><td><strong>记录，然后照常服务</strong></td></tr>
+<tr><td>这个方法这个版本没有</td><td><code>METHOD_NOT_FOUND</code>，<strong>点名方法</strong></td></tr>
+<tr><td>参数里有个不认识的成员</td><td><code>INVALID_PARAMS</code>，<strong>点名成员</strong></td></tr>
+</tbody></table>
+</div>
+<p>而设计意图写在这里：</p>
+<blockquote>
+<p>两者本来就是想要的，<strong>与门控无关</strong>：v7 加了 <code>ApplyOptions::from_dir</code>，
+而一个只是<strong>忽略</strong>它的旧 <code>updaterd</code>，会<strong>从它配置的来源安装，而操作者以为自己在旁加载一个目录</strong>。
+<strong>沉默才是那里的危险，不是分歧。</strong></p>
+</blockquote>
+<h3 id="74-这条规矩已经上升到仓库级"><a class="header" href="#74-这条规矩已经上升到仓库级">7.4 这条规矩已经上升到仓库级</a></h3>
+<p>根目录的 <code>CLAUDE.md</code>（= <code>AGENTS.md</code>）专门有一节：</p>
+<blockquote>
+<h2 id="never-design-around-a-version-difference"><a class="header" href="#never-design-around-a-version-difference">Never design around a version difference</a></h2>
+<p>One user, one robot. An old component's limits are a question to raise, not something to route around —
+bump <code>API_VERSION</code> and name the install consequence. <strong>A version skew is logged and served, never refused</strong>;
+only a genuinely missing route or an unknown parameter may refuse.</p>
+</blockquote>
+<hr />
+<h2 id="8-三个问题三个答案"><a class="header" href="#8-三个问题三个答案">8. 三个问题，三个答案</a></h2>
+<p>阅读 <code>impl Call</code>（<code>:1127</code>）时，最重要的是认出<strong>它其实在回答三个不同的问题</strong>：</p>
+<pre><code class="language-text">   ┌──────────────────────────────────────────────────────────────┐
+   │  method()      : &amp;'static str         &quot;它叫什么？&quot;           │
+   │  destination() : Option&lt;(Service, Lane)&gt;  &quot;归谁管？占多久？&quot; │
+   │  is_mutating() : bool                 &quot;它会改变东西吗？&quot;     │
+   └──────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3 id="81-service五个服务"><a class="header" href="#81-service五个服务">8.1 <code>Service</code>：五个服务</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub enum Service {
+    Updater,   // updaterd
+    Robot,     // robotd —— 控制循环
+    Config,    // configd —— wifi、身份、配对 PIN、手柄绑定
+    Pad,       // padd   —— 原始手柄输入流
+    Tof,       // tofd   —— 深度流
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="82-lane为什么占多久是一个字段"><a class="header" href="#82-lane为什么占多久是一个字段">8.2 <code>Lane</code>：为什么&quot;占多久&quot;是一个字段</a></h3>
+<pre><code class="language-text">   Prompt      一次查询那么久
+   Slow        几秒：一次走网络或扫无线电的读
+   Operation   想多久就多久，**而且它改变机器人**
+   Stream      永远不回答
+</code></pre>
+<p>注释解释了为什么这件事必须被回答：</p>
+<blockquote>
+<p><strong>这里每一个服务都是&quot;一条连接一次只服务一个请求&quot;。</strong>
+所以每服务一条连接会让每个调用都排在<strong>那条队列上最慢的东西</strong>后面，而客户端最先会写的两个顺序都被它弄坏了：</p>
+<ul>
+<li><code>update.apply</code> 然后 <code>update.status</code> —— status 那行会等在一条 <code>updaterd</code> <strong>几分钟都不会读</strong>的 socket 里，
+于是客户端<strong>什么都没听到就超时了</strong>，而机器人好好的。</li>
+<li><code>update.subscribe</code> 然后 <code>update.apply</code> —— <strong>更糟。</strong> 订阅会一直占着它的连接直到对端消失、从不读下一个请求，
+所以那个 apply 被写进了一条<strong>没人读</strong>的 socket：<strong>它不会运行、不会回复、也不会报错。</strong>
+一个机主要求的、而机器人<strong>静默地没有执行</strong>的更新。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>每服务最多四把 socket、每个会话，<strong>不花任何代价而且不需要记账</strong> ——
+而替代方案&quot;每个调用一条连接&quot;需要适配器知道一个调用什么时候结束，<strong>那需要它解析回复。它刻意从不这样做。</strong></p>
+</blockquote>
+<h3 id="83-destination-为什么住在这里"><a class="header" href="#83-destination-为什么住在这里">8.3 <code>destination()</code> 为什么住在<strong>这里</strong></a></h3>
+<p>我一开始以为这个函数应该在 <code>btd</code> 里（毕竟&quot;哪些方法能走 BLE&quot;是传输层的事）。
+它住在 proto 里，而 <code>btd</code> 的 <code>route.rs</code> 只回答<strong>另一</strong>半问题。这个分工是刻意的：</p>
+<pre><code class="language-text">   duck-ipc-proto        「这个调用**本质上**归谁管、占多久」
+                          ← 所有传输共享的知识（WebRTC 那边也要）
+   btd/src/route.rs      「**BLE 上**准不准」
+                          ← 只有 btd 关心的知识
+</code></pre>
+<p><strong>为什么&quot;归谁管&quot;是共享的？</strong> 因为<strong>每一个传输适配器都要问这个问题</strong>。
+如果它住在 <code>btd</code> 里，那么 <code>mediad</code> 的 WebRTC 网关就得自己再写一份 —— 而那正是&quot;六处写法漂移成六个方向&quot;的配方。</p>
+<p><strong>为什么它返回 <code>Option</code>？</strong> 因为有些方法<strong>不属于任何服务</strong>。有<strong>两处</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>Call::SystemAuthenticate(_) =&gt; return None,
+//  ↑ PIN 校验属于**传输层**，不属于任何服务：
+//    BLE 表达不了印在机器人上的固定 passkey，所以校验上移一层到&quot;我们定义规则的地方&quot;。
+
+// 这两个从不拨号：它们搭着 chorale.subscribe 已经开的那条连接走
+//（信标下行、听到的上行）。
+Call::ChoraleBeaconSet(_) | Call::ChoraleHeard(_) =&gt; return None,
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>⚠️ <strong>读那个测试时要注意</strong>：<code>only_authenticate_has_no_service</code> 的文档说
+&quot;<strong>第二处 <code>None</code> 出现就意味着一个没人能服务的调用</strong>&quot; ——
+但代码里<strong>已经有第二处</strong>了（上面那两只合唱方法）。</p>
+<p>它现在仍然通过，只是因为那两只<strong>不在 <code>every_call()</code> 那份夹具列表里</strong>
+（见 §14.3 —— 那份列表目前比 <code>Call</code> 枚举少六个变体）。
+所以这句话读的时候要理解成&quot;<strong>除了这两处刻意为之的</strong>&quot;，
+而不是字面上的&quot;只有一个 <code>None</code>&quot;。</p>
+</blockquote>
+<h3 id="84-is_mutating谁会改变东西"><a class="header" href="#84-is_mutating谁会改变东西">8.4 <code>is_mutating()</code>：谁会改变东西</a></h3>
+<p>判定权限时<strong>只读调用完全跳过第二层</strong>，所以&quot;哪些是 mutating&quot;必须是一个<strong>明确列出来的清单</strong>：</p>
+<pre><code class="language-text">   update.* 里的写操作（apply / rollback / resetToGolden / select / pin）
+   net.connect · net.forget            ← &quot;加入一个网络不是一次读&quot;
+   system.setName · system.reboot · system.setPairingPin
+   robot.shutdown                      ← &quot;关机至少和重启一样有破坏性&quot;
+   pad.pair · pad.forget               ← &quot;一个配好的手柄能启用策略&quot;
+   policy.install · policy.fetch       ← &quot;替换策略集改变的是驱动十五个舵机的东西&quot;
+   detector.install
+</code></pre>
+<blockquote>
+<p>注释里每一条都有理由。而 <code>pad.status</code>、<code>policy.check</code>、<code>robot.health</code> 这些<strong>读</strong>都<strong>保持不设防</strong>。</p>
+</blockquote>
+<p>有测试钉住：<code>only_software_changing_calls_are_mutating</code>。</p>
+<hr />
+<h2 id="9-状态流出去了什么"><a class="header" href="#9-状态流出去了什么">9. 状态流出去了什么</a></h2>
+<p><code>RobotState</code>（<code>:3636</code>）是 <code>robot.subscribe</code> 推给客户端的那一帧。</p>
+<pre><code class="language-text">   RobotState {
+       t             从循环启动算起的秒数
+       t_ns          CLOCK_MONOTONIC 纳秒 ← **和别的流共享的时钟**
+       movement      requested / applied / limited_by
+       head          实际用的头部指令
+       policy        这一拍是哪个网络在驱动
+       safety        fallen / limp / gravity / gain
+       control_loop  hz / missed
+       joints        15 个实测角度
+       targets       15 个目标角度
+       odom          position / yaw
+       theremin      （有才在）
+       chorale       （有才在）
+       imu           gyro / quat
+       frames        camera / tof / head_imu 的位姿
+       skeleton      整个骨架的位姿
+   }
+</code></pre>
+<h3 id="91--movestate报告被拒绝的东西"><a class="header" href="#91--movestate报告被拒绝的东西">9.1 ⭐ <code>MoveState</code>：报告<strong>被拒绝</strong>的东西</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct MoveState {
+    pub requested: [f64; 3],     // 客户端要的
+    pub applied:   [f64; 3],     // 实际用的
+    pub limited_by: Vec&lt;String&gt;, // **为什么不一样**
+}
+<span class="boring">}</span></code></pre></pre>
+<p>这是设计文档 §3.2 的原话：</p>
+<blockquote>
+<p><strong>它必须报告<em>被拒绝</em>了什么，而不只是发生了什么</strong> ——
+一个遥控界面显示着摇杆推到底、机器人却不动、<strong>而且没有任何解释</strong>，那是没法用的。
+<strong>而安全层一直在夹取东西。</strong></p>
+</blockquote>
+<p>而 <code>limited_by</code> 里的名字是<strong>拼出来给线路用的</strong>，不是从 Rust 枚举 <code>Debug</code> 出来的 ——
+所以重命名一个变体<strong>不会悄悄破坏一个正在 <code>match</code> 这个字符串的客户端</strong>。</p>
+<p>有一个测试叫 <code>an_unlimited_command_omits_limited_by</code>：<strong>没被限制的时候，这个字段根本不出现</strong>（不是空数组）。</p>
+<h3 id="92-t-和-t_ns-为什么是两个"><a class="header" href="#92-t-和-t_ns-为什么是两个">9.2 <code>t</code> 和 <code>t_ns</code> 为什么是两个</a></h3>
+<div class="table-wrapper"><table><thead><tr><th></th><th>是什么</th><th>谁的时钟</th></tr></thead><tbody>
+<tr><td><code>t</code></td><td>从循环启动算起的秒数</td><td><strong><code>robotd</code> 自己的</strong></td></tr>
+<tr><td><code>t_ns</code></td><td><code>CLOCK_MONOTONIC</code> 纳秒</td><td><strong>全系统共享的</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>t_ns</code> 的存在，是为了<strong>让这一帧能和 <code>tof.frame</code> 对齐</strong> —— 一个映射器需要一个<strong>两条流共用的时钟</strong>。
+而 <code>t</code> 留着，是因为<strong>一个只有这一条流的读者，仍想要一个从零开始的数字</strong>。</p>
+<h3 id="93-关于人在回路外的一条规矩"><a class="header" href="#93-关于人在回路外的一条规矩">9.3 关于&quot;人在回路外&quot;的一条规矩</a></h3>
+<p>注意 <code>safety</code> 里有 <code>fallen</code> 和 <code>limp</code><strong>两个</strong>字段：</p>
+<pre><code class="language-text">   fallen   投影重力说的&quot;它是不是倒了&quot;     ← **一个报告**
+   limp     &quot;机器人现在真的在 limp 增益上&quot;  ← **一个状态**
+</code></pre>
+<blockquote>
+<p><code>robotd-primer.md</code> §5 讲过：<strong>摔倒判定不门控任何东西</strong>。
+所以&quot;倒了&quot;和&quot;变软了&quot;必须分开报 —— 否则客户端无法区分
+&quot;它躺在地上但还在被策略驱动&quot;和&quot;它躺在地上、而且我们把它放松了&quot;。</p>
+</blockquote>
+<p>而 <code>SafetyState::gravity</code> 的存在也是同一个道理：<strong>只看判决是没法诊断的</strong> ——
+&quot;机器人倒了&quot;和&quot;IMU 装得和这个 build 假设的不一样&quot;<strong>产生同样的 <code>fallen</code></strong>。
+把投影重力本身发出来，才能区分这两者。</p>
+<h3 id="94--enable-的-toggle信念归机器人"><a class="header" href="#94--enable-的-toggle信念归机器人">9.4 ⭐ <code>enable</code> 的 <code>toggle</code>：<strong>信念归机器人</strong></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct EnableParams {
+    pub on: bool,
+    /// 翻转当前状态，而不是设置它。
+    pub toggle: bool,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>这是新手最容易觉得&quot;多余&quot;的一个字段。它的理由值得完整读：</p>
+<blockquote>
+<p>手柄的 Start 用的是它。<strong>一个自己持有 on/off 信念的客户端会漂移</strong> ——
+因为 <code>robot.relax</code>、关机流程、或者任意一侧重启，都会改变那个状态而客户端不知道。
+<strong>而一个陈旧的信念会让 Start 每隔一次就按不动。</strong></p>
+</blockquote>
+<p><strong>这是这套 API 里反复出现的一个模式：</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>别处</th><th>同样的做法</th></tr></thead><tbody>
+<tr><td><code>robot.setSkill</code> / <code>robot.loadPolicy</code></td><td>未知的名字<strong>回来成一个&quot;列出已知东西的拒绝&quot;</strong>，不是一个无解释的解析错误</td></tr>
+<tr><td><code>robot.setMode</code></td><td>未知模式 → 拒绝并列出 <code>&quot;walk&quot;</code> / <code>&quot;roller&quot;</code></td></tr>
+<tr><td><strong><code>robot.enable</code></strong></td><td><strong>状态的所有权在机器人，不在客户端</strong></td></tr>
+</tbody></table>
+</div>
+<p><strong>共同点</strong>：<strong>凡是客户端&quot;记着&quot;就可能记错的东西，都让机器人来回答。</strong></p>
+<hr />
+<h2 id="10-健康那一族"><a class="header" href="#10-健康那一族">10. 健康那一族</a></h2>
+<pre><code class="language-text">   HealthResult {
+       healthy: bool,      ┐  ★ 只有这两个能进入更新系统的判决
+       degraded: bool,     ┘
+       reason: Option&lt;String&gt;,
+       ── 以下全部是**描述**，任何自动决策都不许读 ──
+       battery · motors · cpu_temp_c · cpu_throttle
+       control_loop · bus · imu
+   }
+</code></pre>
+<blockquote>
+<p><strong><code>robotd-primer.md</code> §6.3 讲过这条规矩</strong>，这里是它的<strong>类型定义</strong>：
+判决和描述<strong>混在同一个响应里</strong>（因为问题只问一次），
+但<strong>只有前两个字段能影响回滚</strong>。</p>
+</blockquote>
+<p>几个细节：</p>
+<ul>
+<li><strong><code>Battery</code> 同时带 <code>volts</code> 和 <code>percent</code></strong> —— 因为映射（6.6 V 空 / 8.2 V 满）在这里就算好了，
+<strong>一个画电量条的客户端不该需要知道这台机器人配的是哪块电池</strong>。</li>
+<li><strong><code>ImuHealth</code> 有两个计数</strong>：<code>stale_blocks</code>（累计）和 <code>consecutive_stale_blocks</code>（当前连续）。
+两个数回答两个问题：<strong>整轮运行重复了多少次</strong> vs <strong>此刻姿态是不是冻住了</strong>。</li>
+<li><strong><code>CpuThrottle</code></strong> 同时给时钟上限和降频档位 —— 因为&quot;温度&quot;单独说不了&quot;这块板子已经残了&quot;。</li>
+</ul>
+<p><strong><code>ComponentStatus::healthy</code> 有一个&quot;四值陷阱&quot;</strong> —— 它是 <code>Option&lt;bool&gt;</code>，而<strong>四种不同的判决都答 <code>Some(false)</code></strong>，
+其中包含 <strong><code>degraded</code>，而健康门是故意让 degraded 通过的</strong>。所以：</p>
+<blockquote>
+<p><strong>这个布尔单独给人看就是错的</strong> —— 它必须配上 <code>degraded</code> 和 <code>reason</code> 一起看。
+而 <code>reason</code> 还承载着两个布尔分不开的情况：
+<strong><code>robotd</code> 完全没回答</strong> vs <strong>答了但形状解析不了</strong>（而后者其实很可能没事）。</p>
+</blockquote>
+<h3 id="101--向后兼容的代价一次真实的回滚"><a class="header" href="#101--向后兼容的代价一次真实的回滚">10.1 ⭐ 向后兼容的<strong>代价</strong>：一次真实的回滚</a></h3>
+<p>这一节是<strong>整个文件里最贵的一课</strong>，注释直接写在了 <code>ImuHealth</code> 上。</p>
+<p><strong>发生了什么：</strong> <code>consecutive_stale_blocks</code> 这个字段发布之后，一块板子上<strong>一个更老的 branch 发来的 <code>imu</code> 段缺这个字段</strong>，
+于是常驻的 <code>updaterd</code> <strong>解析整条 reply 失败</strong> → health 塌成 <code>Unreachable</code> →
+<strong>健康门从一个&quot;socket 在服务、循环跑 50 Hz&quot;的机器人上回滚了一个 release</strong>。</p>
+<p>查了一小时 —— 因为日志里那句 <code>not healthy within 30s: unreachable</code>
+<strong>没有一个字指向那个缺失的 JSON 字段</strong>。</p>
+<p><strong>得到的结论（写进了类型设计）：</strong></p>
+<blockquote>
+<p>struct 级的 <code>#[serde(default)]</code> <strong>只在&quot;每个零都是诚实的&quot;时候才安全</strong>。</p>
+<p>所以<strong>带测量的那些兄弟明确不这么做</strong> ——
+<code>Battery</code> 默认一个 <code>percent: 0.0</code> 会<strong>把满电渲染成没电</strong>。</p>
+</blockquote>
+<p>这句话解释了几个测试为什么存在：</p>
+<pre><code class="language-text">   health_without_the_degraded_field_is_not_degraded      ← 这个 default 是安全的（false 就是诚实）
+   an_imu_section_missing_its_newest_field_still_parses
+   a_state_frame_missing_odom_still_parses                ← odom 全零 = &quot;像没动过&quot;，诚实
+   a_bus_section_missing_a_counter_still_parses
+   a_missing_battery_is_unknown_not_empty                 ← ★ **这个 default 会撒谎，所以没有**
+</code></pre>
+<p>而最后一条正是那句话的直接体现：</p>
+<blockquote>
+<p><strong>&quot;没有电池读数&quot;和&quot;电池是空的&quot;是两回事</strong> —— 前者是 <code>None</code>，后者是 <code>Some(0.0 V)</code>。
+混淆它们会在任何人那台启动不到一秒的机器人前面弹出一个&quot;电量耗尽&quot;的警告。</p>
+</blockquote>
+<p><strong>同一个思路在别处也出现</strong>：<code>achieved_hz</code> 是 <code>Option</code>，因为 <strong><code>0 Hz</code> 描述的是一个停住的循环 —— 给每个机器人开机第一秒打这个是<em>说谎</em></strong>。</p>
+<hr />
+<h2 id="11--和-architecturemd-的一处不一致"><a class="header" href="#11--和-architecturemd-的一处不一致">11. ⚠️ 和 <code>architecture.md</code> 的一处不一致</a></h2>
+<p>第 7 节讲了现在的版本策略：<strong>版本不同只记录，不拒绝</strong>。</p>
+<p>而 <code>docs/design/architecture.md</code> §4.2「Cross-cutting rules」里写着：</p>
+<blockquote>
+<ul>
+<li><strong>API version handshake.</strong> SDK and daemon versions <em>will</em> skew. One integer,
+<strong>refuse with a clear message on mismatch</strong> (same approach as <code>model_api</code>).</li>
+</ul>
+</blockquote>
+<p><strong>这两者不能同时为真。</strong> 而 §4.2 正好是<strong>拥有 IPC 契约那一页</strong>的横切规则。</p>
+<p>我核实了三处和它们的日期：</p>
+<div class="table-wrapper"><table><thead><tr><th>哪里</th><th>说什么</th><th>时间</th></tr></thead><tbody>
+<tr><td><code>duck-ipc-proto/src/lib.rs</code> 的 <code>API_VERSION</code> 文档</td><td><strong>不拒绝</strong></td><td><code>28298be</code> · <strong>2026-08-19</strong></td></tr>
+<tr><td><code>docs/design/app-path-design.md</code> §3</td><td>&quot;<strong>for saying so, not for refusing</strong>&quot;</td><td>同一次提交改的</td></tr>
+<tr><td><code>CLAUDE.md</code> / <code>AGENTS.md</code></td><td>&quot;<strong>logged and served, never refused</strong>&quot;</td><td><code>2dd630a</code> · 2026-09-14</td></tr>
+<tr><td><strong><code>docs/design/architecture.md</code> §4.2</strong></td><td><strong>&quot;refuse with a clear message on mismatch&quot;</strong></td><td><code>ef9162b</code> · <strong>2026-08-10</strong></td></tr>
+</tbody></table>
+</div>
+<p>而那次反转的提交标题<strong>本身就是那条规矩</strong>：</p>
+<pre><code class="language-text">   28298be  2026-08-19  updaterd: a missing route refuses, a version difference does not
+</code></pre>
+<p>它改了 7 个文件 —— 三份设计文档、proto、<code>robotctl</code>、<code>updater</code> 的实现和测试 ——
+<strong>但没有改 <code>architecture.md</code></strong>。<code>architecture.md</code> 最后一次被碰是 2026-09-15，改的是别的章节。</p>
+<blockquote>
+<p>按 <code>CLAUDE.md</code>：&quot;<strong>当行为和一份设计文档不一致时，文档才是 bug。</strong>&quot;
+而按 <code>docs/README.md</code> 的归属表，<code>architecture.md</code> 正是<strong>拥有这个机制的那一页</strong>。</p>
+<p>顺带一提，这也是 <code>docs/README.md</code> 自己警告过的那种失败：
+&quot;<strong>一个写在六处的事实，会朝六个方向漂移</strong>&quot; —— 这里它写在四处，其中一处没跟上。</p>
+</blockquote>
+<p><strong>我没有改它。</strong> 这一节留在文档里，是因为一个读到 §4.2 然后照着实现&quot;不符就拒绝&quot;的人，
+会踩到一个<strong>这个仓库专门写了一条规矩去避免</strong>的坑。</p>
+<hr />
+<h2 id="12-choralebeacon唯一不是-json-的线上契约"><a class="header" href="#12-choralebeacon唯一不是-json-的线上契约">12. <code>ChoraleBeacon</code>：唯一不是 JSON 的线上契约</a></h2>
+<p>模块注释里写着：</p>
+<blockquote>
+<p><strong>一个线上契约，而且是唯一一个不是 JSON 的。</strong>
+这个 crate 里其他每条消息都走 socket；<strong>这一条走 BLE 广播</strong>，
+因为合唱必须在两台<strong>彼此没有网络、也没有共同时钟</strong>的机器人之间工作。</p>
+</blockquote>
+<p>它的线上布局是<strong>手写字节</strong>：</p>
+<pre><code class="language-text">   ┌──────┬───────┬──────┬──────────┬───────────┬────────┬─────────────┐
+   │ TAG  │ piece │ beat │ register │ id (u16)  │ 数量   │ roster      │
+   │ 0xC0 │       │      │          │ 大端      │        │ (register,  │
+   │      │       │      │          │           │        │  id)×n      │
+   └──────┴───────┴──────┴──────────┴───────────┴────────┴─────────────┘
+     1      1       1       1          2           1        3n
+</code></pre>
+<h3 id="121-id-为什么是-16-位--一个真实事故"><a class="header" href="#121-id-为什么是-16-位--一个真实事故">12.1 <code>id</code> 为什么是 16 位 —— 一个真实事故</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// 决胜与身份，**从 seed 派生而不是 seed 本身**。十六位，而这个宽度是承重的：
+/// 这个 id 也是**一只鸭子认出自己信标反射**的方式，也是每只鸭子合并同一个 peer 的多次目击的方式。
+///
+/// **用一个字节，一个四只鸭子的房间第一天就撞了一对** ——
+/// 第四只鸭子撞掉了指挥的那个字节，**大家把两只合并成了一只**，
+/// 于是它把指挥的信标当作自己的反射丢掉，**永远加入不了**。
+pub id: u16,
+<span class="boring">}</span></code></pre></pre>
+<h3 id="122-roster-为什么必须在信标里"><a class="header" href="#122-roster-为什么必须在信标里">12.2 <code>roster</code> 为什么必须在信标里</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// **这就是阻止两只鸭子唱对方声部的东西。**
+///
+/// 座次取决于加入顺序，所以**一只根据它碰巧听到的东西给自己排座的鸭子，会和听到不同子集的鸭子不一致**
+/// —— 然后两只都唱 alto。
+///
+/// 指挥维护名册并广播它；其他人对它重放 `seat_all`。
+/// **一个真相来源，而这正是指挥的用处。**
+pub roster: Vec&lt;(u8, u16)&gt;,
+<span class="boring">}</span></code></pre></pre>
+<h3 id="123-四个常量背后的够用就好"><a class="header" href="#123-四个常量背后的够用就好">12.3 四个常量背后的&quot;够用就好&quot;</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>常量</th><th>值</th><th>理由</th></tr></thead><tbody>
+<tr><td><code>TAG</code></td><td><code>0xC0</code></td><td>服务 UUID 已经说了&quot;这是只鸭子&quot;，所以它只需要把<strong>这个载荷</strong>和<strong>另一个广播实例带的 IP 地址字段</strong>分开 —— 否则一个扫描器<strong>会把 <code>192.168.1.42</code> 的四个字节听成一拍</strong></td></tr>
+<tr><td><code>REGISTER_LOW_HZ</code> / <code>HIGH_HZ</code></td><td>100 / 625</td><td>括住整个鸭群（<code>sounds::Personality</code> 把音高中心夹在 110–620 Hz），<strong>两端都留了余量</strong>，所以最极端的鸭子不会坐在夹取边界上</td></tr>
+<tr><td><code>MAX_ROSTER</code></td><td>4</td><td>曲子有四个声部。&quot;四只以上&quot;的鸭子<strong>保持聆听</strong>而不是加入 —— 而&quot;一个信标不是描述一个合唱团的地方&quot;</td></tr>
+<tr><td>广播预算</td><td>251 字节</td><td>一个满编四重奏的名册是 8 字节</td></tr>
+</tbody></table>
+</div>
+<p><strong><code>from_bytes</code> 拒绝任何&quot;形状不对&quot;的载荷，长度也算</strong> —— 而且<strong>更长的载荷是被拒绝的，不是宽松地读</strong>：</p>
+<blockquote>
+<p>因为这些信标用的公司 ID 是 <code>0xFFFF</code>，SIG 留给测试、<strong>谁都能用</strong>，
+所以<strong>一个形状不对的载荷是别人的广播，不是我们的一条畸形广播</strong>。
+而一个<strong>更长</strong>的载荷 —— 一个将来装了更多东西的信标 —— <strong>不是这一个</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="13-那套启动身份机制"><a class="header" href="#13-那套启动身份机制">13. 那套&quot;启动身份&quot;机制</a></h2>
+<p>每个 daemon 启动时会往 <code>/run/&lt;服务&gt;/identity.json</code> 写一份&quot;我在跑什么&quot;。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn identity_path(service: &amp;str) -&gt; PathBuf {
+    runtime_root().join(service).join(&quot;identity.json&quot;)
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="131-为什么是一个服务一个目录"><a class="header" href="#131-为什么是一个服务一个目录">13.1 为什么是&quot;一个服务一个目录&quot;</a></h3>
+<blockquote>
+<p>不是&quot;一个共享目录&quot;，因为那正是单元文件里 <code>RuntimeDirectory=&lt;service&gt;</code> 给出的东西 ——
+<strong>而它必须是那个，有两个更整洁的布局都活不下来的理由</strong>：</p>
+<p><strong>一、<code>btd</code> 和 <code>padd</code> 跑在 <code>ProtectSystem=strict</code> 下</strong>，所以文件系统对它们<strong>只读</strong>
+—— 除了 systemd 授予的那一点，而 <code>RuntimeDirectory</code> 就是那个授予。</p>
+<p><strong>二、systemd 在单元停止时会删掉那个目录</strong>，所以<strong>一个停掉的 daemon 不能留下一份自称在跑的身份</strong>。</p>
+</blockquote>
+<h3 id="132-runtime_root-为什么要看环境变量"><a class="header" href="#132-runtime_root-为什么要看环境变量">13.2 <code>runtime_root()</code> 为什么要看环境变量</a></h3>
+<blockquote>
+<p><strong>不是给机器人用的配置旋钮</strong> —— 板上没有任何东西设置它。
+它存在，是为了这件事<strong>至少是可测的</strong>，因为<strong>一个测试没法写 <code>/run</code></strong>，
+而这也是一个手工在笔记本上跑起来的 daemon 能发布身份的原因：那里的 <code>/run</code> 也是 root 的，而 macOS 上它根本不存在。</p>
+</blockquote>
+<h3 id="133-buildinfo-的-display对不知道要坦白"><a class="header" href="#133-buildinfo-的-display对不知道要坦白">13.3 <code>BuildInfo</code> 的 <code>Display</code>：对&quot;不知道&quot;要坦白</a></h3>
+<pre><code class="language-text">   1.4.2 (rev a1b2c3, built 2026-09-24T10:00:00Z)
+   1.4.2 (rev unknown, not a CI build)
+</code></pre>
+<blockquote>
+<p>一行、可 grep、<strong>而且对不知道的东西是明确的</strong> ——
+<strong>一份只是缺少 revision 的 support 日志，在&quot;本地构建&quot;和&quot;我们忘了记&quot;之间是有歧义的。</strong></p>
+</blockquote>
+<p>而 <code>revision</code> 是从 <strong><code>DUCK_REVISION</code> 在编译期</strong>读的：<strong>一台发布出去的机器人上没有 git 仓库</strong>。</p>
+<h3 id="134-build_info-为什么是宏"><a class="header" href="#134-build_info-为什么是宏">13.4 <code>build_info!</code> 为什么是宏</a></h3>
+<blockquote>
+<p><strong>是宏而不是函数，因为 <code>env!</code> 必须在<em>调用者</em>那里展开</strong>：
+在这里的一个函数里调用它，会给所有人报<strong>这个 crate 的</strong>版本。</p>
+</blockquote>
+<hr />
+<h2 id="14-测试"><a class="header" href="#14-测试">14. 测试</a></h2>
+<p><strong>51 个测试，全部在同一个文件里</strong>（<code>:5247</code> 之后）。它们分成几类：</p>
+<pre><code class="language-text">   ── 每个变体都要被覆盖（穷尽性）──────────────────
+   every_call_covers_every_variant
+   every_call_has_a_distinct_method
+   every_call_round_trips_over_the_wire
+   a_call_serialises_as_jsonrpc
+   component_carrying_calls_expose_it
+   notifications_carry_no_id
+   responses_omit_the_half_they_do_not_use
+
+   ── 关键字面（这些是线上契约）────────────────────
+   robot_state_uses_the_documented_field_names      ← ★
+   pad_reports_round_trip_under_their_tag
+   robot_results_round_trip
+
+   ── 拒绝的边界 ───────────────────────────────────
+   unknown_methods_and_bad_params_get_different_codes
+   an_unknown_params_member_is_refused_by_name      ← ★ 每一个 params 类型
+   methods_without_params_accept_any_params_field
+
+   ── 优先级与路由 ─────────────────────────────────
+   only_software_changing_calls_are_mutating
+   only_authenticate_has_no_service
+   subscriptions_are_the_only_thing_on_the_stream_lane
+
+   ── 向后兼容 ─────────────────────────────────────
+   health_without_the_degraded_field_is_not_degraded
+   an_imu_section_missing_its_newest_field_still_parses
+   a_state_frame_missing_odom_still_parses
+   a_missing_battery_is_unknown_not_empty            ← ★
+   degraded_is_omitted_when_false_and_present_when_true
+
+   ── 信标 ─────────────────────────────────────────
+   a_beacon_survives_the_advertisement
+   a_roster_of_the_wrong_length_is_not_a_beacon
+   an_address_payload_is_not_mistaken_for_a_beacon   ← ★ 那条 0xC0 的理由
+
+   ── 身份 ─────────────────────────────────────────
+   an_identity_survives_being_published_and_read_back
+   a_release_path_names_its_version
+   a_dev_release_keeps_the_suffix_that_distinguishes_it
+   a_deleted_binary_still_names_its_release
+   a_binary_outside_the_layout_has_no_release
+   build_info_is_explicit_about_an_unknown_revision
+</code></pre>
+<h3 id="141-an_unknown_params_member_is_refused_by_name-的手法"><a class="header" href="#141-an_unknown_params_member_is_refused_by_name-的手法">14.1 <code>an_unknown_params_member_is_refused_by_name</code> 的手法</a></h3>
+<p>这个测试<strong>遍历 <code>every_call()</code></strong>，给每一条的 params 塞一个 <code>&quot;from_a_later_release&quot;: true</code>，
+然后断言每一条都拒绝<strong>而且消息里点名那个成员</strong>。注释解释了为什么值得这样钉：</p>
+<blockquote>
+<p><strong>在所有调用上钉住，而不是指望十四个 <code>deny_unknown_fields</code> 属性被记住</strong>，
+因为<strong>这正是当年 <code>hello</code> 握手提供的那个严格性现在所在的地方</strong>。
+<strong>一个没有这个属性的 params 类型会在这里失败。</strong></p>
+</blockquote>
+<h3 id="142-test_support共享的夹具"><a class="header" href="#142-test_support共享的夹具">14.2 <code>test_support</code>：共享的夹具</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// [`Call`] 的每一个变体各一个，**这样一个测试不可能悄悄跳过其中一个**。
+///
+/// 那些对 [`Call`] 的穷尽 match —— `method`、`destination`、以及每个传输的权限表 ——
+/// **正是逼着这个列表保持完整的东西**：一个新增的变体会打断那些构建，
+/// 而修它们的人下一步就会来到这里。
+pub fn every_call() -&gt; Vec&lt;Call&gt;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>为什么它是一个 feature 而不是每个 crate 抄一份？</strong> 因为 <code>btd</code>、<code>updater</code>、<code>robotctl</code> 的测试
+<strong>都需要同一批夹具</strong> —— 而&quot;每个 crate 抄一份&quot;就是又一次&quot;六处漂移&quot;的配方。注释里记着账：</p>
+<blockquote>
+<p><strong>两份拷贝已经出现过，而且已经漂了 —— 115 行对 82 行</strong>，而第三份正要为 <code>mediad</code> 写。</p>
+</blockquote>
+<h3 id="143--那份列表目前比枚举少六个"><a class="header" href="#143--那份列表目前比枚举少六个">14.3 ⚠️ 那份列表目前比枚举少六个</a></h3>
+<p><strong>截至本文写作时</strong>，<code>Call</code> 有 <strong>73</strong> 个变体，而 <code>every_call()</code> 只列了 <strong>67</strong> 条。缺的是：</p>
+<pre><code class="language-text">   Call::RobotSetMode      Call::RobotTheremin     Call::RobotChorale
+   Call::ChoraleSubscribe  Call::ChoraleBeaconSet  Call::ChoraleHeard
+</code></pre>
+<p>而 completeness 测试是这样写的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>assert_eq!(every_call().len(), 67, &quot;a Call variant was added or removed — …&quot;);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>它比的是一个硬编码的 67，而列表也恰好是 67</strong> —— 所以它通过。</p>
+<p>这<strong>恰恰是它旁边那条注释预言过的失效模式</strong>（原话）：</p>
+<blockquote>
+<p>它抓得住&quot;列表改了而计数没跟着改&quot; ——
+<strong>而它抓不住&quot;给 <code>Call</code> 加了一个变体、两处都没动&quot;</strong>，
+这正是当年 <code>pad.input</code> 从 <code>every_call</code> 里消失、而这个测试<strong>在 44 上照样通过</strong>的原因。</p>
+<p>真正抓到它的是<strong>消费端的一个性质测试</strong>：
+<code>mediad</code> 的路由表断言&quot;每个服务都有某个被允许的调用能到达&quot;，而 <code>pad.input</code> 是唯一到达 <code>padd</code> 的那个。
+<strong>所以真正的防线是把这份列表拿去用的那些测试</strong>，而这一对只防得住更便宜的那种错误。</p>
+</blockquote>
+<p><strong>对读代码的人来说，实践含义是</strong>：读 §14.1 那几组&quot;遍历 <code>every_call()</code>&quot;的测试时要知道，
+<strong>上面那六个方法（以及它们的 params 类型）不在覆盖范围内</strong>。</p>
+<hr />
+<h2 id="15-阅读路线"><a class="header" href="#15-阅读路线">15. 阅读路线</a></h2>
+<p><strong>第 1 步（30 分钟）</strong></p>
+<ol>
+<li>读模块头（<code>:1</code>）—— 两个命名空间、线上格式、那个&quot;方法永远配不错参数&quot;的承诺。</li>
+<li>读 <code>API_VERSION</code> 的<strong>整段文档</strong>（<code>:396</code> 往上）—— 第 7 节那个反转。<strong>这是这个文件里最值得读的一段。</strong></li>
+<li>读 <a href="design/architecture.html"><code>design/architecture.md</code></a> §2.2 —— 为什么是 JSON-RPC + unix socket，带实测的依赖表。</li>
+</ol>
+<p><strong>第 2 步 —— 信封（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>Id</code>（<code>:921</code>）、<code>Call</code> 枚举的开头（<code>:933</code>）。</li>
+<li>读 <code>Request</code>（<code>:1801</code>）和 <code>Response</code>（<code>:1941</code>）。</li>
+<li>读 <code>code</code>（<code>:879</code>）—— 特别是 <code>PROTOCOL_MISMATCH</code> 那条退役注释。</li>
+</ol>
+<p><strong>第 3 步 —— 三个函数（1 小时）</strong></p>
+<ol start="7">
+<li>读 <code>impl Call</code> 的 <code>method()</code>（<code>:1129</code>）—— 看那个穷尽 match。</li>
+<li>读 <code>Service</code>（<code>:1085</code>）和 <code>Lane</code>（<code>:1116</code>）—— 第 8.2 节。</li>
+<li>读 <code>is_mutating()</code>（<code>:1211</code>）和 <code>destination()</code>（<code>:1268</code>）—— <strong>注释比代码长，读注释。</strong></li>
+</ol>
+<p><strong>第 4 步 —— 状态（40 分钟）</strong></p>
+<ol start="10">
+<li>读 <code>RobotState</code>（<code>:3636</code>）和它的五个子结构。</li>
+<li>读 <code>MoveState</code> 的 <code>limited_by</code> —— 第 9.1 节。</li>
+<li>读 <code>HealthResult</code>（<code>:3360</code>）—— 判决和描述的分界。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p duck-ipc-proto        # 51 个测试，不需要任何东西
+</code></pre>
+<p>试试亲手构造一条请求，看它在线上长什么样：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use duck_ipc_proto as proto;
+
+let request = proto::Request::call(proto::Id::Number(1), &amp;proto::Call::RobotStop);
+println!(&quot;{}&quot;, serde_json::to_string(&amp;request).unwrap());
+// {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;robot.stop&quot;}
+
+// 通知：没有 id
+let notify = proto::Request::notify(&amp;proto::Call::RobotMove(
+    proto::MoveParams { vx: 0.2, vy: 0.0, vyaw: 0.4 },
+));
+println!(&quot;{}&quot;, serde_json::to_string(&amp;notify).unwrap());
+// {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;robot.move&quot;,&quot;params&quot;:{...}}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>再试试把方法名和参数配错</strong> —— 你会发现自己<strong>做不到</strong>，因为它们在同一个枚举变体里。这就是这个 crate 的全部意义。</p>
+<hr />
+<h2 id="16-术语表"><a class="header" href="#16-术语表">16. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>IPC</strong></td><td>进程间通信。这里是&quot;机器人上几个 daemon 之间怎么说话&quot;</td></tr>
+<tr><td><strong>契约 / contract</strong></td><td>两端必须完全一致的那部分定义</td></tr>
+<tr><td><strong>JSON-RPC 2.0</strong></td><td>一种远程调用协议。<strong>通知</strong>（无 id）和<strong>请求</strong>（有 id）两种消息族</td></tr>
+<tr><td><strong>NDJSON</strong></td><td>Newline-Delimited JSON，一行一个 JSON 对象</td></tr>
+<tr><td><strong>帧分隔符</strong></td><td>用来切分消息的记号。这里<strong>就是换行</strong></td></tr>
+<tr><td><strong>通知 / notification</strong></td><td>没有 <code>id</code>、不期待回复的消息</td></tr>
+<tr><td><strong>信封 / envelope</strong></td><td>消息的外层结构（jsonrpc/id/method/params），相对于里面的&quot;载荷&quot;</td></tr>
+<tr><td><strong><code>deny_unknown_fields</code></strong></td><td>serde 的开关：出现不认识的字段就报错</td></tr>
+<tr><td><strong><code>untagged</code></strong></td><td>serde 的属性：枚举在线上就是一个裸值，没有标签</td></tr>
+<tr><td><strong>穷尽 match / exhaustive match</strong></td><td>Rust 要求列出所有分支的 <code>match</code>。<strong>加一个变体会编译失败</strong></td></tr>
+<tr><td><strong><code>SO_PEERCRED</code></strong></td><td>Linux 让你查出 unix socket 对端身份（uid/gid/pid）的机制</td></tr>
+<tr><td><strong>wire format</strong></td><td>&quot;线上格式&quot; —— 真正在字节流里传的东西</td></tr>
+<tr><td><strong>版本偏差 / version skew</strong></td><td>两个 peer 不是一起构建的</td></tr>
+<tr><td><strong><code>API_VERSION</code></strong></td><td>那个版本号。<strong>注意：它不用于拒绝调用</strong></td></tr>
+<tr><td><strong>退役 / retired</strong></td><td>一个不再发出、但为了兼容旧版本而留着的常量</td></tr>
+<tr><td><strong>lane / 车道</strong></td><td>按&quot;一个调用占连接多久&quot;分的组，每组一条连接</td></tr>
+<tr><td><strong>mutation / 变更调用</strong></td><td>会改变机器人状态（而不只是读）的调用</td></tr>
+<tr><td><strong>CLOCK_MONOTONIC</strong></td><td>单调递增的时钟，不受系统时间调整影响</td></tr>
+<tr><td><strong>CLOCK_REALTIME</strong></td><td>墙上时钟。会被 NTP 往回拨</td></tr>
+<tr><td><strong>epoch</strong></td><td>时间的零点。<strong>两个进程的 epoch 可能不同</strong></td></tr>
+<tr><td><strong>newtype</strong></td><td>用一个单字段结构体包住一个基础类型，为了类型安全</td></tr>
+<tr><td><strong>feature（Cargo）</strong></td><td>编译期开关。<code>test-support</code> 就是这样一个 feature</td></tr>
+<tr><td><strong>广告 / advertisement</strong></td><td>BLE 里连接之前唯一的信息来源</td></tr>
+<tr><td><strong>公司 ID / company id</strong></td><td>广播里给厂商载荷归档的编号。<code>0xFFFF</code> 是<strong>留给测试的、谁都能用</strong></td></tr>
+<tr><td><strong>量化 / quantise</strong></td><td>把连续的值压进少量离散档位（这里：音高 → 一个字节）</td></tr>
+<tr><td><strong>roster / 名册</strong></td><td>合唱里&quot;谁唱哪个声部&quot;的名单</td></tr>
+<tr><td><strong><code>RuntimeDirectory=</code></strong></td><td>systemd 给一个单元创建的运行时目录。<strong>停止即删</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>IPC 契约的权威设计（英文）</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a> §2 · §4</td></tr>
+<tr><td>控制循环（用这套契约最多的那个）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>BLE 上的路由表（&quot;哪些方法能走无线电&quot;）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a> §7</td></tr>
+<tr><td><code>robot.state</code> 那一帧怎么被算出来</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a> §5</td></tr>
+<tr><td>更新那一族方法</td><td><a href="design/updater-design.html"><code>design/updater-design.md</code></a></td></tr>
+<tr><td>配置文件的 schema（另一套契约）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>从笔记本用这套 API</td><td><a href="robot/duckctl.html"><code>robot/duckctl.md</code></a></td></tr>
+<tr><td><code>robot.model</code> / <code>robot.state</code> 里那些位姿是谁算的（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>把 <code>Call</code> 转发到 unix socket 的那条管道（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td><code>OdomState</code> 里那两个数是谁算的（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td><code>PadImuBatch</code> 那几个类型的唯一算法消费者（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>intent 最老的那个客户端（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>那个薄客户端：CLI、monitor、health（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/duck-ether-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/duckctl-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/duck-ether-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/duckctl-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

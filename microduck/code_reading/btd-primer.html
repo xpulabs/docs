@@ -1,0 +1,1107 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>btd/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html" class="active"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="btd-新手导读"><a class="header" href="#btd-新手导读"><code>btd</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p><code>btd</code> 的机制由 <a href="design/app-path-design.html"><code>design/app-path-design.md</code></a> 拥有（英文，955 行，写得非常好）。
+本文只做一件事：带你把这个 crate 读一遍。两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（控制循环）、<a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>（配置）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在系统里的位置</a></li>
+<li><a href="#3-%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%80%E6%9D%A1%E7%AE%A1%E9%81%93">核心心智模型：一条管道</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-%E4%B8%80%E6%AC%A1%E8%AF%B7%E6%B1%82%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次请求的完整旅程</a></li>
+<li><a href="#6-gatt-%E6%8E%A5%E5%8F%A3%E4%B8%80%E4%B8%AA%E7%89%B9%E5%BE%81%E4%B8%A4%E4%B8%AA%E6%96%B9%E5%90%91">GATT 接口：一个特征，两个方向</a></li>
+<li><a href="#7-%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%B0%B1%E6%98%AF%E5%AE%89%E5%85%A8%E8%BE%B9%E7%95%8C">路由表就是安全边界</a></li>
+<li><a href="#8-%E4%BC%9A%E8%AF%9D%E4%B8%80%E4%B8%AA%E8%AE%A2%E9%98%85%E4%B8%80%E4%B8%AA%E4%BC%9A%E8%AF%9D">会话：一个订阅，一个会话</a></li>
+<li><a href="#9-lane%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E6%9D%A1%E4%B8%8A%E6%B8%B8%E8%BF%9E%E6%8E%A5%E4%B8%8D%E5%A4%9F">Lane：为什么一条上游连接不够</a></li>
+<li><a href="#10-%E5%88%86%E7%89%87%E4%B8%8E-mtu%E5%B0%8F%E5%8C%85%E9%87%8C%E7%9A%84%E5%A4%A7%E5%AD%A6%E9%97%AE">分片与 MTU：小包里的大学问</a></li>
+<li><a href="#11-%E5%B9%BF%E6%92%AD%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%80%8E%E4%B9%88%E8%A2%AB%E6%89%BE%E5%88%B0">广播：机器人怎么被找到</a></li>
+<li><a href="#12-%E9%85%8D%E5%AF%B9%E4%B8%8E-pin">配对与 PIN</a></li>
+<li><a href="#13-%E5%90%88%E5%94%B1%E5%8F%AA%E7%AE%A1%E6%97%A0%E7%BA%BF%E7%94%B5">合唱：只管无线电</a></li>
+<li><a href="#14-%E9%83%A8%E7%BD%B2%E4%B8%8E%E6%9D%83%E9%99%90">部署与权限</a></li>
+<li><a href="#15-%E6%B5%8B%E8%AF%95%E4%B8%8D%E8%83%BD%E6%9C%89%E6%97%A0%E7%BA%BF%E7%94%B5">测试：不能有无线电</a></li>
+<li><a href="#16-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#17-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>btd</code> 是<strong>蓝牙门房</strong>。</p>
+<p>手机想跟机器人说话，但它不会 ssh、不知道 IP、也没有网络。它能做的第一件事是<strong>蓝牙扫描</strong>。<code>btd</code> 就是那个被扫到的东西：它开一个蓝牙 GATT 服务，让手机连上来，然后把手机说的一句话<strong>原样转达</strong>给机器人内部真正负责那件事的程序。</p>
+<pre><code class="language-text">   手机 ──BLE──▸ btd ──unix socket──▸ robotd / configd / updaterd
+</code></pre>
+<p><strong>它自己不拥有任何东西。</strong> 这是整个设计里最重要的一句话，而且不是&quot;整洁&quot;层面的讲究 —— lib.rs 的原文说：</p>
+<blockquote>
+<p>如果 provisioning 或配置住在 BLE 服务里，那么<strong>其他每一个服务都得依赖 <code>btd</code></strong>，
+而一个 SDK 竟然要<strong>通过蓝牙去设置机器人的名字</strong> —— 这很荒谬。</p>
+</blockquote>
+<p>所以 <code>btd</code> 是一个<strong>管道</strong>（pipe）。它收到一条 JSON-RPC 请求，看表决定&quot;这条准不准、归谁管&quot;，然后把<strong>原始字节</strong>转发出去，再把回复切块送回蓝牙。</p>
+<blockquote>
+<p>📌 <strong>&quot;逐字节原样转发&quot;</strong> 是关键：<code>btd</code> 不解析回复、不改写 <code>id</code>、不重新序列化参数、不编造结果。
+它只解析到能回答两个问题为止 —— <strong>这个方法是允许的吗？归哪个 socket？</strong> —— 然后就把原文转走。
+这个性质让加一个新协议方法只需要在路由表里加一行。</p>
+</blockquote>
+<p>代码规模：约 4600 行，8 个模块。</p>
+<hr />
+<h2 id="2-它在系统里的位置"><a class="header" href="#2-它在系统里的位置">2. 它在系统里的位置</a></h2>
+<p><code>btd</code> 是<strong>四个传输层之一</strong>。它的特殊之处在于&quot;没有网络的时候它必须能用&quot;。</p>
+<pre><code class="language-text">   游戏手柄          手机          你，在笔记本上        远端 peer
+      │ BLE            │ BLE            │ ssh / duckctl       │ WebRTC
+      ▼                ▼                ▼                     ▼
+   padd              btd            robotctl               mediad
+      │                │                │                     │
+      └────────────────┴────────────────┴─────────────────────┘
+                              │
+              ┌───────────────┼───────────────┐
+              ▼               ▼               ▼
+           robotd          configd        updaterd
+</code></pre>
+<p>三个要点：</p>
+<p><strong>一、<code>btd</code> 说的和 <code>robotctl</code> 说的</strong>是同一套语言**。** 同一种 JSON-RPC 2.0、同一种 NDJSON（一行一个 JSON），只是换了根线。所以 API 不会因为&quot;给手机用的&quot;而悄悄腐烂 —— 它每天都在被 <code>robotctl</code> 用。</p>
+<p><strong>二、<code>btd</code> 故意不依赖 <code>robotd</code> 或 <code>updaterd</code>。</strong> systemd 单元里写着这是必须保持的性质：</p>
+<blockquote>
+<p><code>btd</code> 必须在机器人不回答的时候还能回答 —— 那正是它存在的大部分理由。</p>
+</blockquote>
+<p><strong>三、它暴露的是一个子集。</strong> 尤其注意：<strong><code>robot.move</code>（遥控移动）在 BLE 上是被拒绝的。</strong> 手机能做的事和遥控操作能做的事不是一回事（第 7 节）。</p>
+<hr />
+<h2 id="3-核心心智模型一条管道"><a class="header" href="#3-核心心智模型一条管道">3. 核心心智模型：一条管道</a></h2>
+<p>整个 crate 可以画成这一张图。<strong>看懂这张图，就看懂 <code>btd</code> 了。</strong></p>
+<pre><code class="language-text">  手机
+   │  ① 写一段字节到 GATT 特征
+   ▼
+ ┌──────────────────────────────────────────────────────────┐
+ │  bluez.rs   把字节从蓝牙收进来 / 把字节发回蓝牙           │
+ │             （唯一碰无线电的模块，只在 Linux 上编译）     │
+ └────────────────────┬─────────────────────────────────────┘
+                      │  ② 通过两条 channel（link.rs）
+                      ▼
+ ┌──────────────────────────────────────────────────────────┐
+ │  session.rs   一个客户端的全部行为                        │
+ │                                                          │
+ │   ③ 重组：把碎片拼回一行（duck-ble::framing）             │
+ │   ④ 认出&quot;这一行是什么调用&quot;（解析 JSON）                   │
+ │   ⑤ PIN 闸门：认证过了吗？                                │
+ │   ⑥ 查表：route.rs 说准不准 / 归谁 / 占多久               │
+ │   ⑦ 原样转发 ────────────────────────────────┐           │
+ │                                              │           │
+ │   ⑩ 回复 → 切成块 → 写回 channel             │           │
+ └──────────────────────────────────────────────┼───────────┘
+                                                │
+                                                ▼
+ ┌──────────────────────────────────────────────────────────┐
+ │  upstream.rs   按需连接三个内部 socket                    │
+ │                每个 (服务, lane) 一条连接                 │
+ └────────────────────┬─────────────────────────────────────┘
+                      │  ⑧ 原始 NDJSON 一行
+                      ▼
+        robotd / configd / updaterd  ← ⑨ 谁拥有答案谁回答
+</code></pre>
+<p><strong>这条管道上没有&quot;理解&quot;。</strong> 第 ⑦ 步转发的就是收到的字节。第 ⑩ 步收到的也是上游的原始字节。<code>btd</code> 从头到尾<strong>没有解析过任何一个回复</strong>。</p>
+<blockquote>
+<p>设计文档给这个性质算了一笔账：一条连接一个调用（而不是按 lane 复用）会&quot;更整洁&quot;，
+但那需要 <code>btd</code> 知道一个调用什么时候结束 —— 也就需要它解析回复。
+<strong>而它从不解析</strong>，正是这个性质让&quot;被路由的子集&quot;是一个<strong>传输层</strong>，而不是 API 的<strong>第二份实现</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code class="language-text">btd/
+├── Cargo.toml                    依赖清单（注释解释了每个非显然的选择）
+├── src/
+│   ├── lib.rs            40 行   模块声明 + crate 级文档（很值得读）
+│   ├── main.rs          189 行   命令行参数、日志、启动
+│   ├── bluez.rs        1004 行   ★ 唯一碰无线电的模块（Linux-only）
+│   ├── session.rs      1022 行   ★ 一个客户端的全部行为
+│   ├── route.rs        1020 行   ★ 路由表 = 安全边界
+│   ├── upstream.rs      420 行   三个内部 socket 的连接池
+│   ├── chorale.rs       494 行   合唱信标的无线电适配
+│   ├── pairing.rs       192 行   配对代理（just-works）
+│   └── link.rs          109 行   无线电与可测部分之间的接缝
+└── systemd/
+    ├── btd.service       93 行   单元文件（注释解释了每条加固的理由）
+    └── sysusers.d/btd.conf      创建 btd 用户
+</code></pre>
+<p><strong>建议的阅读顺序：</strong> <code>lib.rs</code> → <code>route.rs</code> 的表 → <code>session.rs</code> → <code>upstream.rs</code> → <code>bluez.rs</code>。
+<code>bluez.rs</code> 放最后，因为它是唯一需要懂 BlueZ（Linux 的蓝牙栈）的一份。</p>
+<h3 id="41-为什么-bluezrs-长这样两个早就试过别的"><a class="header" href="#41-为什么-bluezrs-长这样两个早就试过别的">4.1 为什么 <code>bluez.rs</code> 长这样（两个&quot;早就试过别的&quot;）</a></h3>
+<p>读 <code>bluez.rs</code> 时会冒出两个疑问，答案都在模块头里：</p>
+<p><strong>疑问一：为什么用 BlueZ 的&quot;回调&quot;模型，而不是普通的 IO 模型？</strong></p>
+<p>因为 IO 模型<strong>在真机上不可用</strong>：它对 BlueZ 的 <code>WriteValue</code> / <code>StartNotify</code> 一律回 <code>NotSupported</code> ——
+它只服务 <code>AcquireWrite</code> / <code>AcquireNotify</code> 那条 <strong>文件描述符</strong>路径。结果是<strong>广播、连接、订阅、写入全都被接受，
+却没有一条到达这个文件</strong>。看起来一切正常，实际什么都不工作。</p>
+<p>回调模型的代价是<strong>没有流控</strong>（BlueZ 不告诉你无线电什么时候跟上了）—— 这正是第 10.4 节那三个补丁存在的原因。</p>
+<p><strong>疑问二：为什么射频出任何问题，这个进程都不退出？</strong></p>
+<p><code>serve()</code>（<code>:217</code>）是一个<strong>无限循环</strong>：适配器出问题就 warn 一句、睡 5 秒、再试。
+连&quot;开机后 73 秒内 <code>hci0</code> 根本不存在&quot;都是一个<strong>正常情况</strong>，而不是一个错误。</p>
+<blockquote>
+<p>这样做的收益是：<strong>&quot;进程退出了&quot;这件事才等于&quot;二进制坏了&quot;</strong> —— 而这正是它配得上
+<a href="design/updater-design.html"><code>updater-design.md</code></a> 那套启动恢复机制（boot recovery net）的资格。
+一个因为蓝牙偶尔抽风就退出重启的 daemon，会让&quot;启动失败&quot;这个信号失去意义。</p>
+</blockquote>
+<p>这也是 <code>main.rs</code> 里那句注释的意思：<code>serve()</code> <strong>不应该返回</strong>；它返回了就是它自己的 bug，所以退出码非零。</p>
+<blockquote>
+<p>💡 还有一个<strong>不在这个目录里但必须知道</strong>的 crate：<code>duck-ble/</code>（552 行）。
+它装的是&quot;手机和机器人必须<strong>完全一致</strong>&quot;的三个东西 —— UUID、分片规则、广播字段的布局。
+之所以单独拿出来，是因为<strong>第二份实现只会跟自己一致</strong>：一个自己写分片逻辑的客户端，
+会一直工作到某天不工作为止，而那个故障看起来像<strong>机器人的问题</strong>。
+<code>duck-ble</code> 不碰无线电、没有 async runtime、没有日志 —— 所以它能编进手机、笔记本和板子。</p>
+</blockquote>
+<hr />
+<h2 id="5-一次请求的完整旅程"><a class="header" href="#5-一次请求的完整旅程">5. 一次请求的完整旅程</a></h2>
+<p>拿一个具体例子走一遍。假设手机问 <code>robot.health</code>：</p>
+<h3 id="51-上来先认证"><a class="header" href="#51-上来先认证">5.1 上来先认证</a></h3>
+<p>蓝牙连上之后，<code>btd</code> <strong>什么都不服务</strong>，直到客户端发 <code>system.authenticate</code>。</p>
+<pre><code class="language-text">   手机 → 写 {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;system.authenticate&quot;,&quot;params&quot;:{&quot;pin&quot;:&quot;042042&quot;}}
+              │
+              ▼
+   session.rs 认出这是 system.authenticate
+              │
+              ├─ 这条不走路由表 —— 它由 btd 自己回答（Route::Local）
+              ├─ 向 configd 要当前的 PIN（每次都现取，不缓存）
+              ├─ 按字符串比较（&quot;042042&quot; ≠ &quot;42042&quot;）
+              │
+              ├─ 对了 → 这个会话变成&quot;已认证&quot;，回复 {&quot;authenticated&quot;:true}
+              └─ 错了 → 剩余次数 -1；用完 3 次 → 关掉会话
+</code></pre>
+<p>三个细节都是承重的：</p>
+<ul>
+<li><strong>PIN 每次都从 <code>configd</code> 现取</strong>，所以 <code>robotctl system set-pin</code> <strong>下一次尝试就生效</strong>，不用等重启。<code>configd</code> 答不上来 → 会话被拒绝，而不是被放行。</li>
+<li><strong>按字符串比较</strong>。<code>042042</code> 和 <code>42042</code> 是<strong>不同的秘密</strong>，用数字解析会让它们变成同一个。有一个测试专门钉这件事。</li>
+<li><strong>三次之后关会话。</strong> 六位 PIN 是一百万种可能，而链路<strong>加密但未认证</strong>，所以限次是唯一让暴力破解变贵的东西 —— 重连要付出一次完整的 BLE 连接和绑定。回复里带 <code>attempts_remaining</code>，客户端才能说&quot;还剩两次&quot;。</li>
+</ul>
+<blockquote>
+<p>⚠️ 注意：<code>hello</code> 是<strong>另一个</strong>允许在认证前调用的方法，因为它只报告版本号 ——
+而版本号 GATT 的 read 本来就已经告诉未认证的客户端了。</p>
+</blockquote>
+<h3 id="52-然后才是真正的调用"><a class="header" href="#52-然后才是真正的调用">5.2 然后才是真正的调用</a></h3>
+<pre><code class="language-text">   ① 手机写入：{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;method&quot;:&quot;robot.health&quot;}   ← 可能是分几块写来的
+              │
+   ② bluez.rs 收到 WriteValue 事件，把字节喂进 link.inbound
+              │
+   ③ session.rs 重组：拼到看见 \n 为止  ← 这里有个上界 8 KiB
+              │
+   ④ 解析成 proto::Call
+              │
+   ⑤ PIN 闸门：已认证 ✓
+              │
+   ⑥ route.rs::route_for(call)
+              │
+              ├─ 允许吗？  → permits(robot.health) == true
+              ├─ 归谁？    → Upstream::Robot  (→ /run/robotd.sock)
+              └─ 占多久？  → Lane::Prompt     (一次查询那么久)
+              │
+   ⑦ pool.send(Robot, Prompt, 原始那一行)
+              │
+   ⑧ 从连接池里取 (Robot, Prompt) 那条连接，把原文写进去
+              │
+   ⑨ robotd 回答：{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;result&quot;:{...}}
+              │
+   ⑩ 上游连接上有个读任务（连接建立时 spawn 的），把这一行
+      丢进 replies channel
+              │
+   ⑪ session.rs 的 select! 收到它 → 按当前 MTU 切块 → 写进 link.outbound
+              │
+   ⑫ bluez.rs 的 notify 泵一块一块发给手机（每 16 块歇一下）
+</code></pre>
+<p><strong>注意第 ⑨ 步：<code>btd</code> 没有看那个回复里是什么。</strong> 第 ⑪ 步切块是按<strong>字节</strong>切的，不是按 JSON 结构。它只知道&quot;这是一行要转发的东西&quot;。</p>
+<blockquote>
+<p>设计文档里有一句话概括了这个：<strong>&quot;响应和通知对我们来说是同一种东西 —— 一行要转发的行。&quot;</strong>
+所以 <code>update.subscribe</code> 这种流式推送不需要任何特例代码，它和普通回复走完全相同的路。</p>
+</blockquote>
+<h3 id="53-如果出错"><a class="header" href="#53-如果出错">5.3 如果出错</a></h3>
+<p>错误分三种来源，<strong>客户端看到的东西不一样</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>谁出的错</th><th>客户端收到</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>btd</code> 拒绝了这条调用</td><td><code>PERMISSION_DENIED</code>，<strong>并点名方法</strong></td><td>方法<strong>存在</strong>，只是这个传输不许用 → 意思是&quot;去用 <code>robotctl</code>&quot;，而不是&quot;升级你的 app&quot;</td></tr>
+<tr><td>上游没在答应</td><td><code>INTERNAL_ERROR</code> + <code>&quot;Robot is not answering: ...&quot;</code></td><td><strong>点名是哪个服务</strong> —— 有人拿着手机截图来问的时候，这一句就是全部诊断</td></tr>
+<tr><td>上游自己返回的 JSON-RPC 错误</td><td><strong>原样透传</strong></td><td><code>btd</code> 不解析回复，所以错误码是上游的，不是它的</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><code>PERMISSION_DENIED</code> 这个选择值得记住。用 <code>METHOD_NOT_FOUND</code> 会误导客户端去升级 ——
+而真正的问题是&quot;你可以读状态，但不可以换固件&quot;。</p>
+</blockquote>
+<hr />
+<h2 id="6-gatt-接口一个特征两个方向"><a class="header" href="#6-gatt-接口一个特征两个方向">6. GATT 接口：一个特征，两个方向</a></h2>
+<p>BLE 的 API 单位是 <strong>GATT</strong>（Generic Attribute Profile）：一个<strong>服务</strong>（service）里装着若干<strong>特征</strong>（characteristic），每个特征可以被读、写、订阅。</p>
+<p><code>btd</code> 服务的结构<strong>简单到反常</strong> —— <strong>一个服务，一个特征</strong>：</p>
+<pre><code class="language-text">   服务 6f5d2a10-3b47-4c8e-9a1f-2d7e8c4b6019   ← 客户端扫描时找的就是它
+     │
+     └── 特征 6f5d2a11-3b47-4c8e-9a1f-2d7e8c4b6019
+           ├── read     → 读一次拿到机器人的 API 版本号
+           ├── write    → 写 NDJSON 请求
+           └── notify   → 订阅它，收回复和推送
+</code></pre>
+<p><strong>同一个特征既写又订阅</strong>，这在 BLE 里是完全正常的，但它是<strong>刻意的选择</strong>而不是随手：</p>
+<blockquote>
+<p>更常见的形状是<strong>两个</strong>特征（一个写、一个通知）。这个版本最先就是这么写的，然后改成现在这样。
+原因很具体：<strong>BlueZ 把&quot;一次写入&quot;和&quot;一次订阅&quot;报告成两个独立的事件</strong>，
+所以两个特征意味着机器人要<strong>按设备地址去猜</strong>写的一半和通知的一半是不是同一个客户端 ——
+猜一个关联关系。用一个特征，两个事件<strong>从构造上</strong>就属于同一个东西。</p>
+</blockquote>
+<p>代价是：在 nRF Connect 这类通用蓝牙浏览器里，同一行既是写又是通知，<strong>看起来有点怪</strong>。设计文档明说了这个代价。</p>
+<h3 id="为什么版本号是一次-read"><a class="header" href="#为什么版本号是一次-read">为什么版本号是一次 read</a></h3>
+<p>那个 read <strong>不是可选的装饰</strong>，而且它承担两个职责：</p>
+<ol>
+<li><strong>它是&quot;必须先配对&quot;的强制手段。</strong> 这个 read 需要加密链路（<code>encrypt_read</code>），而<strong>订阅不需要</strong>。所以如果没有这个 read，客户端会：订阅成功 → 第一次写入被静默拒绝 → 在 macOS 上<strong>既看不到提示也看不到错误</strong>。有了 read，客户端必须先成为一个加密链路，配对才会发生。</li>
+<li><strong>它返回 <code>API_VERSION</code></strong>，让版本不一致的客户端在开口之前就能说明白。</li>
+</ol>
+<h3 id="版本不一致怎么办说但不拒绝"><a class="header" href="#版本不一致怎么办说但不拒绝">版本不一致怎么办：说，但<strong>不拒绝</strong></a></h3>
+<p>这一点反直觉，值得专门记住：</p>
+<blockquote>
+<p><code>API_VERSION</code> 说的是<strong>这两个 peer 不是一起编译的</strong>，它<strong>不</strong>说哪些调用会失效 ——
+而在这条链路上，通常一个都不会。</p>
+</blockquote>
+<p>没有任何东西跨这条链路检查版本号：<code>configd</code> 不为任何调用做版本门控，<code>updaterd</code> 也不要求握手。</p>
+<p><strong>所以一个&quot;因为版本不符就拒绝&quot;的客户端，拒绝的恰恰是机器人本来会回答的调用</strong> —— 而且是在&quot;机器人没有网络&quot;时唯一可用的那条链路上拒绝，而 <code>net.connect</code> 正是从版本不符中脱身的办法。</p>
+<p>正确做法：<strong>提示不一致，让调用过去，真的碰到形状变了的方​​法时报 JSON-RPC 错误</strong>。那些错误会自己报上名来（<code>METHOD_NOT_FOUND</code>、<code>INVALID_PARAMS</code>）。</p>
+<blockquote>
+<p>这正是仓库自己的规矩（<code>CLAUDE.md</code>）：<strong>版本偏差是记录并服务的，不是拒绝的。</strong></p>
+</blockquote>
+<hr />
+<h2 id="7-路由表就是安全边界"><a class="header" href="#7-路由表就是安全边界">7. 路由表就是安全边界</a></h2>
+<p><code>route.rs</code> 回答三个问题，<strong>一张表同时回答</strong>：</p>
+<pre><code class="language-text">   ┌─────────────────────────────────────────────────────────┐
+   │  route_for(call) -&gt; Route                              │
+   │                                                         │
+   │    Route::To(Upstream, Lane)   允许，转发给谁 / 占多久   │
+   │    Route::Local                由 btd 自己回答           │
+   │    Route::Refused              拒绝                     │
+   └─────────────────────────────────────────────────────────┘
+</code></pre>
+<blockquote>
+<p>📌 注意&quot;允许吗&quot;和&quot;归谁管&quot;其实是<strong>同一个问题</strong>：一个调用被允许，<strong>当且仅当</strong>这张表为它指定了一个服务。
+而&quot;占多久&quot;（Lane）也在同一张表里，<strong>这样新方法不可能在没回答这个问题的情况下被加进来</strong>。</p>
+</blockquote>
+<h3 id="71-那个穷尽-match"><a class="header" href="#71-那个穷尽-match">7.1 那个穷尽 match</a></h3>
+<p><code>permits()</code> 是一个<strong>穷尽匹配（exhaustive match），没有 <code>_ =&gt; false</code> 兜底</strong>。这不是风格问题：</p>
+<blockquote>
+<p>给协议加一个方法，<strong><code>btd</code> 会编译失败</strong>，直到有人对它做出决定。
+一个 <code>_ =&gt; None</code> 通配在当下是&quot;安全的默认值&quot;，长期是错的 ——
+它会<strong>静默地</strong>拒绝新方法，而第一个症状是&quot;手机 app 少了个功能，没人记得要路由它&quot;。</p>
+</blockquote>
+<p>这个设计<strong>已经回本过一次</strong>：七个 <code>net.*</code>/<code>system.*</code> 方法加进来时打断了构建。</p>
+<h3 id="72-允许什么ble-上能做的"><a class="header" href="#72-允许什么ble-上能做的">7.2 允许什么（BLE 上能做的）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>分类</th><th>方法</th></tr></thead><tbody>
+<tr><td>握手</td><td><code>hello</code>、<code>system.authenticate</code>（Local）</td></tr>
+<tr><td><strong>更新</strong></td><td><code>update.apply</code>、<code>check</code>、<code>status</code>、<code>subscribe</code>、<code>log</code>、<code>show</code>、<code>listInstalled</code>、<code>rollback</code>、<code>select</code></td></tr>
+<tr><td><strong>配网</strong></td><td><code>net.status</code>、<code>net.scan</code>、<code>net.connect</code>、<code>net.forget</code></td></tr>
+<tr><td>系统</td><td><code>system.info</code>、<code>setName</code>、<code>services</code>、<code>logs</code>、<code>reboot</code></td></tr>
+<tr><td>手柄</td><td><code>pad.status</code>、<code>pad.pair</code>、<code>pad.forget</code>、<code>pad.bindings</code>、<code>pad.bind</code></td></tr>
+<tr><td>机器人（部分）</td><td><code>robot.health</code>、<code>enable</code>、<code>do</code>、<code>init</code>、<code>rebootMotors</code>、<code>loadPolicy</code>、<code>reloadPolicies</code>、<code>policies</code>、<code>model</code>、<code>skills</code>/<code>setSkill</code>/<code>removeSkill</code></td></tr>
+<tr><td>策略与账户</td><td><code>policy.check</code>/<code>search</code>/<code>fetch</code>/<code>install</code>、<code>detector.check</code>/<code>install</code>、<code>account.login</code>/<code>status</code>/<code>logout</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="73-拒绝什么以及为什么"><a class="header" href="#73-拒绝什么以及为什么">7.3 拒绝什么，以及<strong>为什么</strong></a></h3>
+<p>这张表才是精华。每一行都是一个真实的事故或推理：</p>
+<div class="table-wrapper"><table><thead><tr><th>拒绝的</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>system.pairingPin</code> / <code>setPairingPin</code></td><td><strong>最承重的一条。</strong> 一个未配对的对端就能<strong>读</strong>（或<strong>改写</strong>）的配对码，会让配对彻底沦为表演。<code>btd</code> 反过来走 unix socket 去读它</td></tr>
+<tr><td><code>update.pin</code></td><td>一台被误触固定的机器人会<strong>拒绝之后所有更新，并自称已是最新</strong> —— 这里是唯一一个&quot;坏掉了却看起来像正确行为&quot;的故障</td></tr>
+<tr><td><code>update.resetToGolden</code></td><td>实质上的恢复出厂设置。<strong>永远不走无线电</strong></td></tr>
+<tr><td><code>robot.safeToRestart</code> / <code>modelApi</code> / <code>remoteSessionActive</code></td><td>这些是 <code>updaterd</code> 问 <code>robotd</code> 的<strong>内部问题</strong>，手机读到也做不了任何事</td></tr>
+<tr><td><strong><code>robot.move</code> / <code>head</code> / <code>look</code> / <code>pose</code> / <code>mouth</code></strong></td><td><strong>遥控。</strong> 20 字节的通知预算，加上开机后约 73 秒没有链路</td></tr>
+<tr><td><code>robot.sound</code> / <code>theremin</code> / <code>chorale</code></td><td>声音和合唱是&quot;在场&quot;的功能，不是远端功能</td></tr>
+<tr><td><code>chorale.subscribe</code> / <code>beaconSet</code> / <code>heard</code></td><td>这三个是 <code>btd</code> 和 <code>robotd</code> <strong>之间</strong>的内部总线 —— 对客户端来说<strong>根本不存在</strong></td></tr>
+<tr><td><code>robot.shutdown</code> / <code>robot.mode</code> / <code>setMode</code></td><td>关机与换模式是本地决定</td></tr>
+<tr><td><strong><code>robot.relax</code></strong></td><td>非对称是重点：<code>robot.init</code> 是<strong>受控地站起来</strong>，而 <code>relax</code> 唯一的结果是<strong>把撑住自己的机器人放到地上</strong></td></tr>
+<tr><td><strong><code>robot.stop</code></strong></td><td>一个未配对无线链路上的&quot;急停按钮&quot;<strong>看起来像 e-stop，但不是</strong>。真正的机制是 <code>robotd</code> 的死区开关（deadman）</td></tr>
+<tr><td><code>robot.subscribe</code></td><td>会把控制速率的状态流灌进一条 20 字节的管道</td></tr>
+<tr><td><code>pad.input</code> / <code>tof.stream</code> / <code>headImu.stream</code></td><td>双重理由：同样是洪泛，而且服务方是 <code>padd</code>/<code>tofd</code>，<strong><code>btd</code> 根本没有它们的 socket</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 <strong><code>update.rollback</code> 和 <code>update.select</code> 本来也在这张表上，后来被移出来了。</strong>
+原来的理由是&quot;引擎自己会回滚坏版本&quot; —— 确实会，但那只覆盖<strong>健康门失败</strong>的那种。
+而一个机主会拿起手机的场景不是那种：是<strong>装上了、过了健康门、然后表现得<em>更差</em></strong> ——
+走路更不稳的策略、不再重连的手柄。<strong>除了人，没有东西会回滚那个</strong> ——
+而那个人手里拿着手机，没有 ssh。</p>
+<p>所以两者都被放行了，但只移到<strong>已经在这块板子上跑过的</strong>版本，不下载任何东西。
+决定记在 <a href="project/update-over-ble.html"><code>project/update-over-ble.md</code></a> §2.4。</p>
+</blockquote>
+<h3 id="74-信令门控--操作者即机械师"><a class="header" href="#74-信令门控--操作者即机械师">7.4 &quot;信令门控 ≠ 操作者即机械师&quot;</a></h3>
+<p>这句话是 <code>robotd-primer.md</code> §3.5 提到的&quot;维护是独立命名空间&quot;的由来。这里它是<strong>两层正交的机制</strong>：</p>
+<pre><code class="language-text">   第 1 层：谁能连上？          session.rs 的 PIN 闸门
+                                （&quot;你是不是房间里那个人&quot;）
+
+   第 2 层：连上之后能做什么？   route.rs 的 permits 表
+                                （&quot;你是操作者，但你不是机械师&quot;）
+</code></pre>
+<p>被第 2 层隔开的，是那些**&quot;一次误操作不可逆、或者无法诊断&quot;**的东西：恢复出厂、固定更新、配对码、以及 <code>updaterd</code> 对 <code>robotd</code> 的内部提问。</p>
+<hr />
+<h2 id="8-会话一个订阅一个会话"><a class="header" href="#8-会话一个订阅一个会话">8. 会话：一个订阅，一个会话</a></h2>
+<p><code>btd</code> 只保留<strong>一个会话</strong> —— 一个重组缓冲、一个出站队列、一个授权状态。问题是它<strong>活多久</strong>。</p>
+<h3 id="81-那个决定它的-bug"><a class="header" href="#81-那个决定它的-bug">8.1 那个决定它的 bug</a></h3>
+<p>第一版答案是&quot;和服务一样久&quot;，理由看起来很合理：BlueZ 的回调模型<strong>不给订阅任何 peer 身份</strong>，而且每个特征<strong>只保留一个</strong> notify 状态，所以&quot;按 peer 分会话&quot;看起来是为一个不可能发生的情况造机器。</p>
+<p><strong>代价落在了<em>下一个</em>客户端身上</strong>，而且花了三个症状才看清：</p>
+<div class="table-wrapper"><table><thead><tr><th>症状</th><th>原因</th></tr></thead><tbody>
+<tr><td>一个请求有回应，紧接着下一个超时</td><td>出站接收端被第一个泵从共享槽里<strong>取走了</strong>，所以第二个订阅没有泵 —— 回复被写进了一个没人读的 channel</td></tr>
+<tr><td>收到 <code>&quot;:0,&quot;result&quot;:{&quot;authenticated&quot;:true}}</code> —— 缺了开头</td><td>那些孤儿块通过后来的通知者冒了出来</td></tr>
+<tr><td><code>no robot found</code>，然后同一个命令又能用了</td><td><strong>无关</strong>：客户端扫描在固定 sleep 后只取一次快照，广播有没有落进那个窗口全凭运气</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>只有第三个是客户端的 bug。前两个是同一个缺陷：状态活得比它所属的那个 peer 更久。</strong>
+在这个模型里&quot;断开&quot;是不可见的，所以没有任何东西会重置它。</p>
+</blockquote>
+<h3 id="82-现在的规则"><a class="header" href="#82-现在的规则">8.2 现在的规则</a></h3>
+<p>会话<strong>在客户端订阅时创建，在它离开时销毁</strong> —— 重组缓冲和队列跟着一起走。重连的手机<strong>从未认证状态开始</strong>。</p>
+<p>两个细节是承重的，而且<strong>两个一开始都是错的</strong>：</p>
+<ul>
+<li><strong>泵要同时等 <code>notifier.stopped()</code> 和队列。</strong> 只从&quot;通知失败&quot;里得知对方离开是不够的 —— 那需要一个回复要发。一个<strong>空闲时断开</strong>的客户端会一直占着槽位，直到有人为它发一个请求。</li>
+<li><strong>拆会话时只在槽里还是<em>自己</em>的 sender 时才清空。</strong> 向一个已经消失的客户端通知要花掉 BlueZ 放弃所需的时间 —— 而在这段时间里，重连的客户端<strong>可能已经装好了一个更新的会话</strong>，一个盲目的清空会把它杀掉。</li>
+</ul>
+<p>还有一条：<strong>没有活跃订阅时，写入是被拒绝的。</strong> 接受它是撒谎 —— <strong>没有地方可以送回复</strong>。</p>
+<h3 id="83-linkrs为什么不是-trait"><a class="header" href="#83-linkrs为什么不是-trait">8.3 <code>link.rs</code>：为什么不是 trait</a></h3>
+<p><code>link.rs</code> 只有 109 行，但它是 <code>btd</code> 能测试的<strong>全部原因</strong>。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Link {
+    pub inbound: mpsc::Receiver&lt;Vec&lt;u8&gt;&gt;,   // 蓝牙进来的字节
+    pub outbound: mpsc::Sender&lt;Vec&lt;u8&gt;&gt;,    // 要发回蓝牙的字节
+    mtu: Arc&lt;AtomicUsize&gt;,                  // 当前协商出来的 MTU
+    // ...
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;两条 channel，不是一个 trait&quot;是刻意的</strong>（设计文档 §6）：</p>
+<blockquote>
+<p>一个 <code>GattLink</code> trait 需要一个 async <code>recv</code> 和一个 async <code>send</code>，
+而会话循环要<strong>同时</strong>等这两个 —— 这意味着关联类型，或者在 <code>select!</code> 里跟借用检查器搏斗。
+一个持有两条 <code>mpsc</code> channel 的普通 struct 说的是同一件事，
+而测试只需要<strong>构造一个</strong>，不需要实现任何东西。</p>
+</blockquote>
+<p>所以：<strong>会话测试可以跑一条完整的 BLE 对话，用的却是真的 unix socket，完全不涉及蓝牙。</strong></p>
+<p>还有一个精妙之处：<code>mtu</code> 是 <code>Arc&lt;AtomicUsize&gt;</code> 而不是一个数字 —— 因为<strong>两端学到 MTU 的时机不同</strong>（BlueZ 只在入站 write 时上报 MTU，而会话开始时只知道 20 字节的下限）。共享 cell 让&quot;会话开始时按 20 字节算、第一次 write 之后按真实值算&quot;变成可能。</p>
+<p>还有一个编译期断言值得看（<code>link.rs:105</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const _: () = assert!(
+    QUEUE * 20 &gt;= duck_ble::framing::MAX_LINE,
+    &quot;QUEUE * 20 must be at least framing::MAX_LINE, or a full-length request can fill the \
+     inbound queue and be refused&quot;
+);
+<span class="boring">}</span></code></pre></pre>
+<p>它保证的是：<strong>队列必须深到让最大的入站行永远不必阻塞</strong>（20 是 BLE 保证的最小有效载荷）。</p>
+<p>但注释里真正的理由比&quot;容量不够&quot;深刻得多：</p>
+<blockquote>
+<p>这是无线电后端使用<strong>同步 <code>try_send</code></strong> 的原因 —— <strong>它不可以 await</strong>，
+因为&quot;收到一块&quot;和&quot;把它入队&quot;之间的一个让出点，会让<strong>两块交换顺序</strong>，
+而一块顺序错了的碎片<strong>会破坏一个请求，而不是让它失败</strong>。</p>
+</blockquote>
+<p>（还记得 <code>main.rs</code> 为什么单线程吗？同一个道理：<strong>乱序的碎片不会报错，它会拼成一个解析得通但内容错误的东西</strong>。）</p>
+<hr />
+<h2 id="9-lane为什么一条上游连接不够"><a class="header" href="#9-lane为什么一条上游连接不够">9. Lane：为什么一条上游连接不够</a></h2>
+<p><code>btd</code> 按需打开到 <code>updaterd</code>、<code>robotd</code>、<code>configd</code> 的 socket，并在会话期间保留它们。</p>
+<p><strong>它一开始每个服务只有一条连接。</strong> 问题在于：<strong>这三个 daemon 每一条连接一次只服务一个请求</strong> —— 读一行、等整个调用做完、再读下一行。</p>
+<p>于是每个调用都排在<strong>那条队列上最慢的东西</strong>后面。而 App 最先会写的两个顺序，正好都被它弄坏了：</p>
+<div class="table-wrapper"><table><thead><tr><th>客户端做的事</th><th>发生了什么</th></tr></thead><tbody>
+<tr><td><code>update.apply</code>，然后在它跑的时候问 <code>update.status</code></td><td>那行 status 在一条 <code>updaterd</code> <strong>几分钟都不会读</strong>的 socket 里等着。客户端<strong>什么都没听到就超时了</strong>，而机器人好好的，正在更新</td></tr>
+<tr><td><code>update.subscribe</code>，然后 <code>update.apply</code></td><td><strong>更糟。</strong> <code>stream_progress</code> 会一直占着它的连接直到对端消失，且从不读下一个请求 —— 所以那个 apply 被写进了一条<strong>没人读</strong>的 socket：它<strong>不会运行、不会回复、也不会报错</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>第二条是要记住的那条。机主点了&quot;更新&quot;，机器人<strong>什么也没做</strong>，
+而<strong>没有任何地方有错误可查</strong> —— 请求正躺在一个 socket 缓冲区里。</p>
+</blockquote>
+<h3 id="91-四条车道"><a class="header" href="#91-四条车道">9.1 四条车道</a></h3>
+<p>所以调用按**&quot;它占用连接多久&quot;**分组，每组一条自己的连接：</p>
+<div class="table-wrapper"><table><thead><tr><th>车道</th><th>占用</th><th>调用</th></tr></thead><tbody>
+<tr><td><code>Prompt</code></td><td>一次查询那么久</td><td><code>hello</code>、<code>update.status</code>/<code>log</code>/<code>listInstalled</code>、<code>robot.health</code>、<code>net.status</code>/<code>forget</code>、<code>system.*</code>、<code>pad.status</code>/<code>forget</code></td></tr>
+<tr><td><code>Slow</code></td><td>几秒 —— 网络或无线电扫描</td><td><code>update.check</code>、<code>net.scan</code></td></tr>
+<tr><td><code>Operation</code></td><td>想多久就多久，<strong>而且会改变机器人</strong></td><td><code>update.apply</code>/<code>rollback</code>/<code>select</code>、<code>net.connect</code>、<code>pad.pair</code></td></tr>
+<tr><td><code>Stream</code></td><td>永远，而且不回答任何东西</td><td><code>update.subscribe</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>每个服务每个会话最多 4 条 socket，实际通常是 2 条。</strong></p>
+<blockquote>
+<p>💡 注意 <code>update.check</code> <strong>故意不在 <code>Operation</code> 车道上</strong>：在一次更新进行中被问到的时候，
+它有一个立即的答案 —— 把它排队会把一个 <code>BUSY</code> 变成一个<strong>几分钟后才解开</strong>的转圈。</p>
+</blockquote>
+<p><strong>车道是在 <code>route.rs</code> 里决定的</strong>，紧挨着权限和服务 —— 这又是为了让穷尽匹配覆盖它：<strong>一个新的长调用不可能在没人做选择的情况下被加进来</strong>。</p>
+<blockquote>
+<p>📌 补充一个新手容易困惑的点：<strong><code>Lane</code> 这个类型本身定义在 <code>duck-ipc-proto</code> 里，不在 <code>btd</code> 里</strong>，
+因为&quot;这个调用要占多久&quot;是<strong>所有传输共享</strong>的知识（WebRTC 那边也要）。
+<code>btd</code> 独有的只是&quot;<strong>BLE 上准不准</strong>&quot;（<code>permits</code>）。</p>
+</blockquote>
+<hr />
+<h2 id="10-分片与-mtu小包里的大学问"><a class="header" href="#10-分片与-mtu小包里的大学问">10. 分片与 MTU：小包里的大学问</a></h2>
+<p>BLE 一次能发的数据很小，所以一条 JSON 消息必须切成很多块。这块知识集中在 <code>duck-ble/framing.rs</code>，<strong>机器人和客户端共用同一份代码</strong>。</p>
+<h3 id="101-没有长度头"><a class="header" href="#101-没有长度头">10.1 没有长度头</a></h3>
+<pre><code class="language-text">   发送方：  {&quot;jsonrpc&quot;:&quot;2.0&quot;,...}\n   ← 就是普通 NDJSON
+   切块：    [前20字节][接着20字节][...]
+   接收方：  拼到看见 \n 为止
+</code></pre>
+<p><strong>帧分隔符就是 NDJSON 本来就有的那个换行</strong>，两个方向都是。这是<strong>安全</strong>的而不是<strong>运气好</strong>：</p>
+<blockquote>
+<p><code>serde_json</code> 会把字符串里的换行转义成 <code>\n</code>，所以<strong>原始 <code>0x0A</code> 永远不会出现在一个序列化好的 JSON 对象里</strong>
+—— 这正是 NDJSON 能在 unix socket 上工作的同一个性质。</p>
+</blockquote>
+<p>如果加一个长度前缀，那就是一个<strong>只有 BLE 说的第二方言</strong>，每个客户端都得实现它。现在手机只要做 <code>robotctl</code> 做的事：写字节，读到换行。</p>
+<h3 id="102-三个数字各有各的理由"><a class="header" href="#102-三个数字各有各的理由">10.2 三个数字，各有各的理由</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub const MAX_LINE: usize = 8 * 1024;        // 我们能重组的最大入站行
+pub const MAX_REPLY_LINE: usize = 64 * 1024; // 客户端会重组的最大行
+pub const FLOOR_MTU: usize = 20;             // 任何 BLE 链路都保证支持的
+pub const MAX_ATTRIBUTE_VALUE: usize = 512;  // 来自核心规范，不是 MTU
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>MAX_LINE</code> 是安全边界。</strong> 一个从不下换行的 BLE 客户端会让缓冲区无限增长 —— <strong>而它在无线电范围内的任何人都够得着</strong>。8 KiB 对任何真实请求都很宽松，又远低于 <code>updaterd</code> 自己的 1 MiB 上限。</p>
+<p><strong><code>MAX_REPLY_LINE</code> 是另一个数字，而且必须是。</strong> 注释里记录了一次真实故障：</p>
+<blockquote>
+<p>复用那个紧的（8 KiB）让<strong>每一条超过 8 KiB 的回复都读不出来</strong> ——
+这悄悄地把 <code>update.show</code>（一次普通运行就有几千字节）和 <code>system.logs</code>（一屏 journal）
+从 <code>duckctl</code> 手里拿走了，而 <code>btd</code> 把两者都服务得好好的。</p>
+</blockquote>
+<p>一句话：<strong><code>MAX_LINE</code> 限制的是对端，<code>MAX_REPLY_LINE</code> 限制的是你选择去连接、并且已经信任的机器人。</strong> 这两者不一样大。</p>
+<h3 id="103-那个丢掉两个字节的-bug"><a class="header" href="#103-那个丢掉两个字节的-bug">10.3 那个丢掉两个字节的 bug</a></h3>
+<p><code>notification_payload(mtu)</code> 计算一次通知能带多少字节：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>usize::from(mtu).saturating_sub(3).clamp(FLOOR_MTU, MAX_ATTRIBUTE_VALUE)
+<span class="boring">}</span></code></pre></pre>
+<p>为什么不是简单的 <code>mtu - 3</code>？因为那个算术<strong>不够</strong>：</p>
+<blockquote>
+<p>对一个 CoreBluetooth 协商出来的 517 字节 MTU，<code>mtu - 3</code> 得到 514 ——
+而<strong>交给 central 一个 514 字节的值，它会保留前 512 个字节，丢掉剩下的</strong>。
+<strong>而且是静默地</strong> —— 两边都不报错。</p>
+</blockquote>
+<p>后果长这样：</p>
+<pre><code class="language-json">   机器人发的：  {&quot;security&quot;:&quot;wpa_psk&quot;}
+   客户端收到：  {&quot;serity&quot;:&quot;wpa_psk&quot;}     ← 中间少了两个字节
+</code></pre>
+<blockquote>
+<p>更糟的是当丢掉的那一对里正好包含换行 —— 那一行就<strong>永远不会完整</strong>，
+调用会一直等到预算耗尽，而机器人<strong>早就回答过了</strong>。</p>
+<p>单块的回复（<code>net.status</code>、<code>system.info</code>、<code>hello</code>）全程正常，
+这正是让这个 bug **看起来像&quot;那几个大方法有问题&quot;而不是&quot;每个边界都有问题&quot;**的原因。</p>
+</blockquote>
+<h3 id="104-手机改变了问题的规模"><a class="header" href="#104-手机改变了问题的规模">10.4 手机改变了问题的规模</a></h3>
+<p>一个很漂亮的实测结果：</p>
+<div class="table-wrapper"><table><thead><tr><th>客户端</th><th>协商出的 MTU</th><th>一次通知能带</th></tr></thead><tbody>
+<tr><td>Mac</td><td>（按 20 字节下限起步）</td><td>20 字节</td></tr>
+<tr><td><strong>iPhone 17 / iOS 26</strong></td><td><strong>515</strong></td><td><strong>512 字节</strong></td></tr>
+</tbody></table>
+</div>
+<p>同一个 5 KiB 的 journal 尾巴：Mac 上要 <strong>≈265 次</strong>通知、1.83 秒；手机上大约 <strong>11 次</strong>。</p>
+<blockquote>
+<p>设计文档原话：这是 <strong><code>system.logs</code> 能不能作为一个 App 敢提供的方法</strong> 的区别。</p>
+</blockquote>
+<p>而发送侧为了应付这个，做了三件事（都不是真正的解法，因为那个模型没有&quot;可以发了&quot;的信号）：</p>
+<ul>
+<li><strong>载荷大小从写侧来</strong> —— 每次入站 write 都带着协商好的 MTU，而且 <code>system.authenticate</code> 总是会话的第一次写，所以会话从下限起步、从第一次回复起就按真实大小发。</li>
+<li><strong>每 16 块暂停一下</strong>（约一个连接间隔）。小回复永远不暂停。</li>
+<li><strong>被拒绝的块会重试</strong>，而不是当成断开。</li>
+</ul>
+<hr />
+<h2 id="11-广播机器人怎么被找到"><a class="header" href="#11-广播机器人怎么被找到">11. 广播：机器人怎么被找到</a></h2>
+<h3 id="111-那个听不见的机器人"><a class="header" href="#111-那个听不见的机器人">11.1 那个&quot;听不见&quot;的机器人</a></h3>
+<p><code>duckctl</code> 大约一半的运行报 <code>no robot found</code>，有一阵被当成工具的抽风，或者当成手柄（它的 LE 链路共用天线）。<strong>都不是。</strong></p>
+<p><code>btd</code> 注册广播时没给间隔，于是 BlueZ 用了内核默认的 <strong>1.28 秒</strong>。从一个 Mac 连续扫描两分钟，数每个设备到达几次：</p>
+<div class="table-wrapper"><table><thead><tr><th>设备</th><th>信号</th><th>120 秒内到达</th></tr></thead><tbody>
+<tr><td>智能插座</td><td>−66 dBm</td><td>130</td></tr>
+<tr><td>信标</td><td>−91 dBm</td><td>159</td></tr>
+<tr><td><strong>机器人</strong></td><td><strong>−36 dBm</strong></td><td><strong>16</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>机器人是房间里信号最强的，却比里面任何东西都少被听到一个数量级</strong> ——
+所以距离、干扰和客户端都被<strong>排除</strong>了，而不是被争论掉。</p>
+<p>它平均每 7.5 秒出现一次，静默期有 9、14、17 秒，有一次 <strong>31 秒</strong>；
+那些大间隔接近于 1.28 秒的整数倍 —— 这正是从到达时间反推出间隔的办法。
+<strong>一次落在静默期里的 8 秒扫描，什么都找不到。</strong></p>
+</blockquote>
+<p>改成 <strong>100–150 毫秒</strong>（普通外设的量级，不是规范允许的 20ms —— 一根天线还要扛手柄的 LE 链路和 wifi）之后：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>120 秒到达</th><th>平均间隔</th><th>最长静默</th><th>≥8 秒的静默</th></tr></thead><tbody>
+<tr><td>1.28 秒（默认）</td><td>16</td><td>7.5 s</td><td>30.8 s</td><td>7</td></tr>
+<tr><td><strong>100–150 ms</strong></td><td><strong>151</strong></td><td><strong>0.8 s</strong></td><td><strong>3.8 s</strong></td><td><strong>0</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>九倍的频率，而且 —— 真正重要的那部分 —— <strong>没有任何一次静默接近 <code>duckctl</code> 那个 8 秒窗口的两倍以内</strong>，
+所以当初诊断出的那个故障<strong>不可能再发生</strong>。机器人从 106 个设备里的第 34 名变成 74 个里的第 7 名。</p>
+</blockquote>
+<h3 id="112-广播里装了什么"><a class="header" href="#112-广播里装了什么">11.2 广播里装了什么</a></h3>
+<pre><code class="language-text">   ┌──────────────────────────────────────────────────────┐
+   │  传统广播（legacy advertisement）一共只有 31 字节     │
+   ├──────────────────────────────────────────────────────┤
+   │  flags                    3 字节                     │
+   │  128 位服务 UUID          18 字节  ← 客户端认它      │
+   │  厂商数据（IPv4 地址）     8 字节  ← 4 字节载荷       │
+   │                          ─────                       │
+   │  已经 29 字节了，只剩 2 字节                          │
+   └──────────────────────────────────────────────────────┘
+   名字装不下 → 它走&quot;扫描响应&quot;（scan response），那里另有 31 字节
+</code></pre>
+<p><strong>IP 地址为什么在广播里？</strong> 因为 <code>duckctl scan</code> <strong>故意不连接任何东西</strong> —— 这正是它在机器人连不上时该被想起来的原因，也意味着一个列表<strong>只能报告广播里带着的东西</strong>。而列表最常被用来回答的问题就是&quot;我该 ssh 到哪&quot;。</p>
+<p>四个字节放在公司 ID <code>0xFFFF</code> 下（蓝牙 SIG 留给内部/互操作测试的 ID，对一个还没被分配的项​​目来说是正确选择）。</p>
+<blockquote>
+<p>⚠️ <strong>那个字段不是身份验证。</strong> 任何人都可以用 <code>0xFFFF</code>。
+它只从一个<strong>同时也广播了服务 UUID</strong> 的设备上被读取 —— <strong>UUID 才是判别依据</strong>。</p>
+</blockquote>
+<p><strong>没有地址的机器人广播 <code>0.0.0.0</code>，而不是把这个字段丢掉。</strong> 于是列表能区分<strong>三种</strong>状态：有地址、没有网络、以及<strong>一个来自这个功能之前版本的机器人</strong>（根本不广播这个字段）。把后两者混为一谈，会让读的人去检查一台其实需要更新的机器人的 wifi。</p>
+<blockquote>
+<p><strong>SSID 不在这里，而且不可能在。</strong> 一个 SSID 自己就长达 32 字节，而预算只剩 6 字节。</p>
+</blockquote>
+<h3 id="113-机器人叫什么"><a class="header" href="#113-机器人叫什么">11.3 机器人叫什么</a></h3>
+<p><strong>身份来自 SoC 序列号</strong>（<code>/proc/device-tree/serial-number</code>）。它烧在芯片里、由 bootloader 交出，所以<strong>刷机后还在、换掉无线电模块后还在、而且不需要任何 provisioning 步骤</strong>。</p>
+<p>默认名字是 <strong><code>duck-</code> 加上序列号 SHA-256 的四个十六进制字符</strong>：<code>duck-c51b</code>。</p>
+<blockquote>
+<p>用哈希而不是切片，因为<strong>没有任何东西保证芯片 ID 的哪一部分在芯片之间会变化</strong>。
+用 SHA-256 而不是 Rust 标准库的 hasher —— 后者的输出<strong>跨 Rust 版本不稳定</strong>，
+一次工具链升级会把现场每一台机器人改名，而<strong>没有人会把这两件事联系起来</strong>。</p>
+</blockquote>
+<p>四个十六进制字符是 65536 种可能，所以一个房间里的三台机器人<strong>大约两万二千次里撞一次</strong>。这是一个<strong>用来区分</strong>的默认名，<strong>不是唯一键</strong>。</p>
+<h4 id="-一台机器人有两个名字而且两个都要设"><a class="header" href="#-一台机器人有两个名字而且两个都要设">⚠️ 一台机器人有<strong>两个</strong>名字，而且两个都要设</a></h4>
+<p>这是踩过的坑，值得单独记住：</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>从哪来</th><th>谁知道它</th></tr></thead><tbody>
+<tr><td><strong>Local Name</strong></td><td>广播里</td><td>扫描的人</td></tr>
+<tr><td><strong>GAP Device Name</strong>（特征 <code>0x2A00</code>）</td><td>BlueZ 取 <code>Adapter.Alias</code>，默认是主机名</td><td><strong>连上之后读它的人</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>只设第一个的后果：一台改过名的机器人<strong>广播 <code>duck-c51b</code></strong>，
+却对<strong>任何读那个特征的人回答 <code>radxa-zero3</code></strong> —— 而<strong>读它正是 central 连接之后做的第一件事</strong>。</p>
+<p>BlueZ 随后会用这个答案<strong>覆盖</strong>广播里的名字，于是在 Linux 上机器人
+<strong>第一次接触前叫 <code>duck-c51b</code>，接触之后叫 <code>radxa-zero3</code></strong>，而 <code>--name duck-c51b</code> 就找不到它了。
+CoreBluetooth 两个都留着，报成 <code>radxa-zero3 [duck-c51b]</code>。</p>
+<p>而<strong>手机的蓝牙设置页显示的是 GAP 名字</strong> —— 这才是最要紧的那个场景，也是这个仓库里<strong>没有一个工具能看见</strong>的那个。</p>
+</blockquote>
+<p>所以 <code>advertise()</code> 会<strong>同时</strong>设别名，<strong>每一条发布名字的路径都发布两个</strong>。</p>
+<h4 id="为什么是每几秒对一次而不是改名时立刻更新"><a class="header" href="#为什么是每几秒对一次而不是改名时立刻更新">为什么是&quot;每几秒对一次&quot;，而不是&quot;改名时立刻更新&quot;</a></h4>
+<p><code>btd</code> <strong>转发 <code>system.setName</code> 时并不读它的回复</strong>（解释回复是它刻意避免的事），所以&quot;刚转发完就去问一次&quot;会和它刚转发的那次写入<strong>抢跑</strong>。</p>
+<p>轮询的零件更少，而且覆盖了<strong>通过 <code>robotctl</code> 改的名</strong> —— 那种改动<strong>根本不经过 <code>btd</code></strong>。</p>
+<blockquote>
+<p><code>configd</code> 够不着时退回主机名：<strong><code>btd</code> 在恢复路径上，必须在机器人的其余部分还没起来的时候就能起来。</strong></p>
+</blockquote>
+<h3 id="114-一个连接着的机器人仍然找得到"><a class="header" href="#114-一个连接着的机器人仍然找得到">11.4 一个连接着的机器人仍然找得到</a></h3>
+<p>有个机器人一旦手机 App 连上，就<strong>从 <code>duckctl scan</code> 里彻底消失了</strong> —— 不在别的名字下、也不在&quot;没有服务&quot;的形态下，就是<strong>不见</strong>。</p>
+<p>两个机制叠在一起，只有第一个是显然的：</p>
+<ul>
+<li><strong>一个连接会停掉产生它的那个广播集。</strong> 这是规范，而 BlueZ 和内核都不会把它放回去，直到链路断开。</li>
+<li><strong>当一个外设角色的连接打开时，Linux 根本不会启用可连接的广播集</strong> —— 除非控制器说它可以。</li>
+</ul>
+<p>实测（手机连着的时候注册）：</p>
+<div class="table-wrapper"><table><thead><tr><th>在手机连接期间注册</th><th>到空气里了吗？</th></tr></thead><tbody>
+<tr><td><strong>不可连接</strong>，带着鸭子服务 UUID</td><td><strong>到了</strong> —— 8 秒后被一台笔记本扫到</td></tr>
+<tr><td>可连接，同样的载荷</td><td>没有 —— BlueZ 注册了，扫描从没见过它</td></tr>
+</tbody></table>
+</div>
+<p><strong>所以 <code>btd</code> 在会话活跃时广播一个&quot;广播式&quot;（broadcast）通告，否则广播一个可连接的通告。</strong> 载荷不变（同样的名字、同样的 UUID、同样的四字节 IP），所以扫描能找到机器人，<code>duckctl ip</code>、<code>ssh</code>、<code>scp</code>、<code>open</code> 在 App 占着链路时全都能用。</p>
+<blockquote>
+<p><strong>这不仅是唯一可行的说法，也是唯一真实的说法。</strong>
+<code>bluer</code> 每个特征只保留一个通知状态（§8.1），所以<strong>第二个 central 不会得到第二个会话，它会<em>替换</em>第一个</strong>
+—— 一个可连接的广播是在邀请一件这个 daemon <strong>无法兑现</strong>的事，
+而接受邀请的那个客户端就<strong>破坏了别人正在用的会话</strong>。</p>
+</blockquote>
+<p>代价：地址会变（内核要求不可连接集必须用隐私地址），所以一个忙碌的机器人对扫描器来说是<strong>另一个外设身份</strong> —— 靠<strong>名字和服务 UUID</strong> 匹配，不靠地址。</p>
+<hr />
+<h2 id="12-配对与-pin"><a class="header" href="#12-配对与-pin">12. 配对与 PIN</a></h2>
+<h3 id="121-为什么不能用印在机器人上的-pin-做蓝牙配对"><a class="header" href="#121-为什么不能用印在机器人上的-pin-做蓝牙配对">12.1 为什么不能用印在机器人上的 PIN 做蓝牙配对</a></h3>
+<p>原本的设计是：让机器人用存储的 PIN 回答 BlueZ 的 passkey 请求。<strong>在真机上，macOS 显示了它自己的随机六位码，然后等有人把它输进机器人。</strong></p>
+<p>原因是规范强制的：</p>
+<blockquote>
+<p>在 LE passkey entry 里，一方<strong>显示</strong> passkey，另一方<strong>输入</strong>它 —— 而角色由各自声明的 IO 能力决定。
+实现 <code>request_passkey</code> 等于声明&quot;本设备能输入&quot;，所以 macOS 就拿了显示的角色。
+<strong>一个没有键盘的机器人填不了那个角色。</strong></p>
+</blockquote>
+<p>反过来也一样糟：用 <code>DisplayPasskey</code> 机器人拿了显示角色，但<strong>规范规定显示方要随机生成 passkey</strong> —— BlueZ 选一个交给 agent，<strong>没有任何办法让它呈现一个我们存着的值</strong>；何况一个无头机器人也没有东西可以显示。</p>
+<p><strong>所以&quot;印在机器人上的固定 PIN&quot;在 BLE passkey entry 里是无法表达的。</strong> 剩下三个选项，选了第三个：</p>
+<div class="table-wrapper"><table><thead><tr><th>方案</th><th></th></tr></thead><tbody>
+<tr><td>只做 just-works</td><td>加密、未认证、无 PIN。安全性 = 物理在场。大多数无头 BLE 设备就是这样</td></tr>
+<tr><td>带外（二维码）</td><td>真正认证、真正每台不同。但 BlueZ 的 OOB 支持很薄，也没有手机 App 能驱动它</td></tr>
+<tr><td><strong>just-works + 应用层 PIN</strong></td><td><strong>选了这个。</strong> 为加密而配对；PIN 在会话里检查，<strong>规则由我们定</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="122-现在的样子"><a class="header" href="#122-现在的样子">12.2 现在的样子</a></h3>
+<pre><code class="language-text">   ① 蓝牙配对：just-works（每个 agent 处理器都是 None → NoInputNoOutput）
+   ② 特征的 read 要求加密链路 → 这才让 central 去配对
+   ③ 然后 btd 什么都不服务，直到客户端发 system.authenticate
+</code></pre>
+<p>第 ② 步用的是<strong>普通加密</strong>（<code>encrypt_read</code>）而不是 <code>encrypt_authenticated_*</code> —— 因为 just-works 的绑定<strong>永远无法满足</strong>认证变体，要求它等于拒绝每一个客户端。</p>
+<blockquote>
+<p>💡 顺带解释一个刚看代码时会疑惑的点：<strong>为什么&quot;必须先配对&quot;要靠那个 read 来实现？</strong>
+因为 BLE 的特征属性里，<strong>notify 根本没有加密标志</strong>（<code>CharacteristicNotify</code> 没有这个字段），
+只有 read 和 write 有。所以&quot;让 central 去配对&quot;这件事<strong>只能挂在 read 上</strong> ——
+一个未配对的客户端读它会收到&quot;认证不足&quot;，从而当场发起配对；订阅做不到这件事。</p>
+</blockquote>
+<p><code>pairing.rs</code> 只有 192 行、<strong>只做一件事</strong>：<code>pin()</code> 通过 unix socket 问 <code>configd</code> 要当前的 PIN。</p>
+<p>两个细节：</p>
+<ul>
+<li><strong>超时 3 秒</strong>（<code>PIN_TIMEOUT</code>）—— 因为此刻 BlueZ <strong>正挂着一个配对交换</strong>，手机在转圈，不能等太久。</li>
+<li><strong>PIN 从不进日志</strong>，而且<strong>不能从 SoC 序列号派生</strong> —— 因为那个身份是<strong>广播出去的</strong>，任何由它算出来的东西都是公开的。</li>
+</ul>
+<h3 id="123--而现在加密是关掉的"><a class="header" href="#123--而现在加密是关掉的">12.3 ⚠️ 而现在加密是关掉的</a></h3>
+<p><strong>这是全仓库最需要注意的一处未完成状态。</strong> 设计文档 §5.5 写得很直白：</p>
+<blockquote>
+<p>特征上的 <code>encrypt_read</code> 让 <strong>macOS 上的读挂住</strong>：CoreBluetooth 发出 Read Request，
+BlueZ 因为加密不足拒绝它，然后<strong>什么都不解决</strong> —— 没有提示、没有错误、没有重试。
+客户端对着一个好好的机器人等它超时。</p>
+<p>所以 <code>btd</code> 目前在测试板上以&quot;不要求配对&quot;运行，<strong>而 PIN 走的是未加密的链路</strong>。</p>
+</blockquote>
+<p>于是 <code>--require-pairing</code> <strong>默认是关的</strong>，而且理由被说清楚了：</p>
+<blockquote>
+<p>先试过另一个方案并否掉了：<strong>要求配对作为默认值，会让新装好的机器人安全但完全不可用</strong> ——
+每个客户端都会卡在版本读上。
+<strong>没有任何东西被一台没人能对话的机器人保护。</strong></p>
+<p>代价是明说而不是含糊过去的：<strong>每一台这样运行的机器人，其 wifi 凭据和 PIN 都是路人可读的。</strong></p>
+</blockquote>
+<p>所以 <code>btd</code> <strong>每次启动都打一条 warning 点名这件事</strong>，让这个选择保持可见，而不是变成&quot;没人记得的那件事&quot;。</p>
+<p><strong>这必须在任何一台机器人交到任何人手上之前关掉。</strong> 这是设计文档 §8.1 的阻塞项。</p>
+<blockquote>
+<p>💡 一个值得知道的对照：参考实现 <code>reachy_mini</code> <strong>根本不用链路层加密</strong>。
+它声明特征时只写 <code>[&quot;write&quot;]</code> 和 <code>[&quot;read&quot;,&quot;notify&quot;]</code>，不带任何加密标志 ——
+所以它在 iOS 上就是能工作，因为<strong>手机从来没被要求加密任何东西</strong>。
+他们在应用层自己加密，把设备 PIN 混进密钥派生。
+我们这边结论是&quot;修链路层&quot;，他们那边是&quot;别再向链路层要机密性，把真正重要的那个秘密封起来&quot;。
+设计文档 §8.1 现在把两者都列为候选方案。</p>
+</blockquote>
+<h3 id="124-工厂-pin-是-000000而且在这个仓库里是公开的"><a class="header" href="#124-工厂-pin-是-000000而且在这个仓库里是公开的">12.4 工厂 PIN 是 <code>000000</code>，而且在这个仓库里是公开的</a></h3>
+<p>所以在开箱状态下，<strong>这整套东西只证明物理在场，仅此而已</strong>。</p>
+<blockquote>
+<p>安全性<strong>完全</strong>依赖于 PIN 是每台不同的 —— 这让它成为一个 <strong>provisioning 义务</strong>：
+必须有东西去生成它、打印它、并记录打印了什么。</p>
+</blockquote>
+<p><code>btd</code> 在每次用默认 PIN 认证时都会打一条 warning。<code>robotctl system set-pin</code> 设的值<strong>必须正好是六位 ASCII 数字</strong>，而且 <code>configd</code> 会告诉调用者它是不是还是默认值。</p>
+<hr />
+<h2 id="13-合唱只管无线电"><a class="header" href="#13-合唱只管无线电">13. 合唱：只管无线电</a></h2>
+<p><code>chorale.rs</code> 的存在理由可以一句话说完（模块头原文）：<strong><code>btd</code> 不持有任何合唱状态、不做任何合唱决策。</strong> 它只<strong>广播被交付的字节</strong>、<strong>上报听到的字节</strong>。</p>
+<pre><code class="language-text">   robotd（行为：谁指挥、唱哪个声部、什么时候开始）
+        │
+        │  chorale.beaconSet  ↓          ↑  chorale.heard
+        ▼
+      btd（只是无线电）
+        │
+        │  第二个广播实例，20–40 ms 一次
+        ▼
+      空气 ──▸ 别的鸭子
+</code></pre>
+<p>三个值得看的点：</p>
+<p><strong>广播用第二个实例，而且必须不可连接。</strong> 可连接的实例在手机连着的时候<strong>拒绝重新广播</strong>。而且<strong>按需注册</strong> —— 因为控制器交错广播实例会把<strong>第一个的速率减半</strong>。</p>
+<p><strong>监听优先用 BlueZ 的 advertisement monitor</strong>（控制器内部匹配），拿不到才退回 <code>discover()</code> —— 而后者<strong>必须带 <code>duplicate_data: true</code></strong>，否则只有第一次广播可见。</p>
+<p><strong>发的是&quot;年龄&quot;不是时间戳</strong>：两个进程没有共享的 epoch，所以 <code>chorale.heard</code> 带的是 <code>age_us</code>。</p>
+<p><strong>信标里的 <code>id</code> 故意是 16 位</strong>：一个字节在四只鸭子的房间里<strong>第一天就会撞</strong>，导致<strong>丢掉指挥的信标</strong>。</p>
+<hr />
+<h2 id="14-部署与权限"><a class="header" href="#14-部署与权限">14. 部署与权限</a></h2>
+<h3 id="141-一个反常的事实btd-不跑-rootconfigd-跑"><a class="header" href="#141-一个反常的事实btd-不跑-rootconfigd-跑">14.1 一个反常的事实：<code>btd</code> 不跑 root，<code>configd</code> 跑</a></h3>
+<p>看起来搞反了。设计文档 §4.1 解释了：</p>
+<blockquote>
+<p><strong><code>btd</code> 才是那个解析&quot;无线电范围内任何人发来的字节&quot;的进程。</strong>
+<code>configd</code> 只见到从一条有 peer 凭据的本地 socket 上来的、已经成型的 JSON。
+<strong>把解析器放在这条边界的安全一侧，比加固那个分发器更重要。</strong></p>
+</blockquote>
+<h3 id="142-btdservice-的关键配置"><a class="header" href="#142-btdservice-的关键配置">14.2 <code>btd.service</code> 的关键配置</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>配置</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>After=dbus.service bluetooth.service</code> + <code>Wants=bluetooth.service</code></td><td><code>bluetoothd</code> 是硬需求，但用 <code>Wants</code> 而不是 <code>Requires</code>：bluetoothd 慢或重启时，<code>btd</code> <strong>等并重试</strong>，而不是失败</td></tr>
+<tr><td><code>After=local-fs.target</code>，<strong>无网络依赖</strong></td><td><strong>BLE 正是&quot;网络不工作时必须能工作&quot;的那条传输</strong></td></tr>
+<tr><td><code>User=btd</code> / <code>Group=btd</code> / <code>SupplementaryGroups=robot bluetooth</code></td><td><code>robot</code> 让它穿过 0660 的 socket；<code>bluetooth</code> 让它够到 BlueZ 的 D-Bus 策略</td></tr>
+<tr><td><code>Restart=always</code> / <code>RestartSec=5s</code></td><td></td></tr>
+<tr><td><code>RuntimeDirectory=btd</code></td><td>得到 <code>/run/btd/identity.json</code>，<code>robotctl health</code> 和 updaterd 的启动检查会读它</td></tr>
+<tr><td><code>RestrictAddressFamilies=AF_UNIX</code></td><td><strong>只允许 unix socket</strong> —— 它不需要别的</td></tr>
+<tr><td><code>CapabilityBoundingSet=</code>（空）</td><td>一个能力都不给</td></tr>
+<tr><td><code>ProtectSystem=strict</code> 等一整套</td><td>比 <code>robotd</code> 能做的严格得多，因为<strong>这个进程没有硬件要够</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="143-启动要等-73-秒"><a class="header" href="#143-启动要等-73-秒">14.3 启动要等 ~73 秒</a></h3>
+<blockquote>
+<p>在 Radxa 上，<code>hci0</code> 在开机后约 <strong>73 秒</strong>才存在：<code>aic-bluetooth.service</code> 晚挂上 AIC8800 的 UART，
+而 <code>bluetooth.service</code> 自己又在 <code>dbus</code> 后面堵了约 26 秒。
+<strong>所以排在 <code>bluetooth.service</code> 后面是必要的，但远远不够</strong> —— 真正让启动能用的是那个重试循环（<code>ADAPTER_RETRY = 5s</code>）。</p>
+</blockquote>
+<p>设计文档给手机 App 的提醒很实在：<strong>一个围绕&quot;即时发现&quot;设计的 App 会失望。</strong></p>
+<h3 id="144-权限是两层的"><a class="header" href="#144-权限是两层的">14.4 权限是两层的</a></h3>
+<pre><code class="language-text">   第 1 层：socket 模式 0660 + robot 组     → 谁可以&quot;连上并说话&quot;
+   第 2 层：allow_users / --allow-user     → 谁可以发&quot;会改变东西&quot;的调用
+</code></pre>
+<p><strong>只读调用完全跳过第 2 层</strong> —— 这样 support 可以检查一台它无权修改的机器人。</p>
+<p><strong>按名字授予，绝不按 uid</strong>：<code>systemd-sysusers</code> 动态分配，所以写进发布配置里的数字<strong>写在为它准备的那块板子上是对的，下一块就错了</strong>。</p>
+<blockquote>
+<p>⚠️ <strong><code>SO_PEERCRED</code> 只报告对端的<em>主</em> gid</strong> —— 这是这里的陷阱：
+<code>SupplementaryGroups=</code> 能让你通过 socket 模式，但<strong>到此为止</strong>。
+没注意到这一点，就是&quot;每一个会改变东西的调用经 BLE 过来都返回 <code>PERMISSION_DENIED</code>，
+而所有只读的都正常工作&quot;的原因 —— <strong>最糟的一种 bug 形状，因为它读起来像一个谜，而不是一个配置错误。</strong></p>
+</blockquote>
+<h3 id="145-btd-故意不在更新后重启的名单里"><a class="header" href="#145-btd-故意不在更新后重启的名单里">14.5 <code>btd</code> 故意不在&quot;更新后重启&quot;的名单里</a></h3>
+<p>因为它<strong>可能就是那个更新请求本身走的传输</strong>：重启它会丢掉承载 <code>update.subscribe</code> 的连接，而<strong>发起更新的手机永远不知道结果</strong>。</p>
+<p>代价是有界的：这个排除在回复上线之后就到期了，所以引擎会在 5 秒后重启 <code>btd</code>。</p>
+<hr />
+<h2 id="15-测试不能有无线电"><a class="header" href="#15-测试不能有无线电">15. 测试：不能有无线电</a></h2>
+<p><code>btd</code> 有 <strong>45 个测试</strong>，全部在笔记本上跑，<strong>没有硬件、没有网络、没有 D-Bus、没有 Docker</strong>。</p>
+<p>两个接缝让这件事成立：</p>
+<ul>
+<li><strong><code>configd</code> 的 wifi 是一个 trait</strong>，带内存里的假实现（就像 <code>duck-control</code> 有 <code>RobotIo</code>）。</li>
+<li><strong><code>btd</code> 的无线电是两条 channel，不是一个 trait</strong>（§8.3）。</li>
+</ul>
+<p>所以会话测试<strong>用真的 unix socket 驱动一段完整的 BLE 对话</strong>：一个被拒绝的调用永远到不了 daemon、<code>robot.*</code> 路由到 <code>robotd</code> 而不是 <code>updaterd</code>、订阅流的每一个通知都穿过一个 23 字节的 MTU 到达。</p>
+<p>测试分布也说明了重心在哪：</p>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th style="text-align: right">测试数</th><th>因为</th></tr></thead><tbody>
+<tr><td><code>route.rs</code></td><td style="text-align: right"><strong>18</strong></td><td>路由表<strong>就是</strong>安全边界</td></tr>
+<tr><td><code>session.rs</code></td><td style="text-align: right">14</td><td>协议行为</td></tr>
+<tr><td><code>chorale.rs</code></td><td style="text-align: right">5</td><td>信标编解码</td></tr>
+<tr><td><code>pairing.rs</code></td><td style="text-align: right">4</td><td></td></tr>
+<tr><td><code>upstream.rs</code></td><td style="text-align: right">4</td><td></td></tr>
+</tbody></table>
+</div>
+<p>测试的名字本身就是一份规格说明，值得一读：</p>
+<pre><code class="language-text">   only_these_mutating_calls_are_reachable_over_ble
+   the_pairing_pin_is_not_reachable_over_ble
+   teleop_stays_off_the_radio
+   a_phone_can_recover_a_robot_but_not_drop_it
+   a_pin_with_leading_zeros_is_the_right_passkey
+   nothing_else_travels_on_the_stream_lane
+   the_calls_that_take_their_time_are_off_the_prompt_lane
+   everything_permitted_is_deliverable
+   nothing_refused_is_deliverable
+   a_beacon_survives_the_advertisement
+   the_address_instance_is_not_heard_as_a_beat
+   the_scan_pattern_matches_what_is_broadcast
+   somebody_elses_payload_is_not_a_beacon
+   the_beacon_is_faster_than_the_front_door
+</code></pre>
+<blockquote>
+<p><code>the_address_instance_is_not_heard_as_a_beat</code> 尤其能说明这个仓库的风格：
+广播的<strong>地址实例</strong>（不可连接的、带 IP 的那个）不能被误听成合唱的一拍。</p>
+</blockquote>
+<p><strong><code>duckctl</code>（<code>cargo run -p duckctl</code>）是手机的替身</strong>，也是唯一能真正驱动无线电的办法。</p>
+<p>它<strong>曾经是 <code>btd</code> 的一个 example</strong>，现在<strong>是一个独立的 crate</strong>（有自己的 binary，<code>advwatch</code> 才是它的 example）。
+这个搬家的意义在于：<strong>保证 <code>btleplug</code>（客户端的蓝牙库）永远不进到机器人上</strong>。
+以前那个保证是&quot;example 的依赖是 dev-dependency&quot;这个<strong>副作用</strong>得来的；现在它有两种更直接的说法：</p>
+<blockquote>
+<p><strong>机器人上没有任何东西依赖 <code>duckctl</code></strong>，而且它被<strong>排除在 workspace 的 <code>default-members</code> 之外</strong> ——
+那正是让它不上板子的东西：<code>cargo board --bins</code> 会为 aarch64 构建每一个默认成员，而这是给开发者坐的那台机器用的工具。</p>
+</blockquote>
+<p>它复用 <code>duck_ble::framing</code> —— 所以分片这件事是<strong>客户端那一半的真代码</strong>，而不是一份可以跟自己达成一致的重写。</p>
+<h3 id="151-什么没有被测"><a class="header" href="#151-什么没有被测">15.1 什么没有被测</a></h3>
+<p>设计文档直说了，值得抄下来：</p>
+<ul>
+<li>两个服务<strong>都没有见过真正的无线电</strong>，也没有见过真正的 NetworkManager。</li>
+<li><strong>~73 秒 BLE 才可用</strong>（§14.3）。</li>
+<li><strong><code>identify</code> 不存在</strong> —— 让&quot;这一台&quot;机器人点头、闪灯或叫一声。BLE 上按设计拒绝电机控制，所以这缺的是<strong>一条设备路径</strong>，而不是看起来那样的策略问题。</li>
+</ul>
+<hr />
+<h2 id="16-阅读路线"><a class="header" href="#16-阅读路线">16. 阅读路线</a></h2>
+<p><strong>第 1 步 —— 建立直觉（20 分钟）</strong></p>
+<ol>
+<li>读 <code>btd/src/lib.rs</code>（<strong>只有 40 行</strong>，但信息密度极高）。</li>
+<li>读设计文档 <a href="design/app-path-design.html"><code>app-path-design.md</code></a> §1（形状）和 §3（GATT 表面）。</li>
+<li>记下第 3 节那张管道图。</li>
+</ol>
+<p><strong>第 2 步 —— 安全边界（1 小时）</strong></p>
+<ol start="4">
+<li>读 <code>route.rs</code> 的 <code>permits()</code>（<code>:76</code>）。<strong>别从第 1 行读，直接读那个函数</strong> —— 它是一张长表，每一行都有注释说为什么。</li>
+<li>读 <code>route.rs:61</code> 的 <code>Route</code> 枚举和 <code>:498</code>–<code>:538</code> 四个组合函数。</li>
+<li>读 §7.4 那两层正交的机制。</li>
+</ol>
+<p><strong>第 3 步 —— 会话（1.5 小时）</strong></p>
+<ol start="7">
+<li>读 <code>link.rs</code> <strong>全文</strong>（只有 109 行）。</li>
+<li>读 <code>session.rs:32</code> 的 <code>run()</code> —— 就是第 5 节那张时序图。</li>
+<li>读 <code>session.rs:240</code> 的 <code>authenticate()</code>。</li>
+<li>读 <code>upstream.rs</code> 的 <code>Pool</code>（<code>:137</code>）和 <code>send()</code>（<code>:165</code>）。</li>
+</ol>
+<p><strong>第 4 步 —— 无线电（1 小时）</strong></p>
+<ol start="11">
+<li>读 <code>bluez.rs</code> 的模块头（前 70 行左右），然后 <code>serve()</code>（<code>:217</code>）。</li>
+<li>读 <code>bluez.rs:784</code> 的 <code>advertise()</code> 和 <code>:844</code> 的 <code>reconcile_advertisement()</code>。</li>
+<li>读 <code>duck-ble/src/framing.rs</code> 的模块头和四个常量。</li>
+</ol>
+<p><strong>第 5 步 —— 动手</strong></p>
+<pre><code class="language-bash">cargo test -p btd            # 45 个测试，不需要蓝牙
+cargo test -p duck-ble       # 分片与广播布局
+
+# 有蓝牙的笔记本上，对着真机器人（这是唯一能驱动无线电的方式）
+cargo run -p duckctl -- scan
+cargo run -p duckctl -- status
+cargo run -p duckctl -- call robot.health
+</code></pre>
+<hr />
+<h2 id="17-术语表"><a class="header" href="#17-术语表">17. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>术语</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>BLE</strong></td><td>Bluetooth Low Energy，蓝牙低功耗。和&quot;经典蓝牙&quot;是两套不同的协议</td></tr>
+<tr><td><strong>GATT</strong></td><td>通用属性配置文件 —— BLE 上组织数据的模型：服务（service）里装特征（characteristic）</td></tr>
+<tr><td><strong>服务 / service</strong></td><td>一组相关特征的容器。客户端<strong>扫描时找的就是它的 UUID</strong></td></tr>
+<tr><td><strong>特征 / characteristic</strong></td><td>一个可以被<strong>读</strong>、<strong>写</strong>、<strong>订阅</strong>的数据点。<code>btd</code> 只有一个</td></tr>
+<tr><td><strong>订阅 / subscribe / notify</strong></td><td>客户端说&quot;这个特征有变化就推给我&quot;。<code>btd</code> 用它送回复</td></tr>
+<tr><td><strong>central / peripheral</strong></td><td>BLE 的两个角色：central（手机）主动连接，peripheral（机器人）被连接</td></tr>
+<tr><td><strong>广播 / advertisement</strong></td><td>peripheral 周期性地喊&quot;我在这里&quot;。<strong>连接建立之前唯一的信息来源</strong></td></tr>
+<tr><td><strong>扫描响应 / scan response</strong></td><td>central 主动问&quot;再说详细点&quot;，peripheral 回的第二段 —— 名字装在这里</td></tr>
+<tr><td><strong>配对 / pairing</strong></td><td>建立加密链路的过程</td></tr>
+<tr><td><strong>绑定 / bonding</strong></td><td>把配对产生的密钥存下来，下次不用重新配</td></tr>
+<tr><td><strong>just-works</strong></td><td>一种配对方式：不验证身份，只加密。安全性 = 物理在场</td></tr>
+<tr><td><strong>passkey entry</strong></td><td>一种配对方式：一方显示六位码，另一方输入。<strong>机器人填不了任何一边</strong>（§12.1）</td></tr>
+<tr><td><strong>MTU</strong></td><td>一次能传的最大字节数。BLE 保证至少 20，手机通常协商到几百</td></tr>
+<tr><td><strong>ATT</strong></td><td>GATT 底下的属性协议。MTU 是 ATT 层的说法</td></tr>
+<tr><td><strong>NDJSON</strong></td><td>Newline-Delimited JSON，一行一个 JSON 对象</td></tr>
+<tr><td><strong>JSON-RPC 2.0</strong></td><td>一种远程调用协议。<strong>通知</strong>（无 id，不回复）和<strong>请求</strong>（有 id，会回复）两种消息族</td></tr>
+<tr><td><strong>BlueZ</strong></td><td>Linux 的蓝牙协议栈。<code>btd</code> 通过 D-Bus 跟它说话</td></tr>
+<tr><td><strong>D-Bus</strong></td><td>Linux 上的进程间通信总线。<code>btd</code> 用它找 BlueZ</td></tr>
+<tr><td><strong><code>bluer</code></strong></td><td>一个 Rust 的 BlueZ 客户端库。<code>btd</code> 用它 —— 因为&quot;GATT 服务端 + 广播 + 配对代理&quot;正是它存在的理由</td></tr>
+<tr><td><strong>D-Bus 回调模型</strong></td><td>BlueZ 通过信号通知 <code>btd</code> &quot;有人写了 / 有人订阅了&quot;</td></tr>
+<tr><td><strong>lane / 车道</strong></td><td><code>btd</code> 对上游连接的分组：<strong>按这个调用占用连接多久</strong></td></tr>
+<tr><td><strong>一次一个请求</strong></td><td>本仓库的三个 daemon 都这样服务一条连接 —— 这正是 lane 存在的原因</td></tr>
+<tr><td><strong>peer 凭据 / <code>SO_PEERCRED</code></strong></td><td>Linux 让你查出&quot;这条 unix socket 对面是谁&quot;的机制</td></tr>
+<tr><td><strong>主 gid</strong></td><td>进程的主组 ID。<strong><code>SupplementaryGroups</code> 不算</strong> —— 这是这里的陷阱</td></tr>
+<tr><td><strong>provisioning</strong></td><td>给一块新板子配置 wifi、名字等的过程</td></tr>
+<tr><td><strong><code>duckctl</code></strong></td><td>笔记本上用的命令行工具，手机的替身，也是唯一能测真无线电的办法</td></tr>
+<tr><td><strong>SoC 序列号</strong></td><td>烧在芯片里的唯一编号。<strong>刷机不掉、换模块不掉、不需要 provisioning</strong></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><code>btd</code> 和 <code>configd</code> 的权威设计（英文，写得很好）</td><td><a href="design/app-path-design.html"><code>design/app-path-design.md</code></a></td></tr>
+<tr><td>手机 App 本身</td><td><a href="design/mobile-app.html"><code>design/mobile-app.md</code></a></td></tr>
+<tr><td>从笔记本操作机器人的每条命令</td><td><a href="robot/duckctl.html"><code>robot/duckctl.md</code></a></td></tr>
+<tr><td>BLE 上的更新：决策与权衡</td><td><a href="project/update-over-ble.html"><code>project/update-over-ble.md</code></a></td></tr>
+<tr><td>服务拆分、IPC 契约、权限模型</td><td><a href="design/architecture.html"><code>design/architecture.md</code></a></td></tr>
+<tr><td><strong><code>duck-ble</code>：手机和机器人之间的那根线（姊妹篇）</strong></td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td><strong><code>configd</code>：wifi、身份、手柄配对（姊妹篇）</strong></td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>控制循环（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>配置文件的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>所有服务与客户端的公共契约（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>鸭子的身体几何：正/逆运动学、ToF 重投影（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程可达（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了：接触式里程计（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>机器人上的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/configd-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/configd-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

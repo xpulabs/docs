@@ -1,0 +1,1035 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>pad-imu/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html" class="active"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="pad-imu-新手导读"><a class="header" href="#pad-imu-新手导读"><code>pad-imu</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个 crate 是纯库，没有自己的设计文档。它服务的那个功能（手柄控制头部）由
+<a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a> §<code>[pad_imu_head_control]</code> 和
+<a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a> 的操作者视角拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a>（<code>PadImuBatch</code> 那几个类型住在那里）、
+<a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a>（<code>[pad_imu_head_control]</code> 的开关）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个系统里的位置</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%99%A8">⭐ 核心心智模型：互补滤波器</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5-%E5%9D%90%E6%A0%87%E7%B3%BB%E5%85%88%E6%8A%8A%E8%BF%99%E4%B8%AA%E6%90%9E%E5%AF%B9">坐标系：先把这个搞对</a></li>
+<li><a href="#6--%E9%99%80%E8%9E%BA%E9%9B%B6%E5%81%8F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%AD%A6%E5%AE%83">⭐ 陀螺零偏：为什么必须学它</a></li>
+<li><a href="#7-%E9%82%A3%E4%B8%AA%E9%9D%99%E6%AD%A2%E7%AA%97%E5%8F%A3%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%A4%E7%9A%84">那个&quot;静止窗口&quot;是怎么判的</a></li>
+<li><a href="#8-sample%E4%B8%80%E4%B8%AA%E9%87%87%E6%A0%B7%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B"><code>sample()</code>：一个采样的完整旅程</a></li>
+<li><a href="#9--%E4%B8%A4%E7%A7%8D%E6%BC%82%E7%A7%BB%E4%B8%A4%E7%A7%8D%E6%B2%BB%E6%B3%95">⭐ 两种漂移，两种治法</a></li>
+<li><a href="#10-%E6%89%8B%E6%90%93%E7%9A%84%E5%9B%9B%E5%85%83%E6%95%B0%E7%AE%97%E6%9C%AF">手搓的四元数算术</a></li>
+<li><a href="#11-%EF%B8%8F-euler_deg-%E7%9A%84%E8%BF%94%E5%9B%9E%E9%A1%BA%E5%BA%8F%E6%98%AF%E4%B8%AA%E9%99%B7%E9%98%B1">⚠️ <code>euler_deg</code> 的返回顺序是个陷阱</a></li>
+<li><a href="#12-%E4%B8%A4%E4%B8%AA%E6%B6%88%E8%B4%B9%E8%80%85%E6%80%8E%E4%B9%88%E7%94%A8%E5%AE%83">两个消费者怎么用它</a></li>
+<li><a href="#13-%E6%B5%8B%E8%AF%955-%E4%B8%AA">测试：5 个</a></li>
+<li><a href="#14-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#15-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#16-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>pad-imu</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>我手里这个手柄，现在是什么姿态？</strong></p>
+</blockquote>
+<p>有些手柄自带一颗六轴惯性单元（IMU）——&quot;Pro Controller&quot;的 Switch 山寨柄就有。
+<code>padd</code> 把它读出来，<strong>用&quot;你手里手柄的倾斜&quot;去摆机器人的头</strong>。</p>
+<p>一句话说清它的定位：</p>
+<blockquote>
+<p><strong>它是&quot;手柄朝向&quot;的唯一算法，两个程序共用，因为头和画面不能对同一个手柄有两种说法。</strong></p>
+</blockquote>
+<p><code>Cargo.toml:3-5</code>：</p>
+<blockquote>
+<p>One filter for two programs: <code>padd</code> poses the robot's head from it, <code>robotctl monitor</code> draws the
+pad from it. <strong>Its own crate so neither depends on the other</strong>, and so <strong>the head and the picture
+cannot disagree</strong> about which way the pad is tilted.</p>
+</blockquote>
+<p><strong>&quot;头和画面不能对同一个手柄有两种说法。&quot;</strong> 这就是它为什么要单独成一个 crate。</p>
+<p>规模：<strong>616 行</strong>（<code>lib.rs</code> 602 + <code>Cargo.toml</code> 14），只有一个依赖（<code>duck-ipc-proto</code>，为线上类型）。</p>
+<hr />
+<h2 id="2-它在整个系统里的位置"><a class="header" href="#2-它在整个系统里的位置">2. 它在整个系统里的位置</a></h2>
+<pre><code>  手柄（HID 设备）
+      │  内核 evdev 事件：ABS_X/Y/Z（加速度）+ ABS_RX/RY/RZ（角速度）
+      ▼
+   padd 的 tap                    ← 读 evdev，分批
+      │  原始整数 + 分辨率（accel_per_g / gyro_per_dps）
+      ▼
+   PadReport::Imu(PadImuBatch)    ← 走 IPC，广播给订阅者
+      │
+      ├──────────────► pad_imu::Imu::absorb()  ← 就是这个 crate
+      │                       │
+      │                       │  姿态四元数（body → world）
+      │                       ▼
+      │           ┌───────────┴────────────┐
+      │           ▼                        ▼
+      │   padd：摆机器人的头        robotctl monitor：画一个线框手柄
+</code></pre>
+<p>两个消费者（<code>Cargo.toml</code> 里能看到）：</p>
+<div class="table-wrapper"><table><thead><tr><th>crate</th><th>用它干什么</th></tr></thead><tbody>
+<tr><td><strong><code>padd</code></strong></td><td><code>[pad_imu_head_control]</code> 打开时，用手柄的倾斜摆头（<code>padd/src/tap.rs:125</code>）</td></tr>
+<tr><td><strong><code>robotctl</code></strong></td><td><code>monitor</code> 里画一个跟着真手柄转的线框手柄（<code>robotctl/src/imu_view.rs</code>）</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 注意它<strong>只依赖 <code>duck-ipc-proto</code></strong> —— 为的是那几个线上类型。
+它不认识 <code>padd</code>，也不认识 <code>robotctl</code>，不认识 GStreamer 也不认识 evdev。
+<strong>一个纯算法库。</strong></p>
+</blockquote>
+<hr />
+<h2 id="3--核心心智模型互补滤波器"><a class="header" href="#3--核心心智模型互补滤波器">3. ⭐ 核心心智模型：互补滤波器</a></h2>
+<p>这是整份代码唯一的思想。</p>
+<h3 id="31-两个传感器各有一个毛病"><a class="header" href="#31-两个传感器各有一个毛病">3.1 两个传感器，各有一个毛病</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>传感器</th><th>擅长</th><th>毛病</th></tr></thead><tbody>
+<tr><td><strong>陀螺仪</strong>（gyro）</td><td><strong>短期</strong>准。测角速度，积分出角度</td><td><strong>会漂</strong>。而且这颗柄的陀螺<strong>没校准过</strong></td></tr>
+<tr><td><strong>加速度计</strong>（accel）</td><td><strong>长期</strong>准。静止时永远指着&quot;下&quot;</td><td><strong>一动就废</strong>。你晃它，它测的是你的手</td></tr>
+</tbody></table>
+</div>
+<p><strong>一个短期准，一个长期准 —— 那就把它们互补起来。</strong>
+这就是&quot;互补滤波器&quot;（complementary filter）这个名字的来历。</p>
+<h3 id="32-做法以陀螺为主用重力慢慢拽回来"><a class="header" href="#32-做法以陀螺为主用重力慢慢拽回来">3.2 做法：以陀螺为主，用重力慢慢拽回来</a></h3>
+<p>模块文档（<code>lib.rs:11-15</code>）：</p>
+<blockquote>
+<p><strong>Orientation</strong>, as a quaternion from the pad's body frame to the world, by <strong>integrating the gyro
+and pulling the result back toward the accelerometer's gravity</strong> — the smallest useful
+complementary filter. <strong>Gravity fixes pitch and roll; yaw comes from the gyro alone and drifts</strong>,
+which is honest: <strong>nothing on a pad can observe heading.</strong></p>
+</blockquote>
+<p>拆开就是两步，每个采样都做一遍：</p>
+<p><strong>第一步：让陀螺转一下。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:274-275
+let step = [gyro[0] * rad * dt, gyro[1] * rad * dt, gyro[2] * rad * dt];
+self.q = mul(self.q, from_rotvec(step));
+<span class="boring">}</span></code></pre></pre>
+<p>把角速度（°/s）乘上时间间隔 <code>dt</code>，得到&quot;这一小段时间转过的角度&quot;，
+再把它变成一个四元数，<strong>乘在当前的姿态右边</strong>。</p>
+<p><strong>第二步：让重力拽一下。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:282-291
+if gravity_ok {
+    let measured = normalized(accel);                        // 加速度计说&quot;上&quot;在哪
+    let predicted = rotate(conj(self.q), [0.0, 0.0, 1.0]);   // 姿态说&quot;上&quot;在哪
+    let error = cross(measured, predicted);                  // 两者的差
+    let k = GRAVITY_GAIN * dt;
+    self.q = mul(self.q, from_rotvec([error[0]*k, error[1]*k, error[2]*k]));
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li><code>measured</code> = <strong>加速度计说的&quot;上&quot;</strong>（在柄的身体坐标系里）；</li>
+<li><code>predicted</code> = <strong>当前姿态认为的&quot;上&quot;</strong>（同样是身体坐标系 —— 所以用 <code>conj(q)</code> 把世界的 +Z 转回身体）；</li>
+<li><code>error</code> = 两者的<strong>叉积</strong> —— 一个&quot;该往哪个方向转、转多少&quot;的小旋转；</li>
+<li>只转 <code>GRAVITY_GAIN * dt</code> 那么多，<strong>不是一次转到位</strong>。</li>
+</ul>
+<h3 id="33--那个叉积的顺序是有讲究的"><a class="header" href="#33--那个叉积的顺序是有讲究的">3.3 ⚠️ 那个叉积的<strong>顺序</strong>是有讲究的</a></h3>
+<p>注释专门写了这件事（<code>lib.rs:278-281</code>）：</p>
+<blockquote>
+<p>With <code>q ← q ⊗ δ</code>, the new prediction is <code>δᵀ·predicted</code>, so <strong>δ has to carry <em>measured</em> onto
+<em>predicted</em></strong> — <strong>hence the order of the cross product; the other way round runs away rather than
+converging.</strong></p>
+</blockquote>
+<p><strong>&quot;反过来写不会收敛，会发散。&quot;</strong> 也就是说，写反了姿态不会&quot;差一点&quot;，而是<strong>直接飞走</strong>。
+所以这一行是 <code>cross(measured, predicted)</code>，不是 <code>cross(predicted, measured)</code>。</p>
+<h3 id="34-gravity_gain--20-是什么意思"><a class="header" href="#34-gravity_gain--20-是什么意思">3.4 <code>GRAVITY_GAIN = 2.0</code> 是什么意思</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:39-44
+/// How hard the accelerometer pulls the orientation back toward gravity, per second.
+///
+/// Two: a tilt error decays with a **half-second time constant**, which is slow enough that
+/// **shaking the pad does not make the attitude flinch** and fast enough that it is **level a
+/// second after being set down**.
+<span class="boring">}</span></code></pre></pre>
+<p><strong>2.0 / 秒 → 时间常数 0.5 秒</strong>（时间常数就是增益的倒数）。这个数字是两头夹出来的：</p>
+<ul>
+<li><strong>够慢</strong>：晃手柄不会让姿态一惊一乍；</li>
+<li><strong>够快</strong>：放回桌上，一秒之内就水平了。</li>
+</ul>
+<h3 id="35-gravity_band什么时候不信加速度计"><a class="header" href="#35-gravity_band什么时候不信加速度计">3.5 <code>GRAVITY_BAND</code>：什么时候<strong>不</strong>信加速度计</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:46-50
+/// Accelerometer magnitudes accepted as &quot;this is gravity&quot;, in g.
+///
+/// Outside this the pad is being moved, and **the accelerometer measures the hand as much as the
+/// earth**. The orientation then runs on **the gyro alone** until the pad settles.
+const GRAVITY_BAND: std::ops::RangeInclusive&lt;f32&gt; = 0.85..=1.15;
+<span class="boring">}</span></code></pre></pre>
+<p>静止时加速度计的模长应该是 <strong>1 g</strong>。偏离这个范围说明你在晃它 ——
+这时候<strong>重力修正整个跳过</strong>（<code>if gravity_ok</code> 那个分支），只靠陀螺。</p>
+<p>0.85 ~ 1.15 这一圈留了 ±15%，够容下手抖和噪声，又挡得住真正的甩动。</p>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code>pad-imu/
+├── Cargo.toml     14 行  —— 头 5 行讲清&quot;为什么它自己是一个 crate&quot;
+└── src/
+    └── lib.rs    602 行  全部算法（含 5 个测试）
+</code></pre>
+<p>一个文件，分四段：</p>
+<div class="table-wrapper"><table><thead><tr><th>段</th><th>行</th><th>内容</th></tr></thead><tbody>
+<tr><td>常数</td><td><code>:39-65</code></td><td>五个可调数字，<strong>每个都有长注释</strong></td></tr>
+<tr><td><code>Imu</code> + <code>Bias</code></td><td><code>:67-161</code></td><td>状态</td></tr>
+<tr><td>算法</td><td><code>:163-306</code></td><td><code>absorb</code> / <code>sample</code> / 取数</td></tr>
+<tr><td>四元数算术</td><td><code>:308-443</code></td><td>手搓的 12 个小函数</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="5-坐标系先把这个搞对"><a class="header" href="#5-坐标系先把这个搞对">5. 坐标系：先把这个搞对</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:24-30
+//! ## Axes
+//!
+//! `hid-nintendo` reports the accelerometer on `ABS_X/Y/Z` and the gyro on `ABS_RX/RY/RZ`, with
+//! `+Z` up when the pad lies flat: the clone reads about `+1 g` there at rest. The body frame is
+//! **+X the pad's front** — the edge with the triggers, away from the player — and **+Y the pad's
+//! left**, which follows from a right-handed frame with Z up.
+//! **Confirmed against the drawn pad on the robot, 2026-09-09.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>平放在桌上时：</strong></p>
+<pre><code>        +X（手柄的前沿 —— 扳机那一侧，背对玩家）
+         ↑
+         │
++Z 朝上   │
+（对着天花板）
+         │
+         └──────────→ +Y（手柄的左手边）
+</code></pre>
+<ul>
+<li><strong>+X</strong> = 手柄的<strong>前</strong>（扳机那条边，远离玩家）</li>
+<li><strong>+Y</strong> = 手柄的<strong>左</strong>（由&quot;右手系 + Z 朝上&quot;推出来）</li>
+<li><strong>+Z</strong> = <strong>上</strong>（平放时朝天花板，静止读数约 +1 g）</li>
+</ul>
+<blockquote>
+<p>💡 那句 <strong>&quot;Confirmed against the drawn pad on the robot&quot;</strong> 说明这不是猜的 ——
+是拿真手柄对着屏幕上画出来的线框核对过的。
+而 <a href="../robotctl/src/imu_view.rs"><code>imu_view.rs:6-7</code></a> 解释了为什么线框上要画一个&quot;前沿标记&quot;：
+<strong>&quot;a wrong guess about the body frame is visible the first time the pad tilts&quot;</strong> ——
+坐标系猜错了，第一次倾斜就看得见。</p>
+</blockquote>
+<hr />
+<h2 id="6--陀螺零偏为什么必须学它"><a class="header" href="#6--陀螺零偏为什么必须学它">6. ⭐ 陀螺零偏：为什么必须学它</a></h2>
+<p>这是这个 crate 里<strong>最实用</strong>的一段，值得单独讲。</p>
+<h3 id="61-问题"><a class="header" href="#61-问题">6.1 问题</a></h3>
+<p>模块文档（<code>lib.rs:17-22</code>）：</p>
+<blockquote>
+<p><strong>Gyro bias</strong>, because <strong>the clone's gyro is not calibrated</strong>. At rest on a table its Z rate reads
+about <strong>12 °/s</strong>, and integrated as-is the attitude would <strong>turn a full circle every thirty
+seconds while the pad lay still</strong>.</p>
+</blockquote>
+<p><strong>手柄躺着不动，姿态每三十秒转一整圈。</strong></p>
+<p>算一下：12 °/s × 30 s = 360°。这就是&quot;没校准&quot;的实际后果 ——
+不是因为噪声大，而是因为有一个<strong>恒定的偏移</strong>，而积分器最怕的就是恒定偏移。</p>
+<h3 id="62-解法趁它不动的时候偷偷量一下"><a class="header" href="#62-解法趁它不动的时候偷偷量一下">6.2 解法：趁它不动的时候偷偷量一下</a></h3>
+<blockquote>
+<p>So the rate is watched for <strong>stillness</strong> — a short window in which the three rates barely move
+<strong>and the accelerometer reads one g</strong> — and <strong>the mean over such a window is taken as the bias</strong>.</p>
+</blockquote>
+<p>三个条件缺一不可：</p>
+<ol>
+<li><strong>三个轴的角速度几乎不动</strong>（在一段时间内）；</li>
+<li><strong>加速度计读数接近 1 g</strong>（说明没在晃）；</li>
+<li>持续<strong>够久</strong>。</li>
+</ol>
+<p>满足全部三条，就把这段窗口内角速度的<strong>平均值</strong>当成零偏。</p>
+<blockquote>
+<p>💡 为什么&quot;不动&quot;要用均值而不是瞬时值？
+因为静止时读数是 <code>真值 + 零偏 + 噪声</code>。真值是 0，所以均值 ≈ 零偏。
+<strong>平均是在从噪声里把那个常数捞出来。</strong></p>
+</blockquote>
+<h3 id="63-学不到之前怎么办"><a class="header" href="#63-学不到之前怎么办">6.3 学不到之前怎么办</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:238
+let bias = self.bias.value.unwrap_or([0.0; 3]);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>用 0 顶着</strong> —— 也就是&quot;先按没零偏算&quot;。而 <code>bias_dps()</code> 会<strong>诚实地返回 <code>None</code></strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:205-207
+/// The gyro bias in use, °/s — `None` while it is still being learned.
+pub fn bias_dps(&amp;self) -&gt; Option&lt;[f32; 3]&gt; {
+    self.bias.value
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;还没学会&quot;和&quot;零偏是 0&quot;是两件不同的事</strong>，而 API 把它们分开了。</p>
+<h3 id="64-学会了之后也不是一锤定音"><a class="header" href="#64-学会了之后也不是一锤定音">6.4 学会了之后也不是一锤定音</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:139-149
+// Blend with what is already known rather than jumping: two still windows a minute
+// apart disagreeing by a tenth of a degree per second should not make the attitude
+// twitch each time.
+self.value = Some(match self.value {
+    Some(old) =&gt; [0.5 * (old[0] + mean[0]), ...],   // 新旧各一半
+    None =&gt; mean,                                     // 第一次就直接用
+});
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;两个相隔一分钟的静止窗口差 0.1 °/s，不该让姿态每次抖一下。&quot;</strong>
+所以第二次以后取的是<strong>新旧平均</strong>（本质上是个两点滑动平均）。</p>
+<blockquote>
+<p>💡 这也解释了为什么零偏是<strong>热漂移友好</strong>的：手柄放久了、温度变了，
+只要它再静止一次，零偏就会被重新估计并<strong>慢慢</strong>跟上。</p>
+</blockquote>
+<hr />
+<h2 id="7-那个静止窗口是怎么判的"><a class="header" href="#7-那个静止窗口是怎么判的">7. 那个&quot;静止窗口&quot;是怎么判的</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:52-59
+/// How long the rates have to hold still before a bias is taken from them, seconds.
+const STILL_WINDOW_S: f64 = 0.5;
+
+/// How far the rates may wander across a still window and still count as still, °/s.
+///
+/// **Above the clone's noise (about one °/s peak to peak at rest)** and **well below the slowest
+/// turn a hand makes on purpose**.
+const STILL_SPREAD_DPS: f32 = 3.0;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>0.5 秒的窗口，期间三个轴的角速度极差不能超过 3 °/s。</strong>
+3.0 这个数字也是两头夹出来的：<strong>比噪声（约 1 °/s 峰峰值）高，比人故意转的最慢速度低得多。</strong></p>
+<h3 id="71-窗口记账"><a class="header" href="#71-窗口记账">7.1 窗口记账</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:86-96
+struct Bias {
+    /// The bias in use, °/s. `None` until the first still window completes.
+    value: Option&lt;[f32; 3]&gt;,
+    /// The window under way: when it opened, what it has seen.
+    since_us: Option&lt;u64&gt;,
+    min: [f32; 3],
+    max: [f32; 3],
+    sum: [f64; 3],
+    count: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>一个滚动窗口，用<strong>极差</strong>（<code>max − min</code>）判&quot;稳不稳&quot;，用<strong>和</strong>算均值。
+注意 <code>sum</code> 是 <strong><code>f64</code></strong> 而其他是 <code>f32</code> —— 一秒几百个样本累加，用 <code>f64</code> 免得精度丢在加法里。</p>
+<h3 id="72--两条重开的路径"><a class="header" href="#72--两条重开的路径">7.2 ⚠️ 两条&quot;重开&quot;的路径</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:110-116（节选）
+fn observe(&amp;mut self, raw_dps: [f32; 3], gravity_ok: bool, at_us: u64) {
+    if !gravity_ok {
+        self.reset_window();
+        return;
+    }
+<span class="boring">}</span></code></pre></pre>
+<p><strong>第一条：加速度计说&quot;在动&quot;，立刻重开窗口。</strong> 理由（<code>lib.rs:110-111</code>）：</p>
+<blockquote>
+<p>Only samples taken while the accelerometer reads gravity count: <strong>a pad in motion can have a
+quiet gyro for a moment and still not be at rest.</strong></p>
+</blockquote>
+<p><strong>&quot;一个在动的手柄可以有一瞬间陀螺是安静的，但它并不静止。&quot;</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:128-132
+if spread &gt; STILL_SPREAD_DPS {
+    // Moved. Start over from here rather than waiting the window out.
+    self.reset_window();
+    return;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>第二条：角速度极差超了，也重开</strong> —— 而且注释点明了是**&quot;从这里重开&quot;**，
+不是&quot;把窗口耗完再说&quot;。因为窗口的两端必须是连续静止的。</p>
+<hr />
+<h2 id="8-sample一个采样的完整旅程"><a class="header" href="#8-sample一个采样的完整旅程">8. <code>sample()</code>：一个采样的完整旅程</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:218
+fn sample(&amp;mut self, sample: &amp;proto::PadImuSample)
+<span class="boring">}</span></code></pre></pre>
+<p>按顺序：</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>干什么</th><th>行</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>把原始整数换成物理单位</strong>（用设备报的分辨率）</td><td><code>:221-232</code></td></tr>
+<tr><td>2</td><td>算加速度模长，判断**&quot;这是不是重力&quot;**</td><td><code>:235-236</code></td></tr>
+<tr><td>3</td><td><strong>喂给零偏学习器</strong></td><td><code>:237</code></td></tr>
+<tr><td>4</td><td><strong>减掉零偏</strong>，存下来</td><td><code>:238-244</code></td></tr>
+<tr><td>5</td><td>算<strong>时间间隔</strong> <code>dt</code>，更新速率估计</td><td><code>:246-259</code></td></tr>
+<tr><td>6</td><td><strong>还没种子？</strong> 用重力种一次，然后返回</td><td><code>:261-267</code></td></tr>
+<tr><td>7</td><td><strong>陀螺积分</strong></td><td><code>:272-275</code></td></tr>
+<tr><td>8</td><td><strong>重力修正</strong></td><td><code>:282-291</code></td></tr>
+<tr><td>9</td><td><strong>归一化</strong></td><td><code>:292</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="81-单位换算"><a class="header" href="#81-单位换算">8.1 单位换算</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:221-232
+let accel_scale = scale(self.device.accel_per_g);
+let gyro_scale = scale(self.device.gyro_per_dps);
+let accel = [sample.accel[0] as f32 * accel_scale, ...];
+let raw_gyro = [sample.gyro[0] as f32 * gyro_scale, ...];
+<span class="boring">}</span></code></pre></pre>
+<p>线上传的是<strong>原始内核整数</strong>，加上设备声明的分辨率。<code>hid-nintendo</code> 报的是
+<strong>4096 单位/g</strong> 和 <strong>14247 单位/(°/s)</strong>。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:358-366
+/// Units per physical unit → physical units per raw unit. **A driver that declared no resolution
+/// leaves the numbers raw, which is at least not wrong.**
+fn scale(per_unit: i32) -&gt; f32 {
+    if per_unit &gt; 0 { 1.0 / per_unit as f32 } else { 1.0 }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>⚠️ 但这个&quot;至少不算错&quot;有个<strong>没说出口的下场</strong>：分辨率是 0 时，原始值（约 4096）会被
+当成&quot;g&quot;来用，于是 <code>norm(accel) ≈ 4096</code> 落在 <code>GRAVITY_BAND</code> 外面 ——
+<strong>永远不会种子，<code>quaternion()</code> 永远返回 <code>None</code>。</strong> 见 §14。</p>
+<h3 id="82-为什么有个-seq-却不用它"><a class="header" href="#82-为什么有个-seq-却不用它">8.2 为什么有个 <code>seq</code> 却不用它</a></h3>
+<p><code>PadImuSample</code> 有个 <code>seq</code> 字段（&quot;Samples since this IMU attached&quot;），
+而 <code>sample()</code> <strong>一次都没读它</strong>。间隔完全用<strong>内核时间戳</strong> <code>at_us</code> 算。</p>
+<p>理由在 <code>duck-ipc-proto</code> 的 <code>PadImuSample</code> 文档里：<code>seq</code> 的用途是
+<strong>&quot;A hole is a batch this subscriber missed — <code>PadImuBatch::socket_dropped</code>&quot;</strong> ——
+也就是给读者发现<strong>丢包</strong>用的，不是给积分器算时间的。</p>
+<h3 id="83--max_dt_s太长的间隔量它但不积分它"><a class="header" href="#83--max_dt_s太长的间隔量它但不积分它">8.3 ⭐ <code>MAX_DT_S</code>：太长的间隔，量它但不积分它</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:61-65
+/// Longest gap between two samples the integrator will bridge, seconds.
+///
+/// Beyond it the pad was silent — a dropped batch, a paused reader — and **integrating one stale
+/// rate over the whole gap would throw the attitude**. **The sample is taken; the interval is
+/// not.**
+const MAX_DT_S: f32 = 0.05;
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;采样照收，间隔不算。&quot;</strong> 50 ms 对应 20 Hz —— 低于这个速率就不敢信了。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:253-259
+if dt &gt; 0.0 &amp;&amp; dt &lt;= MAX_DT_S {
+    let hz = 1.0 / dt;
+    self.rate_hz = Some(match self.rate_hz {
+        Some(rate) =&gt; rate + 0.02 * (hz - rate),   // 平滑
+        None =&gt; hz,
+    });
+}
+// ...
+// lib.rs:268-270
+if dt &lt;= 0.0 || dt &gt; MAX_DT_S {
+    return;                                        // ← 不积分
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>注意这两处是分开的</strong>：速率估计<strong>用</strong>这个间隔（它是个测量），
+积分<strong>不用</strong>（它是个坏主意）。这就是注释那句 &quot;measured (for the rate) but not integrated&quot;。</p>
+<h3 id="84-种子第一次知道上在哪"><a class="header" href="#84-种子第一次知道上在哪">8.4 种子：第一次知道&quot;上&quot;在哪</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:261-267
+if !self.seeded {
+    if gravity_ok {
+        self.q = from_gravity(accel);
+        self.seeded = true;
+    }
+    return;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>from_gravity</code>（<code>:424-443</code>）算的是**&quot;把测到的'上'转到世界的'上'，且不带 yaw&quot;**的最小旋转。
+注释（<code>:421-423</code>）：</p>
+<blockquote>
+<p>The body → world rotation that carries the measured up (the accelerometer at rest) onto the
+world's up, <strong>with no yaw</strong>. <strong>The seed, and what the filter would converge to if the gyro said
+nothing.</strong></p>
+</blockquote>
+<p><strong>&quot;没有 yaw&quot;</strong> 是关键：重力<strong>观察不到朝向</strong>（绕竖直轴转多少，重力都一样），
+所以种子只能把 pitch 和 roll 定下来，yaw 从 0 开始。这直接导致了 §9.2 的问题。</p>
+<h3 id="85-那个倒过来的特判"><a class="header" href="#85-那个倒过来的特判">8.5 那个&quot;倒过来&quot;的特判</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:430-436
+if s &lt; 1e-6 {
+    return if c &gt; 0.0 {
+        [1.0, 0.0, 0.0, 0.0]
+    } else {
+        [0.0, 1.0, 0.0, 0.0]      // upside down: any horizontal axis will do
+    };
+}
+<span class="boring">}</span></code></pre></pre>
+<p>叉积接近 0 意味着&quot;测到的上&quot;和&quot;世界的上&quot;<strong>平行或反平行</strong>。
+正平行就是恒等；<strong>反平行（手柄倒过来）时轴不确定 —— 随便挑一根水平轴</strong>。
+<code>[0,1,0,0]</code> 是绕 X 轴转 180°。</p>
+<blockquote>
+<p>💡 这是这个仓库里反复出现的同一个品味的第四次：
+<strong>退化的时候要退到一个&quot;合法的、能看的结果&quot;，而不是 <code>NaN</code>。</strong>
+（前三次：<code>kinematics</code> 的 <code>Quat::normalized</code>、<code>tof</code> 的 <code>level_from_gravity</code>、<code>odometry</code> 的 <code>normalized4</code>。）</p>
+</blockquote>
+<hr />
+<h2 id="9--两种漂移两种治法"><a class="header" href="#9--两种漂移两种治法">9. ⭐ 两种漂移，两种治法</a></h2>
+<p>这是整份文档最该记住的一节。</p>
+<h3 id="91-pitch-和-roll重力管着不会漂"><a class="header" href="#91-pitch-和-roll重力管着不会漂">9.1 pitch 和 roll：重力管着，不会漂</a></h3>
+<p>因为重力<strong>能观察到</strong>倾斜。所以只要手柄偶尔静止一下，pitch 和 roll 就会被拽回真值。
+<strong>时间常数 0.5 秒，永远不累加。</strong></p>
+<h3 id="92-yaw只有陀螺说话一定会漂"><a class="header" href="#92-yaw只有陀螺说话一定会漂">9.2 yaw：只有陀螺说话，一定会漂</a></h3>
+<p>重力<strong>观察不到朝向</strong> —— 你把一个手柄在桌面上转 90°，它读到的重力方向一模一样。</p>
+<p>所以（<code>lib.rs:13-15</code>）：</p>
+<blockquote>
+<p>yaw comes from the gyro alone and <strong>drifts</strong>, which is honest: <strong>nothing on a pad can observe
+heading.</strong> Whoever uses yaw <strong>has to re-zero it now and then</strong>, and [<code>relative</code>] is how.</p>
+</blockquote>
+<p><strong>&quot;诚实&quot;</strong> 这个词用得很准：这不是算法不够好，是<strong>信息根本不存在</strong>。</p>
+<h3 id="93-relative治漂移的办法"><a class="header" href="#93-relative治漂移的办法">9.3 <code>relative()</code>：治漂移的办法</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:310-315
+/// The rotation from `reference` to `now`, **in the body frame of `reference`**: what a pad has
+/// done since the moment `reference` was taken. **This is how a consumer of yaw beats the drift** —
+/// take a fresh reference when the person says &quot;this is centre&quot;, and read everything after it
+/// relative.
+pub fn relative(reference: [f32; 4], now: [f32; 4]) -&gt; [f32; 4] {
+    normalized4(mul(conj(reference), now))
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>一行。</strong> 就是 <code>conj(基准) × 当前</code>。</p>
+<p><strong>漂移是&quot;基准本身偏了&quot;，而相对姿态把基准整个减掉了。</strong>
+所以每次你重新取一次基准，之前积累的 yaw 漂移就<strong>一次性归零</strong>。</p>
+<h3 id="94-这在机器人上长什么样"><a class="header" href="#94-这在机器人上长什么样">9.4 这在机器人上长什么样</a></h3>
+<p><code>padd</code> 就是这么用的（<code>padd/src/main.rs:334-344</code>）：</p>
+<blockquote>
+<p>Y was pressed with an IMU pad and the feature on. Off or holding → follow <strong>from here</strong>, which is
+what beats the gyro's yaw drift: <strong>every re-entry makes the pad's current attitude the new
+centre.</strong> Following → hold.</p>
+</blockquote>
+<p>操作者视角（<code>robot/cheatsheet.md:528-533</code>）：</p>
+<blockquote>
+<p>Y changes meaning on such a pad: the first press hands the head to the pad — tilt it and the head
+tilts, turn it and the head turns — while the sticks go on driving the body. Press Y again and the
+head stays where it is. ... <strong>A third press hands the head back to the pad from where the pad is
+<em>now</em>.</strong></p>
+</blockquote>
+<p><strong>&quot;第三次按下，从手柄现在的位置重新交给它。&quot;</strong> 这就是 <code>relative()</code> 在真实交互里的样子。</p>
+<hr />
+<h2 id="10-手搓的四元数算术"><a class="header" href="#10-手搓的四元数算术">10. 手搓的四元数算术</a></h2>
+<p><code>lib.rs:308-443</code>，12 个小函数。和 <code>kinematics</code> 一样是<strong>手搓的</strong>，
+但<strong>用的是 <code>f32</code> 而不是 <code>f64</code></strong>，而且<strong>没有对 MuJoCo 那样的外部基准</strong>。</p>
+<div class="table-wrapper"><table><thead><tr><th>函数</th><th>行</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>mul</code></td><td><code>:392</code></td><td>四元数乘法</td></tr>
+<tr><td><code>conj</code></td><td><code>:401</code></td><td>共轭（逆旋转）</td></tr>
+<tr><td><code>rotate</code></td><td><code>:416</code></td><td>用四元数转一个向量</td></tr>
+<tr><td><code>from_rotvec</code></td><td><code>:406</code></td><td>小旋转向量 → 四元数</td></tr>
+<tr><td><code>from_gravity</code></td><td><code>:424</code></td><td>重力 → 姿态种子</td></tr>
+<tr><td><code>normalized4</code></td><td><code>:376</code></td><td>四元数归一化</td></tr>
+<tr><td><code>matrix</code></td><td><code>:332</code></td><td>四元数 → 旋转矩阵</td></tr>
+<tr><td><code>euler_deg</code></td><td><code>:321</code></td><td>四元数 → 欧拉角</td></tr>
+<tr><td><code>norm</code> <code>normalized</code> <code>cross</code> <code>scale</code></td><td><code>:354</code> <code>:368</code> <code>:384</code> <code>:360</code></td><td>向量小工具</td></tr>
+</tbody></table>
+</div>
+<p><strong>约定：<code>w</code> 在前</strong>（和 <code>kinematics</code> 一致）。</p>
+<p>两个和 <code>kinematics</code> 一样的退化保护：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:376-382（normalized4）
+if n &lt; 1e-9 { return [1.0, 0.0, 0.0, 0.0]; }     // 坏的四元数 → 恒等，不是 NaN
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:368-374（normalized）
+if n &lt; 1e-9 { return [0.0, 0.0, 1.0]; }           // 零向量 → &quot;上&quot;，是个合法的方向
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>💡 <strong>为什么是 <code>f32</code> 而不是 <code>f64</code>？</strong> 这里没写理由，但答案在模块末尾：
+<em>&quot;A few dozen multiplications per sample. <strong>Six hundred a second</strong> are a rounding error next to
+reading them off the kernel.&quot;</em>
+六百赫兹的浮点精度不是问题；<strong><code>f32</code> 够用，而且更省。</strong>
+对比 <code>kinematics</code> 用 <code>f64</code> —— 那边跑在 50 Hz 且要和 MuJoCo 对到 1e-6。</p>
+</blockquote>
+<hr />
+<h2 id="11--euler_deg-的返回顺序是个陷阱"><a class="header" href="#11--euler_deg-的返回顺序是个陷阱">11. ⚠️ <code>euler_deg</code> 的返回顺序是个陷阱</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:317-329
+/// Pitch, roll and yaw of a body → world rotation, degrees.
+///
+/// **Aerospace order** — yaw about Z, then pitch about the body's Y (nose up positive), then roll
+/// about its X (left side up positive) — read off the rotation matrix.
+pub fn euler_deg(q: [f32; 4]) -&gt; [f32; 3] {
+    let m = matrix(q);
+    let pitch = (-m[2][0]).clamp(-1.0, 1.0).asin();
+    let roll = m[2][1].atan2(m[2][2]);
+    let yaw = m[1][0].atan2(m[0][0]);
+    let deg = 180.0 / std::f32::consts::PI;
+    [pitch * deg, roll * deg, yaw * deg]      // ← 注意这个顺序
+}
+<span class="boring">}</span></code></pre></pre>
+<p>⚠️ <strong>返回的是 <code>[pitch, roll, yaw]</code></strong> —— <strong>不是</strong>常见的 <code>[roll, pitch, yaw]</code>，
+也<strong>不是</strong> <code>[yaw, pitch, roll]</code>。</p>
+<p><strong>这个顺序很容易记反，而记反了不会报错，只是三个数各自装错了轴。</strong>
+好消息是类型都是 <code>f32</code>，编译器帮不上忙；坏消息是<strong>画面/头部会以&quot;看起来也像那么回事&quot;的方式错</strong>。</p>
+<p>两个真实消费者都是<strong>解构</strong>取的，所以顺序是显式的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// padd/src/main.rs:366
+let [pitch, roll, yaw] = pad_imu::euler_deg(relative);
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// imu_view 和 monitor 也是
+let [pitch, roll, _] = imu.euler_deg();
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>💡 公式本身是标准的 <strong>ZYX（航空航天）序</strong>：
+<code>R = Rz(yaw)·Ry(pitch)·Rx(roll)</code>，从矩阵里读出来就是那三行。
+<code>pitch</code> 那行还有个 <code>.clamp(-1.0, 1.0)</code> —— 因为浮点误差可能让 <code>asin</code> 的输入
+差一点点越过 ±1，而 <code>asin(1.0000001)</code> 是 <code>NaN</code>。</p>
+</blockquote>
+<hr />
+<h2 id="12-两个消费者怎么用它"><a class="header" href="#12-两个消费者怎么用它">12. 两个消费者怎么用它</a></h2>
+<h3 id="121-padd手柄的倾斜--机器人的头"><a class="header" href="#121-padd手柄的倾斜--机器人的头">12.1 <code>padd</code>：手柄的倾斜 → 机器人的头</a></h3>
+<p><code>padd</code> 的 tap 里存着一整个 <code>pad_imu::Imu</code>（<code>padd/src/tap.rs:125</code>），
+每读一批就喂给它，主循环来问姿态：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// padd/src/tap.rs:262-270
+pub fn attitude(&amp;self) -&gt; Option&lt;[f32; 4]&gt; {
+    self.shared.attitude.lock()... .and_then(pad_imu::Imu::quaternion)
+}
+<span class="boring">}</span></code></pre></pre>
+<p>然后（<code>padd/src/main.rs:355-366</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn head_from_pad(relative: [f32; 4], gain: f64, max_head: f64) -&gt; proto::HeadParams {
+    let [pitch, roll, yaw] = pad_imu::euler_deg(relative);
+    let angle = |degrees: f32| (f64::from(degrees).to_radians() * gain).clamp(-max_head, max_head);
+    proto::HeadParams {
+        neck_pitch: 0.0,
+        head_pitch: angle(pitch),
+        head_yaw: angle(yaw),
+        head_roll: -angle(roll),          // ← 注意这个负号
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>里面有两句话值得抄下来。<strong>第一句关于符号</strong>（<code>main.rs:358-363</code>）：</p>
+<blockquote>
+<p>The signs are the ones that made the head copy the pad on the robot (2026-09-09): pad nose-up is
+a positive <code>head_pitch</code>, pad yaw to the left a positive <code>head_yaw</code>, and the pad rolling right
+(left side up) a negative <code>head_roll</code>. <strong>Pitch and roll came out opposite to the stick mapping's
+guess, which is worth knowing: the sticks' signs describe &quot;stick up looks up&quot;, not the joint
+axes, and the pad frame is the joints'.</strong></p>
+</blockquote>
+<p><strong>&quot;摇杆的符号说的是'推上去就是往上看'，不是关节轴；而手柄的坐标系是关节那一套。&quot;</strong>
+这两套东西的&quot;上&quot;正好相反，所以符号得实测。</p>
+<p><strong>第二句关于脖子</strong>（<code>main.rs:363-364</code>）：</p>
+<blockquote>
+<p><strong>The neck stays at zero: one pitch joint is enough to follow a wrist.</strong></p>
+</blockquote>
+<p><strong>&quot;一个 pitch 关节足够跟住一只手腕了。&quot;</strong> 所以 <code>neck_pitch</code> 恒为 0。</p>
+<h3 id="122-robotctl-monitor画一个跟真的转的线框手柄"><a class="header" href="#122-robotctl-monitor画一个跟真的转的线框手柄">12.2 <code>robotctl monitor</code>：画一个跟真的转的线框手柄</a></h3>
+<p><code>robotctl/src/imu_view.rs:3-7</code>：</p>
+<blockquote>
+<p>The attitude comes from the <code>pad-imu</code> crate — <strong>the same filter <code>padd</code> poses the head with</strong> —
+and this module only draws it. <strong>A dozen line segments rasterised into half-block pixels,
+redrawn at the monitor's own pace rather than the IMU's</strong>: six hundred samples a second is a rate
+for a filter, not for a terminal.</p>
+</blockquote>
+<p>两件事：<strong>同一个滤波器</strong>（所以画的和头不会打架），以及<strong>按终端的节奏重画</strong>，不是按 IMU 的。</p>
+<p>线框是&quot;一块平板 + 两个握把 + 两个摇杆 + 前沿的标记&quot;，从一个固定的四分之三视角看。</p>
+<p><code>robotctl/src/monitor.rs:1241</code> 起的 <code>render_imu</code> 还会显示速率、加速度、以及<strong>学到的零偏</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let bias = match imu.bias_dps() {
+    Some(b) =&gt; /* 显示三个数 */ + &quot; — removed from the rates above&quot;,
+    None =&gt; /* 显示&quot;还在学&quot; */,
+};
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="13-测试5-个"><a class="header" href="#13-测试5-个">13. 测试：5 个</a></h2>
+<pre><code class="language-bash">cargo test -p pad-imu
+</code></pre>
+<p>五个，全在 <code>lib.rs:445-602</code>，<strong>一个都没有 <code>#[ignore]</code></strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>测试</th><th>行</th><th>验什么</th></tr></thead><tbody>
+<tr><td><code>a_pad_at_rest_reads_level_and_learns_its_bias</code></td><td><code>:497</code></td><td>躺着不动 → 水平 + <strong>学到 12 °/s 的零偏</strong> + 速率 ≈ 200 Hz</td></tr>
+<tr><td><code>a_tilt_reads_as_pitch_whether_seeded_or_integrated</code></td><td><code>:519</code></td><td><strong>两条路走到同一个答案</strong></td></tr>
+<tr><td><code>motion_neither_corrects_the_attitude_nor_teaches_a_bias</code></td><td><code>:546</code></td><td>晃动时既不修正姿态，也不学零偏</td></tr>
+<tr><td><code>a_long_gap_is_not_integrated</code></td><td><code>:561</code></td><td>3 秒的间隔不被积分</td></tr>
+<tr><td><code>a_relative_attitude_starts_from_zero_and_reads_the_turn_since</code></td><td><code>:580</code></td><td>相对姿态从 0 开始，之后的转动读得出来</td></tr>
+</tbody></table>
+</div>
+<h3 id="131-那个最漂亮的测试"><a class="header" href="#131-那个最漂亮的测试">13.1 那个最漂亮的测试</a></h3>
+<p><code>a_tilt_reads_as_pitch_whether_seeded_or_integrated</code>（<code>:519</code>）同时验了<strong>两条完全不同的路径</strong>：</p>
+<pre><code>路径 A：直接从一个倾斜的加速度计种子
+路径 B：先水平放着学会零偏，再用 60 °/s 转半秒（加速度计说&quot;在动&quot;，所以只有陀螺说话）
+        → 30°
+然后放回倾斜的静止姿态 → 重力认可并保持住
+</code></pre>
+<p>三条断言都指向 30°。<strong>这就是互补滤波器的定义在测试里被验了一遍</strong>：
+短期靠陀螺、长期靠重力、两条路必须一致。</p>
+<h3 id="132-测试怎么造数据"><a class="header" href="#132-测试怎么造数据">13.2 测试怎么造数据</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:486-492
+/// Feed `seconds` of a steady reading at 200 Hz.
+fn steady(imu: &amp;mut Imu, seconds: f32, accel_g: [f32; 3], gyro_dps: [f32; 3]) {
+    let n = (seconds * 200.0) as u64;
+    let start = imu.last_us.unwrap_or(0);
+    for i in 1..=n {
+        imu.absorb(&amp;one(sample(i, start + i * 5_000, accel_g, gyro_dps)));
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>sample()</code> 那个辅助函数（<code>:461</code>）做的是<strong>反向的换算</strong>：给它物理单位，
+它乘回 4096 / 14247 变回原始整数。<strong>所以整条路径（换算→滤波→欧拉角）都被测到了</strong>，
+而不是绕开换算直接喂物理单位。</p>
+<p>而且 <code>steady</code> 接着上次的 <code>last_us</code> 继续，所以连续的 <code>steady</code> 调用像是<strong>一个连续的时间轴</strong> ——
+这也是为什么 <code>a_long_gap_is_not_integrated</code> 能手动插一个 3 秒的洞进去。</p>
+<hr />
+<h2 id="14-几处读者会绊到的地方"><a class="header" href="#14-几处读者会绊到的地方">14. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="141-分辨率是-0-时下场比注释说的严重"><a class="header" href="#141-分辨率是-0-时下场比注释说的严重">14.1 分辨率是 0 时，下场比注释说的严重</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:358-359
+/// Units per physical unit → physical units per raw unit. A driver that declared no resolution
+/// leaves the numbers raw, **which is at least not wrong**.
+<span class="boring">}</span></code></pre></pre>
+<p>实际上：原始值（约 4096）会被当成&quot;g&quot;，于是 <code>norm(accel) ≈ 4096</code> 落在
+<code>GRAVITY_BAND</code>（0.85..=1.15）外面 —— 于是</p>
+<ul>
+<li><strong>永远不会种子</strong>，<code>quaternion()</code> 恒为 <code>None</code>；</li>
+<li><strong>零偏永远学不到</strong>，<code>bias_dps()</code> 恒为 <code>None</code>。</li>
+</ul>
+<p>所以后果不是&quot;数字是原始的&quot;，而是<strong>这块手柄完全提供不了姿态</strong>。
+（从&quot;不要发布错数字&quot;的角度看这是安全的降级，但注释没说到这一层。）
+<code>hid-nintendo</code> 报的是 4096 和 14247，所以真手柄走不到这条路。</p>
+<h3 id="142-duck-ipc-proto-说换算发生在-viewer-里"><a class="header" href="#142-duck-ipc-proto-说换算发生在-viewer-里">14.2 <code>duck-ipc-proto</code> 说&quot;换算发生在 viewer 里&quot;</a></h3>
+<p><code>PadImuSample</code> 的文档（<code>duck-ipc-proto/src/lib.rs</code>）说：</p>
+<blockquote>
+<p>Raw kernel units, deliberately — the tap hands out what the device said and the resolution to
+read it with, and <strong>the conversion happens once, in the viewer</strong>.</p>
+</blockquote>
+<p>而换算现在发生在 <code>pad-imu</code>，它的消费者<strong>两个</strong>：<code>robotctl</code>（确实是 viewer）
+和 <code>padd</code>（是控制回路，不是 viewer）。措辞停留在只有 viewer 一个消费者的时期。</p>
+<h3 id="143-rate_hz-的平滑系数是每采样的不是每秒的"><a class="header" href="#143-rate_hz-的平滑系数是每采样的不是每秒的">14.3 <code>rate_hz</code> 的平滑系数是&quot;每采样&quot;的，不是&quot;每秒&quot;的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:255-258
+self.rate_hz = Some(match self.rate_hz {
+    Some(rate) =&gt; rate + 0.02 * (hz - rate),
+    None =&gt; hz,
+});
+<span class="boring">}</span></code></pre></pre>
+<p>固定 <code>0.02</code> 的指数平滑，<strong>每次采样一次</strong>。所以在 600 Hz 下时间常数约 83 ms，
+在 200 Hz 下约 250 ms —— 同一个 <code>0.02</code> 表示不同的时间。只影响显示，不影响滤波。</p>
+<h3 id="144-still_spread_dps-的注释引用了没写出的速率"><a class="header" href="#144-still_spread_dps-的注释引用了没写出的速率">14.4 <code>STILL_SPREAD_DPS</code> 的注释引用了没写出的速率</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// lib.rs:55-59
+/// How far the rates may wander across a still window and still count as still, °/s.
+///
+/// Above the clone's noise (about one °/s peak to peak at rest) and well below the slowest turn a
+/// hand makes on purpose.
+<span class="boring">}</span></code></pre></pre>
+<p><code>max − min</code> 是<strong>极差</strong>，和&quot;峰峰值&quot;在概念上接近但不完全一样；
+而且这个窗口有 0.5 秒长，样本数取决于实际速率（文档别处提到 600/s 和 200/s 两个数字）。
+数字是对的（3.0 确实在这两头中间），只是&quot;峰峰值&quot;这个词用得比较松。</p>
+<hr />
+<h2 id="15-阅读路线"><a class="header" href="#15-阅读路线">15. 阅读路线</a></h2>
+<p>很小，可以一次读完。</p>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>1</td><td><code>pad-imu/Cargo.toml</code>（1-5 行）</td><td>五句话说清&quot;为什么它自己是一个 crate&quot;</td></tr>
+<tr><td>2</td><td><code>pad-imu/src/lib.rs:1-35</code></td><td>模块文档 = <strong>整个设计</strong>。坐标轴那段尤其要看</td></tr>
+<tr><td>3</td><td><code>pad-imu/src/lib.rs:39-65</code></td><td>五个常数，<strong>每个都解释了两头夹在哪</strong></td></tr>
+<tr><td>4</td><td><code>pad-imu/src/lib.rs:110-161</code></td><td><code>Bias::observe</code> —— 零偏是怎么学的</td></tr>
+<tr><td>5</td><td><code>pad-imu/src/lib.rs:218-293</code></td><td><code>sample()</code>。<strong>§8 那张表就是它</strong></td></tr>
+<tr><td>6</td><td><code>pad-imu/src/lib.rs:310-329</code></td><td><code>relative</code> 和 <code>euler_deg</code> 两个公开函数</td></tr>
+<tr><td>7</td><td><code>pad-imu/src/lib.rs:497-601</code></td><td>五个测试，比文档更能说明它保证了什么</td></tr>
+<tr><td>8</td><td><code>padd/src/main.rs:330-367</code></td><td>它在真机器人上变成什么（<code>head_from_pad</code>）</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读模块文档那 35 行，然后读 §3 和 §9 两张表。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>两个传感器互补</strong>。一个短期准会漂，一个长期准怕动 —— 各取所长。</li>
+<li><strong>退化要退到合法值</strong>。零向量 → &quot;上&quot;；坏四元数 → 恒等；倒过来 → 随便一根水平轴。
+全仓库同一个品味。</li>
+<li><strong>诚实地报告&quot;还不知道&quot;</strong>。<code>bias_dps()</code> 的 <code>None</code>、<code>quaternion()</code> 的 <code>None</code>、
+种子之前&quot;只有默认值没有姿态&quot;—— <strong>&quot;还没学会&quot;和&quot;是零&quot;从来不混为一谈。</strong></li>
+</ol>
+<hr />
+<h2 id="16-术语表"><a class="header" href="#16-术语表">16. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>IMU</strong></td><td>惯性测量单元。陀螺仪 + 加速度计（这里是六轴）</td></tr>
+<tr><td><strong>陀螺仪（gyro）</strong></td><td>测<strong>角速度</strong>（转多快）。积分得到角度</td></tr>
+<tr><td><strong>加速度计（accel）</strong></td><td>测<strong>加速度</strong>，包含重力。静止时指着&quot;下&quot;</td></tr>
+<tr><td><strong>姿态（attitude / orientation）</strong></td><td>&quot;朝哪&quot;。这里是一个四元数，body → world</td></tr>
+<tr><td><strong>互补滤波器</strong></td><td>陀螺管短期、加速度计管长期的融合方法</td></tr>
+<tr><td><strong>零偏（bias）</strong></td><td>传感器在&quot;什么也没发生&quot;时的非零读数。这里的陀螺有约 12 °/s</td></tr>
+<tr><td><strong>漂移（drift）</strong></td><td>误差随时间累积。零偏积分出来的就是它</td></tr>
+<tr><td><strong>静止窗口</strong></td><td>一段&quot;角速度不抖 + 加速度计读 1 g&quot;的区间，用来量零偏</td></tr>
+<tr><td><strong>极差（spread）</strong></td><td>最大值减最小值。这里用它判&quot;稳不稳&quot;</td></tr>
+<tr><td><strong>重力带（<code>GRAVITY_BAND</code>）</strong></td><td>0.85~1.15 g。出了这个范围说明在动，重力不可信</td></tr>
+<tr><td><strong>种子（seed）</strong></td><td>第一次用重力定出姿态。在它之前没有姿态</td></tr>
+<tr><td><strong>时间常数</strong></td><td>误差衰减到 1/e 需要的时间。增益 2.0 → 0.5 秒</td></tr>
+<tr><td><strong>四元数</strong></td><td>表示旋转的四个数。这里 <code>w</code> 在前</td></tr>
+<tr><td><strong>共轭（conjugate）</strong></td><td>四元数的&quot;逆旋转&quot;</td></tr>
+<tr><td><strong>旋转向量（rotvec）</strong></td><td>轴 × 角度，一种紧凑的旋转表示</td></tr>
+<tr><td><strong>欧拉角</strong></td><td>pitch / roll / yaw 三个角</td></tr>
+<tr><td><strong>pitch / roll / yaw</strong></td><td>抬头低头 / 左右翻滚 / 左右转头</td></tr>
+<tr><td><strong>body frame</strong></td><td>手柄自己的坐标系。+X 前、+Y 左、+Z 上</td></tr>
+<tr><td><strong>world frame</strong></td><td>世界坐标系。重力沿 −Z</td></tr>
+<tr><td><strong>相对姿态（<code>relative</code>）</strong></td><td>相对于某个基准的变化量。<strong>治 yaw 漂移的办法</strong></td></tr>
+<tr><td><strong>重新取基准（re-zero）</strong></td><td>趁现在这一刻把漂移归零</td></tr>
+<tr><td><strong>evdev</strong></td><td>Linux 的输入设备接口。手柄走它</td></tr>
+<tr><td><strong><code>hid-nintendo</code></strong></td><td>内核里那个驱动。它报出 4096 单位/g 和 14247 单位/(°/s)</td></tr>
+<tr><td><strong>分辨率（resolution）</strong></td><td>驱动声明的&quot;一个物理单位等于多少个原始计数&quot;</td></tr>
+<tr><td><strong><code>#[ignore]</code></strong></td><td>默认不跑。<strong>这个 crate 一个都没有</strong></td></tr>
+<tr><td><strong><code>f32</code> vs <code>f64</code></strong></td><td>单精度 / 双精度浮点。这里用 <code>f32</code>，因为 600 Hz 且精度不是瓶颈</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>操作者视角：Y 键怎么用</td><td><a href="robot/cheatsheet.html"><code>robot/cheatsheet.md</code></a> §手柄</td></tr>
+<tr><td><code>[pad_imu_head_control]</code> 的 schema 和 <code>gain</code></td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>手柄怎么配对（姊妹篇）</td><td><a href="robot/pair-a-gamepad.html"><code>robot/pair-a-gamepad.md</code></a> · <a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td><code>PadImuBatch</code> 那些线上类型（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>另一套四元数实现，用 <code>f64</code> 且有 MuJoCo 基准（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a> §5</td></tr>
+<tr><td>控制环里那个&quot;手柄和远程 peer 抢方向盘&quot;的问题</td><td><a href="design/remote-webrtc.html"><code>design/remote-webrtc.md</code></a> §9</td></tr>
+<tr><td>控制循环本身（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端：<code>monitor</code>（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>摄像头里的鸭子检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>机器人走到哪了（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>它的两个消费者之一：手柄控头（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td><code>monitor</code> 那个线框手柄（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/odometry-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/padd-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/odometry-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/padd-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

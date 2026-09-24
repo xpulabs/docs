@@ -1,0 +1,1467 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>mediad/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html" class="active"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mediad-新手导读"><a class="header" href="#mediad-新手导读"><code>mediad</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>WebRTC 的机制由 <a href="design/remote-webrtc.html"><code>design/remote-webrtc.md</code></a> 拥有，
+控制台页面归 <a href="design/webrtc-console.html"><code>design/webrtc-console.md</code></a>，
+外网可达（账号、桥、NAT/TURN）归 <a href="design/remote-access-design.html"><code>design/remote-access-design.md</code></a>，
+板子上的视频硬件归 <a href="project/media-bringup.html"><code>project/media-bringup.md</code></a>。
+两者若有不一致，以设计文档为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a>（这个 crate 用它看鸭子）、
+<a href="duckctl-primer.html"><code>duckctl-primer.md</code></a>（笔记本上那个消费者）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%E5%AE%83%E5%9C%A8%E6%95%B4%E4%B8%AA%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE">它在整个系统里的位置</a></li>
+<li><a href="#3--%E4%B8%A4%E6%9D%A1%E8%B7%AFwebrtc-%E6%98%AF%E9%BB%98%E8%AE%A4mediastream-%E6%98%AF%E5%9B%9E%E9%80%80">⭐ 两条路：WebRTC 是默认，<code>media.stream</code> 是回退</a></li>
+<li><a href="#4-%E7%9B%AE%E5%BD%95%E5%AF%BC%E8%A7%88">目录导览</a></li>
+<li><a href="#5--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E4%B8%89%E4%B8%AA%E4%BA%92%E4%B8%8D%E7%9B%B8%E5%B9%B2%E7%9A%84%E4%B8%9C%E8%A5%BF">⭐ 核心心智模型：三个互不相干的东西</a></li>
+<li><a href="#6-%E5%90%AF%E5%8A%A8%E9%A1%BA%E5%BA%8F%E4%BB%A5%E5%8F%8A%E6%AF%8F%E4%B8%80%E6%AD%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E9%82%A3%E4%B8%AA%E4%BD%8D%E7%BD%AE">启动顺序，以及每一步为什么在那个位置</a></li>
+<li><a href="#7-%E7%AE%A1%E7%BA%BF%E4%BB%8E%E6%91%84%E5%83%8F%E5%A4%B4%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8">管线：从摄像头到浏览器</a></li>
+<li><a href="#8-%E6%8E%A7%E5%88%B6%E9%80%9A%E9%81%93%E4%B8%80%E6%9D%A1%E5%93%91%E7%AE%A1%E9%81%93">控制通道：一条哑管道</a></li>
+<li><a href="#9-%E5%A4%96%E7%BD%91%E5%8F%AF%E8%BE%BErelay-%E4%B8%8E-turn">外网可达：<code>relay</code> 与 <code>turn</code></a></li>
+<li><a href="#10-%E6%8E%A7%E5%88%B6%E5%8F%B0%E9%A1%B5%E9%9D%A2">控制台页面</a></li>
+<li><a href="#11-%E6%9C%AC%E5%9C%B0%E5%8F%96%E5%B8%A7mediaframe">本地取帧：<code>media.frame</code></a></li>
+<li><a href="#12-%E8%BD%AF%E4%BB%B6%E8%87%AA%E5%8A%A8%E6%9B%9D%E5%85%89">软件自动曝光</a></li>
+<li><a href="#13-%E5%9C%A8-tee-%E4%B8%8A%E6%89%BE%E9%B8%AD%E5%AD%90">在 tee 上找鸭子</a></li>
+<li><a href="#14-%E6%B5%81%E5%87%BA%E5%8E%BBmediastream">流出去：<code>media.stream</code></a></li>
+<li><a href="#15-%E6%91%84%E5%83%8F%E5%A4%B4%E5%87%A0%E4%BD%95">摄像头几何</a></li>
+<li><a href="#16-%E6%9E%84%E5%BB%BA%E9%83%A8%E7%BD%B2%E6%9D%83%E9%99%90">构建、部署、权限</a></li>
+<li><a href="#17-%E6%B5%8B%E8%AF%95122-%E4%B8%AA%E7%BB%9D%E5%A4%A7%E5%A4%9A%E6%95%B0%E4%B8%8D%E9%9C%80%E8%A6%81%E6%9D%BF%E5%AD%90">测试：122 个，绝大多数不需要板子</a></li>
+<li><a href="#18-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#19-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#20-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>mediad</code> 是<strong>机器人的眼睛</strong>，以及<strong>从外面够到这只机器人的那扇门</strong>。</p>
+<p>它一个人干三件互不相干的事，这是读懂它最重要的一点：</p>
+<div class="table-wrapper"><table><thead><tr><th>干什么</th><th>在哪</th><th>能不能离开 Linux</th></tr></thead><tbody>
+<tr><td><strong>摄像头管线</strong>：采集 → 编码 → WebRTC</td><td><code>pipeline.rs</code>（2704 行）</td><td>❌ 只有 Linux（或 <code>--features gstreamer</code>）</td></tr>
+<tr><td><strong>控制通道</strong>：一条哑管道，把 peer 的调用转给本地服务</td><td><code>session.rs</code> · <code>route.rs</code> · <code>upstream.rs</code></td><td>✅ 可移植，笔记本上能测</td></tr>
+<tr><td><strong>出站连接</strong>：注册到 rendezvous、取 TURN 凭据、往外推帧</td><td><code>relay.rs</code> · <code>turn.rs</code> · <code>stream.rs</code></td><td>✅ 可移植</td></tr>
+</tbody></table>
+</div>
+<p>一句话说清它的定位：</p>
+<blockquote>
+<p><strong>它是&quot;机器人怎么被看见、怎么被驱动&quot;的唯一实现，而且它不在恢复路径上。</strong></p>
+</blockquote>
+<p>第二条同样重要（<code>main.rs:15-17</code>）：</p>
+<blockquote>
+<p><strong>It is not on the recovery path.</strong> If <code>mediad</code> will not start, the robot still walks, still
+takes an update, and is still reachable over Bluetooth.</p>
+</blockquote>
+<p><strong><code>mediad</code> 起不来，机器人照样走、照样更新、照样能用蓝牙够到。</strong>
+所以它才敢依赖一个从 release 资产里下来的插件、一个设备节点的用户组 —— 那些是 <code>updaterd</code> 不敢的。</p>
+<hr />
+<h2 id="2-它在整个系统里的位置"><a class="header" href="#2-它在整个系统里的位置">2. 它在整个系统里的位置</a></h2>
+<p><code>mediad</code> 是个<strong>叶子</strong>：workspace 里没有任何 crate 依赖它（它是 binary，不是库）。
+它依赖别人：</p>
+<pre><code class="language-toml"># mediad/Cargo.toml:30-94（节选）
+hf-robot-account = &quot;0.1&quot;          # 只有一件事：read_access_token
+duck-ipc-proto                   # 公共线上契约
+robotd-params                    # [media] 和 [duck_detector] 的 schema
+duck-detect                      # 鸭子检测器本体
+uyvy                             # 采样器：像素格式转换
+</code></pre>
+<p>注意 <code>robotd-params</code> 那一条的注释（<code>Cargo.toml:36-38</code>）：</p>
+<blockquote>
+<p><code>[media]</code> and <code>[duck_detector]</code> in /etc/robot/robotd.toml — what this daemon streams, and what it
+looks for. <strong>The same crate <code>robotd</code> parses that file with and the same one <code>robotctl configure</code>
+edits it through, so the schema, the defaults and the editor cannot drift from what is read here.</strong></p>
+</blockquote>
+<p><strong>配置文件是同一份，读它的 crate 也是同一个。</strong> <code>[duck_detector]</code> 明明归 <code>mediad</code> 用，
+却住在 <code>robotd.toml</code> 里，理由在 <code>main.rs:499-501</code>：</p>
+<blockquote>
+<p>a robot has <strong>one place for its switches</strong></p>
+</blockquote>
+<p>一只机器人只有一个放开关的地方。</p>
+<h3 id="谁在用它"><a class="header" href="#谁在用它">谁在用它</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>消费者</th><th>怎么用</th></tr></thead><tbody>
+<tr><td><strong>浏览器 / 手机</strong></td><td>直接连 <code>ws://&lt;robot&gt;:8443</code>，看视频 + 控制</td></tr>
+<tr><td><strong><code>robotctl monitor</code></strong></td><td>通过 <code>media.frame</code> 拿一帧，画成半格像素的摄像头块</td></tr>
+<tr><td><strong><code>robotctl health</code></strong></td><td>读 <code>/run/mediad/camera.json</code>（<code>CameraStats</code>）</td></tr>
+<tr><td><strong>Hugging Face Space</strong></td><td>经 rendezvous 远程，或机器人拨出去推帧</td></tr>
+<tr><td><strong>recorder / 感知进程</strong></td><td>本地 <code>media.frame</code> socket</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>💡 <strong><code>mediad</code> 不是 request/response 服务</strong>。它没有自己的 socket 用来回答问题 ——
+它把调用转发给别的服务（<code>duck-ipc-proto/src/lib.rs:5111-5113</code>）。
+唯一的例外是本地那个 <code>media.frame</code>，以及 <code>media.video</code>/<code>media.stream</code> 两个由它自己答的方法。</p>
+</blockquote>
+<hr />
+<h2 id="3--两条路webrtc-是默认mediastream-是回退"><a class="header" href="#3--两条路webrtc-是默认mediastream-是回退">3. ⭐ 两条路：WebRTC 是默认，<code>media.stream</code> 是回退</a></h2>
+<p>这是仓库里<strong>最容易读反</strong>的一件事，值得单独一节。</p>
+<p><code>stream.rs</code>（985 行）的模块文档<strong>长篇论证自己的存在</strong>。仓库根目录的 <code>CLAUDE.md</code> 特意警告：</p>
+<blockquote>
+<p>This is worth stating because the repository reads the other way round if you only follow the
+code: <code>media.stream</code> was built when the relay endpoint was dead and WebRTC genuinely could not
+connect from a data centre, so its module doc argues its own case at length. <strong>That endpoint is
+fixed. Do not conclude from the volume of prose that it is the preferred path.</strong></p>
+</blockquote>
+<p><code>stream.rs</code> 自己也在第一段就承认了（<code>stream.rs:5-10</code>）：</p>
+<blockquote>
+<p><strong>A consumer should use WebRTC</strong> … This module is for the narrow case WebRTC serves badly: a
+<strong>program</strong> consuming <strong>frames only</strong> on a <strong>long-running</strong> stream, where a relay's metered
+bandwidth is the cost that matters.</p>
+</blockquote>
+<h3 id="该怎么选"><a class="header" href="#该怎么选">该怎么选</a></h3>
+<pre><code>你的消费者是人（浏览器 / 手机）？
+  └── 是 → WebRTC。没有第二个选择。
+
+你的消费者是程序？
+  ├── 需要驱动机器人（有返回路径）？ → WebRTC
+  ├── 需要音频 / 第二条视频轨？      → WebRTC
+  └── 只要帧、跑一整天、在意流量？    → media.stream ✅
+</code></pre>
+<p><code>media.stream</code> 换来的好处是<strong>不花任何人的中继流量</strong> —— 机器人拨出去，不需要打洞：</p>
+<pre><code>你的 Space ──media.stream {url: &quot;wss://…/frames&quot;}──►  rendezvous  ──►  机器人
+机器人    ══════════ 帧，出站 wss，直连 ══════════════►  你的 Space
+</code></pre>
+<p>代价（<code>docs/faq.md</code>）：<strong>没有返回路径、没有控制通道、加密是你自己的 TLS 而不是 DTLS-SRTP。</strong></p>
+<h3 id="还有第三条别搞混"><a class="header" href="#还有第三条别搞混">还有第三条，别搞混</a></h3>
+<p><code>frame.rs</code>（<code>media.frame</code>）<strong>既不是 WebRTC 也不是 <code>media.stream</code></strong> —— 它是<strong>给机器人上跑的程序</strong>用的本地 unix socket。三者不要混为一谈。</p>
+<hr />
+<h2 id="4-目录导览"><a class="header" href="#4-目录导览">4. 目录导览</a></h2>
+<pre><code>mediad/
+├── Cargo.toml            155 行 —— 头 28 行讲清&quot;为什么会有 C 依赖&quot;
+├── src/
+│   ├── pipeline.rs      2704 行  GStreamer 管线 + datachannel      [Linux/feature]
+│   ├── relay.rs         2563 行  到 rendezvous 的出站连接
+│   ├── stream.rs         985 行  帧出站到 Space                    [部分 gated]
+│   ├── exposure.rs       726 行  软件自动曝光                      [Linux]
+│   ├── session.rs        715 行  一条哑管道
+│   ├── main.rs           707 行  组装根：17 步启动
+│   ├── turn.rs           561 行  TURN 凭据
+│   ├── route.rs          545 行  哪些调用可以被 peer 调用
+│   ├── frame.rs          514 行  本地 media.frame 端点             [Linux/feature]
+│   ├── camera.rs         460 行  内参（几何）
+│   ├── detect.rs         398 行  在 tee 上找鸭子                   [Linux/feature]
+│   ├── web.rs            339 行  控制台页面（axum）
+│   ├── upstream.rs       301 行  五个服务的连接池
+│   ├── producer.rs       253 行  开会话之前先说清自己是谁
+│   ├── snapshot.rs       134 行  media.frame 的客户端（页面用）
+│   ├── config.rs         105 行  [media] 的加载
+│   └── lib.rs             68 行  模块地图
+├── systemd/
+│   ├── mediad.service          —— 144 行，注释比指令多
+│   └── sysusers.d/mediad.conf
+└── webclient/
+    ├── index.html       1754 行  控制台页面（单文件）
+    └── space/            你要推到 Hugging Face 的那个 Space
+</code></pre>
+<h3 id="cfg-门控四个模块有其余没有"><a class="header" href="#cfg-门控四个模块有其余没有">cfg 门控：四个模块有，其余没有</a></h3>
+<p><code>lib.rs</code> 是这张表最清楚的来源：</p>
+<div class="table-wrapper"><table><thead><tr><th>模块</th><th>门控</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>pipeline</code> · <code>detect</code> · <code>frame</code></td><td><code>any(target_os = &quot;linux&quot;, feature = &quot;gstreamer&quot;)</code></td><td>需要 GStreamer</td></tr>
+<tr><td><code>exposure</code></td><td><code>target_os = &quot;linux&quot;</code> <strong>单独</strong></td><td><strong>不是打包决定</strong>，见下</td></tr>
+<tr><td>其余 12 个</td><td>无</td><td>可移植</td></tr>
+</tbody></table>
+</div>
+<p><code>exposure</code> 那条的理由（<code>lib.rs:49-52</code>）：</p>
+<blockquote>
+<p><strong>Linux only, and unlike [<code>pipeline</code>] that is not a packaging decision</strong>: this writes V4L2
+controls to a camera through <code>ioctl</code>. Nothing off a robot wants it — <strong>there is no sensor behind a
+simulated source or a test pattern to meter</strong>.</p>
+</blockquote>
+<p><strong>没有传感器可以测光</strong> —— 所以它不是&quot;能不能编&quot;，而是&quot;有没有意义&quot;。</p>
+<p><code>Cargo.toml:8-11</code> 讲了为什么<strong>用 target 门控而不是 feature</strong>：</p>
+<blockquote>
+<p>Gating by target rather than by feature keeps <code>cargo test</code> honest — <strong>a feature that is off by
+default is a module nobody compiles.</strong></p>
+</blockquote>
+<p><strong>默认关掉的 feature = 没人编译的模块。</strong></p>
+<hr />
+<h2 id="5--核心心智模型三个互不相干的东西"><a class="header" href="#5--核心心智模型三个互不相干的东西">5. ⭐ 核心心智模型：三个互不相干的东西</a></h2>
+<p>读 <code>mediad</code> 最省力的方式，是先把它当成三个程序：</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────────┐
+│ ① 管线（pipeline.rs）                                                │
+│    v4l2src → caps → tee ─┬→ queue → webrtcsink → 浏览器              │
+│                          ├→ queue(leaky,1) → appsink → 曝光 / 检测   │
+│                          └→ queue → valve → … → appsink → media.stream│
+│    里面还有一个 webrtcsink 自己的信令服务器（8443）                   │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ ② 控制通道（session.rs + route.rs + upstream.rs）                     │
+│    datachannel 的每一行 ──► route 查表 ──► 转给对应的 unix socket     │
+│                                       ◄── 原样转发回来                 │
+│    ★ 它不解析回复。一个方法被加进 API，这个 crate 一行都不用改。       │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ ③ 出站（relay.rs + turn.rs + stream.rs）                              │
+│    机器人主动拨出去，所以不需要打洞                                    │
+│    relay：注册 + 桥接会话 + 控制车道（JSON-RPC 经 rendezvous）        │
+│    turn：取中继凭据，交给 webrtcbin                                    │
+│    stream：把帧推给你的 WebSocket                                      │
+└─────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<p><code>lib.rs:9-10</code> 对 ② 的自我描述是整份代码里最该记住的一句：</p>
+<blockquote>
+<p>[<code>session::run</code>] is <strong>transport-agnostic on purpose</strong>: it takes lines and gives lines, so it is
+testable without a WebRTC peer and would serve a WebSocket surface (§11) unchanged.</p>
+</blockquote>
+<p><strong>&quot;收行进、吐行出&quot;</strong> —— 所以它不需要 WebRTC 就能测，所以将来加一个 WebSocket 面也一行不改。</p>
+<hr />
+<h2 id="6-启动顺序以及每一步为什么在那个位置"><a class="header" href="#6-启动顺序以及每一步为什么在那个位置">6. 启动顺序，以及每一步为什么在那个位置</a></h2>
+<p><code>main.rs</code> 的 <code>runtime.block_on</code> 是一个 400 行的顺序块，<strong>每一步的位置都是决定</strong>。按顺序读一遍，能省掉后面很多&quot;为什么在这儿&quot;的疑问。</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>做什么</th><th>为什么在这个位置</th></tr></thead><tbody>
+<tr><td>1</td><td><code>log_startup_identity!</code></td><td>在<strong>任何可能失败的事之前</strong> —— 日志里报启动失败时也得报是哪个 build 失败的</td></tr>
+<tr><td>2</td><td>建 tokio runtime</td><td></td></tr>
+<tr><td>3</td><td>校验 <code>--rotate</code></td><td><strong>在任何东西启动之前</strong>：错角度是命令行上的笔误，该当场说，而不是先开摄像头</td></tr>
+<tr><td>4</td><td>读配置</td><td></td></tr>
+<tr><td>5</td><td>算 <code>width/height/fps</code></td><td><strong>&quot;实际会跑的，不是配置的&quot;</strong> —— 测试图案忽略 <code>quality</code>，日志报 quality 会撒谎</td></tr>
+<tr><td>6</td><td><code>web::serve</code> 控制台</td><td><strong>最先</strong>。它是那个&quot;告诉人管线起不来&quot;的页面，所以它得先活着</td></tr>
+<tr><td>7</td><td><code>Producer::learn</code></td><td>在管线之前 —— <code>webrtcsink</code> 的 <code>meta</code> 是建元素时设的，<strong>注册晚了会一直到重启都顶着空名字</strong></td></tr>
+<tr><td>8</td><td><code>--sim-camera</code> 兜底置 <code>simulated</code></td><td>见下</td></tr>
+<tr><td>9</td><td><code>turn::maintain</code></td><td>在管线之前 —— <strong>第一个消费者的 offer 是管线起来时构建的</strong></td></tr>
+<tr><td>10</td><td><code>relay::run</code></td><td>在 producer 之后 —— 列表里那个名字来自同一个地方</td></tr>
+<tr><td>11</td><td>选 source（<code>match</code> 不是 <code>if</code>）</td><td>新增一个 <code>MediaSource</code> 会<strong>编译失败</strong>，而不是悄悄变成测试图案</td></tr>
+<tr><td>12</td><td><code>pipeline::start</code></td><td></td></tr>
+<tr><td>13</td><td><code>frame::bind</code> + <code>serve</code></td><td></td></tr>
+<tr><td>14</td><td><code>exposure::spawn</code></td><td>在管线<strong>之后</strong>：它要测管线自己的帧</td></tr>
+<tr><td>15</td><td><code>detect::spawn_first</code></td><td></td></tr>
+<tr><td>16</td><td><code>camera::Intrinsics</code></td><td>在管线<strong>之后</strong> —— <strong>只有试过设置之后才知道是哪个 sensor mode</strong></td></tr>
+<tr><td>17</td><td>接受 peer 的循环</td><td></td></tr>
+</tbody></table>
+</div>
+<h3 id="每一步的失败怎么办也都是决定"><a class="header" href="#每一步的失败怎么办也都是决定">每一步的&quot;失败怎么办&quot;也都是决定</a></h3>
+<p><strong>控制台起不来不连累视频</strong>（<code>main.rs:298-301</code>）：</p>
+<blockquote>
+<p><strong>A page that cannot be served does not cost the video.</strong> A refused bind is almost always a port
+already in use, which <code>Restart=always</code> cannot fix by trying again; <strong>a robot that streams and
+answers control calls with no console is much better than one that does neither.</strong></p>
+</blockquote>
+<p><strong>producer 学不到名字也不是错误</strong>（<code>producer.rs:19-26</code>）：</p>
+<blockquote>
+<p>a producer with no name is a robot that streams, and <strong>a robot that will not stream because it
+could not learn its own name would be a much worse trade</strong>.</p>
+</blockquote>
+<p><strong>检测器起不来只是 warning</strong>（<code>main.rs:503-505</code>）：</p>
+<blockquote>
+<p>the camera, the console and the control channel are all still worth having, and <strong>&quot;mediad refused
+to boot because a model file moved&quot; is a bad trade</strong>.</p>
+</blockquote>
+<p><strong>但 <code>frame::bind</code> 失败是致命的</strong>（<code>main.rs:453</code>）：<code>&quot;cannot bind media.frame; refusing a partial start&quot;</code>。</p>
+<h3 id="simulated-那个兜底"><a class="header" href="#simulated-那个兜底"><code>simulated</code> 那个兜底</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/main.rs:321-326
+// **A camera that is MuJoCo is a simulated robot, whatever `configd` said.**
+producer.simulated |= args.sim_camera.is_some();
+<span class="boring">}</span></code></pre></pre>
+<p>理由：<code>configd</code> 拥有这个事实，但它被问的时候<strong>只带一个超时</strong>，
+而一台机器上每个 daemon 都在同一瞬间启动 —— 答晚了就会把一只模拟鸭子注册成硬件。</p>
+<blockquote>
+<p>the two cannot disagree — <strong>there is no arrangement in which the frames come from a simulator
+and the robot is real</strong>. （<code>main.rs:323-325</code>）</p>
+</blockquote>
+<hr />
+<h2 id="7-管线从摄像头到浏览器"><a class="header" href="#7-管线从摄像头到浏览器">7. 管线：从摄像头到浏览器</a></h2>
+<h3 id="71-gstreamer-是什么"><a class="header" href="#71-gstreamer-是什么">7.1 GStreamer 是什么</a></h3>
+<p><strong>对没用过 GStreamer 的人</strong>：它是一个媒体框架，你把一串<strong>元素</strong>（element）接起来，
+媒体数据叫 <strong>buffer</strong>，在元素之间沿着 <strong>pad</strong> 流动。每个元素只做一件事
+（<code>v4l2src</code> 读摄像头、<code>h264parse</code> 修 H.264 字节流）。</p>
+<p>几个会反复出现的词：</p>
+<div class="table-wrapper"><table><thead><tr><th>元素</th><th>干什么</th></tr></thead><tbody>
+<tr><td><code>tee</code></td><td>把一路流<strong>复制</strong>成 N 路</td></tr>
+<tr><td><code>queue</code></td><td>把一条支路<strong>挪到自己的线程</strong>（没有它，<code>tee</code> 的两条支路跑在同一个线程上）</td></tr>
+<tr><td><code>appsink</code></td><td>一个把 buffer 交给<strong>你的代码</strong>而不是交给屏幕/文件的 sink</td></tr>
+<tr><td><code>valve</code></td><td>开关。<code>drop=true</code> 时<strong>丢掉</strong>流过的 buffer</td></tr>
+<tr><td><code>capsfilter</code></td><td>钉死格式/分辨率/帧率，而不是让上下游协商</td></tr>
+</tbody></table>
+</div>
+<h3 id="72-这条管线的全貌"><a class="header" href="#72-这条管线的全貌">7.2 这条管线的全貌</a></h3>
+<pre><code>                              ┌─ queue ──────────► webrtcsink ──► 浏览器
+                              │        (webrtcsink 自己带编码器)
+采集 ──► caps ──► [videoflip] ──► tee
+                              │
+                              ├─ queue(leaky,1) ──► appsink ──► 曝光循环 / 检测器
+                              │
+                              └─ queue ──► valve ──► videorate ──► videoscale
+                                            ──► videoconvert ──► mpph264enc
+                                            ──► h264parse ──► appsink ──► media.stream
+</code></pre>
+<p>三个关键决定：</p>
+<p><strong>① tee 在裸帧上，在编码器之前。</strong></p>
+<p>理由（<code>pipeline.rs:19-23</code>）：<code>architecture.md</code> §5.3 要&quot;按需给一帧&quot;，§2 要&quot;感知挨着传感器&quot;。
+两者都要<strong>像素</strong>，而从编码后的支路拿意味着解码刚刚编过的东西。</p>
+<p><strong>② 原始那一路是 leaky 且只有一格。</strong></p>
+<blockquote>
+<p>the raw one is leaky and one buffer deep, which is the <em>latest</em> snapshot … rather than a queue of
+stale ones. <strong>A stalled reader costs frames, never the encoder.</strong>（<code>remote-webrtc.md</code> §2）</p>
+</blockquote>
+<p><strong>③ 采集格式是 <code>UYVY</code>，不是 NV12。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/pipeline.rs:1442
+pub const CAPTURE_FORMAT: &amp;str = &quot;UYVY&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>这是一个<strong>测量结果而不是偏好</strong>（<code>pipeline.rs:461-464</code>）：rkisp 同时提供单平面格式和一个
+非连续双平面的 <code>NM12</code>；要 GStreamer 的 <code>NV12</code> 会选中 <code>NM12</code>，而 <code>v4l2src</code> 在这颗驱动上
+推不动它 —— 无论缓冲区多深。实测表：</p>
+<div class="table-wrapper"><table><thead><tr><th>caps</th><th>2 buffers</th><th>4+ buffers</th></tr></thead><tbody>
+<tr><td><code>NV12</code>（选中 <code>NM12</code>）</td><td>19.5 fps</td><td>19.6 fps</td></tr>
+<tr><td><code>UYVY</code>（单平面）</td><td>19.7 fps</td><td><strong>29.3 fps</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>mpph264enc</code> 的 sink pad 上有 <code>UYVY</code>，它在 RGA 上转换，所以 4:2:2 → 4:2:0 <strong>不花 CPU</strong>。</p>
+<h3 id="73--那个花了三次调试的分配问题"><a class="header" href="#73--那个花了三次调试的分配问题">7.3 ⭐ 那个花了三次调试的分配问题</a></h3>
+<p><code>pipeline.rs:1497</code> 的 <code>raise_capture_buffers</code> 是整份代码里注释最长的一段，值得单独看看。</p>
+<p>rkisp 不实现 <code>V4L2_CID_MIN_BUFFERS_FOR_CAPTURE</code>，于是 GStreamer 算出 <code>own_min = 0</code>，最终落在<strong>两个缓冲区</strong>。
+而<strong>三是悬崖，不是斜坡</strong>：</p>
+<blockquote>
+<p><code>v4l2-ctl --stream-mmap=N</code> on the main path gives <strong>19.7 fps at two and 29.2 at three or more</strong>.</p>
+</blockquote>
+<p>把深度提上去要<strong>同时</strong>满足两件事（<code>pipeline.rs:1491-1495</code>）：</p>
+<blockquote>
+<p><strong>And (2) has to happen after downstream answers.</strong> <code>propose_allocation</code> implementations
+<strong>overwrite pool 0 rather than appending</strong>, so a <code>min</code> written on the way out is replaced by the
+encoder's zero on the way back. A pad probe fires in both directions, so this rewrites pool 0
+every time it sees the query and the last word is ours. <strong>That is the bug that made three
+earlier versions of this function look like they were being ignored.</strong></p>
+</blockquote>
+<p><strong>&quot;这就是让这个函数的前三个版本看起来像被忽略了的那个 bug。&quot;</strong></p>
+<h3 id="74--什么都不转什么都不转旋转"><a class="header" href="#74--什么都不转什么都不转旋转">7.4 ⭐ 什么都不转，什么都不转（旋转）</a></h3>
+<p>摄像头装歪了四分之一圈。最直觉的修法是 <code>videoflip</code>，而<strong>那是错的</strong>，实测（<code>pipeline.rs:109-115</code>）：</p>
+<blockquote>
+<p><strong>This defaulted to a quarter turn for one afternoon and cost 145% of a core.</strong> <code>mpph264enc</code> hands
+the UYVY→NV12 conversion to the SoC's 2D engine and pays nothing for it; <code>videoflip</code>'s output is a
+buffer the RGA refuses … so MPP fell back to converting <strong>every frame in software</strong>. Measured on
+the robot: <strong>97 °C, the CPU throttled from 1.8 GHz to 408 MHz, 1565 frames lost by <code>v4l2src</code> in
+one session, and 8 fps out of a 30 fps camera.</strong></p>
+</blockquote>
+<p>所以<strong>管线里没有任何东西旋转</strong>。安装角度是<strong>上报</strong>的（<code>media.video</code>），谁显示谁转：
+控制台用 CSS transform，那是免费的；感知消费者把它折进自己本来就要做的重采样里。</p>
+<p><code>--flip-in-pipeline</code> 把旧行为放回来，给那些自己转不了的消费者。</p>
+<h3 id="75-按需取帧而不是发布"><a class="header" href="#75-按需取帧而不是发布">7.5 按需取帧，而不是发布</a></h3>
+<p>这是 <code>pipeline.rs:251-257</code> 记录的一笔账：</p>
+<blockquote>
+<p>Copying a frame out of the tee costs the whole frame — <strong>1.84 MB at 720p30</strong> … and the branch's
+readers want two a second between them … Capturing all thirty meant <strong>55 MB/s of memcpy and a
+1.8 MB allocation thirty times a second, from boot, on every robot</strong>, for twenty-eight frames
+nobody ever read.</p>
+</blockquote>
+<p><strong>&quot;从开机起，每只机器人，每秒三十次。&quot;</strong> 所以改成：读者说&quot;我要&quot;，appsink 才复制。
+其余每帧的代价是<strong>一次 relaxed load 加上把 sample 丢掉</strong>。</p>
+<p>而且读者等的是<strong>下一帧</strong>而不是上一帧（<code>pipeline.rs:258-264</code>）：</p>
+<blockquote>
+<p>an exposure loop steering on half-second-old luma is a loop that <strong>hunts</strong>.</p>
+</blockquote>
+<h3 id="76-两件让失败可见的事"><a class="header" href="#76-两件让失败可见的事">7.6 两件让失败可见的事</a></h3>
+<p><strong>no panics in a C closure</strong>（<code>pipeline.rs:80-86</code>）：</p>
+<blockquote>
+<p><strong>Nothing in a signal handler here may panic.</strong> These closures are invoked from C, so a panic
+<strong>does not unwind — it aborts the process</strong>, and the journal shows <code>thread caused non-unwinding panic</code> with a backtrace through <code>g_closure_invoke</code> and <strong>nothing about what was actually wrong</strong>.</p>
+</blockquote>
+<p><strong>看 bus</strong>（<code>pipeline.rs:719-726</code>）：</p>
+<blockquote>
+<p><strong>Watch the bus, or every media failure is silent.</strong> … the journal showed a session starting, a
+session ending, and no reason for either. <strong>Two rounds of guessing went into diagnosing something
+GStreamer was already saying out loud.</strong></p>
+</blockquote>
+<h3 id="77-datachannel-是机器人建的"><a class="header" href="#77-datachannel-是机器人建的">7.7 datachannel 是机器人建的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// pipeline.rs:1916-1920
+// The robot creates the channel rather than waiting for the peer to, which is what
+// `reachy_mini`'s working equivalent does.
+<span class="boring">}</span></code></pre></pre>
+<p>流程：<code>consumer-added</code> 信号（<code>:1951</code>）→ <code>create-data-channel</code>，label <code>&quot;control&quot;</code>，
+reliable/ordered（<code>:2399-2404</code>）→ 接上 <code>mpsc</code> 两端 → 变成一个 <code>Channel</code> 交给 <code>main.rs:626</code> 的循环。</p>
+<hr />
+<h2 id="8-控制通道一条哑管道"><a class="header" href="#8-控制通道一条哑管道">8. 控制通道：一条哑管道</a></h2>
+<h3 id="81-心智模型"><a class="header" href="#81-心智模型">8.1 心智模型</a></h3>
+<pre><code>peer 发来一行 JSON-RPC
+   │
+   ├─ 是 media.video / media.stream？ → session.rs 自己答
+   │
+   └─ 否则：解析出 id 和 method（只解析到能路由为止）
+         │
+         ├─ route::permits() 说不行 → 在这里回一个拒绝
+         │
+         └─ 说行 → 查到 (service, lane) → 原样写进那个 unix socket
+                                          │
+                    服务吐出来的每一行 ◄──┘ 原样转发给 peer
+</code></pre>
+<h3 id="82--它不解析回复"><a class="header" href="#82--它不解析回复">8.2 ⭐ 它不解析回复</a></h3>
+<p><code>session.rs:10-17</code>：</p>
+<blockquote>
+<p><strong>It never parses a reply.</strong> Requests are read far enough to route them and no further; everything
+a service emits is forwarded verbatim. Two things follow, and both matter:</p>
+<ul>
+<li>订阅（subscription）<strong>不需要特例</strong> —— 把回复和请求关联起来会&quot;留第一条、丢其余&quot;，
+而订阅恰恰是一串通知。</li>
+<li><strong>Adding a method to the API costs nothing here.</strong> <code>duck-ipc-proto</code> stays the only place a
+method is defined, and <strong>this file does not grow a case for it</strong>.</li>
+</ul>
+</blockquote>
+<p><strong>&quot;给 API 加一个方法，这个文件一行都不用改。&quot;</strong></p>
+<h3 id="83-routers穷尽匹配就是全部的意义"><a class="header" href="#83-routers穷尽匹配就是全部的意义">8.3 <code>route.rs</code>：穷尽匹配就是全部的意义</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/route.rs:8-11
+/// **The match is exhaustive, and that is the point of having one per transport.** Adding a
+/// variant to [`proto::Call`] fails the build here as well as in `btd`, so a new method cannot
+/// reach a remote peer because nobody remembered this file. A shared table with a `_` wildcard
+/// would have been the hole in both transports at once.
+<span class="boring">}</span></code></pre></pre>
+<p><code>permits()</code>（<code>route.rs:51-295</code>）<strong>匹配每一个 <code>Call</code> 变体，没有 <code>_</code> 分支</strong>，每个 <code>true</code>/<code>false</code>
+上面都写着理由。<code>false</code> 的那些分成三类（<code>route.rs:47-50</code>）：</p>
+<ol>
+<li><strong>授权的是另一种传输</strong> —— <code>system.pairingPin</code>。改了 PIN 就能把手机锁在 BLE 外面，而那是恢复路径。</li>
+<li><strong>会把问它自己的那个会话弄断</strong> —— <code>update.*</code> 的写操作、wifi、<code>pad.pair</code>。改 wifi 或重启 <code>mediad</code>，会话就没了。</li>
+<li><strong>永远不走网络传输</strong> —— <code>resetToGolden</code>、<code>pin</code>。</li>
+</ol>
+<p>还有一条最值得看的（<code>route.rs:175-181</code>）：</p>
+<blockquote>
+<p><strong>It is also the largest thing this transport grants</strong> … <code>account.login</code> converts <strong>being on the
+wifi <em>once</em> into remote access that outlives being there</strong> — the one call here whose effect is
+durable in that particular way.</p>
+</blockquote>
+<p><strong>&quot;把'此刻在同一个 wifi 上'变成'以后一直够得到'。&quot;</strong> —— 这是这条传输能给出的最大授权。</p>
+<h3 id="84-那个把两个文件绑在一起的测试"><a class="header" href="#84-那个把两个文件绑在一起的测试">8.4 那个把两个文件绑在一起的测试</a></h3>
+<p><code>route.rs:371</code> 的 <code>only_these_mutating_calls_are_reachable_over_webrtc</code> 干的事：
+把 <code>every_call()</code> 里<strong>既 mutating 又 permitted</strong> 的挑出来，断言它等于一个九项的名单。</p>
+<p>理由（<code>route.rs:366-369</code>）：</p>
+<blockquote>
+<p>anything both mutating <em>and</em> permitted here is a call a LAN peer can get <code>updaterd</code> to perform.
+<strong>That is two files agreeing, and this is the test that notices when they stop.</strong></p>
+</blockquote>
+<p>它已经抓到过一次真的错误：<code>policy.install</code>/<code>policy.fetch</code> 曾经静默地返回 <code>PERMISSION_DENIED</code>，
+直到 <code>mediad</code> 被加进 <code>deploy/updater.toml</code> 的 <code>allow_users</code>（为了 <code>account.login</code>）。</p>
+<h3 id="85-upstreamrs按-服务-车道-建的连接"><a class="header" href="#85-upstreamrs按-服务-车道-建的连接">8.5 <code>upstream.rs</code>：按 <strong>(服务, 车道)</strong> 建的连接</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/upstream.rs:80-85
+/// **Keyed on the lane as well as the service**, which is what keeps a minutes-long update from
+/// silencing everything else a peer asks. Every daemon serves one connection one request at a time,
+&gt; so calls that share a connection share a queue
+<span class="boring">}</span></code></pre></pre>
+<p><strong>车道</strong>（lane）是&quot;回答一个调用会占用连接多久&quot;：<code>Prompt</code>（瞬时）/ <code>Slow</code>（几秒）/ <code>Operation</code>（不定长）/ <code>Stream</code>（永不回答）。</p>
+<p>为什么不是&quot;一个调用一条连接&quot;（<code>duck-ipc-proto/src/lib.rs:1100-1114</code>）：
+那需要适配器知道一个调用<strong>什么时候结束</strong> —— 而那需要解析回复。<strong>它故意不解析。</strong></p>
+<p><strong>服务挂了是正常答案，不是要重试的错误</strong>（<code>upstream.rs:10-12</code>）：每个操作都有超时，
+而且<strong>恰好重试一次，且只对&quot;peer 走了&quot;这类错误</strong>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// upstream.rs:209-217
+peer_is_gone(...)  // BrokenPipe | ConnectionReset | ConnectionAborted | NotConnected
+<span class="boring">}</span></code></pre></pre>
+<p>理由（<code>upstream.rs:110-112</code>）：daemon 重启后在同一个路径上重新 listen，
+池里那条旧连接就是死的 —— <strong>&quot;那些字节根本没发出去，所以换一条新连接重写，而不是报上去。&quot;</strong>
+超时<strong>不重试</strong>：那说明 daemon 在，但卡住了。</p>
+<hr />
+<h2 id="9-外网可达relay-与-turn"><a class="header" href="#9-外网可达relay-与-turn">9. 外网可达：<code>relay</code> 与 <code>turn</code></a></h2>
+<h3 id="91-结构"><a class="header" href="#91-结构">9.1 结构</a></h3>
+<pre><code>  rendezvous  ──SSE──►   relay 任务   ──ws──►  127.0.0.1:8443  ◄──ws──  webrtcsink
+  (HTTP)      ◄─POST──   (在 mediad 里)  ◄──ws──  信令服务器            (生产者)
+</code></pre>
+<p><code>relay</code> 向服务注册成 <strong><code>producer</code></strong>，向本地信令服务器注册成 <strong><code>listener</code></strong> ——
+<strong>角色在两侧是反的</strong>，因为对服务而言它就是那只机器人，对管线而言它是一个要会话的 peer。</p>
+<h3 id="92-rendezvous-是什么"><a class="header" href="#92-rendezvous-是什么">9.2 rendezvous 是什么</a></h3>
+<p>一个跑成 Hugging Face Space 的<strong>牵线服务</strong>。机器人拨出去、注册，服务把它列在它账号下面，
+并在它和一个消费者之间转发消息。<strong>机器人从不接受入站连接。</strong></p>
+<p><code>relay.rs:52-57</code> 纠正了设计文档 §7 的一处说法：</p>
+<blockquote>
+<p>So the payload stays opaque and the envelope does not: this is <strong>a translator with an opaque
+payload rather than a relay</strong>.</p>
+</blockquote>
+<p>SDP 和 ICE 原样穿过，但<strong>信封要重写</strong> —— 因为 rendezvous 用 HTTP（SSE 进、<code>POST /send</code> 出），
+而且 peer id / session id 是<strong>逐跳不同</strong>的。</p>
+<h3 id="93--三条从服务源码里读出来决定了代码形状的事实"><a class="header" href="#93--三条从服务源码里读出来决定了代码形状的事实">9.3 ⭐ 三条从服务源码里读出来、决定了代码形状的事实</a></h3>
+<p><code>relay.rs:59-71</code>：</p>
+<ol>
+<li>
+<p><strong><code>POST /send</code> 在 <code>GET /events</code> 之前是 400。</strong>
+身份来自 bearer token，而 token 是靠 <code>/events</code> 连接绑定到 peer 的 ——
+<strong>所以流先开，注册跟在 welcome 后面。</strong></p>
+</li>
+<li>
+<p><strong>租约靠入站 <code>POST</code> 刷新，不是靠一条健康的流。</strong></p>
+<blockquote>
+<p>Thirty seconds, and <strong>a half-open TCP connection absorbs server-pushed keepalives silently
+for minutes</strong> — during which the robot believes it is reachable and is not.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>只有带 <code>meta.hardware_id</code> 的 producer 会被清扫。</strong>
+没有它就<strong>永远不会被驱逐</strong> —— 一个崩掉的 daemon 会在主人的机器人列表里阴魂不散。</p>
+</li>
+</ol>
+<h3 id="94-退避与抖动"><a class="header" href="#94-退避与抖动">9.4 退避与抖动</a></h3>
+<p><code>BACKOFF_START</code> 5 s → <code>BACKOFF_MAX</code> 60 s，每次失败翻倍（<code>relay.rs:140-141</code>）。</p>
+<p>抖动是<strong>只加不减</strong>的（<code>relay.rs:1345-1349</code>）：</p>
+<blockquote>
+<p>A duration plus up to [<code>BACKOFF_JITTER</code>] of itself, so <strong>a fleet does not reconnect in lockstep</strong>.</p>
+</blockquote>
+<p>理由：一次服务重启之后，一整队机器人同时回来就是一场自伤式雪崩。
+测试 <code>backoff_jitter_only_ever_adds</code> 断言 100 次里 <code>waited</code> 落在 <code>[10s, 11s]</code> —— <strong>抖动永远不会缩短等待</strong>，
+所以重试不会变成热循环。</p>
+<p>两种结束<strong>故意不等</strong>：</p>
+<div class="table-wrapper"><table><thead><tr><th>结束原因</th><th>等多久</th><th>为什么</th></tr></thead><tbody>
+<tr><td><code>SplitBrain</code></td><td><strong>立刻</strong></td><td>连接看着是健康的 —— <strong>这里每一秒都是机器人以为自己够得到、其实够不到的一秒</strong></td></tr>
+<tr><td><code>CredentialChanged</code></td><td><strong>不等</strong></td><td>要么立刻有新 token，要么上面那个循环本来就要等文件</td></tr>
+<tr><td><code>Unauthorised</code></td><td><code>no_token_poll</code>（30 s）</td><td><strong>退避治不好这个，登录才能</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="95-配额为什么不能用它跑遥测"><a class="header" href="#95-配额为什么不能用它跑遥测">9.5 配额：为什么不能用它跑遥测</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/relay.rs:922-928
+/// The rendezvous allows 1200 requests per 60 s **per peer**, and exceeding it earns a `429` on
+/// everything that token does — **including the heartbeat that holds this robot's lease** …
+<span class="boring">}</span></code></pre></pre>
+<p><code>relay.rs:44-50</code> 说得更直接：</p>
+<blockquote>
+<p><strong>What it is not is a teleop lane.</strong> … a 50 Hz intent stream is over budget in a second. Worse,
+exceeding it earns a <code>429</code> on the <em>whole peer</em>, <strong>which would take the robot's own lease down with
+it: a client could knock a robot off the rendezvous by subscribing to telemetry.</strong></p>
+</blockquote>
+<p><strong>&quot;一个客户端可以靠订阅遥测把机器人踢下线。&quot;</strong> 所以有了 <code>Budget</code>：
+只限通知，<strong>永不限回复</strong>（回复是消费者自己付了 <code>POST</code> 换来的）。</p>
+<h3 id="96-turnrs它不跑-turn-服务器"><a class="header" href="#96-turnrs它不跑-turn-服务器">9.6 <code>turn.rs</code>：它不跑 TURN 服务器</a></h3>
+<p>⚠️ <strong>第一号陷阱：<code>DEFAULT_TURN_ENDPOINT</code> 不是一个 TURN 服务器。</strong></p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/turn.rs:53
+pub const DEFAULT_TURN_ENDPOINT: &amp;str = &quot;https://fastrtc-turn-service.hf.space/credentials&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>它是 Hugging Face 托管的一个<strong>铸凭据的代理</strong> —— 拿账号 token 换 Cloudflare 的短期凭据。
+真正的中继是 Cloudflare 的。</p>
+<p>用大白话说清 TURN（<code>turn.rs:7-12</code>）：</p>
+<ul>
+<li>同一个局域网：用彼此的地址（<strong>host 候选</strong>）。</li>
+<li>跨互联网：先试 STUN 报回来的公网地址（<strong>srflx</strong>），这需要<strong>两个 NAT 都肯打洞</strong> ——
+<blockquote>
+<p>often they do, and often enough they do not, and <strong>the failure looks like a session that
+negotiates perfectly and carries nothing</strong>.</p>
+</blockquote>
+</li>
+<li><strong>TURN</strong> 是中转：一方在中继上预订一个地址，把它作为<strong>relay 候选</strong>报出去。
+<blockquote>
+<p>It always works, at the cost of somebody's bandwidth, <strong>which is why it is the last resort ICE
+tries rather than the first</strong>.</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>为什么必须是机器人那一侧出中继</strong>（<code>turn.rs:16-19</code>）：</p>
+<blockquote>
+<p>A connection needs <strong>one</strong> relay candidate, not two … and it matters more than it sounds, because
+<strong><code>aiortc</code>'s STUN client works where its TURN client does not, so a Python consumer <em>cannot</em> be
+the side that relays.</strong></p>
+</blockquote>
+<h3 id="97--为什么取凭据绝不能阻塞"><a class="header" href="#97--为什么取凭据绝不能阻塞">9.7 ⭐ 为什么取凭据绝不能阻塞</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/turn.rs:28-32
+/// **[`Relays::uris`] never blocks and never fails**, and that is the whole design of this module.
+<span class="boring">}</span></code></pre></pre>
+<p>理由：它唯一的调用者在 GStreamer 的 <code>consumer-added</code> 信号里，而<strong>那个 handler 不返回，
+这个消费者的 SDP offer 就不会生成</strong> —— 在那里发一个 HTTP 请求会拖慢<strong>每一个</strong>连接，
+包括永远不会用中继的局域网连接。</p>
+<p>所以它读一个缓存，用 <code>try_read</code>（连等都不等），空答案是<strong>正常状态</strong>。</p>
+<h3 id="98-那个安全的坑"><a class="header" href="#98-那个安全的坑">9.8 那个安全的坑</a></h3>
+<p><code>turn.rs:42-52</code> 记着一件真事：默认地址原本是 <code>turn.fastrtc.org</code> ——
+一个<strong>悬空的委派</strong>（域名注册健康，但背后的 hosted zone 没了，四个权威服务器全答 <code>REFUSED</code>）。</p>
+<p>危险的不是服务挂了，而是：</p>
+<blockquote>
+<p>a signed-in robot sends its account token down this URL <strong>every five minutes</strong>, and whoever wins a
+race to have AWS assign them one of those four delegated nameservers <strong>would serve records for the
+name, pass DNS validation for a certificate on it, and be handed the token</strong>.</p>
+</blockquote>
+<p>所以现在直接指向那个 Space，并且 <code>parse_endpoint</code>（<code>turn.rs:66</code>）作为 <strong>clap 的 <code>value_parser</code></strong>
+在<strong>参数解析阶段</strong>就把坏值拦掉（<code>turn.rs:64-65</code>）：</p>
+<blockquote>
+<p>An endpoint that is wrong rather than refused becomes <strong>a warning every thirty seconds for the
+life of the daemon, which is how a log stops being read</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="10-控制台页面"><a class="header" href="#10-控制台页面">10. 控制台页面</a></h2>
+<h3 id="101-两个端口但只有一个需要人输"><a class="header" href="#101-两个端口但只有一个需要人输">10.1 两个端口，但只有一个需要人输</a></h3>
+<p><code>webrtcsink</code> 占着 8443（它自己的信令服务器，只接受 host 和 port 两个参数），
+所以页面不能是它上面的一个路由。于是：</p>
+<div class="table-wrapper"><table><thead><tr><th>端口</th><th>谁</th><th>谁输入</th></tr></thead><tbody>
+<tr><td><strong>8080</strong></td><td><code>web.rs</code> 的 axum，一个页面 + 一个 <code>/frame</code></td><td><strong>人要输这个</strong>（或 <code>duckctl open</code>）</td></tr>
+<tr><td>8443</td><td><code>webrtcsink</code> 的信令服务器</td><td>页面的 JS 自己填，<strong>人永远不输</strong></td></tr>
+</tbody></table>
+</div>
+<p><code>webrtc-console.md</code> §1.3 把这个当成<strong>要求</strong>而不是愿望：</p>
+<blockquote>
+<p><strong>Two ports is a fact about the implementation, and it must not become a step for a person.</strong></p>
+</blockquote>
+<p>三条保证它不会变成负担：<strong>只有一个地址要输</strong>；<strong><code>mediad</code> 在服务页面时把信令 URL 填进去</strong>
+（所以 <code>--port</code> 改了也安全，没有第二份副本）；<strong>两个端口唯一能产生的失败用文字说清楚</strong> ——</p>
+<blockquote>
+<p>If 8080 answers and 8443 does not … the page must say <em>the page came from this robot, but its
+signalling port did not answer</em>, <strong>not <code>websocket error</code></strong>.</p>
+</blockquote>
+<h3 id="102-页面是嵌进二进制的"><a class="header" href="#102-页面是嵌进二进制的">10.2 页面是嵌进二进制的</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/web.rs:58
+include_str!(&quot;../webclient/index.html&quot;)
+<span class="boring">}</span></code></pre></pre>
+<p>理由（<code>web.rs:52-57</code>）：</p>
+<blockquote>
+<p>installing it under <code>current/webclient/</code> would cost an <code>--include</code> line in <strong>three places that
+already drift</strong> … and make <strong>&quot;which page is this robot serving&quot; a question with two answers</strong>.
+The cost is a rebuild to change a stylesheet, which is the right trade for a page that is part of
+the daemon's interface.</p>
+</blockquote>
+<h3 id="103-一个文件没有构建步骤"><a class="header" href="#103-一个文件没有构建步骤">10.3 一个文件，没有构建步骤</a></h3>
+<p><code>index.html</code> 1754 行，里面把理由写得很清楚：</p>
+<blockquote>
+<p><strong>One file is a constraint, not an accident</strong> — it is what makes this runnable at all. If it
+outgrows one file it becomes three … <strong>still with no build step and still with no npm.</strong></p>
+</blockquote>
+<p>它<strong>直接说 gst-plugins-rs 的信令协议</strong>，而不用官方的 JS 库：</p>
+<blockquote>
+<p>for one reason: <strong>a client that needs npm is a client nobody runs</strong>.</p>
+</blockquote>
+<h3 id="104-服务页面的两副面孔"><a class="header" href="#104-服务页面的两副面孔">10.4 服务页面的两副面孔</a></h3>
+<p>同一份 <code>index.html</code> 服务两个宿主，靠<strong>有没有被替换过端口</strong>来区分（<code>web.rs:258-264</code>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>谁在服务</th><th><code>{{SIGNALLING_PORT}}</code></th><th>页面走哪条路</th></tr></thead><tbody>
+<tr><td>机器人（8080）</td><td>被替换成真实端口</td><td><code>ws://&lt;robot&gt;:8443</code></td></tr>
+<tr><td>Hugging Face Space</td><td><strong>保持原样</strong>（页面读作&quot;没有机器人服务我&quot;）</td><td>rendezvous</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>getting this backwards produces <strong>a console that connects to nothing and says nothing</strong>.</p>
+</blockquote>
+<h3 id="105-那个-space-为什么要一个-dockerfile"><a class="header" href="#105-那个-space-为什么要一个-dockerfile">10.5 那个 Space 为什么要一个 Dockerfile</a></h3>
+<p><code>space/README.md</code> 记着一段伤：</p>
+<blockquote>
+<p>A static Space is documented to inject <code>window.huggingface.variables</code> into the page — and for this
+Space <strong>it never did</strong>, through a metadata change, a privacy flip, a delete-and-recreate, and a
+page given a real <code>&lt;head&gt;</code> for the injector to work on.</p>
+</blockquote>
+<p>所以改成 Docker Space：<code>hf_oauth: true</code> 把 client id 放进<strong>环境变量</strong>，八行 <code>sh</code> 把它写进页面。</p>
+<p><code>entrypoint.sh</code> 里那个正则值得一看（<code>entrypoint.sh:43-48</code>）：</p>
+<pre><code class="language-python"># **The opening tag on a line of its own, not the first `&lt;head&gt;` in the file.** The page's own
+# comments talk about `&lt;head&gt;` … and a plain first-match replace puts the bootstrap
+# *inside an HTML comment*, where it never runs.
+HEAD = re.compile(r&quot;^([ \t]*)&lt;head&gt;[ \t]*$&quot;, re.MULTILINE)
+</code></pre>
+<p><strong>&quot;页面自己的注释里就提到了 <code>&lt;head&gt;</code>&quot;</strong> —— 所以不能简单地找第一个。而且它要求<strong>恰好匹配一次</strong>，
+多个就报错退出。</p>
+<hr />
+<h2 id="11-本地取帧mediaframe"><a class="header" href="#11-本地取帧mediaframe">11. 本地取帧：<code>media.frame</code></a></h2>
+<h3 id="111-为什么它不和控制通道共用一条路"><a class="header" href="#111-为什么它不和控制通道共用一条路">11.1 为什么它不和控制通道共用一条路</a></h3>
+<p><code>frame.rs:3-7</code>：</p>
+<blockquote>
+<p>A frame stays out of the WebRTC control channel: at the default geometry the UYVY payload is about
+<strong>1.8 MiB</strong>, so JSON/base64 would make a control request several MiB and <strong>let a slow peer tie
+camera data to the network</strong>.</p>
+</blockquote>
+<p><strong>一帧 1.8 MiB，而控制得保持及时。</strong></p>
+<h3 id="112-socket-与权限"><a class="header" href="#112-socket-与权限">11.2 socket 与权限</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/frame.rs:32-36
+const SOCKET_MODE: u32 = 0o660;
+
+/// The group that may ask for a frame. Deliberately the same one as `robotd`'s socket, `padd`'s
+/// tap and `tof`'s stream: **whoever may watch the robot may watch what it sees.**
+const GROUP: &amp;str = &quot;robot&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>⚠️ <strong>第二号陷阱：光有 <code>0660</code> 不够。</strong> <code>Cargo.toml:41-43</code>：</p>
+<blockquote>
+<p><code>getgrnam</code> and <code>chown</code>, to hand the frame socket to the <code>robot</code> group after binding … <strong>Mode 0660
+alone would leave it <code>mediad:mediad</code></strong>, and the operator is only ever added to <code>robot</code>.</p>
+</blockquote>
+<p>socket 是 <code>mediad</code> 建的，所以它的组是 <code>mediad</code> 的主组 —— <strong><code>robot</code> 组里的人根本够不到</strong>。</p>
+<p>代码在 <code>frame.rs:232-256</code>：<code>libc::getgrnam</code> 查 gid，<code>libc::chown(path, u32::MAX, gid)</code> 改组
+（<code>u32::MAX</code> 是 <code>(uid_t)-1</code>，文档里&quot;别动属主&quot;的写法）。<strong>改失败只是 warning</strong>（<code>frame.rs:78-80</code>）：</p>
+<blockquote>
+<p>On a board that is a broken install; <strong>on a laptop it is a machine with no <code>robot</code> group, which is
+ordinary.</strong></p>
+</blockquote>
+<h3 id="113-它是要一帧不是拿上一帧"><a class="header" href="#113-它是要一帧不是拿上一帧">11.3 它是&quot;要&quot;一帧，不是&quot;拿&quot;上一帧</a></h3>
+<blockquote>
+<p>a caller here <strong>waits for the capture that answers it</strong>, bounded by [<code>pipeline::FRAME_TIMEOUT</code>],
+and <strong>a camera that has stopped is reported as a timeout rather than answered with the frame it
+stopped on.</strong>（<code>frame.rs:9-14</code>）</p>
+</blockquote>
+<hr />
+<h2 id="12-软件自动曝光"><a class="header" href="#12-软件自动曝光">12. 软件自动曝光</a></h2>
+<h3 id="121-为什么需要它"><a class="header" href="#121-为什么需要它">12.1 为什么需要它</a></h3>
+<p><strong>3A = 自动曝光、自动白平衡、自动对焦。</strong> 板子上的 <code>rkaiq_3A_server</code> 拥有白平衡、色彩矩阵、
+gamma、降噪 —— 但它的自动曝光：</p>
+<ol>
+<li><strong>只在流开始时收敛一次，然后就不管了。</strong>
+<blockquote>
+<p>One convergence at stream start is not auto-exposure. <strong>A robot that walks from a window into a
+corridor keeps the window's exposure.</strong>（<code>exposure.rs:10-11</code>）</p>
+</blockquote>
+</li>
+<li><strong>而且它会漏掉那次流开始事件</strong>，那连这一次都没有 —— 这就是&quot;3A 挂了，重启有时候能修&quot;的形状。</li>
+</ol>
+<p>所以软件循环是<strong>补上那个不存在的循环</strong>。</p>
+<h3 id="122--它用的是-v4l2-ctl不是-ioctl"><a class="header" href="#122--它用的是-v4l2-ctl不是-ioctl">12.2 ⚠️ 它用的是 <code>v4l2-ctl</code>，不是 <code>ioctl</code></a></h3>
+<p><code>lib.rs:49-51</code> 说这个模块 <em>&quot;writes V4L2 controls to a camera through <code>ioctl</code>&quot;</em>。
+<strong>代码不是这么做的</strong>，而它自己的文档解释了为什么（<code>exposure.rs:357-360</code>）：</p>
+<blockquote>
+<p><code>v4l2-ctl</code> rather than the ioctl, for the prototype's reason: <strong>the struct layout of
+<code>VIDIOC_S_EXT_CTRLS</code> is three nested types we would have to pin by hand, and getting one offset
+wrong is a write that succeeds and changes nothing.</strong></p>
+</blockquote>
+<p><strong>&quot;一个偏移量写错，就是一次成功但什么都没改变的写入。&quot;</strong>
+详见 §18。</p>
+<h3 id="123-控制环路"><a class="header" href="#123-控制环路">12.3 控制环路</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>参数</th><th>值</th><th>意思</th></tr></thead><tbody>
+<tr><td><code>INTERVAL</code></td><td>500 ms</td><td>一秒两次：够快跟得上机器人从窗口走进走廊，够慢让阻尼步不会振荡</td></tr>
+<tr><td><code>TARGET_Y</code></td><td>90.0</td><td>目标平均亮度（8 位，<strong>ISP gamma 之后</strong>）</td></tr>
+<tr><td><code>DEADBAND</code></td><td>0.12</td><td>相对误差死区</td></tr>
+<tr><td><code>ratio</code> 指数</td><td><strong>0.6</strong></td><td>阻尼</td></tr>
+<tr><td><code>SOFT_LINES</code></td><td>600</td><td>快门软上限（~11.4 ms）</td></tr>
+<tr><td><code>HARD_LINES</code></td><td>1200</td><td>快门硬上限（~22.9 ms）</td></tr>
+<tr><td><code>MAX_ANALOGUE</code></td><td>11.0</td><td>传感器模拟增益上限</td></tr>
+<tr><td><code>MAX_DIGITAL</code></td><td>16.0</td><td>ISP 数字增益上限</td></tr>
+</tbody></table>
+</div>
+<p><strong>三档亮度，按噪声从小到大花</strong>（<code>exposure.rs:73-77</code>）：</p>
+<blockquote>
+<p>Brightness is spent <strong>in noise order</strong>: shutter up to the soft cap first (cheapest and cleanest),
+then sensor analogue gain (clean amplification), then shutter up to the hard cap, and <strong>ISP digital
+gain — the noisiest — only when there is nothing else left</strong>.</p>
+</blockquote>
+<p><strong>为什么是 <code>ratio^0.6</code> 而不是 <code>ratio</code></strong>（<code>exposure.rs:135-139</code>）：</p>
+<blockquote>
+<p>the controls are linear in light and <strong>the measured luma is not</strong>, so a full correction against a
+gamma-compressed measurement <strong>overshoots and the loop hunts</strong>.</p>
+</blockquote>
+<p><strong>为什么必须有死区</strong>（<code>exposure.rs:68-69</code>）：</p>
+<blockquote>
+<p>Without a deadband the exposure jitters continuously on sensor noise alone, which is visible as
+<strong>a picture that breathes</strong>.</p>
+</blockquote>
+<h3 id="124--那个不优化的重复写入抑制"><a class="header" href="#124--那个不优化的重复写入抑制">12.4 ⭐ 那个&quot;不优化&quot;的重复写入抑制</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/exposure.rs:127-133
+/// **That second case is not an optimisation.** A room darker than the sensor can reach … leaves
+/// the ratio permanently outside the deadband, **because the setpoint is unreachable rather than
+/// merely far away** … each write is a `v4l2-ctl` process: **measured on the board at 43 ms of CPU a
+/// call**, which at the throttled 408 MHz is most of a tenth of a core **spent achieving nothing**.
+<span class="boring">}</span></code></pre></pre>
+<h3 id="125-那个读回来证明不了什么的检查"><a class="header" href="#125-那个读回来证明不了什么的检查">12.5 那个&quot;读回来证明不了什么&quot;的检查</a></h3>
+<p>第一次写入之后会读回一次 —— <strong>但只在&quot;要写的值&quot;和&quot;钉住的值&quot;不同时才读</strong>（<code>exposure.rs:460-464</code>）：</p>
+<blockquote>
+<p>a read-back that finds the pin proves nothing if the pin is also what we asked for. <strong>The check
+would pass on the strength of somebody else's write.</strong> That is not hypothetical: <strong>the first step
+on a robot landed on exactly the 600 lines <code>mediad</code> had pinned, and reported success.</strong></p>
+</blockquote>
+<p><strong>&quot;这一步会靠着别人的写入而通过。&quot;</strong></p>
+<h3 id="126-两个心跳"><a class="header" href="#126-两个心跳">12.6 两个心跳</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>心跳</th><th>周期</th><th>干什么</th></tr></thead><tbody>
+<tr><td><strong>重写</strong>（<code>REASSERT_TICKS = 20</code>）</td><td>10 s</td><td>把当前值<strong>再写一遍</strong> —— 因为 <code>v4l2src</code> 每次打开设备都会重新应用 <code>extra-controls</code>，<strong>包括一次不是我们发起的重开</strong></td></tr>
+<tr><td><strong>活体报告</strong>（<code>REPORT_TICKS = 20</code>）</td><td>10 s</td><td>info 级别说一句&quot;我还活着&quot;</td></tr>
+</tbody></table>
+</div>
+<p>第二个的理由（<code>exposure.rs:57-61</code>）：</p>
+<blockquote>
+<p><strong>At info, not debug, because the question &quot;is auto-exposure alive?&quot; should not need a drop-in.</strong>
+<strong>A loop that has settled writes nothing</strong>, and from the sensor that is indistinguishable from a
+loop metering a frozen frame or one that never started.</p>
+</blockquote>
+<p><strong>&quot;一个已经稳定的循环什么都不写&quot;</strong> —— 从传感器那一侧看，这和&quot;循环在看一帧冻住的画面&quot;完全一样。</p>
+<hr />
+<h2 id="13-在-tee-上找鸭子"><a class="header" href="#13-在-tee-上找鸭子">13. 在 tee 上找鸭子</a></h2>
+<h3 id="131-它是一个线程不是一个-task"><a class="header" href="#131-它是一个线程不是一个-task">13.1 它是一个线程，不是一个 task</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/detect.rs:7-9
+/// **A thread, not a task.** Inference is 60 ms of blocking work per frame and the tokio runtime
+/// here serves WebRTC signalling; a detector that occupied one of its workers for a tenth of every
+/// second would **make session setup stutter for no reason anybody could find**.
+<span class="boring">}</span></code></pre></pre>
+<h3 id="132--2-hz-是热限制不是偏好"><a class="header" href="#132--2-hz-是热限制不是偏好">13.2 ⭐ 2 Hz 是热限制，不是偏好</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/detect.rs:11-13
+/// **Paced, and the pace is a thermal number.** Flat out on a Radxa Zero 3 the detector reaches
+/// **95 °C** and the CPU throttles to 408 MHz — **a robot that walks badly to see well.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;一只走得很难看、但看得很清楚的机器人。&quot;</strong></p>
+<h3 id="133-帧从哪来多久一次"><a class="header" href="#133-帧从哪来多久一次">13.3 帧从哪来，多久一次</a></h3>
+<p>它<strong>问 tee 要帧</strong>（<code>frames.next_frame()</code>，<code>detect.rs:233</code>）——
+和曝光不同，曝光用的是零拷贝的 <code>inspect_next</code>，检测器需要像素本身，所以拿的是整帧的拷贝。</p>
+<p>节奏<strong>按墙钟走，不是按帧号抽帧</strong>，而且是从<strong>截止时刻</strong>排的（<code>detect.rs:188-190</code>）：</p>
+<blockquote>
+<p>Paced from the deadline rather than by sleeping a period after the work, so <strong>a slow inference
+eats its own slot instead of drifting the whole loop later</strong>.</p>
+</blockquote>
+<h3 id="134-模型怎么选"><a class="header" href="#134-模型怎么选">13.4 模型怎么选</a></h3>
+<p>按<strong>文件扩展名</strong>，不是配置开关（<code>detect.rs:68-70</code>）：</p>
+<blockquote>
+<p>Chosen by the model's own extension rather than by a config switch: <strong>a <code>.rknn</code> only runs on the
+NPU and an <code>.onnx</code> only runs on the CPU, so asking somebody to say both is asking them to
+contradict themselves.</strong></p>
+</blockquote>
+<p><code>robotd-params</code> 给的默认列表是 NPU 优先（<code>/opt/robot/detector/current/duck_detect.rknn</code> 再 <code>.onnx</code>），
+所以 NPU 被关掉的板子会自动落到 CPU 上。</p>
+<h3 id="135-失败怎么处理分得很细"><a class="header" href="#135-失败怎么处理分得很细">13.5 失败怎么处理（分得很细）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>失败</th><th>处理</th></tr></thead><tbody>
+<tr><td>feature 关着 / 没有模型</td><td>info 一句，<strong>完全不启动检测器</strong></td></tr>
+<tr><td>模型加载失败</td><td><code>warn</code>，试下一个（rknn → onnx）；全失败就带上修复提示退出</td></tr>
+<tr><td><strong>推理</strong>失败</td><td><code>error</code>，<strong>循环继续</strong> —— 理由（<code>detect.rs:115-117</code>）：&quot;a bad frame is no reason for a robot to stop being able to see the next one.&quot;</td></tr>
+<tr><td>tee 上的格式不对</td><td><code>warn</code> 然后 <strong>return</strong>（线程永久停止）</td></tr>
+</tbody></table>
+</div>
+<p>第三条还有个细节（<code>detect.rs:280-281</code>）：</p>
+<blockquote>
+<p><strong>Once per distinct message: a failure that repeats at 2 Hz would be 7000 identical lines an
+hour, which is how a journal stops being read.</strong></p>
+</blockquote>
+<h3 id="136-结果去哪"><a class="header" href="#136-结果去哪">13.6 结果去哪</a></h3>
+<p>一个容量 8 的 <code>broadcast::Sender</code>（<code>detect.rs:39-44</code>）。<code>main.rs</code> 给<strong>每个 peer</strong> 订阅一份，
+转成 JSON-RPC 通知 <code>media.detections</code> 发出去。</p>
+<p><strong>空结果也照发</strong>（<code>detect.rs:385-386</code>）：</p>
+<blockquote>
+<p><strong>A detector that goes quiet when it sees nothing leaves the last duck drawn on screen for ever,
+which looks exactly like a duck that is still there.</strong></p>
+</blockquote>
+<h3 id="137-心跳里的数字都是自上次以来"><a class="header" href="#137-心跳里的数字都是自上次以来">13.7 心跳里的数字都是&quot;自上次以来&quot;</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/detect.rs:208-210
+/// **Every count on this line is since the last one.** A heartbeat answers &quot;is it seeing a duck
+/// *now*&quot;, and a cumulative `seen` cannot: **one found twenty minutes ago and one found this second
+/// both read `seen=1`, for ever.**
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="14-流出去mediastream"><a class="header" href="#14-流出去mediastream">14. 流出去：<code>media.stream</code></a></h2>
+<h3 id="141-心智模型"><a class="header" href="#141-心智模型">14.1 心智模型</a></h3>
+<p>rendezvous 只传<strong>指令</strong>（<code>media.stream {url}</code>），<strong>不传像素</strong>。机器人拨到你的 WebSocket，
+一个小的 <strong>hello</strong> 文本帧说明接下来是什么，然后一帧一条二进制消息。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/session.rs:296-298
+/// H.264 unless asked otherwise: the encode is the VPU's rather than a core's, and inter-frame
+/// prediction is worth **five to fifteen times the bytes** over the same wifi.
+<span class="boring">}</span></code></pre></pre>
+<div class="table-wrapper"><table><thead><tr><th>编码</th><th>好处</th><th>代价</th></tr></thead><tbody>
+<tr><td><code>h264</code>（默认）</td><td>便宜得多（VPU 编，体积 1/5–1/15）</td><td><strong>中途加入的接收者要等一个关键帧</strong></td></tr>
+<tr><td><code>jpeg</code></td><td><strong>每一帧都是关键帧</strong></td><td>贵</td></tr>
+</tbody></table>
+</div>
+<p>默认 5 fps / 最长边 640 / 质量 70（<code>stream.rs:125-127</code>）。</p>
+<h3 id="142-丢弃策略取决于这一帧能不能独立解码"><a class="header" href="#142-丢弃策略取决于这一帧能不能独立解码">14.2 丢弃策略取决于&quot;这一帧能不能独立解码&quot;</a></h3>
+<p><code>stream.rs:99-103</code>：</p>
+<blockquote>
+<p><strong>This is what makes the drop policy correct.</strong> Discarding the oldest and keeping the newest is
+right for independent frames and <strong>wrong for a predicted stream</strong> … Knowing which is which is the
+difference between <strong>dropping a frame and corrupting a second</strong>.</p>
+</blockquote>
+<h3 id="143-那个握手头以及为什么它要记日志"><a class="header" href="#143-那个握手头以及为什么它要记日志">14.3 那个握手头，以及为什么它要记日志</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/stream.rs:411-415
+/// **Logged before anything is sent, at info.** This is the one call that makes a robot **hand its
+/// camera to somewhere it was told about rather than somewhere it knows** … `remote-webrtc.md` §4
+/// leaves this transport ungated on purpose; **a line in the log is what makes that decision
+/// auditable rather than invisible.**
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;把摄像头交给一个别人告诉它的地方，而不是它认识的地方。&quot;</strong> 所以至少要在日志里留一笔。</p>
+<p>令牌是<strong>机器人自己的</strong>，作为 WebSocket 握手头（<code>stream.rs:253-257</code>）：</p>
+<blockquote>
+<p>The receiver is a public endpoint, so it has to be able to say whose camera this is … <strong>Without it
+a Space would take frames from anybody and show them to anybody.</strong></p>
+</blockquote>
+<h3 id="144-队列只有两格"><a class="header" href="#144-队列只有两格">14.4 队列只有两格</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/stream.rs:442-444
+/// Two deep: the newest frame and one in flight. A model wants the freshest picture, so a frame
+/// encoded while the socket is behind is dropped rather than queued — **a backlog is latency that
+/// never comes back**.
+<span class="boring">}</span></code></pre></pre>
+<hr />
+<h2 id="15-摄像头几何"><a class="header" href="#15-摄像头几何">15. 摄像头几何</a></h2>
+<p><code>camera.rs</code> 提供<strong>内参</strong>：把像素变成方向的那四个数。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// camera.rs:116
+pub struct Intrinsics { fx, fy, cx, cy, calibrated, source, distortion }
+<span class="boring">}</span></code></pre></pre>
+<h3 id="151-为什么鸭子需要这个"><a class="header" href="#151-为什么鸭子需要这个">15.1 为什么鸭子需要这个</a></h3>
+<p><code>remote-webrtc.md</code> §10：</p>
+<blockquote>
+<p>Without them <strong>a monocular reconstruction is scale-free and its angles are wrong</strong>; SLAM, visual
+odometry and &quot;how far away is that&quot; all begin here.</p>
+</blockquote>
+<h3 id="152--两个-sensor-mode-的视场角是一样的"><a class="header" href="#152--两个-sensor-mode-的视场角是一样的">15.2 ⭐ 两个 sensor mode 的视场角是一样的</a></h3>
+<p>这是这个模块最反直觉的一条（<code>camera.rs:63-77</code>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>mode</th><th>怎么来的</th><th>水平 FOV</th><th>备注</th></tr></thead><tbody>
+<tr><td><strong>1920×1080</strong></td><td>全画幅缩放/裁到 16:9</td><td><strong>62°</strong></td><td>这个 daemon 钉住的，30 fps</td></tr>
+<tr><td>3280×2464</td><td>完整 4:3 阵列</td><td><strong>62°</strong></td><td>启动模式，21 fps</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>So the field of view does not change with the mode — only the resolution and frame rate do …
+<strong>there is no wide-vs-fast trade to make here, because the wide field is already the fast mode.</strong></p>
+</blockquote>
+<p><strong>没有&quot;广角 vs 高帧率&quot;的取舍 —— 广角模式本来就已经是快的那个。</strong></p>
+<h3 id="153--不知道就说不知道"><a class="header" href="#153--不知道就说不知道">15.3 ⭐ 不知道就说不知道</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// camera.rs:29-31
+/// **Numbers that are quietly wrong are worse than none**: a consumer told nothing knows it must
+/// calibrate.
+<span class="boring">}</span></code></pre></pre>
+<p>所以没被钉住的 mode 会<strong>完全不发</strong> <code>intrinsics</code> 这个键，而不是发一个看起来合理的错数字。
+<code>calibrated</code> 那个标志也不是装饰：<code>false</code> 是&quot;设计值推算&quot;，<code>true</code> 是&quot;测出来的&quot;。</p>
+<h3 id="154-两个消费者必须处理的坑"><a class="header" href="#154-两个消费者必须处理的坑">15.4 两个消费者必须处理的坑</a></h3>
+<ol>
+<li><strong>内参是对&quot;未旋转的帧&quot;说的</strong>（<code>camera.rs:93-97</code>）：
+<blockquote>
+<p>A consumer that rotates the image has to rotate these too — <strong><code>cx</code> and <code>cy</code> swap, and so do
+<code>fx</code> and <code>fy</code></strong>.</p>
+</blockquote>
+</li>
+<li>畸变系数为空时是<strong>省略</strong>而不是 <code>[]</code>，因为读 <code>[]</code> 的人得知道那意味着&quot;未知&quot;而不是&quot;没有&quot;。</li>
+</ol>
+<hr />
+<h2 id="16-构建部署权限"><a class="header" href="#16-构建部署权限">16. 构建、部署、权限</a></h2>
+<h3 id="161-两个-c-依赖和那个-sysroot"><a class="header" href="#161-两个-c-依赖和那个-sysroot">16.1 两个 C 依赖，和那个 sysroot</a></h3>
+<p><code>Cargo.toml:25-28</code> 承认得很直接：</p>
+<blockquote>
+<p>This is <strong>the second C dependency to reach the board</strong>, after libudev for <code>gilrs</code> in <code>padd</code>, and it
+is <strong>much larger</strong>: <code>scripts/cross-sysroot.sh</code> exists for it. <code>ci-cross-deps.sh</code> says of the first
+that it &quot;is the cost of that one exception, and <strong>it is worth reading before adding another</strong>&quot; —
+<strong>this is that other, and the cost is a sysroot the whole workspace now builds against.</strong></p>
+</blockquote>
+<p><strong><code>scripts/cross-sysroot.sh</code> 把机器人自己的 Debian 包解成一个 sysroot</strong>，
+所以整个 workspace 是<strong>对着机器人真正在跑的那套库</strong>交叉编译的（1.26.2）。</p>
+<h3 id="162-那两个-gstreamer-插件"><a class="header" href="#162-那两个-gstreamer-插件">16.2 那两个 GStreamer 插件</a></h3>
+<p><code>mpph264enc</code> 和 <code>webrtcsink</code> <strong>在任何 Debian 套件里都不存在</strong>，必须在 CI 里从源码构建：</p>
+<pre><code class="language-toml"># 根 Cargo.toml:78-80
+[workspace.metadata.gst-plugins]
+repo    = &quot;pollen-robotics/microduck-gst-plugins&quot;
+version = &quot;v3&quot;
+</code></pre>
+<p>而 <code>scripts/setup-gstreamer.sh</code>（653 行）是<strong>这个页面的可执行形式</strong>，它被 release 的 preinstall hook 调用。</p>
+<h3 id="163-systemd-单元三行是承重的"><a class="header" href="#163-systemd-单元三行是承重的">16.3 systemd 单元：三行是承重的</a></h3>
+<p><code>mediad.service</code> 的注释比指令多。最容易忽略的（<code>mediad.service:5-7</code>）：</p>
+<blockquote>
+<p>Two lines here are load-bearing in a way that is easy to miss, and <strong>both present identically at
+runtime — the encoder simply does not exist, with nothing saying why.</strong></p>
+</blockquote>
+<div class="table-wrapper"><table><thead><tr><th>行</th><th>内容</th><th>少了会怎样</th></tr></thead><tbody>
+<tr><td><code>SupplementaryGroups=</code></td><td><code>video render robot</code></td><td>见下</td></tr>
+<tr><td><code>Environment=GST_PLUGIN_PATH=</code></td><td><code>/usr/local/lib/gstreamer-1.0</code></td><td><strong><code>mpph264enc</code> 和 <code>webrtcsink</code> 不存在，daemon 说一句然后退出</strong></td></tr>
+</tbody></table>
+</div>
+<h3 id="164-三个组每个都失败得不一样"><a class="header" href="#164-三个组每个都失败得不一样">16.4 三个组，每个都失败得不一样</a></h3>
+<p><code>mediad.service:46-66</code>：</p>
+<div class="table-wrapper"><table><thead><tr><th>组</th><th>覆盖</th><th>失败的样子</th></tr></thead><tbody>
+<tr><td><strong><code>video</code></strong></td><td><code>/dev/mpp_service</code>（VPU）、<code>/dev/rga</code>（2D 加速器）、<code>/dev/videoN</code></td><td>没有 VPU 节点 → 编码器<strong>静默地不注册</strong>；没有 <code>/dev/rga</code> → 元素在，管线在 RGA 里面失败</td></tr>
+<tr><td><strong><code>robot</code></strong></td><td><code>robotd</code>/<code>configd</code>/<code>updaterd</code> 的 0660 socket</td><td>控制通道全部答&quot;is not answering&quot;</td></tr>
+<tr><td><strong><code>render</code></strong></td><td><strong>NPU</strong>。rknpu 驱动注册成 DRM 设备，<code>root:render</code> 0660</td><td>失败是 <code>rknn_init</code> 返回一个数字，<strong>跟权限毫无关系</strong></td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>Three debugging rounds, one cause.</p>
+</blockquote>
+<p><strong>三轮调试，一个原因。</strong></p>
+<h3 id="165-为什么必须是-restartalways"><a class="header" href="#165-为什么必须是-restartalways">16.5 为什么必须是 <code>Restart=always</code></a></h3>
+<p><code>mediad.service:71-73</code>：</p>
+<blockquote>
+<p>mediad exits when it cannot start a pipeline, and <strong>a missing plugin or an unopenable device node
+is a state to retry rather than one to stay down in</strong> — <strong>a provisioning run that installs the
+plugins should be enough to bring it up without a reboot.</strong></p>
+</blockquote>
+<h3 id="166-那两条没人看着也会坏的路"><a class="header" href="#166-那两条没人看着也会坏的路">16.6 那两条&quot;没人看着也会坏&quot;的路</a></h3>
+<p><code>mediad.service:128-138</code> 列了两条，都<strong>不碰控制环、BLE、手柄和更新</strong>：</p>
+<ol>
+<li><strong>板子上没有 GStreamer 栈</strong> —— 用 <code>sudo /usr/local/sbin/robot-setup-gstreamer</code> 修。</li>
+<li><strong>板子上没有摄像头</strong>（<code>[media] source</code> 默认是 <code>camera</code>）——
+而这里有个<strong>不明显但重要</strong>的后果（<code>mediad.service:37-42</code>）：</li>
+</ol>
+<blockquote>
+<p><strong>The consequence of the camera being on by default, stated because it is not obvious:</strong> the control
+datachannel is bundled with the video track, so <strong>a robot whose camera is absent … fails to start
+this service and loses its WebRTC control surface along with its video.</strong> BLE and the local pad are
+unaffected. The fix on such a board is <code>source = &quot;test&quot;</code> in <code>[media]</code>, which streams a test
+pattern: <strong>the pipeline starts, so the control channel exists.</strong></p>
+</blockquote>
+<p>⚠️ <strong>第三号陷阱：控制通道和视频轨是绑在一起的。</strong> 摄像头坏了，WebRTC 的控制面<strong>一起</strong>没。</p>
+<h3 id="167-那个-install-段"><a class="header" href="#167-那个-install-段">16.7 那个 <code>[Install]</code> 段</a></h3>
+<p><code>mediad.service:118-126</code>：</p>
+<blockquote>
+<p><code>hooks/postinstall</code> enables and starts every unit that ships with an <code>[Install]</code> section, and
+<code>units_shipped</code> in <code>updater/src/engine.rs</code> restarts every such unit on an apply — <strong>one rule, read
+off the unit files rather than a list anybody maintains</strong> … <strong>its absence was the whole of why
+every push ended with somebody typing <code>systemctl restart mediad</code>.</strong></p>
+</blockquote>
+<hr />
+<h2 id="17-测试122-个绝大多数不需要板子"><a class="header" href="#17-测试122-个绝大多数不需要板子">17. 测试：122 个，绝大多数不需要板子</a></h2>
+<pre><code class="language-bash">cargo test -p mediad          # 122 个
+</code></pre>
+<div class="table-wrapper"><table><thead><tr><th>文件</th><th>行数</th><th>测试</th><th>需要板子？</th></tr></thead><tbody>
+<tr><td><code>exposure.rs</code></td><td>726</td><td>15</td><td>否</td></tr>
+<tr><td><code>relay.rs</code></td><td>2563</td><td>20</td><td>否</td></tr>
+<tr><td><code>pipeline.rs</code></td><td>2704</td><td>11</td><td><strong>1 个会自跳过</strong></td></tr>
+<tr><td><code>camera.rs</code></td><td>460</td><td>10</td><td>否</td></tr>
+<tr><td><code>frame.rs</code></td><td>514</td><td>9</td><td>否</td></tr>
+<tr><td><code>route.rs</code></td><td>545</td><td>8</td><td>否</td></tr>
+<tr><td><code>turn.rs</code></td><td>561</td><td>8</td><td>否</td></tr>
+<tr><td><code>web.rs</code></td><td>339</td><td>8</td><td>否</td></tr>
+<tr><td><code>session.rs</code></td><td>715</td><td>11</td><td>否</td></tr>
+<tr><td><code>producer.rs</code></td><td>253</td><td>5</td><td>否</td></tr>
+<tr><td><code>stream.rs</code></td><td>985</td><td>4</td><td>否</td></tr>
+<tr><td><code>config.rs</code></td><td>105</td><td>4</td><td>否</td></tr>
+<tr><td><code>detect.rs</code></td><td>398</td><td>2</td><td>否</td></tr>
+<tr><td><code>snapshot.rs</code></td><td>134</td><td>2</td><td>否</td></tr>
+<tr><td><code>upstream.rs</code></td><td>301</td><td>1</td><td>否</td></tr>
+<tr><td><code>main.rs</code> · <code>lib.rs</code></td><td>775</td><td>0</td><td>—</td></tr>
+</tbody></table>
+</div>
+<h3 id="171--没有-mock-库用的是真服务器"><a class="header" href="#171--没有-mock-库用的是真服务器">17.1 ⭐ 没有 mock 库，用的是真服务器</a></h3>
+<p>这是这个 crate 最值得学的一个做法。看几个例子：</p>
+<ul>
+<li><code>relay.rs</code> 的 <code>FakeService</code> 是一个<strong>真的 axum 应用</strong>，在 loopback 上服务 <code>/events</code>（真的 SSE）、
+<code>/send</code>、<code>/api/robot-status</code>。</li>
+<li><code>session.rs</code> 的 <code>fake_daemon</code> 绑定一个<strong>真的 unix socket</strong>。</li>
+<li><code>turn.rs</code> 用一个 axum 假代理。</li>
+<li><code>stream.rs</code> 直接跑一个真的 WebSocket 接收端，其中 <code>ws://127.0.0.1:1/frames</code> 的注释是
+<strong>&quot;Port 1 is reliably nobody&quot;</strong>。</li>
+</ul>
+<h3 id="172--时间间隔是可注入的因为失败都是时间失败"><a class="header" href="#172--时间间隔是可注入的因为失败都是时间失败">17.2 ⭐ 时间间隔是可注入的，因为失败都是&quot;时间失败&quot;</a></h3>
+<p><code>relay.rs:161-168</code>：</p>
+<blockquote>
+<p>§3.4's four failure modes are all <em>timing</em> failures … and <strong>none of them can be reproduced on
+demand by hand on a board</strong>. With the intervals injectable, <strong>each one is a test that runs in
+under a second.</strong></p>
+</blockquote>
+<p>同一个理由在 <code>stream.rs:167-171</code>：</p>
+<blockquote>
+<p>a test that waited two real seconds per reconnect is <strong>a test nobody runs</strong>.</p>
+</blockquote>
+<p><code>relay.rs</code> 的 <code>brisk()</code> 把所有间隔压到 20–50 ms，于是**&quot;服务不再列出这只机器人&quot;这种失败
+可以在一秒内被复现**。</p>
+<h3 id="173-那个会自跳过的测试"><a class="header" href="#173-那个会自跳过的测试">17.3 那个会自跳过的测试</a></h3>
+<p><code>pipeline.rs</code> 的 <code>a_reader_gets_a_frame_from_the_running_pipeline</code> 是唯一跑真管线的测试。
+它在缺 <code>videotestsrc</code>/<code>webrtcsink</code>/编码器时<strong>打印一句话然后自己跳过</strong>，
+而且它用 18_443 端口而<strong>不是 8443</strong>，免得撞上正在跑的 <code>mediad</code>。</p>
+<hr />
+<h2 id="18-几处读者会绊到的地方"><a class="header" href="#18-几处读者会绊到的地方">18. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，代码与文档不一致的地方，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="181-mic-出现在描述里但整个-crate-没有音频"><a class="header" href="#181-mic-出现在描述里但整个-crate-没有音频">18.1 &quot;mic&quot; 出现在描述里，但整个 crate 没有音频</a></h3>
+<p><code>Cargo.toml:6</code> 的 <code>description</code> 和 <code>main.rs:25</code> 的 <code>--help</code> 都是 <strong>&quot;Camera, mic, WebRTC — and
+the remote gateway&quot;</strong>。但：</p>
+<ul>
+<li>全 crate 的 GStreamer 元素清一色是视频（<code>v4l2src</code>/<code>mpph264enc</code>/<code>x264enc</code>/<code>webrtcsink</code>…），
+<strong>没有一个 <code>alsasrc</code>/<code>pulsesrc</code>/<code>opusenc</code></strong>；</li>
+<li><code>remote-webrtc.md</code> §2 的&quot;四条流&quot;图里画着 <code>audio track  mic; two-way for telepresence</code>；</li>
+<li>而 <code>webrtc-console.md</code> §1.3 说音频要等 TLS 那一步。</li>
+</ul>
+<p>机器人上的麦克风确实存在，但归 <code>pet-detect</code> 管 —— 它 fork 一个 <code>arecord</code> 子进程做挠头检测。
+<code>mediad.service:16</code> 的 <code>Description=</code> 写的是 &quot;Robot media and WebRTC gateway&quot;（没有 mic）。</p>
+<h3 id="182-pipeliners-里有三处还写着-nv12"><a class="header" href="#182-pipeliners-里有三处还写着-nv12">18.2 <code>pipeline.rs</code> 里有三处还写着 <code>NV12</code></a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/pipeline.rs:1442 —— 实际值
+pub const CAPTURE_FORMAT: &amp;str = &quot;UYVY&quot;;
+<span class="boring">}</span></code></pre></pre>
+<p>但模块头部（<code>pipeline.rs:11</code>）、头部正文（<code>:27</code>&quot;NV12 because that is what the rkisp capture path
+emits … so nothing <em>converts</em> anywhere: no <code>videoconvert</code>&quot;）和处理失败的错误串（<code>:702-703</code>）
+都还写着 <code>NV12</code>。</p>
+<p>而 <code>:815-816</code> 说的正好相反：<strong>&quot;The tee carries <code>UYVY</code> … and neither encoder takes it&quot;</strong> ——
+所以那条支路<strong>必须</strong>有一个 <code>videoconvert</code>。</p>
+<h3 id="183-cargotoml-指着一个不存在的函数"><a class="header" href="#183-cargotoml-指着一个不存在的函数">18.3 <code>Cargo.toml</code> 指着一个不存在的函数</a></h3>
+<pre><code class="language-toml"># mediad/Cargo.toml:112-114
+# `GstVideoMeta`, which the camera source has to advertise in the ALLOCATION query or v4l2src
+# copies every frame — see `advertise_video_meta`.
+</code></pre>
+<p><strong><code>advertise_video_meta</code> 在整个仓库里不存在。</strong> 那个函数叫 <code>raise_capture_buffers</code>
+（<code>pipeline.rs:1497</code>）。</p>
+<h3 id="184-librs-说-ioctlexposurers-说不用-ioctl"><a class="header" href="#184-librs-说-ioctlexposurers-说不用-ioctl">18.4 <code>lib.rs</code> 说 <code>ioctl</code>，<code>exposure.rs</code> 说不用 <code>ioctl</code></a></h3>
+<p><code>lib.rs:49-51</code> 说自动曝光 <em>&quot;writes V4L2 controls to a camera through <code>ioctl</code>&quot;</em>；
+<code>exposure.rs:357-360</code> 说 <em>&quot;<code>v4l2-ctl</code> rather than the ioctl … the struct layout of
+<code>VIDIOC_S_EXT_CTRLS</code> is three nested types we would have to pin by hand&quot;</em>。见 §12.2。</p>
+<h3 id="185-sessionrs-说-handle-只在拒绝时返回回复"><a class="header" href="#185-sessionrs-说-handle-只在拒绝时返回回复">18.5 <code>session.rs</code> 说 <code>handle</code> 只在拒绝时返回回复</a></h3>
+<p><code>session.rs:144-145</code>：</p>
+<blockquote>
+<p>Returns a reply to send back only when this transport answers it itself — <strong>which is to say, only
+when it refuses.</strong></p>
+</blockquote>
+<p>它<strong>也</strong>返回 <code>media.video</code>（<code>:168-180</code>）和 <code>media.stream</code>（<code>:199-213</code>）的<strong>成功</strong>回复。
+对&quot;被路由出去的调用&quot;来说这句是对的。</p>
+<h3 id="186-relayrs-说-sliding实现是-tumbling"><a class="header" href="#186-relayrs-说-sliding实现是-tumbling">18.6 <code>relay.rs</code> 说 &quot;sliding&quot;，实现是 tumbling</a></h3>
+<p><code>relay.rs:932</code> 的文档说 <em>&quot;A sliding allowance for lines nobody asked for&quot;</em>，
+而 <code>Budget::take</code>（<code>:958-979</code>）在窗口到期时做的是 <code>spent = 0; since = now</code> ——
+一个<strong>以第一次调用为锚点的固定窗口</strong>，不是滑动窗口。</p>
+<h3 id="187-streamrs-里一行被立刻覆盖的赋值"><a class="header" href="#187-streamrs-里一行被立刻覆盖的赋值">18.7 <code>stream.rs</code> 里一行被立刻覆盖的赋值</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// mediad/src/stream.rs:471-476
+// A gap has happened. On a predicted stream the only safe thing to send next is a keyframe.
+awaiting_key = !unit.keyframe || awaiting_key;
+if for_encoder.encoding == Encoding::H264 {
+    awaiting_key = true;
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>:473</code> 的值在 <code>:474-476</code> 被无条件覆盖；而在 JPEG 那条路上，每个 unit 的 <code>keyframe</code> 都是 <code>true</code>
+（<code>:659</code>），所以 <code>!unit.keyframe</code> 恒为 <code>false</code>。<strong>两条款式路径上，这一行都不决定任何事。</strong></p>
+<h3 id="188-relayrs-的退避成功之后不重置"><a class="header" href="#188-relayrs-的退避成功之后不重置">18.8 <code>relay.rs</code> 的退避成功之后不重置</a></h3>
+<p><code>run()</code>（<code>relay.rs:507-555</code>）只在 <code>CredentialChanged</code> 和 <code>SplitBrain</code> 两个分支里把 <code>backoff</code>
+重置回 <code>backoff_start</code>。<code>Ended::Reconnect</code> 只翻倍、不重置 ——
+所以一条曾经在网络差的时候爬到 60 s 的连接，<strong>在进程剩下的寿命里都保持 60 s 的重拨间隔</strong>。
+<code>stream.rs:213</code> 是相反的（每次成功连接都重置），两个模块在这一点上不一致。</p>
+<h3 id="189-两处被合并事故切断的文档注释"><a class="header" href="#189-两处被合并事故切断的文档注释">18.9 两处被&quot;合并事故&quot;切断的文档注释</a></h3>
+<p><code>session.rs:625-630</code>：关于 <code>media.video</code> 的四行注释，接在了
+<code>media_stream_answers_the_question_and_refuses_a_bad_url</code>（<code>:637</code>）的文档块开头，
+和它自己的 <code>media.stream</code> 文档粘成了一句话。本该拥有这段注释的
+<code>the_page_can_ask_what_the_video_is</code>（<code>:684</code>）<strong>一句注释都没有</strong>。</p>
+<p><code>route.rs:465-467</code>：<code>reaches_padd_and_tofd_which_btd_cannot</code> 的开头两行被接到了
+<code>a_watching_peer_can_run_a_skill_and_change_a_policy</code>（<code>:474</code>）上，
+拼出 <em>&quot;…the concrete difference between the two transports' needs: <code>mediad</code> will hold
+<strong>A peer watching the video can run a skill</strong>…&quot;</em>；而 <code>reaches_padd_and_tofd_which_btd_cannot</code>
+（<code>:531</code>）只剩下半句 <strong><code>/// five connections where </code>btd<code> holds three.</code></strong></p>
+<p>形状和之前报过的 <code>robotd/src/intents.rs</code> 那处一样。</p>
+<h3 id="1810-三处没有被用到的代码"><a class="header" href="#1810-三处没有被用到的代码">18.10 三处没有被用到的代码</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>位置</th><th>什么</th><th>状况</th></tr></thead><tbody>
+<tr><td><code>exposure.rs:200-208</code></td><td><code>Stop</code></td><td>只有 <code>stopped()</code>，<strong>没有任何地方写过 <code>true</code></strong>；文档却写着&quot;daemon 要走时置位，好让线程不活得比管线久&quot;。实践上线程只在进程退出时结束</td></tr>
+<tr><td><code>detect.rs:302-306</code></td><td><code>detect::video_notification</code></td><td><strong>没有调用者</strong>（<code>main.rs:643</code> 用的是 <code>session::video_notification</code>）。同名两个函数，一个死的</td></tr>
+<tr><td><code>detect.rs:46-53</code></td><td><code>Detector::counters()</code></td><td><strong>没有调用者</strong>，尽管文档说它是&quot;<code>robot.health</code> 式上报想要的那些计数器&quot;</td></tr>
+</tbody></table>
+</div>
+<h3 id="1811-一处算错的注释"><a class="header" href="#1811-一处算错的注释">18.11 一处算错的注释</a></h3>
+<p><code>exposure.rs:182</code> 说 <code>mean_luma</code> 采样 <em>&quot;every eighth pixel, which is <strong>11k samples</strong> of a
+1280x720 frame&quot;</em>。步长 16 字节走 <code>1280×720×2 = 1,843,200</code> 字节，实际是 <strong>115,200 个样本</strong> ——
+差了大约十倍（&quot;every eighth pixel&quot; 本身是对的）。</p>
+<hr />
+<h2 id="19-阅读路线"><a class="header" href="#19-阅读路线">19. 阅读路线</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么先读它</th></tr></thead><tbody>
+<tr><td>1</td><td><code>mediad/Cargo.toml</code>（1-28 行）</td><td>28 行讲清了唯一的 C 依赖和它的代价</td></tr>
+<tr><td>2</td><td><code>mediad/src/lib.rs</code>（68 行）</td><td><strong>整份 crate 的地图</strong>，含 cfg 门控</td></tr>
+<tr><td>3</td><td><code>mediad/src/main.rs</code>（707 行）</td><td>组装根。<strong>§6 那张启动顺序表就是这个文件</strong></td></tr>
+<tr><td>4</td><td><code>mediad/src/session.rs</code></td><td>心智模型 ②：一条哑管道。715 行，可移植</td></tr>
+<tr><td>5</td><td><code>mediad/src/route.rs</code></td><td>穷尽匹配为什么是全部的意义</td></tr>
+<tr><td>6</td><td><code>mediad/src/upstream.rs</code>（301 行）</td><td>车道、连接池、失败是正常答案</td></tr>
+<tr><td>7</td><td><code>mediad/src/pipeline.rs</code></td><td>最长的文件。<strong>先读模块头 1-120 行</strong>，再读 §7.3 那个分配问题</td></tr>
+<tr><td>8</td><td><code>mediad/src/turn.rs</code></td><td>心算模型 ③ 里最小的一块</td></tr>
+<tr><td>9</td><td><code>mediad/src/relay.rs</code></td><td>最大的一块。<strong>先读模块头 1-90 行</strong></td></tr>
+<tr><td>10</td><td><code>mediad/src/exposure.rs</code></td><td>一个完整的控制环路，注释极好</td></tr>
+<tr><td>11</td><td><code>mediad/src/detect.rs</code></td><td>最短的带算法模块</td></tr>
+<tr><td>12</td><td><code>mediad/systemd/mediad.service</code></td><td>权限故事在这里</td></tr>
+</tbody></table>
+</div>
+<p><strong>如果只有十分钟</strong>：读 §1、§3、§5 的三张图，然后读 <code>lib.rs</code> 那 68 行。</p>
+<p>三条贯穿全文的主线：</p>
+<ol>
+<li><strong>测量压过偏好</strong>。UYVY 不是偏好，是 19.6 → 29.3 fps；2 Hz 不是偏好，是 95 °C；
+不旋转不是偏好，是 145% 的核。</li>
+<li><strong>不知道就说不知道</strong>。没有内参就<strong>不发那个键</strong>；相机停了就报超时而不是给上一帧；
+<code>route</code> 拒绝 <code>system.authenticate</code> 而不是假装答对。</li>
+<li><strong>失败要说得出原因</strong>。看总线、桥接 GStreamer 日志、把原始统计打出来 ——
+因为&quot;看不见的三轮猜测&quot;是这个 crate 反复记下的教训。</li>
+</ol>
+<hr />
+<h2 id="20-术语表"><a class="header" href="#20-术语表">20. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>WebRTC</strong></td><td>浏览器之间实时音视频的标准。这里视频走它，控制通道也走它</td></tr>
+<tr><td><strong>信令（signalling）</strong></td><td>建立 WebRTC 连接前交换 SDP/ICE 的那段协议。<strong>它是明文 JSON</strong></td></tr>
+<tr><td><strong>SDP</strong></td><td>会话描述：我支持什么编解码、我的地址是什么</td></tr>
+<tr><td><strong>ICE</strong></td><td>找一条能通的网络路径。候选分 host / srflx / prflx / relay</td></tr>
+<tr><td><strong>候选（candidate）</strong></td><td>一个&quot;你可以试着往这儿发包&quot;的地址</td></tr>
+<tr><td><strong>STUN</strong></td><td>问服务器&quot;我的公网地址是什么&quot;</td></tr>
+<tr><td><strong>TURN</strong></td><td>中继服务器。<strong>打洞失败时的最后手段</strong></td></tr>
+<tr><td><strong>DTLS-SRTP</strong></td><td>WebRTC 的加密。<strong>端到端</strong> —— 即使经过中继，中继也看不到内容</td></tr>
+<tr><td><strong>NAT 打洞</strong></td><td>两个 NAT 后面的机器互相发包，让各自的 NAT 开一个洞</td></tr>
+<tr><td><strong>GStreamer</strong></td><td>媒体框架。元素（element）连成管线，buffer 沿着 pad 流动</td></tr>
+<tr><td><strong>element / pad / buffer</strong></td><td>元素 / 元素的输入输出口 / 数据块</td></tr>
+<tr><td><strong>tee</strong></td><td>把一路复制成多路</td></tr>
+<tr><td><strong>queue</strong></td><td>把支路挪到自己线程</td></tr>
+<tr><td><strong>appsink</strong></td><td>把 buffer 交给你的代码的 sink</td></tr>
+<tr><td><strong>valve</strong></td><td>开关，<code>drop=true</code> 时丢帧</td></tr>
+<tr><td><strong>caps</strong></td><td>格式描述（分辨率/帧率/像素格式）</td></tr>
+<tr><td><strong>preroll</strong></td><td>sink 在收到第一帧前不肯进入 PLAYING。<strong>这里踩过一次死锁</strong></td></tr>
+<tr><td><strong>RGA</strong></td><td>Rockchip 的 2D 加速器。做格式/步幅转换，<strong>也能免费旋转</strong></td></tr>
+<tr><td><strong>MPP</strong></td><td>Rockchip 的 VPU 接口。<strong>不是 V4L2 M2M</strong></td></tr>
+<tr><td><strong>VPU</strong></td><td>视频编解码硬件单元</td></tr>
+<tr><td><strong>3A</strong></td><td>自动曝光、自动白平衡、自动对焦</td></tr>
+<tr><td><strong>rkaiq</strong></td><td>Rockchip 的 ISP 调优引擎</td></tr>
+<tr><td><strong>UYVY / NV12</strong></td><td>两种像素布局。UYVY 单平面，NV12 是 4:2:0</td></tr>
+<tr><td><strong>luma</strong></td><td>亮度分量</td></tr>
+<tr><td><strong>内参（intrinsics）</strong></td><td><code>fx, fy, cx, cy</code> —— 把像素变成方向的四个数</td></tr>
+<tr><td><strong>FOV</strong></td><td>视场角</td></tr>
+<tr><td><strong>rendezvous</strong></td><td>牵线服务。机器人注册，消费者列出，它转发消息</td></tr>
+<tr><td><strong>producer / consumer / listener</strong></td><td>信令协议里的三种角色。<strong>机器人在两侧角色是反的</strong></td></tr>
+<tr><td><strong>SSE</strong></td><td>Server-Sent Events。服务器→客户端的长连接文本流</td></tr>
+<tr><td><strong>lease / 心跳</strong></td><td>租约。<strong>靠入站 POST 刷新，不靠健康的流</strong></td></tr>
+<tr><td><strong>桥（bridge）</strong></td><td>relay 的另一个名字。<strong>&quot;payload 不透明、信封要翻译&quot;</strong></td></tr>
+<tr><td><strong>哑管道</strong></td><td>只转发、不解析。加一个方法不用改它</td></tr>
+<tr><td><strong>车道（lane）</strong></td><td>回答一个调用会占用连接多久。<code>Prompt</code>/<code>Slow</code>/<code>Operation</code>/<code>Stream</code></td></tr>
+<tr><td><strong>穷尽匹配</strong></td><td>匹配每个变体、没有 <code>_</code> 分支。<strong>加一个方法会编译失败</strong></td></tr>
+<tr><td><strong>阻尼</strong></td><td>每步只走一部分（这里是 <code>ratio^0.6</code>），防振荡</td></tr>
+<tr><td><strong>死区（deadband）</strong></td><td>误差小于它就什么都不做，防抖动</td></tr>
+<tr><td><strong>leaky queue</strong></td><td>只保留最新的队列</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td>WebRTC 会话、信令、控制通道的权威设计</td><td><a href="design/remote-webrtc.html"><code>design/remote-webrtc.md</code></a></td></tr>
+<tr><td>控制台页面：谁来服务、怎么找到机器人</td><td><a href="design/webrtc-console.html"><code>design/webrtc-console.md</code></a></td></tr>
+<tr><td>账号、OAuth 设备流、桥、NAT/TURN</td><td><a href="design/remote-access-design.html"><code>design/remote-access-design.md</code></a></td></tr>
+<tr><td>板子上的视频硬件：VPU、MPP、要构建的插件</td><td><a href="project/media-bringup.html"><code>project/media-bringup.md</code></a></td></tr>
+<tr><td>消费者该选哪条路（任务视角）</td><td><a href="faq.html"><code>faq.md</code></a></td></tr>
+<tr><td>鸭子检测器本身（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>笔记本上的客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>公共线上契约：<code>Call</code>、<code>Service</code>、<code>Lane</code>（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td><code>[media]</code> / <code>[duck_detector]</code> 的 schema（姊妹篇）</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a></td></tr>
+<tr><td>控制循环本身（姊妹篇）</td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>控制核心：从读总线到写总线（姊妹篇）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>BLE 的线上契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>发布怎么把自己装到板子上（姊妹篇）</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a></td></tr>
+<tr><td>板子被配置成什么样子（姊妹篇）</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a></td></tr>
+<tr><td>关节角 → 空间中的点（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>ToF 地板判断里的 <code>trunk_height_m</code> 从哪来（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态、零偏、yaw 漂移（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>手柄：按键映射、模式、那个 raw tap（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>摸头检测：麦克风、log-mel、那个门控（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>摄像头块的数据源（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>装机、更新、诊断的那些工具（姊妹篇）</td><td><a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>鸭子的嗓子：可播种的合成器（姊妹篇）</td><td><a href="sounds-primer.html"><code>sounds-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/kinematics-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/odometry-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/kinematics-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/odometry-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

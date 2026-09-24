@@ -1,0 +1,1066 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>sounds/ - Microduck</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Microduck源码解析</li><li class="chapter-item expanded "><a href="../code_reading/index.html"><strong aria-hidden="true">1.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../code_reading/btd-primer.html"><strong aria-hidden="true">2.</strong> btd/</a></li><li class="chapter-item expanded "><a href="../code_reading/configd-primer.html"><strong aria-hidden="true">3.</strong> configd/</a></li><li class="chapter-item expanded "><a href="../code_reading/deploy-primer.html"><strong aria-hidden="true">4.</strong> deloy/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ble-primer.html"><strong aria-hidden="true">5.</strong> duck-ble/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-control-primer.html"><strong aria-hidden="true">6.</strong> duck-control/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-detect-primer.html"><strong aria-hidden="true">7.</strong> duck-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ether-primer.html"><strong aria-hidden="true">8.</strong> duck-ether/</a></li><li class="chapter-item expanded "><a href="../code_reading/duck-ipc-proto-primer.html"><strong aria-hidden="true">9.</strong> duck-ipc-proto/</a></li><li class="chapter-item expanded "><a href="../code_reading/duckctl-primer.html"><strong aria-hidden="true">10.</strong> duckctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/hooks-primer.html"><strong aria-hidden="true">11.</strong> hooks/</a></li><li class="chapter-item expanded "><a href="../code_reading/kinematics-primer.html"><strong aria-hidden="true">12.</strong> kinematics/</a></li><li class="chapter-item expanded "><a href="../code_reading/mediad-primer.html"><strong aria-hidden="true">13.</strong> mediad/</a></li><li class="chapter-item expanded "><a href="../code_reading/odometry-primer.html"><strong aria-hidden="true">14.</strong> odometry/</a></li><li class="chapter-item expanded "><a href="../code_reading/pad-imu-primer.html"><strong aria-hidden="true">15.</strong> pad-imu/</a></li><li class="chapter-item expanded "><a href="../code_reading/padd-primer.html"><strong aria-hidden="true">16.</strong> padd/</a></li><li class="chapter-item expanded "><a href="../code_reading/pet-detect-primer.html"><strong aria-hidden="true">17.</strong> pet-detect/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotctl-primer.html"><strong aria-hidden="true">18.</strong> robotctl/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-params-primer.html"><strong aria-hidden="true">19.</strong> robotd-params/</a></li><li class="chapter-item expanded "><a href="../code_reading/robotd-primer.html"><strong aria-hidden="true">20.</strong> robotd/</a></li><li class="chapter-item expanded "><a href="../code_reading/scripts-primer.html"><strong aria-hidden="true">21.</strong> scripts/</a></li><li class="chapter-item expanded "><a href="../code_reading/sounds-primer.html" class="active"><strong aria-hidden="true">22.</strong> sounds/</a></li><li class="chapter-item expanded "><a href="../code_reading/spaces-primer.html"><strong aria-hidden="true">23.</strong> spaces/</a></li><li class="chapter-item expanded "><a href="../code_reading/tof-primer.html"><strong aria-hidden="true">24.</strong> tof/</a></li><li class="chapter-item expanded "><a href="../code_reading/updater-primer.html"><strong aria-hidden="true">25.</strong> updater/</a></li><li class="chapter-item expanded "><a href="../code_reading/uyvy-primer.html"><strong aria-hidden="true">26.</strong> uyvy/</a></li><li class="chapter-item expanded "><a href="../code_reading/xtask-primer.html"><strong aria-hidden="true">27.</strong> xtask/</a></li><li class="chapter-item expanded affix "><li class="part-title">Microduck官方文档</li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">28.</strong> Readme</a></li><li class="chapter-item expanded "><a href="../offical_docs/faq.html"><strong aria-hidden="true">29.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="../offical_docs/policy-manifest.html"><strong aria-hidden="true">30.</strong> Policy-manifest.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/recurrent-policies.html"><strong aria-hidden="true">31.</strong> Recurrent-polices.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">32.</strong> Design</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/design/architecture.html"><strong aria-hidden="true">32.1.</strong> architecture.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/robotd-design.html"><strong aria-hidden="true">32.2.</strong> robotd-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/updater-design.html"><strong aria-hidden="true">32.3.</strong> updater-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/policy-channel-design.html"><strong aria-hidden="true">32.4.</strong> policy-channel-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/restart-order.html"><strong aria-hidden="true">32.5.</strong> restart-order.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/app-path-design.html"><strong aria-hidden="true">32.6.</strong> app-path-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/mobile-app.html"><strong aria-hidden="true">32.7.</strong> mobile-app.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/remote-access-design.html"><strong aria-hidden="true">32.8.</strong> remote-access-design.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/boot-recovery-net.html"><strong aria-hidden="true">32.9.</strong> boot-recovery-net.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/simulation.html"><strong aria-hidden="true">32.10.</strong> simulation.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/design/webrtc-console.html"><strong aria-hidden="true">32.11.</strong> webrtc-console.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">33.</strong> Ideas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/ideas/autonomous_behavior.html"><strong aria-hidden="true">33.1.</strong> autonomous_behavior.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">34.</strong> Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/project/roadmap.html"><strong aria-hidden="true">34.1.</strong> roadmap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/ci-setup.html"><strong aria-hidden="true">34.2.</strong> ci-setup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/idle-cpu.html"><strong aria-hidden="true">34.3.</strong> idle-cpu.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/install-path-gap.html"><strong aria-hidden="true">34.4.</strong> install-path-gap.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/media-bringup.html"><strong aria-hidden="true">34.5.</strong> media-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/npu-bringup.html"><strong aria-hidden="true">34.6.</strong> npu-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/pad-minimal-pairing.html"><strong aria-hidden="true">34.7.</strong> pad-minimal-pairing.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/slice-2-bringup.html"><strong aria-hidden="true">34.8.</strong> slice-2-bringup.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/tof-on-demand.html"><strong aria-hidden="true">34.9.</strong> tof-on-demand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/project/update-over-ble.html"><strong aria-hidden="true">34.10.</strong> update-over-ble.md</a></li></ol></li><li class="chapter-item expanded "><a href="../offical_docs/index.html"><strong aria-hidden="true">35.</strong> Robot</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet.html"><strong aria-hidden="true">35.1.</strong> cheatsheet.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/cheatsheet-dev.html"><strong aria-hidden="true">35.2.</strong> cheatsheet-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/dev-push.html"><strong aria-hidden="true">35.3.</strong> dev-push.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/duckctl.html"><strong aria-hidden="true">35.4.</strong> duckctl.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-by-hand.html"><strong aria-hidden="true">35.5.</strong> install-by-hand.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/install-dev.html"><strong aria-hidden="true">35.6.</strong> intall-dev.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/pair-a-gamepad.html"><strong aria-hidden="true">35.7.</strong> pair-a-gamepad.md</a></li><li class="chapter-item expanded "><a href="../offical_docs/robot/simulation.html"><strong aria-hidden="true">35.8.</strong> simulation.md</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Microduck</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sounds-新手导读"><a class="header" href="#sounds-新手导读"><code>sounds/</code> 新手导读</a></h1>
+<blockquote>
+<p><strong>这是一份阅读指南，不是设计文档。</strong></p>
+<p>这个目录是鸭子的<strong>嗓子</strong>：约 5,900 行 Rust，从一颗整数种子推导出一只鸭子全部的叫声。
+声音在<strong>机器人上</strong>是什么、由谁播放，由 <a href="robotd-primer.html"><code>robotd-primer.md</code></a> 拥有；
+音频硬件（TLT320AIC3104 codec、I²S 时钟）由 <a href="deploy-primer.html"><code>deploy-primer.md</code></a> 拥有；
+合唱用的蓝牙信标契约由 <a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a> 拥有。
+若本导读与代码不一致，以代码为准（见根目录 <code>CLAUDE.md</code>）。</p>
+<p>姊妹篇：<a href="robotd-primer.html"><code>robotd-primer.md</code></a>（谁在播放、什么时候播放）、
+<a href="padd-primer.html"><code>padd-primer.md</code></a>（按键怎么变成叫声）、
+<a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a>（合唱的信标）、
+<a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a>（鸭子的&quot;耳朵&quot;）、
+<a href="kinematics-primer.html"><code>kinematics-primer.md</code></a>（特雷门用到的 <code>hand</code> 模块）。</p>
+</blockquote>
+<h2 id="目录"><a class="header" href="#目录">目录</a></h2>
+<ol>
+<li><a href="#1-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88">一分钟版</a></li>
+<li><a href="#2-%EF%B8%8F-%E5%9B%9B%E4%BB%B6%E4%BA%8B%E5%88%AB%E6%90%9E%E6%B7%B7">⚠️ 四件事别搞混</a></li>
+<li><a href="#3--%E6%A0%B8%E5%BF%83%E5%BF%83%E6%99%BA%E6%A8%A1%E5%9E%8B%E5%A3%B0%E9%9F%B3%E6%98%AF%E6%8E%A8%E5%AF%BC%E5%87%BA%E6%9D%A5%E7%9A%84">⭐ 核心心智模型：声音是<strong>推导</strong>出来的</a></li>
+<li><a href="#4-%E5%9B%9B%E7%A7%8D%E5%A3%B0%E9%9F%B3%E4%B8%89%E7%A7%8D%E6%97%B6%E9%97%B4%E5%B0%BA%E5%BA%A6">四种声音，三种时间尺度</a></li>
+<li><a href="#5-sounds-crate-%E5%9C%B0%E5%9B%BE"><code>sounds</code> crate 地图</a></li>
+<li><a href="#6-%E4%B8%80%E6%AC%A1%E5%8F%AB%E4%B8%80%E5%A3%B0%E7%9A%84%E5%AE%8C%E6%95%B4%E6%97%85%E7%A8%8B">一次「叫一声」的完整旅程</a></li>
+<li><a href="#7-%E6%80%A7%E6%A0%BC%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E5%A6%82%E4%BD%95%E5%8F%98%E6%88%90%E4%B8%80%E5%89%AF%E5%97%93%E5%AD%90">性格：一个整数如何变成一副嗓子</a></li>
+<li><a href="#8--%E4%B8%BA%E4%BB%80%E4%B9%88-rng-%E6%98%AF%E8%87%AA%E5%B7%B1%E5%86%99%E7%9A%84">⭐ 为什么 RNG 是自己写的</a></li>
+<li><a href="#9-%E5%92%8C%E5%A3%B0chorale%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E5%B0%8F%E7%B3%BB%E7%BB%9F">和声（chorale）：一个完整的小系统</a></li>
+<li><a href="#10-%E7%89%B9%E9%9B%B7%E9%97%A8theremin%E5%90%8C%E4%B8%80%E4%B8%AA%E5%90%88%E6%88%90%E5%99%A8%E7%BF%BB%E8%BF%87%E6%9D%A5%E7%94%A8">特雷门（theremin）：同一个合成器，翻过来用</a></li>
+<li><a href="#11-%E5%91%BD%E4%BB%A4%E8%A1%8C">命令行</a></li>
+<li><a href="#12-%E5%87%A0%E5%A4%84%E8%AF%BB%E8%80%85%E4%BC%9A%E7%BB%8A%E5%88%B0%E7%9A%84%E5%9C%B0%E6%96%B9">几处读者会绊到的地方</a></li>
+<li><a href="#13-%E9%98%85%E8%AF%BB%E8%B7%AF%E7%BA%BF">阅读路线</a></li>
+<li><a href="#14-%E6%9C%AF%E8%AF%AD%E8%A1%A8">术语表</a></li>
+</ol>
+<hr />
+<h2 id="1-一分钟版"><a class="header" href="#1-一分钟版">1. 一分钟版</a></h2>
+<p><code>sounds/</code> 回答一个问题：</p>
+<blockquote>
+<p><strong>一只鸭子应该是什么声音，这个声音从哪来？</strong></p>
+</blockquote>
+<p>答案只有一句话：</p>
+<blockquote>
+<p><strong>每只鸭子的嗓子是从它芯片里的序列号推导出来的。没有一个是录制或存储的。</strong></p>
+</blockquote>
+<pre><code>SoC 序列号 (efuse, 烧在芯片里, 刷机也不变)
+      │ sha256, 取前 4 字节
+      ▼
+   seed: u32                       ← 一只鸭子的全部身份
+      │ Personality::from_seed
+      ▼
+   Personality                     ← 20 多个性格参数（音高、颤音、沙哑度…）
+      │ 7 个 tag × 各自的 recipe
+      ▼
+   /var/lib/robot/sounds/**/*.wav  ← 82 个 wav 文件，&quot;the bank&quot;
+</code></pre>
+<p><strong>这个设计最漂亮的地方在于它的副作用</strong>：声音本身就是身份。说得最好的是 <code>robotctl</code> 里那个 <code>quack</code> 命令：</p>
+<blockquote>
+<p><code>robotctl/src/main.rs:542-544</code> — <code>robotctl quack</code>: <strong>the loudest way to tell ducks apart.</strong> SSH
+into one, quack it, and the robot that answers <strong>in its own voice</strong> is the one you're talking
+to: every voice bank is seeded from the SoC serial, so <strong>the voice itself is an identity.</strong></p>
+</blockquote>
+<p><strong>&quot;最响亮的区分鸭子的方法。&quot;</strong></p>
+<p><code>Cargo.toml:1-5</code> 讲了为什么这件事必须发生在机器人上：</p>
+<blockquote>
+<p>Ported from <code>apirrone/microduck_sounds</code> (Python/numpy) so a release carries its own voice
+generator <strong>instead of a pip install</strong> — the bank renders <strong>on-device in a few seconds of
+Rust</strong> rather than <strong>minutes of numpy on a venv nobody provisioned.</strong></p>
+</blockquote>
+<hr />
+<h2 id="2--四件事别搞混"><a class="header" href="#2--四件事别搞混">2. ⚠️ 四件事别搞混</a></h2>
+<p>这是读这个目录时<strong>最容易搞错</strong>的地方。名字都像，职责完全不同：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>是什么</th><th>在哪</th><th>谁执行</th><th>什么时候</th></tr></thead><tbody>
+<tr><td><strong>①</strong></td><td><strong>bank</strong>：预先渲染好的 wav</td><td><code>/var/lib/robot/sounds/</code></td><td><code>sounds ensure-bank</code></td><td>每次安装</td></tr>
+<tr><td><strong>②</strong></td><td><strong>播放</strong>：挑一个 wav，喂给 <code>aplay</code></td><td><code>robotd/src/sound.rs</code>（947 行）</td><td><code>robotd</code></td><td>运行时</td></tr>
+<tr><td><strong>③</strong></td><td><strong>实时合成</strong>：边算边放</td><td><code>sounds/src/stream.rs</code>（838 行）</td><td><code>robotd</code> 的一个写线程</td><td>特雷门</td></tr>
+<tr><td><strong>④</strong></td><td><strong>和声编排</strong>：离线渲染一个四声部</td><td><code>sounds/src/chorale/</code>（2,900 行）</td><td><code>sounds chorale</code> / <code>robotd</code></td><td>合唱</td></tr>
+</tbody></table>
+</div>
+<p><strong>最容易搞错的是 ③。</strong> <code>sounds/src/stream.rs</code> 的开头第一句就在纠正这个直觉：</p>
+<blockquote>
+<p><strong>The duck's voice, held open: a block-wise synth driven by live parameters.</strong> (<code>stream.rs:1</code>)</p>
+<p>Every other sound in this crate is a <em>recipe</em> — a whole vocalisation rendered offline from a
+frequency curve the recipe writes down <strong>in advance</strong>. That is the right shape for a quack,
+and <strong>the wrong one for anything the robot must sing <em>while</em> something outside it moves.</strong>
+The ToF theremin's pitch is a hand's distance, known only 15 times a second and <strong>never in
+advance</strong>, so the frequency curve <strong>cannot be written down</strong>: it has to be integrated as it
+arrives. (<code>stream.rs:3-8</code>)</p>
+</blockquote>
+<p><strong>&quot;它必须在信号到达的时候被积分出来。&quot;</strong></p>
+<p>所以：</p>
+<ul>
+<li><strong><code>stream.rs</code> 不播放任何东西。</strong> 它只<strong>产出</strong> <code>f32</code> 样本。</li>
+<li><strong>所有播放都在 <code>robotd/src/sound.rs</code></strong>，通过 <code>aplay</code> 子进程。</li>
+<li><code>sounds/</code> 这个 crate 里<strong>没有一行播放代码</strong>。</li>
+</ul>
+<hr />
+<h2 id="3--核心心智模型声音是推导出来的"><a class="header" href="#3--核心心智模型声音是推导出来的">3. ⭐ 核心心智模型：声音是<strong>推导</strong>出来的</a></h2>
+<p><code>sounds/src/lib.rs:3-7</code> 是这个 crate 的整个论点：</p>
+<blockquote>
+<p>A single integer seed deterministically derives a <code>Personality</code> — pitch register, harmonic
+tilt, nasality, vibrato, quackiness, tempo. <strong>Two seeds sound like two different creatures;
+the same seed always sounds the same.</strong> Each sound <strong>tag</strong> has several <strong>variants</strong> (small
+re-rolls within the same voice) so <strong>the duck doesn't sound like a stuck recording.</strong></p>
+</blockquote>
+<h3 id="31-种子从哪来"><a class="header" href="#31-种子从哪来">3.1 种子从哪来</a></h3>
+<p><code>lib.rs:132-153</code> 的 <code>hardware_seed()</code>：</p>
+<pre><code>1. /proc/device-tree/serial-number   ← 首选：烧在芯片 efuse 里，刷机也不变
+2. /etc/machine-id                   ← 后备：每次装系统会变
+3. 两个都读不到 → 报错
+</code></pre>
+<p>为什么用序列号而不是 UUID，<code>lib.rs:128-131</code> 讲了：</p>
+<blockquote>
+<p>The serial is burned into the chip, <strong>survives reflashes</strong>, and the supported boards expose it
+at the same path. … <strong>sha256 decorrelates consecutive factory serials so two robots from the
+same batch don't get neighbouring (and thus meaninglessly different) seeds.</strong></p>
+</blockquote>
+<p><strong>&quot;sha256 让同一批次出厂的两只鸭子不会拿到相邻（因而毫无意义地相似）的种子。&quot;</strong></p>
+<h3 id="32-哈希只用前-8-个十六进制位"><a class="header" href="#32-哈希只用前-8-个十六进制位">3.2 哈希只用前 8 个十六进制位</a></h3>
+<p><code>lib.rs:155-158</code>：</p>
+<blockquote>
+<p><code>sha256(id)</code>, first 8 hex chars as u32 — <strong>the exact derivation the Python installer used</strong>,
+so <strong>a robot keeps the seed (and personality traits) it already had.</strong></p>
+</blockquote>
+<p>而这一条被<strong>测试钉住了</strong>（<code>lib.rs:167-172</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// The seed derivation is the robot's identity — pin it against the shell original
+/// (`sha256sum | cut -c1-8` read as hex).
+#[test]
+fn the_seed_derivation_matches_the_installer() {
+    // printf 'test-serial' | sha256sum → c96f1146...
+    assert_eq!(seed_from_id(&quot;test-serial&quot;), 0xC96F_1146);
+}
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;种子的推导就是这个机器人的身份 —— 把它钉在 shell 原版上。&quot;</strong></p>
+<h3 id="33--唯一的例外duck_identity"><a class="header" href="#33--唯一的例外duck_identity">3.3 ⚠️ 唯一的例外：<code>DUCK_IDENTITY</code></a></h3>
+<p><code>lib.rs:134-140</code> 有一段关于模拟器的注释：</p>
+<blockquote>
+<p><strong>One machine, several ducks</strong> — the one situation where deriving identity from hardware is
+wrong. The simulator runs a robot per container, or several on one laptop, and they would
+otherwise share a serial and therefore a voice <em><strong>and a chorale id</strong></em>: that id is how a duck
+recognises its own beacon reflected back, so <strong>identical ducks drop each other's beacons as
+their own and can never hear anybody.</strong> <strong>Nothing on a robot sets this.</strong></p>
+</blockquote>
+<p><strong>&quot;没有任何一台机器人会设置这个变量。&quot;</strong></p>
+<h3 id="34-bank_version什么时候重渲染"><a class="header" href="#34-bank_version什么时候重渲染">3.4 <code>BANK_VERSION</code>：什么时候重渲染</a></h3>
+<p><code>lib.rs:41-43</code>：</p>
+<blockquote>
+<p>Bump when the synth changes enough that existing banks should re-render on the next install —
+the <code>.seed</code> marker includes it, so old banks stop matching and regenerate.
+<strong>v4 was the last Python bank; v5 is the Rust port</strong> (new RNG, 48 kHz native).</p>
+</blockquote>
+<p>⚠️ <strong>而这次升级有一个可见后果</strong>（<code>lib.rs:17-20</code>）：</p>
+<blockquote>
+<p>the random streams are not numpy's, and rendering is 48 kHz native instead of 22.05 kHz +
+resample — so <strong>every robot's voice re-rolls once</strong> when the bank regenerates. That is a
+<strong>bank-version bump</strong>, the same event as a synth retune upstream, <strong>not data loss</strong>: the voice
+is derived from the SoC serial and <strong>stays stable from here on</strong>, guarded by the pinned-RNG
+test in <code>rng.rs</code>.</p>
+</blockquote>
+<p><strong>&quot;每只鸭子的嗓音会重掷一次 —— 这是重新生成，不是数据丢失。&quot;</strong></p>
+<hr />
+<h2 id="4-四种声音三种时间尺度"><a class="header" href="#4-四种声音三种时间尺度">4. 四种声音，三种时间尺度</a></h2>
+<p>这是理解整个目录最好的一个分类法。<strong>问的不是&quot;这是什么声音&quot;，而是&quot;形状什么时候才知道&quot;。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>种类</th><th>形状何时知道</th><th>谁生成</th><th>例子</th></tr></thead><tbody>
+<tr><td><strong>一次性</strong></td><td><strong>提前</strong>，完全已知</td><td>bank 里的 <code>.wav</code></td><td><code>greet</code> <code>chirp</code> <code>peck</code> <code>coo</code> <code>alarm</code> <code>inquire</code></td></tr>
+<tr><td><strong>分段</strong></td><td>提前，但<strong>长度不定</strong></td><td>三段 wav，流式喂给一个 <code>aplay</code></td><td><code>wheee</code>（骑行）</td></tr>
+<tr><td><strong>实时乐器</strong></td><td><strong>永远不知道</strong></td><td><code>sounds::Stream</code>，一个 block 一个 block</td><td>特雷门</td></tr>
+<tr><td><strong>合奏</strong></td><td>提前，但<strong>由别的鸭子触发</strong></td><td>每只鸭子渲染自己的声部</td><td>合唱</td></tr>
+</tbody></table>
+</div>
+<h3 id="41-一次性7-个-tag"><a class="header" href="#41-一次性7-个-tag">4.1 一次性：7 个 tag</a></h3>
+<p><code>lib.rs:49-58</code> 是<strong>全部</strong>的 tag：</p>
+<div class="table-wrapper"><table><thead><tr><th>tag</th><th><code>duck-ipc-proto</code> 里的描述（<code>lib.rs:2134-2153</code>）</th><th>谁触发</th></tr></thead><tbody>
+<tr><td><code>alarm</code></td><td><em>Sharp honk.</em></td><td><strong>只有客户端</strong>（见 §12）</td></tr>
+<tr><td><code>greet</code></td><td><em>Wake-up quack (sometimes a double &quot;wak-wak&quot;).</em></td><td><code>robotd</code> 启动时（<code>main.rs:1999</code>）</td></tr>
+<tr><td><code>inquire</code></td><td><em>Rising question.</em></td><td><strong>只有客户端</strong></td></tr>
+<tr><td><code>peck</code></td><td><em>Low &quot;tock&quot; — the goodbye before power-off.</em></td><td>关机前（<code>main.rs:2483</code> <code>:2496</code>）</td></tr>
+<tr><td><code>chirp</code></td><td><em>The mouth-trigger quack. <code>robotctl quack</code> plays this.</em></td><td>嘴部触发（<code>main.rs:2306</code> <code>:2308</code>）</td></tr>
+<tr><td><code>coo</code></td><td><em>Drowsy, breathy — the petting response.</em></td><td>被抚摸时（<code>main.rs:2237</code>）</td></tr>
+<tr><td><code>wheee</code></td><td><em>The held joy ride: start → loop while held → end.</em></td><td><code>padd</code>（<code>padd/src/main.rs:865</code>）</td></tr>
+</tbody></table>
+</div>
+<p><strong>变体数量是分级的</strong>（<code>lib.rs:59-67</code>）：</p>
+<blockquote>
+<p>How many variants each tag gets. The robot picks a random variant at play time, so <strong>more
+variants directly means a more organic-feeling duck.</strong> <code>chirp</code> (mouth trigger) and <code>greet</code>
+(wake-up) are <strong>the most-heard tags, so they get the most.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>&quot;greet&quot; | &quot;chirp&quot; =&gt; 12,     // 听得最多
+&quot;wheee&quot;           =&gt;  6,     // 但有 3 段，所以 18 个文件
+_                 =&gt; 10,
+<span class="boring">}</span></code></pre></pre>
+<p>总数：<code>10 + 12 + 10 + 10 + 12 + 10 + 6×3 = 82</code> 个 wav（<code>lib.rs:179</code> 的测试钉住了这个数）。</p>
+<h3 id="42-分段wheee-的两次退出"><a class="header" href="#42-分段wheee-的两次退出">4.2 分段：<code>wheee</code> 的两次退出</a></h3>
+<p><code>wheee</code>（骑行时的&quot;呜——&quot;）被切成 <strong>start / loop / end</strong> 三段，因为<strong>长度取决于骑多久</strong>。</p>
+<p><code>robotd/src/sound.rs:9-15</code> 讲了为什么&quot;退出&quot;有两种，而它们<strong>不是同一件事</strong>：</p>
+<blockquote>
+<p><strong>The wheee ride streams into a single <code>aplay</code></strong>: start → loop (repeating while held) → end,
+written by a paced thread so the pipe <strong>never queues more than ~250 ms</strong> — else the release
+would land that late. The ride has <em>two</em> exits, and they are not the same:
+<strong>a client that says &quot;released&quot; cuts it</strong> (kill the child, the writer exits on the broken
+pipe), while <strong>a hold that merely went stale lands it</strong> — the writer is let out of its loop
+and writes the end segment into a pipe that is still open.
+<strong>Only the second one ever plays <code>wheee_end_*</code>, which is why <code>Ride</code> is a state and not a bool.</strong></p>
+</blockquote>
+<p><strong>&quot;只有第二种会播放 <code>wheee_end_*</code>，这就是为什么 <code>Ride</code> 是一个状态而不是一个布尔值。&quot;</strong></p>
+<h3 id="43-实时特雷门--见-10"><a class="header" href="#43-实时特雷门--见-10">4.3 实时：特雷门 —— 见 §10</a></h3>
+<h3 id="44-合奏合唱--见-9"><a class="header" href="#44-合奏合唱--见-9">4.4 合奏：合唱 —— 见 §9</a></h3>
+<hr />
+<h2 id="5-sounds-crate-地图"><a class="header" href="#5-sounds-crate-地图">5. <code>sounds</code> crate 地图</a></h2>
+<pre><code>sounds/
+├── Cargo.toml          依赖只有 4 个：anyhow · clap · hound · sha2
+├── scores/
+│   ├── wistful.duckscore   ← 船载的那首曲子，同时是文本文法的文档
+│   ├── duck_strut.mid      ← MIDI 导入的例子
+│   └── outer_wilds.mid
+└── src/
+    ├── lib.rs          186  ← 门面：seed → bank，以及 TAGS 表
+    ├── rng.rs          153  ← ⭐ 自己写的 xoshiro256++
+    ├── personality.rs  191  ← 一个 seed → 20 多个性格参数
+    ├── synth.rs        260  ← DSP 原语（振荡器、滤波器、包络），48 kHz
+    ├── voices.rs       452  ← 7 个 tag 的&quot;配方&quot;
+    ├── stream.rs       838  ← ⭐ 实时合成器（特雷门用）
+    ├── main.rs         443  ← 命令行
+    └── chorale/      2,900  ← 合唱那一半
+        ├── mod.rs     1485  ← 声部、音符、元音、座位
+        ├── midi.rs     852  ← 自己写的 MIDI 解析器
+        ├── beat.rs     521  ← 节拍：指挥的信标，跟随者的相位平均
+        └── text.rs     516  ← `.duckscore` 文本格式
+</code></pre>
+<p><strong>依赖只有 4 个</strong>（<code>Cargo.toml:14-18</code>），其中 <code>hound</code> 是 wav 写入、<code>sha2</code> 是种子推导、
+<code>anyhow</code>/<code>clap</code> 是每个 crate 都有的。<strong>整个 DSP、RNG、MIDI 解析都是自己写的。</strong></p>
+<hr />
+<h2 id="6-一次叫一声的完整旅程"><a class="header" href="#6-一次叫一声的完整旅程">6. 一次「叫一声」的完整旅程</a></h2>
+<p>以 <code>chirp</code>（摸一下嘴，&quot;嘎&quot;一声）为例：</p>
+<pre><code>   ① 触发
+      padd / 嘴部传感器 / robotctl quack
+            │  JSON-RPC: robot.sound { tag: &quot;chirp&quot; }
+            ▼
+   ② 意图
+      robotd/src/intents.rs
+            │  放进一个队列，由 50 Hz 控制环取走
+            ▼
+   ③ 播放（robotd/src/sound.rs:281 `play`）
+      ├─ 检查 ride 是否占着 PCM（:290）→ 是就跳过
+      ├─ stop_child()              ← ⭐ 杀掉上一个
+      ├─ pick(&quot;chirp&quot;)             ← 随机挑一个变体
+      └─ spawn aplay &lt;wav&gt;
+            ▼
+   ④ 出声
+      aplay → I²S → TLV320AIC3104 codec → 喇叭
+</code></pre>
+<h3 id="61--一次只有一个孩子新的声音会杀掉它"><a class="header" href="#61--一次只有一个孩子新的声音会杀掉它">6.1 ⭐ &quot;一次只有一个孩子，新的声音会杀掉它&quot;</a></h3>
+<p><code>sound.rs:3-8</code> 把这个性质<strong>追到了硬件</strong>：</p>
+<blockquote>
+<p>Ported from the prototype's <code>play_voice</code> / <code>start_wheee</code>. <strong>The codec PCM is exclusive and
+single-client</strong>, which two properties fall out of:</p>
+<ul>
+<li><strong>One playing child, and a new sound kills it.</strong> That is what lets someone <strong>spam the chirp
+trigger cleanly</strong> — each press cuts the previous call off — and <strong>why everything that plays
+goes through this one struct, owned by the control loop.</strong></li>
+<li>The wheee ride streams into a single <code>aplay</code> …</li>
+</ul>
+</blockquote>
+<p><strong>&quot;编解码器的 PCM 是独占的、单客户端的。&quot;</strong> 这不是设计选择，是<strong>硬件的约束</strong> ——
+而代码把它变成了一个特性：连按嘴部触发器听起来很自然，因为每一声都干净地掐掉前一声。</p>
+<h3 id="62-播放就是-spawn"><a class="header" href="#62-播放就是-spawn">6.2 播放就是 spawn</a></h3>
+<p><code>sound.rs:26-28</code>：</p>
+<blockquote>
+<p><strong>Playing is spawning</strong>: nothing here blocks the 50 Hz tick <strong>except the deliberately blocking
+goodbye peck right before power-off</strong>, when there is no tick left to miss — and that one is
+<strong>bounded</strong>, because <strong>a wedged PCM must not be able to hold up the power-off.</strong></p>
+</blockquote>
+<p>那个界限是（<code>sound.rs:40-41</code>）：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// How long the blocking goodbye peck may hold up the power-off. The longest bank sound is
+/// well under a second; this is a ceiling on a wedged PCM, not a playback budget.
+const BLOCKING_PLAY_MAX: Duration = Duration::from_millis(1500);
+<span class="boring">}</span></code></pre></pre>
+<p><strong>&quot;这是一个卡死的 PCM 的上限，不是播放预算。&quot;</strong></p>
+<h3 id="63-bank-不见了会怎样"><a class="header" href="#63-bank-不见了会怎样">6.3 bank 不见了会怎样</a></h3>
+<p><code>sound.rs:293-301</code> 只警告<strong>一次</strong>（<code>warned_missing</code> 标志），然后<strong>静默地跳过所有声音</strong>：</p>
+<pre><code>no voice bank — sounds are skipped (run `sounds ensure-bank`)
+</code></pre>
+<p>这正是 <code>hooks/postinstall:76-82</code> 那一句的理由：</p>
+<blockquote>
+<p><strong>A warning, not a failure: a robot without a voice walks.</strong></p>
+<pre><code>postinstall: could not render the voice bank; the robot stays quiet
+</code></pre>
+</blockquote>
+<p><strong>&quot;没有嗓子的机器人照样会走路。&quot;</strong></p>
+<hr />
+<h2 id="7-性格一个整数如何变成一副嗓子"><a class="header" href="#7-性格一个整数如何变成一副嗓子">7. 性格：一个整数如何变成一副嗓子</a></h2>
+<p><code>personality.rs:1</code>：<em>&quot;A <code>Personality</code> derives stable per-robot vocal traits from a single seed.&quot;</em></p>
+<h3 id="71-那-23-个参数"><a class="header" href="#71-那-23-个参数">7.1 那 23 个参数</a></h3>
+<p><code>sounds show</code> 会把它们全部打出来（<code>main.rs:141-164</code>）：</p>
+<div class="table-wrapper"><table><thead><tr><th>组</th><th>参数</th><th>直觉</th></tr></thead><tbody>
+<tr><td><strong>音高</strong></td><td><code>pitch_center_hz</code> · <code>register</code> · <code>pitch_spread</code> · <code>glide_bias</code></td><td>高还是低、滑音往上还是往下</td></tr>
+<tr><td><strong>音色</strong></td><td><code>brightness</code> · <code>tilt</code> · <code>nasal</code> · <code>harmonic_skew</code> · <code>formant_n</code> · <code>formant_gain</code></td><td>明亮/闷、鼻腔共鸣、共振峰在哪</td></tr>
+<tr><td><strong>颤动</strong></td><td><code>vibrato_rate_hz</code> · <code>vibrato_depth</code> · <code>jitter_depth</code></td><td>颤音快慢深浅、音高毛刺</td></tr>
+<tr><td><strong>噪声</strong></td><td><code>breath</code></td><td>气声</td></tr>
+<tr><td><strong>鸭子味</strong></td><td><code>quackiness</code> · <code>am_rate_hz</code> · <code>am_depth</code></td><td>&quot;嘎&quot;的程度、振幅调制</td></tr>
+<tr><td><strong>摇摆</strong></td><td><code>warble_hz</code> · <code>warble_depth</code></td><td>抖音</td></tr>
+<tr><td><strong>包络</strong></td><td><code>attack_sharpness</code> · <code>speed</code></td><td>起音多陡、整体快慢</td></tr>
+</tbody></table>
+</div>
+<p><code>personality.rs:7-9</code> 讲了为什么<strong>要这么多</strong>：</p>
+<blockquote>
+<p>The trait set is <strong>deliberately wide</strong>: register (octave shift), harmonic tilt, formant
+emphasis, glide bias, quackiness — <strong>each one alone is enough to make two seeds feel like
+different creatures.</strong></p>
+</blockquote>
+<p><strong>&quot;每一个单独拿出来，都足以让两个种子感觉像两种不同的生物。&quot;</strong></p>
+<h3 id="72-变体同一副嗓子的小重掷"><a class="header" href="#72-变体同一副嗓子的小重掷">7.2 变体：同一副嗓子的小重掷</a></h3>
+<p><code>personality.rs:3-5</code>：</p>
+<blockquote>
+<p>Two robots with different seeds sound recognisably different; <strong>the same robot is consistent
+across runs.</strong> Variants within a tag <strong>re-roll a small sub-seed</strong> so the duck doesn't sound
+like <strong>a stuck recording.</strong></p>
+</blockquote>
+<p>实现是一个从 <code>(tag, variant)</code> 派生的独立 RNG（<code>personality.rs:111</code> <code>variant_rng</code>）——
+所以&quot;第 3 个 chirp&quot;永远是同一个&quot;第 3 个 chirp&quot;，但和&quot;第 4 个&quot;不同。</p>
+<h3 id="73-recipe-拿性格当画画的颜料"><a class="header" href="#73-recipe-拿性格当画画的颜料">7.3 recipe 拿性格当画画的颜料</a></h3>
+<p><code>voices.rs:1-5</code>：</p>
+<blockquote>
+<p>Recipes paint with the personality's traits — pitch center, register, glide bias, harmonic
+tilt/formant, quackiness, warble — so <strong>the <em>same</em> recipe on two different seeds gives two
+recognisably different ducks.</strong></p>
+</blockquote>
+<p><strong>&quot;配方不是声音本身，是画声音的笔法。&quot;</strong> 7 个 recipe（<code>voices.rs:64</code> 到 <code>:404</code>）就是 7 支笔。</p>
+<hr />
+<h2 id="8--为什么-rng-是自己写的"><a class="header" href="#8--为什么-rng-是自己写的">8. ⭐ 为什么 RNG 是自己写的</a></h2>
+<p>这是整个 crate 里<strong>最值得读的一段注释</strong>（<code>rng.rs:1-13</code>）：</p>
+<blockquote>
+<p>The Python original used <code>np.random.default_rng</code> (PCG64 + numpy's distributions). <strong>A robot's
+voice is <em>derived</em>, not stored</strong> — the bank is re-rendered from the seed on every install that
+bumps the bank version — <strong>so the generator IS the voice.</strong> Depending on <code>rand</code> for it would
+tie every duck's voice to <strong>whichever algorithm that crate ships this year</strong>; <code>StdRng</code>
+explicitly reserves the right to change. <strong>Forty lines of xoshiro we own cannot drift.</strong></p>
+<p>xoshiro256++ seeded through splitmix64 (both public domain, Blackman &amp; Vigna). Uniforms take
+the top 53 bits; normals are Box–Muller. <strong>None of it needs to match numpy</strong> — the port
+re-rolls every voice once, and the bank version bump makes that <strong>a regeneration, not a
+corruption.</strong></p>
+</blockquote>
+<p><strong>&quot;生成器就是嗓音本身。&quot;</strong></p>
+<h3 id="81-这句话的一般形式"><a class="header" href="#81-这句话的一般形式">8.1 这句话的一般形式</a></h3>
+<p>把它抽出来，就是一条<strong>可以带走的工程原则</strong>：</p>
+<blockquote>
+<p><strong>当一个随机数生成器的输出是被持久化的产物时，这个生成器就是那个产物的一部分，
+它属于你的代码，不属于你的依赖。</strong></p>
+</blockquote>
+<p><code>rand</code> 的 <code>StdRng</code> <strong>明确保留改变算法的权利</strong> —— 那是给&quot;随机数用完即弃&quot;的场景设计的。
+这里不是：这里的每个随机数都会变成一个 wav 文件，留在机器人的磁盘上。</p>
+<p><strong>&quot;我们自己拥有的四十行 xoshiro，不会漂。&quot;</strong></p>
+<h3 id="82-那四十行有多小"><a class="header" href="#82-那四十行有多小">8.2 那四十行有多小</a></h3>
+<p><code>rng.rs:16</code> 的 <code>Rng</code> 结构体，公开方法只有 6 个（<code>rng.rs:54-87</code>）：
+<code>random</code> · <code>uniform</code> · <code>integers</code> · <code>choice</code> · <code>standard_normal</code> · <code>standard_normal_vec</code>。</p>
+<p>而 <code>from_seed</code> 的注释（<code>rng.rs:23-25</code>）说明了为什么用 splitmix64 展开：</p>
+<blockquote>
+<p>Seed from a u32, as the Python did (<code>seed &amp; 0xFFFFFFFF</code>). <strong>splitmix64 expands it into the
+four xoshiro words so small seeds still start well-mixed.</strong></p>
+</blockquote>
+<p><strong>&quot;小种子也能从充分混合的状态开始。&quot;</strong> —— 否则种子 0、1、2 的头几个输出会很像。</p>
+<hr />
+<h2 id="9-和声chorale一个完整的小系统"><a class="header" href="#9-和声chorale一个完整的小系统">9. 和声（chorale）：一个完整的小系统</a></h2>
+<p>这是 <code>sounds/</code> 里最大的部分（2,900 行），也是<strong>最独立</strong>的一块：
+它在笔记本上把四只鸭子的合唱<strong>离线渲染</strong>出来，为了在真的联网之前就能判断编曲好不好听。</p>
+<p><code>chorale/mod.rs:3-7</code>：</p>
+<blockquote>
+<p>This module is <strong>the <em>musical</em> half</strong> of the duck chorale, and it is <strong>deliberately separate
+from the half that will be hard on real hardware</strong> (finding each other, agreeing on a clock).
+It renders an ensemble offline, on a laptop, <strong>so the arrangement can be judged before a
+single packet is sent between two ducks</strong> — and so that when the sync work starts, <strong>&quot;does it
+sound good&quot; is already answered and only &quot;is it together&quot; is in question.</strong></p>
+</blockquote>
+<h3 id="91--身份是音色不是音高"><a class="header" href="#91--身份是音色不是音高">9.1 ⭐ 身份是音色，不是音高</a></h3>
+<p>这是整个合唱设计里最反直觉、也最重要的一条（<code>mod.rs:9-21</code>）：</p>
+<blockquote>
+<p>Every duck's voice is derived from its SoC serial, and <strong>the loudest thing that varies is
+<code>Personality::pitch_center_hz</code></strong> — a duck is high or low. <strong>Letting that shift the <em>notes</em>
+would be the obvious way</strong> to keep each duck sounding like itself, and <strong>it would wreck the
+piece</strong>: four ducks singing a chord each <strong>in their own tuning</strong> is four ducks <strong>out of tune
+with each other. Beating, not harmony.</strong></p>
+<p>So <strong>the note is absolute</strong>, from one shared reference (<code>A4_HZ</code>, equal temperament), and what
+each duck keeps is <strong>everything else</strong>: harmonic weights, formant, nasality, breath, and the
+tamed remains of its vibrato. <strong>Register is used instead for <em>casting</em></strong> — the lowest duck
+sings bass — and for choosing what key the piece lands in, <strong>so nobody is asked to sing
+outside the range their own voice was rolled for.</strong></p>
+</blockquote>
+<p><strong>&quot;显而易见的做法会毁掉这首曲子：四只鸭子各自按自己的调子唱一个和弦，就是四只鸭子互相走调。
+是拍频，不是和声。&quot;</strong></p>
+<h3 id="92--完美同步是错误的目标"><a class="header" href="#92--完美同步是错误的目标">9.2 ⭐ 完美同步是错误的目标</a></h3>
+<p><code>mod.rs:23-35</code>：</p>
+<blockquote>
+<p>Four voices starting a note on the same sample and holding the same frequency <strong>do not sound
+like a choir; they sound like one organ with a thick stop.</strong> What makes an ensemble is that
+its members are <strong><em>almost</em> together and <em>almost</em> in tune</strong>: a few cents of pitch spread and a
+few tens of milliseconds of onset spread. <strong>Both are added here on purpose</strong>, derived from
+each duck's seed so <strong>a given group always sounds like that group.</strong></p>
+<p>That is also <strong>the answer to how tightly real ducks will have to agree on a clock: the target
+is ±20 ms, not ±1 ms, because ±15 ms is what we are deliberately adding.</strong> A chord's <em>tuning</em>
+is what has to be exact, and <strong>that needs no synchronisation at all</strong> — only a shared
+reference pitch, which is a constant.</p>
+</blockquote>
+<p><strong>&quot;目标不是 ±1 毫秒，是 ±20 毫秒 —— 因为我们故意加了 ±15 毫秒。&quot;</strong></p>
+<p><strong>这一句话把整个同步问题缩小了一个数量级。</strong></p>
+<h3 id="93-节拍指挥是一个信标不是一个时钟"><a class="header" href="#93-节拍指挥是一个信标不是一个时钟">9.3 节拍：指挥是一个信标，不是一个时钟</a></h3>
+<p><code>chorale/beat.rs:3-19</code> 讲了整个方案的来由：</p>
+<blockquote>
+<p>Four robots singing a chord have to agree on when the beat is, to about <strong>±20 ms</strong>. The obvious
+way is to sync the clocks and agree a start time. <strong>This does not do that, because there is no
+clock to sync</strong>: the boards have <strong>no RTC agreement and no NTP</strong>, so establishing an offset
+would mean <strong>a connection, a bond, and a central-role Bluetooth client that <code>btd</code> does not have.</strong></p>
+<h2 id="the-conductor-is-a-beacon"><a class="header" href="#the-conductor-is-a-beacon">The conductor is a beacon</a></h2>
+<p>Instead, <strong>nobody shares a clock — they share a <em>beat</em>.</strong> The duck conducting puts a beat
+counter in its <strong>BLE advertisement</strong> and bumps it once per musical beat. Everyone else
+<strong>passively scans</strong>, and <em><strong>the arrival of a new counter value is the downbeat.</strong></em> No
+timestamps to compare, <strong>no offset to estimate, no connection, no pairing</strong>: passive scanning
+is the whole radio requirement, and <strong>it is the cheapest thing a Bluetooth controller can do.</strong></p>
+</blockquote>
+<p><strong>&quot;新计数值的到达，就是强拍。&quot;</strong></p>
+<h3 id="94-为什么电台的抖动不会毁掉它"><a class="header" href="#94-为什么电台的抖动不会毁掉它">9.4 为什么电台的抖动不会毁掉它</a></h3>
+<p><code>beat.rs:21-33</code>：</p>
+<blockquote>
+<p>Air time is microseconds; <strong>the error is the <em>advertising slot</em>.</strong> The conductor hands new
+payload to its controller and it goes out at the next slot, which <code>btd</code> spaces
+<strong>100–150 ms</strong> apart <em>on purpose</em> (one antenna carries BLE, the gamepad and wifi). So a
+follower hears each beat somewhere in a <strong>50 ms window</strong>, and — crucially — <em><strong>independently
+per beat.</strong></em></p>
+<p>Two things turn that into <strong>±6 ms</strong>:</p>
+<ul>
+<li>The conductor <strong>delays its <em>own</em> playback by <code>SLOT_MEAN_S</code></strong>, the middle of that window, so
+it is wrong <strong>in the same direction</strong> as everyone else rather than early by default.</li>
+<li>A follower <strong>does not chase individual beats. It averages the <em>phase</em> over a sliding
+window</strong>, so independent jitter <strong>falls as the square root of the window.</strong></li>
+</ul>
+</blockquote>
+<h3 id="95--节奏不是被估计出来的这是修正而不是抄近路"><a class="header" href="#95--节奏不是被估计出来的这是修正而不是抄近路">9.5 ⭐ &quot;节奏不是被估计出来的，这是修正而不是抄近路&quot;</a></h3>
+<p><code>beat.rs:35-41</code> 是这份文档里最诚实的一段失败记录：</p>
+<blockquote>
+<p><strong>The tempo is not estimated, and that was the fix rather than the shortcut.</strong> The first
+version fitted <strong>a straight line</strong> through (beat, arrival) and read the tempo off its slope,
+<strong>which is the textbook thing to do and was measurably worse</strong>: a line fit evaluated at the
+<em>newest</em> point — <strong>the edge of the window, which is exactly where &quot;where are we now&quot; is
+asked</strong> — carries about <strong>four times the error</strong> it carries at the window's centre, because
+<strong>slope uncertainty compounds with distance from the centroid.</strong> Two simulated followers came
+out <strong>36 ms apart.</strong></p>
+</blockquote>
+<p><strong>&quot;直线拟合在窗口边缘 —— 而那正是'我们现在在哪'被问起的地方 —— 带着四倍的误差，
+因为斜率的不确定性会随着离质心的距离累积。&quot;</strong></p>
+<p>于是：<strong>周期按乐谱固定，只平均相位。</strong> 斜率项消失了。</p>
+<h3 id="96-分声部按音高不按轨道顺序"><a class="header" href="#96-分声部按音高不按轨道顺序">9.6 分声部：按音高，不按轨道顺序</a></h3>
+<p><code>chorale/midi.rs:14-26</code>：</p>
+<blockquote>
+<p>By <strong>mean pitch</strong>, not by track order — <strong>the lowest group of notes sings bass.</strong> Track order
+would be the obvious rule and is <strong>wrong twice over</strong>: notation editors write scores <strong>top
+staff first</strong> (soprano, alto, tenor, bass — <strong>the reverse</strong> of what a <code>Voicing</code> lists), and a
+file from a DAW may have the tempo track, empty tracks, or <strong>the parts in any order at all.</strong>
+Sorting by pitch is right <strong>whatever produced the file</strong>, and it is <strong>the same rule <code>cast</code>
+uses to seat the ducks, which keeps one idea in one place.</strong> A track <em>name</em> that says
+&quot;Soprano&quot; is believed first, <strong>since a human wrote it down.</strong></p>
+</blockquote>
+<h3 id="97-为什么不引入-midi-库"><a class="header" href="#97-为什么不引入-midi-库">9.7 为什么不引入 MIDI 库</a></h3>
+<p><code>midi.rs:9-12</code>：</p>
+<blockquote>
+<p><strong>No dependency.</strong> A Standard MIDI File is <strong>a length-prefixed chunk format with
+variable-length delta times</strong>, and the subset a score needs is <strong>note-on, note-off, tempo and
+track name. That is a couple of hundred lines and no supply chain</strong>, against a crate that
+would parse <strong>controller automation and SysEx this will never look at.</strong></p>
+</blockquote>
+<p>和 RNG 那一段是<strong>同一个论证</strong>：<strong>你要的是一小部分，那就自己写那一小部分。</strong></p>
+<h3 id="98-元音嘴型是表演优先"><a class="header" href="#98-元音嘴型是表演优先">9.8 元音：嘴型是&quot;表演优先&quot;</a></h3>
+<p><code>Vowel</code> 有 6 个值（<code>mod.rs:135</code>）：<code>Ah</code> <code>Eh</code> <code>Ee</code> <code>Oh</code> <code>Oo</code> <code>Mm</code>。
+而它的 <code>open()</code> 方法带了一段关于<strong>偏离语音学</strong>的注释（<code>mod.rs:152-156</code>）：</p>
+<blockquote>
+<p>Phonetically honest values were tried and <strong>looked broken on the robot</strong>: the shipped piece
+opens with six beats of <code>oo</code>, and an <code>oo</code> of 0.15 is <strong>a duck audibly singing through a closed
+beak.</strong> These are <strong>stage vowels</strong> — exaggerated open, ordered the same — because <strong>on a robot
+the mouth is <em>performance</em> first and phonetics second. Only the hum stays closed: humming
+through a shut beak is correct, and rather charming.</strong></p>
+</blockquote>
+<p><strong>&quot;在机器人身上，嘴首先是表演，其次才是语音学。&quot;</strong></p>
+<p>而且（<code>mod.rs:132-133</code>）：</p>
+<blockquote>
+<p>The mouth opening is <strong>the <em>same number</em> the beak servo gets</strong>, so <strong>the vowel is visible as
+well as audible.</strong></p>
+</blockquote>
+<p><strong>嘴张开的数值，和舵机拿到的数值是同一个。</strong> 不是两套映射 —— 所以看到的和听到的永远一致。</p>
+<h3 id="99-文本格式和-midi-是两个不同的入口"><a class="header" href="#99-文本格式和-midi-是两个不同的入口">9.9 文本格式和 MIDI 是两个不同的入口</a></h3>
+<p><code>text.rs:13-20</code>：</p>
+<blockquote>
+<p><strong>Not a general music format.</strong> It has <strong>no bars, no key signature, no time signature and no
+per-voice rhythmic independence</strong> beyond what <code>Gesture</code> can express — a score where all four
+voices move in different rhythms <strong>is not writable here</strong>, and is exactly what the MIDI
+importer is for. <strong>The two front ends are deliberately different shapes</strong>: this one is for
+<strong>writing a chorale by hand and reading it back</strong>, that one is for <strong>anything a notation
+editor can produce.</strong></p>
+</blockquote>
+<p>而那句关于自文档的话很值得学（<code>text.rs:9-11</code>）：</p>
+<blockquote>
+<p><code>scores/wistful.duckscore</code> <strong>is the grammar's own documentation</strong> and is embedded as
+<code>Score::wistful</code>, so <strong>the shipped piece and the worked example are the same file and cannot
+drift apart.</strong></p>
+</blockquote>
+<p><strong>&quot;船载的那首曲子，和那份语法示例，是同一个文件，所以它们不可能漂开。&quot;</strong></p>
+<p>还有一条关于报错的（<code>text.rs:22-26</code>）：</p>
+<blockquote>
+<p><strong>Every failure carries the line number and the text of the line</strong>, because the alternative —
+&quot;invalid score&quot; — sends someone back to stare at forty lines of chords. A score is
+<strong>hand-written data</strong>, so <strong>a parse error is the normal way to find out you mistyped a note
+name.</strong></p>
+</blockquote>
+<h3 id="910-音量为什么是-055"><a class="header" href="#910-音量为什么是-055">9.10 音量：为什么是 0.55</a></h3>
+<p><code>robotd/src/sound.rs:55-63</code> —— 这是 <code>sounds/</code> 之外的代码，但它解释了 <code>sounds/</code> 里的一个常量：</p>
+<blockquote>
+<p>How loud one voice of an ensemble sings.</p>
+<p><strong>Under full scale, and not for headroom: four ducks in a room sum acoustically.</strong> The offline
+preview divides its mix by the square root of the voice count for exactly this reason; <strong>on
+real hardware nothing divides anything, so each duck has to arrive already knowing it is one
+of several.</strong> A single duck singing alone is therefore <strong>a little quiet, which is the right
+way round</strong> — the alternative was <strong>a quartet that saturated, which is what the first run on
+the robot sounded like.</strong></p>
+</blockquote>
+<p><strong>&quot;每只鸭子必须事先就知道自己是好几个里的一个。&quot;</strong></p>
+<p>而 <code>SPEAKER_ROLLOFF_HZ</code>（<code>sound.rs:65-70</code>）记了一个<strong>耳朵测出来的</strong>数字：</p>
+<blockquote>
+<p>Measured <strong>by ear</strong> rather than from a datasheet: the chorale's <strong>130 Hz bass line did not
+come through the driver</strong>, and this is where it starts to. <code>Stream::set_speaker_rolloff</code> uses
+it to <strong>carry a low note on harmonics the driver can make instead of a fundamental it cannot.</strong></p>
+</blockquote>
+<p><strong>&quot;用一个喇叭发得出来的泛音，去代替它发不出来的基频。&quot;</strong> —— 这就是低音能听见的原因。</p>
+<hr />
+<h2 id="10-特雷门theremin同一个合成器翻过来用"><a class="header" href="#10-特雷门theremin同一个合成器翻过来用">10. 特雷门（theremin）：同一个合成器，翻过来用</a></h2>
+<p>特雷门 = 手在鸭子嘴前面的距离 → 音高。它由 <code>robotd/src/theremin.rs</code>（489 行）驱动，
+声音由 <code>sounds/src/stream.rs</code> 实时合成。</p>
+<h3 id="101-三个速率相遇"><a class="header" href="#101-三个速率相遇">10.1 三个速率相遇</a></h3>
+<p><code>robotd/src/theremin.rs:3-9</code>：</p>
+<blockquote>
+<p>Three things have to meet for that, and <strong>they run at three different rates.</strong> The depth
+frames arrive from <code>tofd</code> at <strong>15 Hz</strong> over a socket this daemon does not own. The control
+loop runs at <strong>50 Hz</strong> and is <strong>the only thing allowed to touch the mouth.</strong> The audio is
+rendered at <strong>48 kHz</strong> in a writer thread. <strong>This module is where the first two meet</strong>: a
+reader thread parks on the depth socket and leaves the newest frame in a slot, and
+<code>Theremin::tick</code> — called from the control loop, <strong>never blocking</strong> — turns whatever is in
+that slot into a note, a mouth opening, and a line of state for clients to watch.</p>
+</blockquote>
+<h3 id="102--一个手势三个输出"><a class="header" href="#102--一个手势三个输出">10.2 ⭐ 一个手势，三个输出</a></h3>
+<p><code>theremin.rs:11-15</code>：</p>
+<blockquote>
+<p><strong>One gesture, three outputs.</strong> Closeness (0 at the far end of the playable band, 1 at the
+near end, from <code>kinematics::hand</code>) drives <strong>the pitch, the level, <em>and</em> how far the mouth
+opens.</strong> <strong>Not three tunings of the same thing but literally one number</strong>, because <strong>a duck
+whose mouth opens on a different curve from its pitch reads as a mouth animation playing over
+a sound rather than as an animal making one.</strong></p>
+</blockquote>
+<p><strong>&quot;一个嘴型和音高用不同曲线的鸭子，读起来像是一段嘴部动画配了个音，而不是一只动物在发声。&quot;</strong></p>
+<h3 id="103--为什么舍掉了自动识别手"><a class="header" href="#103--为什么舍掉了自动识别手">10.3 ⭐ 为什么舍掉了&quot;自动识别手&quot;</a></h3>
+<p><code>theremin.rs:17-24</code>：</p>
+<blockquote>
+<p><strong>An explicit mode, and nothing clever inside it.</strong> The first version <strong>armed</strong>: it captured
+what was in front of the duck as a background so it could tell a hand from a wall <strong>without
+being told</strong>. <strong>On a bench that worked; on a duck the same gesture armed one moment and was
+refused the next</strong>, because <em><strong>which zones carry a usable status varies frame to frame</strong></em> and
+<strong>a background is only as stable as the frames it was averaged from.</strong> So the mode is now
+<strong>something you turn on</strong>, and while it is on <strong>the nearest return in the band is the hand.</strong></p>
+</blockquote>
+<p><strong>&quot;一个背景只有它被平均的那些帧那么稳定。&quot;</strong></p>
+<h3 id="104-速率不匹配--淡出不是闸门"><a class="header" href="#104-速率不匹配--淡出不是闸门">10.4 速率不匹配 = 淡出，不是闸门</a></h3>
+<p><code>theremin.rs:26-30</code>：</p>
+<blockquote>
+<p><strong>Rate mismatch is a fade, not a gate.</strong> A depth frame that stops arriving — <code>tofd</code>
+restarted, the sensor dropped off the bus — <strong>must not leave a note sounding forever, and must
+not chop one off either.</strong> A frame older than <code>FRAME_STALE</code> takes <strong>the level to zero and
+leaves everything else alone</strong>, so <strong>the instrument goes quiet and comes back when the frames
+do.</strong> Short dropouts never reach here at all: <code>hand::Tracker</code> bridges those.</p>
+</blockquote>
+<p><code>FRAME_STALE</code> = <strong>500 ms</strong>（<code>theremin.rs:46</code>）。</p>
+<h3 id="105-streamrs-和离线路径的四处不同"><a class="header" href="#105-streamrs-和离线路径的四处不同">10.5 <code>stream.rs</code> 和离线路径的四处不同</a></h3>
+<p><code>stream.rs:22-36</code> 逐条列了，每一条都是&quot;离线能做的事，实时做不到&quot;：</p>
+<div class="table-wrapper"><table><thead><tr><th>#</th><th>差别</th><th>为什么</th></tr></thead><tbody>
+<tr><td><strong>①</strong></td><td><strong>归一化是静态的</strong></td><td><em>&quot;a stream has no finished buffer, and <strong>a per-block normalise would pump the level with every block</strong>&quot;</em>。改用谐波权重的<strong>最坏同相求和</strong>推导增益，再用 <code>tanh</code> 软削波兜住</td></tr>
+<tr><td><strong>②</strong></td><td><strong>参数会滑行</strong></td><td><em>&quot;Depth arrives every ~67 ms and the mouth servo is slower still; <strong>stepping the frequency on frame boundaries would stair-step audibly</strong>&quot;</em>。每个参数用音频速率的一极滤波器滑向目标</td></tr>
+<tr><td><strong>③</strong></td><td><strong>抖动和呼吸滤波器是递归的</strong></td><td>离线版卷整个缓冲区（居中滑动平均），实时版<strong>看不到未来也看不到过去</strong>，所以变成同样时间常数的一极滤波器。<em>&quot;<strong>The character is the same; the sample values are not</strong>&quot;</em></td></tr>
+<tr><td><strong>④</strong></td><td><strong><code>Stream::block</code> 携带全部跨块状态</strong></td><td>振荡器相位、LFO 相位、滤波器状态、被滑行的参数本身 —— <em>&quot;<strong>Concatenating its blocks gives one continuous signal with no seam, whatever the block sizes were</strong>&quot;</em></td></tr>
+</tbody></table>
+</div>
+<h3 id="106--它还是同一只鸭子"><a class="header" href="#106--它还是同一只鸭子">10.6 ⭐ 它还是同一只鸭子</a></h3>
+<p><code>stream.rs:16-20</code>：</p>
+<blockquote>
+<p><strong>It is the same duck.</strong> <strong>Not a resample of the bank and not a second voice</strong>: the harmonic
+weights are <code>Personality::harmonics</code>, the vibrato, jitter, breath and quack-AM are that
+personality's, and <code>Stream::wheee</code> applies the same softening the joy-ride recipe does.
+<strong>A duck's theremin sounds like that duck's wheee, held for as long as the hand stays.</strong></p>
+</blockquote>
+<p><strong>&quot;一只鸭子的特雷门，听起来就像那只鸭子的 <code>wheee</code>，按手停留的时间一直持续下去。&quot;</strong></p>
+<h3 id="107-写线程的领先量003-秒对-025-秒"><a class="header" href="#107-写线程的领先量003-秒对-025-秒">10.7 写线程的领先量：0.03 秒对 0.25 秒</a></h3>
+<p><code>robotd/src/sound.rs:22-24</code>：</p>
+<blockquote>
+<p>Its writer thread pulls blocks from a live <code>sounds::Stream</code> … and <strong>stays much closer behind
+playback than the ride does: a ride's 250 ms lead only delays its release, while the same lead
+on an instrument is the gap between moving your hand and hearing it.</strong></p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// How far ahead of playback the theremin writer stays. **An instrument's whole quality is
+/// this number** — see the module docs for why it is not the ride's 250 ms.
+const SYNTH_LEAD_S: f64 = 0.03;
+<span class="boring">}</span></code></pre></pre>
+<p>而 block 大小也是为同一件事（<code>sound.rs:44-50</code>）：</p>
+<blockquote>
+<p>Audio block the theremin writer renders at a time: <strong>10 ms</strong>. <strong>Short, because it bounds how
+stale the parameters can be by the time they are heard</strong>, and the stream is <strong>deliberately
+indifferent to block size</strong> so this is <strong>a latency choice and nothing else.</strong></p>
+</blockquote>
+<hr />
+<h2 id="11-命令行"><a class="header" href="#11-命令行">11. 命令行</a></h2>
+<p><code>sounds</code> 有 7 个子命令（<code>main.rs:25-130</code>）。<strong>除了 <code>ensure-bank</code>，其余全是台面工具。</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>子命令</th><th>干什么</th></tr></thead><tbody>
+<tr><td><strong><code>ensure-bank</code></strong></td><td>⭐ <strong>发布时由 <code>hooks/postinstall:79-81</code> 调用</strong>，幂等</td></tr>
+<tr><td><code>show</code></td><td>打印一个 seed 背后的 23 个性格参数</td></tr>
+<tr><td><code>render</code></td><td>渲染一个声音到 wav</td></tr>
+<tr><td><code>render-all</code></td><td>渲染全部 82 个到目录</td></tr>
+<tr><td><code>play</code></td><td>合成一个声音并<strong>通过 <code>aplay</code> 放出来</strong></td></tr>
+<tr><td><code>theremin</code></td><td><strong>脚本化的手部扫过</strong>，用实时合成器放出来</td></tr>
+<tr><td><code>chorale</code></td><td>在笔记本上渲染整个四声部合唱</td></tr>
+</tbody></table>
+</div>
+<h3 id="111-ensure-bank-为什么幂等"><a class="header" href="#111-ensure-bank-为什么幂等">11.1 <code>ensure-bank</code> 为什么幂等</a></h3>
+<p><code>main.rs:117-126</code>：</p>
+<blockquote>
+<p>Make sure this robot's voice bank exists and is current — render it if not.</p>
+<p><strong>Idempotent: a marker records the seed and bank version, and a matching bank is left alone</strong>,
+so this can (and does) <strong>run on every release install.</strong></p>
+</blockquote>
+<p><code>hooks/postinstall:74-76</code> 复述了这一点：</p>
+<blockquote>
+<p><code>sounds ensure-bank</code> … <strong>Idempotent — a marker records the seed and bank version, and a
+current bank is a no-op — so this runs on every install and only actually renders on the first
+one (or when the synth's bank version bumps).</strong></p>
+</blockquote>
+<h3 id="112---theremin-是没有手也能听"><a class="header" href="#112---theremin-是没有手也能听">11.2 <code>--theremin</code> 是&quot;没有手也能听&quot;</a></h3>
+<p><code>main.rs:60-67</code>：</p>
+<blockquote>
+<p>Audition the live theremin voice: <strong>a scripted hand sweep</strong> through the streaming synth.</p>
+<p>The theremin's pitch is a hand's distance and <strong>there is no hand on a bench</strong>, so this plays
+<strong>the gesture instead</strong> — approach, hold, wobble, retreat — driving <code>sounds::Stream</code> <strong>exactly
+as <code>robotd</code> does at the frame rate the ToF actually delivers.</strong> <strong>It is the only way to hear a
+voice change without a robot in front of you.</strong></p>
+</blockquote>
+<h3 id="113-三个默认值都在说目标硬件"><a class="header" href="#113-三个默认值都在说目标硬件">11.3 三个默认值都在说&quot;目标硬件&quot;</a></h3>
+<p><code>play</code> / <code>theremin</code> / <code>chorale</code> 的 <code>--device</code> 默认都是 <strong><code>plughw:aic3104</code></strong> —— 机器人上那个 codec。
+而 <code>chorale</code> 的 <code>--rolloff</code> 默认 <strong>300 Hz</strong>（<code>main.rs:108-109</code>）：</p>
+<blockquote>
+<p>Where the playback speaker stops reproducing, hertz. <strong>Defaults to the duck's own driver, which
+is the target</strong>; <code>--rolloff 0</code> renders for a full-range system instead.</p>
+</blockquote>
+<hr />
+<h2 id="12-几处读者会绊到的地方"><a class="header" href="#12-几处读者会绊到的地方">12. 几处读者会绊到的地方</a></h2>
+<p>按仓库的规矩，这里只<strong>陈述事实</strong>，不判断该怎么办。</p>
+<h3 id="121-alarm-和-inquire-没有任何东西触发"><a class="header" href="#121-alarm-和-inquire-没有任何东西触发">12.1 <code>alarm</code> 和 <code>inquire</code> 没有任何东西触发</a></h3>
+<p>7 个 tag 都被渲染进 bank，但<strong>只有 5 个有内部触发点</strong>（见 §4.1 的表）：
+<code>greet</code> <code>peck</code> <code>chirp</code> <code>coo</code> <code>wheee</code>。</p>
+<p><strong><code>alarm</code> 和 <code>inquire</code> 在全仓库范围内，除了 <code>sounds/</code> 自己和 <code>duck-ipc-proto</code> 的枚举定义，
+没有任何生产代码播放它们。</strong></p>
+<p>它们<strong>不是死的</strong> —— <code>robot.sound</code> 这个 RPC 接受任意 <code>SoundTag</code>，所以客户端
+（一个 app、一段脚本）可以放它们。但<strong>机器人自己永远不会</strong>。
+<code>duck-ipc-proto/src/lib.rs:2135-2153</code> 的文档串就是这么写的（<em>&quot;Sharp honk.&quot;</em> / <em>&quot;Rising question.&quot;</em>），
+而对应 <code>chirp</code> 的那条明确说了它的触发者（<em>&quot;<code>robotctl quack</code> plays this.&quot;</em>）——
+另外两个没有这样的话。</p>
+<p>如果你在找&quot;鸭子为什么会尖叫&quot;的行为，它不存在；这两个是留给客户端的词汇。</p>
+<h3 id="122--deployrobotdtoml301-那个注释显示了一个不是默认值的值"><a class="header" href="#122--deployrobotdtoml301-那个注释显示了一个不是默认值的值">12.2 ⚠️ <code>deploy/robotd.toml:301</code> 那个注释显示了一个不是默认值的值</a></h3>
+<p><code>deploy/robotd.toml:293-303</code>：</p>
+<pre><code class="language-toml"># Listen for petting on the onboard mic and coo about it. Unset means off — the always-on
+# coo wore thin — so this is an opt-in. The model ships in the release
+# (models/pet_detect.onnx); thresholds are the classifier's hysteresis (enter above, leave
+# below).
+#
+# The mic is read whenever [audio] is on, but the classifier only runs on audio that stands
+# out from the room: in a quiet one this costs nothing beyond the envelope the ambient-sound
+# watcher is measuring anyway.
+# pet_detect = true          ← :301
+# pet_model = &quot;.../current/models/pet_detect.onnx&quot;
+# pet_enter_threshold = 0.95
+# pet_exit_threshold = 0.85
+</code></pre>
+<p><strong>注释正文说 &quot;Unset means off&quot;（不设置就是关闭），而它下面展示的那一行是 <code>= true</code>。</strong>
+这份文件里注释掉的键<strong>惯例上是展示默认值</strong>，所以这一处读起来像是默认打开。</p>
+<p>（同一个形状在 <code>[duck_detector]</code> 上已经出现过一次 —— 见 <a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a>。）</p>
+<h3 id="123-vowelopen-的注释在讲一个不存在的场景"><a class="header" href="#123-vowelopen-的注释在讲一个不存在的场景">12.3 <code>Vowel::open()</code> 的注释在讲一个不存在的场景</a></h3>
+<p><code>chorale/mod.rs:161-163</code>：</p>
+<blockquote>
+<p>the shipped piece <strong>opens with six beats of <code>oo</code></strong>, and an <code>oo</code> of 0.15 is a duck audibly
+singing through a closed beak</p>
+</blockquote>
+<p>而实际值（<code>mod.rs:163</code>）是 <code>Vowel::Oo =&gt; 0.35</code>，不是 0.15。<strong>那 0.15 是被改掉之前的旧值</strong>，
+句子没跟着改。</p>
+<h3 id="124-soundssrclibrs22-23-提到的-parrot-模块不存在"><a class="header" href="#124-soundssrclibrs22-23-提到的-parrot-模块不存在">12.4 <code>sounds/src/lib.rs:22-23</code> 提到的 <code>parrot</code> 模块不存在</a></h3>
+<blockquote>
+<p>Not ported: the <code>parrot</code> module (mic → learned-phrase squawks) — an experiment nothing in the
+runtime shipped; <strong>it can follow if it ever graduates.</strong></p>
+</blockquote>
+<p>这是<strong>有意</strong>的一条记录（说明&quot;我们没搬这个&quot;），不是错误。但它会让读者去找一个不存在的模块 ——
+提一句在这里，省得你找。</p>
+<h3 id="125-render_all-的注释说-82-个文件但没说-wheee-的三段是分开的目录结构"><a class="header" href="#125-render_all-的注释说-82-个文件但没说-wheee-的三段是分开的目录结构">12.5 <code>render_all</code> 的注释说 82 个文件，但没说 <code>wheee</code> 的三段是分开的目录结构</a></h3>
+<p><code>lib.rs:100-102</code> 说 <em>&quot;Segmented tags write <code>&lt;tag&gt;_start_&lt;letter&gt;.wav</code> / <code>_loop_</code> / <code>_end_</code>
+triads instead&quot;</em>，而 <code>robotd/src/sound.rs:710</code> 是 <code>let dir = self.bank.join(&quot;wheee&quot;);</code> ——
+<strong>三段都在 <code>wheee/</code> 目录下</strong>，靠文件名区分。这是对的，只是&quot;triads instead&quot;稍微绕。</p>
+<hr />
+<h2 id="13-阅读路线"><a class="header" href="#13-阅读路线">13. 阅读路线</a></h2>
+<p><strong>5,900 行，但主干只有 500 行左右。</strong></p>
+<h3 id="路径-a我想知道鸭子为什么是这个声音约-30-分钟"><a class="header" href="#路径-a我想知道鸭子为什么是这个声音约-30-分钟">路径 A：我想知道&quot;鸭子为什么是这个声音&quot;（约 30 分钟）</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>步</th><th>读什么</th><th>为什么</th></tr></thead><tbody>
+<tr><td>1</td><td>§3 这张图</td><td>种子 → 性格 → wav</td></tr>
+<tr><td>2</td><td><code>sounds/src/lib.rs:1-30</code></td><td>整个 crate 的论点</td></tr>
+<tr><td>3</td><td><code>sounds/src/lib.rs:120-175</code></td><td><code>hardware_seed</code> + 那个钉住身份的测试</td></tr>
+<tr><td>4</td><td><code>sounds/src/personality.rs:1-30</code> + <code>:69-120</code></td><td>一个整数怎么变成 23 个参数</td></tr>
+<tr><td>5</td><td><code>sounds/src/voices.rs:111-150</code>（<code>greet</code>）</td><td>一个 recipe 长什么样</td></tr>
+<tr><td>6</td><td>跑一次 <code>sounds show</code></td><td>亲眼看一眼</td></tr>
+</tbody></table>
+</div>
+<h3 id="路径-b我想改一个叫声约-1-小时"><a class="header" href="#路径-b我想改一个叫声约-1-小时">路径 B：我想改一个叫声（约 1 小时）</a></h3>
+<ol>
+<li><code>voices.rs</code> 里挑一个 recipe（<code>voices.rs:64-404</code>）</li>
+<li><code>synth.rs:1-40</code>（原语和那两个 22.05 kHz 的常数）</li>
+<li><strong>改完记得想 <code>BANK_VERSION</code></strong>（<code>lib.rs:41-43</code>）</li>
+<li><code>sounds render chirp /tmp/x.wav --seed 42</code> 听一下</li>
+<li><code>sounds show --seed 42</code> 看参数</li>
+</ol>
+<h3 id="路径-c我只关心特雷门约-45-分钟"><a class="header" href="#路径-c我只关心特雷门约-45-分钟">路径 C：我只关心特雷门（约 45 分钟）</a></h3>
+<ol>
+<li><code>sounds/src/stream.rs:1-40</code>（为什么需要它）</li>
+<li><code>robotd/src/theremin.rs:1-35</code>（三个速率）</li>
+<li><code>robotd/src/sound.rs:44-53</code>（两个领先量：0.03 s 对 0.25 s）</li>
+<li><code>sounds theremin --out /tmp/t.wav</code></li>
+</ol>
+<h3 id="路径-d我关心合唱约-15-小时"><a class="header" href="#路径-d我关心合唱约-15-小时">路径 D：我关心合唱（约 1.5 小时）</a></h3>
+<ol>
+<li><code>sounds/src/chorale/mod.rs:1-40</code>（音色 vs 音高、完美同步是错的目标）</li>
+<li><code>sounds/src/chorale/beat.rs:1-45</code>（信标 + 相位平均 + 那次失败）</li>
+<li><code>robotd/src/chorale.rs:1-31</code>（指挥、座位、时间基准）</li>
+<li><code>scores/wistful.duckscore</code>（读一遍，它是语法文档）</li>
+<li><code>sounds chorale --out /tmp/c.wav</code></li>
+</ol>
+<h3 id="三条贯穿全文的主线"><a class="header" href="#三条贯穿全文的主线">三条贯穿全文的主线</a></h3>
+<ol>
+<li>
+<p><strong>推导，不存储。</strong> 声音不是一个资产，是一个<strong>函数</strong>。这决定了 RNG 必须自己写、
+<code>BANK_VERSION</code> 必须存在、身份和嗓音必须是同一个东西。</p>
+</li>
+<li>
+<p><strong>每种声音的形状，在什么时候被知道。</strong> 这是这个目录真正的分类轴 ——
+提前知道 → wav；长度不定 → 分段流；永远不知道 → 实时合成；别人决定 → 合奏。
+<strong>§4 那张表比任何模块列表都重要。</strong></p>
+</li>
+<li>
+<p><strong>在真实硬件上学到的东西，被写成了注释。</strong> 0.55 是因为四只鸭子会声学求和；
+300 Hz 是耳朵测出来的；10 ms block 是&quot;手到耳朵的延迟&quot;；&quot;自动识别手&quot;被删掉是因为
+<strong>一个背景只有它被平均的那些帧那么稳定</strong>。<strong>这些数字没有一个是猜的。</strong></p>
+</li>
+</ol>
+<p><strong>如果只有十分钟</strong>：读 §2 那张表和 §8 那段 RNG 注释。</p>
+<hr />
+<h2 id="14-术语表"><a class="header" href="#14-术语表">14. 术语表</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>词</th><th>意思</th></tr></thead><tbody>
+<tr><td><strong>bank</strong></td><td>预先渲染好的一整套 wav，在 <code>/var/lib/robot/sounds/</code></td></tr>
+<tr><td><strong>tag</strong></td><td>声音的类别（<code>chirp</code> <code>coo</code> …），不是具体文件</td></tr>
+<tr><td><strong>variant</strong></td><td>同一个 tag 的一个变体，播放时随机挑</td></tr>
+<tr><td><strong>seed</strong></td><td>一个 u32，一只鸭子的全部身份</td></tr>
+<tr><td><strong>Personality</strong></td><td>从 seed 推导出的 23 个嗓音参数</td></tr>
+<tr><td><strong>recipe</strong></td><td>一个 tag 的合成函数：<code>(Personality, variant) → Vec&lt;f32&gt;</code></td></tr>
+<tr><td><strong>SR</strong></td><td>sample rate，采样率。这里 48,000</td></tr>
+<tr><td><strong>PCM</strong></td><td>未压缩的音频样本流。<code>aplay</code> 吃这个</td></tr>
+<tr><td><strong>codec</strong></td><td>音频编解码芯片。这里是 TLV320AIC3104</td></tr>
+<tr><td><strong>I²S</strong></td><td>芯片之间传音频的串行总线</td></tr>
+<tr><td><strong>ALSA</strong></td><td>Linux 的音频层。<code>plughw:aic3104</code> 是设备名</td></tr>
+<tr><td><strong>aplay</strong></td><td>ALSA 的播放命令行工具</td></tr>
+<tr><td><strong>exclusive / single-client</strong></td><td>同一时刻只能有一个进程占着 PCM</td></tr>
+<tr><td><strong>xoshiro256++ / splitmix64</strong></td><td>两个公有领域的伪随机算法</td></tr>
+<tr><td><strong>Box–Muller</strong></td><td>把均匀分布变成正态分布的标准方法</td></tr>
+<tr><td><strong>谐波 / harmonic</strong></td><td>基频的整数倍。音色就是各次谐波的配比</td></tr>
+<tr><td><strong>formant</strong></td><td>共振峰。决定元音听起来是&quot;啊&quot;还是&quot;呜&quot;</td></tr>
+<tr><td><strong>vibrato / jitter / breath</strong></td><td>颤音 / 音高毛刺 / 气声</td></tr>
+<tr><td><strong>AM</strong></td><td>振幅调制。<code>quackiness</code> 就是它</td></tr>
+<tr><td><strong>包络 / envelope</strong></td><td>一个音的起、持、落</td></tr>
+<tr><td><strong>一极滤波器 / one-pole</strong></td><td>最简单的一阶低通，用来做平滑</td></tr>
+<tr><td><strong>Slew</strong></td><td>让一个参数缓慢滑向目标，避免跳变</td></tr>
+<tr><td><strong>block</strong></td><td>实时合成一次渲染的一小段（这里 10 ms）</td></tr>
+<tr><td><strong>软削波 / tanh</strong></td><td>超过上限时平滑压住，而不是硬切</td></tr>
+<tr><td><strong>chorale</strong></td><td>四声部合唱</td></tr>
+<tr><td><strong>SATB</strong></td><td>Soprano / Alto / Tenor / Bass，四个声部</td></tr>
+<tr><td><strong>声部 / part</strong></td><td>合唱里的一条旋律线</td></tr>
+<tr><td><strong>casting</strong></td><td>按嗓音给鸭子分配声部</td></tr>
+<tr><td><strong>A4_HZ</strong></td><td>标准音高 440 Hz，所有鸭子共用的参考</td></tr>
+<tr><td><strong>平均律 / equal temperament</strong></td><td>相邻半音频率比恒定的调音法</td></tr>
+<tr><td><strong>音分 / cent</strong></td><td>半音的百分之一</td></tr>
+<tr><td><strong>拍频 / beating</strong></td><td>两个接近的频率叠加产生的周期性音量起伏</td></tr>
+<tr><td><strong>强拍 / downbeat</strong></td><td>一个小节的第一拍。这里指&quot;信标计数器变了&quot;</td></tr>
+<tr><td><strong>BLE 广播 / advertisement</strong></td><td>蓝牙的&quot;我在&quot;信号，不需要连接</td></tr>
+<tr><td><strong>被动扫描 / passive scan</strong></td><td>只听广播、不发起连接</td></tr>
+<tr><td><strong>信标 / beacon</strong></td><td>这里指那个携带节拍计数的广播包</td></tr>
+<tr><td><strong>相位 / phase</strong></td><td>你相对节拍走到哪了。这里被平均的那个量</td></tr>
+<tr><td><strong>ToF</strong></td><td>Time of Flight，测距传感器。每帧 15 Hz</td></tr>
+<tr><td><strong>特雷门 / theremin</strong></td><td>靠手的位置控制音高的乐器</td></tr>
+<tr><td><strong><code>FRAME_STALE</code></strong></td><td>一帧深度数据超过 500 ms 就算过期</td></tr>
+<tr><td><strong><code>.duckscore</code></strong></td><td>这个项目自己的文本乐谱格式</td></tr>
+<tr><td><strong>MIDI</strong></td><td>通用乐谱文件格式。这里自己解析</td></tr>
+<tr><td><strong><code>ensure-bank</code></strong></td><td>那个幂等的&quot;确保 bank 存在且是最新的&quot;命令</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="延伸阅读"><a class="header" href="#延伸阅读">延伸阅读</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>想知道什么</th><th>去哪</th></tr></thead><tbody>
+<tr><td><strong>谁播放、什么时候播放、意图怎么走（姊妹篇）</strong></td><td><a href="robotd-primer.html"><code>robotd-primer.md</code></a></td></tr>
+<tr><td>按键怎么变成叫声（姊妹篇）</td><td><a href="padd-primer.html"><code>padd-primer.md</code></a></td></tr>
+<tr><td>合唱的信标契约（姊妹篇）</td><td><a href="duck-ble-primer.html"><code>duck-ble-primer.md</code></a></td></tr>
+<tr><td>鸭子怎么&quot;听&quot;（姊妹篇）</td><td><a href="pet-detect-primer.html"><code>pet-detect-primer.md</code></a></td></tr>
+<tr><td>特雷门用的 <code>hand</code> 模块（姊妹篇）</td><td><a href="kinematics-primer.html"><code>kinematics-primer.md</code></a></td></tr>
+<tr><td>音频硬件是怎么 bring-up 的</td><td><a href="deploy-primer.html"><code>deploy-primer.md</code></a> · <a href="project/media-bringup.html"><code>project/media-bringup.md</code></a></td></tr>
+<tr><td>更新时 hook 会跑什么</td><td><a href="hooks-primer.html"><code>hooks-primer.md</code></a> · <a href="scripts-primer.html"><code>scripts-primer.md</code></a></td></tr>
+<tr><td>所有参数的完整清单</td><td><a href="robotd-params-primer.html"><code>robotd-params-primer.md</code></a> · <a href="../deploy/robotd.toml"><code>../deploy/robotd.toml</code></a></td></tr>
+<tr><td>底盘是怎么动的（另一个&quot;实时&quot;系统）</td><td><a href="duck-control-primer.html"><code>duck-control-primer.md</code></a></td></tr>
+<tr><td>装完之后你用的那个 CLI（姊妹篇）</td><td><a href="robotctl-primer.html"><code>robotctl-primer.md</code></a></td></tr>
+<tr><td>蓝牙门房：广播、连接、那个单车道的电台（姊妹篇）</td><td><a href="btd-primer.html"><code>btd-primer.md</code></a></td></tr>
+<tr><td>wifi、身份、手柄配对（姊妹篇）</td><td><a href="configd-primer.html"><code>configd-primer.md</code></a></td></tr>
+<tr><td>深度矩阵与障碍检测（姊妹篇）</td><td><a href="duck-detect-primer.html"><code>duck-detect-primer.md</code></a></td></tr>
+<tr><td>仿真的假电台（姊妹篇）</td><td><a href="duck-ether-primer.html"><code>duck-ether-primer.md</code></a></td></tr>
+<tr><td>公共线上契约：它说的那门语言（姊妹篇）</td><td><a href="duck-ipc-proto-primer.html"><code>duck-ipc-proto-primer.md</code></a></td></tr>
+<tr><td>笔记本上那个客户端（姊妹篇）</td><td><a href="duckctl-primer.html"><code>duckctl-primer.md</code></a></td></tr>
+<tr><td>摄像头、WebRTC、远程网关（姊妹篇）</td><td><a href="mediad-primer.html"><code>mediad-primer.md</code></a></td></tr>
+<tr><td>里程计与那张地图（姊妹篇）</td><td><a href="odometry-primer.html"><code>odometry-primer.md</code></a></td></tr>
+<tr><td>手柄自己的 IMU：姿态与零偏（姊妹篇）</td><td><a href="pad-imu-primer.html"><code>pad-imu-primer.md</code></a></td></tr>
+<tr><td>Hugging Face 上那三个网页应用（姊妹篇）</td><td><a href="spaces-primer.html"><code>spaces-primer.md</code></a></td></tr>
+<tr><td>头部的两个传感器：深度与 IMU（姊妹篇）</td><td><a href="tof-primer.html"><code>tof-primer.md</code></a></td></tr>
+<tr><td>永不砖机：签名、健康门、回滚（姊妹篇）</td><td><a href="updater-primer.html"><code>updater-primer.md</code></a></td></tr>
+<tr><td>摄像头的像素：旋转与采样（姊妹篇）</td><td><a href="uyvy-primer.html"><code>uyvy-primer.md</code></a></td></tr>
+<tr><td>发布与自检：打包、签名、晋升（姊妹篇）</td><td><a href="xtask-primer.html"><code>xtask-primer.md</code></a></td></tr>
+<tr><td>构建、测试、仓库约定、发布</td><td><a href="../CONTRIBUTING.html"><code>../CONTRIBUTING.md</code></a></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../code_reading/scripts-primer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../code_reading/spaces-primer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../code_reading/scripts-primer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../code_reading/spaces-primer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
