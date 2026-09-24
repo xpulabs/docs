@@ -1,5 +1,35 @@
 # Summary
 
+# Microduck源码解析
+- [Readme](./code_reading/readme.md)
+- [btd/](./code_reading/btd-primer.md)
+- [configd/](./code_reading/configd-primer.md)
+- [deloy/](./code_reading/deploy-primer.md)
+- [duck-ble/](./code_reading/duck-ble-primer.md)
+- [duck-control/](./code_reading/duck-control-primer.md)
+- [duck-detect/](./code_reading/duck-detect-primer.md)
+- [duck-ether/](./code_reading/duck-ether-primer.md)
+- [duck-ipc-proto/](./code_reading/duck-ipc-proto-primer.md)
+- [duckctl/](./code_reading/duckctl-primer.md)
+- [hooks/](./code_reading/hooks-primer.md)
+- [kinematics/](./code_reading/kinematics-primer.md)
+- [mediad/](./code_reading/mediad-primer.md)
+- [odometry/](./code_reading/odometry-primer.md)
+- [pad-imu/](./code_reading/pad-imu-primer.md)
+- [padd/](./code_reading/padd-primer.md)
+- [pet-detect/](./code_reading/pet-detect-primer.md)
+- [robotctl/](./code_reading/robotctl-primer.md)
+- [robotd-params/](./code_reading/robotd-params-primer.md)
+- [robotd/](./code_reading/robotd-primer.md)
+- [scripts/](./code_reading/scripts-primer.md)
+- [sounds/](./code_reading/sounds-primer.md)
+- [spaces/](./code_reading/spaces-primer.md)
+- [tof/](./code_reading/tof-primer.md)
+- [updater/](./code_reading/updater-primer.md)
+- [uyvy/](./code_reading/uyvy-primer.md)
+- [xtask/](./code_reading/xtask-primer.md)
+
+
 
 # Microduck官方文档
 - [Readme](./offical_docs/readme.md)
