@@ -9,6 +9,9 @@
 - [Petros CH32H417W Alef板使用手册](./petros_ch32h417_alef/um0002_petros_ch32h417w_alef.md)
 - [Petros CH32H417W Logic Alef板使用手册](./petros_ch32h417_alef/um0003_petros_ch32h417w_logic_alef.md)
 
+
+- [Petros CH32V467W Bet板使用手册](./petros_ch32h417_alef/um0004_petros_ch32v467w_bet.md)
+
 # WCH CH32H417&CH32V407开发板
 
 - [WCH CH32H417评估板使用手册](./wch_ch32h417_dev_board/usage_manual.md)    
