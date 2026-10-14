@@ -2,12 +2,12 @@
 
 [FAQ - 常见问题](./faq.md)
 
-# Petros CH32H417 Alef开发板
+# Petros CH32H417&CH32V467 Alef开发板
 
 - [Petros CH32H417Q Alef板使用手册](./petros_ch32h417_alef/um0003_petros_ch32h417q_alef.md)   
 - [Petros CH32H417M Alef板使用手册](./petros_ch32h417_alef/um0001_petros_ch32h417m_alef.md)
 - [Petros CH32H417W Alef板使用手册](./petros_ch32h417_alef/um0002_petros_ch32h417w_alef.md)
-
+- [Petros CH32H417W Logic Alef板使用手册](./petros_ch32h417_alef/um0003_petros_ch32h417w_logic_alef.md)
 
 # WCH CH32H417&CH32V407开发板
 

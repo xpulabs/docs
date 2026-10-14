@@ -71,7 +71,6 @@ Petros CH32H417W Alef开发板使用的是CH32H417WEU6微控制器。它是QFN68
 - 板对板连接器扩展相机模块，如OV2640模块
 - 所有GPIO都已经引出，方便开发
 - 板对板连接器引出DVP、SPI、I2C，ADC接口
-- 板载复位按键
 - 可通过USB3.0 A口下载固件
 - 调试接口引到2.54排针上
 - 配套多接口Link-E调试器，即插即用
@@ -136,8 +135,25 @@ CH32H417使用MounRiver II IDE集成开发环境，支持Windows & Linux.
   - [【深度解析】5分钟彻底搞懂CH32H417双核工程！MounRiver的Solution原来这样玩](https://www.bilibili.com/video/BV18rRuBmER6/?spm_id_from=333.1387.collection.video_card.click)
   
   - [CH32H417 10分钟彻底搞懂HSEM！双核同步与通信的终极方案](https://www.bilibili.com/video/BV1TqLJ6CEq9/?spm_id_from=333.1387.collection.video_card.click&vd_source=ed48992440952cbd7721bdfd510c25e1)
+  
+  - [10分钟彻底搞懂CH32H417中断与事件系统](https://www.bilibili.com/video/BV1SrEd64Edn/?spm_id_from=333.1387.upload.video_card.click)
+  
+  - [CH32H417 10分钟彻底玩转ADC 从零基础到定时器精确定时采集](https://www.bilibili.com/video/BV13SKS6yELh/?spm_id_from=333.1387.upload.video_card.click)
 
-持续更新中.....
+- B站-相关短视频
+  
+  - [是CH32H417开发板也是USB3.0逻辑分析仪](https://www.bilibili.com/video/BV1tstZ6JEjD/?spm_id_from=333.1387.upload.video_card.click)
+  
+  - [USB Type-C的CH32H417开发板&逻辑分析仪来了](https://www.bilibili.com/video/BV1Eda165Edb/?spm_id_from=333.1387.upload.video_card.click)
+  
+  - [带壳的ch32h417逻辑分析仪，只要几十元，16ch@200MHz](https://www.bilibili.com/video/BV1uYHs6VEQj/?spm_id_from=333.1387.upload.video_card.click)
+  
+  - [沁恒CH32H417诚不欺我450MB/S速率达到了](https://www.bilibili.com/video/BV1NVNz6vEnd/?spm_id_from=333.1387.upload.video_card.click)
+
+
+
+视频持续更新中.....
+
 
 ## 7. 资源 - Resources
 
